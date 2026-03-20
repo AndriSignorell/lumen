@@ -1,6 +1,6 @@
-Package: DescToolsViz
+Package: DescToolsTests
 Title: Hypothesis Tests for DescToolsX
-Version: 0.0.0.9000
+Version: 0.0.0.901
 Authors@R: 
     person("Andri", "Signorell", , "andri@signorell.net", role = c("aut", "cre"))
 Description: Provides hypothesis tests used in DescToolsX.
@@ -10,8 +10,6 @@ Encoding: UTF-8
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Imports: Rcpp
-Suggests:
-    testthat (>= 3.0.0)
+Imports: boot, DescToolsViz, Exact, mvtnorm, stats, withr
+Suggests:goftest, testthat (>= 3.0.0), coin
 Config/testthat/edition: 3
-LazyData: true

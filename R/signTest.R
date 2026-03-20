@@ -45,10 +45,13 @@
 #' \item{data.name}{a character string giving the names of the data.}
 #' \item{conf.int}{ a confidence interval for the median.} \item{estimate}{ the
 #' sample median.}
+#' 
 #' @author Andri Signorell <andri@@signorell.net>
+#' 
 #' @seealso \code{\link{t.test}}, \code{\link{wilcox.test}},
 #' \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}
 #' in the package \pkg{BSDA} (reporting approximative confidence intervals).
+#' 
 #' @references Gibbons, J.D. and Chakraborti, S. (1992): \emph{Nonparametric
 #' Statistical Inference}. Marcel Dekker Inc., New York.
 #' 
@@ -56,7 +59,11 @@
 #' 
 #' Conover, W. J. (1980): \emph{Practical Nonparametric Statistics, 2nd ed}.
 #' Wiley, New York.
-#' @keywords htest
+#' 
+#' @family topic.nonparametricTests
+#' @concept paired test
+#' @concept median
+#' 
 #' @examples
 #' 
 #' x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
@@ -149,7 +156,7 @@ signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"
   names(RVAL$statistic) <- "S"
   RVAL$estimate <- median(d + mu, na.rm=TRUE)
   names(RVAL$parameter) <- "number of differences"
-  mci <- medianCI(d + mu, conf.level=conf.level, 
+  mci <- .medianCI(d + mu, conf.level=conf.level, 
                   sides=if(alternative=="less") "right" else if(alternative=="greater") "left" else "two.sided", na.rm=TRUE)
   RVAL$conf.int <- mci[-1]
   attr(RVAL$conf.int, "conf.level") = round(attr(mci,"conf.level"), 3)

@@ -57,9 +57,10 @@
 #' 
 #' @seealso \code{\link{pAD}} for the null distribution of the test statistic.
 #' 
-#' @family topic.hypothesisTests
-#' @concept hypothesis tests
-#' @concept normality tests
+#' @family topic.goodnessOfFit
+#' @concept goodness-of-fit
+#' @concept EDF test
+#' @concept distribution testing
 #' 
 #' @examples
 #' 

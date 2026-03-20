@@ -45,6 +45,7 @@
 #' @param na.action a function which indicates what should happen when the data
 #' contain \code{NA}s. Defaults to \code{getOption("na.action")}.
 #' @param \dots further arguments to be passed to or from methods.
+#' 
 #' @return A list with class "\code{htest}" containing the following
 #' components: \item{statistic}{ the value of the z-statistic.} \item{p.value}{
 #' the p-value for the test} \item{conf.int}{a confidence interval for the mean
@@ -56,13 +57,18 @@
 #' string describing the alternative hypothesis.} \item{method}{ a character
 #' string indicating what type of test was performed.} \item{data.name}{a
 #' character string giving the name(s) of the data.}
+#' 
 #' @author Andri Signorell <andri@@signorell.net>, based on R-Core code of
 #' \code{\link{t.test}},\cr documentation partly from Greg Snow
 #' <greg.snow@@imail.org>
+#' 
 #' @seealso \code{\link{t.test}}, \code{\link{print.htest}}
 #' @references Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
 #' vieweg
-#' @keywords htest
+#' 
+#' @family topic.parametricTests
+#' @concept mean comparison
+#' 
 #' @examples
 #' 
 #' x <- rnorm(25, 100, 5)
@@ -87,98 +93,34 @@
 #' with(d.oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
 #' 
 
+
 #' @rdname zTest
 #' @export
 zTest <- function (x, ...)
   UseMethod("zTest")
 
 
+
 #' @rdname zTest
 #' @export
-zTest.formula <- function (formula, data, subset, na.action, ...)  {
+zTest.formula <- local({
 
-    if (missing(formula) || length(formula) != 3L)
-      stop("'formula' missing or incorrect")
-    
-    ## determine design
-    oneSampleOrPaired <- FALSE
-    if (length(attr(terms(formula[-2L]), "term.labels")) != 1L) {
-      if (formula[[3L]] == 1L) {
-        oneSampleOrPaired <- TRUE
-      } else {
-        stop("'formula' missing or incorrect")
-      }
-    }
-    
-    ## capture call for model.frame
-    m <- match.call(expand.dots = FALSE)
-    m$... <- NULL
-    
-    ## IMPORTANT: subset handling
-    m$subset <- if (!missing(subset)) {
-      substitute(subset)
-    } else {
-      m$subset <- NULL
-    }
-    
-    ## IMPORTANT: na.action handling
-    if (!missing(na.action)) {
-      m$na.action <- substitute(na.action)
-    } else {
-      m$na.action <- NULL
-    }
-    
-    if (is.matrix(eval(m$data, parent.frame())))
-      m$data <- as.data.frame(data)
-    
-    m[[1L]] <- quote(stats::model.frame)
-    mf <- eval(m, parent.frame())
-    
-    DNAME <- paste(names(mf), collapse = " by ")
-    names(mf) <- NULL
-    
-    response <- attr(attr(mf, "terms"), "response")
-    
-    ## --- two-sample ---
-    if (!oneSampleOrPaired) {
-      
-      g <- factor(mf[[-response]])
-      if (nlevels(g) != 2L)
-        stop("grouping factor must have exactly 2 levels")
-      
-      DATA <- split(mf[[response]], g)
-      
-      y <- t.test(
-        x = DATA[[1L]],
-        y = DATA[[2L]],
-        ...
-      )
-      
-    } else {
-      
-      resp <- mf[[response]]
-      
-      ## paired
-      if (inherits(resp, "Pair")) {
-        y <- t.test(
-          x = resp[, 1L],
-          y = resp[, 2L],
-          paired = TRUE,
-          ...
-        )
-      } else {
-        ## one-sample
-        y <- t.test(
-          x = resp,
-          ...
-        )
-      }
-    }
-    
-    y$data.name <- DNAME
-    y
+  # super elegant formula implementation
+  # in fact we need nothing other, than is already implemented in
+  # t.test.formula, besides the last call of zTest() instead of t.test()
 
-}
+  tf <- getS3method("t.test", "formula")
+
+  new_body <- .replace_text_calls(body(tf), old="t.test", new="zTest")
+
+  new_fun <- tf
+  body(new_fun) <- new_body
+
+  new_fun
+
+})
+
+
 
 
 #' @rdname zTest
@@ -286,4 +228,5 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   class(rval) <- "htest"
   return(rval)
 }
+
 

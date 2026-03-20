@@ -29,7 +29,10 @@
 #' 1057--1072.
 #' 
 #' Hamilton (1994), \emph{Time Series Analysis}, Princeton University Press.
-#' @keywords regression
+#' 
+#' @family topic.timeSeriesTests
+#' @concept unit root
+#' 
 #' @examples
 #' 
 #' lc.df <- adfTest(y=AirPassengers, lags=3, type='trend')

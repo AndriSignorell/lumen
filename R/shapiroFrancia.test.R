@@ -37,9 +37,8 @@
 #' normality.  [DescToolsViz::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
-#' @family topic.hypothesisTests
-#' @concept hypothesis tests
-#' @concept normality tests
+#' @family topic.goodnessOfFit
+#' @concept normality
 #' 
 #' @examples
 #' 
