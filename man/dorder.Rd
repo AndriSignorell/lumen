@@ -67,9 +67,18 @@ selected order statistic from a sample of size \code{mlen}, from a specified
 distribution. \code{rorder} generates random deviates.
 }
 \description{
+Density, distribution, and random generation functions for a selected
+order statistic (the j-th largest or smallest value) from a sample of
+a given size drawn from any specified distribution, derived analytically
+using the beta distribution representation of order statistics.
+}
+\details{
 Density function, distribution function and random generation for a selected
 order statistic of a given number of independent variables from a specified
 distribution.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -81,18 +90,16 @@ rorder(5, qgamma, shape = 1, mlen = 10, j = 2)
 
 }
 \seealso{
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dfrechet}()},
 \code{\link{dgev}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{continuous distribution}
 \concept{order statistics}
 \concept{ranks}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

@@ -1,6 +1,9 @@
 
 #' Cochran-Armitage Test for Trend 
 #' 
+#' A test for linear trend in proportions across ordered categories in 2×k 
+#' contingency tables, typically used in epidemiological dose-response analyses.
+#' 
 #' Perform a Cochran Armitage test for trend in binomial proportions across the
 #' levels of a single variable. This test is appropriate only when one variable
 #' has two levels and the other variable is ordinal. The two-level variable
@@ -13,7 +16,8 @@
 #' @param x a frequency table or a matrix. 
 #' @param alternative a character string specifying the alternative hypothesis,
 #' must be one of \code{"two.sided"} (default), \code{"one.sided"}. You can
-#' specify just the initial letter. 
+#' specify just the initial letter.
+#'  
 #' @return A list of class \code{htest}, containing the following components:
 #' \item{statistic}{ the z-statistic of the test.} \item{parameter}{ the
 #' dimension of the table.} \item{p.value}{ the p-value for the test.}
@@ -22,18 +26,21 @@
 #' test for trend}.} \item{data.name}{a character string giving the names of
 #' the data.}
 #' 
-#' @author Andri Signorell <andri@@signorell.net> strongly based on code from
-#' Eric Lecoutre <lecoutre@@stat.ucl.ac.be>\cr
+#' @note
+#' Based on code by Eric Lecoutre.
+#'  
 #' \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
-#' @seealso \code{\link{prop.trend.test}}
 #' 
-#' \url{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}
+#' @seealso 
+#' \code{\link{prop.trend.test}}
+#' \href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
+#' 
 #' @references Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 #' & Sons
 #' 
 #' @family topic.contingencyTests
 #' @concept trend test
-#' 
+#'  
 #' @examples
 #' 
 #' # http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4

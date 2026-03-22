@@ -58,10 +58,13 @@ components: \item{res}{an array containing the mean rank differencens and
 the according p-values}
 }
 \description{
-Perform Conover's test of multiple comparisons using rank sums as post hoc
-test following a significant \code{\link{kruskal.test}}.
+A nonparametric post hoc test for multiple pairwise comparisons following
+a significant Kruskal-Wallis test, based on rank data.
 }
 \details{
+Perform Conover's test of multiple comparisons using rank sums as post hoc
+test following a significant \code{\link{kruskal.test}}.
+
 \code{conoverTest} performs the post hoc pairwise multiple comparisons
 procedure appropriate to follow the rejection of a Kruskal-Wallis test.
 Conover's test is more powerful than Dunn's post hoc multiple comparisons
@@ -135,10 +138,6 @@ Other topic.postHocTests:
 \code{\link{nemenyiTest}()},
 \code{\link{postHoc}},
 \code{\link{scheffeTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, the interface is based on
-R-Core code
 }
 \concept{multiple comparisons}
 \concept{nonparametric}

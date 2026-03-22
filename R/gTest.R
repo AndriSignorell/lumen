@@ -1,6 +1,10 @@
 
 #' G-Test for Count Data
 #' 
+#' A goodness-of-fit or test of independence based on the log-likelihood 
+#' ratio (G-statistic), serving as an asymptotically equivalent alternative 
+#' to the chi-squared test.
+#' 
 #' \code{gTest} performs chi-squared contingency table tests and
 #' goodness-of-fit tests.
 #' 
@@ -48,10 +52,10 @@
 #' \item{data.name}{a character string giving the name(s) of the data.}
 #' \item{observed}{the observed counts.} \item{expected}{the expected counts
 #' under the null hypothesis.}
-
-#' @author Pete Hurd <phurd@@ualberta.ca>, Andri Signorell
-#' <andri@@signorell.net> (tiny tweaks)
-
+#' 
+#' @note
+#' Adapted from code by Pete Hurd to conform to package standards.
+#' 
 #' @seealso \code{\link{chisq.test}}.
 #' @references Hope, A. C. A. (1968) A simplified Monte Carlo significance test
 #' procedure.  \emph{J. Roy, Statist. Soc. B} \bold{30}, 582--598.

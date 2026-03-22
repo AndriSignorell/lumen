@@ -1,6 +1,10 @@
 
 #' Exact Version of Jonckheere-Terpstra Test
 #' 
+#' A nonparametric test for ordered alternatives across k independent groups, 
+#' assessing whether a monotonic trend exists in the location parameter 
+#' across ordered groups.
+#' 
 #' Jonckheere-Terpstra test to test for ordered differences among classes.
 #' 
 #' jonckheereTerpstraTest is the exact (permutation) version of the
@@ -54,9 +58,10 @@
 #' the \pkg{clinfun} package and has been integrated here without logical
 #' changes. Some argument checks and a formula interface were added.
 #' 
-#' @author Venkatraman E. Seshan <seshanv@@mskcc.org>, minor adaptations Andri
-#' Signorell
-#' 
+#' @note
+#' Original C code by Venkatraman E. Seshan. Rewritten in C++ with an 
+#' adapted R interface to conform to package standards.
+#'  
 #' @references Jonckheere, A. R. (1954). A distribution-free k-sample test
 #' again ordered alternatives. \emph{Biometrika} 41:133-145.
 #' 

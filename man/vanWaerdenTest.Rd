@@ -46,9 +46,14 @@ scores test"}.} \item{data.name}{a character string giving the names of the
 data.}
 }
 \description{
-Performs a van der Waerden normal scores test.
+A nonparametric k-sample test based on normal scores (van der Waerden
+scores), serving as an alternative to the one-way ANOVA. It is more
+efficient than the Kruskal-Wallis test when the underlying data are
+approximately normally distributed.
 }
 \details{
+Performs a van der Waerden normal scores test.
+
 \code{vanWaerdenTest} performs a van der Waerden test of the null that the
 location parameters of the distribution of \code{x} are the same in each
 group (sample). The alternative is that they differ in at least one.

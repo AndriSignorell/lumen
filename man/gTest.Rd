@@ -42,10 +42,14 @@ whether Monte Carlo simulation or continuity correction was used.}
 under the null hypothesis.}
 }
 \description{
-\code{gTest} performs chi-squared contingency table tests and
-goodness-of-fit tests.
+A goodness-of-fit or test of independence based on the log-likelihood
+ratio (G-statistic), serving as an asymptotically equivalent alternative
+to the chi-squared test.
 }
 \details{
+\code{gTest} performs chi-squared contingency table tests and
+goodness-of-fit tests.
+
 The G-test is also called "Likelihood Ratio Test" and is asymptotically
 equivalent to the Pearson ChiSquare-test but not usually used when analyzing
 2x2 tables. It is used in logistic regression and loglinear modeling which
@@ -67,6 +71,9 @@ objects are coerced to factors, and the contingency table is computed from
 these.  Then G-test is performed on the null hypothesis that the joint
 distribution of the cell counts in a 2-dimensional contingency table is the
 product of the row and column marginals.
+}
+\note{
+Adapted from code by Pete Hurd to conform to package standards.
 }
 \examples{
 
@@ -120,10 +127,6 @@ New York. 937 pp.
 }
 \seealso{
 \code{\link{chisq.test}}.
-}
-\author{
-Pete Hurd \href{mailto:phurd@ualberta.ca}{phurd@ualberta.ca}, Andri Signorell
-\href{mailto:andri@signorell.net}{andri@signorell.net} (tiny tweaks)
 }
 \concept{association}
 \concept{topic.contingency-tests}

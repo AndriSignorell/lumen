@@ -1,6 +1,10 @@
 
 #' Mantel-Haenszel Chi-Square Test 
 #' 
+#' A Mantel-Haenszel chi-squared test for association between two dichotomous 
+#' variables across several strata, providing a common odds ratio estimate 
+#' adjusted for confounding.
+#' 
 #' The Mantel-Haenszel chi-square statistic tests the alternative hypothesis
 #' that there is a linear association between the row variable and the column
 #' variable. Both variables must lie on an ordinal scale. 
@@ -22,7 +26,7 @@
 #' for the test.} \item{method}{a character string indicating the type of test
 #' performed.} \item{data.name}{a character string giving the name(s) of the
 #' data.}
-#' @author Andri Signorell <andri@@signorell.net> 
+#' 
 #' @seealso \code{\link{chisq.test}}, for calculating correlation of a table:
 #' \code{\link[boot]{corr}} 
 #' 

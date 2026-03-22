@@ -47,7 +47,8 @@
 #' result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)),
 #' n.param.est=2)}.
 #' 
-#' @author Juergen Gross
+#' @note
+#' Based on code by Juergen Gross. 
 #' 
 #' @references Moore, D.S. (1986): Tests of the chi-squared type. In:
 #' D'Agostino, R.B. and Stephens, M.A., eds.: Goodness-of-Fit Techniques.

@@ -66,11 +66,16 @@ variances"}.} \item{data.name}{a character string giving the names of the
 data.}
 }
 \description{
+A test for the variance of a normal distribution against a specified
+value (one-sample) or for equality of variances between two normal
+distributions (two-sample), based on the chi-squared or F-distribution
+respectively.
+}
+\details{
 Performs either a one sample chi-squared test to compare the variance of a
 vector with a given value or an F test to compare the variances of two
 samples from normal populations.
-}
-\details{
+
 The formula interface is only applicable for the 2-sample tests.
 
 The null hypothesis is that the ratio of the variances of the populations
@@ -98,6 +103,10 @@ homogeneity of variances in more than two samples from normal distributions;
 \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
 (nonparametric) two-sample tests for difference in scale.
 
+Other topic.dispersionTests: 
+\code{\link{leveneTest}()},
+\code{\link{siegelTukeyTest}()}
+
 Other topic.parametricTests: 
 \code{\link{hotellingsT2Test}()},
 \code{\link{leveneTest}()},
@@ -105,9 +114,6 @@ Other topic.parametricTests:
 \code{\link{yuenTTest}()},
 \code{\link{zTest}()}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} (One sample test)\cr Two
-Sample test and help text from R-Core.
-}
+\concept{topic.dispersionTests}
 \concept{topic.parametricTests}
 \concept{variance test}

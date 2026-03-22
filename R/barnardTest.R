@@ -1,9 +1,9 @@
 
 #' Barnard's Unconditional Test
 #' 
-#' Barnard's unconditional test for superiority applied to \eqn{2 \times
-#' 2}{2x2} contingency tables using Score or Wald statistics for the difference
-#' between two binomial proportions.
+#' An exact unconditional test for \eqn{2 \times 2}{2x2} contingency 
+#' tables, offering a more powerful alternative to Fisher's exact test 
+#' by avoiding conditioning on both marginal totals.
 #' 
 #' There are two fundamentally different exact tests for comparing the equality
 #' of two binomial probabilities - Fisher's exact test (Fisher, 1925), and
@@ -94,8 +94,8 @@
 #' \item{nuisance.matrix}{Nuisance parameters, \code{p}, and the 
 #'          corresponding p-values for both one- and two-sided tests}
 #' 
-#' @author Peter Calhoun <calhoun.peter@@gmail.com>, Andri Signorell
-#' <andri@@signorell.net> (interface)
+#' @note
+#' Adapted from code by Peter Calhoun to conform to package standards.
 #' 
 #' @seealso \code{\link{fisher.test}}
 #' @references Barnard, G.A. (1945) A new test for 2x2 tables. \emph{Nature},

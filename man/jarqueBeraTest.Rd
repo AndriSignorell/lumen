@@ -35,6 +35,9 @@ degrees of freedom.} \item{p.value}{the p-value of the test.}
 string giving the name of the data.}
 }
 \description{
+A goodness-of-fit test for normality based on the sample skewness and excess
+kurtosis, commonly used in econometrics for testing regression residuals.
+#'
 This function performs the Jarque-Bera tests of normality either the robust
 or the classical way.
 }
@@ -51,6 +54,9 @@ test (see Jarque, C. and Bera, A (1980)).
 This function is melted from the \code{jarque.bera.test} (in
 \code{tseries} package) and the \code{rjb.test} from the package
 \code{lawstat}.
+
+Adapted from code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
+to conform to package standards.
 }
 \examples{
 
@@ -84,9 +90,6 @@ Other topic.goodnessOfFit:
 \code{\link{lillieTest}()},
 \code{\link{pearsonTest}()},
 \code{\link{shapiroFranciaTest}()}
-}
-\author{
-W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
 }
 \concept{moments}
 \concept{normality}

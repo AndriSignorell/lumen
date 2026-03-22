@@ -1,6 +1,10 @@
 
 #' Stuart-Maxwell Marginal Homogeneity Test 
 #' 
+#' A nonparametric test for marginal homogeneity in square contingency tables 
+#' for dependent samples, generalizing the McNemar test to more than two 
+#' categories.
+#' 
 #' This function computes the marginal homogeneity test for a \eqn{k \times
 #' k}{k x k} matrix of assignments of objects to \code{k} categories or two
 #' vectors \code{x}, \code{y} of category scores for \code{n} data objects by

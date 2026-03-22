@@ -2,21 +2,24 @@
 
 #' Siegel-Tukey Test For Equality In Variability
 #' 
+#' A nonparametric test for differences in scale (variability) between two 
+#' independent groups, based on a specific rank assignment that alternates 
+#' between the extremes and the center of the combined sample.
+#' 
 #' Non-parametric Siegel-Tukey test for equality in variability. The null
 #' hypothesis is that the variability of x is equal between two groups. A
 #' rejection of the null hypothesis indicates that variability differs between
-#' the two groups. \code{.siegelTukeyRank} returns the ranks, calculated after
-#' Siegel Tukey logic.
+#' the two groups. 
 #' 
-#' The Siegel-Tukey test has relatively low power and may, under certain
+#' \strong{Note:} \verb{   } The Siegel-Tukey test has relatively low power 
+#' and may, under certain
 #' conditions, indicate significance due to differences in medians rather than
 #' differences in variabilities (consider using the argument
-#' \code{adjust.median}). Consider also using \code{\link{mood.test}} or
-#' \code{\link{ansari.test}}.
+#' \code{adjust.median}). 
 #' 
 #' @name siegelTukeyTest
-#' @aliases siegelTukeyTest .siegelTukeyRank siegelTukeyTest.default
-#' siegelTukeyTest.formula
+#' @aliases siegelTukeyTest siegelTukeyTest.default siegelTukeyTest.formula
+#' 
 #' @param x,y numeric vector of data values. Non-finite (e.g. infinite or
 #' missing) values will be omitted.
 #' @param adjust.median Should between-group differences in medians be leveled
@@ -55,20 +58,24 @@
 #' \code{mu}. } \item{alternative}{a character string describing the
 #' alternative hypothesis.} \item{method}{ the type of test applied}
 #' \item{data.name}{a character string giving the names of the data.}
-#' @author Daniel Malter, Tal Galili <tal.galili@@gmail.com>, Andri Signorell
-#' <andri@@signorell.net>\cr published on:
-#' \url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
+#' 
+#' @note
+#' Based on a blog post by Daniel Malter, Tal Galili <tal.galili@@gmail.com>
+#' 
+#' \href{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}{www.r-statistics.com/2010/02/}
 #' 
 #' @seealso \code{\link{mood.test}}, \code{\link{ansari.test}},
 #' \code{\link{wilcox.test}}, \code{\link{leveneTest}}
 #' 
-#' @references Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks
-#' procedure for relative spread in unpaired samples. \emph{Journal of the
-#' American Statistical Association}.
-#' 
+#' @references 
 #' Sheskin, D. J. (2004): \emph{Handbook of parametric and nonparametric
 #' statistical procedures} 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
 #' 
+#' Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks
+#' procedure for relative spread in unpaired samples. \emph{Journal of the
+#' American Statistical Association}.
+#' 
+#' @family topic.dispersionTests
 #' @family topic.nonparametricTests
 #' @concept scale test
 #' 
@@ -148,32 +155,24 @@ siegelTukeyTest <- function (x, ...)  UseMethod("siegelTukeyTest")
 
 #' @rdname siegelTukeyTest
 #' @export
-siegelTukeyTest.formula <- function (formula, data, subset, na.action, ...)
-{
-  # this is adapted analogue to wilcox.test.formula
+siegelTukeyTest.formula <- local({
   
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
-    stop("'formula' missing or incorrect")
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
-    m$data <- as.data.frame(data)
-  m[[1L]] <- as.name("model.frame")
-  m$... <- NULL
-  mf <- eval(m, parent.frame())
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  response <- attr(attr(mf, "terms"), "response")
-  g <- factor(mf[[-response]])
-  if (nlevels(g) != 2L)
-    stop("grouping factor must have exactly 2 levels")
-  DATA <- split(mf[[response]], g)
-  names(DATA) <- c("x", "y")
-  y <- do.call("siegelTukeyTest", c(DATA, list(...)))
-  y$data.name <- DNAME
-  y
+  # super elegant formula implementation
+  # in fact we need nothing other, than is already implemented 
+
+  tf <- getS3method("wilcox.test", "formula")
   
-}
+  new_body <- .replace_text_calls(body(tf), old="wilcox.test", 
+                                  new="siegelTukeyTest")
+  
+  new_fun <- tf
+  body(new_fun) <- new_body
+  
+  new_fun
+  
+})
+
+
 
 
 
@@ -181,7 +180,8 @@ siegelTukeyTest.formula <- function (formula, data, subset, na.action, ...)
 #' @export
 siegelTukeyTest.default <- function(x, y, adjust.median = FALSE,
                                     alternative = c("two.sided","less","greater"), mu = 0,
-                                    exact = NULL, correct = TRUE, conf.int = FALSE, conf.level = 0.95, ...) {
+                                    exact = NULL, correct = TRUE, 
+                                    conf.int = FALSE, conf.level = 0.95, ...) {
   ###### published on:
   #   http://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/
   #   Main author of the function:  Daniel Malter

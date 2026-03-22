@@ -1,6 +1,10 @@
 
 #' Breslow-Day Test for Homogeneity of the Odds Ratios 
 #' 
+#' A test for homogeneity of odds ratios across several 2×2 contingency 
+#' tables (strata), commonly used to verify whether a confounding effect 
+#' is constant across subgroups, as required by the Mantel-Haenszel method.
+
 #' Calculates the Breslow-Day test of homogeneity for a \eqn{2 \times 2 \times
 #' k}{2 x 2 x k} table, in order to investigate if all \eqn{k} strata have the
 #' same OR. If OR is not given, the Mantel-Haenszel estimate is used. 
@@ -28,7 +32,8 @@
 #' computed, which subtracts an adjustment factor to make the resulting
 #' statistic asymptotically chi-square. 
 #' 
-#' @author Michael Hoehle <hoehle@@math.su.se>
+#' @note
+#' Based on code by Michael Hoehle.
 #' 
 #' @seealso \code{\link{woolfTest}} 
 #' @references Breslow, N. E., N. E. Day (1980) The Analysis of Case-Control

@@ -36,11 +36,16 @@ distribution function, \code{qgev} gives the quantile function, and
 \code{rgev} generates random deviates.
 }
 \description{
+The Generalized Extreme Value (GEV) distribution unifies the three
+extreme value distributions — Gumbel (Type I), Fréchet (Type II),
+and Reverse Weibull (Type III) — into a single family, parameterized
+by location, scale, and a shape parameter that determines which type applies.
+}
+\details{
 Density function, distribution function, quantile function and random
 generation for the generalized extreme value (GEV) distribution with
 location, scale and shape parameters.
-}
-\details{
+
 The GEV distribution function with parameters \eqn{\code{loc} = a},
 \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is \deqn{G(z) =
 \exp\left[-\{1+s(z-a)/b\}^{-1/s}\right]}{ G(x) = exp[-{1+s(z-a)/b}^(-1/s)]}
@@ -53,6 +58,9 @@ The parametric form of the GEV encompasses that of the Gumbel, Frechet and
 reverse Weibull distributions, which are obtained for \eqn{s = 0}, \eqn{s >
 0} and \eqn{s < 0} respectively.  It was first introduced by Jenkinson
 (1955).
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -73,19 +81,17 @@ Soc.}, \bold{81}, 158--171.
 \seealso{
 \code{\link[evd]{fgev}}
 
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dfrechet}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{GEV}
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extreme value theory}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

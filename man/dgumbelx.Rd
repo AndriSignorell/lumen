@@ -51,9 +51,19 @@ the distribution function, \code{qgumbelx} gives the quantile function, and
 \code{rgumbelx} generates random deviates.
 }
 \description{
+The extended Gumbel distribution models the maximum of two independent
+Gumbel-distributed random variables with potentially different location
+and scale parameters. It is parameterized by two pairs of location and
+scale parameters, with the constraint that the first location parameter
+does not exceed the second.
+}
+\details{
 Density function, distribution function, quantile function and random
 generation for the maxima of two Gumbel distributions, each with different
 location and scale parameters.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -69,19 +79,17 @@ pgumbelx(qgumbelx(p, interval = c(0,10), 0, 0.5, 1, 2), 0, 0.5, 1, 2)
 \seealso{
 \code{\link[evd]{fgev}}, \code{\link{uniroot}}
 
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dfrechet}()},
 \code{\link{dgev}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extended Gumbel}
 \concept{extreme value theory}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

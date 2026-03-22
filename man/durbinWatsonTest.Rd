@@ -46,9 +46,13 @@ character string with the method used.} \item{data.name}{a character string
 with the data name.}
 }
 \description{
-Performs the Durbin-Watson test for autocorrelation of disturbances.
+A test for first-order autocorrelation in the residuals of a linear
+regression model, based on the ratio of successive squared residual
+differences to the total residual sum of squares.
 }
 \details{
+Performs the Durbin-Watson test for autocorrelation of disturbances.
+
 The Durbin-Watson test has the null hypothesis that the autocorrelation of
 the disturbances is 0. It is possible to test against the alternative that
 it is greater than, not equal to, or less than 0, respectively. This can be

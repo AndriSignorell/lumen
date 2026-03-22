@@ -26,8 +26,9 @@ An object of class \code{"htest"} representing the result of the
 hypothesis test.
 }
 \description{
-Performs the Anderson-Darling test of goodness-of-fit to a specified
-continuous univariate probability distribution.
+A goodness-of-fit test assessing whether a sample follows a specified
+distribution. Compared to the Kolmogorov-Smirnov test, it places greater
+weight on discrepancies in the tails of the distribution.
 }
 \details{
 This command performs the Anderson-Darling test of goodness-of-fit to the
@@ -51,6 +52,11 @@ Note that Braun's method involves randomly dividing the data into two
 equally-sized subsets, so the \eqn{p}-value is not exactly the same if the
 test is repeated.  This technique is expected to work well when the number
 of observations in \code{x} is large.
+}
+\note{
+Original C code by George Marsaglia and John Marsaglia; R interface by
+Adrian Baddeley. Rewritten in C++ with an adapted R interface to conform
+to package standards.
 }
 \examples{
 
@@ -84,10 +90,6 @@ Other topic.goodnessOfFit:
 \code{\link{lillieTest}()},
 \code{\link{pearsonTest}()},
 \code{\link{shapiroFranciaTest}()}
-}
-\author{
-Original C code by George Marsaglia and John Marsaglia.  \R
-interface by Adrian Baddeley.
 }
 \concept{EDF test}
 \concept{distribution testing}

@@ -2,8 +2,9 @@
 
 #' Anderson-Darling Test of Goodness-of-Fit
 #' 
-#' Performs the Anderson-Darling test of goodness-of-fit to a specified
-#' continuous univariate probability distribution.
+#' A goodness-of-fit test assessing whether a sample follows a specified 
+#' distribution. Compared to the Kolmogorov-Smirnov test, it places greater 
+#' weight on discrepancies in the tails of the distribution.
 #' 
 #' This command performs the Anderson-Darling test of goodness-of-fit to the
 #' distribution specified by the argument \code{null}. It is assumed that the
@@ -38,8 +39,12 @@
 #' The default is \code{"uniform distribution"}.
 #' @return An object of class \code{"htest"} representing the result of the
 #' hypothesis test.
-#' @author Original C code by George Marsaglia and John Marsaglia.  \R
-#' interface by Adrian Baddeley.
+#' 
+#' @note
+#' Original C code by George Marsaglia and John Marsaglia; R interface by 
+#' Adrian Baddeley. Rewritten in C++ with an adapted R interface to conform 
+#' to package standards.
+#'  
 #' @references Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 #' certain 'goodness-of-fit' criteria based on stochastic processes.
 #' \emph{Annals of Mathematical Statistics} \bold{23}, 193--212.

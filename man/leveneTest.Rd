@@ -47,9 +47,12 @@ An object of class "htest" representing the result of the
 hypothesis test.
 }
 \description{
-Computes Levene's test for homogeneity of variance across groups.
+A test for homogeneity of variances across two or more groups,
+more robust to departures from normality than Bartlett's test.
 }
 \details{
+Computes Levene's test for homogeneity of variance across groups.
+
 Let \eqn{X_{ij}} be the jth observation of X for the ith group.
 Let \eqn{Z_{ij} = |X_{ij} - X_i|}, where \eqn{X_i} is the mean of X in the ith group.
 Levene's test statistic is
@@ -59,8 +62,9 @@ where \eqn{n_i} is the number of observations in group i and g is the number of
 groups.
 }
 \note{
-This function is rewritten using common R standards based on
-car::leveneTest() using the same calculation logic.
+Based on \code{car::leveneTest()} by John Fox, with contributions
+by Derek Ogle and Brian Ripley, rewritten to conform to common
+R standards while retaining the original calculation logic.
 }
 \examples{
 
@@ -89,11 +93,8 @@ leveneTest(count ~ spray, data = InsectSprays)
 
 }
 \references{
-Fox, J. (2008) \emph{Applied Regression Analysis and Generalized
-Linear Models}, Second Edition. Sage.
-
-Fox, J. and Weisberg, S. (2011) \emph{An R Companion to Applied Regression},
-Second Edition, Sage.
+Fox, J. and Weisberg, S. (2019) \emph{An R Companion to Applied Regression}.
+Third Edition. Sage, Thousand Oaks, CA.
 
 Levene, H. (1960) Robust tests for equality of variances.
 in Ingram, O., Hotelling, H. et al. (Hrsg.) (1960) Contributions
@@ -121,12 +122,11 @@ Other topic.parametricTests:
 \code{\link{varTest}()},
 \code{\link{yuenTTest}()},
 \code{\link{zTest}()}
+
+Other topic.dispersionTests: 
+\code{\link{siegelTukeyTest}()},
+\code{\link{varTest}()}
 }
-\author{
-andri.signorell \email{andri@signorell.net}; original version
-written by John Fox \email{jfox@mcmaster.ca} based on a generic version
-contributed by Derek Ogle\cr adapted from a response posted by Brian Ripley
-to the r-help email list.
-}
+\concept{topic.dispersionTests}
 \concept{topic.parametricTests}
 \concept{variance homogeneity}

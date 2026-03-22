@@ -1,6 +1,9 @@
 
 #' (Robust) Jarque Bera Test
 #' 
+#' A goodness-of-fit test for normality based on the sample skewness and excess 
+#' kurtosis, commonly used in econometrics for testing regression residuals.
+#' #' 
 #' This function performs the Jarque-Bera tests of normality either the robust
 #' or the classical way.
 #' 
@@ -31,7 +34,9 @@
 #' \code{tseries} package) and the \code{rjb.test} from the package
 #' \code{lawstat}.
 #' 
-#' @author W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
+#' @note
+#' Adapted from code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
+#' to conform to package standards.
 #' 
 #' @references Gastwirth, J. L.(1982) \emph{Statistical Properties of A Measure
 #' of Tax Assessment Uniformity}, Journal of Statistical Planning and Inference

@@ -17,6 +17,9 @@ computed, which subtracts an adjustment factor to make the resulting
 statistic asymptotically chi-square.}
 }
 \description{
+A test for homogeneity of odds ratios across several 2×2 contingency
+tables (strata), commonly used to verify whether a confounding effect
+is constant across subgroups, as required by the Mantel-Haenszel method.
 Calculates the Breslow-Day test of homogeneity for a \eqn{2 \times 2 \times
 k}{2 x 2 x k} table, in order to investigate if all \eqn{k} strata have the
 same OR. If OR is not given, the Mantel-Haenszel estimate is used.
@@ -36,6 +39,9 @@ the setting of a logistic regression model. Here, the underlying question of
 the Breslow-Day test can be answered by investigating whether an interaction
 term with the strata variable is necessary (e.g. using a likelihood ratio
 test using the \code{anova} function).
+}
+\note{
+Based on code by Michael Hoehle.
 }
 \examples{
 
@@ -101,9 +107,6 @@ Other topic.contingencyTests:
 \code{\link{mhChisqTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Michael Hoehle \href{mailto:hoehle@math.su.se}{hoehle@math.su.se}
 }
 \concept{odds ratio}
 \concept{topic.contingencyTests}

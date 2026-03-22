@@ -1,6 +1,10 @@
 
 #' Dunnett's Test for Comparing Several Treatments With a Control
 #' 
+#' A parametric post hoc test for multiple comparisons of several 
+#' treatment groups against a single control group, controlling the 
+#' familywise error rate.
+#' 
 #' Performs Dunnett's test for comparing several treatments with a control.
 #' 
 #' \code{dunnettTest} does the post hoc pairwise multiple comparisons
@@ -45,9 +49,7 @@
 #' There are print and plot methods for class \code{"PostHocTest"}. The plot
 #' method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
 #' creates its own values for each plot.
-#' @author Andri Signorell <andri@@signorell.net>, the interface is based on
-#' R-Core code
-#' @seealso \code{\link{postHocTest}}
+#' 
 #' @references Dunnett C. W. (1955) A multiple comparison procedure for
 #' comparing several treatments with a control, \emph{Journal of the American
 #' Statistical Association}, 50:1096-1121.

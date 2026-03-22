@@ -2,6 +2,11 @@
 
 #' The Frechet Distribution
 #' 
+#' The Fréchet distribution, also known as the Type II extreme value 
+#' distribution, is a continuous probability distribution for the maximum 
+#' of a sequence of independent random variables. It has a lower bound and 
+#' a heavy right tail, and is parameterized by location, scale, and shape.
+#' 
 #' Density function, distribution function, quantile function and random
 #' generation for the Frechet distribution with location, scale and shape
 #' parameters.
@@ -25,7 +30,10 @@
 #' the distribution function, \code{qfrechet} gives the quantile function, and
 #' \code{rfrechet} generates random deviates.
 #' 
-#' @family topic.distributions
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept Frechet

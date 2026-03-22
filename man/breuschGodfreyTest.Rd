@@ -45,10 +45,14 @@ estimates from the auxiliary regression.} \item{vcov}{corresponding
 covariance matrix estimate.}
 }
 \description{
-\code{breuschGodfreyTest} performs the Breusch-Godfrey test for higher-order
-serial correlation.
+A test for autocorrelation in the residuals of regression models,
+generalizing the Durbin-Watson test to handle higher-order autocorrelation
+and models with lagged dependent variables.
 }
 \details{
+\code{breuschGodfreyTest} performs the Breusch-Godfrey test for higher-order
+serial correlation.
+
 Under \eqn{H_0} the test statistic is asymptotically Chi-squared with
 degrees of freedom as given in \code{parameter}.  If \code{type} is set to
 \code{"F"} the function returns a finite sample version of the test
@@ -68,6 +72,8 @@ apply to the standard errors and t-statistics in this regression.)
 \note{
 This function was previously published as \code{bgtest} in the
 \pkg{lmtest} package and has been integrated here without logical changes.
+
+Based on code by David Mitchell, and Achim Zeileis.
 }
 \examples{
 
@@ -106,9 +112,6 @@ Other topic.timeSeriesTests:
 \code{\link{adfTest}()},
 \code{\link{durbinWatsonTest}()},
 \code{\link{kpssTest}()}
-}
-\author{
-David Mitchell \href{mailto:david.mitchell@dotars.gov.au}{david.mitchell@dotars.gov.au}, Achim Zeileis
 }
 \concept{autocorrelation}
 \concept{regression diagnostics}

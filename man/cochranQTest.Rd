@@ -67,12 +67,16 @@ test.} \item{method}{the character string "Cochran's Q-Test".}
 \item{data.name}{a character string giving the names of the data.}
 }
 \description{
+A nonparametric test for dependent samples with dichotomous data,
+assessing whether proportions differ across multiple conditions or
+time points. It generalizes the McNemar test to more than two groups.
+}
+\details{
 Performs Cochran's Q test for related samples with a binary response.
 The test is appropriate for unreplicated complete block designs (i.e.,
 matched or paired data), where each block contains exactly one observation
 for each group.
-}
-\details{
+
 Cochran's Q test is a nonparametric method for testing whether the
 proportions of a binary outcome differ across multiple related groups,
 while accounting for block effects. It can be regarded as an extension
@@ -136,9 +140,6 @@ Other topic.contingencyTests:
 \code{\link{mhChisqTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{repeated measures}
 \concept{topic.contingencyTests}

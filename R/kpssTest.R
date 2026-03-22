@@ -1,5 +1,9 @@
 
-#' Kwiatkowski et al. Unit Root Test
+#' KPSS Test
+#' 
+#' A test for stationarity in time series (Kwiatkowski-Phillips-Schmidt-Shin), 
+#' complementary to unit root tests such as the ADF test. It tests the null 
+#' hypothesis of stationarity rather than the null of a unit root.
 #' 
 #' Performs the KPSS unit root test, where the Null hypothesis is stationarity.
 #' The test types specify as deterministic component either a constant

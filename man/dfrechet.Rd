@@ -36,15 +36,23 @@ the distribution function, \code{qfrechet} gives the quantile function, and
 \code{rfrechet} generates random deviates.
 }
 \description{
+The Fréchet distribution, also known as the Type II extreme value
+distribution, is a continuous probability distribution for the maximum
+of a sequence of independent random variables. It has a lower bound and
+a heavy right tail, and is parameterized by location, scale, and shape.
+}
+\details{
 Density function, distribution function, quantile function and random
 generation for the Frechet distribution with location, scale and shape
 parameters.
-}
-\details{
+
 The Frechet distribution function with parameters \eqn{\code{loc} = a},
 \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is
 \deqn{G(z) = \exp\left\{-\left(\frac{z-a}{b}\right)^{-s}\right\}}
 for \eqn{z > a} and zero otherwise, where \eqn{b > 0} and \eqn{s > 0}.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -58,20 +66,18 @@ pfrechet(qfrechet(p, 1, 2, 0.8), 1, 2, 0.8)
 
 }
 \seealso{
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dgev}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{Frechet}
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extreme value theory}
 \concept{heavy tail}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

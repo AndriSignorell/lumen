@@ -1,6 +1,9 @@
 
-
 #' Exact Page Test for Ordered Alternatives
+#' 
+#' A nonparametric test for ordered alternatives in a two-way layout with 
+#' one observation per cell, assessing whether a monotonic trend exists 
+#' across ordered treatment conditions in a randomized complete block design.
 #' 
 #' Performs a Page test for ordered alternatives using an exact algorithm by
 #' Stefan Wellek (1989) with unreplicated blocked data.
@@ -54,11 +57,12 @@
 #' \dQuote{L}.} \item{p.value}{the p-value of the test.} \item{method}{the
 #' character string \code{"Page test for ordered alternatives"}.}
 #' \item{data.name}{a character string giving the names of the data.}
-#' @note Special thanks to Prof. S. Wellek for porting old GAUSS code to R.
-#' @author Stefan Wellek <stefan.wellek@@zi-mannheim.de> (exact p-values),
-#' Andri Signorell <andri@@signorell.net> (interface) (strongly based on R-Core
-#' code)
+#' 
+#' #' @note
+#' Adapted from code by Stefan Wellek to conform to package standards.
+#' 
 #' @seealso \code{\link{friedman.test}}
+#' 
 #' @references Page, E. (1963): Ordered hypotheses for multiple treatments: A
 #' significance test for linear ranks. \emph{Journal of the American
 #' Statistical Association}, 58, 216-230.

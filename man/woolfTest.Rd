@@ -21,6 +21,11 @@ observed counts.} \item{expected}{the expected counts under the null
 hypothesis.}
 }
 \description{
+A test for homogeneity of odds ratios across several 2×2 contingency
+tables, similar to the Breslow-Day test but based on a different
+test statistic.
+}
+\details{
 Test for homogeneity on \eqn{2 \times 2 \times k}{2 x 2 x k} tables over
 strata (i.e., whether the log odds ratios are the same in all strata).
 }

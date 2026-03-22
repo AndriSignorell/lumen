@@ -2,6 +2,10 @@
 
 #' Runs Test for Randomness
 #' 
+#' A nonparametric test for randomness of a sequence, based on the number 
+#' of runs (consecutive sequences of identical values or values 
+#' above/below a threshold).
+#' 
 #' Performs a test whether the elements of \code{x} are serially independent -
 #' say, whether they occur in a random order - by counting how many runs there
 #' are above and below a threshold. If \code{y} is supplied a two sample
@@ -90,8 +94,7 @@
 #' (n)} \item{p.value}{the p-value for the test.} \item{data.name}{a character
 #' string giving the names of the data.} \item{alternative}{a character string
 #' describing the alternative hypothesis.}
-#' @author Andri Signorell <andri@@signorell.net>, exact p-values by Detlew
-#' Labes <detlewlabes@@gmx.de>
+#' 
 #' @seealso Run Length Encoding \code{\link{rle}}
 #' @references Wackerly, D., Mendenhall, W. Scheaffer, R. L. (1986)
 #' \emph{Mathematical Statistics with Applications}, 3rd Ed., Duxbury Press,
@@ -271,7 +274,7 @@ runsTest.default <- function(x, y=NULL,
     method = "Runs Test for Randomness",
     alternative = alternative,
     data.name = dname,
-    estimate = est,
+    # do not return estimate here ...
     parameter = c(runs=runs, m = m, n = n)
   ), class = "htest")
 }

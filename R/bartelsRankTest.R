@@ -1,10 +1,11 @@
 
 #' Bartels Rank Test of Randomness
 #' 
-#' Performs the Bartels rank test of randomness, which tests if a sample is
-#' sampled randomly from an underlying population. Data must at least be
-#' measured on an ordinal scale.
+#' A nonparametric test for randomness of a sequence (so it tests whether 
+#' data is sampled randomly from an underlying population), based on the 
+#' ratio of the mean square successive difference of ranks to the rank variance.
 #' 
+#' Data must at least be measured on an ordinal scale.
 #' The RVN test statistic is
 #' \deqn{RVN=\frac{\sum_{i=1}^{n-1}(R_i-R_{i+1})^2}{\sum_{i=1}^{n}\left(R_i-(n+1)/2\right)^2}}{RVN=\sum(R_i-R_{i+1})^2
 #' / \sum(R_i-(n+1)/2)^2} where \eqn{R_i=rank(X_i), i=1,\dots,
@@ -20,7 +21,7 @@
 #' 
 #' Bartels test is a rank version of von Neumann's test.
 #' 
-#' @name BartelsRankTest
+#' @name bartelsRankTest
 #' @param x a numeric vector containing the observations
 #' @param alternative a character string specifying the alternative hypothesis,
 #' must be one of "\code{two.sided}" (default), "\code{trend}" or
@@ -39,7 +40,10 @@
 #' screen).} \item{mu}{the mean value of the RVN statistic (not show on
 #' screen).} \item{var}{the variance of the RVN statistic (not show on
 #' screen).}
-#' @author Frederico Caeiro <fac@@fct.unl.pt>
+#' 
+#' @note
+#' Based on code by Frederico Caeiro.
+#' 
 #' @seealso \code{\link[randtests]{rank.test}}, \code{\link{runsTest}}
 #' @references Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test
 #' for Randomness, \emph{Journal of the American Statistical Association},
@@ -67,7 +71,7 @@
 #'       20310, 22500, 23080, 21916)
 #' plot(years, tourists, pch=20)
 #' 
-#' BartelsRankTest(tourists, alternative="trend", method="beta")
+#' bartelsRankTest(tourists, alternative="trend", method="beta")
 #' 
 #' #  Bartels Ratio Test
 #' #
@@ -81,13 +85,13 @@
 #' ## Australian gross domestic product (GDP) price index (base 1966-1967).
 #' x <- c(528, 348, 264, -20, - 167, 575, 410, -4, 430, - 122)
 #' 
-#' BartelsRankTest(x, method="beta")
+#' bartelsRankTest(x, method="beta")
 
 
 
-#' @rdname BartelsRankTest
+#' @rdname bartelsRankTest
 #' @export
-BartelsRankTest <- function(x, alternative = c("two.sided", "trend", "oscillation"),
+bartelsRankTest <- function(x, alternative = c("two.sided", "trend", "oscillation"),
                             method = c("normal", "beta", "auto")) {
   
   # Performs Bartels Ratio Test for Randomness.

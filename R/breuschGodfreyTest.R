@@ -1,6 +1,10 @@
 
 #' Breusch-Godfrey Test
-#'
+#' 
+#' A test for autocorrelation in the residuals of regression models, 
+#' generalizing the Durbin-Watson test to handle higher-order autocorrelation 
+#' and models with lagged dependent variables.
+#' 
 #' \code{breuschGodfreyTest} performs the Breusch-Godfrey test for higher-order
 #' serial correlation.
 #'
@@ -44,12 +48,12 @@
 #' string giving the name(s) of the data.} \item{coefficients}{coefficient
 #' estimates from the auxiliary regression.} \item{vcov}{corresponding
 #' covariance matrix estimate.}
-
-#' @note This function was previously published as \code{bgtest} in the
-#' \pkg{lmtest} package and has been integrated here without logical changes.
-
-#' @author David Mitchell <david.mitchell@@dotars.gov.au>, Achim Zeileis
-#' @seealso \code{\link[DescTools]{DurbinWatsonTest}}
+#' 
+#' @note
+#' Based on code by David Mitchell, and Achim Zeileis. Previously published 
+#' as \code{bgtest} in the \pkg{lmtest} package and integrated here 
+#' without logical changes.
+#' 
 #' @references Johnston, J. (1984): \emph{Econometric Methods}, Third Edition,
 #' McGraw Hill Inc.
 #'
@@ -60,12 +64,13 @@
 #' Breusch, T.S. (1979): `Testing for Autocorrelation in Dynamic Linear
 #' Models', \emph{Australian Economic Papers}, 17, 334-355.
 #' 
+#' @seealso \code{\link{durbinWatsonTest}}
+#' 
 #' @family topic.timeSeriesTests
 #' @concept autocorrelation
 #' @concept regression diagnostics
 #' 
 #' @examples
-#'
 #' ## Generate a stationary and an AR(1) series
 #' x <- rep(c(1, -1), 50)
 #'

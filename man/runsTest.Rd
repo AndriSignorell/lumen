@@ -66,13 +66,17 @@ string giving the names of the data.} \item{alternative}{a character string
 describing the alternative hypothesis.}
 }
 \description{
+A nonparametric test for randomness of a sequence, based on the number
+of runs (consecutive sequences of identical values or values
+above/below a threshold).
+}
+\details{
 Performs a test whether the elements of \code{x} are serially independent -
 say, whether they occur in a random order - by counting how many runs there
 are above and below a threshold. If \code{y} is supplied a two sample
 Wald-Wolfowitz-Test testing the equality of two distributions against
 general alternatives will be computed.
-}
-\details{
+
 \bold{The runs test for randomness} \verb{ } is used to test the hypothesis
 that a series of numbers is random. \cr
 
@@ -177,7 +181,7 @@ Sciences}, McGraw-Hill Kogakusha, Tokyo.
 Run Length Encoding \code{\link{rle}}
 
 Other topic.randomnessTests: 
-\code{\link{BartelsRankTest}()},
+\code{\link{bartelsRankTest}()},
 \code{\link{vonNeumannTest}()}
 }
 \author{

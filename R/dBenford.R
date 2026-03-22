@@ -1,9 +1,16 @@
 
 #' Benford's Distribution
 #' 
+#' Benford's distribution (the significant-digit law) describes the 
+#' probability distribution of the leading significant digit(s) in 
+#' many naturally occurring numerical datasets. The probability of 
+#' the first digit being d follows log10(1 + 1/d), with support on 
+#' \{1, ..., 9\} for one leading digit or \{10, ..., 99\} for two leading 
+#' digits. It is commonly applied in fraud detection and data quality 
+#' assessment.
+#' 
 #' Density, distribution function, quantile function, and random generation for
 #' Benford's distribution.
-#' 
 #' 
 #' Benford's Law (aka \emph{the significant-digit law}) is the empirical
 #' observation that in many naturally occuring tables of numerical data, the
@@ -45,7 +52,8 @@
 #' function, and \code{qBenf} gives the quantile function, and \code{rBenf}
 #' generates random deviates.
 #' 
-#' @author T. W. Yee
+#' @note
+#' Based on code by T. W. Yee.
 #' 
 #' @references
 #' Benford, F. (1938) The Law of Anomalous Numbers. \emph{Proceedings of the

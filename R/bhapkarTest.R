@@ -1,18 +1,24 @@
 
 #' Bhapkar Marginal Homogeneity Test 
 #' 
-#' Bhapkar (1966) tested marginal homogeneity by exploiting the asymptotic
-#' normality of marginal proportion, and so this test is also called Bhapkar's
-#' test. The idea of constructing test statistic is similar to the one of
-#' generalized McNemar's test statistic used in
-#' \code{\link{stuartMaxwellTest}}, and the major difference lies in the
-#' calculation of elements in variance-covariance matrix.  
+#' A nonparametric test for marginal homogeneity in square contingency 
+#' tables for dependent samples, similar to the Stuart-Maxwell test but 
+#' based on a different test statistic and generally slightly more powerful.
 #' 
-#' Although the Bhapkar and Stuart-Maxwell tests are asymptotically equivalent
-#' (Keefe, 1982). Generally, the Bhapkar (1966) test is a more powerful
-#' alternative to the Stuart-Maxwell test. With a large N, both will produce
-#' the same Chi-square value. As the Bhapkar test is more powerful, it is
-#' preferred.
+#' Bhapkar’s test (Bhapkar, 1966) is used to assess marginal homogeneity 
+#' in square contingency tables. It is based on the asymptotic 
+#' normality of marginal proportions and is closely related to 
+#' the generalized McNemar test, as implemented in \code{stuartMaxwellTest}. 
+#' The two tests differ primarily in the construction of the 
+#' variance–covariance matrix.
+#' 
+#' The Bhapkar and Stuart–Maxwell tests are asymptotically 
+#' equivalent (Keefe, 1982), meaning that for large sample 
+#' sizes they yield the same chi-square statistic. For finite 
+#' samples, however, the Bhapkar test is generally more powerful 
+#' and is therefore preferred in practice. In particular, the difference 
+#' between the two tests lies in the estimation of the variance–covariance 
+#' matrix of the marginal proportions.
 #' 
 #' @name bhapkarTest
 #' @docType data
@@ -20,7 +26,6 @@
 #' form, or a factor. 
 #' @param y a factor with the same levels as \code{x}; ignored if \code{x} is a
 #' matrix. 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' 
 #' @seealso \code{\link{mcnemar.test}},
 #' \code{\link{chisq.test}}, \code{\link{mhChisqTest}},

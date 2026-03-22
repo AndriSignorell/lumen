@@ -1,6 +1,11 @@
 
 #' The Generalized Extreme Value Distribution
 #' 
+#' The Generalized Extreme Value (GEV) distribution unifies the three 
+#' extreme value distributions — Gumbel (Type I), Fréchet (Type II), 
+#' and Reverse Weibull (Type III) — into a single family, parameterized 
+#' by location, scale, and a shape parameter that determines which type applies.
+#' 
 #' Density function, distribution function, quantile function and random
 #' generation for the generalized extreme value (GEV) distribution with
 #' location, scale and shape parameters.
@@ -38,7 +43,10 @@
 #' maximum (or minimum) of meteorological elements.  \emph{Quart. J. R. Met.
 #' Soc.}, \bold{81}, 158--171.
 #' 
-#' @family topic.distributions
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept GEV

@@ -1,6 +1,9 @@
 
 #' Conover's Test of Multiple Comparisons
 #' 
+#' A nonparametric post hoc test for multiple pairwise comparisons following 
+#' a significant Kruskal-Wallis test, based on rank data.
+#' 
 #' Perform Conover's test of multiple comparisons using rank sums as post hoc
 #' test following a significant \code{\link{kruskal.test}}.
 #' 
@@ -31,6 +34,7 @@
 #' the corresponding elements of \code{x}.
 #' 
 #' @name conoverTest
+#' 
 #' @aliases conoverTest conoverTest.default conoverTest.formula
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
 #' @param g a vector or factor object giving the group for the corresponding
@@ -57,9 +61,6 @@
 #' @return A list with class \code{"DunnTest"} containing the following
 #' components: \item{res}{an array containing the mean rank differencens and
 #' the according p-values}
-#' 
-#' @author Andri Signorell <andri@@signorell.net>, the interface is based on
-#' R-Core code
 #' 
 #' @seealso \code{\link{dunnTest}}, \code{\link{nemenyiTest}},
 #' \code{\link{kruskal.test}}, \code{\link{wilcox.test}},

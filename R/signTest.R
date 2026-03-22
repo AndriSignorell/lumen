@@ -1,6 +1,10 @@
 
 #' Sign Test
 #' 
+#' A nonparametric test for the median of a single sample or the median 
+#' difference of paired samples, based solely on the signs of deviations 
+#' from the hypothesized median.
+#' 
 #' Performs one- and two-sample sign tests on vectors of data.
 #' 
 #' The formula interface is only applicable for the 2-sample test.
@@ -45,8 +49,6 @@
 #' \item{data.name}{a character string giving the names of the data.}
 #' \item{conf.int}{ a confidence interval for the median.} \item{estimate}{ the
 #' sample median.}
-#' 
-#' @author Andri Signorell <andri@@signorell.net>
 #' 
 #' @seealso \code{\link{t.test}}, \code{\link{wilcox.test}},
 #' \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}

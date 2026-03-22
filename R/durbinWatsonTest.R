@@ -1,6 +1,10 @@
 
 #' Durbin-Watson Test
 #' 
+#' A test for first-order autocorrelation in the residuals of a linear 
+#' regression model, based on the ratio of successive squared residual 
+#' differences to the total residual sum of squares.
+#' 
 #' Performs the Durbin-Watson test for autocorrelation of disturbances.
 #' 
 #' The Durbin-Watson test has the null hypothesis that the autocorrelation of

@@ -28,11 +28,15 @@ A numeric vector of scores corresponding to the levels of the
 selected margin.
 }
 \description{
+A utility function computing score transformations of raw data,
+including normal scores, exponential scores, and Savage scores,
+typically used as a preprocessing step for nonparametric tests.
+}
+\details{
 Computes score values for the levels of a contingency table margin.
 These scores are used in several statistical procedures such as the
 Cochran-Armitage test and correlation measures for ordinal data.
-}
-\details{
+
 The function supports different scoring methods, including simple
 table-based scores, ranks, and ridit-type transformations.
 

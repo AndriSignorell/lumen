@@ -1,6 +1,12 @@
 
 #' Maxima of Two Gumbel Distributions
 #' 
+#' The extended Gumbel distribution models the maximum of two independent 
+#' Gumbel-distributed random variables with potentially different location 
+#' and scale parameters. It is parameterized by two pairs of location and 
+#' scale parameters, with the constraint that the first location parameter 
+#' does not exceed the second.
+#' 
 #' Density function, distribution function, quantile function and random
 #' generation for the maxima of two Gumbel distributions, each with different
 #' location and scale parameters.
@@ -24,9 +30,12 @@
 #' the distribution function, \code{qgumbelx} gives the quantile function, and
 #' \code{rgumbelx} generates random deviates.
 #' 
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
 #' @seealso \code{\link[evd]{fgev}}, \code{\link{uniroot}}
 #' 
-#' @family topic.distributions
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept extended Gumbel

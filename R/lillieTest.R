@@ -2,6 +2,11 @@
 
 #' Lilliefors (Kolmogorov-Smirnov) test for normality
 #' 
+#' A goodness-of-fit test for normality based on the Kolmogorov-Smirnov 
+#' statistic, adapted for the case where the population mean and 
+#' variance are unknown and must be estimated from the 
+#' sample (Lilliefors test).
+#' 
 #' Performs the Lilliefors (Kolmogorov-Smirnov) test for the composite
 #' hypothesis of normality, see e.g. Thode (2002, Sec. 5.1.1).
 #' 
@@ -45,7 +50,8 @@
 #' is provided for the complete range of test statistic values, but is only
 #' used when the Dallal-Wilkinson approximation fails.)
 #' 
-#' @author Juergen Gross
+#' @note
+#' Based on code by Juergen Gross. 
 #' 
 #' @references Dallal, G.E. and Wilkinson, L. (1986): An analytic approximation
 #' to the distribution of Lilliefors' test for normality. The American

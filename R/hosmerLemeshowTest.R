@@ -1,6 +1,9 @@
 
-
 #' Hosmer-Lemeshow Goodness of Fit Tests
+#' 
+#' A goodness-of-fit test for logistic regression models, assessing whether the 
+#' observed event rates match the predicted probabilities across grouped 
+#' subsets of the data.
 #' 
 #' The function computes Hosmer-Lemeshow goodness of fit tests for C and H
 #' statistic as well as the le Cessie-van Houwelingen-Copas-Hosmer unweighted
@@ -29,7 +32,10 @@
 #' goodness of fit test.
 #' @param verbose logical, print intermediate results.
 #' @return A list of tests.
-#' @author Matthias Kohl <Matthias.Kohl@@stamats.de>
+#' 
+#' @note
+#' Adapted from code by Matthias Kohl to conform to package standards.
+#' 
 #' @seealso \code{\link{glm}}
 #' @references Lemeshow, S. Hosmer, D.W., (1982): A review of goodness of fit
 #' statistics for use in the development of logistic regression models.

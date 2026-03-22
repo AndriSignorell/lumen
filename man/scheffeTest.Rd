@@ -74,6 +74,11 @@ method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
 creates its own values for each plot.
 }
 \description{
+A parametric post hoc test for all possible pairwise and complex
+comparisons following a significant ANOVA, controlling the
+familywise error rate conservatively for any number of contrasts.
+}
+\details{
 Scheffe's method applies to the set of estimates of all possible contrasts
 among the factor level means, not just the pairwise differences considered
 by Tukey's method.
@@ -115,9 +120,6 @@ Other topic.postHocTests:
 \code{\link{dunnettTest}()},
 \code{\link{nemenyiTest}()},
 \code{\link{postHoc}}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{multiple comparisons}
 \concept{parametric}

@@ -1,6 +1,12 @@
 
 #' The Gumbel Distribution
 #' 
+#' The Gumbel distribution, also known as the Type I extreme value 
+#' distribution, is a continuous distribution used to model the maximum 
+#' (or minimum) of a number of samples of various distributions. It is 
+#' parameterized by location and scale and arises naturally in extreme 
+#' value theory.
+#' 
 #' Density function, distribution function, quantile function and random
 #' generation for the Gumbel distribution with location and scale parameters.
 #' 
@@ -22,7 +28,10 @@
 #' distribution function, \code{qgumbel} gives the quantile function, and
 #' \code{rgumbel} generates random deviates.
 #' 
-#' @family topic.distributions
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept Gumbel

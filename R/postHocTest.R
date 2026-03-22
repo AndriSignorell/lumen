@@ -1,6 +1,10 @@
 
 #' Post-Hoc Tests
 #' 
+#' A wrapper function providing a unified interface to various parametric 
+#' and nonparametric post hoc tests for multiple pairwise comparisons 
+#' following a significant omnibus test.
+#' 
 #' A convenience wrapper for computing post-hoc test after having calculated an
 #' ANOVA. 
 #' 

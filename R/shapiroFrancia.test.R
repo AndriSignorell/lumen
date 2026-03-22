@@ -2,6 +2,11 @@
 
 #' Shapiro-Francia test for normality
 #' 
+#' A goodness-of-fit test for normality based on the correlation between 
+#' the ordered sample values and the corresponding expected normal order 
+#' statistics, particularly suited for larger sample sizes than the 
+#' Shapiro-Wilk test.
+#' 
 #' Performs the Shapiro-Francia test for the composite hypothesis of normality,
 #' see e.g. Thode (2002, Sec. 2.3.2).
 #' 
@@ -25,7 +30,8 @@
 #' 1/2))} used for the normal quantile-quantile plot by \code{\link{qqnorm}}
 #' for sample sizes greater than 10.
 #' 
-#' @author Juergen Gross
+#' @note
+#' Based on code by Juergen Gross. 
 #' 
 #' @references Royston, P. (1993): A pocket-calculator algorithm for the
 #' Shapiro-Francia test for non-normality: an application to medicine.

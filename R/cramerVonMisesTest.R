@@ -1,6 +1,11 @@
 
 #' Cramer-von Mises test for normality
 #' 
+#' A goodness-of-fit test based on the integrated squared discrepancies 
+#' between the empirical and theoretical distribution functions. Similar 
+#' to the Anderson-Darling test, but without increased weighting of the 
+#' distribution tails.
+#' 
 #' Performs the Cramer-von Mises test for the composite hypothesis of
 #' normality, see e.g. Thode (2002, Sec. 5.1.3).
 #' 
@@ -22,7 +27,9 @@
 #' \item{p.value }{the p-value for the test.} \item{method}{the character
 #' string \dQuote{Cramer-von Mises normality test}.} \item{data.name}{a
 #' character string giving the name(s) of the data.}
-#' @author Juergen Gross
+#' 
+#' @note
+#' Based on code by Juergen Gross. 
 #' 
 #' @references Stephens, M.A. (1986): Tests based on EDF statistics. In:
 #' D'Agostino, R.B. and Stephens, M.A., eds.: Goodness-of-Fit Techniques.

@@ -1,6 +1,11 @@
 
 #' ChiSquare Test for One Variance and F Test to Compare Two Variances
 #' 
+#' A test for the variance of a normal distribution against a specified 
+#' value (one-sample) or for equality of variances between two normal 
+#' distributions (two-sample), based on the chi-squared or F-distribution 
+#' respectively.
+#' 
 #' Performs either a one sample chi-squared test to compare the variance of a
 #' vector with a given value or an F test to compare the variances of two
 #' samples from normal populations.
@@ -46,14 +51,12 @@
 #' variances"}.} \item{data.name}{a character string giving the names of the
 #' data.}
 #' 
-#' @author Andri Signorell <andri@@signorell.net> (One sample test)\cr Two
-#' Sample test and help text from R-Core.
-#' 
 #' @seealso \code{\link{var.test}}, \code{\link{bartlett.test}} for testing
 #' homogeneity of variances in more than two samples from normal distributions;
 #' \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
 #' (nonparametric) two-sample tests for difference in scale.
 #' 
+#' @family topic.dispersionTests
 #' @family topic.parametricTests
 #' @concept variance test
 #' 

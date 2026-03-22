@@ -1,6 +1,10 @@
 
-
 #' The Generalized Pareto Distribution
+#' 
+#' The Generalized Pareto Distribution (GPD) is a two-parameter family 
+#' of distributions used to model exceedances over a high threshold, 
+#' commonly applied in extreme value theory as the limiting distribution 
+#' of threshold excesses.
 #' 
 #' Density function, distribution function, quantile function and random
 #' generation for the generalized Pareto distribution (GPD) with location,
@@ -26,12 +30,15 @@
 #' distribution function, \code{qgpd} gives the quantile function, and
 #' \code{rgpd} generates random deviates.
 #' 
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
 #' @seealso \code{\link[evd]{fpot}}
 #' 
 #' @references Pickands, J. (1975) Statistical inference using extreme order
 #' statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
 #' 
-#' @family topic.distributions
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept peaks over threshold

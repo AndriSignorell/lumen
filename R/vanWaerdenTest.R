@@ -2,6 +2,11 @@
 
 #' van der Waerden Test
 #' 
+#' A nonparametric k-sample test based on normal scores (van der Waerden 
+#' scores), serving as an alternative to the one-way ANOVA. It is more 
+#' efficient than the Kruskal-Wallis test when the underlying data are 
+#' approximately normally distributed.
+#' 
 #' Performs a van der Waerden normal scores test.
 #' 
 #' \code{vanWaerdenTest} performs a van der Waerden test of the null that the

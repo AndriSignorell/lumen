@@ -1,6 +1,10 @@
 
 #' Scheffe Test for Pairwise and Otherwise Comparisons 
 #' 
+#' A parametric post hoc test for all possible pairwise and complex 
+#' comparisons following a significant ANOVA, controlling the 
+#' familywise error rate conservatively for any number of contrasts.
+#' 
 #' Scheffe's method applies to the set of estimates of all possible contrasts
 #' among the factor level means, not just the pairwise differences considered
 #' by Tukey's method.   
@@ -37,8 +41,6 @@
 #' There are print and plot methods for class \code{"PostHocTest"}. The plot
 #' method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
 #' creates its own values for each plot.
-#' 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' 
 #' @seealso \code{\link{pairwise.t.test}}, \code{\link{TukeyHSD}} 
 #' @references Robert O. Kuehl, Steel R. (2000) \emph{Design of experiments}.

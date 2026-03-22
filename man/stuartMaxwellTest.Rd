@@ -21,14 +21,18 @@ performed.} \item{data.name}{a character string giving the name of the
 data.}
 }
 \description{
+A nonparametric test for marginal homogeneity in square contingency tables
+for dependent samples, generalizing the McNemar test to more than two
+categories.
+}
+\details{
 This function computes the marginal homogeneity test for a \eqn{k \times
 k}{k x k} matrix of assignments of objects to \code{k} categories or two
 vectors \code{x}, \code{y} of category scores for \code{n} data objects by
 two raters. The statistic is distributed as \eqn{\chi^2}{chi-square} with
 \code{k-1} degrees of freedom. \cr It can be viewed as an extension of the
 McNemar test to \eqn{k \times k}{k x k} table.
-}
-\details{
+
 The null is that the probabilities of being classified into cells \verb{[i, j]}
 and \verb{[j, i]} are the same.
 

@@ -42,11 +42,17 @@ function, \code{qTri} gives the quantile function, and \code{rTri} generates
 random deviates.
 }
 \description{
+The triangular distribution is a continuous distribution with a lower
+bound, an upper bound, and a mode, producing a piecewise linear,
+triangular-shaped density function. It is commonly used in risk
+assessment and simulation when only the minimum, maximum, and most
+likely value of a quantity are known.
+}
+\details{
 Density, distribution function, quantile function, and random generation for
 the triangular distribution with parameters \code{min}, \code{max}, and
 \code{mode}.
-}
-\details{
+
 Let \eqn{X} be a triangular random variable with parameters
 \code{min=}\eqn{a}, \code{max=}\eqn{b}, and \code{mode=}\eqn{c}.
 
@@ -84,6 +90,8 @@ and \code{max=}\eqn{\beta} has a triangular distribution with parameters
 
 The triangular distribution is sometimes used as an input distribution in
 probability risk assessment.
+
+Based on code by Steven P. Millard.
 }
 \examples{
 
@@ -134,18 +142,7 @@ New York.
 Numbers.
 
 Other topic.distributions: 
-\code{\link{dbenford}()},
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drweibull}()}
-}
-\author{
-Steven P. Millard (\email{EnvStats@ProbStatInfo.com})
+\code{\link{dbenford}()}
 }
 \concept{bounded support}
 \concept{continuous distribution}

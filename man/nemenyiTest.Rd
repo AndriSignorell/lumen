@@ -50,9 +50,12 @@ type of test applied} \item{data.name}{a character string giving the names
 of the data.}
 }
 \description{
-Performs Nemenyi's test of multiple comparisons.
+A nonparametric post hoc test for multiple pairwise comparisons following
+a significant Kruskal-Wallis or Friedman test, based on rank differences.
 }
 \details{
+Performs Nemenyi's test of multiple comparisons.
+
 ToDo!! ****************************************************************
 Tell when to use this test. References needed! Nemenyi proposed a
 test based on rank sums and the application of the family-wise error method
@@ -116,9 +119,6 @@ Other topic.postHocTests:
 \code{\link{dunnettTest}()},
 \code{\link{postHoc}},
 \code{\link{scheffeTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{multiple comparisons}
 \concept{nonparametric}

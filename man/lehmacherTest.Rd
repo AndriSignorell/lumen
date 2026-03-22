@@ -33,10 +33,14 @@ string indicating what type of test was performed.} \item{data.name}{a
 character string giving the name of the data.}
 }
 \description{
-Performs Lehmacher's chi-squared test for marginal homogenity in a symmetric
-two-dimensional contingency table.
+A nonparametric test for marginal homogeneity in square contingency tables
+for dependent samples, based on a normal approximation of the cell
+frequency differences.
 }
 \details{
+Performs Lehmacher's chi-squared test for marginal homogenity in a symmetric
+two-dimensional contingency table.
+
 The null is that the probabilities of being classified into cells \verb{[i,j]} and
 \verb{[j,i]} are the same.
 
@@ -75,9 +79,6 @@ Other topic.contingencyTests:
 \code{\link{mhChisqTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{binary outcome}
 \concept{paired data}

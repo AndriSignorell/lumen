@@ -36,16 +36,24 @@ distribution function, \code{qgpd} gives the quantile function, and
 \code{rgpd} generates random deviates.
 }
 \description{
+The Generalized Pareto Distribution (GPD) is a two-parameter family
+of distributions used to model exceedances over a high threshold,
+commonly applied in extreme value theory as the limiting distribution
+of threshold excesses.
+}
+\details{
 Density function, distribution function, quantile function and random
 generation for the generalized Pareto distribution (GPD) with location,
 scale and shape parameters.
-}
-\details{
+
 The generalized Pareto distribution function (Pickands, 1975) with
 parameters \eqn{\code{loc} = a}, \eqn{\code{scale} = b} and
 \eqn{\code{shape} = s} is \deqn{G(z) = 1 - \{1+s(z-a)/b\}^{-1/s}}{ G(z) = 1
 - {1+s(z-a)/b}^(-1/s)} for \eqn{1+s(z-a)/b > 0} and \eqn{z > a}, where
 \eqn{b > 0}.  If \eqn{s = 0} the distribution is defined by continuity.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -65,20 +73,18 @@ statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
 \seealso{
 \code{\link[evd]{fpot}}
 
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dfrechet}()},
 \code{\link{dgev}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{GPD}
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extreme value theory}
 \concept{peaks over threshold}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

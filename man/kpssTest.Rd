@@ -2,7 +2,7 @@
 % Please edit documentation in R/kpssTest.R
 \name{kpssTest}
 \alias{kpssTest}
-\title{Kwiatkowski et al. Unit Root Test}
+\title{KPSS Test}
 \usage{
 kpssTest(
   y,
@@ -24,11 +24,15 @@ kpssTest(
 An object of class \code{htest}.
 }
 \description{
+A test for stationarity in time series (Kwiatkowski-Phillips-Schmidt-Shin),
+complementary to unit root tests such as the ADF test. It tests the null
+hypothesis of stationarity rather than the null of a unit root.
+}
+\details{
 Performs the KPSS unit root test, where the Null hypothesis is stationarity.
 The test types specify as deterministic component either a constant
 \code{"mu"} or a constant with linear trend \code{"tau"}.
-}
-\details{
+
 \code{lags="short"} sets the number of lags to \eqn{\sqrt[4]{4 \times
 (n/100)}}, whereas \code{lags="long"} sets the number of lags to
 \eqn{\sqrt[4]{12 \times (n/100)}}. If \code{lags="nil"} is choosen, then no

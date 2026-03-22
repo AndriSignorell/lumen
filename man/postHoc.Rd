@@ -74,10 +74,14 @@ p-value, if a conf.level was defined (something else than NA) or \cr B) a
 list of matrices with the p-values, if conf.level has been set to NA.
 }
 \description{
-A convenience wrapper for computing post-hoc test after having calculated an
-ANOVA.
+A wrapper function providing a unified interface to various parametric
+and nonparametric post hoc tests for multiple pairwise comparisons
+following a significant omnibus test.
 }
 \details{
+A convenience wrapper for computing post-hoc test after having calculated an
+ANOVA.
+
 The function is designed to consolidate a couple of post-hoc tests with the
 same interface for input and output.
 

@@ -35,14 +35,23 @@ distribution function, \code{qgumbel} gives the quantile function, and
 \code{rgumbel} generates random deviates.
 }
 \description{
-Density function, distribution function, quantile function and random
-generation for the Gumbel distribution with location and scale parameters.
+The Gumbel distribution, also known as the Type I extreme value
+distribution, is a continuous distribution used to model the maximum
+(or minimum) of a number of samples of various distributions. It is
+parameterized by location and scale and arises naturally in extreme
+value theory.
 }
 \details{
+Density function, distribution function, quantile function and random
+generation for the Gumbel distribution with location and scale parameters.
+
 The Gumbel distribution function with parameters \eqn{\code{loc} = a} and
 \eqn{\code{scale} = b} is
 \deqn{G(z) = \exp\left\{-\exp\left[-\left(\frac{z-a}{b}\right)\right]\right\}}{G(z) = exp(-exp(-(z-a)/b))}
 for all real \eqn{z}, where \eqn{b > 0}.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -56,19 +65,17 @@ pgumbel(qgumbel(p, -1, 2), -1, 2)
 
 }
 \seealso{
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dextreme}()},
 \code{\link{dfrechet}()},
 \code{\link{dgev}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{Gumbel}
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extreme value theory}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

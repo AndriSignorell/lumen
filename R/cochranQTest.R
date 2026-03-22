@@ -1,6 +1,10 @@
 
 #' Cochran's Q Test
-#'
+#' 
+#' A nonparametric test for dependent samples with dichotomous data, 
+#' assessing whether proportions differ across multiple conditions or 
+#' time points. It generalizes the McNemar test to more than two groups.
+#' 
 #' Performs Cochran's Q test for related samples with a binary response.
 #' The test is appropriate for unreplicated complete block designs (i.e.,
 #' matched or paired data), where each block contains exactly one observation
@@ -56,7 +60,7 @@
 #' distribution of the test statistic.} \item{p.value}{the p-value of the
 #' test.} \item{method}{the character string "Cochran's Q-Test".}
 #' \item{data.name}{a character string giving the names of the data.}
-#' @author Andri Signorell <andri@@signorell.net>
+#' 
 #' @references Cochran, W.G. (1950) The Comparison of Percentages in Matched
 #' Samples. \emph{Biometrika}. 37 (3/4): 256-266.
 #' doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.

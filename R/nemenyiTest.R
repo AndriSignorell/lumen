@@ -1,6 +1,9 @@
 
 #' Nemenyi Test 
 #' 
+#' A nonparametric post hoc test for multiple pairwise comparisons following 
+#' a significant Kruskal-Wallis or Friedman test, based on rank differences.
+#' 
 #' Performs Nemenyi's test of multiple comparisons. 
 #' 
 #' 
@@ -39,8 +42,6 @@
 #' character string describing the alternative hypothesis.} \item{method}{ the
 #' type of test applied} \item{data.name}{a character string giving the names
 #' of the data.}
-#' 
-#' @author Andri Signorell <andri@@signorell.net>
 #' 
 #' @seealso \code{\link{dunnTest}}, \code{\link{conoverTest}} 
 #' 

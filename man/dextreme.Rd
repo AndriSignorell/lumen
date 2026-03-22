@@ -59,9 +59,18 @@ the maximum/minimum of \code{mlen} independent variables from a specified
 distibution. \code{rextreme} generates random deviates.
 }
 \description{
+Density, distribution, quantile, and random generation functions for
+the maximum or minimum of a given number of independent and identically
+distributed random variables from any specified distribution, derived
+analytically from the underlying distribution function.
+}
+\details{
 Density function, distribution function, quantile function and random
 generation for the maximum/minimum of a given number of independent
 variables from a specified distribution.
+}
+\note{
+Based on code by Alec Stephenson.
 }
 \examples{
 
@@ -77,20 +86,18 @@ pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)
 
 }
 \seealso{
-Other topic.distributions: 
-\code{\link{dbenford}()},
+Other topic.extremevalue.distributions: 
 \code{\link{dfrechet}()},
 \code{\link{dgev}()},
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
-\code{\link{drweibull}()},
-\code{\link{dtri}()}
+\code{\link{drweibull}()}
 }
 \concept{continuous distribution}
 \concept{dpqr}
 \concept{extreme value theory}
 \concept{maxima}
 \concept{minima}
-\concept{topic.distributions}
+\concept{topic.extremevalue.distributions}

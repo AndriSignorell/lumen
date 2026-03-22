@@ -94,6 +94,7 @@
 #'   \item Separation of statistical procedures and data transformation utilities
 #' }
 #'
-#' @docType package
+#' @keywords internal
+#_PACKAGE"
 #' @name DescToolsTests-package
 NULL

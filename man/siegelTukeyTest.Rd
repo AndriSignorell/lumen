@@ -2,14 +2,13 @@
 % Please edit documentation in R/siegelTukeyTest.R
 \name{siegelTukeyTest}
 \alias{siegelTukeyTest}
-\alias{.siegelTukeyRank}
 \alias{siegelTukeyTest.default}
 \alias{siegelTukeyTest.formula}
 \title{Siegel-Tukey Test For Equality In Variability}
 \usage{
 siegelTukeyTest(x, ...)
 
-\method{siegelTukeyTest}{formula}(formula, data, subset, na.action, ...)
+\method{siegelTukeyTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{siegelTukeyTest}{default}(
   x,
@@ -79,18 +78,25 @@ alternative hypothesis.} \item{method}{ the type of test applied}
 \item{data.name}{a character string giving the names of the data.}
 }
 \description{
+A nonparametric test for differences in scale (variability) between two
+independent groups, based on a specific rank assignment that alternates
+between the extremes and the center of the combined sample.
+}
+\details{
 Non-parametric Siegel-Tukey test for equality in variability. The null
 hypothesis is that the variability of x is equal between two groups. A
 rejection of the null hypothesis indicates that variability differs between
-the two groups. \code{.siegelTukeyRank} returns the ranks, calculated after
-Siegel Tukey logic.
-}
-\details{
-The Siegel-Tukey test has relatively low power and may, under certain
+the two groups.
+
+\strong{Note:} \verb{   } The Siegel-Tukey test has relatively low power
+and may, under certain
 conditions, indicate significance due to differences in medians rather than
 differences in variabilities (consider using the argument
-\code{adjust.median}). Consider also using \code{\link{mood.test}} or
-\code{\link{ansari.test}}.
+\code{adjust.median}).
+}
+\note{
+Based on a blog post by Daniel Malter, Tal Galili \href{mailto:tal.galili@gmail.com}{tal.galili@gmail.com}\n
+\href{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}{www.r-statistics.com/2010/02/}
 }
 \examples{
 
@@ -159,16 +165,20 @@ siegelTukeyTest(x ~ id)
 
 }
 \references{
+Sheskin, D. J. (2004): \emph{Handbook of parametric and nonparametric
+statistical procedures} 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
+
 Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks
 procedure for relative spread in unpaired samples. \emph{Journal of the
 American Statistical Association}.
-
-Sheskin, D. J. (2004): \emph{Handbook of parametric and nonparametric
-statistical procedures} 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
 }
 \seealso{
 \code{\link{mood.test}}, \code{\link{ansari.test}},
 \code{\link{wilcox.test}}, \code{\link{leveneTest}}
+
+Other topic.dispersionTests: 
+\code{\link{leveneTest}()},
+\code{\link{varTest}()}
 
 Other topic.nonparametricTests: 
 \code{\link{jonckheereTerpstraTest}()},
@@ -177,10 +187,6 @@ Other topic.nonparametricTests:
 \code{\link{signTest}()},
 \code{\link{vanWaerdenTest}()}
 }
-\author{
-Daniel Malter, Tal Galili \href{mailto:tal.galili@gmail.com}{tal.galili@gmail.com}, Andri Signorell
-\href{mailto:andri@signorell.net}{andri@signorell.net}\cr published on:
-\url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
-}
 \concept{scale test}
+\concept{topic.dispersionTests}
 \concept{topic.nonparametricTests}

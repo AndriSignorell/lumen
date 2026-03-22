@@ -19,10 +19,15 @@ normality test}.} \item{data.name}{a character string giving the name(s) of
 the data.}
 }
 \description{
-Performs the Lilliefors (Kolmogorov-Smirnov) test for the composite
-hypothesis of normality, see e.g. Thode (2002, Sec. 5.1.1).
+A goodness-of-fit test for normality based on the Kolmogorov-Smirnov
+statistic, adapted for the case where the population mean and
+variance are unknown and must be estimated from the
+sample (Lilliefors test).
 }
 \details{
+Performs the Lilliefors (Kolmogorov-Smirnov) test for the composite
+hypothesis of normality, see e.g. Thode (2002, Sec. 5.1.1).
+
 The Lilliefors (Kolmogorov-Smirnov) test is an EDF omnibus test for the
 composite hypothesis of normality. The test statistic is the maximal
 absolute difference between empirical and hypothetical cumulative
@@ -55,6 +60,8 @@ p-value is not set to 0.5 when the Dallal-Wilkinson approximation yields a
 p-value greater than 0.1. (Actually, the alternative p-value approximation
 is provided for the complete range of test statistic values, but is only
 used when the Dallal-Wilkinson approximation fails.)
+
+Based on code by Juergen Gross.
 }
 \examples{
 
@@ -83,9 +90,6 @@ Other topic.goodnessOfFit:
 \code{\link{jarqueBeraTest}()},
 \code{\link{pearsonTest}()},
 \code{\link{shapiroFranciaTest}()}
-}
-\author{
-Juergen Gross
 }
 \concept{Kolmogorov-Smirnov}
 \concept{normality}

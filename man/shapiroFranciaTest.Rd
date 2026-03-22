@@ -18,10 +18,15 @@ string \dQuote{Shapiro-Francia normality test}.} \item{data.name}{a
 character string giving the name(s) of the data.}
 }
 \description{
-Performs the Shapiro-Francia test for the composite hypothesis of normality,
-see e.g. Thode (2002, Sec. 2.3.2).
+A goodness-of-fit test for normality based on the correlation between
+the ordered sample values and the corresponding expected normal order
+statistics, particularly suited for larger sample sizes than the
+Shapiro-Wilk test.
 }
 \details{
+Performs the Shapiro-Francia test for the composite hypothesis of normality,
+see e.g. Thode (2002, Sec. 2.3.2).
+
 The test statistic of the Shapiro-Francia test is simply the squared
 correlation between the ordered sample values and the (approximated)
 expected ordered quantiles from the standard normal distribution. The
@@ -34,6 +39,8 @@ normal distribution are approximated by \code{qnorm(ppoints(x, a = 3/8))},
 being slightly different from the approximation \code{qnorm(ppoints(x, a =
 1/2))} used for the normal quantile-quantile plot by \code{\link{qqnorm}}
 for sample sizes greater than 10.
+
+Based on code by Juergen Gross.
 }
 \examples{
 
@@ -60,9 +67,6 @@ Other topic.goodnessOfFit:
 \code{\link{jarqueBeraTest}()},
 \code{\link{lillieTest}()},
 \code{\link{pearsonTest}()}
-}
-\author{
-Juergen Gross
 }
 \concept{normality}
 \concept{topic.goodnessOfFit}

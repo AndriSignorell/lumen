@@ -74,10 +74,14 @@ string indicating what type of test was performed.} \item{data.name}{a
 character string giving the name(s) of the data.}
 }
 \description{
-Compute the test of hypothesis and compute confidence interval on the mean
-of a population when the standard deviation of the population is known.
+A parametric test for the mean of a normal distribution when the population
+variance is known, or for comparing two means with known variances, based
+on the standard normal distribution.
 }
 \details{
+Compute the test of hypothesis and compute confidence interval on the mean
+of a population when the standard deviation of the population is known.
+
 Most introductory statistical texts introduce inference by using the z-test
 and z-based confidence intervals based on knowing the population standard
 deviation. However statistical packages often do not include functions to do

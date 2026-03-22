@@ -55,9 +55,13 @@ left to \code{NULL}, the function uses the exact test up to a samplesize of
 procedure can not be applied to samples containing ties.}
 }
 \description{
-Jonckheere-Terpstra test to test for ordered differences among classes.
+A nonparametric test for ordered alternatives across k independent groups,
+assessing whether a monotonic trend exists in the location parameter
+across ordered groups.
 }
 \details{
+Jonckheere-Terpstra test to test for ordered differences among classes.
+
 jonckheereTerpstraTest is the exact (permutation) version of the
 Jonckheere-Terpstra test.  It uses the statistic \deqn{\sum_{k<l} \sum_{ij}
 I(X_{ik} < X_{jl}) + 0.5 I(X_{ik} = X_{jl}),} where \eqn{i, j} are
@@ -81,6 +85,9 @@ the corresponding elements of \code{x}.
 The function was previously published as \code{jonckheere.test()} in
 the \pkg{clinfun} package and has been integrated here without logical
 changes. Some argument checks and a formula interface were added.
+
+Original C code by Venkatraman E. Seshan. Rewritten in C++ with an
+adapted R interface to conform to package standards.
 }
 \examples{
 
@@ -128,10 +135,6 @@ Other topic.nonparametricTests:
 \code{\link{siegelTukeyTest}()},
 \code{\link{signTest}()},
 \code{\link{vanWaerdenTest}()}
-}
-\author{
-Venkatraman E. Seshan \href{mailto:seshanv@mskcc.org}{seshanv@mskcc.org}, minor adaptations Andri
-Signorell
 }
 \concept{ordered alternatives}
 \concept{rank-based}

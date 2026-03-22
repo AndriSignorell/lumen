@@ -1,6 +1,9 @@
 
 #' Levene's Test for Homogeneity of Variance
 #' 
+#' A test for homogeneity of variances across two or more groups, 
+#' more robust to departures from normality than Bartlett's test.
+#' 
 #' Computes Levene's test for homogeneity of variance across groups.
 #' 
 #' Let \eqn{X_{ij}} be the jth observation of X for the ith group. 
@@ -43,20 +46,15 @@
 
 #' @return An object of class "htest" representing the result of the 
 #' hypothesis test.
-
-#' @note This function is rewritten using common R standards based on 
-#' car::leveneTest() using the same calculation logic.
-
-#' @author andri.signorell \email{andri@signorell.net}; original version 
-#' written by John Fox \email{jfox@@mcmaster.ca} based on a generic version
-#' contributed by Derek Ogle\cr adapted from a response posted by Brian Ripley
-#' to the r-help email list.
-
-#' @references Fox, J. (2008) \emph{Applied Regression Analysis and Generalized
-#' Linear Models}, Second Edition. Sage.
 #' 
-#' Fox, J. and Weisberg, S. (2011) \emph{An R Companion to Applied Regression},
-#' Second Edition, Sage.
+#' @note
+#' Based on \code{car::leveneTest()} by John Fox, with contributions 
+#' by Derek Ogle and Brian Ripley, rewritten to conform to common 
+#' R standards while retaining the original calculation logic.
+#' 
+#' @references
+#' Fox, J. and Weisberg, S. (2019) \emph{An R Companion to Applied Regression}.
+#' Third Edition. Sage, Thousand Oaks, CA.
 #' 
 #' Levene, H. (1960) Robust tests for equality of variances. 
 #' in Ingram, O., Hotelling, H. et al. (Hrsg.) (1960) Contributions 
@@ -78,6 +76,7 @@
 #' well as different methods for handling ties.
 #' 
 #' @family topic.parametricTests
+#' @family topic.dispersionTests
 #' @concept variance homogeneity
 #' 
 #' @examples

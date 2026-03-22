@@ -1,6 +1,10 @@
 
 #' Z Test for Known Population Standard Deviation
 #' 
+#' A parametric test for the mean of a normal distribution when the population 
+#' variance is known, or for comparing two means with known variances, based 
+#' on the standard normal distribution.
+#' 
 #' Compute the test of hypothesis and compute confidence interval on the mean
 #' of a population when the standard deviation of the population is known.
 #' 

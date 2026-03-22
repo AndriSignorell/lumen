@@ -55,9 +55,9 @@ scores, and whether they are included in the one-sided (\code{1}), two-sided
 corresponding p-values for both one- and two-sided tests}
 }
 \description{
-Barnard's unconditional test for superiority applied to \eqn{2 \times
-2}{2x2} contingency tables using Score or Wald statistics for the difference
-between two binomial proportions.
+An exact unconditional test for \eqn{2 \times 2}{2x2} contingency
+tables, offering a more powerful alternative to Fisher's exact test
+by avoiding conditioning on both marginal totals.
 }
 \details{
 There are two fundamentally different exact tests for comparing the equality
@@ -117,6 +117,9 @@ useStoredCSM = FALSE ensures the p-value is correctly calculated at the
 expense of significantly greater computation time. The stored ordering
 matrix is not used in the calculation of confidence intervals or
 non-inferiority tests, so CSM can still be very computationally intensive."}
+}
+\note{
+Adapted from code by Peter Calhoun to conform to package standards.
 }
 \examples{
 #' 
@@ -189,10 +192,6 @@ Other topic.contingencyTests:
 \code{\link{mhChisqTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Peter Calhoun \href{mailto:calhoun.peter@gmail.com}{calhoun.peter@gmail.com}, Andri Signorell
-\href{mailto:andri@signorell.net}{andri@signorell.net} (interface)
 }
 \concept{binomial proportions}
 \concept{exact test}

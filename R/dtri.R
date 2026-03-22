@@ -1,6 +1,12 @@
 
 #' The Triangular Distribution
 #' 
+#' The triangular distribution is a continuous distribution with a lower 
+#' bound, an upper bound, and a mode, producing a piecewise linear, 
+#' triangular-shaped density function. It is commonly used in risk 
+#' assessment and simulation when only the minimum, maximum, and most 
+#' likely value of a quantity are known.
+#' 
 #' Density, distribution function, quantile function, and random generation for
 #' the triangular distribution with parameters \code{min}, \code{max}, and
 #' \code{mode}.
@@ -59,7 +65,9 @@
 #' The triangular distribution is sometimes used as an input distribution in
 #' probability risk assessment.
 #' 
-#' @author Steven P. Millard (\email{EnvStats@@ProbStatInfo.com})
+#' @note
+#' Based on code by Steven P. Millard. 
+#' 
 #' @seealso \link[stats:Uniform]{Uniform}, Probability Distributions and Random
 #' Numbers.
 #' 
@@ -76,6 +84,7 @@
 #' @concept triangular distribution
 #' @concept bounded support
 #' @concept dpqr
+#' 
 #' 
 #' @examples
 #' 

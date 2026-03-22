@@ -52,9 +52,13 @@ method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
 creates its own values for each plot.
 }
 \description{
-Performs Dunnett's test for comparing several treatments with a control.
+A parametric post hoc test for multiple comparisons of several
+treatment groups against a single control group, controlling the
+familywise error rate.
 }
 \details{
+Performs Dunnett's test for comparing several treatments with a control.
+
 \code{dunnettTest} does the post hoc pairwise multiple comparisons
 procedure.
 
@@ -102,18 +106,12 @@ comparing several treatments with a control, \emph{Journal of the American
 Statistical Association}, 50:1096-1121.
 }
 \seealso{
-\code{\link{postHocTest}}
-
 Other topic.postHocTests: 
 \code{\link{conoverTest}()},
 \code{\link{dunnTest}()},
 \code{\link{nemenyiTest}()},
 \code{\link{postHoc}},
 \code{\link{scheffeTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, the interface is based on
-R-Core code
 }
 \concept{control comparison}
 \concept{multiple comparisons}

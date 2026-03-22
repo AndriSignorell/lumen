@@ -1,7 +1,10 @@
 
 #' Augmented-Dickey-Fuller Unit Root Test
 #' 
-#' Performs the augmented Dickey-Fuller unit root test.
+#' Performs the augmented Dickey-Fuller unit root test in time series, testing 
+#' whether a time series is stationary. It extends the simple Dickey-Fuller 
+#' test by including lagged difference terms to account for autocorrelation.
+#' 
 #' 
 #' The function \code{adfTest()} computes the augmented Dickey-Fuller test. If
 #' type is set to \code{"none"} neither an intercept nor a trend is included in
@@ -19,7 +22,10 @@
 #' number of lags considered is set by \code{lags}. The default is to use a
 #' \code{"fixed"} lag length set by \code{lags}.
 #' @return An object of class \code{htest}.
-#' @author Bernhard Pfaff
+#' 
+#' @note
+#' Adapted from code by Bernhard Pfaff to conform to package standards.
+#' 
 #' @references Dickey, D. A. and Fuller, W. A. (1979), Distributions of the
 #' Estimators For Autoregressive Time Series with a Unit Root, \emph{Journal of
 #' the American Statistical Association}, \bold{75}, 427--431.

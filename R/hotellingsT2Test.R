@@ -1,6 +1,10 @@
 
 #' Hotelling's T2 Test
 #' 
+#' A multivariate generalization of the two-sample t-test, testing whether 
+#' two groups differ significantly across multiple dependent variables 
+#' simultaneously.
+#' 
 #' 
 #' Hotelling's T2 test is the multivariate generlisation of the Student's t
 #' test. A one-sample Hotelling's T2 test can be used to test if a set of
@@ -55,7 +59,8 @@
 #' performed.} \item{data.name}{a character string giving the name of the data
 #' (and grouping vector).}
 #' 
-#' @author Klaus Nordhausen, <klaus.nordhausen@@uta.fi>
+#' @note
+#' Adapted from code by Klaus Nordhausen to conform to package standards.
 #' 
 #' @references Nordhausen K., Sirkia S., Oja H. and Tyler D. E. (2012)
 #' \emph{ICSNP: Tools for Multivariate Nonparametrics}. R package version

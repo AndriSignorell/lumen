@@ -1,6 +1,9 @@
 
 #' Fast correlation test for a matrix
 #'
+#' A test for significant correlation between two variables, supporting 
+#' Pearson, Spearman, and Kendall correlation coefficients.
+#' 
 #' Computes Pearson correlations, pairwise sample sizes, and p-values for all
 #' variable pairs in a numeric matrix. The p-values are computed directly from
 #' the correlation coefficients using the exact Beta distribution under the

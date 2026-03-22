@@ -1,6 +1,10 @@
 
 #' Dunn's Test of Multiple Comparisons
 #' 
+#' A nonparametric post hoc test for multiple pairwise comparisons 
+#' following a significant Kruskal-Wallis test, based on rank 
+#' sums with adjustment for multiple testing.
+#' 
 #' Performs Dunn's test of multiple comparisons using rank sums.
 #' 
 #' \code{dunnTest} performs the post hoc pairwise multiple comparisons
@@ -54,9 +58,6 @@
 #' @return A list with class \code{"dunnTest"} containing the following
 #' components: \item{res}{an array containing the mean rank differencens and
 #' the according p-values}
-#' 
-#' @author Andri Signorell <andri@@signorell.net>, the interface is based on
-#' R-Core code
 #' 
 #' @seealso \code{\link{kruskal.test}}, \code{\link{wilcox.test}},
 #' \code{\link{p.adjust}}

@@ -23,11 +23,15 @@ performed.} \item{data.name}{a character string giving the name(s) of the
 data.}
 }
 \description{
+A Mantel-Haenszel chi-squared test for association between two dichotomous
+variables across several strata, providing a common odds ratio estimate
+adjusted for confounding.
+}
+\details{
 The Mantel-Haenszel chi-square statistic tests the alternative hypothesis
 that there is a linear association between the row variable and the column
 variable. Both variables must lie on an ordinal scale.
-}
-\details{
+
 The statistic is computed as \eqn{ Q_{MH} = (n-1) \cdot r^2}, where
 \eqn{r^2} is the Pearson correlation between the row variable and the column
 variable. The Mantel-Haenszel chi-square statistic use the scores specified
@@ -62,9 +66,6 @@ Other topic.contingencyTests:
 \code{\link{lehmacherTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{stratified analysis}
 \concept{topic.contingencyTests}

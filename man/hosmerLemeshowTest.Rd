@@ -22,11 +22,15 @@ goodness of fit test.}
 A list of tests.
 }
 \description{
+A goodness-of-fit test for logistic regression models, assessing whether the
+observed event rates match the predicted probabilities across grouped
+subsets of the data.
+}
+\details{
 The function computes Hosmer-Lemeshow goodness of fit tests for C and H
 statistic as well as the le Cessie-van Houwelingen-Copas-Hosmer unweighted
 sum of squares test for global goodness of fit.
-}
-\details{
+
 Hosmer-Lemeshow goodness of fit tests are computed; see Lemeshow and Hosmer
 (1982).
 
@@ -39,6 +43,9 @@ A more general version of this test is implemented in function
 \code{residuals.lrm} in package \pkg{Design}.
 package does not exist!!!
 ************************* CHECK *****************************
+}
+\note{
+Adapted from code by Matthias Kohl to conform to package standards.
 }
 \examples{
 
@@ -64,9 +71,6 @@ of goodness-of-fit tests for the logistic regression model.
 }
 \seealso{
 \code{\link{glm}}
-}
-\author{
-Matthias Kohl \href{mailto:Matthias.Kohl@stamats.de}{Matthias.Kohl@stamats.de}
 }
 \concept{goodness-of-fit}
 \concept{logistic regression}

@@ -1,6 +1,10 @@
 
 #' Lehmacher's Test for Marginal Homogenity 
 #' 
+#' A nonparametric test for marginal homogeneity in square contingency tables 
+#' for dependent samples, based on a normal approximation of the cell 
+#' frequency differences.
+#' 
 #' Performs Lehmacher's chi-squared test for marginal homogenity in a symmetric
 #' two-dimensional contingency table. 
 #' 
@@ -32,7 +36,6 @@
 #' string indicating what type of test was performed.} \item{data.name}{a
 #' character string giving the name of the data.}
 #' 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' @seealso \code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix),
 #' \code{\link{stuartMaxwellTest}}, \code{\link{woolfTest}} 
 #' @references Lehmacher, W. (1980) Simultaneous sign tests for marginal

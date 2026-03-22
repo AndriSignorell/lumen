@@ -63,9 +63,13 @@ components: \item{res}{an array containing the mean rank differencens and
 the according p-values}
 }
 \description{
-Performs Dunn's test of multiple comparisons using rank sums.
+A nonparametric post hoc test for multiple pairwise comparisons
+following a significant Kruskal-Wallis test, based on rank
+sums with adjustment for multiple testing.
 }
 \details{
+Performs Dunn's test of multiple comparisons using rank sums.
+
 \code{dunnTest} performs the post hoc pairwise multiple comparisons
 procedure appropriate to follow the rejection of a Kruskal-Wallis test. The
 Kruskal-Wallis test, being a non-parametric analog of the one-way ANOVA, is
@@ -134,10 +138,6 @@ Other topic.postHocTests:
 \code{\link{nemenyiTest}()},
 \code{\link{postHoc}},
 \code{\link{scheffeTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, the interface is based on
-R-Core code
 }
 \concept{multiple comparisons}
 \concept{nonparametric}

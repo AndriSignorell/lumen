@@ -1,6 +1,10 @@
 
 #' Compute Scores for Ordinal Contingency Tables
 #'
+#' A utility function computing score transformations of raw data, 
+#' including normal scores, exponential scores, and Savage scores, 
+#' typically used as a preprocessing step for nonparametric tests.
+#' 
 #' Computes score values for the levels of a contingency table margin.
 #' These scores are used in several statistical procedures such as the
 #' Cochran-Armitage test and correlation measures for ordinal data.

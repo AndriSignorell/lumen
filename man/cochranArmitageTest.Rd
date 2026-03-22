@@ -23,6 +23,10 @@ test for trend}.} \item{data.name}{a character string giving the names of
 the data.}
 }
 \description{
+A test for linear trend in proportions across ordered categories in 2×k
+contingency tables, typically used in epidemiological dose-response analyses.
+}
+\details{
 Perform a Cochran Armitage test for trend in binomial proportions across the
 levels of a single variable. This test is appropriate only when one variable
 has two levels and the other variable is ordinal. The two-level variable
@@ -30,6 +34,11 @@ represents the response, and the other represents an explanatory variable
 with ordered levels. The null hypothesis is the hypothesis of no trend,
 which means that the binomial proportion is the same for all levels of the
 explanatory variable.
+}
+\note{
+Based on code by Eric Lecoutre.
+
+\url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
 }
 \examples{
 
@@ -69,8 +78,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 }
 \seealso{
 \code{\link{prop.trend.test}}
-
-\url{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}
+\href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
 
 Other topic.contingencyTests: 
 \code{\link{barnardTest}()},
@@ -81,11 +89,6 @@ Other topic.contingencyTests:
 \code{\link{mhChisqTest}()},
 \code{\link{stuartMaxwellTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} strongly based on code from
-Eric Lecoutre \href{mailto:lecoutre@stat.ucl.ac.be}{lecoutre@stat.ucl.ac.be}\cr
-\url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
 }
 \concept{topic.contingencyTests}
 \concept{trend test}

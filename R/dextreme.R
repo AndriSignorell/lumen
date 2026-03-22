@@ -1,6 +1,12 @@
 
 #' Distributions of Maxima and Minima
 #' 
+#' Density, distribution, quantile, and random generation functions for 
+#' the maximum or minimum of a given number of independent and identically 
+#' distributed random variables from any specified distribution, derived 
+#' analytically from the underlying distribution function.
+#' 
+#' 
 #' Density function, distribution function, quantile function and random
 #' generation for the maximum/minimum of a given number of independent
 #' variables from a specified distribution.
@@ -30,7 +36,10 @@
 #' the maximum/minimum of \code{mlen} independent variables from a specified
 #' distibution. \code{rextreme} generates random deviates.
 #' 
-#' @family topic.distributions
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept extreme value theory
 #' @concept maxima

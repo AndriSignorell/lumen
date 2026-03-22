@@ -1,6 +1,10 @@
 
 #' Von Neumann's Successive Difference Test 
 #' 
+#' A test for randomness or autocorrelation in a sequence, based on the mean 
+#' square successive difference relative to the sample variance, closely 
+#' related to the Durbin-Watson test.
+#' 
 #' A popular statistic to test for independence is the von Neumann ratio. 
 #' 
 #' The VN test statistic is in the unbiased case
@@ -35,8 +39,8 @@
 #' hypothesis.} \item{method}{a character string indicating the test
 #' performed.} \item{data.name}{a character string giving the name of the
 #' data.}
-#' @author Andri Signorell <andri@@signorell.net>
-#' @seealso \code{\link{BartelsRankTest}} 
+#' 
+#' @seealso \code{\link{bartelsRankTest}} 
 #' @references von Neumann, J. (1941) Distribution of the ratio of the mean
 #' square successive difference to the variance. \emph{Annals of Mathematical
 #' Statistics} \bold{12}, 367-395.

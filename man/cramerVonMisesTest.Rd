@@ -18,10 +18,15 @@ string \dQuote{Cramer-von Mises normality test}.} \item{data.name}{a
 character string giving the name(s) of the data.}
 }
 \description{
-Performs the Cramer-von Mises test for the composite hypothesis of
-normality, see e.g. Thode (2002, Sec. 5.1.3).
+A goodness-of-fit test based on the integrated squared discrepancies
+between the empirical and theoretical distribution functions. Similar
+to the Anderson-Darling test, but without increased weighting of the
+distribution tails.
 }
 \details{
+Performs the Cramer-von Mises test for the composite hypothesis of
+normality, see e.g. Thode (2002, Sec. 5.1.3).
+
 The Cramer-von Mises test is an EDF omnibus test for the composite
 hypothesis of normality.  The test statistic is \deqn{ }{W = 1/(12n) +
 \sum_{i=1}^n (p_(i) - (2i-1)/(2n))^2,}\deqn{W = \frac{1}{12 n} +
@@ -32,6 +37,9 @@ of the standard normal distribution, and \eqn{\overline{x}} and \eqn{s} are
 mean and standard deviation of the data values.  The p-value is computed
 from the modified statistic \eqn{Z=W (1.0 + 0.5/n)} according to Table 4.9
 in Stephens (1986).
+}
+\note{
+Based on code by Juergen Gross.
 }
 \examples{
 cramerVonMisesTest(rnorm(100, mean = 5, sd = 3))
@@ -57,9 +65,6 @@ Other topic.goodnessOfFit:
 \code{\link{lillieTest}()},
 \code{\link{pearsonTest}()},
 \code{\link{shapiroFranciaTest}()}
-}
-\author{
-Juergen Gross
 }
 \concept{EDF test}
 \concept{goodness-of-fit}

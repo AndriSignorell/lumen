@@ -28,7 +28,9 @@ number of lags considered is set by \code{lags}. The default is to use a
 An object of class \code{htest}.
 }
 \description{
-Performs the augmented Dickey-Fuller unit root test.
+Performs the augmented Dickey-Fuller unit root test in time series, testing
+whether a time series is stationary. It extends the simple Dickey-Fuller
+test by including lagged difference terms to account for autocorrelation.
 }
 \details{
 The function \code{adfTest()} computes the augmented Dickey-Fuller test. If
@@ -37,6 +39,9 @@ the test regression. If it is set to \code{"drift"} an intercept is added
 and if it is set to \code{"trend"} both an intercept and a trend is added.
 The critical values are taken from Hamilton (1994) and Dickey and
 Fuller(1981).
+}
+\note{
+Adapted from code by Bernhard Pfaff to conform to package standards.
 }
 \examples{
 
@@ -60,9 +65,6 @@ Other topic.timeSeriesTests:
 \code{\link{breuschGodfreyTest}()},
 \code{\link{durbinWatsonTest}()},
 \code{\link{kpssTest}()}
-}
-\author{
-Bernhard Pfaff
 }
 \concept{topic.timeSeriesTests}
 \concept{unit root}

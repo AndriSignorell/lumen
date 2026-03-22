@@ -56,6 +56,11 @@ performed.} \item{data.name}{a character string giving the name of the data
 (and grouping vector).}
 }
 \description{
+A multivariate generalization of the two-sample t-test, testing whether
+two groups differ significantly across multiple dependent variables
+simultaneously.
+}
+\details{
 Hotelling's T2 test is the multivariate generlisation of the Student's t
 test. A one-sample Hotelling's T2 test can be used to test if a set of
 vectors of data (which should be a sample of a single statistical
@@ -63,8 +68,7 @@ population) has a mean equal to a hypothetical mean. A two-sample
 Hotelling's T2 test may be used to test for significant differences between
 the mean vectors (multivariate means) of two multivariate data sets are
 different.
-}
-\details{
+
 The classical test for testing the location of a multivariate population or
 for testing the mean difference for two multivariate populations. When
 \code{test = "f"} the F-distribution is used for the test statistic and it
@@ -74,6 +78,9 @@ second moments.  In the two sample case both populations are assumed to have
 the same covariance matrix.
 
 The formula interface is only applicable for the 2-sample tests.
+}
+\note{
+Adapted from code by Klaus Nordhausen to conform to package standards.
 }
 \examples{
 
@@ -101,9 +108,6 @@ Other topic.parametricTests:
 \code{\link{varTest}()},
 \code{\link{yuenTTest}()},
 \code{\link{zTest}()}
-}
-\author{
-Klaus Nordhausen, \href{mailto:klaus.nordhausen@uta.fi}{klaus.nordhausen@uta.fi}
 }
 \concept{mean comparison}
 \concept{multivariate}

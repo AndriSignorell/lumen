@@ -1,6 +1,10 @@
 
 #' Yuen t-Test For Trimmed Means
 #' 
+#' A robust alternative to the t-test based on trimmed means and winsorized 
+#' variances, less sensitive to outliers and departures from normality than 
+#' the classical t-test.
+#' 
 #' Performs one and two sample Yuen t-tests for trimmed means on vectors of
 #' data.
 #' 
@@ -46,9 +50,6 @@
 #' the alternative hypothesis.} \item{method}{a character string indicating
 #' what type of test was performed.} \item{data.name}{a character string giving
 #' the name(s) of the data.}
-#' 
-#' @author Andri Signorell <andri@@signorell.net>, based on R-Core code of
-#' \code{\link{t.test}}
 #' 
 #' @seealso \code{\link{t.test}}, \code{\link{print.htest}}
 #' @references Wilcox, R. R. (2005) Introduction to robust estimation and

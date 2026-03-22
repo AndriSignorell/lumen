@@ -47,9 +47,13 @@ alternative hypothesis.} \item{method}{ the type of test applied.}
 sample median.}
 }
 \description{
-Performs one- and two-sample sign tests on vectors of data.
+A nonparametric test for the median of a single sample or the median
+difference of paired samples, based solely on the signs of deviations
+from the hypothesized median.
 }
 \details{
+Performs one- and two-sample sign tests on vectors of data.
+
 The formula interface is only applicable for the 2-sample test.
 
 \code{signTest} computes a \dQuote{Dependent-samples Sign-Test} if both
@@ -117,9 +121,6 @@ Other topic.nonparametricTests:
 \code{\link{pageTest}()},
 \code{\link{siegelTukeyTest}()},
 \code{\link{vanWaerdenTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{median}
 \concept{paired test}

@@ -32,9 +32,13 @@ performed.} \item{data.name}{a character string giving the name of the
 data.}
 }
 \description{
-A popular statistic to test for independence is the von Neumann ratio.
+A test for randomness or autocorrelation in a sequence, based on the mean
+square successive difference relative to the sample variance, closely
+related to the Durbin-Watson test.
 }
 \details{
+A popular statistic to test for independence is the von Neumann ratio.
+
 The VN test statistic is in the unbiased case
 \deqn{VN=\frac{\sum_{i=1}^{n-1}(x_i-x_{i+1})^2 \cdot
 n}{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2 \cdot (n-1)}
@@ -62,14 +66,11 @@ square successive difference to the variance. \emph{Annals of Mathematical
 Statistics} \bold{12}, 367-395.
 }
 \seealso{
-\code{\link{BartelsRankTest}}
+\code{\link{bartelsRankTest}}
 
 Other topic.randomnessTests: 
-\code{\link{BartelsRankTest}()},
+\code{\link{bartelsRankTest}()},
 \code{\link{runsTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{randomness}
 \concept{topic.randomnessTests}

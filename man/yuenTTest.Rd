@@ -76,6 +76,11 @@ what type of test was performed.} \item{data.name}{a character string giving
 the name(s) of the data.}
 }
 \description{
+A robust alternative to the t-test based on trimmed means and winsorized
+variances, less sensitive to outliers and departures from normality than
+the classical t-test.
+}
+\details{
 Performs one and two sample Yuen t-tests for trimmed means on vectors of
 data.
 }
@@ -117,10 +122,6 @@ Other topic.parametricTests:
 \code{\link{tTestA}()},
 \code{\link{varTest}()},
 \code{\link{zTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, based on R-Core code of
-\code{\link{t.test}}
 }
 \concept{mean comparison}
 \concept{robust statistics}

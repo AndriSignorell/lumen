@@ -1,6 +1,11 @@
 
 #' Distributions of Order Statistics
 #' 
+#' Density, distribution, and random generation functions for a selected 
+#' order statistic (the j-th largest or smallest value) from a sample of 
+#' a given size drawn from any specified distribution, derived analytically 
+#' using the beta distribution representation of order statistics.
+#' 
 #' Density function, distribution function and random generation for a selected
 #' order statistic of a given number of independent variables from a specified
 #' distribution.
@@ -31,7 +36,10 @@
 #' selected order statistic from a sample of size \code{mlen}, from a specified
 #' distribution. \code{rorder} generates random deviates.
 #' 
-#' @family topic.distributions
+#' @note
+#' Based on code by Alec Stephenson. 
+#' 
+#' @family topic.extremevalue.distributions
 #' @concept continuous distribution
 #' @concept order statistics
 #' @concept ranks

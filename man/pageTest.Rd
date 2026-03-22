@@ -48,10 +48,14 @@ character string \code{"Page test for ordered alternatives"}.}
 \item{data.name}{a character string giving the names of the data.}
 }
 \description{
-Performs a Page test for ordered alternatives using an exact algorithm by
-Stefan Wellek (1989) with unreplicated blocked data.
+A nonparametric test for ordered alternatives in a two-way layout with
+one observation per cell, assessing whether a monotonic trend exists
+across ordered treatment conditions in a randomized complete block design.
 }
 \details{
+Performs a Page test for ordered alternatives using an exact algorithm by
+Stefan Wellek (1989) with unreplicated blocked data.
+
 \code{pageTest} can be used for analyzing unreplicated complete block
 designs (i.e., there is exactly one observation in \code{y} for each
 combination of levels of \code{groups} and \code{blocks}) where the

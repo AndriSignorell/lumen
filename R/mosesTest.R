@@ -1,6 +1,10 @@
 
 #' Moses Test of Extreme Reactions
 #' 
+#' A nonparametric test comparing the spread (range) of two independent 
+#' groups, assessing whether the control group shows greater variability 
+#' than the treatment group.
+#' 
 #' Perform Moses test of extreme reactions, which is a distribution-free
 #' non-parametric test for the difference between two independent groups in the
 #' extremity of scores (in both directions) that the groups contain.  Scores
@@ -45,7 +49,6 @@
 #' \item{p.value}{the p-value for the test.} \item{method}{the character string
 #' \dQuote{Moses Test of Extreme Reactions}.} \item{data.name}{a character
 #' string giving the name(s) of the data.}
-#' @author Andri Signorell <andri@@signorell.net>
 #' 
 #' @seealso \code{\link{wilcox.test}}, \code{\link{ks.test}}
 #' 

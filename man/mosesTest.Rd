@@ -50,6 +50,11 @@ components: \item{statistic}{the value of the Moses Test statistic.}
 string giving the name(s) of the data.}
 }
 \description{
+A nonparametric test comparing the spread (range) of two independent
+groups, assessing whether the control group shows greater variability
+than the treatment group.
+}
+\details{
 Perform Moses test of extreme reactions, which is a distribution-free
 non-parametric test for the difference between two independent groups in the
 extremity of scores (in both directions) that the groups contain.  Scores
@@ -58,8 +63,7 @@ is the span of scores (the range plus 1) in one of the groups chosen
 arbitrarily. An exact probability is computed for the span and then
 recomputed after dropping a specified number of extreme scores from each end
 of its range. The exact one-tailed probability is calculated.
-}
-\details{
+
 For two independent samples from a continuous field, this tests whether
 extreme values are equally likely in both populations or if they are more
 likely to occur in the population from which the sample with the larger
@@ -95,9 +99,6 @@ Other topic.nonparametricTests:
 \code{\link{siegelTukeyTest}()},
 \code{\link{signTest}()},
 \code{\link{vanWaerdenTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{scale test}
 \concept{topic.nonparametricTests}

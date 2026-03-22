@@ -60,6 +60,8 @@ the result of the test.
 The function call \code{pearsonTest(x)} essentially produces the same
 result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)),
 n.param.est=2)}.
+
+Based on code by Juergen Gross.
 }
 \examples{
 
@@ -85,9 +87,6 @@ Other topic.goodnessOfFit:
 \code{\link{jarqueBeraTest}()},
 \code{\link{lillieTest}()},
 \code{\link{shapiroFranciaTest}()}
-}
-\author{
-Juergen Gross
 }
 \concept{chi-square}
 \concept{goodness-of-fit}

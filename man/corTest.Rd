@@ -32,12 +32,15 @@ A list with three matrices:
 }
 }
 \description{
+A test for significant correlation between two variables, supporting
+Pearson, Spearman, and Kendall correlation coefficients.
+}
+\details{
 Computes Pearson correlations, pairwise sample sizes, and p-values for all
 variable pairs in a numeric matrix. The p-values are computed directly from
 the correlation coefficients using the exact Beta distribution under the
 null hypothesis of zero correlation.
-}
-\details{
+
 Compared to repeatedly calling \code{stats::cor.test()}, this implementation is
 fully vectorised and substantially faster for matrices with many variables.
 
