@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(DescToolsTests)
+library(lumen)
 
-test_check("DescToolsTests")
+test_check("lumen")

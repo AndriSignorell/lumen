@@ -6,7 +6,7 @@
 #'
 #' @param loc location parameter.
 #' @param scale scale parameter.
-#' @param shape shape parameter.
+#' @param shape,rate vector of shape and rate parameters.
 #'
 #' @return A named numeric vector with elements \code{mean} and
 #'   \code{variance}. Returns \code{NA} where moments do not exist.
@@ -136,23 +136,25 @@ mgpd <- function(loc = 0, scale = 1, shape = 0) {
 #' @rdname ev.moments
 #' @export
 mgompertz <- function(shape, rate = 1) {
+  
   if (shape == 0) {
-    # exponential special case
-    c(mean     = 1 / rate,
-      variance = 1 / rate^2)
+    return(c(mean = 1 / rate,
+             variance = 1 / rate^2))
+    
   } else if (shape > 0) {
+    
     mu <- integrate(function(x)
       pgompertz(x, shape = shape, rate = rate,
                 lower.tail = FALSE),
       0, Inf)$value
-    c(mean     = mu,
-      variance = integrate(function(x)
-        2 * x * pgompertz(x, shape = shape, rate = rate,
-                          lower.tail = FALSE),
-        0, Inf)$value - mu^2)
+    
+    return(c(mean = mu,
+             variance = integrate(function(x)
+               2 * x * pgompertz(x, shape = shape, rate = rate,
+                                 lower.tail = FALSE),
+               0, Inf)$value - mu^2))
+    
   } else {
-    # shape < 0: non-zero probability of immortality, moments do not exist
-    c(mean = NA_real_, variance = NA_real_)
+    return(c(mean = NA_real_, variance = NA_real_))
   }
 }
-

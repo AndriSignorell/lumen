@@ -18,20 +18,6 @@ inline Rcpp::NumericVector perhaps_exp(const T1& y, bool log) {
   return log ? y : Rcpp::exp(y);
 }
 
-// --- rep_len helper (like flexsurv) ---
-namespace flexsurv {
-
-template <int RTYPE, bool NA, typename T>
-inline Rcpp::sugar::Rep_len<RTYPE, NA, T>
-rep_len(const Rcpp::VectorBase<RTYPE, NA, T>& t, R_xlen_t len) {
-  if (t.size() == 0) {
-    Rcpp::stop("zero length vector provided");
-  } else {
-    return Rcpp::rep_len(t, len);
-  }
-}
-
-}
 
 // --- gompertz implementation ---
 namespace {
@@ -167,15 +153,17 @@ dgompertz_cpp(const Rcpp::NumericVector& x,
   
   const R_xlen_t size = std::max({x.size(), shape.size(), rate.size()});
   
-  return perhaps_exp(
-    Rcpp::mapply(
-      flexsurv::rep_len(x, size),
-      flexsurv::rep_len(shape, size),
-      flexsurv::rep_len(rate, size),
-      gompertz::density()
-    ),
-    log
+  Rcpp::NumericVector out = Rcpp::mapply(
+    Rcpp::rep_len(x, size),
+    Rcpp::rep_len(shape, size),
+    Rcpp::rep_len(rate, size),
+    gompertz::density()
   );
+  
+  if (!log) out = Rcpp::exp(out);
+  return out;
+  
+  
 }
 
 // [[Rcpp::export(rng=false)]]
@@ -191,9 +179,9 @@ pgompertz_cpp(const Rcpp::NumericVector& q,
   const R_xlen_t size = std::max({q.size(), shape.size(), rate.size()});
   
   return Rcpp::mapply(
-    flexsurv::rep_len(q, size),
-    flexsurv::rep_len(shape, size),
-    flexsurv::rep_len(rate, size),
+    Rcpp::rep_len(q, size),
+    Rcpp::rep_len(shape, size),
+    Rcpp::rep_len(rate, size),
     gompertz::cdf(lower_tail, give_log)
   );
 }
@@ -210,8 +198,8 @@ check_gompertz(const Rcpp::NumericVector& shape,
   const R_xlen_t size = std::max(shape.size(), rate.size());
   
   return !Rcpp::mapply(
-      flexsurv::rep_len(shape, size),
-      flexsurv::rep_len(rate, size),
+      Rcpp::rep_len(shape, size),
+      Rcpp::rep_len(rate, size),
       gompertz::bad
   );
 }

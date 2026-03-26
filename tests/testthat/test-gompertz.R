@@ -120,7 +120,7 @@ test_that("rgompertz matches flexsurv distribution", {
   # mean should be close to theoretical value
   expect_true(all(x >= 0))
   expect_equal(mean(x), 
-               mgompertz(shape = 0.5, rate = 1)["mean"], 
+               unname(mgompertz(shape = 0.5, rate = 1)["mean"]), 
                tolerance = 0.05)
   
   # KS test against flexsurv

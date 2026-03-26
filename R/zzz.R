@@ -1,6 +1,6 @@
 
 
-#' @useDynLib DescToolsTests, .registration = TRUE
+#' @useDynLib lumen, .registration = TRUE
 #' 
 #' 
 #' 

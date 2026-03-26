@@ -2,50 +2,50 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 ADstat <- function(x) {
-    .Call(`_DescToolsTests_ADstat`, x)
+    .Call(`_lumen_ADstat`, x)
 }
 
 ADtest <- function(x) {
-    .Call(`_DescToolsTests_ADtest`, x)
+    .Call(`_lumen_ADtest`, x)
 }
 
 ADprobExactInf <- function(a) {
-    .Call(`_DescToolsTests_ADprobExactInf`, a)
+    .Call(`_lumen_ADprobExactInf`, a)
 }
 
 ADprobApproxInf <- function(a) {
-    .Call(`_DescToolsTests_ADprobApproxInf`, a)
+    .Call(`_lumen_ADprobApproxInf`, a)
 }
 
 ADprobN <- function(a, n) {
-    .Call(`_DescToolsTests_ADprobN`, a, n)
+    .Call(`_lumen_ADprobN`, a, n)
 }
 
 ADtestR <- function(x) {
-    .Call(`_DescToolsTests_ADtestR`, x)
+    .Call(`_lumen_ADtestR`, x)
 }
 
 dgompertz_cpp <- function(x, shape, rate, log) {
-    .Call(`_DescToolsTests_dgompertz_cpp`, x, shape, rate, log)
+    .Call(`_lumen_dgompertz_cpp`, x, shape, rate, log)
 }
 
 pgompertz_cpp <- function(q, shape, rate, lower_tail, give_log) {
-    .Call(`_DescToolsTests_pgompertz_cpp`, q, shape, rate, lower_tail, give_log)
+    .Call(`_lumen_pgompertz_cpp`, q, shape, rate, lower_tail, give_log)
 }
 
 check.gompertz <- function(shape, rate) {
-    .Call(`_DescToolsTests_check_gompertz`, shape, rate)
+    .Call(`_lumen_check_gompertz`, shape, rate)
 }
 
 jtpdf_cpp <- function(mxsum, cgsize, pdf0, pdf1) {
-    .Call(`_DescToolsTests_jtpdf_cpp`, mxsum, cgsize, pdf0, pdf1)
+    .Call(`_lumen_jtpdf_cpp`, mxsum, cgsize, pdf0, pdf1)
 }
 
 pan <- function(A, M, C, N) {
-    .Call(`_DescToolsTests_pan`, A, M, C, N)
+    .Call(`_lumen_pan`, A, M, C, N)
 }
 
 pruns_rcpp <- function(r, n1, n2, alternative = "two.sided") {
-    .Call(`_DescToolsTests_pruns_rcpp`, r, n1, n2, alternative)
+    .Call(`_lumen_pruns_rcpp`, r, n1, n2, alternative)
 }
 

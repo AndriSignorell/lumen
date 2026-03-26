@@ -8,7 +8,7 @@ test_that("Regression vs goftest", {
   x <- runif(100)
   
   ref  <- goftest::ad.test(x)
-  mine <- DescToolsTests::andersonDarlingTest(x)
+  mine <- lumen::andersonDarlingTest(x)
   
   expect_equal(
     unname(mine$statistic),
@@ -29,7 +29,7 @@ test_that("Regression vs goftest", {
     x <- runif(n)
     
     ref  <- goftest::ad.test(x)
-    mine <- DescToolsTests::andersonDarlingTest(x)
+    mine <- lumen::andersonDarlingTest(x)
     
     expect_equal(unname(mine$statistic),
                  unname(ref$statistic),

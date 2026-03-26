@@ -27,7 +27,7 @@ mgompertz(shape, rate = 1)
 
 \item{scale}{scale parameter.}
 
-\item{shape}{shape parameter.}
+\item{shape, rate}{vector of shape and rate parameters.}
 }
 \value{
 A named numeric vector with elements \code{mean} and

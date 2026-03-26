@@ -1,4 +1,4 @@
-Package: DescToolsTests
+Package: lumen
 Title: Hypothesis Tests for DescToolsX
 Version: 0.0.0.901  
 Authors@R: c(

@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // ADstat
 double ADstat(NumericVector x);
-RcppExport SEXP _DescToolsTests_ADstat(SEXP xSEXP) {
+RcppExport SEXP _lumen_ADstat(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // ADtest
 double ADtest(NumericVector x);
-RcppExport SEXP _DescToolsTests_ADtest(SEXP xSEXP) {
+RcppExport SEXP _lumen_ADtest(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -34,7 +34,7 @@ END_RCPP
 }
 // ADprobExactInf
 NumericVector ADprobExactInf(NumericVector a);
-RcppExport SEXP _DescToolsTests_ADprobExactInf(SEXP aSEXP) {
+RcppExport SEXP _lumen_ADprobExactInf(SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -45,7 +45,7 @@ END_RCPP
 }
 // ADprobApproxInf
 NumericVector ADprobApproxInf(NumericVector a);
-RcppExport SEXP _DescToolsTests_ADprobApproxInf(SEXP aSEXP) {
+RcppExport SEXP _lumen_ADprobApproxInf(SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,7 +56,7 @@ END_RCPP
 }
 // ADprobN
 NumericVector ADprobN(NumericVector a, int n);
-RcppExport SEXP _DescToolsTests_ADprobN(SEXP aSEXP, SEXP nSEXP) {
+RcppExport SEXP _lumen_ADprobN(SEXP aSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,7 +68,7 @@ END_RCPP
 }
 // ADtestR
 Rcpp::List ADtestR(const Rcpp::NumericVector& x);
-RcppExport SEXP _DescToolsTests_ADtestR(SEXP xSEXP) {
+RcppExport SEXP _lumen_ADtestR(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -79,7 +79,7 @@ END_RCPP
 }
 // dgompertz_cpp
 Rcpp::NumericVector dgompertz_cpp(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
-RcppExport SEXP _DescToolsTests_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
+RcppExport SEXP _lumen_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
@@ -92,7 +92,7 @@ END_RCPP
 }
 // pgompertz_cpp
 Rcpp::NumericVector pgompertz_cpp(const Rcpp::NumericVector& q, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool lower_tail, const bool give_log);
-RcppExport SEXP _DescToolsTests_pgompertz_cpp(SEXP qSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP lower_tailSEXP, SEXP give_logSEXP) {
+RcppExport SEXP _lumen_pgompertz_cpp(SEXP qSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP lower_tailSEXP, SEXP give_logSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type q(qSEXP);
@@ -106,7 +106,7 @@ END_RCPP
 }
 // check_gompertz
 Rcpp::LogicalVector check_gompertz(const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate);
-RcppExport SEXP _DescToolsTests_check_gompertz(SEXP shapeSEXP, SEXP rateSEXP) {
+RcppExport SEXP _lumen_check_gompertz(SEXP shapeSEXP, SEXP rateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type shape(shapeSEXP);
@@ -117,7 +117,7 @@ END_RCPP
 }
 // jtpdf_cpp
 NumericVector jtpdf_cpp(int mxsum, NumericVector cgsize, NumericVector pdf0, NumericVector pdf1);
-RcppExport SEXP _DescToolsTests_jtpdf_cpp(SEXP mxsumSEXP, SEXP cgsizeSEXP, SEXP pdf0SEXP, SEXP pdf1SEXP) {
+RcppExport SEXP _lumen_jtpdf_cpp(SEXP mxsumSEXP, SEXP cgsizeSEXP, SEXP pdf0SEXP, SEXP pdf1SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -131,7 +131,7 @@ END_RCPP
 }
 // pan
 double pan(NumericVector A, int M, double C, int N);
-RcppExport SEXP _DescToolsTests_pan(SEXP ASEXP, SEXP MSEXP, SEXP CSEXP, SEXP NSEXP) {
+RcppExport SEXP _lumen_pan(SEXP ASEXP, SEXP MSEXP, SEXP CSEXP, SEXP NSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -145,7 +145,7 @@ END_RCPP
 }
 // pruns_rcpp
 double pruns_rcpp(int r, int n1, int n2, std::string alternative);
-RcppExport SEXP _DescToolsTests_pruns_rcpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
+RcppExport SEXP _lumen_pruns_rcpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -159,22 +159,22 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_DescToolsTests_ADstat", (DL_FUNC) &_DescToolsTests_ADstat, 1},
-    {"_DescToolsTests_ADtest", (DL_FUNC) &_DescToolsTests_ADtest, 1},
-    {"_DescToolsTests_ADprobExactInf", (DL_FUNC) &_DescToolsTests_ADprobExactInf, 1},
-    {"_DescToolsTests_ADprobApproxInf", (DL_FUNC) &_DescToolsTests_ADprobApproxInf, 1},
-    {"_DescToolsTests_ADprobN", (DL_FUNC) &_DescToolsTests_ADprobN, 2},
-    {"_DescToolsTests_ADtestR", (DL_FUNC) &_DescToolsTests_ADtestR, 1},
-    {"_DescToolsTests_dgompertz_cpp", (DL_FUNC) &_DescToolsTests_dgompertz_cpp, 4},
-    {"_DescToolsTests_pgompertz_cpp", (DL_FUNC) &_DescToolsTests_pgompertz_cpp, 5},
-    {"_DescToolsTests_check_gompertz", (DL_FUNC) &_DescToolsTests_check_gompertz, 2},
-    {"_DescToolsTests_jtpdf_cpp", (DL_FUNC) &_DescToolsTests_jtpdf_cpp, 4},
-    {"_DescToolsTests_pan", (DL_FUNC) &_DescToolsTests_pan, 4},
-    {"_DescToolsTests_pruns_rcpp", (DL_FUNC) &_DescToolsTests_pruns_rcpp, 4},
+    {"_lumen_ADstat", (DL_FUNC) &_lumen_ADstat, 1},
+    {"_lumen_ADtest", (DL_FUNC) &_lumen_ADtest, 1},
+    {"_lumen_ADprobExactInf", (DL_FUNC) &_lumen_ADprobExactInf, 1},
+    {"_lumen_ADprobApproxInf", (DL_FUNC) &_lumen_ADprobApproxInf, 1},
+    {"_lumen_ADprobN", (DL_FUNC) &_lumen_ADprobN, 2},
+    {"_lumen_ADtestR", (DL_FUNC) &_lumen_ADtestR, 1},
+    {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
+    {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
+    {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
+    {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 4},
+    {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
+    {"_lumen_pruns_rcpp", (DL_FUNC) &_lumen_pruns_rcpp, 4},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_DescToolsTests(DllInfo *dll) {
+RcppExport void R_init_lumen(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

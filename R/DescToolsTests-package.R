@@ -1,8 +1,8 @@
 
-#' DescToolsTests: Tests and Distributions for DescToolsX
+#' lumen: Tests and Distributions for DescToolsX
 #'
 #' @description
-#' The **DescToolsTests** package provides a comprehensive collection of
+#' The **lumen** package provides a comprehensive collection of
 #' statistical hypothesis tests and probability distributions designed to
 #' complement the functionality of \pkg{DescToolsX}.
 #'
@@ -96,5 +96,5 @@
 #'
 #' @keywords internal
 #_PACKAGE"
-#' @name DescToolsTests-package
+#' @name lumen-package
 NULL
