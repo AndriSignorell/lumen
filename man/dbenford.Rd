@@ -107,6 +107,7 @@ Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
 }
 \seealso{
 Other topic.distributions: 
+\code{\link{dgompertz}()},
 \code{\link{dtri}()}
 }
 \concept{Benford law}

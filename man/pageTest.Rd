@@ -46,6 +46,9 @@ components: \item{statistic}{the L-statistic with names attribute
 \dQuote{L}.} \item{p.value}{the p-value of the test.} \item{method}{the
 character string \code{"Page test for ordered alternatives"}.}
 \item{data.name}{a character string giving the names of the data.}
+
+#' @note
+Adapted from code by Stefan Wellek to conform to package standards.
 }
 \description{
 A nonparametric test for ordered alternatives in a two-way layout with
@@ -78,9 +81,6 @@ corresponding blocks are removed.
 For small values of k (methods) or N (data objects), \samp{pageTest} will
 calculate the exact p-values.  For \samp{k, N > 15, Inf}, a normal
 approximation is returned. Only one of these values will be returned.
-}
-\note{
-Special thanks to Prof. S. Wellek for porting old GAUSS code to R.
 }
 \examples{
 
@@ -170,11 +170,6 @@ Other topic.nonparametricTests:
 \code{\link{siegelTukeyTest}()},
 \code{\link{signTest}()},
 \code{\link{vanWaerdenTest}()}
-}
-\author{
-Stefan Wellek \href{mailto:stefan.wellek@zi-mannheim.de}{stefan.wellek@zi-mannheim.de} (exact p-values),
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} (interface) (strongly based on R-Core
-code)
 }
 \concept{ordered alternatives}
 \concept{rank-based}

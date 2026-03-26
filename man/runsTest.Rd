@@ -184,9 +184,5 @@ Other topic.randomnessTests:
 \code{\link{bartelsRankTest}()},
 \code{\link{vonNeumannTest}()}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, exact p-values by Detlew
-Labes \href{mailto:detlewlabes@gmx.de}{detlewlabes@gmx.de}
-}
 \concept{randomness}
 \concept{topic.randomnessTests}

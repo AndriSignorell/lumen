@@ -72,6 +72,7 @@ Other topic.extremevalue.distributions:
 \code{\link{dgpd}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
+\code{\link{drevgumbel}},
 \code{\link{drweibull}()}
 }
 \concept{Gumbel}

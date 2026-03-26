@@ -95,7 +95,8 @@ differences in variabilities (consider using the argument
 \code{adjust.median}).
 }
 \note{
-Based on a blog post by Daniel Malter, Tal Galili \href{mailto:tal.galili@gmail.com}{tal.galili@gmail.com}\n
+Based on a blog post by Daniel Malter, Tal Galili \href{mailto:tal.galili@gmail.com}{tal.galili@gmail.com}
+
 \href{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}{www.r-statistics.com/2010/02/}
 }
 \examples{

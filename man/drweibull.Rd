@@ -86,7 +86,8 @@ Other topic.extremevalue.distributions:
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
-\code{\link{dorder}()}
+\code{\link{dorder}()},
+\code{\link{drevgumbel}}
 }
 \concept{bounded tail}
 \concept{continuous distribution}

@@ -142,7 +142,8 @@ New York.
 Numbers.
 
 Other topic.distributions: 
-\code{\link{dbenford}()}
+\code{\link{dbenford}()},
+\code{\link{dgompertz}()}
 }
 \concept{bounded support}
 \concept{continuous distribution}

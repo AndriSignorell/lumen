@@ -1,13 +1,18 @@
 Package: DescToolsTests
 Title: Hypothesis Tests for DescToolsX
 Version: 0.0.0.901  
-Authors@R: 
-  person("Andri", "Signorell", , "andri@signorell.net", role = c("aut", "cre")),
-  person("R-Core",                                role = c("ctb"))
+Authors@R: c(
+  person(given="Andri", family="Signorell",  
+         email = "andri@signorell.net", 
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0003-4311-1969")),
+  person("R-Core",                                role = c("ctb")),
   person("Adrian"        , "Baddeley",            role = c("ctb")),
   person("Frederico"     , "Caeiro",              role = c("ctb")),
   person("Peter"         , "Calhoun",             role = c("ctb")),
+  person("Stephane"      , "Champely",            role = c("ctb")),
   person("Clint"         , "Cummins",             role = c("ctb")),
+  person("Peter"         , "Dalgaard",            role = c("ctb")),
   person("Richard W."    , "Farebrother",         role = c("ctb")),
   person("John"          , "Fox",                 role = c("ctb")),
   person("Michael"       , "Friendly",            role = c("ctb")),
@@ -20,6 +25,7 @@ Authors@R:
   person("Torsten"       , "Hothorn",             role = c("ctb")),
   person("Pete"          , "Hurd",                role = c("ctb")),
   person("Wallace W."    , "Hui",                 role = c("ctb")),
+  person("Christopher"   , "Jackson",             role = c("ctb")),
   person("Matthias"      , "Kohl",                role = c("ctb")),
   person("Jim"           , "Lemon",               role = c("ctb")),
   person("Eric"          , "Lecoutre",            role = c("ctb")),
@@ -33,12 +39,14 @@ Authors@R:
   person("David"         , "Mitchell",            role = c("ctb")),
   person("Klaus"         , "Nordhausen",          role = c("ctb")),
   person("Bernhard"      , "Pfaff",               role = c("ctb")),
+  person("Hans Rudolf"   , "Roth",                role = c("ctb")),
   person("Venkatraman E.", "Seshan",              role = c("ctb")),
   person("Greg"          , "Snow",                role = c("ctb")),
   person("Alec"          , "Stephenson",          role = c("ctb")),
   person("Stefan"        , "Wellek",              role = c("ctb")),
   person("T. W."         , "Yee",                 role = c("ctb")),
   person("Achim"         , "Zeileis",             role = c("ctb"))
+  )
 Description: Provides hypothesis tests used in DescToolsX.
 Depends: R (>= 4.2.0)
 License: GPL (>= 2)
@@ -47,5 +55,5 @@ LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: boot, DescToolsViz, Exact, mvtnorm, stats, withr
-Suggests:goftest, testthat (>= 3.0.0), coin
+Suggests:goftest, testthat (>= 3.0.0), coin, flexsurv
 Config/testthat/edition: 3

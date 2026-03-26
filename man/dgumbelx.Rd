@@ -86,6 +86,7 @@ Other topic.extremevalue.distributions:
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dorder}()},
+\code{\link{drevgumbel}},
 \code{\link{drweibull}()}
 }
 \concept{continuous distribution}

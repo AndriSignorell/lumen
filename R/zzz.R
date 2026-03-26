@@ -14,7 +14,7 @@
 #'             lm.fit model.frame model.matrix model.response
 #'             setNames weights wilcox.test mantelhaen.test
 #'             weighted.mean na.action lm.wfit quantile
-#'             symnum xtabs rbeta rexp runif
+#'             symnum xtabs rbeta rexp runif qexp integrate
 #'             
 #' @importFrom DescToolsViz setNamesX fm allDuplicated pairApply 
 #'             unirootAll `%nin%` plotDot isNumeric

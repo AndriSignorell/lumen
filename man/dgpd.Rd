@@ -80,6 +80,7 @@ Other topic.extremevalue.distributions:
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
 \code{\link{dorder}()},
+\code{\link{drevgumbel}},
 \code{\link{drweibull}()}
 }
 \concept{GPD}

@@ -77,6 +77,44 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dgompertz_cpp
+Rcpp::NumericVector dgompertz_cpp(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
+RcppExport SEXP _DescToolsTests_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type rate(rateSEXP);
+    Rcpp::traits::input_parameter< const bool >::type log(logSEXP);
+    rcpp_result_gen = Rcpp::wrap(dgompertz_cpp(x, shape, rate, log));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pgompertz_cpp
+Rcpp::NumericVector pgompertz_cpp(const Rcpp::NumericVector& q, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool lower_tail, const bool give_log);
+RcppExport SEXP _DescToolsTests_pgompertz_cpp(SEXP qSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP lower_tailSEXP, SEXP give_logSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type q(qSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type rate(rateSEXP);
+    Rcpp::traits::input_parameter< const bool >::type lower_tail(lower_tailSEXP);
+    Rcpp::traits::input_parameter< const bool >::type give_log(give_logSEXP);
+    rcpp_result_gen = Rcpp::wrap(pgompertz_cpp(q, shape, rate, lower_tail, give_log));
+    return rcpp_result_gen;
+END_RCPP
+}
+// check_gompertz
+Rcpp::LogicalVector check_gompertz(const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate);
+RcppExport SEXP _DescToolsTests_check_gompertz(SEXP shapeSEXP, SEXP rateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type rate(rateSEXP);
+    rcpp_result_gen = Rcpp::wrap(check_gompertz(shape, rate));
+    return rcpp_result_gen;
+END_RCPP
+}
 // jtpdf_cpp
 NumericVector jtpdf_cpp(int mxsum, NumericVector cgsize, NumericVector pdf0, NumericVector pdf1);
 RcppExport SEXP _DescToolsTests_jtpdf_cpp(SEXP mxsumSEXP, SEXP cgsizeSEXP, SEXP pdf0SEXP, SEXP pdf1SEXP) {
@@ -127,6 +165,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_DescToolsTests_ADprobApproxInf", (DL_FUNC) &_DescToolsTests_ADprobApproxInf, 1},
     {"_DescToolsTests_ADprobN", (DL_FUNC) &_DescToolsTests_ADprobN, 2},
     {"_DescToolsTests_ADtestR", (DL_FUNC) &_DescToolsTests_ADtestR, 1},
+    {"_DescToolsTests_dgompertz_cpp", (DL_FUNC) &_DescToolsTests_dgompertz_cpp, 4},
+    {"_DescToolsTests_pgompertz_cpp", (DL_FUNC) &_DescToolsTests_pgompertz_cpp, 5},
+    {"_DescToolsTests_check_gompertz", (DL_FUNC) &_DescToolsTests_check_gompertz, 2},
     {"_DescToolsTests_jtpdf_cpp", (DL_FUNC) &_DescToolsTests_jtpdf_cpp, 4},
     {"_DescToolsTests_pan", (DL_FUNC) &_DescToolsTests_pan, 4},
     {"_DescToolsTests_pruns_rcpp", (DL_FUNC) &_DescToolsTests_pruns_rcpp, 4},

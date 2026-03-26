@@ -97,6 +97,7 @@ Other topic.extremevalue.distributions:
 \code{\link{dgpd}()},
 \code{\link{dgumbel}()},
 \code{\link{dgumbelx}()},
+\code{\link{drevgumbel}},
 \code{\link{drweibull}()}
 }
 \concept{continuous distribution}

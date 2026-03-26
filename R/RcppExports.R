@@ -25,6 +25,18 @@ ADtestR <- function(x) {
     .Call(`_DescToolsTests_ADtestR`, x)
 }
 
+dgompertz_cpp <- function(x, shape, rate, log) {
+    .Call(`_DescToolsTests_dgompertz_cpp`, x, shape, rate, log)
+}
+
+pgompertz_cpp <- function(q, shape, rate, lower_tail, give_log) {
+    .Call(`_DescToolsTests_pgompertz_cpp`, q, shape, rate, lower_tail, give_log)
+}
+
+check.gompertz <- function(shape, rate) {
+    .Call(`_DescToolsTests_check_gompertz`, shape, rate)
+}
+
 jtpdf_cpp <- function(mxsum, cgsize, pdf0, pdf1) {
     .Call(`_DescToolsTests_jtpdf_cpp`, mxsum, cgsize, pdf0, pdf1)
 }

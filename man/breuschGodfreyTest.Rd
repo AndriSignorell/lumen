@@ -70,13 +70,11 @@ inspect the results. (Note, however, that standard theory does not always
 apply to the standard errors and t-statistics in this regression.)
 }
 \note{
-This function was previously published as \code{bgtest} in the
-\pkg{lmtest} package and has been integrated here without logical changes.
-
-Based on code by David Mitchell, and Achim Zeileis.
+Based on code by David Mitchell, and Achim Zeileis. Previously published
+as \code{bgtest} in the \pkg{lmtest} package and integrated here
+without logical changes.
 }
 \examples{
-
 ## Generate a stationary and an AR(1) series
 x <- rep(c(1, -1), 50)
 
@@ -106,7 +104,7 @@ Breusch, T.S. (1979): `Testing for Autocorrelation in Dynamic Linear
 Models', \emph{Australian Economic Papers}, 17, 334-355.
 }
 \seealso{
-\code{\link[DescTools]{DurbinWatsonTest}}
+\code{\link{durbinWatsonTest}}
 
 Other topic.timeSeriesTests: 
 \code{\link{adfTest}()},
