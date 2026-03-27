@@ -25,6 +25,22 @@ ADtestR <- function(x) {
     .Call(`_lumen_ADtestR`, x)
 }
 
+acceptBin <- function(x, n, p) {
+    .Call(`_lumen_acceptBin`, x, n, p)
+}
+
+bdci_exact_sas_rcpp <- function(x1, n1, x2, n2, alpha = 0.05) {
+    .Call(`_lumen_bdci_exact_sas_rcpp`, x1, n1, x2, n2, alpha)
+}
+
+binomdiffciMee <- function(x1, n1, x2, n2, alpha, lower) {
+    .Call(`_lumen_binomdiffciMee`, x1, n1, x2, n2, alpha, lower)
+}
+
+binomdiffciMN <- function(x1, n1, x2, n2, z, lower) {
+    .Call(`_lumen_binomdiffciMN`, x1, n1, x2, n2, z, lower)
+}
+
 dgompertz_cpp <- function(x, shape, rate, log) {
     .Call(`_lumen_dgompertz_cpp`, x, shape, rate, log)
 }

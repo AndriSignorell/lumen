@@ -1,11 +1,76 @@
 
+#' Confidence Interval for the Median
+#' 
+#' Calculate the confidence interval for the median.
+#' 
+#' The \code{"exact"} method is the way SAS is said to calculate the confidence
+#' interval. This is also implemented in \code{\link{signTest}}. The boot
+#' confidence interval type is calculated by means of \code{\link[boot]{boot.ci}}
+#' with default type \code{"perc"}.\cr Use \code{\link{sapply}},
+#' resp.\code{\link{apply}}, to get the confidence intervals from a data.frame
+#' or from a matrix.
+#' 
+#' @param x a (non-empty) numeric vector of data values.
+#' 
+#' @param conf.level confidence level of the interval
+#' 
+#' @param sides a character string specifying the side of the confidence
+#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
+#' \code{"right"}. You can specify just the initial letter. \code{"left"} would
+#' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+#' 
+#' @param na.rm logical. Should missing values be removed? Defaults to
+#' \code{FALSE}.
+#' 
+#' @param method defining the type of interval that should be calculated (one
+#' out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See
+#' Details.
+#' 
+#' @param \dots the dots are passed on to \code{\link[boot]{boot.ci}}. In particular,
+#' the type of bootstrap confidence interval can be defined via this. The
+#' defaults are \code{R=999} and \code{type="perc"}.
+#' 
+#' @return a numeric vector with 3 elements: \item{median}{median}
+#' \item{lci}{lower bound of the confidence interval} \item{uci}{upper
+#' bound of the confidence interval}
+#' 
+#' @author Andri Signorell <andri@@signorell.net>
+#' @seealso \code{\link{wilcox.test}}, \code{\link[DescToolsX]{meanCI}},
+#' \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
+#' @keywords univar
+#' @examples
+#' 
+#' set.seed(448)
+#' x <- c(rnorm(100), NA)
+#' 
+#' medianCI(x, na.rm=TRUE)
+#' medianCI(x, conf.level=0.99, na.rm=TRUE)
+#' 
+#' medianCI(x, na.rm=TRUE, method="exact")
+#' medianCI(x, na.rm=TRUE, method="boot")
+#'  
+#' x <- x[!is.na(x)]
+#' medianCI(x, method="boot")
+#' 
+#' # ... the same as
+#' medianCI(x, method="boot", type="bca")
+#' 
+#' medianCI(x, method="boot", type="basic")
+#' medianCI(x, method="boot", type="perc")
+#' medianCI(x, method="boot", type="norm", R=499)
+#' # not supported:
+#' medianCI(x, method="boot", type="stud")
+#' 
+#' medianCI(x, method="boot", sides="right")
+#' 
+#' 
+
+
 # Confidence intervall for the median
 
-# this is used in signTest and would require a recursive dependency
-# thus it's copied in here as internal function
 
-
-.medianCI <- function(x, 
+#' @export
+medianCI <- function(x, 
                      conf.level=0.95, sides = c("two.sided","left","right"), 
                      method=c("exact","boot"),
                      na.rm=FALSE, ...) {
@@ -118,7 +183,7 @@
     # report the conf.level which can deviate from the required one
     if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
   }
-  names(res) <- c("median","lwr.ci","upr.ci")
+  names(res) <- c("median","lci","uci")
   
   if(sides=="left")
     res[3] <- Inf

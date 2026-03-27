@@ -54,6 +54,9 @@ Encoding: UTF-8
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Imports: boot, DescToolsViz, Exact, mvtnorm, stats, withr
+Imports: boot, aurora, bedrock, Exact, mvtnorm, stats, withr
 Suggests:goftest, testthat (>= 3.0.0), coin, flexsurv
 Config/testthat/edition: 3
+URL: https://andrisignorell.github.io/lumen/,
+            https://github.com/AndriSignorell/lumen/
+BugReports: https://github.com/AndriSignorell/lumen/issues

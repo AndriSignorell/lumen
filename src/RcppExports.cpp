@@ -77,6 +77,66 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// acceptBin
+double acceptBin(int x, int n, double p);
+RcppExport SEXP _lumen_acceptBin(SEXP xSEXP, SEXP nSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(acceptBin(x, n, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// bdci_exact_sas_rcpp
+NumericVector bdci_exact_sas_rcpp(int x1, int n1, int x2, int n2, double alpha);
+RcppExport SEXP _lumen_bdci_exact_sas_rcpp(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(bdci_exact_sas_rcpp(x1, n1, x2, n2, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// binomdiffciMee
+double binomdiffciMee(int x1, int n1, int x2, int n2, double alpha, bool lower);
+RcppExport SEXP _lumen_binomdiffciMee(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
+    rcpp_result_gen = Rcpp::wrap(binomdiffciMee(x1, n1, x2, n2, alpha, lower));
+    return rcpp_result_gen;
+END_RCPP
+}
+// binomdiffciMN
+double binomdiffciMN(int x1, int n1, int x2, int n2, double z, bool lower);
+RcppExport SEXP _lumen_binomdiffciMN(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP zSEXP, SEXP lowerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< double >::type z(zSEXP);
+    Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
+    rcpp_result_gen = Rcpp::wrap(binomdiffciMN(x1, n1, x2, n2, z, lower));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dgompertz_cpp
 Rcpp::NumericVector dgompertz_cpp(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
 RcppExport SEXP _lumen_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
@@ -165,6 +225,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_ADprobApproxInf", (DL_FUNC) &_lumen_ADprobApproxInf, 1},
     {"_lumen_ADprobN", (DL_FUNC) &_lumen_ADprobN, 2},
     {"_lumen_ADtestR", (DL_FUNC) &_lumen_ADtestR, 1},
+    {"_lumen_acceptBin", (DL_FUNC) &_lumen_acceptBin, 3},
+    {"_lumen_bdci_exact_sas_rcpp", (DL_FUNC) &_lumen_bdci_exact_sas_rcpp, 5},
+    {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
+    {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},

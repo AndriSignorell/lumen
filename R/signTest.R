@@ -158,7 +158,7 @@ signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"
   names(RVAL$statistic) <- "S"
   RVAL$estimate <- median(d + mu, na.rm=TRUE)
   names(RVAL$parameter) <- "number of differences"
-  mci <- .medianCI(d + mu, conf.level=conf.level, 
+  mci <- medianCI(d + mu, conf.level=conf.level, 
                   sides=if(alternative=="less") "right" else if(alternative=="greater") "left" else "two.sided", na.rm=TRUE)
   RVAL$conf.int <- mci[-1]
   attr(RVAL$conf.int, "conf.level") = round(attr(mci,"conf.level"), 3)

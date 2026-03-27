@@ -9,7 +9,6 @@
 \alias{print.postHocTest}
 \alias{plot.postHocTest}
 \alias{print.PostHocTest}
-\alias{plot.PostHocTest}
 \title{Post-Hoc Tests}
 \usage{
 postHocTest(x, ...)
@@ -38,8 +37,6 @@ postHocTest(x, ...)
 )
 
 \method{print}{PostHocTest}(x, digits = getOption("digits", 3), ...)
-
-\method{plot}{PostHocTest}(x, ...)
 }
 \arguments{
 \item{x}{an aov object.}

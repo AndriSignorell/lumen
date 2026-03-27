@@ -153,7 +153,7 @@ yuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
   
   nx <- length(x)
   mx <- mean(x, trim = trim)
-  vx <- var(.winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE) ))
+  vx <- var(winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE) ))
   
   if (is.null(y) | paired) {
     if (nx < 2)
@@ -163,9 +163,9 @@ yuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
     
     if(paired){
       my <- mean(y, trim = trim)
-      vy <- var(.winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
-      covxy <- var(.winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)), 
-                   .winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
+      vy <- var(winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
+      covxy <- var(winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)), 
+                   winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
       stderr <- sqrt( (nx-1) * (vx + vy - 2 * covxy) / ((df + 1) * df) )
     } else {
       stderr <- sqrt(vx) / ((1 - 2 * trim) * sqrt(nx))
@@ -193,7 +193,7 @@ yuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
     if (ny < 2)
       stop("not enough 'y' observations")
     my <- mean(y, trim = trim)
-    vy <- var(.winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
+    vy <- var(winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
     method <- "Yuen Two Sample t-test"
     estimate <- c(mx, my)
     names(estimate) <- c("trimmed mean of x", "trimmed mean of y")
@@ -258,7 +258,7 @@ yuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
     
     if(na.rm) x <- na.omit(x)
     
-    winvar <- var(.winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)))
+    winvar <- var(winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)))
     
     trimse <- sqrt(winvar) / ((1 - 2 * trim) * sqrt(length(x)))
     trimse
@@ -315,20 +315,6 @@ yuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
   class(rval) <- "htest"
   return(rval)
   
-}
-
-
-
-# == internal helper functions ===========================================
-
-# this is verbal copy from DescToolsX::winsorize()
-
-
-.winsorize <- function (x, val = quantile(x, probs = c(0.05, 0.95), 
-                                          na.rm = FALSE)) {
-  x[x < val[1L]] <- val[1L]
-  x[x > val[2L]] <- val[2L]
-  return(x)
 }
 
 
