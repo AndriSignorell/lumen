@@ -19,7 +19,7 @@ binomCI(
 binomCIn(
   p = 0.5,
   width,
-  interval = c(1, 100000),
+  interval = c(1, 1e+05),
   conf.level = 0.95,
   sides = "two.sided",
   method = "wilson"

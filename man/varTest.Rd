@@ -4,97 +4,112 @@
 \alias{varTest}
 \alias{varTest.default}
 \alias{varTest.formula}
-\title{ChiSquare Test for One Variance and F Test to Compare Two Variances}
+\title{Variance Test (One- and Two-Sample) with Classic and LD Methods}
 \usage{
 varTest(x, ...)
 
 \method{varTest}{default}(
   x,
   y = NULL,
+  sigma2_0 = NULL,
   alternative = c("two.sided", "less", "greater"),
-  ratio = 1,
-  sigma.squared = 1,
-  conf.level = 0.95,
+  type = c("classic", "ld"),
   ...
 )
 
 \method{varTest}{formula}(formula, data, subset, na.action, ...)
 }
 \arguments{
-\item{x, y}{numeric vectors of data values.}
+\item{x}{A numeric vector of data values, or a formula.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{...}{Further arguments passed to methods.}
 
-\item{alternative}{a character string specifying the alternative hypothesis,
-must be one of \code{"two.sided"} (default), \code{"greater"} or
-\code{"less"}.  You can specify just the initial letter.}
+\item{y}{An optional second numeric vector. If provided, a two-sample variance
+test is performed.}
 
-\item{ratio}{the hypothesized ratio of the population variances of \code{x}
-and \code{y}.}
+\item{sigma2_0}{A numeric value specifying the null hypothesis variance for
+the one-sample test. Required if \code{y} is \code{NULL}.}
 
-\item{sigma.squared}{a number indicating the true value of the variance, if
-one sample test is requested.}
+\item{alternative}{Character string specifying the alternative hypothesis.
+Must be one of \code{"two.sided"}, \code{"less"}, or \code{"greater"}.}
 
-\item{conf.level}{confidence level for the returned confidence interval.}
+\item{type}{Character string specifying the test type:
+\itemize{
+\item \code{"classic"}: uses the conventional two-sided p-value
+\eqn{2 \cdot \min(P(T \le t), P(T \ge t))}.
+\item \code{"ld"}: uses a likelihood-based lowest-density (LD) definition,
+i.e. the probability of observing values with density less than or equal
+to the observed density under the null distribution.
+}}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} is a
-numeric variable giving the data values and \code{rhs} a factor with two
-levels giving the corresponding groups.}
+\item{formula}{A formula of the form \code{lhs ~ rhs}, where \code{lhs}
+gives the response values and \code{rhs} the corresponding groups
+or explanatory variables.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
+\item{data}{An optional matrix or data frame (or similar; see
+\code{\link[stats]{model.frame}}) containing the variables in the
+formula. By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{An optional vector specifying a subset of observations
+to be used in the analysis.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
+\item{na.action}{A function which indicates what should happen when
+the data contain \code{NA}s. Defaults to
+\code{getOption("na.action")}.}
 }
 \value{
-A list with class \code{"htest"} containing the following
-components: \item{statistic}{the value of the F test statistic.}
-\item{parameter}{the degrees of the freedom of the F distribution of the
-test statistic.} \item{p.value}{the p-value of the test.} \item{conf.int}{a
-confidence interval for the ratio of the population variances.}
-\item{estimate}{the ratio of the sample variances of \code{x} and \code{y}.}
-\item{null.value}{the ratio of population variances under the null.}
-\item{alternative}{a character string describing the alternative
-hypothesis.} \item{method}{the character string \code{"F test to compare two
-variances"}.} \item{data.name}{a character string giving the names of the
-data.}
+An object of class \code{"htest"} with components:
+\item{statistic}{The test statistic.}
+\item{parameter}{Degrees of freedom.}
+\item{p.value}{The p-value of the test.}
+\item{estimate}{Sample variance(s).}
+\item{null.value}{The null hypothesis value (one-sample only).}
+\item{alternative}{The alternative hypothesis.}
+\item{method}{A character string indicating the test performed.}
+\item{data.name}{Description of the data.}
 }
 \description{
-A test for the variance of a normal distribution against a specified
-value (one-sample) or for equality of variances between two normal
-distributions (two-sample), based on the chi-squared or F-distribution
-respectively.
+Performs a one-sample or two-sample test for variance, analogous to
+\code{\link[stats]{t.test}}, with support for classical and likelihood-based
+lowest-density (LD) two-sided p-values.
 }
 \details{
-Performs either a one sample chi-squared test to compare the variance of a
-vector with a given value or an F test to compare the variances of two
-samples from normal populations.
-
-The formula interface is only applicable for the 2-sample tests.
-
 The null hypothesis is that the ratio of the variances of the populations
 from which \code{x} and \code{y} were drawn, or in the data to which the
 linear models \code{x} and \code{y} were fitted, is equal to \code{ratio}.
+
+For the one-sample test, the test statistic follows a chi-squared distribution:
+\deqn{X^2 = (n - 1) S^2 / \sigma_0^2}
+
+For the two-sample test, the test statistic follows an F distribution:
+\deqn{F = S_x^2 / S_y^2}
+
+The LD method corresponds to a likelihood-ratio interpretation of extremeness,
+which is particularly appropriate for asymmetric null distributions such as
+chi-squared and F distributions.
+
+The formula interface is only applicable for the 2-sample tests.
 }
 \examples{
+set.seed(1)
+x <- rnorm(20, sd = 3)
+y <- rnorm(25, sd = 2)
 
-x <- rnorm(50, mean = 0, sd = 2)
+# One-sample test
+varTest(x, sigma2_0 = 9, type = "classic")
+varTest(x, sigma2_0 = 9, type = "ld")
 
-# One sample test
-varTest(x, sigma.squared = 2.5)
+# Two-sample test
+varTest(x, y, type = "classic")
+varTest(x, y, type = "ld")
 
-# two samples
-y <- rnorm(30, mean = 1, sd = 1)
-varTest(x, y)                  # Do x and y have the same variance?
-varTest(lm(x ~ 1), lm(y ~ 1))  # The same.
-
-
+# Formula interface
+df <- data.frame(
+  value = c(x, y),
+  group = rep(c("A", "B"), c(length(x), length(y)))
+)
+varTest(value ~ group, data = df)
 
 }
 \seealso{

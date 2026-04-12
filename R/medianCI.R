@@ -35,7 +35,7 @@
 #' bound of the confidence interval}
 #' 
 #' @author Andri Signorell <andri@@signorell.net>
-#' @seealso \code{\link{wilcox.test}}, \code{\link[DescToolsX]{meanCI}},
+#' @seealso \code{\link{wilcox.test}}, \code{\link{meanCI}},
 #' \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
 #' @keywords univar
 #' @examples
@@ -102,7 +102,7 @@ medianCI <- function(x,
             }
     )
     # confints for small samples can be outside the observed range e.g. n < 6
-    if(identical(.stripAttr(ci), NA_real_)) {
+    if(identical(stripAttr(ci), NA_real_)) {
       ci <- c(-Inf, Inf)
       attr(ci, "conf.level") <- 1
     }  
@@ -115,7 +115,7 @@ medianCI <- function(x,
     if(sides!="two.sided")
       conf.level <- 1 - 2*(1-conf.level)
     
-    R <- .inDots(..., arg="R", default=999)
+    R <- inDots(..., arg="R", default=999)
     boot.med <- boot::boot(x, function(x, d) {
       median(x[d], na.rm=na.rm)
       # standard error for the median required for studentized bci type:
@@ -193,37 +193,3 @@ medianCI <- function(x,
   return( res )
   
 }
-
-
-# == internal helper functions ========================================
-
-
-.inDots <- function(..., arg, default){
-  
-  # was arg in the dots-args? parse dots.arguments
-  arg <- unlist(match.call(expand.dots=FALSE)$...[arg])
-  
-  # if arg was not in ... then return default
-  if(is.null(arg)) arg <- default
-  
-  return(arg)
-  
-}
-
-
-
-.stripAttr <- function(x, attr_names=NULL) {
-  
-  if(is.null(attr_names))
-    attributes(x) <- NULL
-  else
-    for(a in attr_names) 
-      attr(x, which = a) <- NULL
-    
-    return(x)
-}
-
-
-
-
-

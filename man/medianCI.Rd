@@ -78,7 +78,7 @@ medianCI(x, method="boot", sides="right")
 
 }
 \seealso{
-\code{\link{wilcox.test}}, \code{\link[DescToolsX]{meanCI}},
+\code{\link{wilcox.test}}, \code{\link{meanCI}},
 \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
 }
 \author{

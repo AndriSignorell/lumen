@@ -103,7 +103,7 @@ Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278-292.
 }
 \seealso{
 \link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[DescToolsViz:plotQQ]{DescToolsViz::plotQQ} for producing extended normal
+normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
 quantile-quantile plots.
 
 \link[stats:fligner.test]{stats::fligner.test} for a rank-based (nonparametric)

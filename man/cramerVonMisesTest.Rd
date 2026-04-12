@@ -56,7 +56,7 @@ Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 }
 \seealso{
 \link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[DescToolsViz:plotQQ]{DescToolsViz::plotQQ} for producing extended normal
+normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
 quantile-quantile plots.
 
 Other topic.goodnessOfFit: 

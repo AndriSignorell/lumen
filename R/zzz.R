@@ -1,10 +1,5 @@
 
 
-.onAttach <- function(...) {
-  packageStartupMessage("Part of the DescTools ecosystem. Use DescToolsX for full functionality.")
-}
-
-
 
 #' @useDynLib lumen, .registration = TRUE
 #' 
@@ -21,13 +16,13 @@
 #'             setNames weights wilcox.test mantelhaen.test
 #'             weighted.mean na.action lm.wfit quantile
 #'             symnum xtabs rbeta rexp runif qexp integrate
-#'             dbinom poisson.test ppois qbeta
+#'             dbinom poisson.test ppois qbeta df
 #'             
 #' @importFrom aurora fm plotDot
 #'             
 #' @importFrom bedrock setNamesX allDuplicated pairApply 
 #'             unirootAll `%nin%` isNumeric
-#'             recycle inDots logitInv winsorize
+#'             recycle inDots logitInv winsorize inDots stripAttr
 #'             
 #' @importFrom Exact exact.test
 NULL

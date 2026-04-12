@@ -62,7 +62,7 @@
 #' Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278-292.
 #' 
 #' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [DescToolsViz::plotQQ] for producing extended normal
+#' normality.  [aurora::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
 #' @seealso [stats::fligner.test] for a rank-based (nonparametric)

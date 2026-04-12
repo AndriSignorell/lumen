@@ -1,56 +1,57 @@
 
-#' ChiSquare Test for One Variance and F Test to Compare Two Variances
-#' 
-#' A test for the variance of a normal distribution against a specified 
-#' value (one-sample) or for equality of variances between two normal 
-#' distributions (two-sample), based on the chi-squared or F-distribution 
-#' respectively.
-#' 
-#' Performs either a one sample chi-squared test to compare the variance of a
-#' vector with a given value or an F test to compare the variances of two
-#' samples from normal populations.
-#' 
-#' The formula interface is only applicable for the 2-sample tests.
-#' 
+#' Variance Test (One- and Two-Sample) with Classic and LD Methods
+#'
+#' Performs a one-sample or two-sample test for variance, analogous to
+#' \code{\link[stats]{t.test}}, with support for classical and likelihood-based
+#' lowest-density (LD) two-sided p-values.
+#'
+#' @param x A numeric vector of data values, or a formula.
+#' @param y An optional second numeric vector. If provided, a two-sample variance
+#' test is performed.
+#' @param sigma2_0 A numeric value specifying the null hypothesis variance for
+#' the one-sample test. Required if \code{y} is \code{NULL}.
+#' @param alternative Character string specifying the alternative hypothesis.
+#' Must be one of \code{"two.sided"}, \code{"less"}, or \code{"greater"}.
+#' @param type Character string specifying the test type:
+#' \itemize{
+#'   \item \code{"classic"}: uses the conventional two-sided p-value
+#'   \eqn{2 \cdot \min(P(T \le t), P(T \ge t))}.
+#'   \item \code{"ld"}: uses a likelihood-based lowest-density (LD) definition,
+#'   i.e. the probability of observing values with density less than or equal
+#'   to the observed density under the null distribution.
+#' }
+#' @param ... Further arguments passed to methods.
+#'
+#' @name varTest
+#' @details
 #' The null hypothesis is that the ratio of the variances of the populations
 #' from which \code{x} and \code{y} were drawn, or in the data to which the
 #' linear models \code{x} and \code{y} were fitted, is equal to \code{ratio}.
 #' 
-#' @name varTest
-#' @aliases varTest varTest.default varTest.formula
-#' @param x,y numeric vectors of data values.
-#' @param alternative a character string specifying the alternative hypothesis,
-#' must be one of \code{"two.sided"} (default), \code{"greater"} or
-#' \code{"less"}.  You can specify just the initial letter.
-#' @param ratio the hypothesized ratio of the population variances of \code{x}
-#' and \code{y}.
-#' @param sigma.squared a number indicating the true value of the variance, if
-#' one sample test is requested.
-#' @param conf.level confidence level for the returned confidence interval.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} is a
-#' numeric variable giving the data values and \code{rhs} a factor with two
-#' levels giving the corresponding groups.
-#' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
-#' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
-#' @param \dots further arguments to be passed to or from methods.
-#' @return A list with class \code{"htest"} containing the following
-#' components: \item{statistic}{the value of the F test statistic.}
-#' \item{parameter}{the degrees of the freedom of the F distribution of the
-#' test statistic.} \item{p.value}{the p-value of the test.} \item{conf.int}{a
-#' confidence interval for the ratio of the population variances.}
-#' \item{estimate}{the ratio of the sample variances of \code{x} and \code{y}.}
-#' \item{null.value}{the ratio of population variances under the null.}
-#' \item{alternative}{a character string describing the alternative
-#' hypothesis.} \item{method}{the character string \code{"F test to compare two
-#' variances"}.} \item{data.name}{a character string giving the names of the
-#' data.}
+#' For the one-sample test, the test statistic follows a chi-squared distribution:
+#' \deqn{X^2 = (n - 1) S^2 / \sigma_0^2}
+#'
+#' For the two-sample test, the test statistic follows an F distribution:
+#' \deqn{F = S_x^2 / S_y^2}
+#'
+#' The LD method corresponds to a likelihood-ratio interpretation of extremeness,
+#' which is particularly appropriate for asymmetric null distributions such as
+#' chi-squared and F distributions.
+#'
+#' The formula interface is only applicable for the 2-sample tests.
 #' 
+#' @inheritParams Formulas
+#' 
+#' @return An object of class \code{"htest"} with components:
+#' \item{statistic}{The test statistic.}
+#' \item{parameter}{Degrees of freedom.}
+#' \item{p.value}{The p-value of the test.}
+#' \item{estimate}{Sample variance(s).}
+#' \item{null.value}{The null hypothesis value (one-sample only).}
+#' \item{alternative}{The alternative hypothesis.}
+#' \item{method}{A character string indicating the test performed.}
+#' \item{data.name}{Description of the data.}
+#'
 #' @seealso \code{\link{var.test}}, \code{\link{bartlett.test}} for testing
 #' homogeneity of variances in more than two samples from normal distributions;
 #' \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
@@ -61,19 +62,26 @@
 #' @concept variance test
 #' 
 #' @examples
-#' 
-#' x <- rnorm(50, mean = 0, sd = 2)
-#' 
-#' # One sample test
-#' varTest(x, sigma.squared = 2.5)
-#' 
-#' # two samples
-#' y <- rnorm(30, mean = 1, sd = 1)
-#' varTest(x, y)                  # Do x and y have the same variance?
-#' varTest(lm(x ~ 1), lm(y ~ 1))  # The same.
-#' 
-#' 
-#' 
+#' set.seed(1)
+#' x <- rnorm(20, sd = 3)
+#' y <- rnorm(25, sd = 2)
+#'
+#' # One-sample test
+#' varTest(x, sigma2_0 = 9, type = "classic")
+#' varTest(x, sigma2_0 = 9, type = "ld")
+#'
+#' # Two-sample test
+#' varTest(x, y, type = "classic")
+#' varTest(x, y, type = "ld")
+#'
+#' # Formula interface
+#' df <- data.frame(
+#'   value = c(x, y),
+#'   group = rep(c("A", "B"), c(length(x), length(y)))
+#' )
+#' varTest(value ~ group, data = df)
+#'
+
 
 #' @rdname varTest
 #' @export
@@ -82,148 +90,205 @@ varTest <- function(x, ...) UseMethod("varTest")
 
 #' @rdname varTest
 #' @export
-varTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), ratio = 1,
-                             sigma.squared = 1, conf.level = 0.95, ...) {
+varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
+                            alternative = c("two.sided", "less", "greater"),
+                            type = c("classic", "ld"), ...) {
   
   
-  .twoSided_pval <- function(x, DF){
+  # https://stats.stackexchange.com/questions/140107/p-value-in-a-two-tail-test-with-asymmetric-null-distribution
+  
+  # https://stats.stackexchange.com/questions/195469/calculating-p-values-for-two-tail-test-for-population-variance
+  
+  # What you are dealing with in this question is a two-sided 
+  # variance test, which is a specific case of a two-sided test 
+  # with an asymmetric null distribution. The p-value is the total 
+  # area under the null density for all values in the lower and 
+  # upper tails of that density that are at least as "extreme" 
+  # (i.e., at least as conducive to the alternative hypothesis) 
+  # as the observed test statistic. Because this test has an 
+  # asymmetric null distribution, we need to specify exactly 
+  # what we mean by "extreme".
+  # 
+  # Lowest-density p-value calculation: The most sensible thing 
+  # method of two-sided hypothesis testing is to interpret 
+  # "more extreme" as meaning a lower value of the null density. 
+  # This is the interpretation used in a standard likelihood-ratio 
+  # (LR) test. Under this method , the p-value is the probability of 
+  # falling in the "lowest density region", where the density 
+  # cut-off is the density at the observed test statistic. With 
+  # an asymmetric null distribution, this leads you to a p-value 
+  # calculated with unequal tails.
+  
+  # example:
+  #   TwoSided_pval(15.35667, DF=17)
+  #   TwoSided_pval(14.6489, DF=17)
+  
+  
+  alternative <- match.arg(alternative)
+  type <- match.arg(type)
+  
+
+  # =============================
+  # One-sample test
+  # =============================
+  if (is.null(y)) {
     
-    # https://stats.stackexchange.com/questions/195469/calculating-p-values-for-two-tail-test-for-population-variance
+    if (is.null(sigma2_0)) {
+      stop("sigma2_0 must be provided for one-sample test.")
+    }
     
-    # What you are dealing with in this question is a two-sided 
-    # variance test, which is a specific case of a two-sided test 
-    # with an asymmetric null distribution. The p-value is the total 
-    # area under the null density for all values in the lower and 
-    # upper tails of that density that are at least as "extreme" 
-    # (i.e., at least as conducive to the alternative hypothesis) 
-    # as the observed test statistic. Because this test has an 
-    # asymmetric null distribution, we need to specify exactly 
-    # what we mean by "extreme".
-    # 
-    # Lowest-density p-value calculation: The most sensible thing 
-    # method of two-sided hypothesis testing is to interpret 
-    # "more extreme" as meaning a lower value of the null density. 
-    # This is the interpretation used in a standard likelihood-ratio 
-    # (LR) test. Under this method , the p-value is the probability of 
-    # falling in the "lowest density region", where the density 
-    # cut-off is the density at the observed test statistic. With 
-    # an asymmetric null distribution, this leads you to a p-value 
-    # calculated with unequal tails.
+    n <- length(x)
+    df <- n - 1
+    s2 <- var(x)
+    x_obs <- df * s2 / sigma2_0
     
-    # example:
-    #   TwoSided_pval(15.35667, DF=17)
-    #   TwoSided_pval(14.6489, DF=17)
-    
-    
-    InvDChisq <- function(x2, DF){
-      
-      fun <- function(x) dchisq(x, df=DF) - dchisq(x2, df=DF)
-      # the mode of chisq distribution
-      mod_x2 <- DF-2
-      
-      if(x2 < mod_x2){
-        # don't know how to set the right boundary in a sensible way
-        # the treshold 1e12 is selected randomly
-        # benchmark show no difference in performance between 1e6 and 1e12
-        unirootAll(fun, interval = c(mod_x2, 1e12))
+    if (type == "classic") {
+      if (alternative == "two.sided") {
+        p <- 2 * min(pchisq(x_obs, df), 1 - pchisq(x_obs, df))
+      } else if (alternative == "less") {
+        p <- pchisq(x_obs, df)
       } else {
-        unirootAll(fun, interval = c(0, mod_x2))
+        p <- 1 - pchisq(x_obs, df)
+      }
+    } else {
+      if (alternative == "two.sided") {
+        p <- .pchisqLD(x_obs, df)
+      } else if (alternative == "less") {
+        p <- pchisq(x_obs, df)
+      } else {
+        p <- 1 - pchisq(x_obs, df)
       }
     }
     
+    result <- list(
+      statistic = c("X-squared" = x_obs),
+      parameter = c("df" = df),
+      p.value = p,
+      estimate = c("variance" = s2),
+      null.value = c("variance" = sigma2_0),
+      alternative = alternative,
+      method = paste("One-sample variance test (", type, ")", sep = ""),
+      data.name = deparse(substitute(x))
+    )
     
-    pchisq(x, df = DF, lower.tail = x < DF-2) + 
-      pchisq(InvDChisq(x, DF), df = DF, lower.tail=!x < DF-2)
-    
-  }
-  
-  
-  if(is.null(y)){
-    # perform a one sample variance test
-    
-    alternative <- match.arg(alternative)
-    if (!missing(sigma.squared) && (length(sigma.squared) != 1 || is.na(sigma.squared)))
-      stop("'sigma.squared' must be a single number")
-    
-    if (!missing(conf.level) && (length(conf.level) != 1 || !is.finite(conf.level) ||
-                                 conf.level < 0 || conf.level > 1))
-      stop("'conf.level' must be a single number between 0 and 1")
-    
-    dname <- deparse(substitute(x))
-    x <- na.omit(x)
+    # =============================
+    # Two-sample test
+    # =============================
+  } else {
     
     nx <- length(x)
-    if (nx < 2)
-      stop("not enough 'x' observations")
-    df <- nx - 1
-    vx <- var(x)
+    ny <- length(y)
     
-    xstat <- vx * df / sigma.squared
+    df1 <- nx - 1
+    df2 <- ny - 1
     
-    method <- "One Sample Chi-Square test on variance"
-    estimate <- vx
+    s2x <- var(x)
+    s2y <- var(y)
     
-    if (alternative == "less") {
-      pval <- pchisq(xstat, df)
-      cint <- c(0, df * vx/qchisq((1 - conf.level), df))
-      
-    } else if (alternative == "greater") {
-      pval <- pchisq(xstat, df, lower.tail = FALSE)
-      cint <- c(df * vx/qchisq((1 - conf.level), df, lower.tail = FALSE), Inf)
-      
+    f_obs <- s2x / s2y
+    
+    if (type == "classic") {
+      if (alternative == "two.sided") {
+        p <- 2 * min(pf(f_obs, df1, df2), 1 - pf(f_obs, df1, df2))
+      } else if (alternative == "less") {
+        p <- pf(f_obs, df1, df2)
+      } else {
+        p <- 1 - pf(f_obs, df1, df2)
+      }
     } else {
-      # this is a "quick-and-nasty" approximation, let's use a better one..
-      # pval <- 2 * min(pchisq(xstat, df), 
-      #                 pchisq(xstat, df, lower.tail = FALSE))
-      pval <- .twoSided_pval(xstat, df)
-      
-      alpha <- 1 - conf.level
-      cint <- df * vx / c(qchisq((1 - conf.level)/2, df, lower.tail = FALSE),
-                          qchisq((1 - conf.level)/2, df))
+      if (alternative == "two.sided") {
+        p <- .pfLD(f_obs, df1, df2)
+      } else if (alternative == "less") {
+        p <- pf(f_obs, df1, df2)
+      } else {
+        p <- 1 - pf(f_obs, df1, df2)
+      }
     }
     
-    names(xstat) <- "X-squared"
-    names(df) <- "df"
-    names(sigma.squared) <- "variance"
-    names(estimate) <- "variance of x"
-    attr(cint, "conf.level") <- conf.level
-    rval <- list(statistic = xstat, parameter = df, p.value = pval,
-                 conf.int = cint, estimate = estimate, null.value = sigma.squared,
-                 alternative = alternative, method = method, data.name = dname)
-    class(rval) <- "htest"
-    
-    return(rval)
-    
-  } else {
-    # perform a normal F-test
-    var.test(x=x, y=y, ratio=ratio, alternative=alternative, conf.level=conf.level)
+    result <- list(
+      statistic = c("F" = f_obs),
+      parameter = c("df1" = df1, "df2" = df2),
+      p.value = p,
+      estimate = c("var(x)" = s2x, "var(y)" = s2y),
+      alternative = alternative,
+      method = paste("Two-sample variance test (", type, ")", sep = ""),
+      data.name = paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    )
   }
   
+  class(result) <- "htest"
+  return(result)
 }
+
+
 
 
 #' @rdname varTest
 #' @export
-varTest.formula <- function (formula, data, subset, na.action, ...) {
+varTest.formula <- local({
   
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
-    stop("'formula' missing or incorrect")
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
-    m$data <- as.data.frame(data)
-  m[[1L]] <- quote(stats::model.frame)
-  m$... <- NULL
-  mf <- eval(m, parent.frame())
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  response <- attr(attr(mf, "terms"), "response")
-  g <- factor(mf[[-response]])
-  if (nlevels(g) != 2L)
-    stop("grouping factor must have exactly 2 levels")
-  DATA <- setNamesX(split(mf[[response]], g), c("x", "y"))
-  y <- do.call("varTest", c(DATA, list(...)))
-  y$data.name <- DNAME
-  y
+  # super elegant formula implementation
+  # in fact we need nothing other, than is already implemented in
+  # x.test.formula, besides the last call of xTest() instead of x.test()
   
+  tf <- getS3method("var.test", "formula")
+  
+  new_body <- .replace_text_calls(body(tf), old="var.test", new="varTest")
+  
+  new_fun <- tf
+  body(new_fun) <- new_body
+  
+  new_fun
+  
+})
+
+
+
+
+# == internal helper functions ================================================
+
+
+.pchisqLD <- function(x_obs, df) {
+  
+  # LD p-value chisq
+  
+  d_obs <- dchisq(x_obs, df)
+  mode <- if (df >= 2) df - 2 else 0
+  f <- function(x) dchisq(x, df) - d_obs
+  
+  if (x_obs >= mode) {
+    root <- uniroot(f, c(1e-10, x_obs))$root
+    pchisq(root, df) + (1 - pchisq(x_obs, df))
+  } else {
+    ub <- qchisq(0.999999, df)
+    root <- uniroot(f, c(x_obs, ub))$root
+    pchisq(x_obs, df) + (1 - pchisq(root, df))
+  }
 }
+
+
+.pfLD <- function(f_obs, df1, df2) {
+  
+  # LD p-value F
+  
+  d_obs <- df(f_obs, df1, df2)
+  
+  mode <- if (df1 > 2) {
+    (df1 - 2)/df1 * (df2/(df2 + 2))
+  } else 0
+  
+  f_fun <- function(x) df(x, df1, df2) - d_obs
+  
+  if (f_obs >= mode) {
+    root <- uniroot(f_fun, c(1e-10, f_obs))$root
+    pf(root, df1, df2) + (1 - pf(f_obs, df1, df2))
+  } else {
+    ub <- qf(0.999999, df1, df2)
+    root <- uniroot(f_fun, c(f_obs, ub))$root
+    pf(f_obs, df1, df2) + (1 - pf(root, df1, df2))
+  }
+}
+
+
+
+

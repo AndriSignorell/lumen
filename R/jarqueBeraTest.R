@@ -50,7 +50,7 @@
 #' Letters 6, 255-259.
 #' 
 #' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [DescToolsViz::plotQQ] for producing extended normal
+#' normality.  [aurora::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
 #' @family topic.goodnessOfFit

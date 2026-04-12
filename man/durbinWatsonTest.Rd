@@ -10,7 +10,7 @@ durbinWatsonTest(
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
   exact = NULL,
-  tol = 0.0000000001,
+  tol = 1e-10,
   data = list()
 )
 }
