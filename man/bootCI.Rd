@@ -71,8 +71,5 @@ bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)
 \seealso{
 \code{\link{meanCI}}, \code{\link{medianCI}}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \keyword{nonparametric}
 \keyword{univar}

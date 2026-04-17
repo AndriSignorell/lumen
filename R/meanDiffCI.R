@@ -33,7 +33,6 @@
 #' @return a numeric vector with 3 elements: \item{meandiff}{the difference:
 #' mean(x) - mean(y)} \item{lci}{lower bound of the confidence interval}
 #' \item{uci}{upper bound of the confidence interval}
-#' @author Andri Signorell <andri@@signorell.net>
 #' @seealso \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
 #' \code{\link[boot]{boot.ci}}
 #' @keywords univar

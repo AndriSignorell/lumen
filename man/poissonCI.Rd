@@ -98,9 +98,6 @@ Other topic.categoricalData:
 \code{\link{binomRatioCI}()},
 \code{\link{multinomCI}()}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \concept{categorical data}
 \concept{confidence intervals}
 \concept{topic.categoricalData}

@@ -61,6 +61,10 @@ pan <- function(A, M, C, N) {
     .Call(`_lumen_pan`, A, M, C, N)
 }
 
+pdirichlet_parallel_cpp <- function(q, alpha, n_sim) {
+    .Call(`_lumen_pdirichlet_parallel_cpp`, q, alpha, n_sim)
+}
+
 pruns_rcpp <- function(r, n1, n2, alternative = "two.sided") {
     .Call(`_lumen_pruns_rcpp`, r, n1, n2, alternative)
 }

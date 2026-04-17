@@ -29,7 +29,6 @@
 #' estimate, as calculated by \code{FUN}} \item{lci}{lower bound of the
 #' confidence interval} \item{uci}{upper bound of the confidence interval}
 #' 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' @seealso \code{\link{meanCI}}, \code{\link{medianCI}}
 #' 
 #' @keywords univar nonparametric

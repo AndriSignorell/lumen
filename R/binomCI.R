@@ -83,6 +83,14 @@
 #' \strong{Blaker}:
 #' An exact interval based on the method proposed by Blaker (2000).
 #'
+#' \strong{Khouadji}:
+#' A transformation-based approximation for binomial confidence intervals. 
+#' It applies a variance-stabilizing transformation to the sample 
+#' proportion, constructs a normal-based interval, and back-transforms 
+#' to the original scale. Compared to the Wald interval it is more 
+#' stable for small samples, but it is rarely used in practice compared 
+#' to methods like Wilson or exact intervals.
+#' 
 #' Some methods may produce limits outside the admissible range
 #' \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 #' within the valid parameter space.
@@ -166,6 +174,9 @@
 #' for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
 #' 783-798
 #' 
+#' A. Khouadji (1999) Sur une méthode d’approximation des intervalles 
+#' de confiance pour une proportion binomiale.
+#' 
 #' @seealso \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
 #'  
 #' @family topic.categoricalData
@@ -222,7 +233,7 @@ binomCI <- function(x, n,
                                "clopper-pearson", "agresti-coull",
                                "pratt", "arcsine", "logit",
                                "witting", "mid-p","blaker",
-                               "likelihood" ), 
+                               "likelihood", "khouadji" ), 
                     std_est=TRUE) {
   
   
@@ -282,6 +293,7 @@ binomCI <- function(x, n,
                 , "mid-p" =             { .binomCI.midp(x, n, alpha) }
                 , "blaker" =            { .binomCI.blaker(x, n, alpha) }
                 , "likelihood" =        { .binomCI.lik(x, n, alpha) }
+                , "khouadji" =          { .binomCI.khouadji(x, n, alpha) }
                 , stop(gettextf("Unknown method '%s'.", method))
   )
   
@@ -294,7 +306,7 @@ binomCI <- function(x, n,
        c("agresti-coull", "wilson", "wilson-cc", "wilson-mod"))
       est <- .binomCI.nonStdEst(x, n, alpha)
     
-    else if(method %in% c("arcsine", "witting"))
+    else if(method %in% c("arcsine", "witting","khouadji"))
       est <- attr(CI, "p.tilde")
   }
   
@@ -734,4 +746,40 @@ binomCI <- function(x, n,
   return( (x + z2/2) / (n + z2)) 
 }
 
+
+
+
+#' @keywords internal
+.binomCI.khouadji <- function(x, n, alpha) {
+  
+  # author: Carl Pearson
+  # https://github.com/AndriSignorell/DescTools/pull/177/changes
+  
+  z <- qnorm(1-alpha/2)
+  conf.level <- 1 - alpha
+  
+  if (isTRUE(all.equal(conf.level, 0.90))) {
+    epsilon <- 3
+  } else if (isTRUE(all.equal(conf.level, 0.95))) {
+    epsilon <- 4
+  } else if (isTRUE(all.equal(conf.level, 0.99))) {
+    epsilon <- 6
+  } else {
+    epsilon <- round(z^2)
+    warning(paste("The Khouadji method has only been experimentally optimized for 90%, 95%, and 99% confidence levels.",
+                  "Using a best guess of epsilon =", epsilon, "(the rounded squared critical z-value)."))
+  }
+  
+  p_tilde <- (x + epsilon / 2) / (n + epsilon)
+  se <- sqrt(p_tilde * (1 - p_tilde) / (n + epsilon))
+  
+  res <- c(
+    lci = p_tilde - z * se,
+    uci = p_tilde + z * se
+  )
+  
+  attr(res, "p.tilde") <- p_tilde
+  return(res)
+  
+}
 

@@ -96,7 +96,4 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 \code{\link{meanCI}}, \code{\link{medianCI}},
 \code{\link{varTest}}, \code{\link[DescToolsX]{varX}}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \keyword{univar}

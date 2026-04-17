@@ -27,7 +27,6 @@
 #' @return a numeric vector with 3 elements: \item{est}{variance}
 #' \item{lci}{lower bound of the confidence interval} \item{uci}{upper bound of
 #' the confidence interval}
-#' @author Andri Signorell <andri@@signorell.net> 
 #' @seealso \code{\link{meanCI}}, \code{\link{medianCI}},
 #' \code{\link{varTest}}, \code{\link[DescToolsX]{varX}} 
 #' 

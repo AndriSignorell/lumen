@@ -1,11 +1,11 @@
 
-#' Scheffe Test for Pairwise and Otherwise Comparisons 
+#' Scheffé Test for Pairwise and Otherwise Comparisons 
 #' 
 #' A parametric post hoc test for all possible pairwise and complex 
 #' comparisons following a significant ANOVA, controlling the 
 #' familywise error rate conservatively for any number of contrasts.
 #' 
-#' Scheffe's method applies to the set of estimates of all possible contrasts
+#' Scheffé's method applies to the set of estimates of all possible contrasts
 #' among the factor level means, not just the pairwise differences considered
 #' by Tukey's method.   
 #' 
@@ -182,7 +182,7 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
   attr(out, "orig.call") <- x$call
   attr(out, "conf.level") <- conf.level
   attr(out, "ordered") <- FALSE
-  attr(out, "method") <- "Scheffe Test"
+  attr(out, "method") <- "Scheff\u00e9 Test"
   attr(out, "method.str") <- gettextf("\n  Posthoc multiple comparisons of means: %s \n", attr(out, "method"))
   
   

@@ -48,7 +48,7 @@
 #' test.} \item{method}{a character string indicating what type of test was
 #' performed.} \item{data.name}{a character string giving the name of the
 #' data.}
-#' @author Andri Signorell <andri@@signorell.net>, based on Code from Jim Lemon
+#' @note based on code from Jim Lemon
 #' 
 #' @seealso \code{\link{bhapkarTest}} for a more powerful alternative to the
 #' Stuart-Maxwell test

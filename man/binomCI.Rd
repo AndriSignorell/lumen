@@ -12,7 +12,7 @@ binomCI(
   sides = c("two.sided", "left", "right"),
   method = c("wilson", "wilson-cc", "wilson-mod", "wald", "wald-cc", "jeffreys",
     "jeffreys-mod", "clopper-pearson", "agresti-coull", "pratt", "arcsine", "logit",
-    "witting", "mid-p", "blaker", "likelihood"),
+    "witting", "mid-p", "blaker", "likelihood", "khouadji"),
   std_est = TRUE
 )
 
@@ -155,6 +155,14 @@ in the neighbourhood of the maximum likelihood estimator.
 \strong{Blaker}:
 An exact interval based on the method proposed by Blaker (2000).
 
+\strong{Khouadji}:
+A transformation-based approximation for binomial confidence intervals.
+It applies a variance-stabilizing transformation to the sample
+proportion, constructs a normal-based interval, and back-transforms
+to the original scale. Compared to the Wald interval it is more
+stable for small samples, but it is rarely used in practice compared
+to methods like Wilson or exact intervals.
+
 Some methods may produce limits outside the admissible range
 \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 within the valid parameter space.
@@ -262,6 +270,9 @@ proportion: comparison of seven methods, \emph{Statistics in Medicine},
 Blaker, H. (2000) Confidence curves and improved exact confidence intervals
 for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
 783-798
+
+A. Khouadji (1999) Sur une méthode d’approximation des intervalles
+de confiance pour une proportion binomiale.
 }
 \seealso{
 \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}

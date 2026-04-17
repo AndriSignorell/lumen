@@ -1,90 +1,49 @@
 
-#' Post-Hoc Tests
-#' 
-#' A wrapper function providing a unified interface to various parametric 
-#' and nonparametric post hoc tests for multiple pairwise comparisons 
-#' following a significant omnibus test.
-#' 
-#' A convenience wrapper for computing post-hoc test after having calculated an
-#' ANOVA. 
-#' 
-#' The function is designed to consolidate a couple of post-hoc tests with the
-#' same interface for input and output.
-#' 
-#' \bold{Choosing Tests.} \verb{ } Different post hoc tests use different
-#' methods to control familywise (FW) and per experiment error rate (PE). Some
-#' tests are very conservative. Conservative tests go to great lengths to
-#' prevent the user from committing a type 1 error.  They use more stringent
-#' criterion for determining significance. Many of these tests become more and
-#' more stringent as the number of groups increases (directly limiting the FW
-#' and PE error rate). Although these tests buy you protection against type 1
-#' error, it comes at a cost. As the tests become more stringent, you loose
-#' power (1-B).  More liberal tests, buy you power but the cost is an increased
-#' chance of type 1 error.  There is no set rule for determining which test to
-#' use, but different researchers have offered some guidelines for choosing.
-#' Mostly it is an issue of pragmatics and whether the number of comparisons
-#' exceeds k-1.
-#' 
-#' \bold{The Fisher's LSD} \verb{ } (Least Significant Different) sets alpha
-#' level per comparison. alpha = .05 for every comparison. df = df error (i.e.
-#' df within). This test is the most liberal of all post hoc tests. The
-#' critical t for significance is unaffected by the number of groups. This test
-#' is appropriate when you have 3 means to compare. In general the alpha is
-#' held at .05 because of the criterion that you can't look at LSD's unless the
-#' ANOVA is significant. This test is generally not considered appropriate if
-#' you have more than 3 means unless there is reason to believe that there is
-#' no more than one true null hypothesis hidden in the means.
-#' 
-#' \bold{Dunn's (Bonferroni) t-test} \verb{ } is sometimes referred to as the
-#' Bonferroni t because it used the Bonferroni PE correction procedure in
-#' determining the critical value for significance. In general, this test
-#' should be used when the number of comparisons you are making exceeds the
-#' number of degrees of freedom you have between groups (e.g. k-1). This test
-#' sets alpha per experiment; alpha = (.05)/c for every comparison. df = df
-#' error (c = number of comparisons (k(k-1))/2) This test is extremely
-#' conservative and rapidly reduces power as the number of comparisons being
-#' made increase.
-#' 
-#' \bold{Newman-Keuls} \verb{ } is a step down procedure that is not as
-#' conservative as Dunn's t test. First, the means of the groups are ordered
-#' (ascending or descending) and then the largest and smallest means are tested
-#' for significant differences. If those means are different, then test
-#' smallest with next largest, until you reach a test that is not significant.
-#' Once you reach that point then you can only test differences between means
-#' that exceed the difference between the means that were found to be
-#' non-significant. Newman-Keuls is perhaps one of the most common post hoc
-#' test, but it is a rather controversial test. The major problem with this
-#' test is that when there is more than one true null hypothesis in a set of
-#' means it will overestimate the FW error rate. In general we would use this
-#' when the number of comparisons we are making is larger than k-1 and we don't
-#' want to be as conservative as the Dunn's test is.
-#' 
-#' \bold{Tukey's HSD} \verb{ } (Honestly Significant Difference) is essentially
-#' like the Newman-Keuls, but the tests between each mean are compared to the
-#' critical value that is set for the test of the means that are furthest apart
-#' (rmax e.g. if there are 5 means we use the critical value determined for the
-#' test of X1 and X5). This method corrects for the problem found in the
-#' Newman-Keuls where the FW is inflated when there is more than one true null
-#' hypothesis in a set of means. It buys protection against type 1 error, but
-#' again at the cost of power. It tends to be the most common and preferred
-#' test because it is very conservative with respect to type 1 error when the
-#' null hypothesis is true. In general, HSD is preferred when you will make all
-#' the possible comparisons between a large set of means (6 or more means).
-#' 
-#' \bold{The Scheffe test} \verb{ } is designed to protect against a type 1
-#' error when all possible complex and simple comparisons are made. That is we
-#' are not just looking the possible combinations of comparisons between pairs
-#' of means. We are also looking at the possible combinations of comparisons
-#' between groups of means. Thus Scheffe is the most conservative of all tests.
-#' Because this test does give us the capacity to look at complex comparisons,
-#' it essentially uses the same statistic as the linear contrasts tests.
-#' However, Scheffe uses a different critical value (or at least it makes an
-#' adjustment to the critical value of F). This test has less power than the
-#' HSD when you are making pairwise (simple) comparisons, but it has more power
-#' than HSD when you are making complex comparisons. In general, only use this
-#' when you want to make many post hoc complex comparisons (e.g. more than
-#' k-1).
-#' 
+#' Post Hoc Tests for ANOVA
+#'
+#' Provides a unified interface for several parametric post hoc tests
+#' following a significant ANOVA. The function computes pairwise
+#' comparisons of group means with different methods for controlling
+#' the family-wise error rate.
+#'
+#' \bold{Overview.}
+#' Post hoc tests differ in how strongly they control type I error.
+#' Conservative methods reduce false positives but have lower power,
+#' while more liberal methods increase power at the cost of a higher
+#' false positive rate.
+#'
+#' \bold{Available methods.}
+#' \itemize{
+#'   \item \strong{LSD (Fisher)}: No adjustment for multiple testing;
+#'   highest power but inflated type I error. Mainly suitable for a small
+#'   number of groups.
+#'
+#'   \item \strong{Bonferroni} (Dunn's (Bonferroni) t-test): Adjusts p-values 
+#'   by the number of comparisons;
+#'   simple and robust, but often overly conservative.
+#'
+#'   \item \strong{Tukey HSD}: Controls the family-wise error rate for all
+#'   pairwise comparisons; widely used and generally recommended for balanced
+#'   designs.
+#'
+#'   \item \strong{Newman-Keuls}: Stepwise procedure with more power than Tukey,
+#'   but weaker error control; may inflate type I error.
+#'
+#'   \item \strong{Duncan}: Similar to Newman-Keuls but more liberal; provides
+#'   higher power at the cost of increased false positives.
+#'
+#'   \item \strong{Scheffé}: Very conservative; suitable for both pairwise and
+#'   complex (contrast-based) comparisons.
+#' }
+#'
+#' \bold{Guidance.}
+#' Tukey HSD is typically a good default for pairwise comparisons.
+#' Bonferroni is useful when strict error control is required.
+#' Scheffé is appropriate for more complex contrasts.
+#'
+#'
+#' @return An object of class \code{PostHocTest}.
+#'  
 #' \bold{Tables} \verb{ } For tables pairwise chi-square test can be performed,
 #' either without correction or with correction for multiple testing following
 #' the logic in \code{\link{p.adjust}}. 
@@ -92,7 +51,7 @@
 #' @name postHoc
 #' @aliases postHocTest postHocTest.aov postHocTest.table postHocTest.matrix
 #' print.postHocTest plot.postHocTest
-#' @param x an aov object. 
+#' @param x An object of class \code{aov}.
 #' @param method one of \code{"hsd"}, \code{"bonf"}, \code{"lsd"},
 #' \code{"scheffe"}, \code{"newmankeuls"}, defining the method for the pairwise
 #' comparisons.\cr For the post hoc test of tables the methods of
@@ -116,7 +75,6 @@
 #' p-value, if a conf.level was defined (something else than NA) or \cr B) a
 #' list of matrices with the p-values, if conf.level has been set to NA. 
 #' 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' @seealso \code{\link{TukeyHSD}}, \code{\link{aov}},
 #' \code{\link{pairwise.t.test}}, \code{\link{scheffeTest}} 
 #' 
@@ -155,154 +113,121 @@ postHocTest <- function (x, ...)
 #' @rdname postHoc
 #' @export
 postHocTest.aov <- function (x, which = NULL,
-                             method=c("hsd","bonferroni","lsd","scheffe","newmankeuls","duncan"),
+                             method=c("hsd","bonferroni","lsd","scheffe",
+                                      "newmankeuls","duncan"),
                              conf.level = 0.95, ordered = FALSE, ...) {
   
   method <- match.arg(method)
   
-  if(method=="scheffe"){
-    out <- scheffeTest(x=x, which=which, conf.level=conf.level, ...)
-    
-  } else {
-    
-    mm <- model.tables(x, "means")
-    if (is.null(mm$n))
-      stop("no factors in the fitted model")
-    tabs <- mm$tables[-1L]
-    
-    if(is.null(which)) which <- seq_along(tabs)
-    tabs <- tabs[which]
-    
-    nn <- mm$n[names(tabs)]
-    nn_na <- is.na(nn)
-    if (all(nn_na))
-      stop("'which' specified no factors")
-    if (any(nn_na)) {
-      warning("'which' specified some non-factors which will be dropped")
-      tabs <- tabs[!nn_na]
-      nn <- nn[!nn_na]
-    }
-    out <- setNamesX(vector("list", length(tabs)), names(tabs))
-    MSE <- sum(x$residuals^2)/x$df.residual
-    for (nm in names(tabs)) {
-      tab <- tabs[[nm]]
-      means <- as.vector(tab)
-      nms <- if (length(d <- dim(tab)) > 1L) {
-        dn <- dimnames(tab)
-        apply(do.call("expand.grid", dn), 1L, paste, collapse = ":")
-      }
-      else names(tab)
-      n <- nn[[nm]]
-      if (length(n) < length(means))
-        n <- rep.int(n, length(means))
-      
-      # this will be ignored for bonferroni, lsd
-      if (method %in% c("hsd", "newmankeuls", "duncan") & as.logical(ordered)) {
-        ord <- order(means)
-        means <- means[ord]
-        n <- n[ord]
-        if (!is.null(nms))
-          nms <- nms[ord]
-      }
-      
-      center <- outer(means, means, "-")
-      keep <- lower.tri(center)
-      center <- center[keep]
-      
-      switch(method
-             ,"bonferroni" = {
-               width <-  qt(1 - (1 - conf.level)/(length(means) * (length(means) - 1)), x$df.residual) *
-                 sqrt(MSE * outer(1/n, 1/n, "+"))[keep]
-               est <- center/sqrt(MSE * outer(1/n, 1/n, "+")[keep])
-               
-               pvals <- pmin(2 * pt(abs(est), df = x$df.residual, lower.tail = FALSE)
-                             * ((length(means)^2 - length(means))/2), 1)
-               method.str <- "Bonferroni"
-               
-             }
-             ,"lsd" = {
-               width <-  qt(1 - (1 - conf.level)/2, x$df.residual) *
-                 sqrt(MSE * outer(1/n, 1/n, "+"))[keep]
-               est <- center/sqrt(MSE * outer(1/n, 1/n, "+")[keep])
-               pvals <- 2 * pt(abs(est), df = x$df.residual, lower.tail = FALSE)
-               method.str <- "Fisher LSD"
-             }
-             ,"hsd" = {
-               width <- qtukey(conf.level, length(means), x$df.residual) *
-                 sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep]
-               est <- center/(sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep])
-               pvals <- ptukey(abs(est), length(means), x$df.residual,
-                               lower.tail = FALSE)
-               method.str <- "Tukey HSD"
-               
-             }
-             ,"newmankeuls" ={
-               nmean <- (abs(outer(rank(means), rank(means), "-")) + 1)[keep]
-               
-               width <- qtukey(conf.level, nmean, x$df.residual) *
-                 sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep]
-               
-               est <- center/(sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep])
-               
-               pvals <- ptukey(abs(est), nmean, x$df.residual, lower.tail = FALSE)
-               method.str <- "Newman-Keuls"
-               
-             }
-             ,"duncan" = {
-               # same as newmankeuls, but with bonferroni corrected alpha
-               nmean <- (abs(outer(rank(means), rank(means), "-")) + 1)[keep]
-               
-               width <- qtukey(conf.level^(nmean-1), nmean, x$df.residual) *
-                 sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep]
-               
-               est <- center/(sqrt((MSE/2) * outer(1/n, 1/n, "+"))[keep])
-               pvals <- 1-(1-ptukey(abs(est), nmean, x$df.residual,
-                                    lower.tail = FALSE))^(1/(nmean - 1))
-               
-               method.str <- "Duncan's new multiple range test"
-               
-             }
-             ,"dunnett" = {
-               method.str <- "Dunnett"
-             }
-             ,"scottknott" = {
-               method.str <- "Scott Knott"
-             }
-             ,"waller" = {
-               method.str <- "Waller"
-             }
-             ,"gabriel" = {
-               method.str <- "Gabriel"
-             }
-      )
-      
-      if(!is.na(conf.level)){
-        dnames <- list(NULL, c("diff", "lwr.ci", "upr.ci", "pval"))
-        if (!is.null(nms))
-          dnames[[1L]] <- outer(nms, nms, paste, sep = "-")[keep]
-        out[[nm]] <- array(c(center, center - width,
-                             center + width, pvals), c(length(width), 4L), dnames)
-      } else {
-        out[[nm]] <- matrix(NA, nrow=length(means), ncol=length(means))
-        out[[nm]][lower.tri(out[[nm]], diag = FALSE)] <- pvals
-        dimnames(out[[nm]]) <- list(nms, nms)
-        out[[nm]] <- out[[nm]][-1, -ncol(out[[nm]])]
-        
-      }
-    }
-    
-    class(out) <- c("PostHocTest")
-    attr(out, "orig.call") <- x$call
-    attr(out, "conf.level") <- conf.level
-    attr(out, "ordered") <- ordered
-    attr(out, "method") <- method.str
-    attr(out, "method.str") <- gettextf("\n  Posthoc multiple comparisons of means : %s \n", attr(out, "method"))
-    
+  FUN_MAP <- list(
+    bonferroni = .bonferroni,
+    lsd = .lsd,
+    hsd = .hsd,
+    newmankeuls = .newmankeuls,
+    duncan = .duncan,
+    scheffe = .scheffe
+  )
+  
+  mm <- model.tables(x, "means")
+  if (is.null(mm$n))
+    stop("no factors in the fitted model")
+  
+  tabs <- mm$tables[-1L]
+  
+  if(is.null(which)) which <- seq_along(tabs)
+  tabs <- tabs[which]
+  
+  nn <- mm$n[names(tabs)]
+  nn_na <- is.na(nn)
+  
+  if (all(nn_na))
+    stop("'which' specified no factors")
+  
+  if (any(nn_na)) {
+    warning("'which' specified some non-factors which will be dropped")
+    tabs <- tabs[!nn_na]
+    nn <- nn[!nn_na]
   }
   
-  return(out)
+  out <- setNames(vector("list", length(tabs)), names(tabs))
+  MSE <- sum(x$residuals^2)/x$df.residual
   
+  for (nm in names(tabs)) {
+    
+    tab <- tabs[[nm]]
+    means <- as.vector(tab)
+    
+    nms <- if (length(dim(tab)) > 1L) {
+      dn <- dimnames(tab)
+      apply(do.call("expand.grid", dn), 1L, paste, collapse = ":")
+    } else names(tab)
+    
+    n <- nn[[nm]]
+    if (length(n) < length(means))
+      n <- rep.int(n, length(means))
+    
+    if (method %in% c("hsd", "newmankeuls", "duncan") && isTRUE(ordered)) {
+      ord <- order(means)
+      means <- means[ord]
+      n <- n[ord]
+      if (!is.null(nms)) nms <- nms[ord]
+    }
+    
+    center_mat <- outer(means, means, "-")
+    keep <- lower.tri(center_mat)
+    center <- center_mat[keep]
+    
+    k <- length(means)
+    fun <- FUN_MAP[[method]]
+    
+    res <- if (method %in% c("newmankeuls", "duncan")) {
+      fun(center = center, means = means, n = n,
+          MSE = MSE, df = x$df.residual, conf.level = conf.level)
+    } else {
+      fun(center = center, n = n,
+          MSE = MSE, df = x$df.residual,
+          k = k, conf.level = conf.level)
+    }
+    
+    width <- res$width
+    pvals <- res$pvals
+    method.str <- res$method.str
+    
+    if (!is.null(conf.level) && !is.na(conf.level)) {
+      
+      dnames <- list(NULL, c("diff", "lwr.ci", "upr.ci", "pval"))
+      if (!is.null(nms))
+        dnames[[1L]] <- outer(nms, nms, paste, sep = "-")[keep]
+      
+      out[[nm]] <- array(
+        c(center, center - width, center + width, pvals),
+        c(length(width), 4L),
+        dnames
+      )
+      
+    } else {
+      
+      mat <- matrix(NA, nrow = length(means), ncol = length(means))
+      mat[lower.tri(mat)] <- pvals
+      dimnames(mat) <- list(nms, nms)
+      out[[nm]] <- mat[-1, -ncol(mat)]
+    }
+  }
+  
+  class(out) <- "PostHocTest"
+  attr(out, "orig.call") <- x$call
+  attr(out, "conf.level") <- conf.level
+  attr(out, "ordered") <- ordered
+  attr(out, "method") <- method.str
+  attr(out, "method.str") <- gettextf(
+    "\n  Posthoc multiple comparisons of means : %s \n",
+    method.str
+  )
+  
+  return(out)
 }
+
+
 
 
 #' @rdname postHoc
@@ -356,45 +281,145 @@ postHocTest.table <- function(x, method = c("none","fdr","BH","BY","bonferroni",
 
 #' @rdname postHoc
 #' @export
-print.PostHocTest <- function (x, digits = getOption("digits", 3), ...) {
+print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
   
-  cat(attr(x, "method.str"))
-  if (!is.na(attr(x, "conf.level")))
-    cat("    ", format(100 * attr(x, "conf.level"), 2), "% family-wise confidence level\n",
-        sep = "")
-  if (attr(x, "ordered"))
+  method_str <- attr(x, "method.str")
+  conf_level <- attr(x, "conf.level")
+  ordered <- attr(x, "ordered")
+  orig_call <- attr(x, "orig.call")
+  
+  cat(method_str)
+  
+  if (!is.null(conf_level) && !is.na(conf_level)) {
+    cat("    ", format(100 * conf_level, digits = 2),
+        "% family-wise confidence level\n", sep = "")
+  }
+  
+  if (isTRUE(ordered)) {
     cat("    factor levels have been ordered\n")
-  if(!is.language(attr(x, "orig.call")) && !is.null(attr(x, "orig.call")))
-    cat("\nFit: ", deparse(attr(x, "orig.call"), 500L), "\n\n", sep = "")
-  else
+  }
+  
+  if (!is.null(orig_call)) {
+    cat("\nFit: ", deparse(orig_call, width.cutoff = 500L), "\n\n", sep = "")
+  } else {
     cat("\n")
+  }
+  
   xx <- unclass(x)
   
-  attr(xx, "orig.call") <- attr(xx, "conf.level") <-
-    attr(xx, "ordered") <-  attr(xx, "method.str") <-  attr(xx, "method") <- NULL
+  attributes(xx)[c("orig.call", "conf.level", "ordered", "method.str", "method")] <- NULL
+  xx[["data.name"]] <- NULL
   
-  xx["data.name"] <- NULL
-  
-  if(!is.na(attr(x, "conf.level"))) {
-    xx <- lapply(xx, as.data.frame)
-    for(nm in names(xx)){
-      xx[[nm]]$" " <- fm(xx[[nm]]$"pval", fmt="*")
-      xx[[nm]]$"pval" <- fm(xx[[nm]]$"pval", fmt="p")
+  if (!is.null(conf_level) && !is.na(conf_level)) {
+    
+    xx <- lapply(xx, function(xi) as.data.frame(xi))
+    
+    for (nm in names(xx)) {
+      if ("pval" %in% names(xx[[nm]])) {
+        xx[[nm]]$signif <- aurora::fm(xx[[nm]]$pval, fmt = "*")
+        xx[[nm]]$pval <- aurora::fm(xx[[nm]]$pval, fmt = "p")
+      }
     }
     
-    print.default(xx, digits=digits, ...)
+    print.default(xx, digits = digits, ...)
+    
     cat("---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n")
+    
   } else {
-    for(nm in names(xx)){
-      xx[[nm]][] <- fm(xx[[nm]], fmt="p", na.form = "-")
+    
+    for (nm in names(xx)) {
+      xx[[nm]][] <- aurora::fm(xx[[nm]], fmt = "p", na.form = "-")
     }
-    #     attributes(pp) <- attributes(x$p.value)
-    print(xx, digits=digits, quote = FALSE, ...)
+    
+    print(xx, digits = digits, quote = FALSE, ...)
   }
+  
   cat("\n")
   
   invisible(x)
 }
 
+
+
+
+# == internal helper functions ================================================
+
+
+.bonferroni <- function(center, n, MSE, df, k, conf.level) {
+  se <- sqrt(MSE * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  width <- qt(1 - (1 - conf.level)/(k * (k - 1)), df) * se[keep]
+  est <- center / se[keep]
+  pvals <- pmin(2 * pt(abs(est), df = df, lower.tail = FALSE) * (k*(k-1)/2), 1)
+  
+  list(width=width, est=est, pvals=pvals, method.str="Bonferroni")
+}
+
+
+.lsd <- function(center, n, MSE, df, k, conf.level) {
+  se <- sqrt(MSE * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  width <- qt(1 - (1 - conf.level)/2, df) * se[keep]
+  est <- center / se[keep]
+  pvals <- 2 * pt(abs(est), df = df, lower.tail = FALSE)
+  
+  list(width=width, est=est, pvals=pvals, method.str="Fisher LSD")
+}
+
+
+.hsd <- function(center, n, MSE, df, k, conf.level) {
+  se <- sqrt((MSE/2) * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  width <- qtukey(conf.level, k, df) * se[keep]
+  est <- center / se[keep]
+  pvals <- ptukey(abs(est), k, df, lower.tail = FALSE)
+  
+  list(width=width, est=est, pvals=pvals, method.str="Tukey HSD")
+}
+
+
+.newmankeuls <- function(center, means, n, MSE, df, conf.level) {
+  se <- sqrt((MSE/2) * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  nmean <- (abs(outer(rank(means), rank(means), "-")) + 1)[keep]
+  
+  width <- qtukey(conf.level, nmean, df) * se[keep]
+  est <- center / se[keep]
+  pvals <- ptukey(abs(est), nmean, df, lower.tail = FALSE)
+  
+  list(width=width, est=est, pvals=pvals, method.str="Newman-Keuls")
+}
+
+
+.duncan <- function(center, means, n, MSE, df, conf.level) {
+  se <- sqrt((MSE/2) * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  nmean <- (abs(outer(rank(means), rank(means), "-")) + 1)[keep]
+  
+  width <- qtukey(conf.level^(nmean-1), nmean, df) * se[keep]
+  est <- center / se[keep]
+  pvals <- 1 - (1 - ptukey(abs(est), nmean, df, lower.tail = FALSE))^(1/(nmean - 1))
+  
+  list(width=width, est=est, pvals=pvals,
+       method.str="Duncan's new multiple range test")
+}
+
+
+.scheffe <- function(center, n, MSE, df, k, conf.level) {
+  se <- sqrt(MSE * outer(1/n, 1/n, "+"))
+  keep <- lower.tri(se)
+  
+  Fcrit <- qf(conf.level, k - 1, df)
+  width <- sqrt((k - 1) * Fcrit) * se[keep]
+  est <- center / se[keep]
+  pvals <- pf(est^2/(k - 1), k - 1, df, lower.tail = FALSE)
+  
+  list(width=width, est=est, pvals=pvals, method.str="Scheff\u00e9")
+}
 
 

@@ -58,6 +58,9 @@ the median is calculated in SAS. \cr The boot confidence interval type is
 calculated by means of \code{\link[boot]{boot.ci}} with default type
 \code{"basic"}.
 }
+\note{
+based on code of W Huber on StackExchange
+}
 \examples{
 
 x <- mtcars$mpg
@@ -75,8 +78,4 @@ quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 \seealso{
 \code{\link[DescToolsX]{quantileX}}, \code{\link{quantile}},
 \code{\link{medianCI}}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} based on code of W Huber on
-StackExchange
 }

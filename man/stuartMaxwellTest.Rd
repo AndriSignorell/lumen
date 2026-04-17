@@ -58,6 +58,9 @@ value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
 have equal row and column marginals. (See:
 \url{https://www.john-uebersax.com/stat/mcnemar.htm#stuart})
 }
+\note{
+based on code from Jim Lemon
+}
 \examples{
 
 # Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#stuart
@@ -105,9 +108,6 @@ Other topic.contingencyTests:
 \code{\link{lehmacherTest}()},
 \code{\link{mhChisqTest}()},
 \code{\link{woolfTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, based on Code from Jim Lemon
 }
 \concept{marginal homogeneity}
 \concept{topic.contingencyTests}

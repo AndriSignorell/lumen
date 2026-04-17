@@ -22,7 +22,6 @@
 #' used. 
 #' @param tol the desired accuracy (convergence tolerance). 
 #' @return a numeric value 
-#' @author Andri Signorell <andri@@signorell.net> 
 #' @seealso \code{\link{binomCIn}()} 
 #' @examples
 #' 

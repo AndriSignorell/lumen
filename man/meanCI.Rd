@@ -103,7 +103,4 @@ testing} Elsevier Academic Press
 \code{\link[DescToolsX]{meanX}}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
 \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \keyword{univar}

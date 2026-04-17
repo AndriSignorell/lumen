@@ -24,8 +24,6 @@
 #' @return A vector with 3 elements for estimate, lower confidence intervall
 #' and upper for the upper one.
 #' 
-#' @author Andri Signorell <andri@@signorell.net>
-#' 
 #' @references Agresti, A. and Coull, B.A. (1998) Approximate is better than
 #' "exact" for interval estimation of binomial proportions. \emph{American
 #' Statistician}, \bold{52}, pp. 119-126.

@@ -133,10 +133,5 @@ Other topic.parametricTests:
 \code{\link{varTest}()},
 \code{\link{yuenTTest}()}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}, based on R-Core code of
-\code{\link{t.test}},\cr documentation partly from Greg Snow
-\href{mailto:greg.snow@imail.org}{greg.snow@imail.org}
-}
 \concept{mean comparison}
 \concept{topic.parametricTests}

@@ -33,8 +33,7 @@
 #' 
 #' or, if probs was a vector, a matrix with 3 columns consisting of estimate,
 #' lower ci, upper ci \code{est, lci, uci}
-#' @author Andri Signorell <andri@@signorell.net> based on code of W Huber on
-#' StackExchange
+#' @note based on code of W Huber on StackExchange
 #' @seealso \code{\link[DescToolsX]{quantileX}}, \code{\link{quantile}},
 #' \code{\link{medianCI}}
 #' @examples

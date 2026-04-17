@@ -203,6 +203,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pdirichlet_parallel_cpp
+double pdirichlet_parallel_cpp(NumericVector q, NumericVector alpha, int n_sim);
+RcppExport SEXP _lumen_pdirichlet_parallel_cpp(SEXP qSEXP, SEXP alphaSEXP, SEXP n_simSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type q(qSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< int >::type n_sim(n_simSEXP);
+    rcpp_result_gen = Rcpp::wrap(pdirichlet_parallel_cpp(q, alpha, n_sim));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pruns_rcpp
 double pruns_rcpp(int r, int n1, int n2, std::string alternative);
 RcppExport SEXP _lumen_pruns_rcpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
@@ -234,6 +247,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
     {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 4},
     {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
+    {"_lumen_pdirichlet_parallel_cpp", (DL_FUNC) &_lumen_pdirichlet_parallel_cpp, 3},
     {"_lumen_pruns_rcpp", (DL_FUNC) &_lumen_pruns_rcpp, 4},
     {NULL, NULL, 0}
 };

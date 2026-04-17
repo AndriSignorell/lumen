@@ -40,8 +40,6 @@
 #' @return a numeric vector with 3 elements: \item{est}{estimator, say the calculated mean}
 #' \item{lci}{lower bound of the confidence interval} \item{uci}{upper
 #' bound of the confidence interval}
-
-#' @author Andri Signorell <andri@@signorell.net>
 #' 
 #' @seealso \code{\link[DescToolsX]{meanX}}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
 #' \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}

@@ -87,7 +87,4 @@ with(mtcars, with(split(mpg, am),
 \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
 \code{\link[boot]{boot.ci}}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \keyword{univar}

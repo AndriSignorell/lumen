@@ -9,7 +9,7 @@
 \alias{print.postHocTest}
 \alias{plot.postHocTest}
 \alias{print.PostHocTest}
-\title{Post-Hoc Tests}
+\title{Post Hoc Tests for ANOVA}
 \usage{
 postHocTest(x, ...)
 
@@ -39,7 +39,7 @@ postHocTest(x, ...)
 \method{print}{PostHocTest}(x, digits = getOption("digits", 3), ...)
 }
 \arguments{
-\item{x}{an aov object.}
+\item{x}{An object of class \code{aov}.}
 
 \item{\dots}{further arguments, not used so far.}
 
@@ -65,100 +65,58 @@ if method is not either \code{hsd} or \code{newmankeuls}.}
 \item{digits}{controls the number of fixed digits to print.}
 }
 \value{
+An object of class \code{PostHocTest}.
+
+\bold{Tables} \verb{ } For tables pairwise chi-square test can be performed,
+either without correction or with correction for multiple testing following
+the logic in \code{\link{p.adjust}}.
+
 an object of type "postHocTest", which will either be \cr A) a list
 of data.frames containing the mean difference, lower ci, upper ci and the
 p-value, if a conf.level was defined (something else than NA) or \cr B) a
 list of matrices with the p-values, if conf.level has been set to NA.
 }
 \description{
-A wrapper function providing a unified interface to various parametric
-and nonparametric post hoc tests for multiple pairwise comparisons
-following a significant omnibus test.
+Provides a unified interface for several parametric post hoc tests
+following a significant ANOVA. The function computes pairwise
+comparisons of group means with different methods for controlling
+the family-wise error rate.
 }
 \details{
-A convenience wrapper for computing post-hoc test after having calculated an
-ANOVA.
+\bold{Overview.}
+Post hoc tests differ in how strongly they control type I error.
+Conservative methods reduce false positives but have lower power,
+while more liberal methods increase power at the cost of a higher
+false positive rate.
 
-The function is designed to consolidate a couple of post-hoc tests with the
-same interface for input and output.
+\bold{Available methods.}
+\itemize{
+\item \strong{LSD (Fisher)}: No adjustment for multiple testing;
+highest power but inflated type I error. Mainly suitable for a small
+number of groups.
 
-\bold{Choosing Tests.} \verb{ } Different post hoc tests use different
-methods to control familywise (FW) and per experiment error rate (PE). Some
-tests are very conservative. Conservative tests go to great lengths to
-prevent the user from committing a type 1 error.  They use more stringent
-criterion for determining significance. Many of these tests become more and
-more stringent as the number of groups increases (directly limiting the FW
-and PE error rate). Although these tests buy you protection against type 1
-error, it comes at a cost. As the tests become more stringent, you loose
-power (1-B).  More liberal tests, buy you power but the cost is an increased
-chance of type 1 error.  There is no set rule for determining which test to
-use, but different researchers have offered some guidelines for choosing.
-Mostly it is an issue of pragmatics and whether the number of comparisons
-exceeds k-1.
+\item \strong{Bonferroni} (Dunn's (Bonferroni) t-test): Adjusts p-values
+by the number of comparisons;
+simple and robust, but often overly conservative.
 
-\bold{The Fisher's LSD} \verb{ } (Least Significant Different) sets alpha
-level per comparison. alpha = .05 for every comparison. df = df error (i.e.
-df within). This test is the most liberal of all post hoc tests. The
-critical t for significance is unaffected by the number of groups. This test
-is appropriate when you have 3 means to compare. In general the alpha is
-held at .05 because of the criterion that you can't look at LSD's unless the
-ANOVA is significant. This test is generally not considered appropriate if
-you have more than 3 means unless there is reason to believe that there is
-no more than one true null hypothesis hidden in the means.
+\item \strong{Tukey HSD}: Controls the family-wise error rate for all
+pairwise comparisons; widely used and generally recommended for balanced
+designs.
 
-\bold{Dunn's (Bonferroni) t-test} \verb{ } is sometimes referred to as the
-Bonferroni t because it used the Bonferroni PE correction procedure in
-determining the critical value for significance. In general, this test
-should be used when the number of comparisons you are making exceeds the
-number of degrees of freedom you have between groups (e.g. k-1). This test
-sets alpha per experiment; alpha = (.05)/c for every comparison. df = df
-error (c = number of comparisons (k(k-1))/2) This test is extremely
-conservative and rapidly reduces power as the number of comparisons being
-made increase.
+\item \strong{Newman-Keuls}: Stepwise procedure with more power than Tukey,
+but weaker error control; may inflate type I error.
 
-\bold{Newman-Keuls} \verb{ } is a step down procedure that is not as
-conservative as Dunn's t test. First, the means of the groups are ordered
-(ascending or descending) and then the largest and smallest means are tested
-for significant differences. If those means are different, then test
-smallest with next largest, until you reach a test that is not significant.
-Once you reach that point then you can only test differences between means
-that exceed the difference between the means that were found to be
-non-significant. Newman-Keuls is perhaps one of the most common post hoc
-test, but it is a rather controversial test. The major problem with this
-test is that when there is more than one true null hypothesis in a set of
-means it will overestimate the FW error rate. In general we would use this
-when the number of comparisons we are making is larger than k-1 and we don't
-want to be as conservative as the Dunn's test is.
+\item \strong{Duncan}: Similar to Newman-Keuls but more liberal; provides
+higher power at the cost of increased false positives.
 
-\bold{Tukey's HSD} \verb{ } (Honestly Significant Difference) is essentially
-like the Newman-Keuls, but the tests between each mean are compared to the
-critical value that is set for the test of the means that are furthest apart
-(rmax e.g. if there are 5 means we use the critical value determined for the
-test of X1 and X5). This method corrects for the problem found in the
-Newman-Keuls where the FW is inflated when there is more than one true null
-hypothesis in a set of means. It buys protection against type 1 error, but
-again at the cost of power. It tends to be the most common and preferred
-test because it is very conservative with respect to type 1 error when the
-null hypothesis is true. In general, HSD is preferred when you will make all
-the possible comparisons between a large set of means (6 or more means).
+\item \strong{Scheffé}: Very conservative; suitable for both pairwise and
+complex (contrast-based) comparisons.
+}
 
-\bold{The Scheffe test} \verb{ } is designed to protect against a type 1
-error when all possible complex and simple comparisons are made. That is we
-are not just looking the possible combinations of comparisons between pairs
-of means. We are also looking at the possible combinations of comparisons
-between groups of means. Thus Scheffe is the most conservative of all tests.
-Because this test does give us the capacity to look at complex comparisons,
-it essentially uses the same statistic as the linear contrasts tests.
-However, Scheffe uses a different critical value (or at least it makes an
-adjustment to the critical value of F). This test has less power than the
-HSD when you are making pairwise (simple) comparisons, but it has more power
-than HSD when you are making complex comparisons. In general, only use this
-when you want to make many post hoc complex comparisons (e.g. more than
-k-1).
-
-\bold{Tables} \verb{ } For tables pairwise chi-square test can be performed,
-either without correction or with correction for multiple testing following
-the logic in \code{\link{p.adjust}}.
+\bold{Guidance.}
+Tukey HSD is typically a good default for pairwise comparisons.
+Bonferroni is useful when strict error control is required.
+Scheffé is appropriate for more complex contrasts.
 }
 \examples{
 
@@ -189,9 +147,6 @@ Other topic.postHocTests:
 \code{\link{dunnettTest}()},
 \code{\link{nemenyiTest}()},
 \code{\link{scheffeTest}()}
-}
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
 }
 \concept{convenience function}
 \concept{multiple comparisons}

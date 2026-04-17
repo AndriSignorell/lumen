@@ -16,7 +16,7 @@
 #'             setNames weights wilcox.test mantelhaen.test
 #'             weighted.mean na.action lm.wfit quantile
 #'             symnum xtabs rbeta rexp runif qexp integrate
-#'             dbinom poisson.test ppois qbeta df
+#'             dbinom poisson.test ppois qbeta df rgamma
 #'             
 #' @importFrom aurora fm plotDot
 #'             

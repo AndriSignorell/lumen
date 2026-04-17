@@ -5,7 +5,7 @@
 \alias{scheffeTest.default}
 \alias{scheffeTest.aov}
 \alias{scheffeTest.formula}
-\title{Scheffe Test for Pairwise and Otherwise Comparisons}
+\title{Scheffé Test for Pairwise and Otherwise Comparisons}
 \usage{
 scheffeTest(x, ...)
 
@@ -79,7 +79,7 @@ comparisons following a significant ANOVA, controlling the
 familywise error rate conservatively for any number of contrasts.
 }
 \details{
-Scheffe's method applies to the set of estimates of all possible contrasts
+Scheffé's method applies to the set of estimates of all possible contrasts
 among the factor level means, not just the pairwise differences considered
 by Tukey's method.
 }

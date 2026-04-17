@@ -52,6 +52,3 @@ meanCIn(ci=c(25, 27), sd=5)
 \seealso{
 \code{\link{binomCIn}()}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}

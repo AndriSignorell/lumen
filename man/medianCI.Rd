@@ -81,7 +81,4 @@ medianCI(x, method="boot", sides="right")
 \code{\link{wilcox.test}}, \code{\link{meanCI}},
 \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
 }
-\author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}
-}
 \keyword{univar}
