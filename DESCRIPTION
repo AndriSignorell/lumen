@@ -1,6 +1,6 @@
 Package: lumen
 Title: Hypothesis Tests for DescToolsX
-Version: 0.0.0.903  
+Version: 0.0.0.904  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -57,7 +57,6 @@ RoxygenNote: 7.3.3
 Imports: boot, aurora, bedrock, Exact, mvtnorm, stats, withr
 Suggests:goftest, testthat (>= 3.0.0), coin, flexsurv
 Config/testthat/edition: 3
-SystemRequirements: C++17
 URL: https://andrisignorell.github.io/lumen/,
             https://github.com/AndriSignorell/lumen/
 BugReports: https://github.com/AndriSignorell/lumen/issues

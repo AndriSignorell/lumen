@@ -4,7 +4,7 @@
 \alias{pdirichlet}
 \title{Dirichlet CDF (parallel Monte Carlo)}
 \usage{
-pdirichlet(q, alpha, n_sim = 1e+05)
+pdirichlet(q, alpha, n_sim = 100000)
 }
 \arguments{
 \item{q}{Numeric vector}

@@ -121,16 +121,16 @@ dunnTest.formula <- function (formula, data, subset, na.action, ...) {
   na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
   
   ## --- parse formula (n.sample only) ---
-  pf <- .parseFormula(
+  pf <- resolveFormula(
     formula   = formula,
     data      = data,
     subset    = subset_expr,
     na.action = na_expr,
-    allowed   = "n.sample"
+    allowed   = "n.sample.independent"
   )
   
   ## --- defensive checks ---
-  if (pf$type != "n.sample")
+  if (pf$type != "n.sample.independent")
     stop("Dunn test requires an unpaired n-sample design")
   
   ## --- call default method ---

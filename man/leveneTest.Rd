@@ -8,7 +8,7 @@
 \usage{
 leveneTest(x, ...)
 
-\method{leveneTest}{formula}(formula, data, subset, na.action, ...)
+\method{leveneTest}{formula}(formula, data, subset, na.action = na.pass, center = median, ...)
 
 \method{leveneTest}{default}(x, g, center = median, ...)
 }
@@ -36,11 +36,11 @@ the data values and \code{rhs} the corresponding groups.}
 \item{na.action}{a function which indicates what should happen
 when the data contain NAs. Defaults to \code{getOption("na.action")}.}
 
-\item{g}{factor defining groups.}
-
 \item{center}{The name of a function to compute the center of each group;
 \code{mean} gives the original Levene's test; the default, \code{median},
 provides a more robust test (Brown-Forsythe-Test).}
+
+\item{g}{factor defining groups.}
 }
 \value{
 An object of class "htest" representing the result of the

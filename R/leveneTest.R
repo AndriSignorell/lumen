@@ -115,39 +115,21 @@ leveneTest <- function (x, ...)
 
 #' @rdname leveneTest
 #' @export
-leveneTest.formula <- function(formula, data, subset, na.action, ...) {
+leveneTest.formula <- function(formula, data, subset,
+                               na.action = na.pass,
+                               center    = median, ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  ## IMPORTANT!!
-  ## --- capture subset / na.action HERE ---
   subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
   
-  ## --- parse formula (n.sample only) ---
-  pf <- .parseFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n.sample"
-  )
+  res <- resolveFormula(formula, data,
+                        subset    = subset_expr,
+                        na.action = na.action,
+                        allowed   = "n.sample.independent")
   
-  ## --- defensive checks ---
-  if (pf$type != "n.sample")
-    stop("Levene test requires an unpaired n-sample design")
-  
-  ## --- call default method ---
-  y <- leveneTest(
-    x = pf$x,
-    g = pf$group,
-    ...
-  )
-  
-  ## --- align with stats:::*.formula behaviour ---
-  y$data.name <- pf$data.name
-  y
+  leveneTest.default(x      = res$x,
+                     g      = res$group,
+                     center = center,
+                     ...)
 }
 
 

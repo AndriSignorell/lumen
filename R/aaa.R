@@ -6,7 +6,7 @@
 
 
 utils::globalVariables(c(
-  "zTest", "runsTest", "varTest",
+  "zTest", "runsTest", "varTest", 
   "pageTest", "jonckheereTerpstraTest", "cochranQTest", "siegelTukeyTest"
 ))
 

@@ -106,7 +106,7 @@ quantileCI <- function(x, conf.level = 0.95, sides = c("two.sided", "left", "rig
     } 
     
     # get the values  
-    if(prob %nin% c(0,1))
+    if(prob %notin% c(0,1))
       s <- sort(x, partial= c(u, l)[is.finite(c(u, l))])
     else
       s <- sort(x)

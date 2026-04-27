@@ -7,7 +7,7 @@
 meanCIn(
   ci,
   sd,
-  interval = c(2, 1e+05),
+  interval = c(2, 100000),
   conf.level = 0.95,
   norm = FALSE,
   tol = .Machine$double.eps^0.5

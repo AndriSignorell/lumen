@@ -17,12 +17,14 @@
 #'             weighted.mean na.action lm.wfit quantile
 #'             symnum xtabs rbeta rexp runif qexp integrate
 #'             dbinom poisson.test ppois qbeta df rgamma
+#'             formula
 #'             
 #' @importFrom aurora fm plotDot
 #'             
 #' @importFrom bedrock setNamesX allDuplicated pairApply 
-#'             unirootAll `%nin%` isNumeric
+#'             unirootAll isNumeric
 #'             recycle inDots logitInv winsorize inDots stripAttr
+#'             resolveFormula
 #'             
 #' @importFrom Exact exact.test
 NULL
