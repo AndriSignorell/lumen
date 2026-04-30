@@ -20,6 +20,8 @@
 #'             formula
 #'             
 #' @importFrom aurora fm plotDot
+#' 
+#' @importFrom graphics abline title
 #'             
 #' @importFrom bedrock setNamesX allDuplicated pairApply 
 #'             unirootAll isNumeric

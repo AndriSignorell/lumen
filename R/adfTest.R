@@ -36,9 +36,6 @@
 #' 
 #' Hamilton (1994), \emph{Time Series Analysis}, Princeton University Press.
 #' 
-#' @family topic.timeSeriesTests
-#' @concept unit root
-#' 
 #' @examples
 #' 
 #' lc.df <- adfTest(y=AirPassengers, lags=3, type='trend')
@@ -46,7 +43,11 @@
 #'
 
  
-
+#' @family test.stationarity
+#' @concept time-series
+#' @concept hypothesis-testing
+#'
+#'
 #' @export 
 adfTest <- function (y, type = c("none", "drift", "trend"), 
                      lags = 1, selectlags = c("Fixed", "AIC", "BIC")) {
