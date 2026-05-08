@@ -16,6 +16,8 @@
 #'
 #' @keywords internal
 #' @noRd
+#' @family internal
+#' @concept internal
 .resolveMethod <- function(method,
                            several.ok = FALSE,
                            fn = sys.function(sys.parent())) {

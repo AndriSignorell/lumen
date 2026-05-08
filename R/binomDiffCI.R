@@ -184,6 +184,11 @@
 # 
 
 
+#' @family ci.proportion
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 binomDiffCI <- function(x1, n1, x2, n2, 
                         conf.level = 0.95, 

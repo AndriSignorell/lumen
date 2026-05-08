@@ -66,9 +66,6 @@
 #' @references Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
 #' vieweg
 #' 
-#' @family topic.parametricTests
-#' @concept mean comparison
-#' 
 #' @examples
 #' 
 #' x <- rnorm(25, 100, 5)
@@ -95,6 +92,11 @@
 
 
 #' @rdname zTest
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 zTest <- function (x, ...)
   UseMethod("zTest")

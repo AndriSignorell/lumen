@@ -105,6 +105,11 @@
 
 
 #' @rdname signTest
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#'
+#'
 #' @export
 signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"),
                      mu = 0, conf.level = 0.95) {

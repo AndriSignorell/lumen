@@ -4,7 +4,7 @@
 \alias{siegelTukeyTest}
 \alias{siegelTukeyTest.default}
 \alias{siegelTukeyTest.formula}
-\title{Siegel-Tukey Test For Equality In Variability}
+\title{Siegel-Tukey Test for Equality in Variability}
 \usage{
 siegelTukeyTest(x, ...)
 
@@ -13,181 +13,174 @@ siegelTukeyTest(x, ...)
 \method{siegelTukeyTest}{default}(
   x,
   y,
-  adjust.median = FALSE,
   alternative = c("two.sided", "less", "greater"),
   mu = 0,
-  exact = NULL,
+  adjust.median = FALSE,
+  exact = NA,
   correct = TRUE,
-  conf.int = FALSE,
-  conf.level = 0.95,
   ...
 )
 }
 \arguments{
-\item{x, y}{numeric vector of data values. Non-finite (e.g. infinite or
-missing) values will be omitted.}
+\item{x, y}{numeric vectors of data values.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{\dots}{further arguments passed to or from methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and rhs the corresponding groups.}
+\item{formula}{a formula of the form \code{response ~ group}, where
+\code{response} is a numeric vector and \code{group} a factor or vector
+with exactly two levels.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{an optional data frame (or matrix, coerced to data frame)
+containing the variables in \code{formula}. If not supplied, variables
+are taken from \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional vector specifying a subset of observations to use.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain NAs. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function indicating how to handle \code{NA}s in the
+formula interface. Defaults to \code{na.pass}; \code{NA}s in \code{x} or
+\code{y} are silently dropped in the default method.}
 
-\item{adjust.median}{Should between-group differences in medians be leveled
-before performing the test? In certain cases, the Siegel-Tukey test is
-susceptible to median differences and may indicate significant differences
-in variability that, in reality, stem from differences in medians. Default
-is \code{FALSE}.}
+\item{alternative}{a character string specifying the alternative hypothesis:
+\code{"two.sided"} (default), \code{"greater"}, or \code{"less"}.
+Partial matching is allowed.}
 
-\item{alternative}{a character string specifying the alternative hypothesis,
-must be one of \code{"two.sided"} (default), \code{"greater"} or
-\code{"less"}. You can specify just the initial letter.}
+\item{mu}{a single number specifying the location parameter under the null
+hypothesis. Default is \code{0}.}
 
-\item{mu}{a number specifying an optional parameter used to form the null
-hypothesis. See Details.}
+\item{adjust.median}{logical; if \code{TRUE}, the median of \code{x} is
+shifted to equal the median of \code{y} before ranking, to prevent median
+differences from inflating the test statistic. Default is \code{FALSE}.}
 
-\item{exact}{a logical indicating whether an exact p-value should be
-computed. This is passed directly to \code{\link{wilcox.test}}.}
+\item{exact}{logical; if \code{TRUE}, an exact p-value is computed via
+\code{\link{pwilcox}}. Exact computation is not possible in the presence
+of ties; a warning is issued and the normal approximation is used instead.
+If \code{NA} (default), exact computation is used when both samples have
+fewer than 50 observations and there are no ties.}
 
-\item{correct}{a logical indicating whether to apply continuity correction
-in the normal approximation for the p-value.}
-
-\item{conf.int}{a logical indicating whether a confidence interval should be
-computed.}
-
-\item{conf.level}{confidence level of the interval.}
+\item{correct}{logical; if \code{TRUE} (default), a continuity correction
+is applied in the normal approximation. Ignored when \code{exact = TRUE}
+or when ties are present (continuity correction is not appropriate with
+tie-corrected variance).}
 }
 \value{
-A list of class \code{htest}, containing the following components:
-\item{statistic}{ Siegel-Tukey test (Wilcoxon test on tie-adjusted
-Siegel-Tukey ranks, after the median adjustment if specified).}
-\item{p.value}{ the p-value for the test} \item{null.value}{is the value of
-the median specified by the null hypothesis. This equals the input argument
-\code{mu}. } \item{alternative}{a character string describing the
-alternative hypothesis.} \item{method}{ the type of test applied}
-\item{data.name}{a character string giving the names of the data.}
+An object of class \code{"htest"} with the following components:
+\describe{
+\item{\code{statistic}}{the Wilcoxon rank-sum statistic \eqn{W} computed
+on the Siegel-Tukey ranks.}
+\item{\code{p.value}}{the p-value of the test.}
+\item{\code{null.value}}{the location parameter \code{mu} under the null
+hypothesis.}
+\item{\code{alternative}}{a character string describing the alternative
+hypothesis.}
+\item{\code{method}}{a character string identifying the test.}
+\item{\code{data.name}}{a character string giving the names of the data.}
+\item{\code{exact}}{logical indicating whether the exact distribution was
+used.}
+\item{\code{ties}}{logical indicating whether ties were present in the
+Siegel-Tukey ranks.}
+}
 }
 \description{
-A nonparametric test for differences in scale (variability) between two
-independent groups, based on a specific rank assignment that alternates
-between the extremes and the center of the combined sample.
+The Siegel-Tukey test examines the null hypothesis that the variability
+(scale) of \code{x} and \code{y} is equal. Rejection indicates that the
+two groups differ in spread. The test is distribution-free and does not
+assume normality, but it does assume equal medians under the null hypothesis
+of equal scale. If the medians differ, the test may detect that difference
+rather than a difference in scale; use \code{adjust.median = TRUE} to
+remove median differences before testing.
+
+Ranks are assigned to the combined sorted sample in the pattern
+1, 4, 5, 8, 9, \ldots from the extremes inward, and 2, 3, 6, 7, \ldots
+from the second-lowest upward. If the combined sample size is odd, the
+median observation is dropped before ranking (it is taken from the larger
+group when group sizes differ).
+
+Ties receive average ranks. The p-value is computed exactly (via
+\code{\link{pwilcox}}) when there are no ties and both samples are smaller
+than 50 observations; otherwise a normal approximation with tie-corrected
+variance is used. This behaviour can be overridden with \code{exact}.
+
+\strong{Note:} The Siegel-Tukey test has relatively low power compared to
+alternatives such as \code{\link{ansari.test}} or \code{\link{mood.test}},
+and may indicate significance due to median differences rather than scale
+differences when \code{adjust.median = FALSE}.
 }
 \details{
-Non-parametric Siegel-Tukey test for equality in variability. The null
-hypothesis is that the variability of x is equal between two groups. A
-rejection of the null hypothesis indicates that variability differs between
-the two groups.
-
-\strong{Note:} \verb{   } The Siegel-Tukey test has relatively low power
-and may, under certain
-conditions, indicate significance due to differences in medians rather than
-differences in variabilities (consider using the argument
-\code{adjust.median}).
+A nonparametric test for differences in scale (variability) between two
+independent groups. Ranks are assigned by alternating between the extremes
+and the center of the combined sorted sample, and a Wilcoxon-Mann-Whitney
+statistic is then computed on these ranks.
 }
 \note{
-Based on a blog post by Daniel Malter, Tal Galili \href{mailto:tal.galili@gmail.com}{tal.galili@gmail.com}
-
-\href{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}{www.r-statistics.com/2010/02/}
+Originally based on a blog post by Tal Galili:
+\url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
 }
 \examples{
-
 # Duller, S. 183
 x <- c(12, 13, 29, 30)
 y <- c(15, 17, 18, 24, 25, 26)
 siegelTukeyTest(x, y)
-siegelTukeyTest(x, y, alternative="greater")
+siegelTukeyTest(x, y, alternative = "greater")
 
 # Duller, S. 323
-old <- c(870,930,935,1045,1050,1052,1055)
-new <- c(932,970,980,1001,1009,1030,1032,1040,1046)
+old <- c(870, 930, 935, 1045, 1050, 1052, 1055)
+new <- c(932, 970, 980, 1001, 1009, 1030, 1032, 1040, 1046)
 siegelTukeyTest(old, new, alternative = "greater")
-# compare to the recommended alternatives
-mood.test(old, new, alternative="greater")
-ansari.test(old, new, alternative="greater")
+# recommended alternatives:
+mood.test(old, new, alternative = "greater")
+ansari.test(old, new, alternative = "greater")
 
-# Bortz, S. 250
-x <- c(26.3,26.5,26.8,27.0,27.0,27.2,27.3,27.3,27.4,27.5,27.6,27.8,27.9)
-id <- c(2,2,2,1,2,2,1,2,2,1,1,1,2)-1
+# Bortz, S. 250 -- formula interface
+x  <- c(26.3, 26.5, 26.8, 27.0, 27.0, 27.2, 27.3,
+        27.3, 27.4, 27.5, 27.6, 27.8, 27.9)
+id <- c(2, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1, 1, 2) - 1
 siegelTukeyTest(x ~ id)
 
-
-# Sachs, Angewandte Statistik, 12. Auflage, 2007, S. 314
-A <- c(10.1,7.3,12.6,2.4,6.1,8.5,8.8,9.4,10.1,9.8)
-B <- c(15.3,3.6,16.5,2.9,3.3,4.2,4.9,7.3,11.7,13.1)
+# Sachs (2007), S. 314
+A <- c(10.1, 7.3, 12.6, 2.4, 6.1, 8.5, 8.8, 9.4, 10.1, 9.8)
+B <- c(15.3, 3.6, 16.5, 2.9, 3.3, 4.2, 4.9, 7.3, 11.7, 13.1)
 siegelTukeyTest(A, B)
 
-
-
-### 1
-x <- c(4,4,5,5,6,6)
-y <- c(0,0,1,9,10,10)
+# equal medians, different spread
+x <- c(4, 4, 5, 5, 6, 6)
+y <- c(0, 0, 1, 9, 10, 10)
 siegelTukeyTest(x, y)
 
-### 2
-# example for a non equal number of cases:
-x <- c(4,4,5,5,6,6)
-y <- c(0,0,1,9,10)
+# unequal group sizes
+x <- c(4, 4, 5, 5, 6, 6)
+y <- c(0, 0, 1, 9, 10)
 siegelTukeyTest(x, y)
 
-### 3
-x <- c(33, 62, 84, 85, 88, 93, 97, 4, 16, 48, 51, 66, 98)
-id <- c(0,0,0,0,0,0,0,1,1,1,1,1,1)
-siegelTukeyTest(x ~ id)
+# median adjustment
+x <- c(177, 200, 227, 230, 232, 268, 272, 297)
+y <- c(47, 105, 126, 142, 158, 172, 197, 220, 225, 230, 262, 270)
+siegelTukeyTest(x, y, adjust.median = TRUE)
 
-### 4
-x <- c(177,200,227,230,232,268,272,297,47,105,126,142,158,172,197,220,225,230,262,270)
-id <- c(rep(0,8),rep(1,12))
-siegelTukeyTest(x ~ id, adjust.median=TRUE)
-
-### 5
-x <- c(33,62,84,85,88,93,97)
-y <- c(4,16,48,51,66,98)
-siegelTukeyTest(x, y)
-
-### 6
-x <- c(0,0,1,4,4,5,5,6,6,9,10,10)
-id <- c(0,0,0,1,1,1,1,1,1,0,0,0)
-siegelTukeyTest(x ~ id)
-
-### 7
-x <- c(85,106,96, 105, 104, 108, 86)
-id <- c(0,0,1,1,1,1,1)
-siegelTukeyTest(x ~ id)
+# floating-point robustness (previously affected by merge precision bug)
+y2 <- c(-1, 2, 2.1, 3)
+x2 <- c(-5, -9, 13, 12, 90, 100)
+siegelTukeyTest(x2, y2, adjust.median = TRUE)  
+# p ~ 0.1143
 
 }
 \references{
-Sheskin, D. J. (2004): \emph{Handbook of parametric and nonparametric
-statistical procedures} 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
+Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
+for relative spread in unpaired samples. \emph{Journal of the American
+Statistical Association}, \bold{55}(291), 429--445.
 
-Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks
-procedure for relative spread in unpaired samples. \emph{Journal of the
-American Statistical Association}.
+Sheskin, D. J. (2004): \emph{Handbook of Parametric and Nonparametric
+Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-\code{\link{mood.test}}, \code{\link{ansari.test}},
+\code{\link{ansari.test}}, \code{\link{mood.test}},
 \code{\link{wilcox.test}}, \code{\link{leveneTest}}
 
-Other topic.dispersionTests: 
-\code{\link{leveneTest}()},
-\code{\link{varTest}()}
-
-Other topic.nonparametricTests: 
-\code{\link{jonckheereTerpstraTest}()},
-\code{\link{mosesTest}()},
-\code{\link{pageTest}()},
-\code{\link{signTest}()},
-\code{\link{vanWaerdenTest}()}
+Other test.variance:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=sphericityEps]{sphericityEps()}},
+\code{\link[=varTest]{varTest()}}
 }
-\concept{scale test}
-\concept{topic.dispersionTests}
-\concept{topic.nonparametricTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.variance}

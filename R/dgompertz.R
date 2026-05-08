@@ -65,16 +65,13 @@
 #' Stata Press (2007) \emph{Stata Release 10 Manual: Survival Analysis
 #' and Epidemiological Tables}. Stata Press.
 #'  
-#' @family topic.distributions
-#' @concept continuous distribution
-#' @concept survival analysis
-#' @concept mortality
-#' @concept hazard rate
-#' @concept dpqr
-#' 
-#' 
 
 #' @rdname dgompertz
+#' @family dist.other
+#' @concept distributions
+#' @concept survival-analysis
+#'
+#'
 #' @export
 dgompertz <- function(x, shape, rate=1, log=FALSE) {
   # this is a verbatim copy from the package flexsurv (Christopher Jackson)

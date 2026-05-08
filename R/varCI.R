@@ -72,6 +72,11 @@
 #' 
 
 
+#' @family ci.dispersion
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 varCI <- function (x, 
                    conf.level = 0.95, sides = c("two.sided","left","right"), 

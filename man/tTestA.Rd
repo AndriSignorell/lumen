@@ -117,12 +117,13 @@ t.test(x, y, paired = TRUE)
 \seealso{
 \code{\link{t.test}}
 
-Other topic.parametricTests: 
-\code{\link{hotellingsT2Test}()},
-\code{\link{leveneTest}()},
-\code{\link{varTest}()},
-\code{\link{yuenTTest}()},
-\code{\link{zTest}()}
+Other test.location:
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
+\code{\link[=zTest]{zTest()}}
 }
-\concept{mean comparison}
-\concept{topic.parametricTests}
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.location}

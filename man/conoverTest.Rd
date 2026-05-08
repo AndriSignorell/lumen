@@ -132,13 +132,16 @@ Hoboken, NJ. 3rd edition.
 \code{\link{kruskal.test}}, \code{\link{wilcox.test}},
 \code{\link{p.adjust}}
 
-Other topic.postHocTests: 
-\code{\link{dunnTest}()},
-\code{\link{dunnettTest}()},
-\code{\link{nemenyiTest}()},
+Other test.posthoc:
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
-\code{\link{scheffeTest}()}
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{multiple comparisons}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
 \concept{nonparametric}
-\concept{topic.postHocTests}
+\concept{test.posthoc}

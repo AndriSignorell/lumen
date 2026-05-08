@@ -40,6 +40,11 @@
 #' 
  
 
+#' @family sample.size
+#' @concept sample-size
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 powerChisqTest <- function (n = NULL, w = NULL, df = NULL, sig.level = 0.05, power = NULL) {
   

@@ -68,6 +68,12 @@
 # Confidence intervall for the median
 
 
+#' @family ci.location
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#' @concept nonparametric
+#'
+#'
 #' @export
 medianCI <- function(x, 
                      conf.level=0.95, sides = c("two.sided","left","right"), 

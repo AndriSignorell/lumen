@@ -38,9 +38,6 @@
 #' @references Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 #' & Sons
 #' 
-#' @family topic.contingencyTests
-#' @concept trend test
-#'  
 #' @examples
 #' 
 #' # http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4
@@ -74,6 +71,12 @@
 #' 
 
 
+#' @family test.trend
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#' @concept table-manipulation
+#'
+#'
 #' @export
 cochranArmitageTest <- function(x, alternative = c("two.sided","one.sided")) {
   

@@ -69,10 +69,6 @@
 #' Anderson, T.W. (2003), \emph{An introduction to multivariate analysis}, New
 #' Jersey: Wiley.
 #' 
-#' @family topic.parametricTests
-#' @concept multivariate
-#' @concept mean comparison
-#' 
 #' @examples
 #' 
 #' math.teach <- data.frame(
@@ -85,6 +81,11 @@
 #' 
 
 #' @rdname hotellingsT2Test
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept multivariate
+#'
+#'
 #' @export
 hotellingsT2Test <- function(x,...) {
   UseMethod("hotellingsT2Test")

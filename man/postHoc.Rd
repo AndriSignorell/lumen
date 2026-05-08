@@ -141,14 +141,15 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd",
 \code{\link{TukeyHSD}}, \code{\link{aov}},
 \code{\link{pairwise.t.test}}, \code{\link{scheffeTest}}
 
-Other topic.postHocTests: 
-\code{\link{conoverTest}()},
-\code{\link{dunnTest}()},
-\code{\link{dunnettTest}()},
-\code{\link{nemenyiTest}()},
-\code{\link{scheffeTest}()}
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{convenience function}
-\concept{multiple comparisons}
-\concept{topic.postHocTests}
-\concept{wrapper}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
+\concept{test.posthoc}

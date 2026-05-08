@@ -65,9 +65,6 @@
 #' Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
 #' 86 ff.
 #' 
-#' @family topic.contingencyTests
-#' @concept marginal homogeneity
-#' 
 #' @examples
 #' 
 #' # Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#stuart
@@ -91,6 +88,12 @@
 
 
 #' @rdname stuartMaxwellTest
+#' @family test.marginal
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#' @concept nonparametric
+#'
+#'
 #' @export
 stuartMaxwellTest <- function (x, y = NULL) {
   

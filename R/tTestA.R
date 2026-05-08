@@ -59,9 +59,6 @@
 #' 
 #' @seealso \code{\link{t.test}}
 #' 
-#' @family topic.parametricTests
-#' @concept mean comparison
-#' 
 #' @examples
 #' 
 #' ## Classical example: Student's sleep data
@@ -87,6 +84,11 @@
 #' 
  
 
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
                     alternative = c("two.sided", "less", "greater"),

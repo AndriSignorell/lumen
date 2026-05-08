@@ -101,10 +101,13 @@ Statistics} \bold{12}, 367-395.
 \seealso{
 \code{\link[randtests]{rank.test}}, \code{\link{runsTest}}
 
-Other topic.randomnessTests: 
-\code{\link{runsTest}()},
-\code{\link{vonNeumannTest}()}
+Other test.correlation:
+\code{\link[=corTest]{corTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=runsTest]{runsTest()}},
+\code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{randomness}
-\concept{rank-based}
-\concept{topic.randomnessTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.correlation}
+\concept{time-series}

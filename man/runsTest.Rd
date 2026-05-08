@@ -180,9 +180,13 @@ Sciences}, McGraw-Hill Kogakusha, Tokyo.
 \seealso{
 Run Length Encoding \code{\link{rle}}
 
-Other topic.randomnessTests: 
-\code{\link{bartelsRankTest}()},
-\code{\link{vonNeumannTest}()}
+Other test.correlation:
+\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=corTest]{corTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{randomness}
-\concept{topic.randomnessTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.correlation}
+\concept{time-series}

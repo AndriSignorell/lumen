@@ -45,10 +45,6 @@
 #' of goodness-of-fit tests for the logistic regression model.
 #' \emph{Statistics in Medicine}, \bold{16}, 965-980.
 #' 
-#' @family topic.modelDiagnostics
-#' @concept logistic regression
-#' @concept goodness-of-fit
-#' 
 #' @examples
 #' 
 #' set.seed(111)
@@ -66,6 +62,12 @@
 
 
 #' @rdname hosmerLemeshowTest
+#' @family test.goodnessfit
+#' @concept hypothesis-testing
+#' @concept goodness-of-fit
+#' @concept regression
+#'
+#'
 #' @export
 hosmerLemeshowTest <- function (fit, obs, ngr = 10, X, verbose = FALSE){
   

@@ -164,14 +164,10 @@ against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
 \seealso{
 \code{\link{friedman.test}}
 
-Other topic.nonparametricTests: 
-\code{\link{jonckheereTerpstraTest}()},
-\code{\link{mosesTest}()},
-\code{\link{siegelTukeyTest}()},
-\code{\link{signTest}()},
-\code{\link{vanWaerdenTest}()}
+Other test.trend:
+\code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}}
 }
-\concept{ordered alternatives}
-\concept{rank-based}
-\concept{topic.nonparametricTests}
-\concept{trend test}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.trend}

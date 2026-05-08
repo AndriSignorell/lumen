@@ -13,7 +13,7 @@ binomCI(
   method = c("wilson", "wilson-cc", "wilson-mod", "wald", "wald-cc", "jeffreys",
     "jeffreys-mod", "clopper-pearson", "agresti-coull", "pratt", "arcsine", "logit",
     "witting", "mid-p", "blaker", "likelihood", "khouadji"),
-  std_est = TRUE
+  stdEst = TRUE
 )
 
 binomCIn(
@@ -47,7 +47,7 @@ one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default),
 asked by \code{".all"}. Abbreviation of method is
 accepted. See details.}
 
-\item{std_est}{logical, specifying if the standard point estimator for the
+\item{stdEst}{logical, specifying if the standard point estimator for the
 proportion value \code{x/n} should be returned (\code{TRUE}, default) or
 the method-specific internally used alternative point estimate
 (\code{FALSE}).}
@@ -180,7 +180,7 @@ For the methods \code{"wilson"}, \code{"wilson-cc"},
 \code{"wilson-mod"}, \code{"agresti-coull"},
 \code{"witting"}, and \code{"arcsine"},
 the internally used adjusted point estimator can be returned
-by setting \code{std_est = FALSE}. These estimators are typically
+by setting \code{stdEst = FALSE}. These estimators are typically
 slightly shrunk toward 0.5 compared to the usual estimator \eqn{x/n}.
 See the cited literature for further details.
 
@@ -236,7 +236,7 @@ bedrock::setNamesX(cbind(round(cbind(
   rownames=meths)
 
 # returning p.tilde for agresti-coull ci
-binomCI(x=81, n=263, meth="agresti-coull", std_est = c(TRUE, FALSE))
+binomCI(x=81, n=263, meth="agresti-coull", stdEst = c(TRUE, FALSE))
 
 # return all implemented methods
 binomCI(4, 19, conf.level =0.95, 
@@ -277,12 +277,17 @@ de confiance pour une proportion binomiale.
 \seealso{
 \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
 
-Other topic.categoricalData: 
-\code{\link{binomDiffCI}()},
-\code{\link{binomRatioCI}()},
-\code{\link{multinomCI}()},
-\code{\link{poissonCI}()}
+Other ci.proportion:
+\code{\link[=binomDiffCI]{binomDiffCI()}},
+\code{\link[=binomRatioCI]{binomRatioCI()}},
+\code{\link[=multinomCI]{multinomCI()}}
+
+Other sample.size:
+\code{\link[=meanCIn]{meanCIn()}},
+\code{\link[=powerChisqTest]{powerChisqTest()}}
 }
-\concept{categorical data}
-\concept{confidence intervals}
-\concept{topic.categoricalData}
+\concept{ci.proportion}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
+\concept{sample-size}
+\concept{sample.size}

@@ -48,6 +48,11 @@
 #' 
 #' 
 
+#' @family ci.other
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 bootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", "perc", "bca"),
                    conf.level = 0.95, sides = c("two.sided", "left", "right"), R = 999) {

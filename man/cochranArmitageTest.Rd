@@ -80,15 +80,11 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 \code{\link{prop.trend.test}}
 \href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.trend:
+\code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
+\code{\link[=pageTest]{pageTest()}}
 }
-\concept{topic.contingencyTests}
-\concept{trend test}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{test.trend}

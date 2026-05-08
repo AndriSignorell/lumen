@@ -33,9 +33,6 @@
 #' @references Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 #' & Sons, pp 86 ff. 
 #' 
-#' @family topic.contingencyTests
-#' @concept stratified analysis
-#' 
 #' @examples
 #' 
 #' ## A r x c table  Agresti (2002, p. 57) Job Satisfaction
@@ -48,6 +45,11 @@
 #'
 
 
+#' @family test.contingency
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#'
+#'
 #'@export 
 mhChisqTest <- function(x, srow=1:nrow(x), scol=1:ncol(x)){
   

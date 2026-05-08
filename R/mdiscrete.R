@@ -118,3 +118,6 @@ mbenford <- function(ndigits = 1) {
   c(mean     = mu,
     variance = sum(d^2 * p) - mu^2)
 }
+
+
+

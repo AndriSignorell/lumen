@@ -22,8 +22,8 @@
 #' a change of sign to the distribution given above.
 #' 
 #' @name drweibull
-#' @aliases drweibull prweibull qrweibull rrweibull dnweibull pnweibull
-#' qnweibull rnweibull
+#' @aliases drweibull prweibull qrweibull rrweibull dnweibull pnweibull qnweibull rnweibull
+#' 
 #' @param x,q Vector of quantiles.
 #' @param p Vector of probabilities.
 #' @param n Number of observations.

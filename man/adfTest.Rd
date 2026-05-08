@@ -61,10 +61,9 @@ Autoregressive Time Series with a Unit Root, \emph{Econometrica}, \bold{49},
 Hamilton (1994), \emph{Time Series Analysis}, Princeton University Press.
 }
 \seealso{
-Other topic.timeSeriesTests: 
-\code{\link{breuschGodfreyTest}()},
-\code{\link{durbinWatsonTest}()},
-\code{\link{kpssTest}()}
+Other test.stationarity:
+\code{\link[=kpssTest]{kpssTest()}}
 }
-\concept{topic.timeSeriesTests}
-\concept{unit root}
+\concept{hypothesis-testing}
+\concept{test.stationarity}
+\concept{time-series}

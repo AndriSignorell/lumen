@@ -86,15 +86,14 @@ pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)
 
 }
 \seealso{
-Other topic.extremevalue.distributions: 
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drevgumbel}},
-\code{\link{drweibull}()}
+Other topic.extremevalue.distributions:
+\code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=dgev]{dgev()}},
+\code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbel]{dgumbel()}},
+\code{\link[=dgumbelx]{dgumbelx()}},
+\code{\link[=dorder]{dorder()}},
+\code{\link[=drweibull]{drweibull()}}
 }
 \concept{continuous distribution}
 \concept{dpqr}

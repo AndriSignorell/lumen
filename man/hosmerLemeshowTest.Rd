@@ -71,7 +71,12 @@ of goodness-of-fit tests for the logistic regression model.
 }
 \seealso{
 \code{\link{glm}}
+
+Other test.goodnessfit:
+\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}}
 }
 \concept{goodness-of-fit}
-\concept{logistic regression}
-\concept{topic.modelDiagnostics}
+\concept{hypothesis-testing}
+\concept{regression}
+\concept{test.goodnessfit}

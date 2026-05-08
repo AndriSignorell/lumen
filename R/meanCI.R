@@ -79,6 +79,11 @@
 #' 
 
 
+#' @family ci.location
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 meanCI <- function (x,  
                     conf.level = 0.95, sides = c("two.sided","left","right"), 

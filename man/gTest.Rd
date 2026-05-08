@@ -127,6 +127,14 @@ New York. 937 pp.
 }
 \seealso{
 \code{\link{chisq.test}}.
+
+Other test.contingency:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=mhChisqTest]{mhChisqTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{association}
-\concept{topic.contingency-tests}
+\concept{goodness-of-fit}
+\concept{hypothesis-testing}
+\concept{table-manipulation}
+\concept{test.contingency}

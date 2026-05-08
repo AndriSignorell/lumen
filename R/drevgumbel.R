@@ -25,12 +25,6 @@
 #' Based on code by Werner Stahel; partly inspired by package \pkg{VGAM}. Martin
 #' Maechler for numeric cosmetic.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept Gumbel
-#' @concept dpqr
-#' 
 #' @examples
 #' 
 #' curve(pRevGumbel(x, scale= 1/2), -3,2, n=1001, col=1, lwd=2,
@@ -45,6 +39,11 @@
 #' 
 
 #' @rdname drevgumbel
+#' @family dist.extreme
+#' @concept distributions
+#' @concept extreme-value-theory
+#'
+#'
 #' @export
 dRevGumbel <- function (x, location = 0, scale = 1) {
   # from VGAM  -- if (is.null(x)) FALSE else ifelse(is.na(x), FALSE, x)

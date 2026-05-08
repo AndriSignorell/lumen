@@ -98,15 +98,12 @@ Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
 \seealso{
 \code{\link{woolfTest}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.contingency:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=mhChisqTest]{mhChisqTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{odds ratio}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{table-manipulation}
+\concept{test.contingency}

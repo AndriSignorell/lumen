@@ -29,16 +29,16 @@ acceptBin <- function(x, n, p) {
     .Call(`_lumen_acceptBin`, x, n, p)
 }
 
-bdci_exact_sas_rcpp <- function(x1, n1, x2, n2, alpha = 0.05) {
-    .Call(`_lumen_bdci_exact_sas_rcpp`, x1, n1, x2, n2, alpha)
-}
-
 binomdiffciMee <- function(x1, n1, x2, n2, alpha, lower) {
     .Call(`_lumen_binomdiffciMee`, x1, n1, x2, n2, alpha, lower)
 }
 
 binomdiffciMN <- function(x1, n1, x2, n2, z, lower) {
     .Call(`_lumen_binomdiffciMN`, x1, n1, x2, n2, z, lower)
+}
+
+coef_boot_cpp <- function(X, y, B = 2000L, alpha = 0.05, seed = -1L) {
+    .Call(`_lumen_coef_boot_cpp`, X, y, B, alpha, seed)
 }
 
 dgompertz_cpp <- function(x, shape, rate, log) {
@@ -61,8 +61,12 @@ pan <- function(A, M, C, N) {
     .Call(`_lumen_pan`, A, M, C, N)
 }
 
-pdirichlet_parallel_cpp <- function(q, alpha, n_sim) {
-    .Call(`_lumen_pdirichlet_parallel_cpp`, q, alpha, n_sim)
+pdirichlet_cpp <- function(q, alpha, n_sim) {
+    .Call(`_lumen_pdirichlet_cpp`, q, alpha, n_sim)
+}
+
+rsq_boot_cpp <- function(X, y, B = 1000L, alpha = 0.05, adjusted = TRUE, seed = -1L) {
+    .Call(`_lumen_rsq_boot_cpp`, X, y, B, alpha, adjusted, seed)
 }
 
 pruns_rcpp <- function(r, n1, n2, alternative = "two.sided") {

@@ -81,15 +81,14 @@ Soc.}, \bold{81}, 158--171.
 \seealso{
 \code{\link[evd]{fgev}}
 
-Other topic.extremevalue.distributions: 
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drevgumbel}},
-\code{\link{drweibull}()}
+Other topic.extremevalue.distributions:
+\code{\link[=dextreme]{dextreme()}},
+\code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbel]{dgumbel()}},
+\code{\link[=dgumbelx]{dgumbelx()}},
+\code{\link[=dorder]{dorder()}},
+\code{\link[=drweibull]{drweibull()}}
 }
 \concept{GEV}
 \concept{continuous distribution}

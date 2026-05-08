@@ -50,9 +50,6 @@
 #' Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
 #' \emph{Journal of the American Statistical Association}, 91, 14-26.
 #' 
-#' @family topic.contingencyTests
-#' @concept odds ratio
-#' 
 #' @examples
 #' 
 #' migraine <- xtabs(freq ~ .,
@@ -91,6 +88,11 @@
 #' 
 
 #' @rdname breslowDayTest
+#' @family test.contingency
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#'
+#'
 #' @export
 breslowDayTest <- function(x, OR = NA, correct = FALSE) {
   

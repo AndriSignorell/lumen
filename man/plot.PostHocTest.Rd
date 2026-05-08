@@ -32,4 +32,16 @@ is taken from the \code{"conf.level"} attribute of \code{x}.
 }
 \seealso{
 \code{\link[aurora]{plotDot}}
+
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link{postHoc}},
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
+\concept{graphics}
+\concept{multiple-comparisons}
+\concept{test.posthoc}

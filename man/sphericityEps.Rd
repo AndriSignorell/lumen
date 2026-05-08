@@ -46,4 +46,13 @@ Chapman & Hall, London, p.54-55
 }
 \seealso{
 \code{\link{aov}}
+
+Other test.variance:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=varTest]{varTest()}}
 }
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.variance}

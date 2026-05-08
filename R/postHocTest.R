@@ -49,8 +49,8 @@
 #' the logic in \code{\link{p.adjust}}. 
 #' 
 #' @name postHoc
-#' @aliases postHocTest postHocTest.aov postHocTest.table postHocTest.matrix
-#' print.postHocTest plot.postHocTest
+#' @aliases postHocTest postHocTest.aov postHocTest.table postHocTest.matrix print.postHocTest plot.postHocTest
+#' 
 #' @param x An object of class \code{aov}.
 #' @param method one of \code{"hsd"}, \code{"bonf"}, \code{"lsd"},
 #' \code{"scheffe"}, \code{"newmankeuls"}, defining the method for the pairwise
@@ -78,11 +78,6 @@
 #' @seealso \code{\link{TukeyHSD}}, \code{\link{aov}},
 #' \code{\link{pairwise.t.test}}, \code{\link{scheffeTest}} 
 #' 
-#' @family topic.postHocTests
-#' @concept multiple comparisons
-#' @concept wrapper
-#' @concept convenience function
-#' 
 #' @examples
 #' 
 #' postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "lsd")
@@ -104,6 +99,11 @@
 
 
 #' @rdname postHoc
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 postHocTest <- function (x, ...)
   UseMethod("postHocTest")
@@ -366,6 +366,11 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' 
 
 #' @method plot PostHocTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept graphics
+#'
+#'
 #' @export
 plot.PostHocTest <- function(x, ...){
   for (i in seq_along(x)) {

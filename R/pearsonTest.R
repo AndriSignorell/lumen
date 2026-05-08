@@ -60,16 +60,18 @@
 #' normality.  [aurora::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
-#' @family topic.goodnessOfFit
-#' @concept goodness-of-fit
-#' @concept chi-square
-#' 
 #' @examples
 #' 
 #' pearsonTest(rnorm(100, mean = 5, sd = 3))
 #' pearsonTest(runif(100, min = 2, max = 4))
 #' 
 
+#' @family test.normality
+#' @concept goodness-of-fit
+#' @concept normality-testing
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 pearsonTest <- function (x, n.classes = ceiling(2 * (n^(2/5))), 
                          adjust = TRUE) {

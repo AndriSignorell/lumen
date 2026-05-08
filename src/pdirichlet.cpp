@@ -52,7 +52,7 @@ struct DirichletCDFWorker : public Worker {
 
 
 // [[Rcpp::export]]
-double pdirichlet_parallel_cpp(NumericVector q,
+double pdirichlet_cpp(NumericVector q,
                                NumericVector alpha,
                                int n_sim) {
   

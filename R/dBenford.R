@@ -65,13 +65,6 @@
 #' the \pkg{VGAM} package and have been integrated here without logical
 #' changes.
 #' 
-#' @family topic.distributions
-#' @concept discrete distribution
-#' @concept Benford law
-#' @concept significant digits
-#' @concept fraud detection
-#' @concept dpqr
-#' 
 #' @examples
 #' 
 #' dbenford(x <- c(0:10, NA, NaN, -Inf, Inf))
@@ -93,6 +86,11 @@
 #' 
 
 #' @rdname dbenford
+#' @family dist.other
+#' @concept distributions
+#' @concept goodness-of-fit
+#'
+#'
 #' @export
 dbenford <- function(x, ndigits = 1, log = FALSE) {
   if (!isNumeric(ndigits, length.arg = 1,

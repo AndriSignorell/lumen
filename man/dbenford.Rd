@@ -106,13 +106,12 @@ Newcomb, S. (1881) Note on the Frequency of Use of the Different Digits in
 Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
 }
 \seealso{
-Other topic.distributions: 
-\code{\link{dgompertz}()},
-\code{\link{dtri}()}
+Other dist.other:
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link[=dtri]{dtri()}},
+\code{\link[=rsum1]{rsum1()}}
 }
-\concept{Benford law}
-\concept{discrete distribution}
-\concept{dpqr}
-\concept{fraud detection}
-\concept{significant digits}
-\concept{topic.distributions}
+\concept{dist.other}
+\concept{distributions}
+\concept{goodness-of-fit}

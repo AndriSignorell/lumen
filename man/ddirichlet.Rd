@@ -23,3 +23,13 @@ Computes the density of the Dirichlet distribution.
 ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 
 }
+\seealso{
+Other dist.other:
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link[=dtri]{dtri()}},
+\code{\link[=rsum1]{rsum1()}}
+}
+\concept{dist.other}
+\concept{distributions}
+\concept{multivariate}

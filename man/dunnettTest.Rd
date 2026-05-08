@@ -106,14 +106,15 @@ comparing several treatments with a control, \emph{Journal of the American
 Statistical Association}, 50:1096-1121.
 }
 \seealso{
-Other topic.postHocTests: 
-\code{\link{conoverTest}()},
-\code{\link{dunnTest}()},
-\code{\link{nemenyiTest}()},
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
-\code{\link{scheffeTest}()}
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{control comparison}
-\concept{multiple comparisons}
-\concept{parametric}
-\concept{topic.postHocTests}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
+\concept{test.posthoc}

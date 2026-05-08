@@ -65,15 +65,11 @@ Analysis}, Paper 382-208.
 \code{\link{chisq.test}}, \code{\link{mhChisqTest}},
 \code{\link{breslowDayTest}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.marginal:
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
-\concept{marginal homogeneity}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{test.marginal}

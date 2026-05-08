@@ -93,12 +93,13 @@ Moses, L.E. (1952) A Two-Sample Test, \emph{Psychometrika}, 17,
 \seealso{
 \code{\link{wilcox.test}}, \code{\link{ks.test}}
 
-Other topic.nonparametricTests: 
-\code{\link{jonckheereTerpstraTest}()},
-\code{\link{pageTest}()},
-\code{\link{siegelTukeyTest}()},
-\code{\link{signTest}()},
-\code{\link{vanWaerdenTest}()}
+Other test.location:
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
+\code{\link[=zTest]{zTest()}}
 }
-\concept{scale test}
-\concept{topic.nonparametricTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.location}

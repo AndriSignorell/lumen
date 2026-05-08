@@ -131,10 +131,6 @@
 #' Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version 2.0.
 #' \cr \url{https://CRAN.R-project.org/package=Exact}
 #' 
-#' @family topic.contingencyTests
-#' @concept exact test
-#' @concept binomial proportions
-#' 
 #' @examples
 #' #' 
 #' tab <- as.table(matrix(c(8, 14, 1, 3), nrow=2,
@@ -163,6 +159,12 @@
 
 
 #' @rdname barnardTest
+#' @family test.contingency
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#' @concept nonparametric
+#'
+#'
 #' @export
 barnardTest <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), 
                          method = c("csm", "csm approximate", "z-pooled", "z-unpooled", "boschloo", 

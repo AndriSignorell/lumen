@@ -116,14 +116,14 @@ two-sample trimmed t for unequal population variances. \emph{Biometrika},
 \seealso{
 \code{\link{t.test}}, \code{\link{print.htest}}
 
-Other topic.parametricTests: 
-\code{\link{hotellingsT2Test}()},
-\code{\link{leveneTest}()},
-\code{\link{tTestA}()},
-\code{\link{varTest}()},
-\code{\link{zTest}()}
+Other test.location:
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=zTest]{zTest()}}
 }
-\concept{mean comparison}
-\concept{robust statistics}
-\concept{topic.parametricTests}
-\concept{trimmed mean}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{robust-statistics}
+\concept{test.location}

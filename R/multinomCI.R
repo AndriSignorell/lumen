@@ -78,9 +78,6 @@
 #' Wilson, E. B. Probable inference, the law of succession and statistical
 #' inference, \emph{J.Am. Stat. Assoc.} 22 (1927) 209-212.
 #' 
-#' @family topic.categoricalData
-#' @concept confidence-intervals
-#' 
 #' @examples
 #' 
 #' # Multinomial distribution with 3 classes, from which a sample of 79 elements
@@ -141,6 +138,11 @@
 #'        
 
 
+#' @family ci.proportion
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right"),
                        method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")) {

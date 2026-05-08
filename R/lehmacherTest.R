@@ -42,11 +42,6 @@
 #' homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
 #' 22, Issue 8, pages 795-798
 #' 
-#' @family topic.contingencyTests
-#' @concept paired data
-#' @concept binary outcome
-#' @concept proportions
-#' 
 #' @examples
 #' 
 #' x <- matrix(c(400,40,20,10, 
@@ -60,6 +55,12 @@
 
 
 #' @rdname lehmacherTest
+#' @family test.marginal
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#' @concept nonparametric
+#'
+#'
 #' @export
 lehmacherTest <- function(x, y = NULL) {
   

@@ -48,6 +48,11 @@
 
 
 #' @rdname woolfTest
+#' @family test.contingency
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#'
+#'
 #' @export
 woolfTest <- function(x) {
   
@@ -75,4 +80,4 @@ woolfTest <- function(x) {
 }
 
 
-#' 
+

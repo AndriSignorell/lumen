@@ -28,9 +28,6 @@
 #'
 #' @seealso \code{\link[stats]{lm}}
 #'
-#' @family linear_models
-#' @concept heteroscedasticity homoscedasticity regression diagnostics
-#'
 #' @examples
 #' fit <- lm(Sepal.Length ~ Sepal.Width, data = iris)
 #' bpTest(fit)
@@ -38,6 +35,11 @@
 
 
 
+#' @family test.variance
+#' @concept hypothesis-testing
+#' @concept regression
+#'
+#'
 #' @export
 bpTest <- function(lm_fit) {
 

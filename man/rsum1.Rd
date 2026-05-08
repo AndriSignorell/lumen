@@ -39,3 +39,13 @@ rsum1(5, digits = 2)
 rsum1(1)
 
 }
+\seealso{
+Other dist.other:
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link[=dtri]{dtri()}}
+}
+\concept{data-manipulation}
+\concept{dist.other}
+\concept{distributions}

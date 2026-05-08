@@ -91,13 +91,8 @@ Garwood, F. (1936) Fiducial Limits for the Poisson distribution.
 }
 \seealso{
 \code{\link{poisson.test}}
-
-Other topic.categoricalData: 
-\code{\link{binomCI}()},
-\code{\link{binomDiffCI}()},
-\code{\link{binomRatioCI}()},
-\code{\link{multinomCI}()}
 }
-\concept{categorical data}
-\concept{confidence intervals}
-\concept{topic.categoricalData}
+\concept{ci.count}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
+\concept{distributions}

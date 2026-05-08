@@ -43,9 +43,6 @@
 #' normality.  [aurora::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
-#' @family topic.goodnessOfFit
-#' @concept normality
-#' 
 #' @examples
 #' 
 #' shapiroFranciaTest(rnorm(100, mean = 5, sd = 3))
@@ -54,6 +51,12 @@
 #'
 
 
+#' @family test.normality
+#' @concept goodness-of-fit
+#' @concept normality-testing
+#' @concept hypothesis-testing
+#'
+#'
 #'@export 
 shapiroFranciaTest <- function (x) {
   

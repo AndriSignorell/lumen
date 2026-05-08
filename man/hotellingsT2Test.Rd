@@ -102,13 +102,13 @@ Anderson, T.W. (2003), \emph{An introduction to multivariate analysis}, New
 Jersey: Wiley.
 }
 \seealso{
-Other topic.parametricTests: 
-\code{\link{leveneTest}()},
-\code{\link{tTestA}()},
-\code{\link{varTest}()},
-\code{\link{yuenTTest}()},
-\code{\link{zTest}()}
+Other test.location:
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
+\code{\link[=zTest]{zTest()}}
 }
-\concept{mean comparison}
+\concept{hypothesis-testing}
 \concept{multivariate}
-\concept{topic.parametricTests}
+\concept{test.location}

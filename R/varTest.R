@@ -57,10 +57,6 @@
 #' \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
 #' (nonparametric) two-sample tests for difference in scale.
 #' 
-#' @family topic.dispersionTests
-#' @family topic.parametricTests
-#' @concept variance test
-#' 
 #' @examples
 #' set.seed(1)
 #' x <- rnorm(20, sd = 3)
@@ -84,6 +80,12 @@
 
 
 #' @rdname varTest
+#' @family test.variance
+#' @concept hypothesis-testing
+#' @concept descriptive-statistics
+#' @concept confidence-intervals
+#'
+#'
 #' @export
 varTest <- function(x, ...) UseMethod("varTest")
 

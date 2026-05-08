@@ -41,6 +41,13 @@ Koenker, R. (1981). A note on studentizing a test for heteroscedasticity.
 }
 \seealso{
 \code{\link[stats]{lm}}
+
+Other test.variance:
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=sphericityEps]{sphericityEps()}},
+\code{\link[=varTest]{varTest()}}
 }
-\concept{heteroscedasticity homoscedasticity regression diagnostics}
-\concept{linear_models}
+\concept{hypothesis-testing}
+\concept{regression}
+\concept{test.variance}

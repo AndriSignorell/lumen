@@ -31,6 +31,11 @@ NULL
 #' @examples
 #' ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 #'
+#' @family dist.other
+#' @concept distributions
+#' @concept multivariate
+#'
+#'
 #' @export
 ddirichlet <- function(x, alpha, log = FALSE) {
   if (is.vector(x)) x <- matrix(x, nrow = 1)
@@ -72,7 +77,7 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 
 #' @export
 pdirichlet <- function(q, alpha, n_sim = 1e5) {
-  pdirichlet_parallel_cpp(q, alpha, as.integer(n_sim))
+  pdirichlet_cpp(q, alpha, as.integer(n_sim))
 }
 
 

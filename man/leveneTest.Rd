@@ -116,17 +116,12 @@ for the homogeneity in variance.
 and approximate \emph{conditional} p-values for the Ansari-Bradley test, as
 well as different methods for handling ties.
 
-Other topic.parametricTests: 
-\code{\link{hotellingsT2Test}()},
-\code{\link{tTestA}()},
-\code{\link{varTest}()},
-\code{\link{yuenTTest}()},
-\code{\link{zTest}()}
-
-Other topic.dispersionTests: 
-\code{\link{siegelTukeyTest}()},
-\code{\link{varTest}()}
+Other test.variance:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=sphericityEps]{sphericityEps()}},
+\code{\link[=varTest]{varTest()}}
 }
-\concept{topic.dispersionTests}
-\concept{topic.parametricTests}
-\concept{variance homogeneity}
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.variance}

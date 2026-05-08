@@ -28,6 +28,12 @@
 #' meanCIn(ci=c(25, 27), sd=5) 
 #' 
 
+#' @family sample.size
+#' @concept sample-size
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 meanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE, 
                     tol = .Machine$double.eps^0.5) {

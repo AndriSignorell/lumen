@@ -59,10 +59,6 @@
 #' Friedman, M. (1940) A comparison of alternative tests of significance for
 #' the problem of m rankings \emph{Annals of Mathematical Statistics}, 11:86-92
 #' 
-#' @family topic.postHocTests
-#' @concept nonparametric
-#' @concept multiple comparisons
-#' 
 #' @examples
 #' 
 #' ## Hollander & Wolfe (1973), 116.
@@ -97,6 +93,12 @@
 
 
 #' @rdname nemenyiTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept nonparametric
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 nemenyiTest <- function (x, ...)
   UseMethod("nemenyiTest")

@@ -131,15 +131,10 @@ Samples. \emph{Biometrika}. 37 (3/4): 256-266.
 doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
 }
 \seealso{
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.goodnessfit:
+\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
 }
-\concept{repeated measures}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.goodnessfit}

@@ -29,15 +29,17 @@
 #' Download possible at: \url{https://cowles.yale.edu/}, see rubric 'Discussion
 #' Papers (CFDPs)'.
 #' 
-#' @family topic.timeSeriesTests
-#' @concept stationarity
-#' 
 #' @examples
 #' 
 #' kpss.gnp <- kpssTest(AirPassengers, type="tau", lags="short")
 #' summary(kpss.gnp)
 #' 
 
+#' @family test.stationarity
+#' @concept time-series
+#' @concept hypothesis-testing
+#'
+#'
 #' @export 
 kpssTest <- function(y, type=c("mu", "tau"), 
                      lags=c("short", "long", "nil"), use.lag=NULL){

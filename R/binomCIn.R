@@ -29,6 +29,11 @@
 #' 
 
 #' @rdname binomCI
+#' @family sample.size
+#' @concept sample-size
+#' @concept confidence-intervals
+#'
+#'
 #' @export
 binomCIn <- function(p=0.5, width, interval=c(1, 1e5), 
                      conf.level=0.95, sides="two.sided", method="wilson") {

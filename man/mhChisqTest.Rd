@@ -57,15 +57,12 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 \code{\link{chisq.test}}, for calculating correlation of a table:
 \code{\link[boot]{corr}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.contingency:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{stratified analysis}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{table-manipulation}
+\concept{test.contingency}

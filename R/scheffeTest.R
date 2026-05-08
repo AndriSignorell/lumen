@@ -49,10 +49,6 @@
 #' Steel R.G.D., Torrie J.H., Dickey, D.A. (1997) \emph{Principles and
 #' Procedures of Statistics, A Biometrical Approach}. McGraw-Hill
 #' 
-#' @family topic.postHocTests
-#' @concept parametric
-#' @concept multiple comparisons
-#' 
 #' @examples
 #' 
 #' fm1 <- aov(breaks ~ wool + tension, data = warpbreaks)
@@ -76,6 +72,11 @@
 
 
 #' @rdname scheffeTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 scheffeTest <- function (x, ...)
   UseMethod("scheffeTest")

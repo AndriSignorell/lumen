@@ -55,6 +55,12 @@
 
 
 #' @rdname pAD
+#' @family test.normality
+#' @concept goodness-of-fit
+#' @concept normality-testing
+#' @concept distributions
+#'
+#'
 #' @export
 pAD <- function(q, n=Inf, lower.tail=TRUE, fast=TRUE) {
   

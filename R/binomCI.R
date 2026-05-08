@@ -108,7 +108,7 @@
 #' \code{"wilson-mod"}, \code{"agresti-coull"},
 #' \code{"witting"}, and \code{"arcsine"},
 #' the internally used adjusted point estimator can be returned
-#' by setting \code{std_est = FALSE}. These estimators are typically
+#' by setting \code{stdEst = FALSE}. These estimators are typically
 #' slightly shrunk toward 0.5 compared to the usual estimator \eqn{x/n}.
 #' See the cited literature for further details.
 #' 
@@ -129,7 +129,7 @@
 #' asked by \code{".all"}. Abbreviation of method is 
 #' accepted. See details.
 #' 
-#' @param std_est logical, specifying if the standard point estimator for the
+#' @param stdEst logical, specifying if the standard point estimator for the
 #' proportion value \code{x/n} should be returned (\code{TRUE}, default) or
 #' the method-specific internally used alternative point estimate
 #' (\code{FALSE}).
@@ -179,10 +179,6 @@
 #' 
 #' @seealso \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
 #'  
-#' @family topic.categoricalData
-#' @concept categorical data
-#' @concept confidence intervals
-#'  
 #' @examples
 #' 
 #' binomCI(x=37, n=43, 
@@ -213,7 +209,7 @@
 #'   rownames=meths)
 #' 
 #' # returning p.tilde for agresti-coull ci
-#' binomCI(x=81, n=263, meth="agresti-coull", std_est = c(TRUE, FALSE))
+#' binomCI(x=81, n=263, meth="agresti-coull", stdEst = c(TRUE, FALSE))
 #' 
 #' # return all implemented methods
 #' binomCI(4, 19, conf.level =0.95, 
@@ -223,6 +219,11 @@
 
 
 #' @rdname binomCI
+#' @family ci.proportion
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 binomCI <- function(x, n, 
                     conf.level = 0.95, 
@@ -234,7 +235,7 @@ binomCI <- function(x, n,
                                "pratt", "arcsine", "logit",
                                "witting", "mid-p","blaker",
                                "likelihood", "khouadji" ), 
-                    std_est=TRUE) {
+                    stdEst=TRUE) {
   
   
   sides <- match.arg(sides)
@@ -254,7 +255,7 @@ binomCI <- function(x, n,
                        conf.level = conf.level,
                        sides = sides,
                        method = method,
-                       std_est = std_est
+                       stdEst = stdEst
                        )
   
   if(length(res) == 1)
@@ -270,7 +271,7 @@ binomCI <- function(x, n,
 
 
 
-.binomCI_engine <- function(x, n, conf.level, sides, method, std_est){
+.binomCI_engine <- function(x, n, conf.level, sides, method, stdEst){
   
   alpha <- 1 - conf.level
   if (sides != "two.sided")
@@ -300,7 +301,7 @@ binomCI <- function(x, n,
   # this is the default estimator used by the most (but not all) methods
   est <- x/n
   
-  if(!std_est){
+  if(!stdEst){
     
     if(method %in% 
        c("agresti-coull", "wilson", "wilson-cc", "wilson-mod"))

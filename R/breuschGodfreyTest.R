@@ -66,10 +66,6 @@
 #' 
 #' @seealso \code{\link{durbinWatsonTest}}
 #' 
-#' @family topic.timeSeriesTests
-#' @concept autocorrelation
-#' @concept regression diagnostics
-#' 
 #' @examples
 #' ## Generate a stationary and an AR(1) series
 #' x <- rep(c(1, -1), 50)
@@ -91,6 +87,12 @@
 
 
 #' @rdname breuschGodfreyTest
+#' @family test.goodnessfit
+#' @concept hypothesis-testing
+#' @concept regression
+#' @concept time-series
+#'
+#'
 #' @export
 breuschGodfreyTest <- function(formula, order = 1, order.by = NULL,
                                type = c("Chisq", "F"),

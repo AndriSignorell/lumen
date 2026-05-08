@@ -74,11 +74,6 @@
 #' against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
 #' 163-170
 #' 
-#' @family topic.nonparametricTests
-#' @concept rank-based
-#' @concept ordered alternatives
-#' @concept trend test
-#' 
 #' @examples
 #' 
 #'  # Craig's data from Siegel & Castellan, p 186
@@ -149,6 +144,11 @@
 
 
 #' @rdname pageTest
+#' @family test.trend
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#'
+#'
 #' @export
 pageTest <- function (y, ...) UseMethod("pageTest")
 

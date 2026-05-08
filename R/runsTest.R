@@ -106,9 +106,6 @@
 #' Siegel, S. (1956) \emph{Nonparametric Statistics for the Behavioural
 #' Sciences}, McGraw-Hill Kogakusha, Tokyo.
 #' 
-#' @family topic.randomnessTests
-#' @concept randomness
-#' 
 #' @examples
 #' 
 #' # x will be coerced to a dichotomous variable
@@ -152,6 +149,12 @@
 
 
 #' @rdname runsTest
+#' @family test.correlation
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#' @concept time-series
+#'
+#'
 #' @export
 runsTest <- function (x, ...)
   UseMethod("runsTest")

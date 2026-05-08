@@ -70,6 +70,12 @@ bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)
 }
 \seealso{
 \code{\link{meanCI}}, \code{\link{medianCI}}
+
+Other ci.other:
+\code{\link[=sumCI]{sumCI()}}
 }
+\concept{ci.other}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
 \keyword{nonparametric}
 \keyword{univar}

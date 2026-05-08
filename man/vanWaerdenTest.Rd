@@ -113,12 +113,16 @@ Edition ed.). Wiley. pp. 396406.
 (\url{https://CRAN.R-project.org/package=coin}),
 where the test is implemented in a more general context.
 
-Other topic.nonparametricTests: 
-\code{\link{jonckheereTerpstraTest}()},
-\code{\link{mosesTest}()},
-\code{\link{pageTest}()},
-\code{\link{siegelTukeyTest}()},
-\code{\link{signTest}()}
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
+\code{\link{postHoc}},
+\code{\link[=scheffeTest]{scheffeTest()}}
 }
-\concept{rank-based}
-\concept{topic.nonparametricTests}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
+\concept{nonparametric}
+\concept{test.posthoc}

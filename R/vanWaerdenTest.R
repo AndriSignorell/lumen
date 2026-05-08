@@ -66,9 +66,6 @@
 #' Conover, W. J. (1999). \emph{Practical Nonparameteric Statistics} (Third
 #' Edition ed.). Wiley. pp. 396406.
 #' 
-#' @family topic.nonparametricTests
-#' @concept rank-based
-#' 
 #' @examples
 #' 
 #' ## Hollander & Wolfe (1973), 116.
@@ -96,6 +93,12 @@
 #' 
 
 #' @rdname vanWaerdenTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept nonparametric
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
 

@@ -133,9 +133,9 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \code{\link[stats]{dbeta}}, \code{\link[stats]{dchisq}},
 \code{\link[stats]{dt}}, \code{\link[stats]{df}}
 
-Other topic.distributions.moments: 
+Other topic.distributions.moments:
 \code{\link{disc.moments}},
-\code{\link{ev.moments}}
+\code{\link{extreme-value-moments}}
 }
 \concept{continuous distribution}
 \concept{moments}

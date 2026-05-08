@@ -54,11 +54,6 @@
 #' comparing several treatments with a control, \emph{Journal of the American
 #' Statistical Association}, 50:1096-1121.
 #' 
-#' @family topic.postHocTests
-#' @concept parametric
-#' @concept multiple comparisons
-#' @concept control comparison
-#' 
 #' @examples
 #' 
 #' ## Hollander & Wolfe (1973), 116.
@@ -88,6 +83,11 @@
 #' 
 
 #' @rdname dunnettTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 dunnettTest <- function (x, ...)
   UseMethod("dunnettTest")

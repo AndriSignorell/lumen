@@ -73,17 +73,17 @@
 #' mgev(loc = 0, scale = 1, shape = -0.3)
 #' mgpd(loc = 0, scale = 1, shape = 0.3)
 #'
-#' @name ev.moments
+#' @name extreme-value-moments
 NULL
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mgumbel <- function(loc = 0, scale = 1) {
   c(mean     = loc + scale * 0.5772156649015329,
     variance = pi^2 / 6 * scale^2)
 }
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mfrechet <- function(loc = 0, scale = 1, shape = 1) {
   c(mean     = if (shape > 1)
@@ -94,14 +94,14 @@ mfrechet <- function(loc = 0, scale = 1, shape = 1) {
     else NA_real_)
 }
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mrweibull <- function(loc = 0, scale = 1, shape = 1) {
   c(mean     = loc - scale * gamma(1 + 1/shape),
     variance = scale^2 * (gamma(1 + 2/shape) - gamma(1 + 1/shape)^2))
 }
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mgev <- function(loc = 0, scale = 1, shape = 0) {
   if (shape == 0) {
@@ -120,7 +120,7 @@ mgev <- function(loc = 0, scale = 1, shape = 0) {
   }
 }
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mgpd <- function(loc = 0, scale = 1, shape = 0) {
   c(mean     = if (shape < 1)
@@ -133,7 +133,7 @@ mgpd <- function(loc = 0, scale = 1, shape = 0) {
 
 
 
-#' @rdname ev.moments
+#' @rdname extreme-value-moments
 #' @export
 mgompertz <- function(shape, rate = 1) {
   

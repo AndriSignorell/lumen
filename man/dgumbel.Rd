@@ -65,15 +65,14 @@ pgumbel(qgumbel(p, -1, 2), -1, 2)
 
 }
 \seealso{
-Other topic.extremevalue.distributions: 
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drevgumbel}},
-\code{\link{drweibull}()}
+Other topic.extremevalue.distributions:
+\code{\link[=dextreme]{dextreme()}},
+\code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=dgev]{dgev()}},
+\code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbelx]{dgumbelx()}},
+\code{\link[=dorder]{dorder()}},
+\code{\link[=drweibull]{drweibull()}}
 }
 \concept{Gumbel}
 \concept{continuous distribution}

@@ -114,13 +114,15 @@ Procedures of Statistics, A Biometrical Approach}. McGraw-Hill
 \seealso{
 \code{\link{pairwise.t.test}}, \code{\link{TukeyHSD}}
 
-Other topic.postHocTests: 
-\code{\link{conoverTest}()},
-\code{\link{dunnTest}()},
-\code{\link{dunnettTest}()},
-\code{\link{nemenyiTest}()},
-\code{\link{postHoc}}
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
+\code{\link{postHoc}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{multiple comparisons}
-\concept{parametric}
-\concept{topic.postHocTests}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
+\concept{test.posthoc}

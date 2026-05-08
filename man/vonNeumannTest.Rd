@@ -68,9 +68,13 @@ Statistics} \bold{12}, 367-395.
 \seealso{
 \code{\link{bartelsRankTest}}
 
-Other topic.randomnessTests: 
-\code{\link{bartelsRankTest}()},
-\code{\link{runsTest}()}
+Other test.correlation:
+\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=corTest]{corTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=runsTest]{runsTest()}}
 }
-\concept{randomness}
-\concept{topic.randomnessTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.correlation}
+\concept{time-series}

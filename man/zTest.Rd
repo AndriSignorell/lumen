@@ -126,12 +126,13 @@ vieweg
 \seealso{
 \code{\link{t.test}}, \code{\link{print.htest}}
 
-Other topic.parametricTests: 
-\code{\link{hotellingsT2Test}()},
-\code{\link{leveneTest}()},
-\code{\link{tTestA}()},
-\code{\link{varTest}()},
-\code{\link{yuenTTest}()}
+Other test.location:
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}}
 }
-\concept{mean comparison}
-\concept{topic.parametricTests}
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.location}

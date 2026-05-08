@@ -79,15 +79,14 @@ prweibull(qrweibull(p, -1, 2, 0.8), -1, 2, 0.8)
 \seealso{
 \code{\link{rfrechet}}, \code{\link{rgev}}, \code{\link{rgumbel}}
 
-Other topic.extremevalue.distributions: 
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drevgumbel}}
+Other topic.extremevalue.distributions:
+\code{\link[=dextreme]{dextreme()}},
+\code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=dgev]{dgev()}},
+\code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbel]{dgumbel()}},
+\code{\link[=dgumbelx]{dgumbelx()}},
+\code{\link[=dorder]{dorder()}}
 }
 \concept{bounded tail}
 \concept{continuous distribution}

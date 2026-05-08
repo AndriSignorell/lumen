@@ -57,10 +57,6 @@
 #' successive difference to the variance. \emph{Annals of Mathematical
 #' Statistics} \bold{12}, 367-395.
 #' 
-#' @family topic.randomnessTests
-#' @concept randomness
-#' @concept rank-based
-#' 
 #' @examples
 #' 
 #' ## Example 5.1 in Gibbons and Chakraborti (2003), p.98.
@@ -90,6 +86,12 @@
 
 
 #' @rdname bartelsRankTest
+#' @family test.correlation
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#' @concept time-series
+#'
+#'
 #' @export
 bartelsRankTest <- function(x, alternative = c("two.sided", "trend", "oscillation"),
                             method = c("normal", "beta", "auto")) {

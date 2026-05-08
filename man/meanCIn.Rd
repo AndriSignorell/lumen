@@ -51,4 +51,12 @@ meanCIn(ci=c(25, 27), sd=5)
 }
 \seealso{
 \code{\link{binomCIn}()}
+
+Other sample.size:
+\code{\link[=binomCI]{binomCI()}},
+\code{\link[=powerChisqTest]{powerChisqTest()}}
 }
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
+\concept{sample-size}
+\concept{sample.size}

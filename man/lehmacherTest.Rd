@@ -70,17 +70,11 @@ homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
 \code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix),
 \code{\link{stuartMaxwellTest}}, \code{\link{woolfTest}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.marginal:
+\code{\link[=bhapkarTest]{bhapkarTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
-\concept{binary outcome}
-\concept{paired data}
-\concept{proportions}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{test.marginal}

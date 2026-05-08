@@ -32,4 +32,10 @@ sumCI(x)
 }
 \seealso{
 \code{\link{binomCI}},
+
+Other ci.other:
+\code{\link[=bootCI]{bootCI()}}
 }
+\concept{ci.other}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}

@@ -44,15 +44,14 @@
 #'
 #' @seealso \code{\link{cochranArmitageTest}}, \code{\link{cor}}
 #' 
-#' @family topic.dataProcessing
-#' @concept ordinal data
-#' @concept scores
-#' @concept ranks
-#' @concept ridit
-#' @concept contingency tables
-#' 
 
 
+#' @family table.utils
+#' @concept table-manipulation
+#' @concept nonparametric
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 scores <- function(x, MARGIN=1, 
                    method=c("table", "ranks", "ridit", "modridit")) { 

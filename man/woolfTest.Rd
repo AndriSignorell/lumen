@@ -53,18 +53,17 @@ and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
 \seealso{
 \code{\link{mantelhaen.test}}, \code{\link{breslowDayTest}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()}
+Other test.contingency:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=mhChisqTest]{mhChisqTest()}}
 }
 \author{
 David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
 }
+\concept{hypothesis-testing}
 \concept{odds ratio}
+\concept{table-manipulation}
+\concept{test.contingency}
 \concept{topic.contingencyTests}

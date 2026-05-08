@@ -65,9 +65,6 @@
 #' Samples. \emph{Biometrika}. 37 (3/4): 256-266.
 #' doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
 #' 
-#' @family topic.contingencyTests
-#' @concept repeated measures
-#' 
 #' @examples
 #' 
 #' # example in: 
@@ -101,6 +98,11 @@
 
 
 #' @rdname cochranQTest
+#' @family test.goodnessfit
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#'
+#'
 #' @export
 cochranQTest <- function(y, ...) {
   UseMethod("cochranQTest")

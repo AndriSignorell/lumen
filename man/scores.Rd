@@ -55,9 +55,7 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 \seealso{
 \code{\link{cochranArmitageTest}}, \code{\link{cor}}
 }
-\concept{contingency tables}
-\concept{ordinal data}
-\concept{ranks}
-\concept{ridit}
-\concept{scores}
-\concept{topic.dataProcessing}
+\concept{descriptive-statistics}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{table.utils}

@@ -71,9 +71,6 @@
 #' of statistics in biological research}. 4th edition. W. H. Freeman and Co.:
 #' New York. 937 pp.
 #' 
-#' @family topic.contingency-tests
-#' @concept association
-#' 
 #' @examples
 #' 
 #' 
@@ -110,6 +107,12 @@
 #' 
 
 
+#' @family test.contingency
+#' @concept hypothesis-testing
+#' @concept goodness-of-fit
+#' @concept table-manipulation
+#'
+#'
 #' @export
 gTest <- function(x, y = NULL, correct=c("none", "williams", "yates"), 
                   p = rep(1/length(x), length(x)), rescale.p = FALSE) {

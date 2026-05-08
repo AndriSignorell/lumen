@@ -53,10 +53,6 @@
 #' normality.  [aurora::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
-#' @family topic.goodnessOfFit
-#' @concept normality
-#' @concept moments
-#' 
 #' @examples
 #' 
 #' x <- rnorm(100)    # null hypothesis
@@ -67,6 +63,12 @@
 #' 
 
 
+#' @family test.normality
+#' @concept goodness-of-fit
+#' @concept normality-testing
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 jarqueBeraTest <- function (x, robust=TRUE, 
                             method=c("chisq", "mc"), N=0, na.rm=FALSE) {

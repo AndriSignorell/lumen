@@ -68,10 +68,22 @@ February 2004.  \url{http://www.jstatsoft.org/v09/i02}
 }
 \seealso{
 \code{\link{andersonDarlingTest}}
+
+Other test.normality:
+\code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
+\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
+\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
+\code{\link[=lillieTest]{lillieTest()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
+\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \author{
 Original C code by G. and J. Marsaglia.  \R interface by Adrian
 Baddeley.
 }
+\concept{distributions}
+\concept{goodness-of-fit}
+\concept{normality-testing}
+\concept{test.normality}
 \keyword{distribution}
 \keyword{htest}

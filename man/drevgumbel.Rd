@@ -63,19 +63,7 @@ cat("The median is:",  format(med),"\n")
 \seealso{
 the \code{\link{Weibull}} distribution functions in \R's
 \pkg{stats} package.
-
-Other topic.extremevalue.distributions: 
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dgumbelx}()},
-\code{\link{dorder}()},
-\code{\link{drweibull}()}
 }
-\concept{Gumbel}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{topic.extremevalue.distributions}
+\concept{dist.extreme}
+\concept{distributions}
+\concept{extreme-value-theory}

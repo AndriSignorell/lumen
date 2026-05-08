@@ -118,17 +118,13 @@ homogeneity of variances in more than two samples from normal distributions;
 \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
 (nonparametric) two-sample tests for difference in scale.
 
-Other topic.dispersionTests: 
-\code{\link{leveneTest}()},
-\code{\link{siegelTukeyTest}()}
-
-Other topic.parametricTests: 
-\code{\link{hotellingsT2Test}()},
-\code{\link{leveneTest}()},
-\code{\link{tTestA}()},
-\code{\link{yuenTTest}()},
-\code{\link{zTest}()}
+Other test.variance:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=sphericityEps]{sphericityEps()}}
 }
-\concept{topic.dispersionTests}
-\concept{topic.parametricTests}
-\concept{variance test}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.variance}

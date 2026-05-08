@@ -143,11 +143,12 @@
 #' binomRatioCI(x1 = 36, n1 = 40, x2 = 16, n2 = 80, method = "koop")
 #' 
 #' 
-#' @family topic.categoricalData
-#' @concept categorical data
-#' @concept confidence intervals
-#'  
 
+#' @family ci.proportion
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 binomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
                          method =c("katz.log","adj.log","bailey","koopman","noether","sinh-1","boot"),

@@ -57,11 +57,6 @@
 #' two-sample trimmed t for unequal population variances. \emph{Biometrika},
 #' 61, 165-170.
 #' 
-#' @family topic.parametricTests
-#' @concept robust statistics
-#' @concept trimmed mean
-#' @concept mean comparison
-#' 
 #' @examples
 #' 
 #' x <- rnorm(25, 100, 5)
@@ -88,6 +83,12 @@
 
 
 #' @rdname yuenTTest
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept robust-statistics
+#' @concept nonparametric
+#'
+#'
 #' @export
 yuenTTest <- function (x, ...)
   UseMethod("yuenTTest")

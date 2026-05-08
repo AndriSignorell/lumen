@@ -106,11 +106,11 @@ Models', \emph{Australian Economic Papers}, 17, 334-355.
 \seealso{
 \code{\link{durbinWatsonTest}}
 
-Other topic.timeSeriesTests: 
-\code{\link{adfTest}()},
-\code{\link{durbinWatsonTest}()},
-\code{\link{kpssTest}()}
+Other test.goodnessfit:
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
 }
-\concept{autocorrelation}
-\concept{regression diagnostics}
-\concept{topic.timeSeriesTests}
+\concept{hypothesis-testing}
+\concept{regression}
+\concept{test.goodnessfit}
+\concept{time-series}

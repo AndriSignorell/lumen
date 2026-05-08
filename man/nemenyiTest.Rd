@@ -113,13 +113,16 @@ the problem of m rankings \emph{Annals of Mathematical Statistics}, 11:86-92
 \seealso{
 \code{\link{dunnTest}}, \code{\link{conoverTest}}
 
-Other topic.postHocTests: 
-\code{\link{conoverTest}()},
-\code{\link{dunnTest}()},
-\code{\link{dunnettTest}()},
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
-\code{\link{scheffeTest}()}
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{multiple comparisons}
+\concept{hypothesis-testing}
+\concept{multiple-comparisons}
 \concept{nonparametric}
-\concept{topic.postHocTests}
+\concept{test.posthoc}

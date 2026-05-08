@@ -88,13 +88,12 @@ and Epidemiological Tables}. Stata Press.
 \seealso{
 \code{\link{dexp}}
 
-Other topic.distributions: 
-\code{\link{dbenford}()},
-\code{\link{dtri}()}
+Other dist.other:
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dtri]{dtri()}},
+\code{\link[=rsum1]{rsum1()}}
 }
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{hazard rate}
-\concept{mortality}
-\concept{survival analysis}
-\concept{topic.distributions}
+\concept{dist.other}
+\concept{distributions}
+\concept{survival-analysis}

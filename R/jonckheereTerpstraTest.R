@@ -27,8 +27,7 @@
 #' the corresponding elements of \code{x}.
 #' 
 #' @name jonckheereTerpstraTest
-#' @aliases jonckheereTerpstraTest jonckheereTerpstraTest.default
-#' jonckheereTerpstraTest.formula
+#' @aliases jonckheereTerpstraTest jonckheereTerpstraTest.default jonckheereTerpstraTest.formula
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
 #' @param g a vector or factor object giving the group for the corresponding
 #' elements of x. Ignored if x is a list.
@@ -69,10 +68,6 @@
 #' Kendall's test against trend, when ties are present in one ranking.
 #' \emph{Indagationes Mathematicae} 14:327-333.
 #' 
-#' @family topic.nonparametricTests
-#' @concept ordered alternatives
-#' @concept rank-based
-#' 
 #' @examples
 #' 
 #' set.seed(1234)
@@ -106,6 +101,11 @@
 
 
 #' @rdname jonckheereTerpstraTest
+#' @family test.trend
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#'
+#'
 #' @export
 jonckheereTerpstraTest <- function (x, ...)  UseMethod("jonckheereTerpstraTest")
 

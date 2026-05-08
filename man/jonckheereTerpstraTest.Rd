@@ -129,13 +129,10 @@ Kendall's test against trend, when ties are present in one ranking.
 \emph{Indagationes Mathematicae} 14:327-333.
 }
 \seealso{
-Other topic.nonparametricTests: 
-\code{\link{mosesTest}()},
-\code{\link{pageTest}()},
-\code{\link{siegelTukeyTest}()},
-\code{\link{signTest}()},
-\code{\link{vanWaerdenTest}()}
+Other test.trend:
+\code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=pageTest]{pageTest()}}
 }
-\concept{ordered alternatives}
-\concept{rank-based}
-\concept{topic.nonparametricTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{test.trend}

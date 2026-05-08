@@ -64,6 +64,14 @@ res <- corTest(X)
 res2 <- corTest(X, triangle = "upper", sig.level = 0.05)
 
 }
+\seealso{
+Other test.correlation:
+\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=runsTest]{runsTest()}},
+\code{\link[=vonNeumannTest]{vonNeumannTest()}}
+}
 \concept{correlation}
-\concept{matrix computation}
-\concept{topic.correlationTests}
+\concept{descriptive-statistics}
+\concept{hypothesis-testing}
+\concept{test.correlation}

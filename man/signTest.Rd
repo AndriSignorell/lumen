@@ -115,13 +115,16 @@ Wiley, New York.
 \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}
 in the package \pkg{BSDA} (reporting approximative confidence intervals).
 
-Other topic.nonparametricTests: 
-\code{\link{jonckheereTerpstraTest}()},
-\code{\link{mosesTest}()},
-\code{\link{pageTest}()},
-\code{\link{siegelTukeyTest}()},
-\code{\link{vanWaerdenTest}()}
+Other test.location:
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
+\code{\link[=zTest]{zTest()}}
 }
+\concept{hypothesis-testing}
 \concept{median}
+\concept{nonparametric}
 \concept{paired test}
+\concept{test.location}
 \concept{topic.nonparametricTests}

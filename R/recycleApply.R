@@ -17,6 +17,8 @@
 #'
 #' @keywords internal
 #' @noRd
+#' @family internal
+#' @concept internal
 .recycleApply <- function(FUN, ...) {
   
   rc <- recycle(...)

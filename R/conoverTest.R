@@ -72,10 +72,6 @@
 #' Conover, W. J. (1999) Practical Nonparametric Statistics \emph{Wiley},
 #' Hoboken, NJ. 3rd edition.
 #' 
-#' @family topic.postHocTests
-#' @concept nonparametric
-#' @concept multiple comparisons
-#' 
 #' @examples
 #' 
 #' ## Hollander & Wolfe (1973), 116.
@@ -106,6 +102,12 @@
 #' 
 
 #' @rdname conoverTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept nonparametric
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 conoverTest <- function (x, ...)
   UseMethod("conoverTest")

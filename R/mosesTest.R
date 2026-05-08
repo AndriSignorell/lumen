@@ -55,9 +55,6 @@
 #' @references Moses, L.E. (1952) A Two-Sample Test, \emph{Psychometrika}, 17,
 #' 239-247.
 #' 
-#' @family topic.nonparametricTests
-#' @concept scale test
-#' 
 #' @examples
 #' 
 #' x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
@@ -75,6 +72,11 @@
 
 
 #' @rdname mosesTest
+#' @family test.location
+#' @concept hypothesis-testing
+#' @concept nonparametric
+#'
+#'
 #' @export
 mosesTest <- function (x, ...)  UseMethod("mosesTest")
 

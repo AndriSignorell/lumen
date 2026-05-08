@@ -79,15 +79,14 @@ pgumbelx(qgumbelx(p, interval = c(0,10), 0, 0.5, 1, 2), 0, 0.5, 1, 2)
 \seealso{
 \code{\link[evd]{fgev}}, \code{\link{uniroot}}
 
-Other topic.extremevalue.distributions: 
-\code{\link{dextreme}()},
-\code{\link{dfrechet}()},
-\code{\link{dgev}()},
-\code{\link{dgpd}()},
-\code{\link{dgumbel}()},
-\code{\link{dorder}()},
-\code{\link{drevgumbel}},
-\code{\link{drweibull}()}
+Other topic.extremevalue.distributions:
+\code{\link[=dextreme]{dextreme()}},
+\code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=dgev]{dgev()}},
+\code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbel]{dgumbel()}},
+\code{\link[=dorder]{dorder()}},
+\code{\link[=drweibull]{drweibull()}}
 }
 \concept{continuous distribution}
 \concept{dpqr}

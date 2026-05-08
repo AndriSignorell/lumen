@@ -84,14 +84,15 @@ February 2004.  \url{http://www.jstatsoft.org/v09/i02}
 \seealso{
 \code{\link{pAD}} for the null distribution of the test statistic.
 
-Other topic.goodnessOfFit: 
-\code{\link{cramerVonMisesTest}()},
-\code{\link{jarqueBeraTest}()},
-\code{\link{lillieTest}()},
-\code{\link{pearsonTest}()},
-\code{\link{shapiroFranciaTest}()}
+Other test.normality:
+\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
+\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
+\code{\link[=lillieTest]{lillieTest()}},
+\code{\link[=pAD]{pAD()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
+\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
-\concept{EDF test}
-\concept{distribution testing}
 \concept{goodness-of-fit}
-\concept{topic.goodnessOfFit}
+\concept{hypothesis-testing}
+\concept{normality-testing}
+\concept{test.normality}

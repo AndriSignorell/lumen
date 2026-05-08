@@ -31,6 +31,11 @@
 #'
 
 
+#' @family dist.other
+#' @concept distributions
+#' @concept data-manipulation
+#'
+#'
 #' @export
 rsum1 <- function(n, digits = NULL) {
   x <- rdirichlet(1, rep(1, n))

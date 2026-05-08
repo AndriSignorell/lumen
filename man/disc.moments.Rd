@@ -99,9 +99,9 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \code{\link[stats]{Geometric}}, \code{\link[stats]{NegBinomial}},
 \code{\link[stats]{Hypergeometric}}
 
-Other topic.distributions.moments: 
+Other topic.distributions.moments:
 \code{\link{cont.moments}},
-\code{\link{ev.moments}}
+\code{\link{extreme-value-moments}}
 }
 \concept{discrete distribution}
 \concept{moments}

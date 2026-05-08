@@ -62,11 +62,6 @@
 #' 
 #' @seealso \code{\link{pAD}} for the null distribution of the test statistic.
 #' 
-#' @family topic.goodnessOfFit
-#' @concept goodness-of-fit
-#' @concept EDF test
-#' @concept distribution testing
-#' 
 #' @examples
 #' 
 #' x <- rnorm(10, mean=2, sd=1)
@@ -75,6 +70,12 @@
 #'
 
  
+#' @family test.normality
+#' @concept goodness-of-fit
+#' @concept normality-testing
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 andersonDarlingTest <- function(x, null="punif", ..., estimated=FALSE, nullname) {
   

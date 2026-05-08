@@ -58,6 +58,12 @@
 #' 
 
               
+#' @family ci.location
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 meanDiffCI <- function (x, y,
                         conf.level = 0.95, sides = c("two.sided","left","right"), 

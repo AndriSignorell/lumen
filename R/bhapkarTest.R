@@ -47,9 +47,6 @@
 #' Marginal Distributions. \emph{SAS Global Forum 2008: Statistics and Data
 #' Analysis}, Paper 382-208.
 #' 
-#' @family topic.contingencyTests
-#' @concept marginal homogeneity
-#' 
 #' @examples
 #' 
 #' # Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#bhapkar
@@ -61,6 +58,12 @@
 
 
 #' @rdname bhapkarTest
+#' @family test.marginal
+#' @concept hypothesis-testing
+#' @concept table-manipulation
+#' @concept nonparametric
+#'
+#'
 #' @export
 bhapkarTest <- function(x, y = NULL){
   

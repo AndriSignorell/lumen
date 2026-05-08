@@ -68,10 +68,6 @@
 #' Dunn, O. J. (1964) Multiple comparisons using rank sums
 #' \emph{Technometrics}, 6(3):241-252.
 #' 
-#' @family topic.postHocTests
-#' @concept nonparametric
-#' @concept multiple comparisons
-#' 
 #' @examples
 #' 
 #' ## Hollander & Wolfe (1973), 116.
@@ -102,6 +98,12 @@
 #' 
 
 #' @rdname dunnTest
+#' @family test.posthoc
+#' @concept multiple-comparisons
+#' @concept nonparametric
+#' @concept hypothesis-testing
+#'
+#'
 #' @export
 dunnTest <- function (x, ...)
   UseMethod("dunnTest")

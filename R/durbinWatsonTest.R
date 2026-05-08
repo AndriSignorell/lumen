@@ -84,9 +84,6 @@
 #' J. Racine & R. Hyndman (2002), Using R To Teach Econometrics. \emph{Journal
 #' of Applied Econometrics} \bold{17}, 175--189.
 #' 
-#' @family topic.timeSeriesTests
-#' @concept autocorrelation
-#' 
 #' @examples
 #' 
 #' 
@@ -115,6 +112,12 @@
 
 
 #' @rdname durbinWatsonTest
+#' @family test.correlation
+#' @concept hypothesis-testing
+#' @concept regression
+#' @concept time-series
+#'
+#'
 #' @export
 durbinWatsonTest <- function(formula, order.by = NULL, 
                              alternative = c("greater", "two.sided", "less"),

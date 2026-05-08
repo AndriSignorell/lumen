@@ -96,4 +96,7 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 \code{\link{meanCI}}, \code{\link{medianCI}},
 \code{\link{varTest}}, \code{\link[DescToolsX]{varX}}
 }
+\concept{ci.dispersion}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
 \keyword{univar}

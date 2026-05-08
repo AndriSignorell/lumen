@@ -51,6 +51,12 @@
 #'
 
 
+#' @family ci.location
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#' @concept nonparametric
+#'
+#'
 #' @export 
 quantileCI <- function(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
                        method = c("exact", "boot"), probs=seq(0, 1, .25), na.rm = FALSE, ...) {

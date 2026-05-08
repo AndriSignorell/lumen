@@ -40,16 +40,18 @@
 #' This formulation avoids explicitly computing the t-statistic and is
 #' numerically stable for correlations close to ±1.
 #'
-#' @family topic.correlationTests
-#' @concept correlation
-#' @concept matrix computation
-#'
 #' @examples
 #' X <- matrix(rnorm(200), 50, 4)
 #' res <- corTest(X)
 #'
 #' # Only significant correlations in the upper triangle
 #' res2 <- corTest(X, triangle = "upper", sig.level = 0.05)
+#'
+#' @family test.correlation
+#' @concept hypothesis-testing
+#' @concept correlation
+#' @concept descriptive-statistics
+#'
 #'
 #' @export
 corTest <- function(X,

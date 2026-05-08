@@ -55,13 +55,12 @@ Download possible at: \url{https://cowles.yale.edu/}, see rubric 'Discussion
 Papers (CFDPs)'.
 }
 \seealso{
-Other topic.timeSeriesTests: 
-\code{\link{adfTest}()},
-\code{\link{breuschGodfreyTest}()},
-\code{\link{durbinWatsonTest}()}
+Other test.stationarity:
+\code{\link[=adfTest]{adfTest()}}
 }
 \author{
 Bernhard Pfaff
 }
-\concept{stationarity}
-\concept{topic.timeSeriesTests}
+\concept{hypothesis-testing}
+\concept{test.stationarity}
+\concept{time-series}

@@ -99,15 +99,11 @@ Stuart-Maxwell test
 \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
 \code{\link{mhChisqTest}}, \code{\link{breslowDayTest}}
 
-Other topic.contingencyTests: 
-\code{\link{barnardTest}()},
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{woolfTest}()}
+Other test.marginal:
+\code{\link[=bhapkarTest]{bhapkarTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}}
 }
-\concept{marginal homogeneity}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{test.marginal}

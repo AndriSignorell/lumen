@@ -75,10 +75,6 @@
 #' and approximate \emph{conditional} p-values for the Ansari-Bradley test, as
 #' well as different methods for handling ties.
 #' 
-#' @family topic.parametricTests
-#' @family topic.dispersionTests
-#' @concept variance homogeneity
-#' 
 #' @examples
 #' 
 #' ## example from ansari.test:
@@ -107,6 +103,11 @@
 
 
 
+#' @family test.variance
+#' @concept hypothesis-testing
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 leveneTest <- function (x, ...) 
   UseMethod("leveneTest")

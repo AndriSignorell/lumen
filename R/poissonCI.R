@@ -39,10 +39,6 @@
 #'  
 #' @seealso \code{\link{poisson.test}}
 #' 
-#' @family topic.categoricalData
-#' @concept categorical data
-#' @concept confidence intervals
-#' 
 #' @examples
 #' # the horse kick example
 #' count <- 0:4
@@ -76,6 +72,12 @@
 #' poissonCI(sum(petri), length(petri))
 #' 
 
+#' @family ci.count
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#' @concept distributions
+#'
+#'
 #' @export
 poissonCI <- function(x, n = 1, conf.level = 0.95, 
                       sides = c("two.sided","left","right"),
@@ -115,7 +117,7 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
 # ==  internal helper functions  ===========================================
 
 
-.poissonCI_engine <- function(x, n, conf.level, sides, method, std_est){
+.poissonCI_engine <- function(x, n, conf.level, sides, method, stdEst){
 
   # ref:  http://www.ijmo.org/papers/189-S083.pdf but wacklig!!!
   # http://www.math.montana.edu/~rjboik/classes/502/ci.pdf

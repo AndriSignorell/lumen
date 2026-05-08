@@ -102,5 +102,13 @@ testing} Elsevier Academic Press
 \seealso{
 \code{\link[DescToolsX]{meanX}}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
 \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
+
+Other ci.location:
+\code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=medianCI]{medianCI()}},
+\code{\link[=quantileCI]{quantileCI()}}
 }
+\concept{ci.location}
+\concept{confidence-intervals}
+\concept{descriptive-statistics}
 \keyword{univar}

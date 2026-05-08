@@ -24,6 +24,11 @@
 #'
 
 
+#' @family ci.other
+#' @concept confidence-intervals
+#' @concept descriptive-statistics
+#'
+#'
 #' @export 
 sumCI <- function(x){
   

@@ -84,13 +84,15 @@ Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
 quantile-quantile plots.
 
-Other topic.goodnessOfFit: 
-\code{\link{andersonDarlingTest}()},
-\code{\link{cramerVonMisesTest}()},
-\code{\link{jarqueBeraTest}()},
-\code{\link{pearsonTest}()},
-\code{\link{shapiroFranciaTest}()}
+Other test.normality:
+\code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
+\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
+\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
+\code{\link[=pAD]{pAD()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
+\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
-\concept{Kolmogorov-Smirnov}
-\concept{normality}
-\concept{topic.goodnessOfFit}
+\concept{goodness-of-fit}
+\concept{hypothesis-testing}
+\concept{normality-testing}
+\concept{test.normality}

@@ -133,14 +133,17 @@ of Applied Econometrics} \bold{17}, 175--189.
 \seealso{
 \code{\link{lm}}
 
-Other topic.timeSeriesTests: 
-\code{\link{adfTest}()},
-\code{\link{breuschGodfreyTest}()},
-\code{\link{kpssTest}()}
+Other test.correlation:
+\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=corTest]{corTest()}},
+\code{\link[=runsTest]{runsTest()}},
+\code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
 \author{
 Torsten Hothorn, Achim Zeileis, Richard W. Farebrother (pan.f),
 Clint Cummins (pan.f), Giovanni Millo, David Mitchell
 }
-\concept{autocorrelation}
-\concept{topic.timeSeriesTests}
+\concept{hypothesis-testing}
+\concept{regression}
+\concept{test.correlation}
+\concept{time-series}

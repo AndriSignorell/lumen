@@ -128,6 +128,10 @@
 
 
 #' @rdname dtri
+#' @family dist.other
+#' @concept distributions
+#'
+#'
 #' @export
 dtri <- function (x, min = 0, max = 1, mode = 1/2) {
   names.x <- names(x)

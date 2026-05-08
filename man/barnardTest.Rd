@@ -183,16 +183,13 @@ Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version 2.0.
 \seealso{
 \code{\link{fisher.test}}
 
-Other topic.contingencyTests: 
-\code{\link{bhapkarTest}()},
-\code{\link{breslowDayTest}()},
-\code{\link{cochranArmitageTest}()},
-\code{\link{cochranQTest}()},
-\code{\link{lehmacherTest}()},
-\code{\link{mhChisqTest}()},
-\code{\link{stuartMaxwellTest}()},
-\code{\link{woolfTest}()}
+Other test.contingency:
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=mhChisqTest]{mhChisqTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{binomial proportions}
-\concept{exact test}
-\concept{topic.contingencyTests}
+\concept{hypothesis-testing}
+\concept{nonparametric}
+\concept{table-manipulation}
+\concept{test.contingency}

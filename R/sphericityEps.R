@@ -34,6 +34,11 @@
 #' 
 
 
+#' @family test.variance
+#' @concept hypothesis-testing
+#' @concept descriptive-statistics
+#'
+#'
 #' @export
 sphericityEps <- function(S, p, g, n, method = c("both", "GG", "HF")) {
 
