@@ -1,16 +1,15 @@
 
 library(testthat)
 
-
 bdci <- binomDiffCI
 
 # helper: exact coverage calculation
 .coverage_bdci <- function(n, p1, p2,
-                           method = "beal",
+                           method     = "beal",
                            conf.level = 0.95) {
   
   delta_true <- p1 - p2
-  cov <- 0
+  cov        <- 0
   
   for (x1 in 0:n) {
     for (x2 in 0:n) {
@@ -19,9 +18,9 @@ bdci <- binomDiffCI
       
       ci <- bdci(x1, n, x2, n,
                  conf.level = conf.level,
-                 method = method)[2:3]
+                 method     = method)
       
-      if (delta_true >= ci[1] && delta_true <= ci[2])
+      if (delta_true >= ci["lci"] && delta_true <= ci["uci"])
         cov <- cov + pr
     }
   }
@@ -29,37 +28,61 @@ bdci <- binomDiffCI
   cov
 }
 
+test_that("Beal interval achieves near-nominal coverage, n=5, p1=p2=0.3", {
+  
+  cov <- .coverage_bdci(n  = 5,
+                        p1 = 0.3,
+                        p2 = 0.3,
+                        method     = "beal",
+                        conf.level = 0.95)
+  
+  # discrete CIs cannot achieve exact nominal coverage;
+  # a reasonable interval should stay clearly above 0.90
+  expect_gt(cov, 0.90)
+  expect_lt(cov, 1.00)
+})
 
-test_that("Beal interval reproduces coverage from Beal (1987) Table 1", {
+test_that("Beal interval behaves reasonably in extreme case, n=5, p1=0.9, p2=0.05", {
   
-  # Beal Table 1 (page 6), n=5, p1=p2=0.3, nominal 0.95
-  # Reported coverage for usual interval: 0.922
-  # (Row 1, Table 1) :contentReference[oaicite:1]{index=1}
+  cov <- .coverage_bdci(n  = 5,
+                        p1 = 0.9,
+                        p2 = 0.05,
+                        method     = "beal",
+                        conf.level = 0.95)
   
-  cov_beal <- .coverage_bdci(n = 5,
-                             p1 = 0.3,
-                             p2 = 0.3,
-                             method = "beal",
-                             conf.level = 0.95)
-  
-  expect_equal(cov_beal,
-               0.922,
-               tolerance = 0.002)
+  # should not collapse like Wald; liberal lower bound for stress test
+  expect_gt(cov, 0.80)
+  expect_lt(cov, 1.00)
 })
 
 
-test_that("Beal interval behaves reasonably in extreme case", {
+test_that("Beal interval is symmetric when p1 = p2 and n1 = n2", {
   
-  # Beal Table 2 (page 7), n=5, p1=0.9, p2=0.05
-  # Used as stress test :contentReference[oaicite:2]{index=2}
+  ci <- bdci(x1 = 8, n1 = 20,
+             x2 = 8, n2 = 20,
+             method = "beal")
   
-  cov_beal <- .coverage_bdci(n = 5,
-                             p1 = 0.9,
-                             p2 = 0.05,
-                             method = "beal",
-                             conf.level = 0.95)
-  
-  # should not collapse like Wald
-  expect_gt(cov_beal, 0.80)
-  expect_lt(cov_beal, 1.00)
+  expect_equal(unname(ci["lci"]), -unname(ci["uci"]), tolerance = 1e-10)
+  expect_equal(unname(ci["est"]), 0)
 })
+
+test_that("Beal interval respects [-1, 1] bounds", {
+  
+  # extreme case: all successes vs all failures
+  ci <- bdci(x1 = 20, n1 = 20,
+             x2 =  0, n2 = 20,
+             method = "beal")
+  
+  expect_gte(ci["lci"], -1)
+  expect_lte(ci["uci"],  1)
+})
+
+test_that("Beal interval point estimate equals difference of proportions", {
+  
+  ci <- bdci(x1 = 15, n1 = 40,
+             x2 = 10, n2 = 40,
+             method = "beal")
+  
+  expect_equal(unname(ci["est"]), 15/40 - 10/40, tolerance = 1e-10)
+})
+

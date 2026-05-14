@@ -1,6 +1,6 @@
 Package: lumen
 Title: Hypothesis Tests for DescToolsX
-Version: 0.0.0.907  
+Version: 0.0.0.908  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 

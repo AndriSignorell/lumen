@@ -238,6 +238,9 @@ binomCI <- function(x, n,
                     stdEst=TRUE) {
   
   
+  if (conf.level <= 0 || conf.level >= 1)
+    stop("conf.level must be between 0 and 1 (exclusive).")
+  
   sides <- match.arg(sides)
   
   if (missing(method)) {
@@ -401,10 +404,10 @@ binomCI <- function(x, n,
 #' @keywords internal
 .binomCI.agresti_coull <- function(x, n, alpha)  {
   
-  z <- qnorm(1-alpha/2)
+  z <- qnorm(1 - alpha/2)
   
   n.tilde <- n + z^2
-  p.tilde <- .binomCI.nonStdEst(x, n, z)
+  p.tilde <- .binomCI.nonStdEst(x, n, alpha)   # alpha statt z
   q.tilde <- 1 - p.tilde
   
   term2 <- z * sqrt(p.tilde * q.tilde) / sqrt(n.tilde)
@@ -413,7 +416,6 @@ binomCI <- function(x, n,
     lci = max(0, p.tilde - term2),
     uci = min(1, p.tilde + term2))
   )
-  
 }
 
 
@@ -619,75 +621,26 @@ binomCI <- function(x, n,
 
 
 
-#' @keywords internal
 .binomCI.blaker <- function(x, n, alpha) {
-  
-  # use fast Rcpp version of acceptBin ( ~ 2x as fast as R-version)
-  # acceptbin <- function(p) {
-  #   p1 <- 1 - pbinom(x - 1, n, p)
-  #   p2 <- pbinom(x, n, p)
-  #   a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
-  #   a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
-  #   min(a1, a2)
-  # }
-  
-  
-  ## -------- lower CI --------
-  find_lci <- function(lo) {
-    if (acceptBin(x, n, lo) >= alpha) return(lo)
-    left <- lo; right <- 1
-    for (i in 1:60) {
-      mid <- (left + right)/2
-      if (acceptBin(x, n, mid) >= alpha) right <- mid else left <- mid
-    }
-    right
-  }
-  
-  ## -------- upper CI --------
-  find_uci <- function(up) {
-    
-    # 1) first go left, until we are >= alpha
-    p <- up
-    step <- (up - 0) / 1000
-    
-    while (p > 0 && acceptBin(x, n, p) < alpha)
-      p <- p - step
-    
-    if (p <= 0)
-      stop("No valid upper CI found (should not happen)")
-    
-    # 2) now we have:
-    #    acceptbin(p) >= alpha
-    #    acceptbin(p + step) < alpha
-    left <- p
-    right <- min(p + step, up)
-    
-    # 3) bisection
-    for (i in 1:60) {
-      mid <- (left + right)/2
-      if (acceptBin(x, n, mid) >= alpha)
-        left <- mid
-      else
-        right <- mid
-    }
-    left
-  }
   
   lci <- 0
   uci <- 1
   
   if (x != 0) {
-    lo <- qbeta(alpha/2, x, n - x + 1)
-    lci <- find_lci(lo)
+    lo  <- qbeta(alpha / 2, x, n - x + 1)
+    lci <- blaker_find_crossing(x, n, alpha, lo, 1,  TRUE)
   }
   
   if (x != n) {
-    up <- qbeta(1 - alpha/2, x + 1, n - x)
-    uci <- find_uci(up)
+    up  <- qbeta(1 - alpha / 2, x + 1, n - x)
+    uci <- blaker_find_crossing(x, n, alpha, 0,  up, FALSE)
   }
   
   c(lci = lci, uci = uci)
+  
 }
+
+
 
 
 

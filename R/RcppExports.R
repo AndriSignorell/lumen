@@ -37,8 +37,12 @@ binomdiffciMN <- function(x1, n1, x2, n2, z, lower) {
     .Call(`_lumen_binomdiffciMN`, x1, n1, x2, n2, z, lower)
 }
 
-coef_boot_cpp <- function(X, y, B = 2000L, alpha = 0.05, seed = -1L) {
-    .Call(`_lumen_coef_boot_cpp`, X, y, B, alpha, seed)
+blaker_find_crossing <- function(x, n, alpha, lo, hi, from_left, tol = 1e-10, safe_steps = 50L) {
+    .Call(`_lumen_blaker_find_crossing`, x, n, alpha, lo, hi, from_left, tol, safe_steps)
+}
+
+coef_boot_cpp <- function(X, y, R = 2000L, alpha = 0.05, seed = -1L) {
+    .Call(`_lumen_coef_boot_cpp`, X, y, R, alpha, seed)
 }
 
 dgompertz_cpp <- function(x, shape, rate, log) {
@@ -55,6 +59,10 @@ check.gompertz <- function(shape, rate) {
 
 jtpdf_cpp <- function(mxsum, cgsize, pdf0, pdf1) {
     .Call(`_lumen_jtpdf_cpp`, mxsum, cgsize, pdf0, pdf1)
+}
+
+median_boot_cpp <- function(x, R = 1000L, alpha = 0.05, seed = -1L) {
+    .Call(`_lumen_median_boot_cpp`, x, R, alpha, seed)
 }
 
 pan <- function(A, M, C, N) {

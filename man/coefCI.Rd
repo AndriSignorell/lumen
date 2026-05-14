@@ -8,7 +8,7 @@ coefCI(
   x,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  B = 2000,
+  R = 2000,
   seed = NULL,
   ...
 )
@@ -20,7 +20,7 @@ coefCI(
 
 \item{sides}{Type of interval: \code{"two.sided"}, \code{"left"}, or \code{"right"}.}
 
-\item{B}{Number of bootstrap samples.}
+\item{R}{Number of bootstrap samples.}
 
 \item{seed}{Optional random seed.}
 

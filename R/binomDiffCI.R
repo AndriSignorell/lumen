@@ -80,14 +80,14 @@
 #'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
 #'   Partial matching is allowed.
 #' @param method One of:
-#'   \code{"wald"},
-#'   \code{"wald-cc"},
-#'   \code{"agresti-caffo"},
-#'   \code{"exact"},
+#'   \code{"miettinen-nurminen"},
 #'   \code{"newcombe-score"},
 #'   \code{"newcombe-score-cc"},
-#'   \code{"miettinen-nurminen"},
 #'   \code{"mee-farrington-manning"},
+#'   \code{"agresti-caffo"},
+#'   \code{"wald"},
+#'   \code{"wald-cc"},
+#'   \code{"exact"},
 #'   \code{"brown-li-jeffreys"},
 #'   \code{"hauck-anderson"},
 #'   \code{"beal"},
@@ -189,19 +189,20 @@
 #' @concept descriptive-statistics
 #'
 #'
+
 #' @export
 binomDiffCI <- function(x1, n1, x2, n2, 
                         conf.level = 0.95, 
                         sides = c("two.sided","left","right"),
                         method = c(
-                          "wald",
-                          "wald-cc",
-                          "agresti-caffo",
-                          "exact",
+                          "miettinen-nurminen",
                           "newcombe-score",
                           "newcombe-score-cc",
-                          "miettinen-nurminen",
                           "mee-farrington-manning",
+                          "agresti-caffo",
+                          "wald",
+                          "wald-cc",
+                          "exact",
                           "brown-li-jeffreys",
                           "hauck-anderson",
                           "beal",
@@ -209,7 +210,7 @@ binomDiffCI <- function(x1, n1, x2, n2,
                           "jeffreys-perks"
                         )) {
   
-  # old DescTools codes:
+  # old DescTools codes for lookup:
   # method <- switch(method,
   #                  "wald"     = "wald",
   #                  "waldcc"   = "wald-cc",
@@ -270,6 +271,7 @@ binomDiffCI <- function(x1, n1, x2, n2,
   #   .Newcombe Score (Corrected) #11
   #   .Farrington-Manning
   #   .Hauck-Anderson
+  
   # http://www.jiangtanghu.com/blog/2012/09/23/statistical-notes-5-confidence-intervals-for-difference-between-independent-binomial-proportions-using-sas/
   #  Interval estimation for the difference between independent proportions: comparison of eleven methods.
   
@@ -366,6 +368,8 @@ binomDiffCI <- function(x1, n1, x2, n2,
 
 .bdci.exact <- function(x1, n1, x2, n2, alpha) {
     
+    # ********* this ist still to do! *************
+  
     # # observed difference
     # delta_hat <- x1/n1 - x2/n2
     # 
@@ -548,6 +552,7 @@ binomDiffCI <- function(x1, n1, x2, n2,
 }
 
 
+
 .bdci.jp <- function(x1, n1, x2, n2, alpha) {
   # "jp" jeffreys-perks
   
@@ -557,57 +562,44 @@ binomDiffCI <- function(x1, n1, x2, n2,
 
 
 
-# .bdci.beal <- function(p1.hat, n1, p2.hat, n2, alpha, correct=FALSE) {
-  # "beal" = {
+
+
+.bdci.beal <- function(x1, n1, x2, n2, alpha){
   
-  # experimental code only...
+  # Beal (1987)
   # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
   
-  # a <- p1.hat + p2.hat
-  # b <- p1.hat - p2.hat
-  # u <- ((1/n1) + (1/n2)) / 4
-  # v <- ((1/n1) - (1/n2)) / 4
-  # V <- u*((2-a)*a - b^2) + 2*v*(1-a)*b
-  # z <- qchisq(p=1-alpha/2, df = 1)
-  # A <- sqrt(z*(V + z*u^2*(2-a)*a + z*v^2*(1-a)^2))
-  # B <- (b + z*v*(1-a)) / (1+z*u)
-  # 
-  # CI.lower <- max(-1, B - A / (1 + z*u))
-  # CI.upper <- min(1, B + A / (1 + z*u))
+  z2 <- qchisq(1 - alpha, 1)
   
-.bdci.beal <- function(x1, n1, x2, n2, alpha) {
-    
-    warning("Not yet thoroughly tested.")  
+  p1 <- x1 / n1
+  p2 <- x2 / n2
   
-    z <- qnorm(1 - alpha/2)
-    
-    p1_hat <- x1 / n1
-    p2_hat <- x2 / n2
-    
-    delta_hat <- p1_hat - p2_hat
-    
-    # Beal adjustment
-    p1_tilde <- (x1 + 0.5) / (n1 + 1)
-    p2_tilde <- (x2 + 0.5) / (n2 + 1)
-    
-    var_hat <-
-      p1_tilde * (1 - p1_tilde) / n1 +
-      p2_tilde * (1 - p2_tilde) / n2
-    
-    half_width <- z * sqrt(var_hat)
-    
-    lower <- delta_hat - half_width
-    upper <- delta_hat + half_width
-    
-    c(
-      est = delta_hat,
-      lci = max(-1, lower),
-      uci = min( 1, upper)
-    )
-    
-}
+  a <- p1 + p2
+  b <- p1 - p2
   
+  u <- ((1 / n1) + (1 / n2)) / 4
+  v <- ((1 / n1) - (1 / n2)) / 4
+  
+  V <- u * ((2 - a) * a - b^2) +
+    2 * v * (1 - a) * b
+  
+  inside <-
+    V +
+    z2 * u^2 * (2 - a) * a +
+    z2 * v^2 * (1 - a)^2
+  
+  A <- sqrt(max(0, z2 * inside))
+  
+  denom <- 1 + z2 * u
+  
+  B <- (b + z2 * v * (1 - a)) / denom
+  
+  c(
+    lci = max(-1, B - A / denom),
+    uci = min( 1, B + A / denom)
+  )    
 
+}
 
 
 

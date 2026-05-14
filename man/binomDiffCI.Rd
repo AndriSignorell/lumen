@@ -11,8 +11,8 @@ binomDiffCI(
   n2,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  method = c("wald", "wald-cc", "agresti-caffo", "exact", "newcombe-score",
-    "newcombe-score-cc", "miettinen-nurminen", "mee-farrington-manning",
+  method = c("miettinen-nurminen", "newcombe-score", "newcombe-score-cc",
+    "mee-farrington-manning", "agresti-caffo", "wald", "wald-cc", "exact",
     "brown-li-jeffreys", "hauck-anderson", "beal", "haldane", "jeffreys-perks")
 )
 }
@@ -32,14 +32,14 @@ binomDiffCI(
 Partial matching is allowed.}
 
 \item{method}{One of:
-\code{"wald"},
-\code{"wald-cc"},
-\code{"agresti-caffo"},
-\code{"exact"},
+\code{"miettinen-nurminen"},
 \code{"newcombe-score"},
 \code{"newcombe-score-cc"},
-\code{"miettinen-nurminen"},
 \code{"mee-farrington-manning"},
+\code{"agresti-caffo"},
+\code{"wald"},
+\code{"wald-cc"},
+\code{"exact"},
 \code{"brown-li-jeffreys"},
 \code{"hauck-anderson"},
 \code{"beal"},
@@ -194,6 +194,9 @@ Interval estimation for the difference between independent proportions.
 }
 \seealso{
 \code{\link{binom.test}}, \code{\link{prop.test}}
+
+Other topic.categoricalData:
+\code{\link[=binomRatioCI]{binomRatioCI()}}
 
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},

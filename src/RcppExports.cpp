@@ -123,18 +123,36 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// blaker_find_crossing
+double blaker_find_crossing(int x, int n, double alpha, double lo, double hi, bool from_left, double tol, int safe_steps);
+RcppExport SEXP _lumen_blaker_find_crossing(SEXP xSEXP, SEXP nSEXP, SEXP alphaSEXP, SEXP loSEXP, SEXP hiSEXP, SEXP from_leftSEXP, SEXP tolSEXP, SEXP safe_stepsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type lo(loSEXP);
+    Rcpp::traits::input_parameter< double >::type hi(hiSEXP);
+    Rcpp::traits::input_parameter< bool >::type from_left(from_leftSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< int >::type safe_steps(safe_stepsSEXP);
+    rcpp_result_gen = Rcpp::wrap(blaker_find_crossing(x, n, alpha, lo, hi, from_left, tol, safe_steps));
+    return rcpp_result_gen;
+END_RCPP
+}
 // coef_boot_cpp
-NumericMatrix coef_boot_cpp(NumericMatrix X, NumericVector y, int B, double alpha, int seed);
-RcppExport SEXP _lumen_coef_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP BSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
+NumericMatrix coef_boot_cpp(NumericMatrix X, NumericVector y, int R, double alpha, int seed);
+RcppExport SEXP _lumen_coef_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type B(BSEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(coef_boot_cpp(X, y, B, alpha, seed));
+    rcpp_result_gen = Rcpp::wrap(coef_boot_cpp(X, y, R, alpha, seed));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -187,6 +205,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type pdf0(pdf0SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type pdf1(pdf1SEXP);
     rcpp_result_gen = Rcpp::wrap(jtpdf_cpp(mxsum, cgsize, pdf0, pdf1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// median_boot_cpp
+NumericVector median_boot_cpp(NumericVector x, int R, double alpha, int seed);
+RcppExport SEXP _lumen_median_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(median_boot_cpp(x, R, alpha, seed));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -258,11 +290,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_acceptBin", (DL_FUNC) &_lumen_acceptBin, 3},
     {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
     {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
+    {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},
     {"_lumen_coef_boot_cpp", (DL_FUNC) &_lumen_coef_boot_cpp, 5},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
     {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 4},
+    {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 4},
     {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
     {"_lumen_rsq_boot_cpp", (DL_FUNC) &_lumen_rsq_boot_cpp, 6},

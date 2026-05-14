@@ -217,6 +217,8 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
   if (!is.numeric(x) || !is.numeric(y))
     stop("'x' and 'y' must be numeric")
   
+  dname <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  
   # remove non-finite values
   x <- x[is.finite(x)]
   y <- y[is.finite(y)]
@@ -224,7 +226,6 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
   if (length(x) < 2L || length(y) < 2L)
     stop("'x' and 'y' must contain at least two observations each")
   
-  dname <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
   
   if (adjust.median)
     x <- x - (median(x) - median(y))
@@ -315,6 +316,8 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
     class = "htest"
   )
 }
+
+
 
 
 # == internal helper functions ==============================================

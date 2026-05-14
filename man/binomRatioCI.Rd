@@ -2,7 +2,7 @@
 % Please edit documentation in R/binomRatioCI.R
 \name{binomRatioCI}
 \alias{binomRatioCI}
-\title{Confidence Intervals for the Ratio of Binomial Proportions}
+\title{Confidence Intervals for the Ratio of Two Binomial Proportions}
 \usage{
 binomRatioCI(
   x1,
@@ -11,178 +11,187 @@ binomRatioCI(
   n2,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  method = c("katz.log", "adj.log", "bailey", "koopman", "noether", "sinh-1", "boot"),
-  tol = .Machine$double.eps^0.25,
-  R = 1000
+  method = c("koopman", "bailey", "adj-log", "katz-log", "sinh-1", "noether"),
+  tol = .Machine$double.eps^0.25
 )
 }
 \arguments{
-\item{x1}{number of successes for the ratio numerator.}
+\item{x1}{Number of successes in the first group (numerator).}
 
-\item{n1}{number of trials for the ratio numerator.}
+\item{n1}{Number of trials in the first group.}
 
-\item{x2}{number of successes for the ratio denominator.}
+\item{x2}{Number of successes in the second group (denominator).}
 
-\item{n2}{number of successes for the ratio denominator.}
+\item{n2}{Number of trials in the second group.}
 
-\item{conf.level}{confidence level, defaults to 0.95.}
+\item{conf.level}{Confidence level, default is 0.95.}
 
-\item{sides}{a character string specifying the side of the confidence
-interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-\code{"right"}. You can specify just the initial letter. \code{"left"} would
-be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+\item{sides}{A character string specifying the type of confidence interval:
+\code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
+Partial matching is allowed.}
 
-\item{method}{confidence interval method, one of \code{"katz.log"}
-(default), \code{"adj.log"}, \code{"bailey"}, \code{"boot"},
-\code{"koopman"}, \code{"noether"} or \code{"sinh-1"}. Can be abbreviated.}
+\item{method}{One of:
+\code{"koopman"},
+\code{"bailey"},
+\code{"adj-log"},
+\code{"katz-log"},
+\code{"sinh-1"},
+\code{"noether"}.}
 
-\item{tol}{The desired accuracy (convergence tolerance) for the iterative
-root finding procedure when finding Koopman intevals. The default is taken
-to be the smallest positive floating-point number of the workstation
-implementing the function, raised to the 0.25 power, and will normally be
-approximately 0.0001.}
-
-\item{R}{If method \code{"boot"} is chosen, the number of bootstrap
-iterations.}
+\item{tol}{Desired accuracy (convergence tolerance) for the iterative
+root-finding procedure used by the Koopman interval.}
 }
 \value{
-A matrix with 3 columns containing the estimate, the lower and the
-upper confidence intervall.
+A matrix with three columns containing the estimated ratio and the
+lower and upper confidence limits.
 }
 \description{
-A number of methods have been develeloped for obtaining confidence intervals
-for the ratio of two binomial proportions. These include the Wald/Katz-log
-method (Katz et al. 1978), adjusted-log (Walter 1975, Pettigrew et al.
-1986), Koopman asymptotic score (Koopman 1984), Inverse hyperbolic sine
-transformation (Newman 2001), the Bailey method (Bailey (1987), and the
-Noether (1957) procedure. Koopman results are found iteratively for most
-intervals using root finding.
+Computes confidence intervals for the ratio of two independent binomial
+proportions (relative risk). Several classical and modern methods are
+available, which may behave quite differently for small samples or extreme
+proportions.
 }
 \details{
-All arguments are being recycled.
+All arguments are vectorized and recycled according to standard R rules.
 
-Let \eqn{Y_1} and \eqn{Y_2} be multinomial random variables with parameters
-\eqn{n_1, \pi_{1i}}, and \eqn{n_2, \pi_{2i}}, respectively; where \eqn{i =
-\{1, 2, 3, \dots, r\}}.  This encompasses the binomial case in which \eqn{r
-= 1}. We define the true selection ratio for the \emph{i}th resource of
-\emph{r} total resources to be:
-\deqn{\theta_{i}=\frac{\pi _{1i}}{\pi_{2i}}}
+The ratio of proportions is estimated by
+\deqn{
+\hat{\theta} =
+\frac{\hat{p}_1}{\hat{p}_2} =
+\frac{x_1 / n_1}{x_2 / n_2}.
+}
 
-where \eqn{\pi_{1i}} and \eqn{\pi_{2i}} represent the proportional use and
-availability of the \emph{i}th resource, respectively. Note that if \eqn{r =
-1} the selection ratio becomes relative risk.  The maximum likelihood
-estimators for \eqn{\pi_{1i}} and \eqn{\pi_{2i}} are the sample proportions:
+\strong{Katz-log}:
+The classical large-sample log-transformed Wald interval described by
+Katz et al. (1978). This method is simple and widely used but may perform
+poorly for small sample sizes or proportions close to 0 or 1.
 
-\deqn{{{\hat{\pi }}_{1i}}=\frac{{{y}_{1i}}}{{{n}_{1}}},} and
-\deqn{{{\hat{\pi }}_{2i}}=\frac{{{y}_{2i}}}{{{n}_{2}}}}
+\strong{Adjusted-log}:
+A continuity-adjusted modification of the Katz interval using additive
+corrections to reduce bias and improve performance in sparse data settings
+(Walter, 1975; Pettigrew et al., 1986).
 
-where \eqn{y_{1i}} and \eqn{y_{2i}} are the observed counts for use and
-availability for the \emph{i}th resource.  The estimator for \eqn{\theta_i}
-is:
+\strong{Bailey}:
+A skewness-corrected interval proposed by Bailey (1987) based on a cubic
+transformation. Often provides improved coverage probabilities relative to
+standard Wald-type intervals.
 
-\deqn{\hat{\theta}_{i}=\frac{\hat{\pi}_{1i}}{\hat{\pi }_{2i}}.}
+\strong{Koopman}:
+An asymptotic score interval obtained by inverting Pearson's chi-square
+statistic (Koopman, 1984). Confidence limits are determined iteratively via
+root-finding and the method is generally considered among the most reliable
+asymptotic procedures.
 
-\tabular{ll}{ Method \tab Algorithm \cr \tab \cr
+\strong{Noether}:
+A large-sample interval based directly on the asymptotic variance of the
+estimated ratio (Noether, 1957).
 
-\% Katz-log Katz-log \tab \eqn{\hat\theta_i\times} exp\eqn{(\pm
-z_1-\alpha/2\hat{\sigma}_W)}, \cr \tab where
-\eqn{\hat\sigma_W^2=\frac{(1-\hat{\pi}
-_{1i})}{\hat{\pi}_{1i}n_1}+\frac{(1-\hat{\pi}_{2i})}{\hat{\pi}_{2i}n_2}}.
-\cr \tab \cr
+\strong{Inverse hyperbolic sine}:
+Based on the variance-stabilizing inverse hyperbolic sine transformation
+proposed by Newcombe (2001).
 
-\% Adjusted log Adjusted-log \tab \eqn{\hat{\theta}_{Ai}\times} exp\eqn{(\pm
-z_1-\alpha /2\hat{\sigma}_A)}, \cr \tab where
-\eqn{\hat{\theta}_{Ai}=\frac{y_{1i}+0.5/n_1+0.5}{y_{2i}+0.5/n_2+0.5}}, \cr
-\tab
-\eqn{\hat{\sigma}_A^2=\frac{1}{y_1+0.5}-\frac{1}{n_1+0.5}+\frac{1}{y_2+0.5}-\frac{1}{n_2+0.5}}.
-\cr \tab \cr
+Several methods require special handling in cases where
+\eqn{x_1 = 0},
+\eqn{x_2 = 0},
+\eqn{x_1 = n_1}, or
+\eqn{x_2 = n_2}.
+Small continuity corrections are therefore applied internally where needed.
 
-\% Bailey Bailey \tab \eqn{\hat{\theta} _i\left[\frac{1\pm z_1-\left( \alpha
-/2 \right)\left(
-\hat{\pi}_{1i}'/y_{1i}+\hat{\pi}_{2i}'/y_{2i}-z_1-\left(\alpha/2
-\right)^2\hat{\pi} _{1i}'\hat{\pi}_{2i}'/9y_{1i}y_{2i}
-\right)^{1/2}/3}{1-z_{1-\left(\alpha/2 \right)^2}\hat{\pi} _{2i}'/9y_{2i}}
-\right]^3},\cr \tab where \eqn{\hat{\pi_{1i}}'} = 1 - \eqn{\hat{\pi}_{1i}},
-and \eqn{\hat{\pi}_{2i}'} = 1 - \eqn{\hat{\pi}_{2i}}.\cr \tab \cr
+Some methods may produce infinite limits when one observed proportion is
+zero. This is expected behavior for ratio parameters.
 
-\% Inv sin Inv. hyperbolic sine \tab \eqn{\ln({{\hat{\theta }}_{i}})\pm
-\left[ 2sin{{h}^{-1}}\left( \frac{{{z}_{(1-\alpha
-/2)}}}{2}\sqrt{\frac{1}{{{y}_{1i}}}-\frac{1}{{{n}_{1}}}+\frac{1}{{{y}_{2i}}}-\frac{1}{{{n}_{2}}}}
-\right) \right]}, \cr \tab\cr
-
-\% Koopman Koopman \tab Find \eqn{X^2(\theta_0)} = \eqn{\chi _1^2(1 -
-\alpha)}, where \cr \tab \eqn{{{\tilde{\pi }}_{1i}}=\frac{{{\theta
-}_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+{{n}_{2}}-{{[{{\{{{\theta
-}_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+ {{n}_{2}}\}}^{2}}-4{{\theta
-}_{0}}({{n}_{1}}+{{n}_{2}})({{y}_{1i}}+{{y}_{2i}})]}^{0.5}}}{2({{n}_{1}}+{{n}_{2}})}},
-\cr \tab \eqn{{{\tilde{\pi }}_{2i}}=\frac{{{{\tilde{\pi }}}_{1i}}}{{{\theta
-}_{0}}}, and {{X}^{2}}({{\theta}_{0}})=\frac{{{\left(
-{{y}_{1i}}-{{n}_{1}}{{{\tilde{\pi }}}_{1i}} \right)}^{2}}}
-{{{n}_{1}}{{{\tilde{\pi }}}_{1i}}(1-{{{\tilde{\pi }}}_{1i}})}\left\{
-1+\frac{{{n}_{1}}({{\theta}_{0}}-{{{\tilde{\pi
-}}}_{1i}})}{{{n}_{2}}(1-{\tilde{\pi}_{1i}})} \right\}}. \cr \tab \cr \%
-Noether Noether \tab \eqn{\hat{\theta}_i\pm z_1-\alpha/2\hat{\sigma}_N}, \cr
-\tab where \eqn{\hat{\sigma }_{N}^{2}=\hat{\theta }_{i}^{2}\left(
-\frac{1}{{{y}_{1i}}}-\frac{1}{{{n}_{1}}}+\frac{1}{{{y}_{2i}}}-\frac{1}{{{n}_{2}}}
-\right)}.  }
-
-Exception handling strategies are generally necessary in the cases \eqn{x_1}
-= 0, \eqn{n_1} = \eqn{x_1}, \eqn{x_2} = 0, and \eqn{n_2} = \eqn{x_2} (see
-Aho and Bowyer, in review).
-
-The bootstrap method currently employs percentile confidence intervals.
+The choice of method remains an active topic of discussion. The Koopman
+interval is often recommended due to its comparatively good coverage
+properties across a broad range of scenarios.
 }
 \examples{
 
-# From Koopman (1984)
+# Example from Koopman (1984)
 
-binomRatioCI(x1 = 36, n1 = 40, x2 = 16, n2 = 80, method = "katz")
-binomRatioCI(x1 = 36, n1 = 40, x2 = 16, n2 = 80, method = "koop")
+binomRatioCI(
+  x1 = 36, n1 = 40,
+  x2 = 16, n2 = 80,
+  method = "katz-log"
+)
+
+binomRatioCI(
+  x1 = 36, n1 = 40,
+  x2 = 16, n2 = 80,
+  method = "koopman"
+)
+
+
+# Compare several methods
+
+meths <- c(
+  "katz-log",
+  "adj-log",
+  "bailey",
+  "koopman",
+  "noether",
+  "sinh-1"
+)
+
+binomRatioCI(
+  x1 = 25, n1 = 100,
+  x2 = 10, n2 = 100,
+  method = meths
+)
+
+
+# Sparse data
+
+binomRatioCI(
+  x1 = 1, n1 = 20,
+  x2 = 0, n2 = 20,
+  method = meths
+)
 
 
 }
 \references{
-Agresti, A., Min, Y. (2001) On small-sample confidence intervals
-for parameters in discrete distributions.  \emph{Biometrics} 57: 963-97.
+Bailey BJR (1987).
+Confidence limits to the risk ratio.
+\emph{Biometrics}, 43(1), 201-205.
 
-Aho, K., and Bowyer, T. (In review) Confidence intervals for ratios of
-multinomial proportions: implications for selection ratios. \emph{Methods in
-Ecology and Evolution}.
+Katz D, Baptista J, Azen SP, Pike MC (1978).
+Obtaining confidence intervals for the risk ratio in cohort studies.
+\emph{Biometrics}, 34, 469-474.
 
-Bailey, B.J.R. (1987) Confidence limits to the risk ratio.
-\emph{Biometrics} 43(1): 201-205.
+Koopman PAR (1984).
+Confidence intervals for the ratio of two binomial proportions.
+\emph{Biometrics}, 40, 513-517.
 
-Katz, D., Baptista, J., Azen, S. P., and Pike, M. C. (1978) Obtaining
-confidence intervals for the risk ratio in cohort studies. \emph{Biometrics}
-34: 469-474
+Newcombe RG (2001).
+Logit confidence intervals and the inverse sinh transformation.
+\emph{The American Statistician}, 55, 200-202.
 
-Koopman, P. A. R. (1984) Confidence intervals for the ratio of two binomial
-proportions. \emph{Biometrics} 40:513-517.
+Noether GE (1957).
+Sample size determination for some common nonparametric tests.
+\emph{Journal of the American Statistical Association}, 52, 645-647.
 
-Manly, B. F., McDonald, L. L., Thomas, D. L., McDonald, T. L. and Erickson,
-W.P. (2002) \emph{Resource Selection by Animals: Statistical Design and
-Analysis for Field Studies.  2nd edn.} Kluwer, New York, NY
+Pettigrew HM, Gart JJ, Thomas DG (1986).
+The bias and higher cumulants of the logarithm of a binomial variate.
+\emph{Biometrika}, 73(2), 425-435.
 
-Newcombe, R. G. (2001) Logit confidence intervals and the inverse sinh
-transformation.  \emph{The American Statistician} 55: 200-202.
-
-Pettigrew H. M., Gart, J. J., Thomas, D. G. (1986) The bias and higher
-cumulants of the logarithm of a binomial variate.  \emph{Biometrika} 73(2):
-425-435.
-
-Walter, S. D. (1975) The distribution of Levins measure of attributable
-risk. \emph{Biometrika} 62(2): 371-374.
+Walter SD (1975).
+The distribution of Levin's measure of attributable risk.
+\emph{Biometrika}, 62(2), 371-374.
 }
 \seealso{
+\code{\link{binom.test}}, \code{\link{prop.test}}
+
+Other topic.categoricalData:
+\code{\link[=binomDiffCI]{binomDiffCI()}}
+
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
-\author{
-Ken Aho \href{mailto:kenaho1@gmail.com}{kenaho1@gmail.com}, some tweaks Andri Signorell
-\href{mailto:andri@signorell.net}{andri@signorell.net}
-}
+\concept{categorical data}
 \concept{ci.proportion}
+\concept{confidence intervals}
 \concept{confidence-intervals}
 \concept{descriptive-statistics}
+\concept{topic.categoricalData}

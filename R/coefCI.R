@@ -7,7 +7,7 @@
 #' @param x An object of class \code{"lm"}.
 #' @param conf.level Confidence level. Default is \code{0.95}.
 #' @param sides Type of interval: \code{"two.sided"}, \code{"left"}, or \code{"right"}.
-#' @param B Number of bootstrap samples.
+#' @param R Number of bootstrap samples.
 #' @param seed Optional random seed.
 #' @param ... Further arguments (unused).
 #'
@@ -34,7 +34,7 @@
 coefCI <- function(x,
                    conf.level = 0.95,
                    sides = c("two.sided", "left", "right"),
-                   B = 2000,
+                   R = 2000,
                    seed = NULL,
                    ...) {
   
@@ -53,7 +53,7 @@ coefCI <- function(x,
   
   res <- coef_boot_cpp(
     X, y,
-    B = B,
+    R = R,
     alpha = alpha,
     seed = ifelse(is.null(seed), -1L, seed)
   )
