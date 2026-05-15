@@ -53,31 +53,48 @@
 #' @concept table-manipulation
 #'
 #'
+
+
 #' @export
 woolfTest <- function(x) {
   
   DNAME <- deparse(substitute(x))
-  if (any(x == 0))
-    x <- x + 1 / 2
   
-  k <- dim(x)[3]
-  or <- apply(x, 3, function(x) (x[1,1] * x[2,2]) / (x[1,2] * x[2,1]))
-  w <-  apply(x, 3, function(x) 1 / sum(1 / x))
-  o <- log(or)
-  e <- weighted.mean(log(or), w)
+  if (!is.array(x) || length(dim(x)) != 3L || any(dim(x)[1:2] != 2L))
+    stop("'x' must be a 2x2xK array")
+  
+  if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
+    stop("all entries of 'x' must be nonnegative and finite")
+  
+  if (any(x != round(x)))
+    warning("'x' contains non-integer counts", call. = FALSE)
+  
+  if (any(x == 0)) {
+    message("zero cell count detected; adding 0.5 to all cells")
+    x <- x + 0.5
+  }
+  
+  k  <- dim(x)[3L]
+  or <- apply(x, 3L, function(x) (x[1,1] * x[2,2]) / (x[1,2] * x[2,1]))
+  w  <- apply(x, 3L, function(x) 1 / sum(1 / x))
+  o  <- log(or)
+  e  <- weighted.mean(o, w)
   
   STATISTIC <- sum(w * (o - e)^2)
-  PARAMETER <- k - 1
-  PVAL <- 1 - pchisq(STATISTIC, PARAMETER)
-  METHOD <- "Woolf Test on Homogeneity of Odds Ratios (no 3-Way assoc.)"
-  names(STATISTIC) <- "X-squared"
-  names(PARAMETER) <- "df"
-  structure(list(statistic = STATISTIC, parameter = PARAMETER,
-                 p.value = PVAL, method = METHOD, data.name = DNAME, 
-                 observed = o, expected = e), 
-            class = "htest")
+  PARAMETER <- k - 1L
   
+  structure(
+    list(
+      statistic = c("X-squared" = STATISTIC),
+      parameter = c(df = PARAMETER),
+      p.value   = pchisq(STATISTIC, PARAMETER, lower.tail = FALSE),
+      method    = "Woolf Test on Homogeneity of Odds Ratios (no 3-Way assoc.)",
+      data.name = DNAME,
+      observed  = o,
+      expected  = e
+    ),
+    class = "htest"
+  )
 }
-
 
 

@@ -46,7 +46,7 @@ The package implements a wide range of statistical tests:
 \itemize{
 \item \code{barnardTest}, \code{bhapkarTest}, \code{breslowDayTest}
 \item \code{cochranArmitageTest}, \code{cochranQTest}
-\item \code{mhChisqTest}, \code{woolfTest}, \code{stuartMaxwellTest}
+\item \code{mantelTrendTest}, \code{woolfTest}, \code{stuartMaxwellTest}
 }
 
 \strong{Time Series Tests}

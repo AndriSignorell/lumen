@@ -8,98 +8,171 @@
 \usage{
 mosesTest(x, ...)
 
-\method{mosesTest}{formula}(formula, data, subset, na.action, ...)
+\method{mosesTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
-\method{mosesTest}{default}(x, y, extreme = NULL, ...)
+\method{mosesTest}{default}(
+  x,
+  y,
+  extreme = NULL,
+  ties.method = c("first", "average", "random", "max", "min"),
+  ...
+)
 }
 \arguments{
-\item{x}{numeric vector of data values. \code{x} will be treated as control
-group. Non-finite (e.g. infinite or missing) values will be omitted.}
+\item{x}{Numeric vector of observations from the control group.
+Non-finite values are removed.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{\dots}{Further arguments passed to or from methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and rhs the corresponding groups.}
+\item{formula}{A formula of the form \code{lhs ~ rhs}, where
+\code{lhs} gives the observations and \code{rhs} the grouping
+variable with exactly two levels.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{Optional data frame containing the variables in
+\code{formula}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{Optional vector specifying a subset of observations.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{Function specifying how missing values are handled.}
 
-\item{y}{numeric vector of data values. \code{y} will be treated as
-experiment group. Non-finite (e.g. infinite or missing) values will be
-omitted.}
+\item{y}{Numeric vector of observations from the experiment group.
+Non-finite values are removed.}
 
-\item{extreme}{integer, defines the number of extreme values to be dropped
-from the control group before calculating the span. Default (\code{NULL}) is
-the integer part of \code{0.05 * length(x)} or \code{1}, whichever is
-greater. If extreme is too large, it will be cut down to
-\code{floor(length(x)-2)/2}.}
+\item{extreme}{Non-negative integer \eqn{h}. Number of extreme ranks
+trimmed from each end of the control group before recomputing the
+span. If \code{NULL}, defaults to
+\code{max(floor(0.05 * length(x)), 1)}.}
+
+\item{ties.method}{Character string passed to \code{\link{rank}}.
+Default \code{"first"} preserves integer-valued ranks and exact
+combinatorial validity.}
 }
 \value{
-A list with class \dQuote{htest} containing the following
-components: \item{statistic}{the value of the Moses Test statistic.}
-\item{p.value}{the p-value for the test.} \item{method}{the character string
-\dQuote{Moses Test of Extreme Reactions}.} \item{data.name}{a character
-string giving the name(s) of the data.}
+An object of class \code{"mosesTestResult"} inheriting from
+\code{"htest"} with components:
+\describe{
+\item{\code{statistic}}{Named vector containing
+\code{S_raw} and \code{S_trimmed}.}
+\item{\code{p.value}}{Named vector containing
+\code{p_raw} and \code{p_trimmed}.}
+\item{\code{extreme}}{Effective trimming parameter \eqn{h}.}
+\item{\code{parameter}}{Vector containing
+\code{n_control} and \code{n_experiment}.}
+\item{\code{null.value}}{Null hypothesis of equal extremity.}
+\item{\code{alternative}}{Character string:
+\code{"greater"}.}
+\item{\code{method}}{Character string describing the test.}
+\item{\code{data.name}}{Character string describing the data.}
+}
 }
 \description{
-A nonparametric test comparing the spread (range) of two independent
-groups, assessing whether the control group shows greater variability
-than the treatment group.
+Performs the Moses test of extreme reactions, a distribution-free
+nonparametric test for the difference in extremity of scores between two
+independent groups. Scores from both groups are pooled and converted to
+ranks. The test statistic is the span of the control group's ranks
+(range + 1). An exact one-tailed probability is computed for the raw
+span, then recomputed after trimming \code{h} extreme ranks from each end
+of the control group.
 }
 \details{
-Perform Moses test of extreme reactions, which is a distribution-free
-non-parametric test for the difference between two independent groups in the
-extremity of scores (in both directions) that the groups contain.  Scores
-from both groups are pooled and converted to ranks, and the test statistic
-is the span of scores (the range plus 1) in one of the groups chosen
-arbitrarily. An exact probability is computed for the span and then
-recomputed after dropping a specified number of extreme scores from each end
-of its range. The exact one-tailed probability is calculated.
+A nonparametric test comparing the spread (range) of two independent
+groups, assessing whether the control group shows greater variability
+than the experiment group.
 
-For two independent samples from a continuous field, this tests whether
-extreme values are equally likely in both populations or if they are more
-likely to occur in the population from which the sample with the larger
-range was drawn.
+\strong{Distributional derivation.}
+Under the null hypothesis, any assignment of \eqn{n_k + n_e} pooled ranks
+to the two groups is equally likely. The exact distribution of the span
+\eqn{S} of the control group (a subset of size \eqn{n_k} drawn without
+replacement from \eqn{\{1, \ldots, N\}}) is given by Moses (1952) as:
 
-Note that the ranks are calculated in decreasing mode.
+\deqn{P(S \le s) = \frac{1}{\binom{N}{n_k}}
+  \sum_{i=0}^{\min(s - n_k,\, n_e)}
+  \binom{i + n_k - 2}{i}\,
+  \binom{n_e + 1 - i}{n_e - i}}
+
+This is a cumulative distribution function (CDF):
+\eqn{P(\mathrm{span} \le s)}.
+
+The one-tailed p-value for the observed span \eqn{S_{obs}} is:
+
+\deqn{
+p = P(S \ge S_{obs})
+  = 1 - P(S \le S_{obs} - 1)
+}
+
+This distinction matters because some textbook presentations write the
+summation formula as \eqn{P(S = s)}, whereas the upper-tail probability
+required for hypothesis testing is obtained from the cumulative form.
+
+\strong{Generalisation with trimming (\eqn{h > 0}).}
+After removing \eqn{h} extreme ranks from each end of the sorted control
+group ranks, the effective control-group size becomes
+\eqn{n_k^\prime = n_k - 2h}, yielding:
+
+\deqn{
+P(S_h \le s) =
+\frac{1}{\binom{N}{n_k}}
+\sum_{i=0}^{\min(s - n_k^\prime,\, n_e)}
+\binom{i + n_k^\prime - 2}{i}\,
+\binom{n_e + 2h + 1 - i}{n_e - i}
+}
+
+\strong{Tie handling.}
+The exact combinatorial distribution assumes a continuous underlying
+distribution (no ties). By default,
+\code{ties.method = "first"} is passed to \code{\link{rank}},
+producing integer-valued ranks that remain compatible with the exact
+formula. Tied observations are ordered according to their occurrence in
+the pooled sample, matching SPSS behaviour.
+
+Alternative tie methods such as \code{"average"} may produce fractional
+mid-ranks. In such cases the span is rounded upward via
+\code{ceiling()} to retain an integer-valued test statistic, but the
+resulting p-values should be regarded as approximate rather than exact.
+
+\strong{Numerical stability.}
+The exact distribution is evaluated entirely in log-space using
+\code{\link{lchoose}} and a log-sum-exp transformation, avoiding
+overflow for large sample sizes.
 }
 \examples{
+x <- c(0.80, 0.83, 1.89, 1.04, 1.45,
+       1.38, 1.91, 1.64, 0.73, 1.46)
 
-x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
 y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
 
 mosesTest(x, y)
 
-
 set.seed(1479)
-x <- sample(1:20, 10, replace=TRUE)
-y <- sample(5:25, 6, replace=TRUE)
 
-mosesTest(x, y)
+x2 <- sample(1:20, 10, replace = TRUE)
+y2 <- sample(5:25, 6, replace = TRUE)
+
+mosesTest(x2, y2, extreme = 2)
+
+df <- data.frame(
+  score = c(x, y),
+  group = factor(rep(
+    c("control", "experiment"),
+    c(length(x), length(y))
+  ))
+)
+
+mosesTest(score ~ group, data = df)
 
 }
 \references{
-Moses, L.E. (1952) A Two-Sample Test, \emph{Psychometrika}, 17,
-239-247.
+Moses, L.E. (1952).
+A two-sample test.
+\emph{Psychometrika},
+\strong{17}, 239--247.
+\doi{10.1007/BF02288735}
 }
 \seealso{
-\code{\link{wilcox.test}}, \code{\link{ks.test}}
-
-Other test.location:
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
-\code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=yuenTTest]{yuenTTest()}},
-\code{\link[=zTest]{zTest()}}
+\code{\link{wilcox.test}},
+\code{\link{ks.test}},
+\code{\link{ansari.test}}
 }
 \concept{hypothesis-testing}
 \concept{nonparametric}
-\concept{test.location}
+\concept{test.scale}

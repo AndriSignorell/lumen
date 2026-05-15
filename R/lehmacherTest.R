@@ -66,65 +66,89 @@ lehmacherTest <- function(x, y = NULL) {
   
   if (is.matrix(x)) {
     r <- nrow(x)
-    if ((r < 2) || (ncol(x) != r))
+    if ((r < 2L) || (ncol(x) != r))
       stop("'x' must be square with at least two rows and columns")
-    if (any(x < 0) || anyNA(x))
+    if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
       stop("all entries of 'x' must be nonnegative and finite")
+    if (any(x != round(x)))
+      warning("'x' contains non-integer counts", call. = FALSE)
     DNAME <- deparse(substitute(x))
-  }
-  else {
+    
+  } else {
+    
     if (is.null(y))
       stop("if 'x' is not a matrix, 'y' must be given")
     if (length(x) != length(y))
       stop("'x' and 'y' must have the same length")
+    
     DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
-    OK <- complete.cases(x, y)
-    x <- as.factor(x[OK])
-    y <- as.factor(y[OK])
+    OK  <- complete.cases(x, y)
+    
+    ## Unite levels to ensure consistent category set
+    lev <- unique(c(as.character(x[OK]), as.character(y[OK])))
+    x   <- factor(x[OK], levels = lev)
+    y   <- factor(y[OK], levels = lev)
+    
     r <- nlevels(x)
-    if ((r < 2) || (nlevels(y) != r))
-      stop("'x' and 'y' must have the same number of levels (minimum 2)")
+    if (r < 2L)
+      stop("'x' and 'y' must have at least 2 distinct levels")
+    
     x <- table(x, y)
   }
   
   rsum <- rowSums(x)
   csum <- colSums(x)
   
-  STATISTIC <- (rsum-csum)^2 / (rsum + csum - 2*diag(x))
-  PARAMETER <- 1
-  PVAL <- 1 - pchisq(STATISTIC, PARAMETER)
-  METHOD <- "Lehmacher-Test on Marginal Homogeneity"
-  names(STATISTIC) <- "X-squared"
-  names(PARAMETER) <- "df"
-  structure(list(statistic = STATISTIC, parameter = PARAMETER,
-                 p.value = PVAL, p.value.corr = p.adjust(PVAL, "hochberg"),
-                 method = METHOD, data.name = DNAME),
-            class = "mtest")
+  ## Guard against perfect agreement (denom = 0 -> statistic = 0)
+  denom     <- rsum + csum - 2 * diag(x)
+  STATISTIC <- ifelse(denom > 0, (rsum - csum)^2 / denom, 0)
   
+  PVAL <- pchisq(STATISTIC, df = 1L, lower.tail = FALSE)
+  
+  structure(
+    list(
+      statistic    = STATISTIC,
+      parameter    = c(df = 1L),
+      p.value      = PVAL,
+      p.value.corr = p.adjust(PVAL, "hochberg"),
+      method       = "Lehmacher-Test on Marginal Homogeneity",
+      data.name    = DNAME
+    ),
+    class = "mtest"
+  )
 }
+
 
 
 #' @rdname lehmacherTest
 #' @export
-print.mtest <- function (x, digits = 4L, ...) {
+print.mtest <- function(x, digits = 4L, ...) {
   
   cat("\n")
   cat(strwrap(x$method, prefix = "\t"), sep = "\n")
   cat("\n")
   cat("data:  ", x$data.name, "\n", sep = "")
   
-  out <- character()
-  out <- cbind(format(round(x$statistic, 4)), format.pval(x$p.value, digits = digits),
-               format.pval(x$p.value.corr, digits = digits),
-               symnum(x$p.value.corr, corr = FALSE, na = FALSE,
-                      cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                      symbols = c("***", "**", "*", ".", " ")))
-  colnames(out) <- c("X-squared", "pval", "pval adj", " ")
-  rownames(out) <- if(is.null(rownames(x))) 1:length(x$statistic) else rownames(x)
-  print.default(out, digits = 3, quote = FALSE, right = TRUE)
+  out <- cbind(
+    format(round(x$statistic, 4)),
+    format.pval(x$p.value,      digits = digits),
+    format.pval(x$p.value.corr, digits = digits),
+    symnum(x$p.value.corr,
+           corr      = FALSE,
+           na        = FALSE,
+           cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+           symbols   = c("***", "**", "*", ".", " "))
+  )
   
-  cat("\n")
-  cat("---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n")
+  colnames(out) <- c("X-squared", "pval", "pval adj", " ")
+  rownames(out) <- if (!is.null(names(x$statistic)))
+    names(x$statistic)
+  else
+    seq_along(x$statistic)
+  
+  print.default(out, digits = 3L, quote = FALSE, right = TRUE)
+  
+  cat("\n---\nSignif. codes:  ",
+      "0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n")
   invisible(x)
 }
-

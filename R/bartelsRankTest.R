@@ -92,84 +92,82 @@
 #' @concept time-series
 #'
 #'
+
+
 #' @export
-bartelsRankTest <- function(x, alternative = c("two.sided", "trend", "oscillation"),
-                            method = c("normal", "beta", "auto")) {
+bartelsRankTest <- function(x,
+                            alternative = c("two.sided", "trend", "oscillation"),
+                            method      = c("auto", "normal", "beta")) {
   
-  # Performs Bartels Ratio Test for Randomness.
-  #
-  # Args:
-  #   x: a numeric vector containing the data.
-  #   alternative hypothesis, must be one of "two.sided" (default), "left.sided" or "right.sided"
-  #   pv.method: asymptotic aproximation method used to compute the p-value.
-  #
-  # Returns:
-  #   statistic: the value of the RVN statistic test and the theoretical mean value and variance of the RVN statistic test.
-  #   n: the sample size, after the remotion of consecutive duplicate values.
-  #   p.value: the asymptotic p-value.
-  #   method: a character string indicating the test performed.
-  #   data.name: a character string giving the name of the data.
-  #   alternative: a character string describing the alternative.
+  DNAME <- deparse(substitute(x))
   
-  pvalue <- match.arg(method, c("normal", "beta", "auto"))
-  
-  dname <- deparse(substitute(x))
-  
-  # Remove NAs
   x <- na.omit(x)
   stopifnot(is.numeric(x))
   n <- length(x)
   
-  
-  # if (alternative == "t"){alternative <- "two.sided"}
-  # if (alternative == "l"){alternative <- "left.sided"}
-  # if (alternative == "r"){alternative <- "right.sided"}
-  # if (alternative != "two.sided" & alternative != "left.sided" & alternative != "right.sided")
-  # {stop("must give a valid alternative")}
+  if (n < 10L)
+    stop("sample size must be greater than 9")
   
   alternative <- match.arg(alternative)
+  pmethod     <- match.arg(method)
   
-  if (n < 10){stop("sample size must be greater than 9")}
+  if (pmethod == "auto")
+    pmethod <- if (n <= 100L) "beta" else "normal"
   
-  # unique
-  rk <- rank(x)
-  d <- diff(rk)
-  d.rank <- sum(rk^2) - n * (mean(rk)^2)
-  RVN <- sum(d^2) / d.rank
+  rk    <- rank(x)
+  d     <- diff(rk)
+  NM    <- sum(d^2)
+  denom <- sum(rk^2) - n * mean(rk)^2
+  RVN   <- NM / denom
+  
   mu <- 2
-  vr <- (4*(n-2)*(5*n^2-2*n-9))/(5*n*(n+1)*(n-1)^2)
+  vr <- (4 * (n - 2) * (5 * n^2 - 2 * n - 9)) /
+    (5 * n * (n + 1) * (n - 1)^2)
   
-  # Computes the p-value
-  if (pvalue == "auto"){
-    pvalue <- ifelse(n <= 100, "beta", "normal")
-  }
-  
-  if (pvalue == "beta"){
-    btp <- (5*n*(n+1)*(n-1)^2)/(2*(n-2)*(5*n^2-2*n-9))-1/2
-    pv0 <- pbeta(RVN/4, shape1=btp, shape2=btp)
-  }
-  if (pvalue=="normal"){
+  if (pmethod == "beta") {
+    btp <- (5 * n * (n + 1) * (n - 1)^2) /
+      (2 * (n - 2) * (5 * n^2 - 2 * n - 9)) - 0.5
+    pv0 <- pbeta(RVN / 4, shape1 = btp, shape2 = btp)
+  } else {
     pv0 <- pnorm((RVN - mu) / sqrt(vr))
   }
   
-  if (alternative=="two.sided"){
-    pv <- 2 * min(pv0, 1 - pv0)
-    alternative <- "nonrandomness"
-  }
-  if (alternative == "trend"){
-    pv <- pv0
-    alternative <- "trend"
-  }
-  if (alternative == "oscillation"){
-    pv <- 1 - pv0
-    alternative <- "systematic oscillation"
-  }
+  PVAL <- switch(
+    alternative,
+    "two.sided"    = 2 * min(pv0, 1 - pv0),
+    "trend"        = pv0,
+    "oscillation"  = 1 - pv0
+  )
   
-  test <- (RVN - mu) / sqrt(vr)
-  rval <- list(statistic = c(RVN=RVN, z=test), nm=sum(d^2), rvn=RVN, mu=mu, var=vr, p.value = pv,
-               method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alternative=alternative)
-  class(rval) <- "htest"
-  return(rval)
+  ALT <- switch(
+    alternative,
+    "two.sided"   = "nonrandomness",
+    "trend"       = "trend",
+    "oscillation" = "systematic oscillation"
+  )
   
+  z <- (RVN - mu) / sqrt(vr)
+  
+  METHOD <- paste0(
+    "Bartels Ratio Test (",
+    pmethod,
+    ")"
+  )
+  
+  structure(
+    list(
+      statistic   = c(z = z),
+      parameter   = c(n = n),
+      p.value     = as.numeric(PVAL),
+      alternative = ALT,
+      method      = METHOD,
+      data.name   = DNAME,
+      rvn         = RVN,
+      nm          = NM,
+      mu          = mu,
+      var         = vr
+    ),
+    class = "htest"
+  )
 }
 

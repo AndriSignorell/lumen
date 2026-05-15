@@ -22,7 +22,7 @@ cochranQTest(y, ...)
   formula,
   data,
   subset,
-  na.action,
+  na.action = na.pass,
   method = c("asymptotic", "approximate"),
   nresample = 10000,
   ...

@@ -54,7 +54,7 @@
 #' Stuart-Maxwell test
 #' 
 #' \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
-#' \code{\link{mhChisqTest}}, \code{\link{breslowDayTest}}
+#' \code{\link{mantelTrendTest}}, \code{\link{breslowDayTest}}
 #' 
 #' @references Stuart, A (1955) A test for homogeneity of the marginal
 #' distributions in a two-way classification. \emph{Biometrika}, 42, 412-416.
@@ -94,94 +94,106 @@
 #' @concept nonparametric
 #'
 #'
+
+
 #' @export
-stuartMaxwellTest <- function (x, y = NULL) {
-  
-  # stuart.maxwell.mh computes the marginal homogeneity test for
-  # a CxC matrix of assignments of objects to C categories or an
-  # nx2 or 2xn matrix of category scores for n data objects by two
-  # raters. The statistic is distributed as Chi-square with C-1
-  # degrees of freedom.
-  
-  # The core code is from Jim Lemon, package concord
-  # the intro is taken from mcnemar.test (core)
+stuartMaxwellTest <- function(x, y = NULL) {
   
   if (is.matrix(x)) {
+    
+    if (!is.numeric(x))
+      stop("'x' must be a numeric matrix")
     r <- nrow(x)
-    if ((r < 2) || (ncol(x) != r))
+    if ((r < 2L) || (ncol(x) != r))
       stop("'x' must be square with at least two rows and columns")
-    if (any(x < 0) || any(!is.finite(x)))
+    if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
       stop("all entries of 'x' must be nonnegative and finite")
+    if (any(x != round(x)))
+      warning("'x' contains non-integer counts", call. = FALSE)
+    if (!is.null(dimnames(x)) &&
+        !identical(dimnames(x)[[1L]], dimnames(x)[[2L]]))
+      warning(
+        "row and column names differ; ensure rows and columns ",
+        "represent the same categories",
+        call. = FALSE
+      )
+    
     DNAME <- deparse(substitute(x))
     
-  }  else {
+  } else {
+    
     if (is.null(y))
       stop("if 'x' is not a matrix, 'y' must be given")
-    
     if (length(x) != length(y))
       stop("'x' and 'y' must have the same length")
     
     DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
-    OK <- complete.cases(x, y)
-    x <- factor(x[OK])
-    y <- factor(y[OK])
+    
+    OK  <- complete.cases(x, y)
+    
+    ## Preserve original data order for levels; treat categories as nominal
+    lev <- unique(c(as.character(x[OK]), as.character(y[OK])))
+    x   <- factor(x[OK], levels = lev)
+    y   <- factor(y[OK], levels = lev)
+    
     r <- nlevels(x)
-    if ((r < 2) || (nlevels(y) != r))
-      stop("'x' and 'y' must have the same number of levels (minimum 2)")
+    if (r < 2L)
+      stop("'x' and 'y' must have at least 2 distinct levels")
+    
     x <- table(x, y)
   }
   
-  # get the marginals
+  ## Save original k for df (see Details)
+  k_original <- nrow(x)
+  
   rowsums <- rowSums(x)
   colsums <- colSums(x)
   
-  # equalsums <- rowsums == colsums
-  # Yusef Al-Naher commented correctly 20-08-2021:
-  # If you have perfect agreement then you want something along the lines of:
-  equalsums <- diag(x)==rowsums & diag(x)==colsums
-  
-  if(any(equalsums)) {
-    # dump any categories with perfect agreement
-    x <- x[!equalsums, !equalsums]
-    # bail out if too many categories have disappeared
-    if(dim(x)[1] < 2) stop("Too many equal marginals, cannot compute")
-    # get new marginals
+  ## Remove categories with perfect agreement
+  equalsums <- diag(x) == rowsums & diag(x) == colsums
+  if (any(equalsums)) {
+    x <- x[!equalsums, !equalsums, drop = FALSE]
+    if (nrow(x) < 2L)
+      stop("too many categories with perfect agreement; cannot compute")
     rowsums <- rowSums(x)
     colsums <- colSums(x)
   }
   
-  # use K-1 marginals
-  Kminus1 <- length(rowsums) - 1
-  smd <- (rowsums-colsums)[1:Kminus1]
-  smS <- matrix(0, nrow=Kminus1, ncol=Kminus1)
+  k1  <- nrow(x) - 1L
+  smd <- (rowsums - colsums)[seq_len(k1)]
   
-  # for(i in 1:Kminus1) {
-  #   for(j in 1:Kminus1) {
-  #     if(i == j) smS[i,j] <- rowsums[i] + colsums[j] - 2 * x[i,j]
-  #     else smS[i,j] <- -(x[i,j] + x[j,i])
-  #   }
-  # }
+  ## Variance-covariance matrix S (Stuart 1955, eq. 3)
+  smS <- -(x[seq_len(k1), seq_len(k1)] +
+             t(x[seq_len(k1), seq_len(k1)]))
+  diag(smS) <- rowsums[seq_len(k1)] +
+    colsums[seq_len(k1)] -
+    2 * diag(x)[seq_len(k1)]
   
-  smS <- -(x[1:Kminus1, 1:Kminus1] + t(x[1:Kminus1, 1:Kminus1]))
-  diag(smS) <- rowsums[1:Kminus1] + colsums[1:Kminus1] - 
-                    2 * diag(x)[1:Kminus1]
+  STATISTIC <- tryCatch(
+    drop(smd %*% qr.solve(smS, smd, tol = 1e-7)),
+    error = function(e)
+      stop(
+        "variance-covariance matrix is singular; ",
+        "cannot compute statistic",
+        call. = FALSE
+      )
+  )
   
-  # STATISTIC <- t(smd) %*% solve(smS) %*% smd
-  # more robust:
-  STATISTIC <- drop(smd %*% qr.solve(smS, smd))
+  ## df = k_original - 1: omitted categories (perfect agreement) are
+  ## treated as contributing 0 to chi-squared — Stuart-Maxwell convention
+  PARAMETER <- c(df = k_original - 1L)
   
-  r <- nrow(x)
-  PARAMETER <- r - 1
-  METHOD <- "Stuart-Maxwell test"
-  
-  PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
-  names(STATISTIC) <- "chi-squared"
-  names(PARAMETER) <- "df"
-  RVAL <- list(statistic = STATISTIC, parameter = PARAMETER,
-               p.value = PVAL, method = METHOD, data.name = DNAME, 
-               n = sum(rowsums))
-  class(RVAL) <- "htest"
-  return(RVAL)
-  
+  structure(
+    list(
+      statistic = c("chi-squared" = STATISTIC),
+      parameter = PARAMETER,
+      p.value   = pchisq(STATISTIC, df = PARAMETER, lower.tail = FALSE),
+      method    = "Stuart-Maxwell test for marginal homogeneity",
+      data.name = DNAME,
+      n         = sum(rowsums)
+    ),
+    class = "htest"
+  )
 }
+
 

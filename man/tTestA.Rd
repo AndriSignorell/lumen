@@ -119,9 +119,7 @@ t.test(x, y, paired = TRUE)
 
 Other test.location:
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
-\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }
 \concept{descriptive-statistics}

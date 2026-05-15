@@ -4,129 +4,168 @@
 \alias{jonckheereTerpstraTest}
 \alias{jonckheereTerpstraTest.default}
 \alias{jonckheereTerpstraTest.formula}
-\title{Exact Version of Jonckheere-Terpstra Test}
+\title{Jonckheere-Terpstra Test for Ordered Alternatives}
 \usage{
 jonckheereTerpstraTest(x, ...)
 
-\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action, ...)
+\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{jonckheereTerpstraTest}{default}(
   x,
   g,
-  alternative = c("two.sided", "increasing", "decreasing"),
-  nperm = NULL,
-  exact = NULL,
+  alternative = c("increasing", "decreasing", "two.sided"),
+  method = c("auto", "exact", "permutation", "asymptotic"),
+  R = NULL,
   ...
 )
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data vectors.}
+\item{x}{Numeric vector of observations,
+or a list of numeric vectors.}
 
-\item{\dots}{further argument to be passed to methods.}
+\item{\dots}{Further arguments passed to methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and rhs the corresponding groups.}
+\item{formula}{Formula interface of the form \code{lhs ~ rhs}.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{Optional data frame for the formula interface.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{Optional subset expression.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain NAs. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{NA handling function.}
 
-\item{g}{a vector or factor object giving the group for the corresponding
-elements of x. Ignored if x is a list.}
+\item{g}{Grouping variable.
+Ignored if \code{x} is a list.}
 
-\item{alternative}{means are monotonic (\code{two.sided}),
-\code{increasing}, or \code{decreasing}}
+\item{alternative}{Character string specifying the alternative:
+\code{"increasing"},
+\code{"decreasing"},
+or \code{"two.sided"}.}
 
-\item{nperm}{number of permutations for the reference distribution.  The
-default is \code{NULL} in which case the permutation p-value is not
-computed. It's recommended to set \code{nperm} to 1000 or higher if
-permutation p-value is desired.}
+\item{method}{Character string specifying the inference method:
+\code{"auto"} (default), \code{"exact"}, \code{"permutation"},
+or \code{"asymptotic"}.
+\code{"auto"} uses exact inference when possible
+(no ties, \eqn{n \le 100}), otherwise asymptotic.}
 
-\item{exact}{logical, defining if the exact test should be calculated. If
-left to \code{NULL}, the function uses the exact test up to a samplesize of
-100 and falls back to normal approximation for larger samples. The exact
-procedure can not be applied to samples containing ties.}
+\item{R}{Number of permutations. Required when \code{method = "permutation"}.}
+}
+\value{
+An object of class \code{"htest"} containing:
+
+\itemize{
+\item statistic,
+\item p-value,
+\item method,
+\item alternative,
+\item sample size information.
+}
 }
 \description{
-A nonparametric test for ordered alternatives across k independent groups,
-assessing whether a monotonic trend exists in the location parameter
-across ordered groups.
+Performs the Jonckheere-Terpstra test for ordered alternatives across
+\eqn{k} independent groups.
+
+The test assesses whether observations tend to increase (or decrease)
+systematically with group order.
+
+Exact p-values are computed whenever feasible and valid
+(small samples without ties). For larger samples or tied data,
+permutation or asymptotic approximations are used.
 }
 \details{
-Jonckheere-Terpstra test to test for ordered differences among classes.
+A nonparametric test for monotonic trends across ordered independent groups.
 
-jonckheereTerpstraTest is the exact (permutation) version of the
-Jonckheere-Terpstra test.  It uses the statistic \deqn{\sum_{k<l} \sum_{ij}
-I(X_{ik} < X_{jl}) + 0.5 I(X_{ik} = X_{jl}),} where \eqn{i, j} are
-observations in groups \eqn{k} and \eqn{l} respectively.  The asymptotic
-version is equivalent to \code{cor.test(x, g, method="k")}. The exact
-calculation requires that there be no ties and that the sample size is less
-than 100. When data are tied and sample size is at most 100 permutation
-p-value is returned.\cr
+The Jonckheere-Terpstra statistic is:
 
-If x is a list, its elements are taken as the samples to be compared, and
-hence have to be numeric data vectors.  In this case, g is ignored, and one
-can simply use jonckheereTerpstraTest(x) to perform the test.  If the
-samples are not yet contained in a list, use jonckheereTerpstraTest(list(x,
-...)). \cr
-
-Otherwise, \code{x} must be a numeric data vector, and \code{g} must be a
-vector or factor object of the same length as \code{x} giving the group for
-the corresponding elements of \code{x}.
+\deqn{
+JT =
+\sum_{k<l}
+\sum_{ij}
+\left[
+I(X_{ik} < X_{jl})
++
+\frac12 I(X_{ik} = X_{jl})
+\right]
 }
-\note{
-The function was previously published as \code{jonckheere.test()} in
-the \pkg{clinfun} package and has been integrated here without logical
-changes. Some argument checks and a formula interface were added.
 
-Original C code by Venkatraman E. Seshan. Rewritten in C++ with an
-adapted R interface to conform to package standards.
+where \eqn{i,j} index observations from ordered groups
+\eqn{k,l}.
+
+Large values of the statistic indicate increasing trends across groups.
+\subsection{Exact inference}{
+
+Exact p-values are computed from the exact permutation distribution
+using a dynamic programming recursion implemented in C++.
+
+Exact inference is only available:
+\itemize{
+\item without ties,
+\item for total sample sizes \eqn{n \le 100}.
+}
+}
+
+\subsection{Permutation inference}{
+
+When ties are present or sample sizes are large, permutation p-values
+can be computed by permuting group labels under the null hypothesis.
+The number of permutations is controlled by \code{R}.
+
+This approach remains valid in the presence of ties.
+}
+
+\subsection{Asymptotic approximation}{
+
+If \code{method = "asymptotic"} or no other method applies,
+a normal approximation with tie-corrected variance is applied.
+}
 }
 \examples{
 
-set.seed(1234)
-g <- ordered(rep(1:5, rep(10,5)))
-x <- rnorm(50) + 0.3 * as.numeric(g)
+set.seed(1)
+
+g <- ordered(rep(1:4, each = 10))
+
+x <- rnorm(40) + 0.5 * as.numeric(g)
 
 jonckheereTerpstraTest(x, g)
 
-x[1:2] <- mean(x[1:2]) # tied data
+x[1:2] <- mean(x[1:2])
 
-jonckheereTerpstraTest(x, g)
-jonckheereTerpstraTest(x, g, nperm=5000)
+jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
 
-# Duller, S. 222
 coffee <- list(
-  c_4=c(447,396,383,410),
-  c_2=c(438,521,468,391,504,472),
-  c_0=c(513,543,506,489,407))  
+  c_4 = c(447,396,383,410),
+  c_2 = c(438,521,468,391,504,472),
+  c_0 = c(513,543,506,489,407)
+)
 
-# the list interface:
 jonckheereTerpstraTest(coffee)
 
-# the formula interface
-breaking <- data.frame(
-  speed=c(20,25,25,25,25,30,30,30,35,35),
-  distance=c(48,33,59,48,56,60,101,67,85,107))
+# Hollander-Wolfe-Chicken Example 6.2 
+#   Motivational Effect of Knowledge of Performance
 
-jonckheereTerpstraTest(distance ~ speed, breaking)
+motiv <- list(
+  no    = c(40,35,38,43,44,41),
+  rough = c(38,40,47,44,40,42),
+  acc   = c(48,40,45,43,46,44))
+
+jonckheereTerpstraTest(motiv, method = "auto")    # here: exact
+jonckheereTerpstraTest(motiv, method = "exact")   # exact:       p ~ 0.038
+jonckheereTerpstraTest(motiv, method = "asymp")   # asymptotic:  p ~ 0.032
+
+set.seed(42)
+jonckheereTerpstraTest(motiv, method = "perm", R= 10000)   # permutation: p ~ 0.038
 
 
 }
 \references{
-Jonckheere, A. R. (1954). A distribution-free k-sample test
-again ordered alternatives. \emph{Biometrika} 41:133-145.
+Jonckheere, A. R. (1954).
+A distribution-free k-sample test against ordered alternatives.
+\emph{Biometrika}, 41, 133--145.
 
-Terpstra, T. J. (1952). The asymptotic normality and consistency of
-Kendall's test against trend, when ties are present in one ranking.
-\emph{Indagationes Mathematicae} 14:327-333.
+Terpstra, T. J. (1952).
+The asymptotic normality and consistency of Kendall's test
+against trend.
+\emph{Indagationes Mathematicae}, 14, 327--333.
 }
 \seealso{
 Other test.trend:

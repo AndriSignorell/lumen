@@ -4,23 +4,26 @@
 \alias{cochranArmitageTest}
 \title{Cochran-Armitage Test for Trend}
 \usage{
-cochranArmitageTest(x, alternative = c("two.sided", "one.sided"))
+cochranArmitageTest(
+  x,
+  alternative = c("two.sided", "increasing", "decreasing")
+)
 }
 \arguments{
 \item{x}{a frequency table or a matrix.}
 
 \item{alternative}{a character string specifying the alternative hypothesis,
-must be one of \code{"two.sided"} (default), \code{"one.sided"}. You can
-specify just the initial letter.}
+must be one of \code{"two.sided"} (default), \code{"increasing"} or
+\code{"decreasing"}. You can specify just the initial letter.}
 }
 \value{
 A list of class \code{htest}, containing the following components:
-\item{statistic}{ the z-statistic of the test.} \item{parameter}{ the
-dimension of the table.} \item{p.value}{ the p-value for the test.}
-\item{alternative}{a character string describing the alternative
-hypothesis.} \item{method}{the character string \dQuote{Cochran-Armitage
-test for trend}.} \item{data.name}{a character string giving the names of
-the data.}
+\item{statistic}{ the z-statistic of the test.}
+\item{parameter}{ the dimension of the table.}
+\item{p.value}{ the p-value for the test.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{the character string \dQuote{Cochran-Armitage test for trend}.}
+\item{data.name}{a character string giving the names of the data.}
 }
 \description{
 A test for linear trend in proportions across ordered categories in 2×k
@@ -39,18 +42,21 @@ explanatory variable.
 Based on code by Eric Lecoutre.
 
 \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
+
+Results are consistent with SAS PROC FREQ. They may differ from
+\pkg{coin}'s \code{independence_test(..., teststat = "scalar")},
+which uses a different variance formula.
 }
 \examples{
 
 # http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4
-dose <- matrix(c(10,9,10,7, 0,1,0,3), byrow=TRUE, nrow=2, 
+dose <- matrix(c(10,9,10,7, 0,1,0,3), byrow=TRUE, nrow=2,
                dimnames=list(resp=0:1, dose=0:3))
 
 cochranArmitageTest(dose)
-cochranArmitageTest(dose, alternative="one.sided")
+cochranArmitageTest(dose, alternative = "increasing")
 
-# not exactly the same as in package coin:
-# independence_test(tumor ~ dose, data = lungtumor, teststat = "quad")
+# consistent with coin::independence_test(..., teststat = "scalar")
 lungtumor <- data.frame(dose = rep(c(0, 1, 2), c(40, 50, 48)),
                         tumor = c(rep(c(0, 1), c(38, 2)),
                                   rep(c(0, 1), c(43, 7)),
@@ -58,17 +64,17 @@ lungtumor <- data.frame(dose = rep(c(0, 1, 2), c(40, 50, 48)),
 tab <- table(lungtumor$dose, lungtumor$tumor)
 cochranArmitageTest(tab)
 
-# but similar to
-prop.trend.test(tab[,1], apply(tab,1, sum))
+# similar to prop.trend.test (uses integer scores 1..k instead of dimnames)
+prop.trend.test(tab[,1], apply(tab, 1, sum))
 
-# another reference
+# SAS PROC FREQ reference (note: SAS uses a different variance formula)
 # https://support.sas.com/documentation/onlinedoc/stat/142/freq.pdf, pp 2868
-pain <- structure(c(26, 6, 26, 7, 23, 9, 18, 14, 9, 23), 
-                  dim = c(2L, 5L), 
-                  dimnames = list(adverse=c("No", "Yes"), 
-                                 dose=c("0", "1", "2", "3", "4")), 
-                 class = "table") 
-                 
+pain <- structure(c(26, 6, 26, 7, 23, 9, 18, 14, 9, 23),
+                  dim = c(2L, 5L),
+                  dimnames = list(adverse = c("No", "Yes"),
+                                  dose    = c("0", "1", "2", "3", "4")),
+                  class = "table")
+
 cochranArmitageTest(pain)
 
 }

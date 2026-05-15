@@ -1,169 +1,458 @@
 
 #' Moses Test of Extreme Reactions
-#' 
-#' A nonparametric test comparing the spread (range) of two independent 
-#' groups, assessing whether the control group shows greater variability 
-#' than the treatment group.
-#' 
-#' Perform Moses test of extreme reactions, which is a distribution-free
-#' non-parametric test for the difference between two independent groups in the
-#' extremity of scores (in both directions) that the groups contain.  Scores
-#' from both groups are pooled and converted to ranks, and the test statistic
-#' is the span of scores (the range plus 1) in one of the groups chosen
-#' arbitrarily. An exact probability is computed for the span and then
-#' recomputed after dropping a specified number of extreme scores from each end
-#' of its range. The exact one-tailed probability is calculated.
-#' 
-#' For two independent samples from a continuous field, this tests whether
-#' extreme values are equally likely in both populations or if they are more
-#' likely to occur in the population from which the sample with the larger
-#' range was drawn.
-#' 
-#' Note that the ranks are calculated in decreasing mode.
-#' 
+#'
+#' A nonparametric test comparing the spread (range) of two independent
+#' groups, assessing whether the control group shows greater variability
+#' than the experiment group.
+#'
+#' @description
+#' Performs the Moses test of extreme reactions, a distribution-free
+#' nonparametric test for the difference in extremity of scores between two
+#' independent groups. Scores from both groups are pooled and converted to
+#' ranks. The test statistic is the span of the control group's ranks
+#' (range + 1). An exact one-tailed probability is computed for the raw
+#' span, then recomputed after trimming \code{h} extreme ranks from each end
+#' of the control group.
+#'
+#' @details
+#' **Distributional derivation.**
+#' Under the null hypothesis, any assignment of \eqn{n_k + n_e} pooled ranks
+#' to the two groups is equally likely. The exact distribution of the span
+#' \eqn{S} of the control group (a subset of size \eqn{n_k} drawn without
+#' replacement from \eqn{\{1, \ldots, N\}}) is given by Moses (1952) as:
+#'
+#' \deqn{P(S \le s) = \frac{1}{\binom{N}{n_k}}
+#'   \sum_{i=0}^{\min(s - n_k,\, n_e)}
+#'   \binom{i + n_k - 2}{i}\,
+#'   \binom{n_e + 1 - i}{n_e - i}}
+#'
+#' This is a cumulative distribution function (CDF):
+#' \eqn{P(\mathrm{span} \le s)}.
+#'
+#' The one-tailed p-value for the observed span \eqn{S_{obs}} is:
+#'
+#' \deqn{
+#' p = P(S \ge S_{obs})
+#'   = 1 - P(S \le S_{obs} - 1)
+#' }
+#'
+#' This distinction matters because some textbook presentations write the
+#' summation formula as \eqn{P(S = s)}, whereas the upper-tail probability
+#' required for hypothesis testing is obtained from the cumulative form.
+#'
+#' **Generalisation with trimming (\eqn{h > 0}).**
+#' After removing \eqn{h} extreme ranks from each end of the sorted control
+#' group ranks, the effective control-group size becomes
+#' \eqn{n_k^\prime = n_k - 2h}, yielding:
+#'
+#' \deqn{
+#' P(S_h \le s) =
+#' \frac{1}{\binom{N}{n_k}}
+#' \sum_{i=0}^{\min(s - n_k^\prime,\, n_e)}
+#' \binom{i + n_k^\prime - 2}{i}\,
+#' \binom{n_e + 2h + 1 - i}{n_e - i}
+#' }
+#'
+#' **Tie handling.**
+#' The exact combinatorial distribution assumes a continuous underlying
+#' distribution (no ties). By default,
+#' \code{ties.method = "first"} is passed to \code{\link{rank}},
+#' producing integer-valued ranks that remain compatible with the exact
+#' formula. Tied observations are ordered according to their occurrence in
+#' the pooled sample, matching SPSS behaviour.
+#'
+#' Alternative tie methods such as \code{"average"} may produce fractional
+#' mid-ranks. In such cases the span is rounded upward via
+#' \code{ceiling()} to retain an integer-valued test statistic, but the
+#' resulting p-values should be regarded as approximate rather than exact.
+#'
+#' **Numerical stability.**
+#' The exact distribution is evaluated entirely in log-space using
+#' \code{\link{lchoose}} and a log-sum-exp transformation, avoiding
+#' overflow for large sample sizes.
+#'
 #' @name mosesTest
 #' @aliases mosesTest mosesTest.default mosesTest.formula
-#' @param x numeric vector of data values. \code{x} will be treated as control
-#' group. Non-finite (e.g. infinite or missing) values will be omitted.
-#' @param y numeric vector of data values. \code{y} will be treated as
-#' experiment group. Non-finite (e.g. infinite or missing) values will be
-#' omitted.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-#' the data values and rhs the corresponding groups.
-#' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
-#' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s. Defaults to \code{getOption("na.action")}.
-#' @param extreme integer, defines the number of extreme values to be dropped
-#' from the control group before calculating the span. Default (\code{NULL}) is
-#' the integer part of \code{0.05 * length(x)} or \code{1}, whichever is
-#' greater. If extreme is too large, it will be cut down to
-#' \code{floor(length(x)-2)/2}.
-#' @param \dots further arguments to be passed to or from methods.
-#' @return A list with class \dQuote{htest} containing the following
-#' components: \item{statistic}{the value of the Moses Test statistic.}
-#' \item{p.value}{the p-value for the test.} \item{method}{the character string
-#' \dQuote{Moses Test of Extreme Reactions}.} \item{data.name}{a character
-#' string giving the name(s) of the data.}
-#' 
-#' @seealso \code{\link{wilcox.test}}, \code{\link{ks.test}}
-#' 
-#' @references Moses, L.E. (1952) A Two-Sample Test, \emph{Psychometrika}, 17,
-#' 239-247.
-#' 
+#'
+#' @param x Numeric vector of observations from the control group.
+#'   Non-finite values are removed.
+#' @param y Numeric vector of observations from the experiment group.
+#'   Non-finite values are removed.
+#' @param formula A formula of the form \code{lhs ~ rhs}, where
+#'   \code{lhs} gives the observations and \code{rhs} the grouping
+#'   variable with exactly two levels.
+#' @param data Optional data frame containing the variables in
+#'   \code{formula}.
+#' @param subset Optional vector specifying a subset of observations.
+#' @param na.action Function specifying how missing values are handled.
+#' @param extreme Non-negative integer \eqn{h}. Number of extreme ranks
+#'   trimmed from each end of the control group before recomputing the
+#'   span. If \code{NULL}, defaults to
+#'   \code{max(floor(0.05 * length(x)), 1)}.
+#' @param ties.method Character string passed to \code{\link{rank}}.
+#'   Default \code{"first"} preserves integer-valued ranks and exact
+#'   combinatorial validity.
+#' @param \dots Further arguments passed to or from methods.
+#'
+#' @return An object of class \code{"mosesTestResult"} inheriting from
+#'   \code{"htest"} with components:
+#'   \describe{
+#'     \item{\code{statistic}}{Named vector containing
+#'       \code{S_raw} and \code{S_trimmed}.}
+#'     \item{\code{p.value}}{Named vector containing
+#'       \code{p_raw} and \code{p_trimmed}.}
+#'     \item{\code{extreme}}{Effective trimming parameter \eqn{h}.}
+#'     \item{\code{parameter}}{Vector containing
+#'       \code{n_control} and \code{n_experiment}.}
+#'     \item{\code{null.value}}{Null hypothesis of equal extremity.}
+#'     \item{\code{alternative}}{Character string:
+#'       \code{"greater"}.}
+#'     \item{\code{method}}{Character string describing the test.}
+#'     \item{\code{data.name}}{Character string describing the data.}
+#'   }
+#'
+#' @seealso
+#' \code{\link{wilcox.test}},
+#' \code{\link{ks.test}},
+#' \code{\link{ansari.test}}
+#'
+#' @references
+#' Moses, L.E. (1952).
+#' A two-sample test.
+#' \emph{Psychometrika},
+#' \strong{17}, 239--247.
+#' \doi{10.1007/BF02288735}
+#'
 #' @examples
-#' 
-#' x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
+#' x <- c(0.80, 0.83, 1.89, 1.04, 1.45,
+#'        1.38, 1.91, 1.64, 0.73, 1.46)
+#'
 #' y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-#' 
+#'
 #' mosesTest(x, y)
-#' 
-#' 
+#'
 #' set.seed(1479)
-#' x <- sample(1:20, 10, replace=TRUE)
-#' y <- sample(5:25, 6, replace=TRUE)
-#' 
-#' mosesTest(x, y)
-#' 
-
-
+#'
+#' x2 <- sample(1:20, 10, replace = TRUE)
+#' y2 <- sample(5:25, 6, replace = TRUE)
+#'
+#' mosesTest(x2, y2, extreme = 2)
+#'
+#' df <- data.frame(
+#'   score = c(x, y),
+#'   group = factor(rep(
+#'     c("control", "experiment"),
+#'     c(length(x), length(y))
+#'   ))
+#' )
+#'
+#' mosesTest(score ~ group, data = df)
+#'
 #' @rdname mosesTest
-#' @family test.location
+#' @family test.scale
 #' @concept hypothesis-testing
 #' @concept nonparametric
-#'
-#'
+
 #' @export
-mosesTest <- function (x, ...)  UseMethod("mosesTest")
+mosesTest <- function(x, ...)
+  UseMethod("mosesTest")
 
-# Extremreaktionen nach Moses: Nullhypothese: Die Spannweite der Werte ist
-# in beiden Gruppen gleich gross. Die Werte beider Gruppen werden in eine gemeinsame
-# Reihenfolge gebracht. Anschliessend werden ihnen Rangwerte zugewiesen.
-# Eine der Gruppen (die Gruppe des Wertes, der in dem Dialogfeld
-#                   Gruppen definieren als erstes angegeben ist) wird als Kontrollgruppe verwendet.
-# Fuer diese Gruppe wird die Spannweite der Raenge als Differenz zwischen
-# dem groessten und kleinsten Rangwert berechnet. Anhand dieser Spannweite errechnet
-# sich die einseitige Signifikanz. Zusaetzlich wird der Test ein zweites
-# Mal durchgefuehrt, wobei die Ausreisser der Gesamtstichprobe ausgeschlossen
-# werden (insgesamt 5% der Faelle). Dabei werden sowohl die hoechsten als auch
-# die niedrigsten Raenge entfernt. Das Testergebnis teilt die Anzahl der Faelle beider
-# Gruppen, die Spannweiten und die entsprechenden einseitigen Signifikanzen
-# fuer beide Tests (mit und ohne Ausreisser) mit. Fuer ein Beispiel siehe oben
-# Abschnitt Moses-Test, S. 760.
 
+# -------------------------------------------------------------------------
+# Formula method
+# -------------------------------------------------------------------------
 
 #' @rdname mosesTest
 #' @export
-mosesTest.formula <- function (formula, data, subset, na.action, ...) {
+mosesTest.formula <- function(formula,
+                              data,
+                              subset,
+                              na.action = na.pass,
+                              ...) {
   
-  # this is a taken analogue to wilcox.test.formula
-  
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
+  if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
-    m$data <- as.data.frame(data)
-  m[[1L]] <- as.name("model.frame")
-  m$... <- NULL
-  mf <- eval(m, parent.frame())
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  response <- attr(attr(mf, "terms"), "response")
-  g <- factor(mf[[-response]])
-  if (nlevels(g) != 2L)
-    stop("grouping factor must have exactly 2 levels")
-  DATA <- split(mf[[response]], g)
-  names(DATA) <- c("x", "y")
-  y <- do.call("mosesTest", c(DATA, list(...)))
-  y$data.name <- DNAME
-  y
   
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "two.sample.independent"
+  )
+  
+  if (!missing(data))
+    args$data <- data
+  
+  if (!missing(subset))
+    args$subset <- substitute(subset)
+  
+  d <- do.call(bedrock::resolveFormula, args)
+  
+  mosesTest.default(
+    x = d$x,
+    y = d$y,
+    ...
+  )
 }
 
 
+# -------------------------------------------------------------------------
+# Default method
+# -------------------------------------------------------------------------
 
 #' @rdname mosesTest
 #' @export
-mosesTest.default <- function(x, y, extreme = NULL, ...){
+mosesTest.default <- function(
+    x,
+    y,
+    extreme = NULL,
+    ties.method = c("first", "average", "random", "max", "min"),
+    ...
+) {
   
-  # example
-  # x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
-  # y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-  # mosesTest(y, x)
+  DNAME <- paste(
+    deparse(substitute(x)),
+    "and",
+    deparse(substitute(y))
+  )
   
-  if(is.null(extreme)) extreme <- pmax(floor(0.05 * length(x)), 1)
-  h <- extreme
-  if(2*h > length(x)-2) h <- floor((length(x)-2)/2)
+  x <- x[is.finite(x)]
+  y <- y[is.finite(y)]
   
-  # no alternative for the moses.test
-  DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  if (length(x) < 4L)
+    stop("'x' must contain at least 4 finite observations")
+  
+  if (length(y) < 1L)
+    stop("'y' must contain at least 1 finite observation")
   
   nk <- length(x)
   ne <- length(y)
-  # decreasing ranks following SPSS-calculation
-  R1 <- rank(-c(x, y))[1:nk]
-  R1 <- sort(R1)[(h+1):(length(R1)-h)]
+  N  <- nk + ne
   
-  S <- ceiling(max(R1) - min(R1) + 1)
+  ## --- trimming parameter -----------------------------------------------
   
-  tmp <- 0
-  for( i in 0 : (S - nk + 2*h)) {
-    tmp <- tmp + choose(i + nk - 2*h - 2, i) * choose(ne + 2*h + 1 - i, ne - i)
+  if (is.null(extreme)) {
+    
+    h <- max(floor(0.05 * nk), 1L)
+    
+  } else {
+    
+    if (length(extreme) != 1L ||
+        !is.numeric(extreme) ||
+        is.na(extreme) ||
+        extreme < 0 ||
+        extreme != floor(extreme)) {
+      
+      stop("'extreme' must be a single non-negative integer")
+    }
+    
+    h <- as.integer(extreme)
   }
   
-  PVAL <- (tmp / choose(nk + ne, nk))
+  h_max <- floor((nk - 2L) / 2L)
   
-  structure(list(statistic = c(S = S),
-                 p.value = PVAL,
-                 method = "Moses Test of Extreme Reactions",
-                 alternative = "extreme values are more likely in x than in y",
-                 data.name = DNAME),
-            class = "htest")
+  if (h > h_max) {
+    
+    warning(sprintf(
+      "'extreme' reduced from %d to %d (maximum for n_control = %d)",
+      h,
+      h_max,
+      nk
+    ))
+    
+    h <- h_max
+  }
   
+  ## --- ties handling ----------------------------------------------------
+  
+  ties.method <- match.arg(ties.method)
+  
+  if (ties.method != "first" &&
+      anyDuplicated(c(x, y))) {
+    
+    warning(
+      "non-integer tie handling produces approximate p-values only"
+    )
+  }
+  
+  ## --- pooled ranks -----------------------------------------------------
+  
+  R_all <- rank(
+    -c(x, y),
+    ties.method = ties.method
+  )
+  
+  ## --- numerically stable log-sum-exp -----------------------------------
+  
+  log_sum_exp <- function(lx) {
+    
+    m <- max(lx)
+    
+    m + log(sum(exp(lx - m)))
+  }
+  
+  ## --- exact CDF of Moses span distribution -----------------------------
+  
+  moses_cdf <- function(s,
+                        n_ctrl,
+                        n_exp,
+                        trim = 0L) {
+    
+    n_eff <- n_ctrl - 2L * trim
+    
+    i_max <- min(s - n_eff, n_exp)
+    
+    if (i_max < 0L)
+      return(0)
+    
+    log_terms <- vapply(
+      seq.int(0L, i_max),
+      function(i) {
+        
+        lchoose(i + n_eff - 2L, i) +
+          lchoose(
+            n_exp + 2L * trim + 1L - i,
+            n_exp - i
+          )
+      },
+      numeric(1L)
+    )
+    
+    exp(
+      log_sum_exp(log_terms) -
+        lchoose(N, n_ctrl)
+    )
+  }
+  
+  ## --- one-tailed p-value -----------------------------------------------
+  
+  moses_pval <- function(trim) {
+    
+    R_ctrl <- sort(R_all[seq_len(nk)])
+    
+    if (trim > 0L) {
+      
+      R_ctrl <- R_ctrl[
+        seq(trim + 1L,
+            length(R_ctrl) - trim)
+      ]
+    }
+    
+    S <- as.integer(
+      ceiling(
+        max(R_ctrl) -
+          min(R_ctrl) +
+          1L
+      )
+    )
+    
+    p <- 1 - moses_cdf(
+      S - 1L,
+      nk,
+      ne,
+      trim
+    )
+    
+    p <- min(max(p, 0), 1)
+    
+    list(
+      S = S,
+      p = p
+    )
+  }
+  
+  ## --- results ----------------------------------------------------------
+  
+  res_raw <- moses_pval(trim = 0L)
+  
+  res_trimmed <- moses_pval(trim = h)
+  
+  structure(
+    list(
+      statistic = c(
+        S_raw     = res_raw$S,
+        S_trimmed = res_trimmed$S
+      ),
+      
+      p.value = c(
+        p_raw     = res_raw$p,
+        p_trimmed = res_trimmed$p
+      ),
+      
+      extreme = h,
+      
+      parameter = c(
+        n_control    = nk,
+        n_experiment = ne
+      ),
+      
+      null.value = c(
+        "equal extremity" = 0
+      ),
+      
+      alternative = "greater",
+      
+      method = "Moses Test of Extreme Reactions",
+      
+      data.name = DNAME
+    ),
+    
+    class = c(
+      "mosesTestResult",
+      "htest"
+    )
+  )
+}
+
+
+# -------------------------------------------------------------------------
+# Print method
+# -------------------------------------------------------------------------
+
+#' @export
+print.mosesTestResult <- function(
+    x,
+    digits = getOption("digits"),
+    ...
+) {
+  
+  cat("\n\t", x$method, "\n\n")
+  
+  cat("data: ", x$data.name, "\n")
+  
+  cat(sprintf(
+    "n_control = %d,  n_experiment = %d\n\n",
+    x$parameter["n_control"],
+    x$parameter["n_experiment"]
+  ))
+  
+  cat(sprintf(
+    "  %-32s  span = %4d,  p-value = %s\n",
+    "Without trimming:",
+    x$statistic["S_raw"],
+    format.pval(
+      x$p.value["p_raw"],
+      digits = digits
+    )
+  ))
+  
+  cat(sprintf(
+    "  %-32s  span = %4d,  p-value = %s\n",
+    sprintf(
+      "After trimming %d from each end:",
+      x$extreme
+    ),
+    x$statistic["S_trimmed"],
+    format.pval(
+      x$p.value["p_trimmed"],
+      digits = digits
+    )
+  ))
+  
+  cat(
+    "\nalternative hypothesis:",
+    "extreme values are more likely in the control group\n\n"
+  )
+  
+  invisible(x)
 }
 

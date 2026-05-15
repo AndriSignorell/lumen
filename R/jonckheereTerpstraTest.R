@@ -1,354 +1,509 @@
 
-#' Exact Version of Jonckheere-Terpstra Test
-#' 
-#' A nonparametric test for ordered alternatives across k independent groups, 
-#' assessing whether a monotonic trend exists in the location parameter 
-#' across ordered groups.
-#' 
-#' Jonckheere-Terpstra test to test for ordered differences among classes.
-#' 
-#' jonckheereTerpstraTest is the exact (permutation) version of the
-#' Jonckheere-Terpstra test.  It uses the statistic \deqn{\sum_{k<l} \sum_{ij}
-#' I(X_{ik} < X_{jl}) + 0.5 I(X_{ik} = X_{jl}),} where \eqn{i, j} are
-#' observations in groups \eqn{k} and \eqn{l} respectively.  The asymptotic
-#' version is equivalent to \code{cor.test(x, g, method="k")}. The exact
-#' calculation requires that there be no ties and that the sample size is less
-#' than 100. When data are tied and sample size is at most 100 permutation
-#' p-value is returned.\cr
-#' 
-#' If x is a list, its elements are taken as the samples to be compared, and
-#' hence have to be numeric data vectors.  In this case, g is ignored, and one
-#' can simply use jonckheereTerpstraTest(x) to perform the test.  If the
-#' samples are not yet contained in a list, use jonckheereTerpstraTest(list(x,
-#' ...)). \cr
-#' 
-#' Otherwise, \code{x} must be a numeric data vector, and \code{g} must be a
-#' vector or factor object of the same length as \code{x} giving the group for
-#' the corresponding elements of \code{x}.
-#' 
+#' Jonckheere-Terpstra Test for Ordered Alternatives
+#'
+#' A nonparametric test for monotonic trends across ordered independent groups.
+#'
+#' @description
+#' Performs the Jonckheere-Terpstra test for ordered alternatives across
+#' \eqn{k} independent groups.
+#'
+#' The test assesses whether observations tend to increase (or decrease)
+#' systematically with group order.
+#'
+#' Exact p-values are computed whenever feasible and valid
+#' (small samples without ties). For larger samples or tied data,
+#' permutation or asymptotic approximations are used.
+#'
+#' @details
+#' The Jonckheere-Terpstra statistic is:
+#'
+#' \deqn{
+#' JT =
+#' \sum_{k<l}
+#' \sum_{ij}
+#' \left[
+#' I(X_{ik} < X_{jl})
+#' +
+#' \frac12 I(X_{ik} = X_{jl})
+#' \right]
+#' }
+#'
+#' where \eqn{i,j} index observations from ordered groups
+#' \eqn{k,l}.
+#'
+#' Large values of the statistic indicate increasing trends across groups.
+#'
+#' ## Exact inference
+#'
+#' Exact p-values are computed from the exact permutation distribution
+#' using a dynamic programming recursion implemented in C++.
+#'
+#' Exact inference is only available:
+#' \itemize{
+#'   \item without ties,
+#'   \item for total sample sizes \eqn{n \le 100}.
+#' }
+#'
+#' ## Permutation inference
+#'
+#' When ties are present or sample sizes are large, permutation p-values
+#' can be computed by permuting group labels under the null hypothesis.
+#' The number of permutations is controlled by \code{R}.
+#'
+#' This approach remains valid in the presence of ties.
+#'
+#' ## Asymptotic approximation
+#'
+#' If \code{method = "asymptotic"} or no other method applies,
+#' a normal approximation with tie-corrected variance is applied.
+#'
 #' @name jonckheereTerpstraTest
 #' @aliases jonckheereTerpstraTest jonckheereTerpstraTest.default jonckheereTerpstraTest.formula
-#' @param x a numeric vector of data values, or a list of numeric data vectors.
-#' @param g a vector or factor object giving the group for the corresponding
-#' elements of x. Ignored if x is a list.
-#' @param alternative means are monotonic (\code{two.sided}),
-#' \code{increasing}, or \code{decreasing}
-#' @param nperm number of permutations for the reference distribution.  The
-#' default is \code{NULL} in which case the permutation p-value is not
-#' computed. It's recommended to set \code{nperm} to 1000 or higher if
-#' permutation p-value is desired.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-#' the data values and rhs the corresponding groups.
-#' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
-#' @param na.action a function which indicates what should happen when the data
-#' contain NAs. Defaults to \code{getOption("na.action")}.
-#' @param exact logical, defining if the exact test should be calculated. If
-#' left to \code{NULL}, the function uses the exact test up to a samplesize of
-#' 100 and falls back to normal approximation for larger samples. The exact
-#' procedure can not be applied to samples containing ties.
-#' @param \dots further argument to be passed to methods.
-#' 
-#' @note The function was previously published as \code{jonckheere.test()} in
-#' the \pkg{clinfun} package and has been integrated here without logical
-#' changes. Some argument checks and a formula interface were added.
-#' 
-#' @note
-#' Original C code by Venkatraman E. Seshan. Rewritten in C++ with an 
-#' adapted R interface to conform to package standards.
-#'  
-#' @references Jonckheere, A. R. (1954). A distribution-free k-sample test
-#' again ordered alternatives. \emph{Biometrika} 41:133-145.
-#' 
-#' Terpstra, T. J. (1952). The asymptotic normality and consistency of
-#' Kendall's test against trend, when ties are present in one ranking.
-#' \emph{Indagationes Mathematicae} 14:327-333.
-#' 
+#'
+#' @param x Numeric vector of observations,
+#'   or a list of numeric vectors.
+#'
+#' @param g Grouping variable.
+#'   Ignored if \code{x} is a list.
+#'
+#' @param alternative Character string specifying the alternative:
+#'   \code{"increasing"},
+#'   \code{"decreasing"},
+#'   or \code{"two.sided"}.
+#'
+#' @param method Character string specifying the inference method:
+#'   \code{"auto"} (default), \code{"exact"}, \code{"permutation"},
+#'   or \code{"asymptotic"}.
+#'   \code{"auto"} uses exact inference when possible
+#'   (no ties, \eqn{n \le 100}), otherwise asymptotic.
+#'
+#' @param R Number of permutations. Required when \code{method = "permutation"}.
+#'
+#' @param formula Formula interface of the form \code{lhs ~ rhs}.
+#'
+#' @param data Optional data frame for the formula interface.
+#'
+#' @param subset Optional subset expression.
+#'
+#' @param na.action NA handling function.
+#'
+#' @param \dots Further arguments passed to methods.
+#'
+#' @return
+#' An object of class \code{"htest"} containing:
+#'
+#' \itemize{
+#'   \item statistic,
+#'   \item p-value,
+#'   \item method,
+#'   \item alternative,
+#'   \item sample size information.
+#' }
+#'
+#' @references
+#'
+#' Jonckheere, A. R. (1954).
+#' A distribution-free k-sample test against ordered alternatives.
+#' \emph{Biometrika}, 41, 133--145.
+#'
+#' Terpstra, T. J. (1952).
+#' The asymptotic normality and consistency of Kendall's test
+#' against trend.
+#' \emph{Indagationes Mathematicae}, 14, 327--333.
+#'
 #' @examples
-#' 
-#' set.seed(1234)
-#' g <- ordered(rep(1:5, rep(10,5)))
-#' x <- rnorm(50) + 0.3 * as.numeric(g)
-#' 
+#'
+#' set.seed(1)
+#'
+#' g <- ordered(rep(1:4, each = 10))
+#'
+#' x <- rnorm(40) + 0.5 * as.numeric(g)
+#'
 #' jonckheereTerpstraTest(x, g)
-#' 
-#' x[1:2] <- mean(x[1:2]) # tied data
-#' 
-#' jonckheereTerpstraTest(x, g)
-#' jonckheereTerpstraTest(x, g, nperm=5000)
-#' 
-#' # Duller, S. 222
+#'
+#' x[1:2] <- mean(x[1:2])
+#'
+#' jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
+#'
 #' coffee <- list(
-#'   c_4=c(447,396,383,410),
-#'   c_2=c(438,521,468,391,504,472),
-#'   c_0=c(513,543,506,489,407))  
-#' 
-#' # the list interface:
+#'   c_4 = c(447,396,383,410),
+#'   c_2 = c(438,521,468,391,504,472),
+#'   c_0 = c(513,543,506,489,407)
+#' )
+#'
 #' jonckheereTerpstraTest(coffee)
+#'
+#' # Hollander-Wolfe-Chicken Example 6.2 
+#' #   Motivational Effect of Knowledge of Performance
 #' 
-#' # the formula interface
-#' breaking <- data.frame(
-#'   speed=c(20,25,25,25,25,30,30,30,35,35),
-#'   distance=c(48,33,59,48,56,60,101,67,85,107))
+#' motiv <- list(
+#'   no    = c(40,35,38,43,44,41),
+#'   rough = c(38,40,47,44,40,42),
+#'   acc   = c(48,40,45,43,46,44))
 #' 
-#' jonckheereTerpstraTest(distance ~ speed, breaking)
+#' jonckheereTerpstraTest(motiv, method = "auto")    # here: exact
+#' jonckheereTerpstraTest(motiv, method = "exact")   # exact:       p ~ 0.038
+#' jonckheereTerpstraTest(motiv, method = "asymp")   # asymptotic:  p ~ 0.032
 #' 
+#' set.seed(42)
+#' jonckheereTerpstraTest(motiv, method = "perm", R= 10000)   # permutation: p ~ 0.038
 #' 
-
-
+#'
 #' @rdname jonckheereTerpstraTest
 #' @family test.trend
 #' @concept hypothesis-testing
 #' @concept nonparametric
-#'
-#'
+
+
 #' @export
-jonckheereTerpstraTest <- function (x, ...)  UseMethod("jonckheereTerpstraTest")
-
-
-#' @rdname jonckheereTerpstraTest
-#' @export
-jonckheereTerpstraTest.formula <- local({
-  
-  # super elegant formula implementation
-  # in fact we need nothing other, than is already implemented in
-  # t.test.formula, besides the last call of zTest() instead of t.test()
-  
-  tf <- getS3method("kruskal.test", "formula")
-  
-  new_body <- .replace_text_calls(body(tf), 
-                                  old="kruskal.test", 
-                                  new="jonckheereTerpstraTest")
-  
-  new_fun <- tf
-  body(new_fun) <- new_body
-  
-  new_fun
-  
-})
-
+jonckheereTerpstraTest <- function(x, ...)
+  UseMethod("jonckheereTerpstraTest")
 
 
 
 #' @rdname jonckheereTerpstraTest
 #' @export
-jonckheereTerpstraTest.default <- function (x, g, 
-                                            alternative = c("two.sided", "increasing", "decreasing"), 
-                                            nperm=NULL, exact=NULL,...) {
+jonckheereTerpstraTest.formula <- function(formula,
+                                           data,
+                                           subset,
+                                           na.action = na.pass,
+                                           ...) {
   
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
   
-  if (is.list(x)) {
-    if (length(x) < 2L) 
-      stop("'x' must be a list with at least 2 elements")
-    if (!missing(g)) 
-      warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1(substitute(x))
-    x <- lapply(x, function(u) u <- u[complete.cases(u)])
-    if (!all(sapply(x, is.numeric))) 
-      warning("some elements of 'x' are not numeric and will be coerced to numeric")
-    k <- length(x)
-    l <- lengths(x)
-    if (any(l == 0L)) 
-      stop("all groups must contain data")
-    g <- ordered(rep.int(seq_len(k), l))
-    x <- unlist(x)
-    
-  } else {
-    
-    if (length(x) != length(g)) 
-      stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1(substitute(x)), "by", 
-                   deparse1(substitute(g)))
-    OK <- complete.cases(x, g)
-    x <- x[OK]
-    g <- g[OK]
-    g <- ordered(g)
-    k <- nlevels(g)
-    if (k < 2L) 
-      stop("all observations are in the same group")
-  }
-  n <- length(x)
-  if (n < 2L) 
-    stop("not enough observations")
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "n.sample.independent"
+  )
   
+  if (!missing(data))
+    args$data <- data
   
-  # start calculating
+  if (!missing(subset))
+    args$subset <- substitute(subset)
   
-  jtpdf <- function(gsize) {
-    gsize  <- as.integer(gsize)
-    ng     <- length(gsize)
-    cgsize <- rev(cumsum(rev(gsize)))
-    mxsum  <- sum(gsize[-ng] * cgsize[-1]) + 1
-    
-    jtpdf_cpp(
-      mxsum,
-      cgsize,
-      numeric(mxsum),
-      numeric(mxsum)
-    )
-  }
+  d <- do.call(bedrock::resolveFormula, args)
   
+  res <- jonckheereTerpstraTest.default(
+    x = d$x,
+    g = d$g,
+    ...
+  )
   
-  if(!is.numeric(g) & !is.ordered(g)) stop("group should be numeric or ordered factor")
+  res$data.name <- paste(
+    deparse(formula[[2L]]),
+    "by",
+    deparse(formula[[3L]])
+  )
   
-  alternative <- match.arg(alternative)
-  
-  
-  jtperm.p <- function(x, ng, gsize, cgsize, alternative, nperm) {
-    # this function computes the pdf using the convolution by Mark van de Wiel
-    
-    n <- length(x)
-    pjtrsum <- rep(0, nperm)
-    for (np in 1:nperm){
-      jtrsum <- 0
-      for(i in 1L:(ng-1)) {
-        na <- gsize[i]
-        nb <- n-cgsize[i+1]
-        # this jtrsum will be small if data are increasing and large if decreasing
-        jtrsum <- jtrsum + sum(rank(x[(cgsize[i]+1):n])[1:na]) - na*(na+1)/2
-      }
-      pjtrsum[np] <- jtrsum
-      # permute the data; this way the first value is the original statistic
-      x <- sample(x)
-    }
-    # one-sided p-values
-    # number of permuted values at least as small as original
-    iPVAL <- sum(pjtrsum <= pjtrsum[1])/nperm
-    # number of permuted values at least as large as original
-    dPVAL <- sum(pjtrsum >= pjtrsum[1])/nperm
-    # return p-value for the alternative of interest
-    PVAL <- switch(alternative,
-                   "two.sided" = 2*min(iPVAL, dPVAL, 1),
-                   "increasing" = iPVAL,
-                   "decreasing" = dPVAL)
-    PVAL
-  }
-  
-  
-  # Alternative for the JT-Statistic
-  # JT <- function(z){
-  #
-  #   w <- function(x, y){
-  #     # verbatim from wilcox.test STATISTIC
-  #     r <- rank(c(x, y))
-  #     n.x <- as.double(length(x))
-  #     n.y <- as.double(length(y))
-  #     STATISTIC <- c(W = sum(r[seq_along(x)]) - n.x * (n.x + 1)/2)
-  #     STATISTIC
-  #   }
-  #
-  #   k <- length(z)
-  #   u <- 0
-  #
-  #   for(i in 2:k){
-  #     for(j in 1:(i-1))	{
-  #       u <- u + w(z[[i]], z[[j]])
-  #     } }
-  #   u
-  # }
-  
-  
-  # see:
-  #   library(NSM3)
-  #   HOllander Wolfe pp 218
-  #   piece <- c(40,35,38,43,44,41, 38,40,47,44,40,42, 48,40,45,43,46,44)
-  #   grp <- factor(rep(c("ctrl","A","B"), each=6), ordered=TRUE, levels=c("ctrl","A","B"))
-  #
-  #   jonckheereTerpstraTest(piece, grp)
-  #   pJCK(piece, grp)
-  
-  
-  METHOD <- "Jonckheere-Terpstra test"
-  PERM <- !missing(nperm)
-  n <- length(x)
-  if(length(g) != n) stop("lengths of data values and group don't match")
-  TIES <- length(unique(x)) != n
-  gsize <- table(g)
-  ng <- length(gsize)
-  cgsize <- c(0,cumsum(gsize))
-  x <- x[order(g)]
-  jtrsum <- jtmean <- jtvar <- 0
-  for(i in 1:(ng-1)) {
-    na <- gsize[i]
-    nb <- n-cgsize[i+1]
-    jtrsum <- jtrsum + sum(rank(x[(cgsize[i]+1):n])[1:na]) - na*(na+1)/2
-    jtmean <- jtmean + na*nb/2
-    jtvar <- jtvar + na*nb*(na+nb+1)/12
-  }
-  # this jtrsum will be small if data are increasing and large if decreasing
-  # to reverse this use 2*jtmean - jtrsum
-  jtrsum <- 2*jtmean - jtrsum
-  STATISTIC <- jtrsum
-  names(STATISTIC) <- "JT"
-  
-  if(is.null(exact)) {
-    exact <- !(n > 100 | TIES)
-    if(!exact)
-      warning("Sample size > 100 or data with ties \n p-value based on normal approximation. Specify nperm for permutation p-value")
-  }
-  
-  if(exact & TIES){
-    warning("Sample data with ties \n p-value based on normal approximation. Specify nperm for permutation p-value.")
-    exact <- FALSE
-  }
-  
-  if (PERM) {
-    PVAL <- jtperm.p(x, ng, gsize, cgsize, alternative, nperm)
-    
-  } else {
-    if(!exact){
-      zstat <- (STATISTIC - jtmean) / sqrt(jtvar)
-      PVAL <- pnorm(zstat)
-      PVAL <- switch(alternative,
-                     "two.sided" = 2 * min(PVAL, 1-PVAL, 1),
-                     "increasing" = 1-PVAL,
-                     "decreasing" = PVAL)
-      
-    } else {
-      dPVAL <- sum(jtpdf(gsize)[1:(jtrsum+1)])
-      iPVAL <- 1-sum(jtpdf(gsize)[1:(jtrsum)])
-      PVAL <- switch(alternative,
-                     "two.sided" = 2 * min(iPVAL, dPVAL, 1),
-                     "increasing" = iPVAL,
-                     "decreasing" = dPVAL)
-      
-    }
-  }
-  
-  RVAL <- list(statistic = STATISTIC,
-               p.value = as.numeric(PVAL),
-               alternative = alternative,
-               method = METHOD,
-               data.name = DNAME)
-  class(RVAL) <- "htest"
-  RVAL
-  
+  res
 }
 
 
 
-# jonckheereTerpstraTest.formula <- function (formula, data, subset, na.action, ...) {
-#   
-#   if (missing(formula) || (length(formula) != 3L)) 
-#     stop("'formula' missing or incorrect")
-#   m <- match.call(expand.dots = FALSE)
-#   if (is.matrix(eval(m$data, parent.frame()))) 
-#     m$data <- as.data.frame(data)
-#   m[[1L]] <- quote(stats::model.frame)
-#   m$... <- NULL
-#   mf <- eval(m, parent.frame())
-#   if (length(mf) > 2L) 
-#     stop("'formula' should be of the form response ~ group")
-#   DNAME <- paste(names(mf), collapse = " by ")
-#   names(mf) <- NULL
-#   y <- do.call("jonckheereTerpstraTest", c(as.list(mf), list(...)))
-#   y$data.name <- DNAME
-#   y
-#   
-# }
-# 
-# 
+#' @rdname jonckheereTerpstraTest
+#' @export
+jonckheereTerpstraTest.default <- function(
+    x,
+    g,
+    alternative = c("increasing", "decreasing", "two.sided"),
+    method      = c("auto", "exact", "permutation", "asymptotic"),
+    R           = NULL,
+    ...
+) {
+  
+  alternative <- match.arg(alternative)
+  method      <- match.arg(method)
+  
+  ## ---------------------------------------------------------------------
+  ## List interface
+  ## ---------------------------------------------------------------------
+  
+  if (is.list(x)) {
+    
+    if (length(x) < 2L)
+      stop("'x' must contain at least two groups")
+    
+    if (!missing(g))
+      warning("'g' ignored because 'x' is a list")
+    
+    DNAME <- deparse1(substitute(x))
+    
+    x <- lapply(x, function(z) z[is.finite(z)])
+    
+    if (!all(vapply(x, is.numeric, logical(1))))
+      stop("all groups must be numeric")
+    
+    sizes <- lengths(x)
+    
+    if (any(sizes == 0L))
+      stop("all groups must contain observations")
+    
+    g <- ordered(rep.int(seq_along(x), sizes))
+    x <- unlist(x)
+    
+  } else {
+    
+    ## -------------------------------------------------------------------
+    ## Standard interface
+    ## -------------------------------------------------------------------
+    
+    if (missing(g))
+      stop("'g' is missing")
+    
+    if (length(x) != length(g))
+      stop("'x' and 'g' must have same length")
+    
+    DNAME <- paste(
+      deparse1(substitute(x)),
+      "by",
+      deparse1(substitute(g))
+    )
+    
+    ok <- complete.cases(x, g)
+    x  <- x[ok]
+    g  <- g[ok]
+    
+    if (!(is.numeric(g) || is.factor(g) || is.ordered(g)))
+      stop("'g' must be numeric or a factor")
+    
+    g <- ordered(g)
+    
+  }
+  
+  n <- length(x)
+  
+  if (n < 2L)
+    stop("not enough observations")
+  
+  k <- nlevels(g)
+  
+  if (k < 2L)
+    stop("all observations belong to same group")
+  
+  ## ---------------------------------------------------------------------
+  ## Ordering
+  ## ---------------------------------------------------------------------
+  
+  ord <- order(g)
+  x   <- x[ord]
+  g   <- g[ord]
+  
+  gsize  <- as.integer(table(g))
+  cgsize <- c(0L, cumsum(gsize))
+  
+  TIES <- anyDuplicated(x) > 0L
+  
+  ## ---------------------------------------------------------------------
+  ## JT statistic
+  ## ---------------------------------------------------------------------
+  
+  JT <- 0
+  
+  for (i in seq_len(k - 1L)) {
+    
+    idx1 <- (cgsize[i] + 1L):cgsize[i + 1L]
+    idx2 <- (cgsize[i + 1L] + 1L):n
+    
+    JT <- JT +
+      sum(
+        outer(
+          x[idx1],
+          x[idx2],
+          function(a, b) (a < b) + 0.5 * (a == b)
+        )
+      )
+  }
+  
+  STATISTIC <- c(JT = JT)
+  JT_int    <- as.integer(round(JT))
+  
+  ## ---------------------------------------------------------------------
+  ## Resolve method
+  ## ---------------------------------------------------------------------
+  
+  if (method == "auto")
+    method <- if (!TIES && n <= 100L) "exact" else "asymptotic"
+  
+  if (method == "exact" && TIES) {
+    warning(
+      "exact inference not available with ties; ",
+      "falling back to asymptotic approximation"
+    )
+    method <- "asymptotic"
+  }
+  
+  if (method == "exact" && n > 100L) {
+    warning(
+      "exact inference requested for n = ", n, " > 100; ",
+      "this may be slow or fail"
+    )
+  }
+  
+  if (method == "permutation" && is.null(R))
+    stop("'R' must be specified when method = \"permutation\"")
+  
+  if (!is.null(R) && method != "permutation")
+    warning("'R' is ignored when method != \"permutation\"")
+  
+  
+  ## ---------------------------------------------------------------------
+  ## P-value calculation
+  ## ---------------------------------------------------------------------
+  
+  METHOD <- "Jonckheere-Terpstra Test for Ordered Alternatives"
+  
+  if (method == "permutation") {
+    
+    PVAL <- .permPvalue(
+      x           = x,
+      g           = g,
+      observed    = JT,
+      R           = R,
+      alternative = alternative
+    )
+    
+    METHOD <- paste0(METHOD, " (permutation, R = ", R, ")")
+    
+  } else if (method == "exact") {
+    
+    pdf <- .jtpdf(gsize)
+    
+    lower_tail <- sum(pdf[seq_len(JT_int + 1L)])
+    upper_tail <- if (JT_int == 0L) 1 else 1 - sum(pdf[seq_len(JT_int)])
+    
+    PVAL <- switch(
+      alternative,
+      "increasing" = upper_tail,
+      "decreasing" = lower_tail,
+      "two.sided"  = min(2 * min(lower_tail, upper_tail), 1)
+    )
+    
+    METHOD <- paste(METHOD, "(exact)")
+    
+  } else {
+    
+    ## -------------------------------------------------------------------
+    ## Tie-corrected asymptotic variance (Hollander & Wolfe, eq. 6.19)
+    ##
+    ## Var(JT) = (A - B - C) / 72
+    ##         + (D * E) / (36 * N * (N-1) * (N-2))
+    ##         + (F * G) / (8  * N * (N-1))
+    ##
+    ## A = N^2 (2N + 3)
+    ## B = sum n_i^2 (2 n_i + 3)
+    ## C = sum t_j (t_j - 1)(2 t_j + 5)       [tie correction]
+    ## D = sum n_i (n_i - 1)(n_i - 2)
+    ## E = sum t_j (t_j - 1)(t_j - 2)         [tie correction]
+    ## F = sum n_i (n_i - 1)
+    ## G = sum t_j (t_j - 1)                   [tie correction]
+    ## -------------------------------------------------------------------
+    
+    tie_tab <- as.numeric(table(x))
+    
+    A <- n^2 * (2 * n + 3)
+    B <- sum(gsize^2 * (2 * gsize + 3))
+    C <- sum(tie_tab * (tie_tab - 1) * (2 * tie_tab + 5))
+    D <- sum(gsize * (gsize - 1) * (gsize - 2))
+    E <- sum(tie_tab * (tie_tab - 1) * (tie_tab - 2))
+    F <- sum(gsize * (gsize - 1))
+    G <- sum(tie_tab * (tie_tab - 1))
+    
+    sigma2 <- (A - B - C) / 72 +
+      (D * E) / (36 * n * (n - 1) * (n - 2)) +
+      (F * G) / (8  * n * (n - 1))
+    
+    muJT <- (n^2 - sum(gsize^2)) / 4
+    
+    z <- (JT - muJT) / sqrt(sigma2)
+    
+    PVAL <- switch(
+      alternative,
+      "increasing" = stats::pnorm(z, lower.tail = FALSE),
+      "decreasing" = stats::pnorm(z),
+      "two.sided"  = min(2 * stats::pnorm(abs(z), lower.tail = FALSE), 1)
+    )
+    
+    METHOD <- paste(METHOD, "(asymptotic)")
+  }
+  
+  ## ---------------------------------------------------------------------
+  ## Return object
+  ## ---------------------------------------------------------------------
+  
+  rval <- list(
+    statistic   = STATISTIC,
+    parameter   = c(k = k, n = n),
+    p.value     = as.numeric(PVAL),
+    alternative = alternative,
+    method      = METHOD,
+    data.name   = DNAME
+  )
+  
+  class(rval) <- "htest"
+  
+  rval
+}
+
+
+
+# == internal helper functions ================================================
+
+
+# Permutation test
+
+.permPvalue <- function(x, g, observed, R, alternative) {
+  
+  perm_stats <- numeric(R)
+  
+  for (b in seq_len(R)) {
+    
+    gperm <- sample(g)
+    ordp  <- order(gperm)
+    
+    xp <- x[ordp]
+    gp <- gperm[ordp]
+    
+    gsizep  <- as.integer(table(gp))
+    cgsizep <- c(0L, cumsum(gsizep))
+    
+    stat <- 0
+    
+    for (i in seq_len(length(gsizep) - 1L)) {
+      
+      idx1 <- (cgsizep[i] + 1L):cgsizep[i + 1L]
+      idx2 <- (cgsizep[i + 1L] + 1L):length(xp)
+      
+      stat <- stat +
+        sum(
+          outer(
+            xp[idx1],
+            xp[idx2],
+            function(a, b) (a < b) + 0.5 * (a == b)
+          )
+        )
+    }
+    
+    perm_stats[b] <- stat
+  }
+  
+  if (alternative == "increasing") {
+    mean(perm_stats >= observed)
+  } else if (alternative == "decreasing") {
+    mean(perm_stats <= observed)
+  } else {
+    mu <- mean(perm_stats)
+    mean(abs(perm_stats - mu) >= abs(observed - mu))
+  }
+}
+
+
+
+# Exact null distribution of JT via DP recursion
+
+.jtpdf <- function(gsize) {
+  jtpdf_cpp(as.integer(gsize))
+}
+

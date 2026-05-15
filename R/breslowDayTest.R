@@ -93,29 +93,62 @@
 #' @concept table-manipulation
 #'
 #'
+
+
 #' @export
 breslowDayTest <- function(x, OR = NA, correct = FALSE) {
   
-  if (!is.array(x) || length(dim(x)) != 3 || any(dim(x)[1:2] != 2))
-    stop("x must be a 2x2xK array")
+  ## -------------------------------------------------------------------
+  ## Input validation
+  ## -------------------------------------------------------------------
+  if (!is.array(x) || length(dim(x)) != 3L || any(dim(x)[1:2] != 2L))
+    stop("'x' must be a 2x2xK array")
   
-  K <- dim(x)[3]
+  if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
+    stop("all entries of 'x' must be nonnegative and finite")
   
+  if (any(x != round(x)))
+    warning("'x' contains non-integer counts", call. = FALSE)
+  
+  correct <- as.logical(correct)
+  if (length(correct) != 1L || is.na(correct))
+    stop("'correct' must be TRUE or FALSE")
+  
+  if (!is.na(OR)) {
+    if (!is.numeric(OR) || length(OR) != 1L || !is.finite(OR) || OR <= 0)
+      stop("'OR' must be a positive finite number")
+  }
+  
+  K <- dim(x)[3L]
+  
+  ## -------------------------------------------------------------------
+  ## Mantel-Haenszel estimate of common OR
+  ## -------------------------------------------------------------------
   if (is.na(OR)) {
     a <- x[1,1,]; b <- x[1,2,]; c <- x[2,1,]; d <- x[2,2,]
     n <- a + b + c + d
-    or.hat.mh <- sum(a*d/n) / sum(b*c/n)
+    denom <- sum(b * c / n)
+    if (denom == 0)
+      stop("Mantel-Haenszel denominator is zero; cannot estimate common OR")
+    or.hat.mh <- sum(a * d / n) / denom
   } else {
     or.hat.mh <- OR
   }
   
+  ## -------------------------------------------------------------------
+  ## Per-stratum computation
+  ## -------------------------------------------------------------------
   X2.HBD <- 0
   a <- tildea <- Var.a <- numeric(K)
   
-  for (j in 1:K) {
+  for (j in seq_len(K)) {
     
     mj <- rowSums(x[,,j])
     nj <- colSums(x[,,j])
+    
+    if (any(mj == 0) || any(nj == 0))
+      stop("stratum ", j, " has zero marginal totals; ",
+           "the test is not defined", call. = FALSE)
     
     A <- 1 - or.hat.mh
     B <- nj[2] - mj[1] + or.hat.mh * (nj[1] + mj[1])
@@ -124,134 +157,66 @@ breslowDayTest <- function(x, OR = NA, correct = FALSE) {
     if (abs(A) < 1e-12) {
       tildeaj <- -C / B
     } else {
-      disc <- B^2 - 4*A*C
-      if (disc < 0) stop("No real solution")
-      sols <- c((-B + sqrt(disc))/(2*A), (-B - sqrt(disc))/(2*A))
+      disc <- B^2 - 4 * A * C
+      ## Guard against small negative disc from floating point
+      if (disc < -sqrt(.Machine$double.eps))
+        stop("no real solution for expected count in stratum ", j,
+             call. = FALSE)
+      disc    <- max(disc, 0)
+      sols    <- c((-B + sqrt(disc)) / (2*A), (-B - sqrt(disc)) / (2*A))
       tildeaj <- sols[sols > 0 & sols <= min(nj[1], mj[1])]
     }
     
-    aj <- x[1,1,j]
+    if (length(tildeaj) == 0L)
+      stop("no valid solution for expected count in stratum ", j,
+           call. = FALSE)
+    if (length(tildeaj) > 1L)
+      stop("ambiguous solution for expected count in stratum ", j,
+           "; this should not occur with valid data", call. = FALSE)
     
+    aj      <- x[1,1,j]
     tildebj <- mj[1] - tildeaj
     tildecj <- nj[1] - tildeaj
     tildedj <- mj[2] - tildecj
     
     if (any(c(tildeaj, tildebj, tildecj, tildedj) <= 0))
-      stop("Invalid expected counts")
+      warning("non-positive expected counts in stratum ", j,
+              "; results may be unreliable", call. = FALSE)
     
-    Var.aj <- 1 / (1/tildeaj + 1/tildebj + 1/tildecj + 1/tildedj)
+    Var.aj  <- 1 / (1/tildeaj + 1/tildebj + 1/tildecj + 1/tildedj)
+    X2.HBD  <- X2.HBD + (aj - tildeaj)^2 / Var.aj
     
-    X2.HBD <- X2.HBD + (aj - tildeaj)^2 / Var.aj
-    
-    a[j] <- aj; tildea[j] <- tildeaj; Var.a[j] <- Var.aj
+    a[j]      <- aj
+    tildea[j] <- tildeaj
+    Var.a[j]  <- Var.aj
   }
   
-  X2.HBDT <- X2.HBD - (sum(a) - sum(tildea))^2 / sum(Var.a)
+  ## -------------------------------------------------------------------
+  ## Tarone correction
+  ## -------------------------------------------------------------------
+  if (correct) {
+    if (sum(Var.a) <= 0)
+      stop("sum of variances is zero; Tarone correction is undefined",
+           call. = FALSE)
+    X2.HBDT <- X2.HBD - (sum(a) - sum(tildea))^2 / sum(Var.a)
+  }
   
-  STATISTIC <- if(correct) X2.HBDT else X2.HBD
-  PARAMETER <- K - 1
-  PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  STATISTIC <- unname(if (correct) X2.HBDT else X2.HBD)
+  PARAMETER <- K - 1L
   
-  structure(list(
-    statistic = c("X-squared" = STATISTIC),
-    parameter = c("df" = PARAMETER),
-    p.value = PVAL,
-    method = if(correct)
-      "Breslow-Day Test (Tarone corrected)"
-    else "Breslow-Day Test",
-    data.name = deparse(substitute(x))
-  ), class = "htest")
+  structure(
+    list(
+      statistic = c("X-squared" = STATISTIC),
+      parameter = c(df = PARAMETER),
+      p.value   = pchisq(STATISTIC, PARAMETER, lower.tail = FALSE),
+      method    = if (correct)
+        "Breslow-Day Test (Tarone corrected)"
+      else
+        "Breslow-Day Test",
+      data.name = deparse(substitute(x)),
+      n         = sum(x)
+    ),
+    class = "htest"
+  )
 }
 
-
-
-# 
-# breslowDayTest <- function(x, OR = NA, correct = FALSE) {
-#   
-#   # Function to perform the Breslow and Day (1980) test including the
-#   # corrected test by Tarone 
-#   # Uses the equations in Lachin (2000),
-#   # Biostatistical Methods, Wiley, p. 124-125.
-#   #
-#   # Programmed by Michael Hoehle <http://www.math.su.se/~hoehle>
-#   # Code taken originally from a Biostatistical Methods lecture
-#   # held at the Technical University of Munich in 2008.
-#   #
-#   # Params:
-#   #  x - a 2x2xK contingency table
-#   #  correct - if TRUE Tarones correction is returned
-#   #
-#   # Returns:
-#   #  a vector with three values
-#   #   statistic - Breslow and Day test statistic
-#   #   pval - p value evtl. based on the Tarone test statistic
-#   #               using a \chi^2(K-1) distribution
-#   #
-#   
-#   
-#   if(is.na(OR)) {
-#     #Find the common OR based on Mantel-Haenszel
-#     or.hat.mh <- mantelhaen.test(x)$estimate
-#   } else {
-#     or.hat.mh <- OR
-#   }
-#   
-#   #Number of strata
-#   K <- dim(x)[3]
-#   #Value of the Statistic
-#   X2.HBD <- 0
-#   #Value of aj, tildeaj and Var.aj
-#   a <- tildea <- Var.a <- numeric(K)
-#   
-#   for (j in 1:K) {
-#     #Find marginals of table j
-#     mj <- apply(x[,,j], MARGIN=1, sum)
-#     nj <- apply(x[,,j], MARGIN=2, sum)
-#     
-#     #Solve for tilde(a)_j
-#     coef <- c(-mj[1]*nj[1] * or.hat.mh, nj[2]-mj[1]+or.hat.mh*(nj[1]+mj[1]),
-#               1-or.hat.mh)
-#     sols <- Re(polyroot(coef))
-#     
-#     #Take the root, which fulfills 0 < tilde(a)_j <= min(n1_j, m1_j)
-#     tildeaj <- sols[(0 < sols) &  (sols <= min(nj[1],mj[1]))]
-#     #Observed value
-#     aj <- x[1,1,j]
-#     
-#     #Determine other expected cell entries
-#     tildebj <- mj[1] - tildeaj
-#     tildecj <- nj[1] - tildeaj
-#     tildedj <- mj[2] - tildecj
-#     
-#     #Compute \hat{\Var}(a_j | \widehat{\OR}_MH)
-#     Var.aj <- (1/tildeaj + 1/tildebj + 1/tildecj + 1/tildedj)^(-1)
-#     
-#     #Compute contribution
-#     X2.HBD <- X2.HBD + as.numeric((aj - tildeaj)^2 / Var.aj)
-#     
-#     #Assign found value for later computations
-#     a[j] <- aj ;  tildea[j] <- tildeaj ; Var.a[j] <- Var.aj
-#   }
-#   
-#   # Compute Tarone corrected test
-#   # Add on 2015: The original equation from the 2008 lecture is incorrect
-#   # as pointed out by Jean-Francois Bouzereau.
-#   # X2.HBDT <-as.numeric( X2.HBD -  (sum(a) - sum(tildea))^2/sum(Var.aj) )
-#   X2.HBDT <-as.numeric( X2.HBD -  (sum(a) - sum(tildea))^2/sum(Var.a) )
-#   
-#   DNAME <- deparse(substitute(x))
-#   
-#   STATISTIC <- if(correct) X2.HBDT else X2.HBD
-#   PARAMETER <- K - 1
-#   # Compute p-value based on the Tarone corrected test
-#   PVAL <- 1 - pchisq(STATISTIC, PARAMETER)
-#   METHOD <- if(correct) "Breslow-Day Test on Homogeneity of Odds Ratios (with Tarone correction)" else
-#     "Breslow-Day test on Homogeneity of Odds Ratios"
-#   names(STATISTIC) <- "X-squared"
-#   names(PARAMETER) <- "df"
-#   structure(list(statistic = STATISTIC, parameter = PARAMETER,
-#                  p.value = PVAL, method = METHOD, data.name = DNAME
-#   ), class = "htest")
-#   
-# }
-# 

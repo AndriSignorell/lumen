@@ -1,6 +1,6 @@
 Package: lumen
 Title: Hypothesis Tests for DescToolsX
-Version: 0.0.0.908  
+Version: 0.0.0.909  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -54,7 +54,7 @@ Encoding: UTF-8
 LinkingTo: Rcpp, RcppParallel, RcppArmadillo
 Roxygen: list(markdown = TRUE)
 Imports: boot, aurora, bedrock, Exact, mvtnorm, stats, withr, gld
-Suggests: goftest, testthat (>= 3.0.0), coin, flexsurv
+Suggests: goftest, testthat (>= 3.0.0), coin, flexsurv, randtests
 Config/testthat/edition: 3
 URL: https://andrisignorell.github.io/lumen/,
             https://github.com/AndriSignorell/lumen/

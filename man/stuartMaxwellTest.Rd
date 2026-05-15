@@ -97,7 +97,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
 Stuart-Maxwell test
 
 \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
-\code{\link{mhChisqTest}}, \code{\link{breslowDayTest}}
+\code{\link{mantelTrendTest}}, \code{\link{breslowDayTest}}
 
 Other test.marginal:
 \code{\link[=bhapkarTest]{bhapkarTest()}},

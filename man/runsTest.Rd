@@ -16,169 +16,144 @@ runsTest(x, ...)
   alternative = c("two.sided", "less", "greater"),
   exact = NULL,
   correct = TRUE,
-  na.rm = FALSE,
+  na.rm = TRUE,
   ...
 )
 }
 \arguments{
-\item{x}{a dichotomous vector of data values or a (non-empty) numeric vector
-of data values.}
+\item{x}{a dichotomous vector of data values or a (non-empty) numeric
+vector of data values.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{\dots}{further arguments passed to methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and rhs the corresponding groups.}
+\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+gives the data values and \code{rhs} the corresponding groups (exactly
+two groups required).}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{an optional data frame containing the variables in
+\code{formula}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional vector specifying a subset of observations to
+be used.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain NAs. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function which indicates what should happen when the
+data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 
-\item{y}{an optional (non-empty) numeric vector of data values.}
+\item{y}{an optional (non-empty) numeric vector of data values for the
+Wald-Wolfowitz two-sample test.}
 
-\item{alternative}{a character string specifying the alternative hypothesis,
-must be one of \code{"two.sided"} (default), \code{"less"} or
-\code{"greater"}.}
+\item{alternative}{a character string specifying the alternative
+hypothesis, must be one of \code{"two.sided"} (default),
+\code{"less"} (fewer runs, clustering) or \code{"greater"} (more
+runs, alternation).}
 
 \item{exact}{a logical indicating whether an exact p-value should be
-computed. By default exact values will be calculated for small vectors with
-a total length <= 30 and the normal approximation for longer ones.}
+computed. By default exact values are calculated for
+\eqn{n_0 + n_1 \le 30} and the normal approximation otherwise.}
 
-\item{correct}{a logical indicating whether to apply continuity correction
-when computing the test statistic. Default is \code{TRUE}. Ignored if
-\code{exact} is set to \code{TRUE}. See details.}
+\item{correct}{a logical indicating whether to apply a continuity
+correction when computing the test statistic. Default is \code{TRUE}.
+Ignored when \code{exact = TRUE}.}
 
-\item{na.rm}{defines if \code{NA}s should be omitted. Default is
-\code{FALSE}.}
+\item{na.rm}{logical. If \code{TRUE} (default), \code{NA}s are removed
+before the test.}
 }
 \value{
-A list with the following components.  \item{statistic}{z, the value
-of the standardized runs statistic, if not exact p-values are computed.}
-\item{parameter}{the number of runs, the total number of zeros (m) and ones
-(n)} \item{p.value}{the p-value for the test.} \item{data.name}{a character
-string giving the names of the data.} \item{alternative}{a character string
-describing the alternative hypothesis.}
+A list of class \code{"htest"} containing:
+\item{statistic}{the standardized z-statistic (normal approximation only;
+\code{NULL} for exact tests).}
+\item{parameter}{named vector with the number of runs, \code{m}
+(\eqn{n_0}: observations below threshold) and \code{n}
+(\eqn{n_1}: observations above threshold).}
+\item{p.value}{the p-value for the test.}
+\item{alternative}{a character string describing the alternative
+hypothesis.}
+\item{method}{a character string indicating the test performed.}
+\item{data.name}{a character string giving the name of the data.}
 }
 \description{
 A nonparametric test for randomness of a sequence, based on the number
-of runs (consecutive sequences of identical values or values
-above/below a threshold).
+of runs (consecutive sequences of identical values or values above/below
+a threshold).
 }
 \details{
-Performs a test whether the elements of \code{x} are serially independent -
-say, whether they occur in a random order - by counting how many runs there
-are above and below a threshold. If \code{y} is supplied a two sample
-Wald-Wolfowitz-Test testing the equality of two distributions against
-general alternatives will be computed.
+Performs a test whether the elements of \code{x} are serially independent
+by counting how many runs there are above and below a threshold. If
+\code{y} is supplied, a two-sample Wald-Wolfowitz test for the equality
+of two distributions is computed.
 
-\bold{The runs test for randomness} \verb{ } is used to test the hypothesis
-that a series of numbers is random. \cr
+\bold{The runs test for randomness} requires a dichotomous sequence. For
+a numeric variable \code{x} with more than two distinct values, the
+sequence is dichotomised by comparing each observation to the median.
+Observations exactly equal to the median are removed before the test, as
+is standard in the runs test literature. To use a different threshold,
+pass a logical vector directly: \code{runsTest(x > mean(x))}.
 
-For a categorical variable, the number of runs correspond to the number of
-times the category changes, that is, where \eqn{x_{i}}{x_i} belongs to one
-category and \eqn{x_{i+1}}{x_(i+1)} belongs to the other. The number of runs
-is the number of sign changes plus one.\cr
+The normal approximation uses the expected number of runs under the null
+\deqn{\mu_r = \frac{2 n_0 n_1}{n_0 + n_1} + 1}
+and its variance
+\deqn{\sigma_r^2 = \frac{2 n_0 n_1 (2 n_0 n_1 - n_0 - n_1)}{
+  (n_0 + n_1)^2 (n_0 + n_1 - 1)}}
+as \eqn{\hat{z} = (r - \mu_r + c) / \sigma_r}, where \eqn{n_0, n_1} are
+the number of values below/above the threshold and \eqn{r} is the number
+of runs.
 
-For a numeric variable x containing more than two values, a run is a set of
-sequential values that are either all above or below a specified cutpoint,
-typically the median. This is not necessarily the best choice. If another
-threshold should be used use a code like: \code{runsTest(x > mean(x))}.
+Setting \code{correct = TRUE} applies a continuity correction as SAS (and
+SPSS for \eqn{n < 50}) does: \eqn{c = 0.5} if \eqn{r < \mu_r} and
+\eqn{c = -0.5} if \eqn{r > \mu_r}.
 
-The exact distribution of runs and the p-value based on it are described in
-the manual of SPSS "Exact tests"
-\url{https://www.sussex.ac.uk/its/pdfs/SPSS_Exact_Tests_21.pdf}.
+The exact p-value is computed from the conditional distribution of the
+number of runs given \eqn{n_0} and \eqn{n_1}, implemented in C++.
 
-The normal approximation of the runs test is calculated with the expected
-number of runs under the null \deqn{\mu_r=\frac{2 n_0 n_1}{n_0 + n_1} + 1}
-and its variance \deqn{\sigma_r^2 = \frac{2 n_0 n_1 (2 n_0 n_1 - n_0 - n_1)
-}{(n_0 + n_1)^2 \cdot (n_0 + n_1 - 1)}} as \deqn{\hat{z}=\frac{r - \mu_r +
-c}{\sigma_r}} where \eqn{n_0, n_1} the number of values below/above the
-threshold and \eqn{r} the number of runs.
+\bold{Interpretation of alternatives:}
+\itemize{
+\item \code{"less"}: fewer runs than expected — indicates clustering
+or positive serial correlation.
+\item \code{"greater"}: more runs than expected — indicates alternation
+or negative serial correlation.
+\item \code{"two.sided"}: departure in either direction.
+}
 
-Setting the continuity correction \code{correct = TRUE} will yield the
-normal approximation as SAS (and SPSS if n < 50) does it, see
-\url{http://support.sas.com/kb/33/092.html}. The c is set to \eqn{c = 0.5}
-if \eqn{r < \frac{2 n_0 n_1}{n_0 + n_1} + 1} and to \eqn{c = -0.5} if \eqn{r
-> \frac{2 n_0 n_1}{n_0 + n_1} + 1}.
-
-\bold{The Wald-Wolfowitz test} \verb{ } is a 2-sample nonparametric test to
-evaluate if two continuous cumulative distributions are significantly
-different or not. Ideally there should be no ties in the data. In practice
-there is no problem with ties within a group, but if ties occur between
-members of the different groups then there is no unique sequence of
-observations. For example the data sets A: 10,14,17,19,34 and B:
-12,13,17,19,22 can give four possible sequences, with two possible values
-for r (7 or 9). The "solution" to this is to list every possible
-combination, and calculate the test statistic for each one. If all test
-statistics are significant at the chosen level, then one can reject the null
-hypothesis. If only some are significant, then Siegel (1956) suggests that
-the average of the P-values is taken. Help for finding all permutations of
-ties can be found at:
-\url{https://stackoverflow.com/questions/47565066/all-possible-permutations-in-factor-variable-when-ties-exist-in-r}
-
-However this solutions seems quite coarse and in general, the test should
-not be used if there are more than one or two ties. We have better tests to
-distinguish between two samples!
+\bold{The Wald-Wolfowitz test} is a two-sample nonparametric test for the
+equality of two continuous distributions against general alternatives.
+Exact p-values are not valid in the presence of inter-group ties; a
+warning is issued when such ties are detected.
 }
 \examples{
-
-# x will be coerced to a dichotomous variable
-x <- c("S","S", "T", "S", "T","T","T", "S", "T")
+# dichotomous character vector
+x <- c("S","S","T","S","T","T","T","S","T")
 runsTest(x)
 
-
-x <- c(13, 3, 14, 14, 1, 14, 3, 8, 14, 17, 9, 14, 13, 2, 16, 1, 3, 12, 13, 14)
+# numeric vector: compared against median; ties at median removed
+x <- c(13,3,14,14,1,14,3,8,14,17,9,14,13,2,16,1,3,12,13,14)
 runsTest(x)
-# this will be treated as
-runsTest(x > median(x))
-
-plot( (x < median(x)) - 0.5, type="s", ylim=c(-1,1) )
-abline(h=0)
-
-set.seed(123)
-x <- sample(0:1, size=100, replace=TRUE)
-runsTest(x)
-# As you would expect of values from a random number generator, the test fails to reject
-# the null hypothesis that the data are random.
-
 
 # SPSS example
 x <- c(31,23,36,43,51,44,12,26,43,75,2,3,15,18,78,24,13,27,86,61,13,7,6,8)
-runsTest(x, exact=TRUE)       # exact probability
-runsTest(x, exact=FALSE)      # normal approximation
+runsTest(x, exact = TRUE)
+runsTest(x, exact = FALSE)
 
-# SPSS example small dataset
-x <- c(1, 1, 1, 1, 0, 0, 0, 0, 1, 1)
-runsTest(x)
-runsTest(x, exact=FALSE)
-
-# if y is not NULL, the Wald-Wolfowitz-Test will be performed
+# Wald-Wolfowitz two-sample test
 A <- c(35,44,39,50,48,29,60,75,49,66)
 B <- c(17,23,13,24,33,21,18,16,32)
-
-runsTest(A, B, exact=TRUE)
-runsTest(A, B, exact=FALSE)
+runsTest(A, B, exact = TRUE)
 
 }
 \references{
-Wackerly, D., Mendenhall, W. Scheaffer, R. L. (1986)
-\emph{Mathematical Statistics with Applications}, 3rd Ed., Duxbury Press,
-CA.
+Wackerly, D., Mendenhall, W., Scheaffer, R. L. (1986)
+\emph{Mathematical Statistics with Applications}, 3rd Ed.,
+Duxbury Press, CA.
 
-Wald, A. and Wolfowitz, J. (1940): On a test whether two samples are from
-the same population, \emph{Ann. Math Statist}. 11, 147-162.
+Wald, A. and Wolfowitz, J. (1940): On a test whether two samples are
+from the same population. \emph{Annals of Mathematical Statistics}
+\bold{11}, 147--162.
 
 Siegel, S. (1956) \emph{Nonparametric Statistics for the Behavioural
 Sciences}, McGraw-Hill Kogakusha, Tokyo.
 }
 \seealso{
-Run Length Encoding \code{\link{rle}}
+\code{\link{rle}}, \code{\link{bartelsRankTest}},
+\code{\link{vonNeumannTest}}
 
 Other test.correlation:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},

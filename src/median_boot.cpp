@@ -56,7 +56,9 @@ struct MedianFn {
 NumericVector median_boot_cpp(NumericVector x,
                               int    R     = 1000,
                               double alpha = 0.05,
-                              int    seed  = -1) {
+                              int    seed  = -1,
+                              String method = "perc"
+                              ) {
 
   return run_boot(
     vec_to_matrix(x),   // X: n x 1 (unused by MedianFn)
@@ -64,7 +66,8 @@ NumericVector median_boot_cpp(NumericVector x,
     R,
     alpha,
     seed,
-    MedianFn()
+    MedianFn(), 
+    method
   );
 }
 

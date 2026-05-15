@@ -186,7 +186,7 @@ Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version 2.0.
 Other test.contingency:
 \code{\link[=breslowDayTest]{breslowDayTest()}},
 \code{\link[=gTest]{gTest()}},
-\code{\link[=mhChisqTest]{mhChisqTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{hypothesis-testing}

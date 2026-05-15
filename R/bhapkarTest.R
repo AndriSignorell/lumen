@@ -28,7 +28,7 @@
 #' matrix. 
 #' 
 #' @seealso \code{\link{mcnemar.test}},
-#' \code{\link{chisq.test}}, \code{\link{mhChisqTest}},
+#' \code{\link{chisq.test}}, \code{\link{mantelTrendTest}},
 #' \code{\link{breslowDayTest}} 
 #' 
 #' @references Bhapkar V.P. (1966) A note on the equivalence of two test
@@ -62,35 +62,27 @@
 #' @concept hypothesis-testing
 #' @concept table-manipulation
 #' @concept nonparametric
-#'
-#'
 #' @export
-bhapkarTest <- function(x, y = NULL){
+bhapkarTest <- function(x, y = NULL) {
   
-  # https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/382-2008.pdf
-  
-  if (is.matrix(x)) {
-    DNAME <- deparse(substitute(x))
+  DNAME <- if (is.matrix(x)) {
+    deparse(substitute(x))
   } else {
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    paste(deparse(substitute(x)), "and", deparse(substitute(y)))
   }
   
+  res <- stuartMaxwellTest(x = x, y = y)
   
-  res <- stuartMaxwellTest(x=x, y=y)
+  ## Bhapkar statistic: Q_B = Q_SM / (1 - Q_SM / n)
+  ## where n is the total sample size (Sun & Yang 2008)
+  Q_SM <- unname(res$statistic)
+  Q_B  <- Q_SM / (1 - Q_SM / res$n)
   
-  STATISTIC <- res$statistic
-  PARAMETER <- res$parameter
+  res$statistic  <- c("chi-squared" = Q_B)
+  res$p.value    <- pchisq(Q_B, df = res$parameter, lower.tail = FALSE)
+  res$method     <- "Bhapkar test for marginal homogeneity"
+  res$data.name  <- DNAME
   
-  # new statistic by Bhapkar
-  STATISTIC <- STATISTIC/(1-STATISTIC/res$n)
-  
-  res$statistic <- STATISTIC
-  res$p.value <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
-  
-  res$data.name <- DNAME
-  res$method <- "Bhapkar test"
-  
-  return(res)
-  
+  res
 }
 

@@ -103,10 +103,8 @@ Jersey: Wiley.
 }
 \seealso{
 Other test.location:
-\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
-\code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }
 \concept{hypothesis-testing}

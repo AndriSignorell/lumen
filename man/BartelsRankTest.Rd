@@ -7,7 +7,7 @@
 bartelsRankTest(
   x,
   alternative = c("two.sided", "trend", "oscillation"),
-  method = c("normal", "beta", "auto")
+  method = c("auto", "normal", "beta")
 )
 }
 \arguments{

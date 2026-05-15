@@ -128,10 +128,8 @@ vieweg
 
 Other test.location:
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
-\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=yuenTTest]{yuenTTest()}}
+\code{\link[=tTestA]{tTestA()}}
 }
 \concept{descriptive-statistics}
 \concept{hypothesis-testing}

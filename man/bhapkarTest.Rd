@@ -62,7 +62,7 @@ Analysis}, Paper 382-208.
 }
 \seealso{
 \code{\link{mcnemar.test}},
-\code{\link{chisq.test}}, \code{\link{mhChisqTest}},
+\code{\link{chisq.test}}, \code{\link{mantelTrendTest}},
 \code{\link{breslowDayTest}}
 
 Other test.marginal:

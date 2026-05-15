@@ -142,8 +142,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // coef_boot_cpp
-NumericMatrix coef_boot_cpp(NumericMatrix X, NumericVector y, int R, double alpha, int seed);
-RcppExport SEXP _lumen_coef_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
+NumericMatrix coef_boot_cpp(NumericMatrix X, NumericVector y, int R, double alpha, int seed, String method);
+RcppExport SEXP _lumen_coef_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -152,7 +152,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type R(RSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(coef_boot_cpp(X, y, R, alpha, seed));
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(coef_boot_cpp(X, y, R, alpha, seed, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -195,22 +196,19 @@ BEGIN_RCPP
 END_RCPP
 }
 // jtpdf_cpp
-NumericVector jtpdf_cpp(int mxsum, NumericVector cgsize, NumericVector pdf0, NumericVector pdf1);
-RcppExport SEXP _lumen_jtpdf_cpp(SEXP mxsumSEXP, SEXP cgsizeSEXP, SEXP pdf0SEXP, SEXP pdf1SEXP) {
+NumericVector jtpdf_cpp(IntegerVector gsize);
+RcppExport SEXP _lumen_jtpdf_cpp(SEXP gsizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type mxsum(mxsumSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type cgsize(cgsizeSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type pdf0(pdf0SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type pdf1(pdf1SEXP);
-    rcpp_result_gen = Rcpp::wrap(jtpdf_cpp(mxsum, cgsize, pdf0, pdf1));
+    Rcpp::traits::input_parameter< IntegerVector >::type gsize(gsizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(jtpdf_cpp(gsize));
     return rcpp_result_gen;
 END_RCPP
 }
 // median_boot_cpp
-NumericVector median_boot_cpp(NumericVector x, int R, double alpha, int seed);
-RcppExport SEXP _lumen_median_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
+NumericVector median_boot_cpp(NumericVector x, int R, double alpha, int seed, String method);
+RcppExport SEXP _lumen_median_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -218,7 +216,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type R(RSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(median_boot_cpp(x, R, alpha, seed));
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(median_boot_cpp(x, R, alpha, seed, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -291,12 +290,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
     {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
     {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},
-    {"_lumen_coef_boot_cpp", (DL_FUNC) &_lumen_coef_boot_cpp, 5},
+    {"_lumen_coef_boot_cpp", (DL_FUNC) &_lumen_coef_boot_cpp, 6},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
-    {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 4},
-    {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 4},
+    {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 1},
+    {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 5},
     {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
     {"_lumen_rsq_boot_cpp", (DL_FUNC) &_lumen_rsq_boot_cpp, 6},

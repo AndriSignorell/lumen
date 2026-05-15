@@ -11,25 +11,26 @@ vonNeumannTest(
 )
 }
 \arguments{
-\item{x}{a numeric vector containing the observations}
+\item{x}{a numeric vector containing the observations.}
 
 \item{alternative}{a character string specifying the alternative hypothesis,
 must be one of \code{"two.sided"} (default), \code{"greater"} or
-\code{"less"}. You can specify just the initial letter.}
+\code{"less"}.}
 
-\item{unbiased}{logical. In order for VN to be an unbiased estimate of the
-true population value, the calculated value is multiplied by
-\eqn{n/(n-1)}{n/(n-1)}. Default is TRUE.}
+\item{unbiased}{logical. If \code{TRUE} (default), applies the
+finite-sample correction \eqn{n/(n-1)} so that VN is an unbiased
+estimate of the population value.}
 }
 \value{
-A list with class "htest" containing the components:
-\item{statistic}{the value of the VN statistic and the normalized statistic
-test.} \item{parameter, n}{the size of the data, after the remotion of
-consecutive duplicate values.} \item{p.value}{the p-value of the test.}
+A list with class \code{"htest"} containing:
+\item{statistic}{the normalized z-statistic.}
+\item{parameter}{named vector with \code{n}, the sample size after
+removal of \code{NA}s.}
+\item{p.value}{the p-value of the test.}
 \item{alternative}{a character string describing the alternative
-hypothesis.} \item{method}{a character string indicating the test
-performed.} \item{data.name}{a character string giving the name of the
-data.}
+hypothesis.}
+\item{data.name}{a character string giving the name of the data.}
+\item{vn}{the value of the VN statistic (not printed).}
 }
 \description{
 A test for randomness or autocorrelation in a sequence, based on the mean
@@ -37,33 +38,46 @@ square successive difference relative to the sample variance, closely
 related to the Durbin-Watson test.
 }
 \details{
-A popular statistic to test for independence is the von Neumann ratio.
+The test is based on the von Neumann ratio statistic.
 
 The VN test statistic is in the unbiased case
 \deqn{VN=\frac{\sum_{i=1}^{n-1}(x_i-x_{i+1})^2 \cdot
-n}{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2 \cdot (n-1)}
-}{VN=\sum(x_i-x_{i+1})^2 / \sum(x_i-mean(x)^2 * n/n-1} It is known that
-\eqn{(VN-\mu)/\sigma} is asymptotically standard normal, where
-\eqn{\mu=\frac{2n}{n-1}}{\mu=2n/(n-1)} and \eqn{\sigma^2=4\cdot n^2
-\frac{(n-2)}{(n+1)(n-1)^3}}{\sigma^2=[4*n^2 * (n-2)]/[(n+1)(n-1)^3]}.
+n}{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2 \cdot (n-1)}}{
+VN = sum(x_i - x_{i+1})^2 * n / (sum(x_i - mean(x))^2 * (n-1))}
+
+It is known that \eqn{(VN-\mu)/\sigma} is asymptotically standard normal,
+where \eqn{\mu = 2n/(n-1)} and
+\eqn{\sigma^2 = 4 n^2 (n-2) / [(n+1)(n-1)^3]}.
 
 The VN test statistic is in the original (biased) case
-\deqn{VN=\frac{\sum_{i=1}^{n-1}(x_i-x_{i+1})^2}{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2}}{VN=\sum(x_i-x_{i+1})^2
-/ \sum(x_i-mean(x)^2} The test statistic \eqn{(VN-2)/\sigma} is
-asymptotically standard normal, where
-\eqn{\sigma^2=\frac{4\cdot(n-2)}{(n+1)(n-1)}}{\sigma^2=[4*(n-2)]/[(n+1)(n-1)]}.
+\deqn{VN=\frac{\sum_{i=1}^{n-1}(x_i-x_{i+1})^2}{
+\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2}}{
+VN = sum(x_i - x_{i+1})^2 / sum(x_i - mean(x))^2}
+
+The test statistic \eqn{(VN-2)/\sigma} is asymptotically standard normal,
+where \eqn{\sigma^2 = 4(n-2) / [(n+1)(n-1)]}.
 
 Missing values are silently removed.
 }
 \examples{
-
 set.seed(2)
 vonNeumannTest(runif(20))
+
+# trend: small VN expected
+vonNeumannTest(cumsum(rnorm(30)), alternative = "less")
+
 }
 \references{
-von Neumann, J. (1941) Distribution of the ratio of the mean
-square successive difference to the variance. \emph{Annals of Mathematical
-Statistics} \bold{12}, 367-395.
+von Neumann, J. (1941) Distribution of the ratio of the mean square
+successive difference to the variance. \emph{Annals of Mathematical
+Statistics} \bold{12}, 367--395.
+
+Young, L. C. (1941) On randomness in ordered sequences.
+\emph{Annals of Mathematical Statistics} \bold{12}, 293--300.
+
+Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test for
+Randomness. \emph{Journal of the American Statistical Association},
+\bold{77}(377), 40--46.
 }
 \seealso{
 \code{\link{bartelsRankTest}}

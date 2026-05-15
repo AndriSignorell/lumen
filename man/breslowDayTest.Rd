@@ -101,7 +101,7 @@ Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
 Other test.contingency:
 \code{\link[=barnardTest]{barnardTest()}},
 \code{\link[=gTest]{gTest()}},
-\code{\link[=mhChisqTest]{mhChisqTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{hypothesis-testing}

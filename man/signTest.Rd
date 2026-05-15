@@ -117,9 +117,7 @@ in the package \pkg{BSDA} (reporting approximative confidence intervals).
 
 Other test.location:
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
-\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=tTestA]{tTestA()}},
-\code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }
 \concept{hypothesis-testing}

@@ -33,8 +33,9 @@ NumericMatrix coef_boot_cpp(NumericMatrix X,
                             NumericVector y,
                             int    R     = 2000,
                             double alpha = 0.05,
-                            int    seed  = -1) {
+                            int    seed  = -1,
+                            String method = "perc") {
 
-  return run_boot_matrix(X, y, R, alpha, seed, CoefFn());
+  return run_boot_matrix(X, y, R, alpha, seed, CoefFn(), method);
 }
 

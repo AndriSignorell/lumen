@@ -11,7 +11,7 @@
 #' 
 #' @importFrom graphics abline title
 #'             
-#' @importFrom bedrock setNamesX allDuplicated pairApply unirootAll isNumeric recycle inDots logitInv winsorize inDots removeAttr resolveFormula
+#' @importFrom bedrock setNamesX allDuplicated pairApply unirootAll isNumeric recycle inDots logitInv winsorize inDots removeAttr resolveFormula asBinary 
 #'             
 #' @importFrom Exact exact.test
 NULL

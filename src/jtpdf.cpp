@@ -1,71 +1,66 @@
 
-
 #include <Rcpp.h>
 using namespace Rcpp;
 
+
 // [[Rcpp::export]]
-NumericVector jtpdf_cpp(int mxsum,
-                    NumericVector cgsize,
-                    NumericVector pdf0,
-                    NumericVector pdf1) {
+NumericVector jtpdf_cpp(IntegerVector gsize) {
   
-  int ng = cgsize.size();
-  NumericVector pdf(mxsum);
+  int ng = gsize.size();
+  int N  = sum(gsize);
   
-  int i, j, g;
-  int m, n, mn0, mn1;
-  double di, dm, dn;
+  IntegerVector cs(ng);
+  cs[0] = gsize[0];
+  for (int i = 1; i < ng; i++) cs[i] = cs[i-1] + gsize[i];
   
-  // -----------------------------
-    // initial: last two groups
-  // -----------------------------
-    m = cgsize[ng-2] - cgsize[ng-1];
-    n = cgsize[ng-1];
-    mn1 = m * n;
+  int maxJ = 0;
+  for (int i = 0; i < ng - 1; i++)
+    maxJ += gsize[i] * (N - cs[i]);
+  
+  bool even  = (maxJ % 2 == 0);
+  int  upper = even ? maxJ / 2 : (maxJ - 1) / 2;
+  
+  double num_comb = 1.0;
+  int rem = N;
+  for (int i = 0; i < ng; i++) {
+    for (int j = 1; j <= gsize[i]; j++) {
+      num_comb *= (double)rem-- / (double)j;
+    }
+  }
+
+  std::vector<double> freq(upper + 1, 0.0);
+  freq[0] = 1.0;
+  
+  auto update = [&](int m, int n) {
     
-    dm = (double) m;
-    dn = (double) n;
-    
-    for (i = 0; i <= mn1; i++) {
-      di = (double) i;
-      pdf[i] = R::dwilcox(di, dm, dn, false); // density
+    if ((n + 1) <= upper) {
+      int p = std::min(m + n, upper);
+      for (int t = n + 1; t <= p; t++)
+        for (int u = upper; u >= t; u--)   // downwards
+          freq[u] -= freq[u - t];
     }
     
-    // -----------------------------
-      // iterate backwards over groups
-    // -----------------------------
-      for (g = ng-3; g >= 0; g--) {
-        
-        // copy pdf -> pdf1 and reset pdf
-        for (i = 0; i <= mn1; i++) {
-          pdf1[i] = pdf[i];
-          pdf[i] = 0.0;
-        }
-        
-        // current MW for group g vs rest
-        m = cgsize[g] - cgsize[g+1];
-        n = cgsize[g+1];
-        mn0 = m * n;
-        
-        dm = (double) m;
-        dn = (double) n;
-        
-        for (i = 0; i <= mn0; i++) {
-          di = (double) i;
-          pdf0[i] = R::dwilcox(di, dm, dn, false);
-        }
-        
-        // convolution
-        for (i = 0; i <= mn0; i++) {
-          for (j = 0; j <= mn1; j++) {
-            pdf[i + j] += pdf0[i] * pdf1[j];
-          }
-        }
-        
-        mn1 = mn0 + mn1;
-      }
-    
-    return pdf;
-}
+    int q = std::min(m, upper);
+    for (int s = 1; s <= q; s++)
+      for (int u = s; u <= upper; u++)     // upwards
+        freq[u] += freq[u - s];
+  };
+  
+  for (int i = 0; i < ng - 1; i++)
+    update(gsize[i], N - cs[i]);
+  
+  NumericVector prob(maxJ + 1);
 
+  for (int i = 0; i <= upper; i++)
+    prob[i] = freq[i] / num_comb;
+  
+  for (int i = 0; i <= upper; i++)          
+    prob[maxJ - i] = prob[i];
+  
+  if (even)
+    prob[upper] = freq[upper] / num_comb; // mean only with even maxJ
+  
+  
+  return prob;
+}
 

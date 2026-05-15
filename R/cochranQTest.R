@@ -117,134 +117,129 @@ cochranQTest <- function(y, ...) {
 #' @rdname cochranQTest
 #' @export
 cochranQTest.default <- function(y, groups, blocks,
-                                 method = c("asymptotic","approximate"),
+                                 method    = c("asymptotic", "approximate"),
                                  nresample = 1e4,
                                  na.action = na.omit,
                                  ...) {
   
-  # exact would have been nice... but has no solution for  k>2
-  
   method <- match.arg(method)
-  
-  DNAME <- deparse1(substitute(y))
+  DNAME  <- deparse1(substitute(y))
   
   if (is.matrix(y)) {
+    
+    # validate binary
+    if (!all(y %in% c(0L, 1L, NA)))
+      stop("'y' must contain only 0/1 values")
+    
     groups <- factor(c(col(y)))
     blocks <- factor(c(row(y)))
     
-  }  else {
+  } else {
     
-    if (anyNA(groups) || anyNA(blocks)) 
+    if (anyNA(groups) || anyNA(blocks))
       stop("NA's are not allowed in 'groups' or 'blocks'")
-    if (any(diff(c(length(y), length(groups), length(blocks))) != 0L)) 
+    
+    if (any(diff(c(length(y), length(groups), length(blocks))) != 0L))
       stop("'y', 'groups' and 'blocks' must have the same length")
     
-    DNAME <- paste0(DNAME, ", ", deparse1(substitute(groups)), 
+    DNAME <- paste0(DNAME, ", ", deparse1(substitute(groups)),
                     " and ", deparse1(substitute(blocks)))
-    if (any(table(groups, blocks) != 1)) 
+    
+    if (any(table(groups, blocks) != 1L))
       stop("not an unreplicated complete block design")
     
     groups <- factor(groups)
     blocks <- factor(blocks)
-    o <- order(groups, blocks)
-    y <- .asBinary(y[o])
+    o      <- order(groups, blocks)
+    y      <- asBinary(y[o])
     groups <- groups[o]
     blocks <- blocks[o]
   }
   
-  
-  # =========================
-  # COIN BRANCH
-  # =========================
-  if (method != "asymptotic") {
+  ## -------------------------------------------------------------------
+  ## Approximate via coin
+  ## -------------------------------------------------------------------
+  if (method == "approximate") {
     
-    if (!requireNamespace("coin", quietly = TRUE)) {
-      stop("Package 'coin' required")
-    }
+    if (!requireNamespace("coin", quietly = TRUE))
+      stop("package 'coin' required for method = 'approximate'")
     
-    df <- data.frame(y = y, groups = groups, blocks = blocks)
+    df <- data.frame(y = factor(y), groups = groups, blocks = blocks)
     
     res <- coin::independence_test(
       y ~ groups | blocks,
-      data = df,
-      teststat = "quad",
-      distribution = switch(method,
-                            exact = "exact",
-                            approximate = coin::approximate(nresample = 1e4)
-      )
+      data         = df,
+      teststat     = "quad",
+      distribution = coin::approximate(nresample = nresample)
     )
     
     return(structure(list(
-      statistic = c("Cochran's Q" = as.numeric(coin::statistic(res))),
-      parameter = c(df = NA),
-      p.value = coin::pvalue(res),
-      method = paste0("Cochran's Q test (coin, ", method, ")"),
-      data.name = DNAME
+      statistic  = c("Cochran's Q" = as.numeric(coin::statistic(res))),
+      parameter  = c(df = NA_integer_),
+      p.value    = as.numeric(coin::pvalue(res)),
+      method     = paste0("Cochran's Q test (approximate, B = ", nresample, ")"),
+      data.name  = DNAME
     ), class = "htest"))
   }
- 
-   
-  # =========================
-  # ASYMPTOTIC
-  # =========================
   
-  k <- nlevels(groups)
-  
+  ## -------------------------------------------------------------------
+  ## Asymptotic
+  ## -------------------------------------------------------------------
+  k     <- nlevels(groups)
   y_mat <- matrix(unlist(split(y, blocks)), ncol = k, byrow = TRUE)
-  y_mat <- y_mat[complete.cases(y_mat), ]
+  y_mat <- y_mat[complete.cases(y_mat), , drop = FALSE]
   
-  return(.cochranAsymptotic(y_mat, DNAME))
+  .cochranAsymptotic(y_mat, DNAME)
   
 }
-
 
 
 
 #' @rdname cochranQTest
 #' @export
-cochranQTest.formula <- function (formula, data, subset, na.action, 
-                                  method = c("asymptotic","approximate"),
-                                  nresample = 1e4, ...) {
+cochranQTest.formula <- function(formula,
+                                 data,
+                                 subset,
+                                 na.action = na.pass,
+                                 method    = c("asymptotic", "approximate"),
+                                 nresample = 1e4,
+                                 ...) {
   
-  if (missing(formula)) 
-    stop("formula missing")
-  if ((length(formula) != 3L) || (length(formula[[3L]]) != 3L) || 
-         (formula[[3L]][[1L]] != as.name("|")) || 
-         (length(formula[[3L]][[2L]]) != 1L) || 
-         (length(formula[[3L]][[3L]]) != 1L)) 
-    stop("incorrect specification for 'formula'")
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
   
-  formula[[3L]][[1L]] <- as.name("+")
-  m <- match.call(expand.dots = FALSE)
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "n.sample.dependent"
+  )
   
-  m$formula <- formula
-  if (is.matrix(eval(m$data, parent.frame()))) 
-    m$data <- as.data.frame(data)
-  m[[1L]] <- quote(stats::model.frame)
-  # delete here potential arguments in, not associated with model.frame ...
-  # m$...$method <- NULL
-  # m$...$nresample <- NULL
-  mf <- eval(m, parent.frame())
-  DNAME <- paste(names(mf), collapse = " and ")
+  if (!missing(data))
+    args$data <- data
   
-  y <- cochranQTest(mf[[1L]], mf[[2L]], mf[[3L]], 
-                    method=method, nresample=nresample, ...)
+  if (!missing(subset))
+    args$subset <- substitute(subset)
   
-  y$data.name <- DNAME
-  y  
+  d <- do.call(bedrock::resolveFormula, args)
   
+  res <- cochranQTest.default(
+    y         = d$response,
+    groups    = d$group,
+    blocks    = d$block,
+    method    = method,
+    nresample = nresample,
+    ...
+  )
+  
+  res$data.name <- d$data.name
+  res
 }
-
 
 
 
 
 # == internal helper functions ============================================
 
-
-# =========================
-# ASYMPTOTIC VERSION
-# =========================
 
 .cochranAsymptotic <- function(x, DNAME) {
   
@@ -259,8 +254,18 @@ cochranQTest.formula <- function (formula, data, subset, na.action,
   T  <- sum(x)
   
   denom <- k*T - sum(Ri^2)
-  if (denom == 0)
-    stop("test statistic undefined (no variation)")
+  
+  if (denom == 0) {
+    # alle Blöcke haben identische Antworten -> Q = 0
+    return(structure(list(
+      statistic = c("Cochran's Q" = 0),
+      parameter = c(df = k - 1L),
+      p.value   = 1,
+      method    = "Cochran's Q test (asymptotic)",
+      data.name = DNAME
+    ), class = "htest"))
+  }
+  
   
   Q <- (k - 1) * (k * sum(Sj^2) - T^2) / denom
   

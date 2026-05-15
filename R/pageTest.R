@@ -1,107 +1,128 @@
 
 #' Exact Page Test for Ordered Alternatives
-#' 
-#' A nonparametric test for ordered alternatives in a two-way layout with 
-#' one observation per cell, assessing whether a monotonic trend exists 
+#'
+#' A nonparametric test for ordered alternatives in a two-way layout with
+#' one observation per cell, assessing whether a monotonic trend exists
 #' across ordered treatment conditions in a randomized complete block design.
-#' 
+#'
 #' Performs a Page test for ordered alternatives using an exact algorithm by
 #' Stefan Wellek (1989) with unreplicated blocked data.
-#' 
+#'
 #' \code{pageTest} can be used for analyzing unreplicated complete block
 #' designs (i.e., there is exactly one observation in \code{y} for each
 #' combination of levels of \code{groups} and \code{blocks}) where the
 #' normality assumption may be violated.
-#' 
+#'
 #' The null hypothesis is that apart from an effect of \code{blocks}, the
-#' location parameter of \code{y} is the same in each of the \code{groups}.\cr
-#' The implemented alternative is, that the location parameter will be
-#' monotonly greater along the groups, \cr \eqn{H_{A}: \theta_{1} \le
-#' \theta_{2} \le \theta_{3}} ... (where at least one inequality is strict).\cr
-#' If the other direction is required, the order of the groups has to be
-#' reversed.  \cr\cr The Page test for ordered alternatives is slightly more
-#' powerful than the Friedman analysis of variance by ranks.
-#' 
-#' If \code{y} is a matrix, \code{groups} and \code{blocks} are obtained from
-#' the column and row indices, respectively.  \code{NA}'s are not allowed in
-#' \code{groups} or \code{blocks}; if \code{y} contains \code{NA}'s,
-#' corresponding blocks are removed.
-#' 
-#' For small values of k (methods) or N (data objects), \samp{pageTest} will
-#' calculate the exact p-values.  For \samp{k, N > 15, Inf}, a normal
-#' approximation is returned. Only one of these values will be returned.
-#' 
+#' location parameter of \code{y} is the same in each of the \code{groups}.
+#'
+#' The alternative hypothesis is that the location parameter increases
+#' monotonically across groups:
+#' \eqn{H_A: \theta_1 \le \theta_2 \le \theta_3 \ldots}
+#' (where at least one inequality is strict).
+#'
+#' If the decreasing direction is of interest, reverse the order of the
+#' groups before calling \code{pageTest}.
+#'
+#' The Page test for ordered alternatives is slightly more powerful than the
+#' Friedman analysis of variance by ranks.
+#'
+#' If \code{y} is a matrix, \code{groups} and \code{blocks} are obtained
+#' from the column and row indices, respectively. \code{NA}'s are not
+#' allowed in \code{groups} or \code{blocks}; if \code{y} contains
+#' \code{NA}'s, the corresponding blocks are removed.
+#'
+#' For \eqn{k \le 15} (number of groups), exact p-values are computed from
+#' the pre-tabulated null distribution of Wellek (1989). For \eqn{k > 15},
+#' a normal approximation is used.
+#'
 #' @name pageTest
 #' @aliases pageTest pageTest.default pageTest.formula
+#'
 #' @param y either a numeric vector of data values, or a data matrix.
 #' @param groups a vector giving the group for the corresponding elements of
-#' \code{y} if this is a vector; ignored if \code{y} is a matrix.  If not a
-#' factor object, it is coerced to one.
+#'   \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#'   a factor object, it is coerced to one.
 #' @param blocks a vector giving the block for the corresponding elements of
-#' \code{y} if this is a vector; ignored if \code{y} is a matrix.  If not a
-#' factor object, it is coerced to one.
-#' @param formula a formula of the form \code{a ~ b | c}, where \code{a},
-#' \code{b} and \code{c} give the data values and corresponding groups and
-#' blocks, respectively.
-#' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
-#' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
+#'   \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#'   a factor object, it is coerced to one.
+#' @param formula a formula of the form \code{y ~ groups | blocks}.
+#' @param data an optional data frame containing the variables in
+#'   \code{formula}.
+#' @param subset an optional vector specifying a subset of observations to
+#'   be used.
+#' @param na.action a function which indicates what should happen when the
+#'   data contain \code{NA}s. Defaults to \code{getOption("na.action")}.
 #' @param \dots further arguments to be passed to or from methods.
-#' @return A list with class \code{"htest"} containing the following
-#' components: \item{statistic}{the L-statistic with names attribute
-#' \dQuote{L}.} \item{p.value}{the p-value of the test.} \item{method}{the
-#' character string \code{"Page test for ordered alternatives"}.}
+#'
+#' @return A list with class \code{"htest"} containing:
+#' \item{statistic}{the L-statistic with names attribute \dQuote{L}.}
+#' \item{p.value}{the p-value of the test.}
+#' \item{parameter}{named vector with \code{k} (groups) and \code{n}
+#'   (blocks).}
+#' \item{method}{the character string \code{"Page test for ordered
+#'   alternatives"} with \code{"(exact)"} or \code{"(asymptotic)"}
+#'   appended.}
 #' \item{data.name}{a character string giving the names of the data.}
-#' 
-#' #' @note
-#' Adapted from code by Stefan Wellek to conform to package standards.
-#' 
+#'
+#' @note
+#' Exact p-values are based on pre-tabulated distributions by Stefan Wellek
+#' (1989), valid for \eqn{k = 3, \ldots, 15} groups and any number of
+#' blocks.
+#'
 #' @seealso \code{\link{friedman.test}}
-#' 
-#' @references Page, E. (1963): Ordered hypotheses for multiple treatments: A
+#'
+#' @references
+#' Page, E. (1963): Ordered hypotheses for multiple treatments: A
 #' significance test for linear ranks. \emph{Journal of the American
-#' Statistical Association}, 58, 216-230.
-#' 
-#' Siegel, S. & Castellan, N. J. Jr. (1988): \emph{Nonparametric statistics for
-#' the behavioral sciences}. Boston, MA: McGraw-Hill.
-#' 
+#' Statistical Association}, 58, 216--230.
+#'
+#' Siegel, S. & Castellan, N. J. Jr. (1988): \emph{Nonparametric statistics
+#' for the behavioral sciences}. Boston, MA: McGraw-Hill.
+#'
 #' Wellek, S. (1989): Computing exact p-values in Page's nonparametric test
 #' against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
-#' 163-170
-#' 
+#' 163--170.
+#'
 #' @examples
-#' 
-#'  # Craig's data from Siegel & Castellan, p 186
-#'  soa.mat <- matrix(c(.797,.873,.888,.923,.942,.956,
-#'   .794,.772,.908,.982,.946,.913,
-#'   .838,.801,.853,.951,.883,.837,
-#'   .815,.801,.747,.859,.887,.902), nrow=4, byrow=TRUE)
-#'  pageTest(soa.mat)
-#'  
-#' 
-#' # Duller, pg. 236 
+#'
+#' # Craig's data from Siegel & Castellan, p. 186
+#' soa.mat <- matrix(c(.797,.873,.888,.923,.942,.956,
+#'                     .794,.772,.908,.982,.946,.913,
+#'                     .838,.801,.853,.951,.883,.837,
+#'                     .815,.801,.747,.859,.887,.902),
+#'                   nrow = 4, byrow = TRUE)
+#' pageTest(soa.mat)
+#'
+#' # Duller, pg. 236
 #' pers <- matrix(c(
-#' 1, 72, 72, 71.5, 69, 70, 69.5, 68, 68, 67, 68,
-#' 2, 83, 81, 81, 82, 82.5, 81, 79, 80.5, 80, 81,
-#' 3, 95, 92, 91.5, 89, 89, 90.5, 89, 89, 88, 88,
-#' 4, 71, 72, 71, 70.5, 70, 71, 71, 70, 69.5, 69,
-#' 5, 79, 79, 78.5, 77, 77.5, 78, 77.5, 76, 76.5, 76,
-#' 6, 80, 78.5, 78, 77, 77.5, 77, 76, 76, 75.5, 75.5
-#' ), nrow=6, byrow=TRUE) 
-#' 
-#' colnames(pers) <- c("person", paste("week",1:10))
-#' 
-#' # Alternative: week10 < week9 < week8 ... 
+#'   1, 72, 72, 71.5, 69, 70, 69.5, 68, 68, 67, 68,
+#'   2, 83, 81, 81, 82, 82.5, 81, 79, 80.5, 80, 81,
+#'   3, 95, 92, 91.5, 89, 89, 90.5, 89, 89, 88, 88,
+#'   4, 71, 72, 71, 70.5, 70, 71, 71, 70, 69.5, 69,
+#'   5, 79, 79, 78.5, 77, 77.5, 78, 77.5, 76, 76.5, 76,
+#'   6, 80, 78.5, 78, 77, 77.5, 77, 76, 76, 75.5, 75.5
+#' ), nrow = 6, byrow = TRUE)
+#' colnames(pers) <- c("person", paste("week", 1:10))
+#'
+#' # Alternative: week10 < week9 < ... < week1
 #' pageTest(pers[, 11:2])
-#' 
-#' 
-#' # Sachs, pg. 464
-#' 
+#'
+#' # long format and formula interface
+#' plng <- data.frame(
+#'   expand.grid(block = 1:9, group = c("B","C","D","A")),
+#'   x = as.vector(
+#'     matrix(c(3,2,1,4, 4,2,3,1, 4,1,2,3, 4,2,3,1,
+#'              3,2,1,4, 4,1,2,3, 4,3,2,1, 3,1,2,4,
+#'              3,1,4,2),
+#'            nrow = 9, byrow = TRUE,
+#'            dimnames = list(1:9, LETTERS[1:4]))[, c("B","C","D","A")]
+#'   )
+#' )
+#' pageTest(x ~ group | block, data = plng)
+#'
+#'
+#' # Sachs, pg. 464: L = 252
 #' pers <- matrix(c(
 #'   3,2,1,4,
 #'   4,2,3,1,
@@ -116,165 +137,159 @@
 #' 
 #' # Alternative: B < C < D < A
 #' pageTest(pers[, c("B","C","D","A")])
-#' 
-#' 
-#' # long shape and formula interface
-#' plng <- data.frame(expand.grid(1:9, c("B","C","D","A")), 
-#'                    as.vector(pers[, c("B","C","D","A")]))
-#' colnames(plng) <- c("block","group","x")
-#' 
-#' pageTest(plng$x, plng$group, plng$block)
-#' 
-#' pageTest(x ~ group | block, data = plng)
-#' 
-#' 
-#' 
-#' score <- matrix(c(
-#'   3,4,6,9,
-#'   4,3,7,8,
-#'   3,4,4,6,
-#'   5,6,8,9,
-#'   4,4,9,9,
-#'   6,7,11,10
-#'   ), nrow=6, byrow=TRUE) 
-#' 
-#' pageTest(score)
-#' 
-
-
-
+#'
+#'
 #' @rdname pageTest
 #' @family test.trend
 #' @concept hypothesis-testing
 #' @concept nonparametric
-#'
-#'
+
+
 #' @export
-pageTest <- function (y, ...) UseMethod("pageTest")
+pageTest <- function(y, ...) UseMethod("pageTest")
 
 
 #' @rdname pageTest
 #' @export
-pageTest.default <- function (y, groups, blocks, ...) {
-
-  DNAME <- deparse(substitute(y))
+pageTest.default <- function(y, groups, blocks, ...) {
+  
+  DNAME <- deparse1(substitute(y))
+  
   if (is.matrix(y)) {
+    
     groups <- factor(c(col(y)))
     blocks <- factor(c(row(y)))
     
   } else {
+    
     if (any(is.na(groups)) || any(is.na(blocks)))
       stop("NA's are not allowed in 'groups' or 'blocks'")
     
     if (any(diff(c(length(y), length(groups), length(blocks))) != 0L))
       stop("'y', 'groups' and 'blocks' must have the same length")
     
-    DNAME <- paste(DNAME, ", ", deparse(substitute(groups)),
-                   " and ", deparse(substitute(blocks)), sep = "")
+    DNAME <- paste0(
+      DNAME, ", ",
+      deparse1(substitute(groups)), " and ",
+      deparse1(substitute(blocks))
+    )
     
-    if (any(table(groups, blocks) != 1))
+    if (any(table(groups, blocks) != 1L))
       stop("not an unreplicated complete block design")
     
     groups <- factor(groups)
     blocks <- factor(blocks)
-    o <- order(groups, blocks)
-    y <- y[o]
+    
+    o      <- order(groups, blocks)
+    y      <- y[o]
     groups <- groups[o]
     blocks <- blocks[o]
   }
   
   k <- nlevels(groups)
+  n <- nlevels(blocks)
+  
+  if (k < 3L)
+    stop("Page test requires at least 3 groups")
+  
+  # Reshape to n x k matrix, remove incomplete blocks
   y <- matrix(unlist(split(y, blocks)), ncol = k, byrow = TRUE)
-  y <- y[complete.cases(y), ]
+  y <- y[complete.cases(y), , drop = FALSE]
   n <- nrow(y)
   
+  if (n < 1L)
+    stop("no complete blocks after removing NA's")
   
-  rnksum <- apply(apply(y, 1, rank), 1, sum)
-  L <- sum(seq_along(rnksum) * rnksum)
-  nc <- ncol(y)
-  nr <- nrow(y)
+  # L statistic: sum of column-rank-sums weighted by group index
+  rnksum <- apply(apply(y, 1L, rank), 1L, sum)
+  L      <- sum(seq_along(rnksum) * rnksum)
   
-  if(nc < 16){
-    pval <- .pPage(k=nc, n=nr, L=L)
+  STATISTIC <- c(L = L)
+  PARAMETER <- c(k = k, n = n)
+  
+  if (k <= 15L) {
+    
+    pval   <- .pPage(k = k, n = n, L = L)
+    METHOD <- "Page test for ordered alternatives (exact)"
     
   } else {
     
-    mu <- nr * nc * (nc + 1)^2/4
-    sigma <- nr * nc^2 * (nc+1) * (nc^2-1) / 144
-    z <- (L - mu)/sqrt(sigma)
-    pval <- pnorm(z, lower.tail = FALSE)
+    mu     <- n * k * (k + 1L)^2 / 4
+    sigma2 <- n * k^2 * (k + 1L) * (k^2 - 1L) / 144
+    z      <- (L - mu) / sqrt(sigma2)
+    pval   <- pnorm(z, lower.tail = FALSE)
+    METHOD <- "Page test for ordered alternatives (asymptotic)"
     
   }
   
-  structure(list(statistic = c(L = L), p.value = pval, 
-                 method = "Page test for ordered alternatives",
-                 data.name = DNAME),
-            class = "htest")
-  
+  structure(
+    list(
+      statistic = STATISTIC,
+      parameter = PARAMETER,
+      p.value   = as.numeric(pval),
+      method    = METHOD,
+      data.name = DNAME
+    ),
+    class = "htest"
+  )
 }
+
+
 
 
 #' @rdname pageTest
 #' @export
-# pageTest.formula <- function (formula, data, subset, na.action, ...) {
-#   
-#   if (missing(formula))
-#     stop("formula missing")
-#   if ((length(formula) != 3L) || (length(formula[[3L]]) !=
-#                                   3L) || (formula[[3L]][[1L]] != as.name("|")) || (length(formula[[3L]][[2L]]) !=
-#                                                                                    1L) || (length(formula[[3L]][[3L]]) != 1L))
-#     stop("incorrect specification for 'formula'")
-#   formula[[3L]][[1L]] <- as.name("+")
-#   m <- match.call(expand.dots = FALSE)
-#   m$formula <- formula
-#   if (is.matrix(eval(m$data, parent.frame())))
-#     m$data <- as.data.frame(data)
-#   m[[1L]] <- as.name("model.frame")
-#   mf <- eval(m, parent.frame())
-#   DNAME <- paste(names(mf), collapse = " and ")
-#   names(mf) <- NULL
-#   y <- do.call("pageTest", as.list(mf))
-#   y$data.name <- DNAME
-#   y
-#   
-# }
-
-
-
-pageTest.formula <- local({
+pageTest.formula <- function(formula,
+                             data,
+                             subset,
+                             na.action = na.pass,
+                             ...) {
   
-  # super elegant formula implementation
-  # in fact we need nothing other, than is already implemented in
-  # t.test.formula, besides the last call of zTest() instead of t.test()
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
   
-  tf <- getS3method("friedman.test", "formula")
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "n.sample.dependent"
+  )
   
-  new_body <- .replace_text_calls(body(tf), old="friedman.test", new="pageTest")
+  if (!missing(data))
+    args$data <- data
   
-  new_fun <- tf
-  body(new_fun) <- new_body
+  if (!missing(subset))
+    args$subset <- substitute(subset)
   
-  new_fun
+  d <- do.call(bedrock::resolveFormula, args)
   
-})
+  res <- pageTest.default(
+    y      = d$response,
+    groups = d$group,
+    blocks = d$block,
+    ...
+  )
+  
+  res$data.name <- d$data.name
+  res
+}
 
 
 
 # == internal helper functions ==============================================
 
 
-.pPage <- function(k, n, L){
+# Internal: exact p-value via Wellek (1989) convolution
+.pPage <- function(k, n, L) {
   
-  qvec <- .PageDF[k][[1]]
+  qvec <- .PageDF[[k]]
+  
   f1 <- qvec
-  
-  for (i in 1:(n-1)) {
-    erg <- convolve(f1, qvec, conj = TRUE, type = "open")
-    f1 <- erg
+  for (i in seq_len(n - 1L)) {
+    f1 <- convolve(f1, qvec, conj = TRUE, type = "open")
   }
-  p <- cumsum(erg)[n * k * (k+1) * (2*k+1)/6 + 1 - L]
-  return(p)
   
+  idx <- n * k * (k + 1L) * (2L * k + 1L) / 6L + 1L - L
+  cumsum(f1)[idx]
 }
 
 

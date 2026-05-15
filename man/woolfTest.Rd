@@ -57,7 +57,7 @@ Other test.contingency:
 \code{\link[=barnardTest]{barnardTest()}},
 \code{\link[=breslowDayTest]{breslowDayTest()}},
 \code{\link[=gTest]{gTest()}},
-\code{\link[=mhChisqTest]{mhChisqTest()}}
+\code{\link[=mantelTrendTest]{mantelTrendTest()}}
 }
 \author{
 David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
