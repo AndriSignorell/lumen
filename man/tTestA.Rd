@@ -118,7 +118,6 @@ t.test(x, y, paired = TRUE)
 \code{\link{t.test}}
 
 Other test.location:
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=zTest]{zTest()}}
 }

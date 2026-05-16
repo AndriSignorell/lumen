@@ -105,22 +105,38 @@ zTest <- function (x, ...)
 
 #' @rdname zTest
 #' @export
-zTest.formula <- local({
-
-  # super elegant formula implementation
-  # in fact we need nothing other, than is already implemented in
-  # t.test.formula, besides the last call of zTest() instead of t.test()
-
-  tf <- getS3method("t.test", "formula")
-
-  new_body <- .replace_text_calls(body(tf), old="t.test", new="zTest")
-
-  new_fun <- tf
-  body(new_fun) <- new_body
-
-  new_fun
-
-})
+zTest.formula <- function(formula,
+                             data,
+                             subset,
+                             na.action = na.pass,
+                             ...) {
+  
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
+  
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "two.sample.independent"
+  )
+  
+  if (!missing(data))
+    args$data <- data
+  
+  if (!missing(subset))
+    args$subset <- substitute(subset)
+  
+  d <- do.call(bedrock::resolveFormula, args)
+  
+  res <- zTest.default(
+    x = d$x,
+    y = d$y,
+    ...
+  )
+  
+  res$data.name <- d$data.name
+  res
+}
 
 
 

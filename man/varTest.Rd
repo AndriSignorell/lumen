@@ -17,7 +17,7 @@ varTest(x, ...)
   ...
 )
 
-\method{varTest}{formula}(formula, data, subset, na.action, ...)
+\method{varTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 }
 \arguments{
 \item{x}{A numeric vector of data values, or a formula.}

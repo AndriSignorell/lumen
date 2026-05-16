@@ -116,7 +116,6 @@ Wiley, New York.
 in the package \pkg{BSDA} (reporting approximative confidence intervals).
 
 Other test.location:
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=tTestA]{tTestA()}},
 \code{\link[=zTest]{zTest()}}
 }

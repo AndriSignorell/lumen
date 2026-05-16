@@ -227,23 +227,43 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
 
 #' @rdname varTest
 #' @export
-varTest.formula <- local({
+varTest.formula <- function(formula,
+                          data,
+                          subset,
+                          na.action = na.pass,
+                          ...) {
   
-  # super elegant formula implementation
-  # in fact we need nothing other, than is already implemented in
-  # x.test.formula, besides the last call of xTest() instead of x.test()
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
   
-  tf <- getS3method("var.test", "formula")
+  args <- list(
+    formula   = formula,
+    na.action = na.action,
+    allowed   = "two.sample.independent"
+  )
   
-  new_body <- .replace_text_calls(body(tf), old="var.test", new="varTest")
+  if (!missing(data))
+    args$data <- data
   
-  new_fun <- tf
-  body(new_fun) <- new_body
+  if (!missing(subset))
+    args$subset <- substitute(subset)
   
-  new_fun
+  d <- do.call(bedrock::resolveFormula, args)
   
-})
-
+  if (nlevels(d$group) != 2L)
+    stop("grouping factor must have exactly 2 levels")
+  
+  groups <- split(d$x, d$group)
+  
+  res <- varTest.default(
+    x = groups[[1L]],
+    y = groups[[2L]],
+    ...
+  )
+  
+  res$data.name <- d$data.name
+  res
+}
 
 
 

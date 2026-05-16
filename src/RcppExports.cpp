@@ -206,6 +206,56 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// mad_boot_cpp
+NumericVector mad_boot_cpp(NumericVector x, int R, double alpha, double constant, int seed, String method);
+RcppExport SEXP _lumen_mad_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP constantSEXP, SEXP seedSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type constant(constantSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(mad_boot_cpp(x, R, alpha, constant, seed, method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mad_diff_boot_cpp
+NumericVector mad_diff_boot_cpp(NumericVector x, NumericVector y, int R, double alpha, double constant, int seed, String method);
+RcppExport SEXP _lumen_mad_diff_boot_cpp(SEXP xSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP constantSEXP, SEXP seedSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type constant(constantSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(mad_diff_boot_cpp(x, y, R, alpha, constant, seed, method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mad_ratio_boot_cpp
+NumericVector mad_ratio_boot_cpp(NumericVector x, NumericVector y, int R, double alpha, double constant, int seed, String method);
+RcppExport SEXP _lumen_mad_ratio_boot_cpp(SEXP xSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP constantSEXP, SEXP seedSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type constant(constantSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(mad_ratio_boot_cpp(x, y, R, alpha, constant, seed, method));
+    return rcpp_result_gen;
+END_RCPP
+}
 // median_boot_cpp
 NumericVector median_boot_cpp(NumericVector x, int R, double alpha, int seed, String method);
 RcppExport SEXP _lumen_median_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP, SEXP methodSEXP) {
@@ -295,6 +345,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
     {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 1},
+    {"_lumen_mad_boot_cpp", (DL_FUNC) &_lumen_mad_boot_cpp, 6},
+    {"_lumen_mad_diff_boot_cpp", (DL_FUNC) &_lumen_mad_diff_boot_cpp, 7},
+    {"_lumen_mad_ratio_boot_cpp", (DL_FUNC) &_lumen_mad_ratio_boot_cpp, 7},
     {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 5},
     {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},

@@ -127,7 +127,6 @@ vieweg
 \code{\link{t.test}}, \code{\link{print.htest}}
 
 Other test.location:
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}}
 }

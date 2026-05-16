@@ -61,6 +61,18 @@ jtpdf_cpp <- function(gsize) {
     .Call(`_lumen_jtpdf_cpp`, gsize)
 }
 
+mad_boot_cpp <- function(x, R = 1000L, alpha = 0.05, constant = 1.4826, seed = -1L, method = "perc") {
+    .Call(`_lumen_mad_boot_cpp`, x, R, alpha, constant, seed, method)
+}
+
+mad_diff_boot_cpp <- function(x, y, R = 1000L, alpha = 0.05, constant = 1.4826, seed = -1L, method = "perc") {
+    .Call(`_lumen_mad_diff_boot_cpp`, x, y, R, alpha, constant, seed, method)
+}
+
+mad_ratio_boot_cpp <- function(x, y, R = 1000L, alpha = 0.05, constant = 1.4826, seed = -1L, method = "perc") {
+    .Call(`_lumen_mad_ratio_boot_cpp`, x, y, R, alpha, constant, seed, method)
+}
+
 median_boot_cpp <- function(x, R = 1000L, alpha = 0.05, seed = -1L, method = "perc") {
     .Call(`_lumen_median_boot_cpp`, x, R, alpha, seed, method)
 }
