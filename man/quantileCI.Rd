@@ -39,9 +39,16 @@ nearby endpoint.)}
 \code{\link[boot]{boot.ci}} for details.}
 }
 \value{
-if probs was of length 1 a numeric vector with 3 elements:
-\item{est}{estimator} \item{lci}{lower bound of the confidence interval}
-\item{uci}{upper bound of the confidence interval}
+If \code{length(probs) == 1}:
+named numeric vector with:
+\itemize{
+\item \code{est}: estimated quantile
+\item \code{lci}: lower confidence limit
+\item \code{uci}: upper confidence limit
+}
+
+Otherwise:
+matrix with columns \code{est}, \code{lci}, \code{uci}.
 
 or, if probs was a vector, a matrix with 3 columns consisting of estimate,
 lower ci, upper ci \code{est, lci, uci}

@@ -125,7 +125,7 @@ leveneTest.formula <- function(formula, data, subset,
   res <- resolveFormula(formula, data,
                         subset    = subset_expr,
                         na.action = na.action,
-                        allowed   = "n.sample.independent")
+                        allowed   = "n-sample-independent")
   
   leveneTest.default(x      = res$x,
                      g      = res$group,

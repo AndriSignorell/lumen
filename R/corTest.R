@@ -1,102 +1,146 @@
 
-#' Fast correlation test for a matrix
+#' Fast Correlation Test for a Matrix
 #'
-#' A test for significant correlation between two variables, supporting 
-#' Pearson, Spearman, and Kendall correlation coefficients.
-#' 
-#' Computes Pearson correlations, pairwise sample sizes, and p-values for all
-#' variable pairs in a numeric matrix. The p-values are computed directly from
-#' the correlation coefficients using the exact Beta distribution under the
-#' null hypothesis of zero correlation.
+#' Compute correlation coefficients, p-values, and pairwise sample sizes
+#' for all variable pairs in a numeric matrix.
 #'
-#' Compared to repeatedly calling `stats::cor.test()`, this implementation is
-#' fully vectorised and substantially faster for matrices with many variables.
+#' Pearson, Spearman, and Kendall correlations are supported via the
+#' \code{method} argument passed to \code{\link{cor}}.
+#'
+#' Compared to repeatedly calling \code{\link[stats]{cor.test}},
+#' this implementation is fully vectorised and substantially faster
+#' for matrices with many variables.
 #'
 #' Missing values are handled using pairwise complete observations.
 #'
-#' @param X Numeric matrix or data.frame.
-#' @param use Character string passed to `stats::cor()`. Default is
-#'   `"pairwise.complete.obs"`.
-#' @param triangle Which part of the matrix should be returned:
-#'   `"full"` (default), `"upper"`, or `"lower"`.
-#' @param sig.level Optional significance threshold. If supplied,
-#'   correlations with p-values larger than `sig.level` are replaced with `NA`.
+#' @param x Numeric matrix or data.frame.
+#' @param method Character string specifying the correlation method.
+#'   Passed to \code{\link{cor}}.
 #'
-#' @return A list with three matrices:
+#'   One of:
+#'
+#'   \describe{
+#'     \item{\code{\"pearson\"}}{Pearson product-moment correlation}
+#'     \item{\code{\"spearman\"}}{Spearman rank correlation}
+#'     \item{\code{\"kendall\"}}{Kendall rank correlation}
+#'   }
+#'
+#'   Default is \code{\"pearson\"}.
+#'
+#' @param use Character string passed to \code{\link{cor}}.
+#'   Default is \code{\"pairwise.complete.obs\"}.
+#'
+#' @param triangle Character string specifying which part of the
+#'   matrices should be returned.
+#'
+#'   One of:
+#'
+#'   \describe{
+#'     \item{\code{\"full\"}}{Return the complete matrices}
+#'     \item{\code{\"upper\"}}{Return only the upper triangle}
+#'     \item{\code{\"lower\"}}{Return only the lower triangle}
+#'   }
+#'
+#'   Default is \code{\"full\"}.
+#'
+#' @param maxPValue Optional upper limit for displayed p-values.
+#'   Correlations with p-values larger than \code{maxPValue}
+#'   are replaced with \code{NA}.
+#'
+#' @return
+#' A list with three matrices:
+#'
 #' \describe{
 #'   \item{cor}{Correlation matrix}
-#'   \item{p}{Matrix of p-values}
+#'   \item{pValue}{Matrix of p-values}
 #'   \item{n}{Matrix of pairwise sample sizes}
 #' }
 #'
 #' @details
-#' For a Pearson correlation coefficient \(r\) with sample size \(n\),
-#' the two-sided p-value under the null hypothesis rho = 0 can be computed as
+#' For a Pearson correlation coefficient \eqn{r}
+#' with sample size \eqn{n},
+#' the two-sided p-value under the null hypothesis
+#' \eqn{\rho = 0} can be computed as:
 #'
-#' \deqn{p = 2 * F[Beta]((1 - |r|)/2, 1/2, (n-2)/2)}
+#' \deqn{
+#' p = 2 * F_{Beta}((1 - |r|)/2, 1/2, (n-2)/2)
+#' }
 #'
-#' where F[Beta] is the Beta distribution CDF.
-#' 
+#' where \eqn{F_{Beta}} is the Beta distribution CDF.
+#'
 #' This formulation avoids explicitly computing the t-statistic and is
 #' numerically stable for correlations close to ±1.
 #'
 #' @examples
 #' X <- matrix(rnorm(200), 50, 4)
+#'
 #' res <- corTest(X)
 #'
-#' # Only significant correlations in the upper triangle
-#' res2 <- corTest(X, triangle = "upper", sig.level = 0.05)
+#' # only significant correlations in the upper triangle
+#' res2 <- corTest(
+#'   X,
+#'   triangle = "upper",
+#'   maxPValue = 0.05
+#' )
 #'
 #' @family test.correlation
 #' @concept hypothesis-testing
 #' @concept correlation
 #' @concept descriptive-statistics
 #'
-#'
 #' @export
-corTest <- function(X,
-                          use = "pairwise.complete.obs",
-                          triangle = c("full", "upper", "lower"),
-                          sig.level = NULL) {
+corTest <- function(
+    x,
+    method = c("pearson", "spearman", "kendall"),
+    use = "pairwise.complete.obs",
+    triangle = c("full", "upper", "lower"),
+    maxPValue = NULL
+) {
   
-
-  # approach for tri matrix only in oneliner:
+  # approach for triangle matrix only in one line:
   #
   # naIf(m * (row(m) <= col(m)), 0)
   # {m[lower.tri(m)] <- NA; m}
   
-  
+  method   <- match.arg(method)
   triangle <- match.arg(triangle)
   
-  X <- as.matrix(X)
+  x <- as.matrix(x)
   
-  R <- cor(X, use = use)
+  R <- cor(x, method = method, use = use)
   
-  n <- crossprod(!is.na(X))
+  n <- crossprod(!is.na(x))
   
-  P <- 2 * pbeta((1 - abs(R)) / 2, 0.5, (n - 2) / 2)
+  P <- 2 * pbeta(
+    (1 - abs(R)) / 2,
+    0.5,
+    (n - 2) / 2
+  )
   
   diag(P) <- NA
   
-  if (!is.null(sig.level)) {
-    R[P > sig.level] <- NA
+  if (!is.null(maxPValue)) {
+    R[P > maxPValue] <- NA
   }
   
   if (triangle == "upper") {
+    
     R[lower.tri(R)] <- NA
     P[lower.tri(P)] <- NA
     n[lower.tri(n)] <- NA
   }
   
   if (triangle == "lower") {
+    
     R[upper.tri(R)] <- NA
     P[upper.tri(P)] <- NA
     n[upper.tri(n)] <- NA
   }
   
   list(
-    cor = R,
-    p = P,
-    n = n
+    cor    = R,
+    pValue = P,
+    n      = n
   )
 }
+

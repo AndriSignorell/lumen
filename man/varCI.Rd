@@ -2,7 +2,7 @@
 % Please edit documentation in R/varCI.R
 \name{varCI}
 \alias{varCI}
-\title{Confidence Intervals for the Variance}
+\title{Confidence Interval for a Variance}
 \usage{
 varCI(
   x,
@@ -34,15 +34,16 @@ the ... arguments.  See \code{\link[boot]{boot.ci}}.}
 the boot function.}
 }
 \value{
-a numeric vector with 3 elements: \item{est}{variance}
-\item{lci}{lower bound of the confidence interval} \item{uci}{upper bound of
-the confidence interval}
+Named numeric vector with:
+\itemize{
+\item \code{var}: sample variance
+\item \code{lci}: lower confidence limit
+\item \code{uci}: upper confidence limit
+}
 }
 \description{
-Calculates confidence intervals for the variance. Available approachs are
-the classical one using the ChiSquare distribution, a more robust version
-proposed by Bonett and the bootstrap options available in the package
-\code{boot}.
+Computes confidence intervals for a population variance using
+classical chi-square, Bonett, or bootstrap methods.
 }
 \details{
 The confidence interval for the variance is very sensitive to non-normality

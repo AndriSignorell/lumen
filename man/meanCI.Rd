@@ -52,9 +52,12 @@ defaults, being \code{"basic"} for \code{type}, option
 \code{parallel} and \code{999} for \code{R}.}
 }
 \value{
-a numeric vector with 3 elements: \item{est}{estimator, say the calculated mean}
-\item{lci}{lower bound of the confidence interval} \item{uci}{upper
-bound of the confidence interval}
+Named numeric vector with:
+\itemize{
+\item \code{est}: estimated mean
+\item \code{lci}: lower confidence limit
+\item \code{uci}: upper confidence limit
+}
 }
 \description{
 Collection of several approaches to determine confidence intervals for the

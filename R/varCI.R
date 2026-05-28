@@ -1,10 +1,8 @@
 
-#' Confidence Intervals for the Variance
-#' 
-#' Calculates confidence intervals for the variance. Available approachs are
-#' the classical one using the ChiSquare distribution, a more robust version
-#' proposed by Bonett and the bootstrap options available in the package
-#' \code{boot}.
+#' Confidence Interval for a Variance
+#'
+#' Computes confidence intervals for a population variance using
+#' classical chi-square, Bonett, or bootstrap methods.
 #' 
 #' The confidence interval for the variance is very sensitive to non-normality
 #' in the data. Bonett (2006) has proposed an interval that is nearly exact
@@ -24,9 +22,13 @@
 #' @param na.rm logical. Should missing values be removed? Defaults to FALSE.
 #' @param \dots further arguments, can be used to provide further arguments to
 #' the boot function.
-#' @return a numeric vector with 3 elements: \item{est}{variance}
-#' \item{lci}{lower bound of the confidence interval} \item{uci}{upper bound of
-#' the confidence interval}
+#' 
+#' @return Named numeric vector with:
+#' \itemize{
+#'   \item \code{var}: sample variance
+#'   \item \code{lci}: lower confidence limit
+#'   \item \code{uci}: upper confidence limit
+#' }
 #' @seealso \code{\link{meanCI}}, \code{\link{medianCI}},
 #' \code{\link{varTest}}, \code{\link[DescToolsX]{varX}} 
 #' 
@@ -77,67 +79,123 @@
 #' @concept descriptive-statistics
 #'
 #'
+
 #' @export
-varCI <- function (x, 
-                   conf.level = 0.95, sides = c("two.sided","left","right"), 
-                   method = c("classic", "bonett", "boot"), 
-                   na.rm = FALSE, ...) {
+varCI <- function(x,
+                  conf.level = 0.95,
+                  sides = c("two.sided", "left", "right"),
+                  method = c("classic", "bonett", "boot"),
+                  na.rm = FALSE,
+                  ...) {
   
-  if (na.rm) x <- na.omit(x)
-  method <- match.arg(method, c("classic","bonett", "boot"))
+  if (na.rm)
+    x <- na.omit(x)
   
-  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-  if(sides!="two.sided")
-    conf.level <- 1 - 2*(1-conf.level)
+  if (!is.numeric(x))
+    stop("'x' must be numeric")
   
-  if(method == "classic"){
-    df <- length(x) - 1
-    v <- var(x)
-    res <- c (var = v, 
-              lci = df * v/qchisq((1 - conf.level)/2, 
-                                                  df, lower.tail = FALSE), 
-              uci = df * v/qchisq((1 - conf.level)/2, df) )
+  if (length(x) < 2)
+    stop("Need at least two observations")
+  
+  method <- match.arg(method)
+  sides  <- match.arg(sides)
+  
+  if (sides != "two.sided")
+    conf.level <- 1 - 2 * (1 - conf.level)
+  
+  res <- switch(method,
+    classic = .varCI.classic(x, conf.level = conf.level),
+    bonett  = .varCI.bonett(x, conf.level = conf.level),
+    boot    = .varCI.boot(x, conf.level = conf.level, ...)
+  )
+  
+  if (sides == "left") {
+    res["uci"] <- Inf
+  } else if (sides == "right") {
+    res["lci"] <- 0
+  }
+  
+  res
+}
+
+
+# == internal helper functions ===============================================
+
+.varCI.classic <- function(x, conf.level) {
+  
+  df <- length(x) - 1
+  v  <- var(x)
+  
+  c(var = v,
+    lci = df * v / qchisq( (1 - conf.level) / 2, df, lower.tail = FALSE),
+    uci = df * v / qchisq((1 - conf.level) / 2, df)
+  )
+}
+
+
+.varCI.bonett <- function(x, conf.level) {
+  
+  n <- length(x)
+  
+  if (n <= 4)
+    stop("Bonett method requires n > 4")
+  
+  z <- qnorm(1 - (1 - conf.level) / 2)
+  
+  cc <- n / (n - z)
+  
+  v   <- var(x)
+  mtr <- mean(x, trim = 1 / (2 * sqrt(n - 4)))
+  m   <- mean(x)
+  
+  gam4 <- n * sum((x - mtr)^4) / (sum((x - m)^2))^2
+  
+  se <- cc * sqrt((gam4 - (n - 3) / n) / (n - 1))
+  
+  lci <- exp(log(cc * v) - z * se)
+  uci <- exp(log(cc * v) + z * se)
+  
+  c(var = v,
+    lci = lci,
+    uci = uci
+  )
+}
+
+
+
+.varCI.boot <- function(x, conf.level, ...) {
+  
+  args <- .extractBootArgs(list(...))
+  
+  boot.fun <- boot::boot(
+    x,
+    statistic = function(x, d)
+      var(x[d]),
+    R        = args$R,
+    parallel = args$parallel,
+    ncpus    = args$ncpus
+  )
+  
+  ci <- boot::boot.ci(
+    boot.fun,
+    conf = conf.level,
+    type = args$type
+  )
+  
+  if (args$type == "norm") {
     
-  } else if(method=="bonett") {
-    
-    z <- qnorm(1-(1-conf.level)/2)
-    n <- length(x)
-    cc <- n/(n-z)
-    v <- var(x)
-    mtr <- mean(x, trim = 1/(2*(n-4)^0.5))
-    m <- mean(x)
-    gam4 <- n * sum((x-mtr)^4) / (sum((x-m)^2))^2
-    se <- cc * sqrt((gam4 - (n-3)/n)/(n-1))
-    lci <- exp(log(cc * v) - z*se)
-    uci <- exp(log(cc * v) + z*se)
-    
-    res <- c(var=v, lci=lci, uci=uci)
+    c(
+      var = boot.fun$t0,
+      lci = ci[[4]][2],
+      uci = ci[[4]][3]
+    )
     
   } else {
     
-    # boot arguments in dots ...
-    btype <- inDots(..., arg="type", default="bca")
-    R <- inDots(..., arg="R", default=999)
-    parallel <- inDots(..., arg="parallel", default="no")
-    ncpus <- inDots(..., arg="ncpus", default=getOption("boot.ncpus", 1L))
-    
-    boot.fun <- boot::boot(x, function(x, d) var(x[d], na.rm=na.rm), 
-                           R=R, parallel=parallel, ncpus=ncpus)
-    ci <- boot::boot.ci(boot.fun, conf=conf.level, type=btype)
-    
-    if(btype == "norm"){
-      res <- c(var=boot.fun$t0, lci=ci[[4]][2], uci=ci[[4]][3])
-    } else {
-      res <- c(var=boot.fun$t0, lci=ci[[4]][4], uci=ci[[4]][5])
-    }
+    c(
+      var = boot.fun$t0,
+      lci = ci[[4]][4],
+      uci = ci[[4]][5]
+    )
   }
-  
-  if(sides=="left")
-    res[3] <- Inf
-  else if(sides=="right")
-    res[2] <- 0
-  
-  return(res)
-  
 }
-

@@ -163,43 +163,46 @@ medianCI <- function(x,
 
 
 
-
-.medianCI.boot <- function(x, conf.level=0.95, sides = c("two.sided", "left", "right"), 
-                          na.rm=FALSE, ...){
+.medianCI.boot <- function(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
+                           na.rm = FALSE, ...) {
   
-  if(sides!="two.sided")
-    conf.level <- 1 - 2*(1-conf.level)
+  sides <- match.arg(sides)
   
-  R <- inDots(..., arg="R", default=999)
-  boot.med <- boot::boot(x, function(x, d) {
-    median(x[d], na.rm=na.rm)
-    # standard error for the median required for studentized bci type:
-    # not implemented here, as not suitable for this case.
-    # sqrt(pi/2) * MeanSE(x[d])
-    # mad(x[d], na.rm=na.rm) / sqrt(length(na.omit(x[d])))
-    
-  }, R=R)
+  if (sides != "two.sided")
+    conf.level <- 1 - 2 * (1 - conf.level)
   
   dots <- list(...)
-  if(is.null(dots[["type"]]))
-    dots$type <- "perc"
+  boot_args <- .extractBootArgs(dots)
   
-  if(!(dots$type %in% c("norm","basic","perc","bca"))){
-    warning(gettextf("bootstrap type '%s' is not supported", dots$type))
-    return( c(NA, NA))
+  if (!(boot_args$type %in% c("norm", "basic", "perc", "bca"))) {
+    warning(gettextf("bootstrap type '%s' is not supported", boot_args$type))
+    return(c(NA, NA))
   }
   
-  dots$boot.out <- boot.med
-  dots$conf <- conf.level
+  boot.med <- boot::boot(
+    x,
+    statistic = function(x, d) median(x[d], na.rm = na.rm),
+    # note: studentized CI (type = "stud") is intentionally unsupported —
+    # it requires a variance estimate per bootstrap replicate, which is not
+    # well-defined for the median. Candidates evaluated and rejected:
+    #   sqrt(pi/2) * MeanSE(x[d])
+    #   mad(x[d], na.rm=na.rm) / sqrt(length(na.omit(x[d])))
+    R        = boot_args$R,
+    parallel = boot_args$parallel,
+    ncpus    = boot_args$ncpus
+  )
   
-  res <- do.call(boot::boot.ci, dots)
+  res <- boot::boot.ci(
+    boot.out = boot.med,
+    conf     = conf.level,
+    type     = boot_args$type
+  )
   
-  if(dots$type == "norm")
-    # uses different structure for results
-    res <- res[[4]][c(2,3)]
+  if (boot_args$type == "norm")
+    res <- res[[4]][c(2, 3)]
   else
-    res <- res[[4]][c(4,5)]
+    res <- res[[4]][c(4, 5)]
   
   return(res)
+  
 }
-

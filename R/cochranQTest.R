@@ -211,7 +211,7 @@ cochranQTest.formula <- function(formula,
   args <- list(
     formula   = formula,
     na.action = na.action,
-    allowed   = "n.sample.dependent"
+    allowed   = "n-sample-dependent"
   )
   
   if (!missing(data))

@@ -9,31 +9,31 @@
 #' expected observations (under the hypothesis) in class \eqn{i}. The classes
 #' are build is such a way that they are equiprobable under the hypothesis of
 #' normality. The p-value is computed from a chi-square distribution with
-#' \code{n.classes}-3 degrees of freedom if \code{adjust} is \code{TRUE} and
-#' from a chi-square distribution with \code{n.classes}-1 degrees of freedom
+#' \code{nClasses}-3 degrees of freedom if \code{adjust} is \code{TRUE} and
+#' from a chi-square distribution with \code{nClasses}-1 degrees of freedom
 #' otherwise. In both cases this is not (!) the correct p-value, lying
 #' somewhere between the two, see also Moore (1986).
 #' 
 #' @param x a numeric vector of data values. Missing values are allowed.
-#' @param n.classes The number of classes. The default is due to Moore (1986).
+#' @param nClasses The number of classes. The default is due to Moore (1986).
 #' @param adjust logical; if \code{TRUE} (default), the p-value is computed
-#' from a chi-square distribution with \code{n.classes}-3 degrees of freedom,
-#' otherwise from a chi-square distribution with \code{n.classes}-1 degrees of
+#' from a chi-square distribution with \code{nClasses}-3 degrees of freedom,
+#' otherwise from a chi-square distribution with \code{nClasses}-1 degrees of
 #' freedom.
 #' @return A list with class \dQuote{htest} containing the following
 #' components: \item{statistic}{the value of the Pearson chi-square statistic.}
 #' \item{p.value }{the p-value for the test.} \item{method}{the character
 #' string \dQuote{Pearson chi-square normality test}.} \item{data.name}{a
-#' character string giving the name(s) of the data.} \item{n.classes}{the
+#' character string giving the name(s) of the data.} \item{nClasses}{the
 #' number of classes used for the test.} \item{df}{the degress of freedom of
 #' the chi-square distribution used to compute the p-value.}
 #' @note The Pearson chi-square test is usually not recommended for testing the
 #' composite hypothesis of normality due to its inferior power properties
 #' compared to other tests. It is common practice to compute the p-value from
-#' the chi-square distribution with \code{n.classes} - 3 degrees of freedom, in
+#' the chi-square distribution with \code{nClasses} - 3 degrees of freedom, in
 #' order to adjust for the additional estimation of two parameters. (For the
 #' simple hypothesis of normality (mean and variance known) the test statistic
-#' is asymptotically chi-square distributed with \code{n.classes} - 1 degrees
+#' is asymptotically chi-square distributed with \code{nClasses} - 1 degrees
 #' of freedom.) This is, however, not correct as long as the parameters are
 #' estimated by \code{mean(x)} and \code{var(x)} (or \code{sd(x)}), as it is
 #' usually done, see Moore (1986) for details. Since the true p-value is
@@ -73,7 +73,7 @@
 #'
 #'
 #' @export
-pearsonTest <- function (x, n.classes = ceiling(2 * (n^(2/5))), 
+pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))), 
                          adjust = TRUE) {
   
     DNAME <- deparse(substitute(x))
@@ -85,17 +85,17 @@ pearsonTest <- function (x, n.classes = ceiling(2 * (n^(2/5))),
     else {
         dfd <- 0
     }
-    num <- floor(1 + n.classes * pnorm(x, mean(x), sd(x)))
-    count <- tabulate(num, n.classes)
-    prob <- rep(1/n.classes, n.classes)
+    num <- floor(1 + nClasses * pnorm(x, mean(x), sd(x)))
+    count <- tabulate(num, nClasses)
+    prob <- rep(1/nClasses, nClasses)
     xpec <- n * prob
     h <- ((count - xpec)^2)/xpec
     P <- sum(h)
-    pvalue <- pchisq(P, n.classes - dfd - 1, lower.tail = FALSE)
+    pvalue <- pchisq(P, nClasses - dfd - 1, lower.tail = FALSE)
     RVAL <- list(statistic = c(P = P), p.value = pvalue, 
                  method = "Pearson chi-square normality test", 
-        data.name = DNAME, n.classes = n.classes, 
-        df = n.classes - 1 - dfd)
+        data.name = DNAME, nClasses = nClasses, 
+        df = nClasses - 1 - dfd)
     
     class(RVAL) <- "htest"
     return(RVAL)

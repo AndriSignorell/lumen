@@ -170,7 +170,7 @@ siegelTukeyTest.formula <- function(formula, data, subset,
   args <- list(
     formula   = formula,
     na.action = na.action,
-    allowed   = "two.sample.independent"
+    allowed   = "two-sample-independent"
   )
   
   if (!missing(data))

@@ -2,88 +2,59 @@
 % Please edit documentation in R/jarqueBeraTest.R
 \name{jarqueBeraTest}
 \alias{jarqueBeraTest}
-\title{(Robust) Jarque Bera Test}
+\title{(Robust) Jarque-Bera Test}
 \usage{
 jarqueBeraTest(
   x,
   robust = TRUE,
   method = c("chisq", "mc"),
-  N = 0,
+  R = 1000,
   na.rm = FALSE
 )
 }
 \arguments{
-\item{x}{a numeric vector of data values.}
+\item{x}{A numeric vector of observations.}
 
-\item{robust}{defines, whether the robust version should be used.  Default
-is \code{TRUE}.}
+\item{robust}{Logical. Should the robust version be used?}
 
-\item{method}{a character string out of \code{chisq} or \code{mc},
-specifying how the critical values should be obtained. Default is
-approximated by the chisq-distribution or empirically via Monte Carlo.}
+\item{method}{Character string specifying how p-values are obtained:
+\code{"chisq"} (asymptotic chi-square approximation) or
+\code{"mc"} (Monte Carlo simulation).}
 
-\item{N}{number of Monte Carlo simulations for the empirical critical values}
+\item{R}{Number of Monte Carlo simulations.}
 
-\item{na.rm}{defines if \code{NAs} should be omitted. Default is
-\code{FALSE}.}
+\item{na.rm}{Logical. Should missing values be removed?}
 }
 \value{
-A list with class \code{htest} containing the following components:
-\item{statistic}{the value of the test statistic.} \item{parameter}{the
-degrees of freedom.} \item{p.value}{the p-value of the test.}
-\item{method}{type of test was performed.} \item{data.name}{a character
-string giving the name of the data.}
+An object of class \code{"htest"}.
 }
 \description{
-A goodness-of-fit test for normality based on the sample skewness and excess
-kurtosis, commonly used in econometrics for testing regression residuals.
-#'
-This function performs the Jarque-Bera tests of normality either the robust
-or the classical way.
+A goodness-of-fit test for normality based on sample skewness and kurtosis.
 }
 \details{
-The test is based on a joint statistic using skewness and kurtosis
-coefficients. The robust Jarque-Bera (RJB) version of utilizes the robust
-standard deviation (namely the mean absolute deviation from the median, as
-provided e. g. by \code{\link[DescToolsX]{meanAD}(x, FUN=median)}) to estimate sample
-kurtosis and skewness. For more details see Gel and Gastwirth (2006). \cr
-Setting \code{robust} to \code{FALSE} will perform the original Jarque-Bera
-test (see Jarque, C. and Bera, A (1980)).
+This function performs either the classical Jarque-Bera test or the robust
+Jarque-Bera test proposed by Gel and Gastwirth (2008).
+
+The robust version replaces the classical standard deviation by the mean
+absolute deviation from the median.
 }
 \note{
-This function is melted from the \code{jarque.bera.test} (in
-\code{tseries} package) and the \code{rjb.test} from the package
-\code{lawstat}.
-
-Adapted from code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
-to conform to package standards.
-}
-\examples{
-
-x <- rnorm(100)    # null hypothesis
-jarqueBeraTest(x)
-
-x <- runif(100)    # alternative hypothesis
-jarqueBeraTest(x, robust=TRUE)
-
+Based on the implementation of \code{rjb.test} from the
+\pkg{lawstat} package by W. Wallace Hui, Yulia R. Gel,
+Joseph L. Gastwirth, and Weiwen Miao.
+The code was refactored and adapted to conform to package standards.
 }
 \references{
-Gastwirth, J. L.(1982) \emph{Statistical Properties of A Measure
-of Tax Assessment Uniformity}, Journal of Statistical Planning and Inference
-6, 1-12.\cr
+Gel, Y. R. and Gastwirth, J. L. (2008).
+\emph{A robust modification of the Jarque-Bera test of normality}.
+Economics Letters 99, 30-32.
 
-Gel, Y. R. and Gastwirth, J. L. (2008) \emph{A robust modification of the
-Jarque-Bera test of normality}, Economics Letters 99, 30-32.\cr
-
-Jarque, C. and Bera, A. (1980) \emph{Efficient tests for normality,
-homoscedasticity and serial independence of regression residuals}, Economics
-Letters 6, 255-259.
+Jarque, C. and Bera, A. (1980).
+\emph{Efficient tests for normality, homoscedasticity and serial independence
+of regression residuals}.
+Economics Letters 6, 255-259.
 }
 \seealso{
-\link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
-quantile-quantile plots.
-
 Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},

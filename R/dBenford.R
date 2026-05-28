@@ -93,8 +93,7 @@
 #'
 #' @export
 dbenford <- function(x, ndigits = 1, log = FALSE) {
-  if (!isNumeric(ndigits, length.arg = 1,
-                 positive = TRUE, integer.valued = TRUE) ||
+  if (!isNumeric(ndigits, isPositive = TRUE, isIntegerValued = TRUE) ||
       ndigits > 2)
     stop("argument 'ndigits' must be 1 or 2")
   lowerlimit <- ifelse(ndigits == 1, 1, 10)
@@ -120,15 +119,14 @@ dbenford <- function(x, ndigits = 1, log = FALSE) {
 #' @rdname dbenford
 #' @export
 rbenford <- function(n, ndigits = 1) {
-  if (!isNumeric(ndigits, length.arg = 1,
-                 positive = TRUE, integer.valued = TRUE) ||
+  if (!isNumeric(ndigits, isPositive = TRUE, isIntegerValued = TRUE) ||
       ndigits > 2)
     stop("argument 'ndigits' must be 1 or 2")
   lowerlimit <- ifelse(ndigits == 1, 1, 10)
   upperlimit <- ifelse(ndigits == 1, 9, 99)
   use.n <- if ((length.n <- length(n)) > 1) length.n else
-    if (!isNumeric(n, integer.valued = TRUE,
-                   length.arg = 1, positive = TRUE))
+    if (!isNumeric(n, isIntegerValued = TRUE,
+                   isPositive = TRUE))
       stop("bad input for argument 'n'") else n
   myrunif <- runif(use.n)
   
@@ -145,8 +143,7 @@ rbenford <- function(n, ndigits = 1) {
 #' @rdname dbenford
 #' @export
 pbenford <- function(q, ndigits = 1, log.p = FALSE) {
-  if (!isNumeric(ndigits, length.arg = 1,
-                 positive = TRUE, integer.valued = TRUE) ||
+  if (!isNumeric(ndigits, isPositive = TRUE, isIntegerValued = TRUE) ||
       ndigits > 2)
     stop("argument 'ndigits' must be 1 or 2")
   lowerlimit <- ifelse(ndigits == 1, 1, 10)
@@ -166,8 +163,7 @@ pbenford <- function(q, ndigits = 1, log.p = FALSE) {
 #' @rdname dbenford
 #' @export
 qbenford <- function(p, ndigits = 1) {
-  if (!isNumeric(ndigits, length.arg = 1,
-                 positive = TRUE, integer.valued = TRUE) ||
+  if (!isNumeric(ndigits, isPositive = TRUE, isIntegerValued = TRUE) ||
       ndigits > 2)
     stop("argument 'ndigits' must be 1 or 2")
   lowerlimit <- ifelse(ndigits == 1, 1, 10)

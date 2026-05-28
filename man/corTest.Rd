@@ -2,66 +2,100 @@
 % Please edit documentation in R/corTest.R
 \name{corTest}
 \alias{corTest}
-\title{Fast correlation test for a matrix}
+\title{Fast Correlation Test for a Matrix}
 \usage{
 corTest(
-  X,
+  x,
+  method = c("pearson", "spearman", "kendall"),
   use = "pairwise.complete.obs",
   triangle = c("full", "upper", "lower"),
-  sig.level = NULL
+  maxPValue = NULL
 )
 }
 \arguments{
-\item{X}{Numeric matrix or data.frame.}
+\item{x}{Numeric matrix or data.frame.}
 
-\item{use}{Character string passed to \code{stats::cor()}. Default is
-\code{"pairwise.complete.obs"}.}
+\item{method}{Character string specifying the correlation method.
+Passed to \code{\link{cor}}.
 
-\item{triangle}{Which part of the matrix should be returned:
-\code{"full"} (default), \code{"upper"}, or \code{"lower"}.}
+One of:
 
-\item{sig.level}{Optional significance threshold. If supplied,
-correlations with p-values larger than \code{sig.level} are replaced with \code{NA}.}
+\describe{
+\item{\code{\"pearson\"}}{Pearson product-moment correlation}
+\item{\code{\"spearman\"}}{Spearman rank correlation}
+\item{\code{\"kendall\"}}{Kendall rank correlation}
+}
+
+Default is \code{\"pearson\"}.}
+
+\item{use}{Character string passed to \code{\link{cor}}.
+Default is \code{\"pairwise.complete.obs\"}.}
+
+\item{triangle}{Character string specifying which part of the
+matrices should be returned.
+
+One of:
+
+\describe{
+\item{\code{\"full\"}}{Return the complete matrices}
+\item{\code{\"upper\"}}{Return only the upper triangle}
+\item{\code{\"lower\"}}{Return only the lower triangle}
+}
+
+Default is \code{\"full\"}.}
+
+\item{maxPValue}{Optional upper limit for displayed p-values.
+Correlations with p-values larger than \code{maxPValue}
+are replaced with \code{NA}.}
 }
 \value{
 A list with three matrices:
+
 \describe{
 \item{cor}{Correlation matrix}
-\item{p}{Matrix of p-values}
+\item{pValue}{Matrix of p-values}
 \item{n}{Matrix of pairwise sample sizes}
 }
 }
 \description{
-A test for significant correlation between two variables, supporting
-Pearson, Spearman, and Kendall correlation coefficients.
+Compute correlation coefficients, p-values, and pairwise sample sizes
+for all variable pairs in a numeric matrix.
 }
 \details{
-Computes Pearson correlations, pairwise sample sizes, and p-values for all
-variable pairs in a numeric matrix. The p-values are computed directly from
-the correlation coefficients using the exact Beta distribution under the
-null hypothesis of zero correlation.
+Pearson, Spearman, and Kendall correlations are supported via the
+\code{method} argument passed to \code{\link{cor}}.
 
-Compared to repeatedly calling \code{stats::cor.test()}, this implementation is
-fully vectorised and substantially faster for matrices with many variables.
+Compared to repeatedly calling \code{\link[stats]{cor.test}},
+this implementation is fully vectorised and substantially faster
+for matrices with many variables.
 
 Missing values are handled using pairwise complete observations.
 
-For a Pearson correlation coefficient \(r\) with sample size \(n\),
-the two-sided p-value under the null hypothesis rho = 0 can be computed as
+For a Pearson correlation coefficient \eqn{r}
+with sample size \eqn{n},
+the two-sided p-value under the null hypothesis
+\eqn{\rho = 0} can be computed as:
 
-\deqn{p = 2 * F[Beta]((1 - |r|)/2, 1/2, (n-2)/2)}
+\deqn{
+p = 2 * F_{Beta}((1 - |r|)/2, 1/2, (n-2)/2)
+}
 
-where F\link{Beta} is the Beta distribution CDF.
+where \eqn{F_{Beta}} is the Beta distribution CDF.
 
 This formulation avoids explicitly computing the t-statistic and is
 numerically stable for correlations close to ±1.
 }
 \examples{
 X <- matrix(rnorm(200), 50, 4)
+
 res <- corTest(X)
 
-# Only significant correlations in the upper triangle
-res2 <- corTest(X, triangle = "upper", sig.level = 0.05)
+# only significant correlations in the upper triangle
+res2 <- corTest(
+  X,
+  triangle = "upper",
+  maxPValue = 0.05
+)
 
 }
 \seealso{

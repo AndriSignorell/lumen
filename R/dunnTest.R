@@ -128,11 +128,11 @@ dunnTest.formula <- function (formula, data, subset, na.action, ...) {
     data      = data,
     subset    = subset_expr,
     na.action = na_expr,
-    allowed   = "n.sample.independent"
+    allowed   = "n-sample-independent"
   )
   
   ## --- defensive checks ---
-  if (pf$type != "n.sample.independent")
+  if (pf$type != "n-sample-independent")
     stop("Dunn test requires an unpaired n-sample design")
   
   ## --- call default method ---

@@ -175,7 +175,7 @@ jonckheereTerpstraTest.formula <- function(formula,
   args <- list(
     formula   = formula,
     na.action = na.action,
-    allowed   = "n.sample.independent"
+    allowed   = "n-sample-independent"
   )
   
   if (!missing(data))

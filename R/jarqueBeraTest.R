@@ -1,247 +1,212 @@
 
-#' (Robust) Jarque Bera Test
-#' 
-#' A goodness-of-fit test for normality based on the sample skewness and excess 
-#' kurtosis, commonly used in econometrics for testing regression residuals.
-#' #' 
-#' This function performs the Jarque-Bera tests of normality either the robust
-#' or the classical way.
-#' 
-#' The test is based on a joint statistic using skewness and kurtosis
-#' coefficients. The robust Jarque-Bera (RJB) version of utilizes the robust
-#' standard deviation (namely the mean absolute deviation from the median, as
-#' provided e. g. by \code{\link[DescToolsX]{meanAD}(x, FUN=median)}) to estimate sample
-#' kurtosis and skewness. For more details see Gel and Gastwirth (2006). \cr
-#' Setting \code{robust} to \code{FALSE} will perform the original Jarque-Bera
-#' test (see Jarque, C. and Bera, A (1980)).
-#' 
-#' @param x a numeric vector of data values.
-#' @param robust defines, whether the robust version should be used.  Default
-#' is \code{TRUE}.
-#' @param method a character string out of \code{chisq} or \code{mc},
-#' specifying how the critical values should be obtained. Default is
-#' approximated by the chisq-distribution or empirically via Monte Carlo.
-#' @param N number of Monte Carlo simulations for the empirical critical values
-#' @param na.rm defines if \code{NAs} should be omitted. Default is
-#' \code{FALSE}.
-#' @return A list with class \code{htest} containing the following components:
-#' \item{statistic}{the value of the test statistic.} \item{parameter}{the
-#' degrees of freedom.} \item{p.value}{the p-value of the test.}
-#' \item{method}{type of test was performed.} \item{data.name}{a character
-#' string giving the name of the data.}
-#' 
-#' @note This function is melted from the \code{jarque.bera.test} (in
-#' \code{tseries} package) and the \code{rjb.test} from the package
-#' \code{lawstat}.
-#' 
-#' @note
-#' Adapted from code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth, Weiwen Miao
-#' to conform to package standards.
-#' 
-#' @references Gastwirth, J. L.(1982) \emph{Statistical Properties of A Measure
-#' of Tax Assessment Uniformity}, Journal of Statistical Planning and Inference
-#' 6, 1-12.\cr
-#' 
-#' Gel, Y. R. and Gastwirth, J. L. (2008) \emph{A robust modification of the
-#' Jarque-Bera test of normality}, Economics Letters 99, 30-32.\cr
-#' 
-#' Jarque, C. and Bera, A. (1980) \emph{Efficient tests for normality,
-#' homoscedasticity and serial independence of regression residuals}, Economics
-#' Letters 6, 255-259.
-#' 
-#' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [aurora::plotQQ] for producing extended normal
-#' quantile-quantile plots.
-#' 
-#' @examples
-#' 
-#' x <- rnorm(100)    # null hypothesis
-#' jarqueBeraTest(x)
-#' 
-#' x <- runif(100)    # alternative hypothesis
-#' jarqueBeraTest(x, robust=TRUE)
-#' 
+# -------------------------------------------------------------------------
+# Jarque-Bera Test
+# -------------------------------------------------------------------------
 
+#' (Robust) Jarque-Bera Test
+#'
+#' A goodness-of-fit test for normality based on sample skewness and kurtosis.
+#'
+#' This function performs either the classical Jarque-Bera test or the robust
+#' Jarque-Bera test proposed by Gel and Gastwirth (2008).
+#'
+#' The robust version replaces the classical standard deviation by the mean
+#' absolute deviation from the median.
+#'
+#' @param x A numeric vector of observations.
+#' @param robust Logical. Should the robust version be used?
+#' @param method Character string specifying how p-values are obtained:
+#'   \code{"chisq"} (asymptotic chi-square approximation) or
+#'   \code{"mc"} (Monte Carlo simulation).
+#' @param R Number of Monte Carlo simulations.
+#' @param na.rm Logical. Should missing values be removed?
+#'
+#' @return An object of class \code{"htest"}.
+#'
+#' @note
+#' Based on the implementation of \code{rjb.test} from the
+#' \pkg{lawstat} package by W. Wallace Hui, Yulia R. Gel,
+#' Joseph L. Gastwirth, and Weiwen Miao.
+#' The code was refactored and adapted to conform to package standards.
+#'  
+#' @references
+#' Gel, Y. R. and Gastwirth, J. L. (2008).
+#' \emph{A robust modification of the Jarque-Bera test of normality}.
+#' Economics Letters 99, 30-32.
+#'
+#' Jarque, C. and Bera, A. (1980).
+#' \emph{Efficient tests for normality, homoscedasticity and serial independence
+#' of regression residuals}.
+#' Economics Letters 6, 255-259.
 
 #' @family test.normality
 #' @concept goodness-of-fit
 #' @concept normality-testing
 #' @concept hypothesis-testing
 #'
+
 #'
 #' @export
-jarqueBeraTest <- function (x, robust=TRUE, 
-                            method=c("chisq", "mc"), N=0, na.rm=FALSE) {
+
+jarqueBeraTest <- function(
+    x,
+    robust = TRUE,
+    method = c("chisq", "mc"),
+    R = 1000,
+    na.rm = FALSE
+) {
   
-  
-  # ***********************************
-  # Tests aus library(tseries)
-  #
-  # jarqueBeraTest <- function(x, robust=TRUE, na.rm=FALSE) {
-  #
-  #   # Author: Adrian Trapletti
-  #
-  #   if(NCOL(x) > 1)
-  #       stop("x is not a vector or univariate time series")
-  #
-  #   if(na.rm) x <- na.omit(x)
-  #
-  #   DNAME <- deparse(substitute(x))
-  #   n <- length(x)
-  #   m1 <- sum(x)/n
-  #   m2 <- sum((x-m1)^2)/n
-  #   m3 <- sum((x-m1)^3)/n
-  #   m4 <- sum((x-m1)^4)/n
-  #   b1 <- (m3/m2^(3/2))^2
-  #   b2 <- (m4/m2^2)
-  #   STATISTIC <- n * b1 / 6 + n * (b2 - 3)^2 / 24
-  #   names(STATISTIC) <- "X-squared"
-  #   PARAMETER <- 2
-  #   names(PARAMETER) <- "df"
-  #   PVAL <- 1 - pchisq(STATISTIC,df = 2)
-  #   METHOD <- "Jarque Bera Test"
-  #   structure(list(statistic = STATISTIC,
-  #                  parameter = PARAMETER,
-  #                  p.value = PVAL,
-  #                  method = METHOD,
-  #                  data.name = DNAME),
-  #             class = "htest")
-  # }
-  #
-  #
-  
+  dname <- paste(deparse(substitute(x)), collapse = " ")
   
   method <- match.arg(method)
   
-  if (NCOL(x) > 1){ stop("x is not a vector or univariate time series") }
-  if(na.rm) x <- na.omit(x)
-  
-  if ((method == "mc") & (N==0)) {
-    stop("number of Monte Carlo simulations N should be provided for the empirical critical values")
+  if(!is.null(dim(x))) {
+    stop("x must be a numeric vector or univariate time series")
   }
   
-  DNAME <- deparse(substitute(x))
+  x <- as.numeric(x)
   
-  ## Calculate the first 4 central moments
-  n <- length(x)
-  m1 <- sum(x)/n
-  m2 <- sum((x - m1)^2)/n
-  m3 <- sum((x - m1)^3)/n
-  m4 <- sum((x - m1)^4)/n
-  
-  ## User can choose the Standard Jarque Bera Test or Robust Jarque Bera Test
-  ## Robust Jarque Bera Test is default
-  if(!robust) {
-    b1 <- (m3/m2^(3/2))^2;
-    b2 <- (m4/m2^2);
-    statistic <- n * b1/6 + n * (b2 - 3)^2/24
+  if(anyNA(x)) {
     
-  } else {
-    J <- sqrt(pi/2) * mean(abs(x-median(x)))
-    J2 <- J^2
-    b1 <- (m3/(J2)^(3/2))^2
-    b2 <- (m4/(J2)^2)
-    vk<-64/n
-    vs<-6/n
-    ek<-3
-    statistic <- b1/vs + (b2 - ek)^2/vk
-    
-  }
-  
-  if(method == "mc"){
-    if(!robust) {
-      ## computes empirical critical values for the JB statistic
-      
-      jb<-double(N)
-      
-      for (k in 1:N) {
-        e <- rnorm(length(x), mean=0, sd = sqrt(1))
-        m1 <- sum(e)/n
-        m2 <- sum((e - m1)^2)/n
-        m3 <- sum((e - m1)^3)/n
-        m4 <- sum((e - m1)^4)/n
-        b1 <- (m3/m2^(3/2))^2
-        b2 <- (m4/m2^2)
-        vk <- 24/n
-        vs <- 6/n
-        ek <- 3
-        jb[k] <- b1/vs + (b2 - ek)^2/vk
-      }
-      
-      y <- sort(jb)
-      
-      if (statistic >= max(y)) {
-        p.value <- 0
-        
-      } else if (statistic<=min(y)) {
-        p.value <- 1
-        
-      } else {
-        bn <- which(y==min(y[I(y>=statistic)]))
-        an <- which(y==max(y[I(y<statistic)]))
-        a <- max(y[I(y<statistic)])
-        b <- min(y[I(y>=statistic)])
-        pa <- (an - 1) / (N - 1)
-        pb <- (bn - 1) / (N - 1)
-        alpha <- (statistic-a)/(b-a)
-        p.value <- 1-alpha*pb-(1-alpha)*pa
-      }
-      
+    if(na.rm) {
+      x <- x[!is.na(x)]
     } else {
-      ## computes empirical critical values for the RJB statistic
-      rjb <- double(N)
-      
-      for (k in 1:N) {
-        e <- rnorm(length(x), mean=0, sd = sqrt(1))
-        J <- sqrt(pi/2)*mean(abs(e-median(e)))
-        J2 <- J^2
-        m1 <- sum(e)/n
-        m2 <- sum((e - m1)^2)/n
-        m3 <- sum((e - m1)^3)/n
-        m4 <- sum((e - m1)^4)/n
-        b1 <- (m3/(J2)^(3/2))^2
-        b2 <- (m4/(J2)^2)
-        vk <- 64/n
-        vs <- 6/n
-        ek <- 3
-        rjb[k] <- b1/vs + (b2 - ek)^2/vk
-      }
-      
-      y <- sort(rjb)
-      
-      if (statistic >= max(y)) {
-        p.value <- 0
-        
-      } else if (statistic <= min(y)) {
-        p.value <- 1
-        
-      } else {
-        bn <- which(y==min(y[I(y>=statistic)]))
-        an <- which(y==max(y[I(y<statistic)]))
-        a <- max(y[I(y<statistic)])
-        b <- min(y[I(y>=statistic)])
-        pa <- (an - 1) / (N - 1)
-        pb <- (bn - 1) / (N - 1)
-        alpha <- (statistic-a)/(b-a)
-        p.value <- 1-alpha*pb-(1-alpha)*pa
-      }
+      stop("missing values in x")
     }
-    
-  } else {
-    p.value <- 1 - pchisq(statistic, df = 2)
   }
   
-  METHOD <- ifelse(!robust, "Jarque Bera Test", "Robust Jarque Bera Test")
-  STATISTIC=statistic
-  names(STATISTIC) <- "X-squared"
-  PARAMETER <- 2
-  names(PARAMETER) <- "df"
+  n <- length(x)
   
-  structure(list(statistic = STATISTIC, parameter = PARAMETER,
-                 p.value = p.value, method = METHOD, data.name = DNAME),
-            class = "htest")
+  if(n < 3L) {
+    stop("sample size must be at least 3")
+  }
   
+  if(method == "mc") {
+    
+    R <- as.integer(R)
+    
+    if(is.na(R) || R < 1L) {
+      stop("R must be a positive integer")
+    }
+  }
+  
+  statistic <- .jb_statistic(x, robust = robust)
+  
+  p.value <- switch(
+    
+    method,
+    
+    chisq = {
+      1 - pchisq(statistic, df = 2)
+    },
+    
+    mc = {
+      .jb_pvalue_mc(
+        statistic = statistic,
+        n = n,
+        robust = robust,
+        R = R
+      )
+    }
+  )
+  
+  method_name <- paste0(
+    if(robust) "Robust " else "",
+    "Jarque-Bera Test (",
+    if(method == "mc") {
+      "Monte Carlo"
+    } else {
+      "Chi-square approximation"
+    },
+    ")"
+  )
+  
+  parameter_out <- switch(
+    method,
+    chisq = c(df = 2),
+    mc = c(R = R)
+  )
+  
+  statistic_out <- c("X-squared" = statistic)
+  
+  structure(
+    list(
+      statistic = statistic_out,
+      parameter = parameter_out,
+      p.value = p.value,
+      method = method_name,
+      data.name = dname
+    ),
+    class = "htest"
+  )
 }
 
+
+# == internal helper functions ============================================
+
+
+# -------------------------------------------------------------------------
+# Jarque-Bera statistic
+
+.jb_statistic <- function(x, robust = TRUE) {
+  
+  if(diff(range(x)) == 0) {
+    stop("all values are identical")
+  }
+  
+  n <- length(x)
+  
+  zc <- x - mean(x)
+  
+  m2 <- mean(zc^2)
+  m3 <- mean(zc^3)
+  m4 <- mean(zc^4)
+  
+  if(robust) {
+    
+    # Normalising constant such that:
+    # E[sqrt(pi / 2) * |Z - median(Z)|] = sigma
+    # for Z ~ N(0, sigma^2)
+    
+    J <- sqrt(pi / 2) * mean(abs(x - median(x)))
+    
+    if(J <= 0) {
+      stop("robust scale estimate is zero")
+    }
+    
+    sq_skew <- (m3 / J^3)^2
+    kurtosis <- m4 / J^4
+    
+    vs <- 6 / n
+    
+    # Gel & Gastwirth (2008)
+    vk <- 384 / n
+    
+  } else {
+    
+    sq_skew <- (m3 / m2^(3 / 2))^2
+    kurtosis <- m4 / m2^2
+    
+    vs <- 6 / n
+    vk <- 24 / n
+  }
+  
+  sq_skew / vs + (kurtosis - 3)^2 / vk
+}
+
+
+# -------------------------------------------------------------------------
+# Monte Carlo p-value
+
+.jb_pvalue_mc <- function(statistic, n, robust, R) {
+  
+  sim <- replicate(
+    R,
+    .jb_statistic(rnorm(n), robust = robust)
+  )
+  
+  # Monte Carlo p-value with finite-sample correction
+  (sum(sim >= statistic) + 1) / (R + 1)
+}
 
 

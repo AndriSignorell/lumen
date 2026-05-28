@@ -93,7 +93,7 @@ yuenTTest.formula <- function(formula,
   args <- list(
     formula   = formula,
     na.action = na.action,
-    allowed   = "two.sample.independent"
+    allowed   = "two-sample-independent"
   )
   
   if (!missing(data))

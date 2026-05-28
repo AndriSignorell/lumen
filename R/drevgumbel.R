@@ -47,7 +47,7 @@
 #' @export
 dRevGumbel <- function (x, location = 0, scale = 1) {
   # from VGAM  -- if (is.null(x)) FALSE else ifelse(is.na(x), FALSE, x)
-  if (!isNumeric(scale, positive=TRUE))
+  if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
   temp = exp((x - location)/scale)
   temp * exp(-temp)/scale
@@ -57,7 +57,7 @@ dRevGumbel <- function (x, location = 0, scale = 1) {
 #' @export
 pRevGumbel <- function (q, location = 0, scale = 1) {
   
-  if (!isNumeric(scale, positive=TRUE))
+  if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
   1-exp(-exp((q - location)/scale))
 }
@@ -66,7 +66,7 @@ pRevGumbel <- function (q, location = 0, scale = 1) {
 #' @export
 qRevGumbel <- function (p, location = 0, scale = 1)
 {
-  if (!isNumeric(scale, positive=TRUE))
+  if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
   location + scale * log(-log(p))
 }
@@ -76,9 +76,9 @@ qRevGumbel <- function (p, location = 0, scale = 1)
 #' @export
 rRevGumbel <- function (n, location = 0, scale = 1)
 {
-  if (!isNumeric(scale, positive=TRUE, integer.valued=TRUE))
+  if (!isNumeric(scale, isPositive=TRUE, isIntegerValued=TRUE))
     stop("bad input for argument \"n\"")
-  if (!isNumeric(scale, positive=TRUE))
+  if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
   location + scale * log(-log(runif(n)))
 }
