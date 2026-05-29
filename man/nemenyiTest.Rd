@@ -4,114 +4,105 @@
 \alias{nemenyiTest}
 \alias{nemenyiTest.default}
 \alias{nemenyiTest.formula}
-\title{Nemenyi Test}
+\title{Nemenyi Test of Multiple Comparisons}
 \usage{
 nemenyiTest(x, ...)
 
 \method{nemenyiTest}{formula}(formula, data, subset, na.action, ...)
 
-\method{nemenyiTest}{default}(x, g, dist = c("tukey", "chisq"), out.list = TRUE, ...)
+\method{nemenyiTest}{default}(
+  x,
+  g,
+  dist = c("tukey", "chisq"),
+  output = c("list", "matrix"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data vectors.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{\dots}{further arguments passed to methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and \code{rhs} the corresponding groups.}
+\item{formula}{a formula of the form \code{response ~ group}.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{an optional data frame containing the variables in
+\code{formula}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional expression specifying a subset of observations to
+be used.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function specifying how missing values should be handled.}
 
-\item{g}{a vector or factor object giving the group for the corresponding
-elements of \code{x}.  Ignored if \code{x} is a list.}
+\item{g}{a grouping factor corresponding to \code{x}. Ignored if
+\code{x} is a list.}
 
-\item{dist}{the distribution used for the test. Can be \code{tukey}
-(default) or \code{chisq}.}
+\item{dist}{character string specifying the reference distribution used for
+the test statistic. One of \code{"tukey"} (default) or \code{"chisq"}.}
 
-\item{out.list}{logical, defining if the output should be organized in
-listform.}
+\item{output}{character string specifying the output format. One of
+\code{"list"} (default) or \code{"matrix"}.}
 }
 \value{
-A list of class \code{htest}, containing the following components:
-\item{statistic}{ Nemenyi test} \item{p.value}{ the p-value for the test}
-\item{null.value}{is the value of the median specified by the null
-hypothesis. This equals the input argument \code{mu}. } \item{alternative}{a
-character string describing the alternative hypothesis.} \item{method}{ the
-type of test applied} \item{data.name}{a character string giving the names
-of the data.}
+An object of class \code{c("rankTest", "htest")} containing:
+\describe{
+\item{res}{pairwise comparison results, either as a list or matrix}
+\item{pmat}{symmetric matrix of adjusted p-values}
+}
+
+Additional information is stored in attributes:
+\code{method}, \code{output}, \code{main}, and \code{data.name}.
 }
 \description{
 A nonparametric post hoc test for multiple pairwise comparisons following
-a significant Kruskal-Wallis or Friedman test, based on rank differences.
+a significant Kruskal-Wallis test, based on differences in mean ranks.
 }
 \details{
-Performs Nemenyi's test of multiple comparisons.
+Performs Nemenyi's multiple comparison procedure for independent samples.
+The test compares all pairs of groups using rank differences and controls
+the family-wise error rate through the studentized range distribution
+(Tukey-type approximation) or an asymptotic chi-squared approximation.
 
-ToDo!! ****************************************************************
-Tell when to use this test. References needed! Nemenyi proposed a
-test based on rank sums and the application of the family-wise error method
-to control Type I error inflation, if multiple comparisons are done. The
-Tukey and Kramer approach uses mean rank sums and can be employed for
-equally as well as unequally sized samples without ties.
-ToDo!! ****************************************************************
+Nemenyi's test is commonly used as a post hoc procedure after a significant
+\code{\link{kruskal.test}} when all pairwise comparisons between groups are
+of interest. Unlike \code{\link{dunnTest}} and
+\code{\link{conoverTest}}, no additional p-value adjustment is applied,
+since multiplicity control is built into the test statistic.
+
+If \code{x} is a list, its elements are taken as the samples to be compared,
+and hence have to be numeric data vectors. In this case, \code{g} is
+ignored and one can simply use \code{nemenyiTest(x)}.
+
+Otherwise, \code{x} must be a numeric vector and \code{g} a grouping factor
+(or vector coercible to a factor) of the same length.
 }
 \examples{
-
-## Hollander & Wolfe (1973), 116.
-## Mucociliary efficiency from the rate of removal of dust in normal
-##  subjects, subjects with obstructive airway disease, and subjects
-##  with asbestosis.
-x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+## Hollander & Wolfe example
+x <- c(2.9, 3.0, 2.5, 2.6, 3.2)
+y <- c(3.8, 2.7, 4.0, 2.4)
+z <- c(2.8, 3.4, 3.7, 2.2, 2.0)
 
 nemenyiTest(list(x, y, z))
 
-## Equivalently,
 x <- c(x, y, z)
-g <- factor(rep(1:3, c(5, 4, 5)),
-            labels = c("Normal subjects",
-                       "Subjects with obstructive airway disease",
-                       "Subjects with asbestosis"))
+g <- factor(rep(1:3, c(5, 4, 5)))
 
 nemenyiTest(x, g)
 
-## Formula interface.
-boxplot(Ozone ~ Month, data = airquality)
+## Formula interface
 nemenyiTest(Ozone ~ Month, data = airquality)
 
-# Hedderich & Sachs, 2012, p. 555
-d.frm <- data.frame(x=c(28,30,33,35,38,41, 36,39,40,43,45,50, 44,45,47,49,53,54),
-                    g=c(rep(LETTERS[1:3], each=6)), stringsAsFactors=TRUE)
-
-nemenyiTest(x~g, d.frm)
 }
 \references{
-Nemenyi, P. B. (1963) \emph{Distribution-Free Multiple
-Comparisons} New York, State University of New York, Downstate Medical
-Center
+Nemenyi, P. B. (1963).
+\emph{Distribution-Free Multiple Comparisons}.
+PhD thesis, Princeton University.
 
-Hollander, M., Wolfe, D.A. (1999) \emph{Nonparametric Statistical Methods}
-New York, Wiley, pp. 787
-
-Friedman, M. (1937) The use of ranks to avoid the assumption of normality
-implicit in the analysis of variance \emph{Journal of the American
-Statistical Association}, 32:675-701
-
-Friedman, M. (1940) A comparison of alternative tests of significance for
-the problem of m rankings \emph{Annals of Mathematical Statistics}, 11:86-92
+Hollander, M., Wolfe, D. A. and Chicken, E. (2014).
+\emph{Nonparametric Statistical Methods}.
+3rd ed. Wiley.
 }
 \seealso{
-\code{\link{dunnTest}}, \code{\link{conoverTest}}
+\code{\link{kruskal.test}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
@@ -120,7 +111,8 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

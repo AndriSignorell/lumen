@@ -67,8 +67,7 @@ homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
 22, Issue 8, pages 795-798
 }
 \seealso{
-\code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix),
-\code{\link{stuartMaxwellTest}}, \code{\link{woolfTest}}
+\code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix)
 
 Other test.marginal:
 \code{\link[=bhapkarTest]{bhapkarTest()}},

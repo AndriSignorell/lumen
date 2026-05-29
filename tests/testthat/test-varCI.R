@@ -89,28 +89,28 @@ test_that("bonett: stop for n <= 4", {
 
 test_that("boot: result has correct structure", {
   set.seed(1)
-  out <- varCI(x_norm, method = "boot", R = 199)
+  out <- varCI(x_norm, method = "boot", R = 999)
   expect_named(out, c("var", "lci", "uci"))
   expect_equal(out[["var"]], var(x_norm))
 })
 
 test_that("boot: lci <= var <= uci", {
   set.seed(1)
-  out <- varCI(x_norm, method = "boot", R = 199)
+  out <- varCI(x_norm, method = "boot", R = 999)
   expect_true(out[["lci"]] <= out[["var"]])
   expect_true(out[["var"]] <= out[["uci"]])
 })
 
 test_that("boot: type = 'norm' produces valid interval", {
   set.seed(1)
-  out <- varCI(x_norm, method = "boot", type = "norm", R = 199)
+  out <- varCI(x_norm, method = "boot", type = "norm", R = 999)
   expect_true(is.finite(out[["lci"]]))
   expect_true(is.finite(out[["uci"]]))
 })
 
 test_that("boot: type = 'perc' produces valid interval", {
   set.seed(1)
-  out <- varCI(x_norm, method = "boot", type = "perc", R = 199)
+  out <- varCI(x_norm, method = "boot", type = "perc", R = 999)
   expect_true(is.finite(out[["lci"]]))
   expect_true(is.finite(out[["uci"]]))
 })

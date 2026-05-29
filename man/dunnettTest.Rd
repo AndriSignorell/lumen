@@ -35,17 +35,18 @@ contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 elements of \code{x}.  Ignored if \code{x} is a list.}
 
 \item{control}{the level of the control group against which the others
-should be tested. If there are multiple levels the calculation will be
-performed for every one.}
+should be tested. Defaults to the first group. Multiple levels are accepted;
+the calculation is then performed separately for each one. Must be a
+character string matching one or more levels of \code{g}.}
 
 \item{conf.level}{confidence level of the interval.}
 }
 \value{
-A list of class \code{c("PostHocTest")}, containing one matrix named
-after the control with columns \code{diff} giving the difference in the
+A list of class \code{"PostHocTest"}, containing one matrix named
+after each control level, with columns \code{diff} giving the difference in
 observed means, \code{lwr.ci} giving the lower end point of the interval,
-\code{upr.ci} giving the upper end point and \code{pval} giving the p-value
-after adjustment for the multiple comparisons.
+\code{upr.ci} giving the upper end point, and \code{pval} giving the p-value
+after adjustment for multiple comparisons.
 
 There are print and plot methods for class \code{"PostHocTest"}. The plot
 method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
@@ -97,15 +98,24 @@ dunnettTest(x, g)
 boxplot(Ozone ~ Month, data = airquality)
 dunnettTest(Ozone ~ Month, data = airquality)
 
-dunnettTest(Ozone ~ Month, data = airquality, control="8", conf.level=0.9)
+## Single control level with adjusted confidence
+dunnettTest(Ozone ~ Month, data = airquality, control = "8", conf.level = 0.9)
+
+## Multiple control levels
+dunnettTest(Ozone ~ Month, data = airquality, control = c("5", "8"))
 
 }
 \references{
 Dunnett C. W. (1955) A multiple comparison procedure for
 comparing several treatments with a control, \emph{Journal of the American
-Statistical Association}, 50:1096-1121.
+Statistical Association}, 50:1096--1121.
 }
 \seealso{
+\code{\link{print.PostHocTest}},
+\code{\link{plot.PostHocTest}},
+\code{\link[mvtnorm]{pmvt}},
+\code{\link[mvtnorm]{qmvt}}
+
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
 \code{\link[=dunnTest]{dunnTest()}},
@@ -113,7 +123,8 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

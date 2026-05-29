@@ -8,6 +8,8 @@
 \usage{
 conoverTest(x, ...)
 
+\method{conoverTest}{formula}(formula, data, subset, na.action, ...)
+
 \method{conoverTest}{default}(
   x,
   g,
@@ -16,13 +18,23 @@ conoverTest(x, ...)
   output = c("list", "matrix"),
   ...
 )
-
-\method{conoverTest}{formula}(formula, data, subset, na.action, ...)
 }
 \arguments{
 \item{x}{a numeric vector of observations or a list of numeric vectors.}
 
 \item{\dots}{further arguments passed to methods.}
+
+\item{formula}{a formula of the form \code{response ~ group}.
+Requires at least three groups (\eqn{k \ge 3}); Conover's test is
+intended as a post hoc procedure following a significant
+Kruskal-Wallis test.}
+
+\item{data}{an optional data frame containing the variables in
+\code{formula}.}
+
+\item{subset}{an optional expression specifying a subset of observations.}
+
+\item{na.action}{a function indicating how missing values should be handled.}
 
 \item{g}{a grouping variable corresponding to \code{x}. Ignored when
 \code{x} is a list.}
@@ -32,22 +44,14 @@ Passed directly to \code{\link{p.adjust}}.}
 
 \item{alternative}{a character string specifying the alternative
 hypothesis. Must be one of \code{"two.sided"} (default),
-\code{"greater"} or \code{"less"}.}
+\code{"greater"} or \code{"less"}. See Details for the direction
+convention.}
 
 \item{output}{output format:
 \itemize{
 \item \code{"list"} pairwise comparison table
 \item \code{"matrix"} lower-triangular matrix of adjusted p-values
 }}
-
-\item{formula}{a formula of the form \code{response ~ group}.}
-
-\item{data}{an optional data frame containing the variables in
-\code{formula}.}
-
-\item{subset}{an optional expression specifying a subset of observations.}
-
-\item{na.action}{a function indicating how missing values should be handled.}
 }
 \value{
 An object of class \code{c("rankTest", "htest")} containing:
@@ -81,6 +85,12 @@ compared and must be numeric vectors. In this case \code{g} is ignored.
 
 Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 variable of the same length.
+
+Pairwise comparisons are formed as \eqn{\bar{R}_i - \bar{R}_j} for all
+\eqn{i < j} (lower triangle of the mean-rank difference matrix, with
+groups ordered by their factor levels). For one-sided alternatives,
+\code{"greater"} tests whether group \eqn{i} tends to have larger
+observations than group \eqn{j}, and \code{"less"} tests the reverse.
 }
 \examples{
 
@@ -120,8 +130,6 @@ Conover, W. J. (1999).
 3rd edition. Wiley, Hoboken, NJ.
 }
 \seealso{
-\code{\link{dunnTest}},
-\code{\link{nemenyiTest}},
 \code{\link{kruskal.test}},
 \code{\link{wilcox.test}},
 \code{\link{p.adjust}}
@@ -133,7 +141,8 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

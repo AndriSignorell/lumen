@@ -17,6 +17,12 @@
 #' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 #' variable of the same length.
 #'
+#' Pairwise comparisons are formed as \eqn{\bar{R}_i - \bar{R}_j} for all
+#' \eqn{i < j} (lower triangle of the mean-rank difference matrix, with
+#' groups ordered by their factor levels). For one-sided alternatives,
+#' \code{"greater"} tests whether group \eqn{i} tends to have larger
+#' observations than group \eqn{j}, and \code{"less"} tests the reverse.
+#'
 #' @name dunnTest
 #'
 #' @aliases dunnTest dunnTest.default dunnTest.formula
@@ -28,18 +34,21 @@
 #'   Passed directly to \code{\link{p.adjust}}.
 #' @param alternative a character string specifying the alternative
 #'   hypothesis. Must be one of \code{"two.sided"} (default),
-#'   \code{"greater"} or \code{"less"}.
+#'   \code{"greater"} or \code{"less"}. See Details for the direction
+#'   convention.
 #' @param output output format:
 #'   \itemize{
 #'     \item \code{"list"} pairwise comparison table
 #'     \item \code{"matrix"} lower-triangular matrix of adjusted p-values
 #'   }
 #' @param formula a formula of the form \code{response ~ group}.
+#'   Requires at least three groups (\eqn{k \ge 3}); Dunn's test is
+#'   intended as a post hoc procedure following a significant
+#'   Kruskal-Wallis test.
 #' @param data an optional data frame containing the variables in
 #'   \code{formula}.
 #' @param subset an optional expression specifying a subset of observations.
 #' @param na.action a function indicating how missing values should be handled.
-#' @param digits number of digits used for printing.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
@@ -58,7 +67,6 @@
 #' @seealso
 #' \code{\link{kruskal.test}},
 #' \code{\link{wilcox.test}},
-#' \code{\link{conoverTest}},
 #' \code{\link{p.adjust}}
 #'
 #' @references
@@ -102,10 +110,8 @@
 #' @concept multiple-comparisons
 #' @concept nonparametric
 #' @concept hypothesis-testing
-#' 
-#' 
-
-
+#'
+#'
 #' @export
 dunnTest <- function(x, ...)
   UseMethod("dunnTest")
@@ -118,7 +124,6 @@ dunnTest <- function(x, ...)
 #' @rdname dunnTest
 #' @export
 dunnTest.formula <- function(formula, data, subset, na.action, ...) {
-  
   
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
@@ -149,8 +154,6 @@ dunnTest.formula <- function(formula, data, subset, na.action, ...) {
 }
 
 
-
-
 #' @rdname dunnTest
 #' @export
 dunnTest.default <- function(
@@ -166,20 +169,22 @@ dunnTest.default <- function(
 ) {
   
   alternative <- match.arg(alternative)
-  output <- match.arg(output)
-  method <- match.arg(method)
+  output      <- match.arg(output)
+  method      <- match.arg(method)
   
-  dat <- bedrock::groupedData(x, g)
+  dat <- resolveGroups(x, g)
   
-  x <- dat$x
-  g <- dat$g
+  x   <- dat$x
+  g   <- dat$g
   
-  N <- dat$n
-  k <- dat$k
-  n <- dat$group.sizes
+  N   <- dat$n
+  k   <- dat$k
+  # coerce to plain numeric vector to avoid table dimname artefacts in outer()
+  n   <- as.numeric(dat$group.sizes)
+  names(n) <- dat$group.names
   nms <- dat$group.names
   
-  rnk <- rank(x)
+  rnk  <- rank(x)
   mrnk <- tapply(rnk, g, mean)
   
   tau <- table(rnk[allDuplicated(rnk)])
@@ -193,15 +198,17 @@ dunnTest.default <- function(
       outer(1 / n, 1 / n, "+")
   )
   
-  if (alternative == "less") {
-    pvals <- pnorm(abs(z))
-    
-  } else if (alternative == "greater") {
+  # Pairs are formed as R_i - R_j for i < j (lower triangle).
+  # "greater": i tends to exceed j  -> large positive z -> upper tail
+  # "less":    j tends to exceed i  -> large negative z -> lower tail of |z|
+  if (alternative == "greater") {
     pvals <- pnorm(abs(z), lower.tail = FALSE)
+    
+  } else if (alternative == "less") {
+    pvals <- pnorm(abs(z))
     
   } else {
     pvals <- 2 * pnorm(abs(z), lower.tail = FALSE)
-    
   }
   
   keep <- lower.tri(pvals)
@@ -238,7 +245,7 @@ dunnTest.default <- function(
   
   if (output == "list") {
     
-    dnames <- list( NULL, c("mean rank diff", "pval") )
+    dnames <- list(NULL, c("mean rank diff", "pval"))
     
     if (!is.null(nms)) {
       dnames[[1L]] <- outer(
@@ -253,7 +260,6 @@ dunnTest.default <- function(
     )
     
   } else {
-    
     out$res <- pmat[-1, -ncol(pmat), drop = FALSE]
   }
   
@@ -261,66 +267,15 @@ dunnTest.default <- function(
   
   class(out) <- c("rankTest", "htest")
   
-  attr(out, "main") <- gettextf(
+  attr(out, "main")      <- gettextf(
     "Dunn's test of multiple comparisons using rank sums : %s",
     method
   )
-  
-  attr(out, "method") <- method
-  attr(out, "output") <- output
+  attr(out, "method")    <- method
+  attr(out, "output")    <- output
+  attr(out, "data.name") <- dat$data.name
   
   out
   
 }
-
-
-#' @rdname dunnTest
-#' @export
-print.rankTest <- function(
-    x,
-    digits = getOption("digits", 3),
-    ...
-) {
-  
-  cat("\n", attr(x, "main"), "\n\n")
-  
-  if (attr(x, "output") == "list") {
-    
-    xx <- data.frame(x$res)
-    
-    xx$" " <- fm(xx$pval, fmt = "*")
-    
-    xx$pval <- format.pval(
-      xx$pval,
-      digits = 2,
-      nsmall = 4
-    )
-    
-    print.data.frame(xx, digits = digits, ...)
-    
-    cat(
-      "---\n",
-      "Signif. codes:  ",
-      "0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n",
-      sep = ""
-    )
-    
-  } else {
-    
-    xx <- x$res
-    
-    xx[] <- format.pval(
-      xx,
-      digits = 2,
-      na.form = "-"
-    )
-    
-    print(xx, digits = digits, quote = FALSE, ...)
-  }
-  
-  cat("\n")
-  
-  invisible(x)
-}
-
 

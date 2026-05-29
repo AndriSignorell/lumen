@@ -40,7 +40,8 @@ Other test.posthoc:
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{graphics}
 \concept{multiple-comparisons}

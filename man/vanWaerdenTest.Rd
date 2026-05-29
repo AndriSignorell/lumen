@@ -41,7 +41,7 @@ A list with class \code{"htest"} containing the following
 components: \item{statistic}{the van der Waerden statistic.}
 \item{parameter}{the degrees of freedom of the approximate chi-squared
 distribution of the test statistic.} \item{p.value}{the p-value of the
-test.} \item{method}{the character string \code{"van-der-Waerden normal
+test.} \item{method}{the character string \code{"Van-der-Waerden normal
 scores test"}.} \item{data.name}{a character string giving the names of the
 data.}
 }
@@ -105,24 +105,14 @@ vanWaerdenTest(Ozone ~ Month, data = airquality)
 Conover, W. J., Iman, R. L. (1979). On multiple-comparisons
 procedures, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 
-Conover, W. J. (1999). \emph{Practical Nonparameteric Statistics} (Third
-Edition ed.). Wiley. pp. 396406.
+Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (Third
+Edition ed.). Wiley. pp. 396--406.
 }
 \seealso{
-\code{\link[coin]{normal_test}} in package \pkg{coin}
-(\url{https://CRAN.R-project.org/package=coin}),
+\code{\link[coin]{normal_test}} in package \pkg{coin},
 where the test is implemented in a more general context.
-
-Other test.posthoc:
-\code{\link[=conoverTest]{conoverTest()}},
-\code{\link[=dunnTest]{dunnTest()}},
-\code{\link[=dunnettTest]{dunnettTest()}},
-\code{\link[=nemenyiTest]{nemenyiTest()}},
-\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
-\code{\link{postHoc}},
-\code{\link[=scheffeTest]{scheffeTest()}}
 }
 \concept{hypothesis-testing}
-\concept{multiple-comparisons}
+\concept{k-sample}
 \concept{nonparametric}
-\concept{test.posthoc}
+\concept{test.omnibus}

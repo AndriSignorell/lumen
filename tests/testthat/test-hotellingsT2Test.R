@@ -278,15 +278,6 @@ test_that("singular covariance matrix raises informative error", {
 })
 
 
-test_that("insufficient df for two-sample F: guard exists but is structurally unreachable", {
-  # The guard (n1 + n2 - p - 1 > 0) in hotellingsT2Test.default is dead code:
-  # for it to fire, both nrow(x) > p and nrow(y) > p must hold (earlier guards),
-  # which implies n1 + n2 > 2p >= p + 1 for p >= 1, so df2 is always positive.
-  # No test case can reach the guard through the public interface.
-  skip("df2 guard is dead code; covered by nrow > p checks above it")
-})
-
-
 test_that("NAs in x are silently dropped", {
   set.seed(1)
   x      <- cbind(rnorm(20), rnorm(20))

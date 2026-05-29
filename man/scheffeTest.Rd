@@ -121,7 +121,8 @@ Other test.posthoc:
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

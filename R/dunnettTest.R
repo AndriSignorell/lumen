@@ -1,4 +1,3 @@
-
 #' Dunnett's Test for Comparing Several Treatments With a Control
 #' 
 #' A parametric post hoc test for multiple comparisons of several 
@@ -26,9 +25,10 @@
 #' @param g a vector or factor object giving the group for the corresponding
 #' elements of \code{x}.  Ignored if \code{x} is a list.
 #' @param control the level of the control group against which the others
-#' should be tested. If there are multiple levels the calculation will be
-#' performed for every one.
-#' @param conf.level confidence level of the interval. 
+#' should be tested. Defaults to the first group. Multiple levels are accepted;
+#' the calculation is then performed separately for each one. Must be a
+#' character string matching one or more levels of \code{g}.
+#' @param conf.level confidence level of the interval.
 #' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
 #' the data values and \code{rhs} the corresponding groups.
 #' @param data an optional matrix or data frame (or similar: see
@@ -40,19 +40,25 @@
 #' @param na.action a function which indicates what should happen when the data
 #' contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
 #' @param \dots further arguments to be passed to or from methods.
-#' @return A list of class \code{c("PostHocTest")}, containing one matrix named
-#' after the control with columns \code{diff} giving the difference in the
+#' @return A list of class \code{"PostHocTest"}, containing one matrix named
+#' after each control level, with columns \code{diff} giving the difference in
 #' observed means, \code{lwr.ci} giving the lower end point of the interval,
-#' \code{upr.ci} giving the upper end point and \code{pval} giving the p-value
-#' after adjustment for the multiple comparisons.
+#' \code{upr.ci} giving the upper end point, and \code{pval} giving the p-value
+#' after adjustment for multiple comparisons.
 #' 
 #' There are print and plot methods for class \code{"PostHocTest"}. The plot
 #' method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
 #' creates its own values for each plot.
+#'
+#' @seealso
+#' \code{\link{print.PostHocTest}},
+#' \code{\link{plot.PostHocTest}},
+#' \code{\link[mvtnorm]{pmvt}},
+#' \code{\link[mvtnorm]{qmvt}}
 #' 
 #' @references Dunnett C. W. (1955) A multiple comparison procedure for
 #' comparing several treatments with a control, \emph{Journal of the American
-#' Statistical Association}, 50:1096-1121.
+#' Statistical Association}, 50:1096--1121.
 #' 
 #' @examples
 #' 
@@ -79,9 +85,12 @@
 #' boxplot(Ozone ~ Month, data = airquality)
 #' dunnettTest(Ozone ~ Month, data = airquality)
 #' 
-#' dunnettTest(Ozone ~ Month, data = airquality, control="8", conf.level=0.9)
+#' ## Single control level with adjusted confidence
+#' dunnettTest(Ozone ~ Month, data = airquality, control = "8", conf.level = 0.9)
+#'
+#' ## Multiple control levels
+#' dunnettTest(Ozone ~ Month, data = airquality, control = c("5", "8"))
 #' 
-
 #' @rdname dunnettTest
 #' @family test.posthoc
 #' @concept multiple-comparisons
@@ -89,145 +98,188 @@
 #'
 #'
 #' @export
-dunnettTest <- function (x, ...)
+dunnettTest <- function(x, ...)
   UseMethod("dunnettTest")
 
 
+# ======================================================================
+# Formula method
+# ======================================================================
 
 #' @rdname dunnettTest
 #' @export
-dunnettTest.formula <- function (formula, data, subset, na.action, ...) {
-  
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
+dunnettTest.formula <- function(
+    formula,
+    data,
+    subset,
+    na.action,
+    ...
+) {
+
+  if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
-    m$data <- as.data.frame(data)
-  m[[1L]] <- quote(stats::model.frame)
-  m$... <- NULL
-  mf <- eval(m, parent.frame())
-  if (length(mf) > 2L)
-    stop("'formula' should be of the form response ~ group")
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  response <- attr(attr(mf, "terms"), "response")
-  y <- do.call("dunnettTest", c(as.list(mf), list(...)))
-  y$data.name <- DNAME
-  y
-  
+
+  ## IMPORTANT!!
+  ## --- capture subset / na.action HERE ---
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
+
+  pf <- resolveFormula(
+    formula   = formula,
+    data      = data,
+    subset    = subset_expr,
+    na.action = na_expr,
+    allowed   = "n-sample-independent"
+  )
+
+  rval <- dunnettTest(
+    x = pf$x,
+    g = pf$group,
+    ...
+  )
+
+  rval$data.name <- pf$data.name
+
+  rval
+
 }
 
 
-
 #' @rdname dunnettTest
 #' @export
-dunnettTest.default <- function (x, g, control = NULL
-                                 , conf.level = 0.95, ...) {
+dunnettTest.default <- function(
+    x,
+    g,
+    control = NULL,
+    conf.level = 0.95,
+    ...
+) {
   
-  if (is.list(x)) {
-    if (length(x) < 2L) 
-      stop("'x' must be a list with at least 2 elements")
-    if (!missing(g)) 
-      warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1(substitute(x))
-    x <- lapply(x, function(u) u <- u[complete.cases(u)])
-    if (!all(sapply(x, is.numeric))) 
-      warning("some elements of 'x' are not numeric and will be coerced to numeric")
-    k <- length(x)
-    l <- lengths(x)
-    if (any(l == 0L)) 
-      stop("all groups must contain data")
-    g <- factor(rep.int(seq_len(k), l))
-    x <- unlist(x)
-  }
-  else {
-    if (length(x) != length(g)) 
-      stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
-    OK <- complete.cases(x, g)
-    x <- x[OK]
-    g <- g[OK]
-    g <- factor(g)
-    k <- nlevels(g)
-    if (k < 2L) 
-      stop("all observations are in the same group")
-  }
-  N <- length(x)
-  if (N < 2L) 
-    stop("not enough observations")
+  DG <- resolveGroups(x, g)
   
+  x <- DG$x
+  g <- DG$g
   
-  # just organisational stuff so far, got a fine x and g now
+  N <- DG$n
+  k <- DG$k
   
-  if (is.null(control)) control <- levels(g)[1]
+  gn <- DG$group.names
+  
+  ni <- as.numeric(DG$group.sizes)
+  names(ni) <- gn
+  
+  DNAME <- DG$data.name
+  
+  if (is.null(control))
+    control <- gn[1]
   
   ctrls <- control
-  out <- list()
   
-  for(ii in seq_along(ctrls)){
+  if (!all(ctrls %in% gn)) {
+    stop(
+      gettextf(
+        "control level '%s' not found in grouping variable",
+        ctrls[!ctrls %in% gn][1]
+      )
+    )
+  }
+  
+  means <- tapply(x, g, mean)
+  
+  rss <- tapply(
+    x,
+    g,
+    function(z)
+      sum((z - mean(z))^2)
+  )
+  
+  s <- sqrt(sum(rss) / (N - k))
+  
+  out <- vector("list", length(ctrls))
+  
+  for (ii in seq_along(ctrls)) {
     
     control <- ctrls[ii]
     
-    ni <- tapply(x, g, length)
-    
-    means <- tapply(x, g, mean)
-    meandiffs <- means[names(means) != control] - means[control]
+    meandiffs <-
+      means[names(means) != control] -
+      means[control]
     
     fittedn <- ni[names(ni) != control]
     controln <- ni[control]
     
-    s <- sqrt( sum(tapply(x, g, function(x) sum((x - mean(x))^2) )) /
-                 (N - k))
+    Dj <- meandiffs /
+      (s * sqrt((1 / fittedn) + (1 / controln)))
     
-    Dj <- meandiffs / (s * sqrt((1/fittedn) + (1/controln)))
-    Rij <- sqrt(fittedn/(fittedn + controln))
+    Rij <- sqrt(
+      fittedn / (fittedn + controln)
+    )
     
     R <- outer(Rij, Rij, "*")
     diag(R) <- 1
     
-    # Michael Chirico suggests in https://github.com/AndriSignorell/DescTools/pull/102
-    withr::with_seed(5, {
-      qvt <- mvtnorm::qmvt((1 - (1 - conf.level)/2), df = N - k, sigma = R, tail = "lower.tail")$quantile
-    })
+    qvt <- mvtnorm::qmvt(
+      p = 1 - (1 - conf.level) / 2,
+      df = N - k,
+      sigma = R,
+      tail = "lower.tail",
+      seed = 5L
+    )$quantile
     
-    # replaced by Michael Chirico's elegant solution
-    # # store the given seed
-    # if(exists(".Random.seed")){
-    #   # .Random.seed might not exist when launched as background job
-    #   # so only store and reset if it exists 
-    #   old.seed <- .Random.seed
-    # }
-    # set.seed(5)  # for getting consistent results every run
-    # qvt <- mvtnorm::qmvt((1 - (1 - conf.level)/2), df = N - k, sigma = R, tail = "lower.tail")$quantile
-    # 
-    # # reset seed
-    # if(exists("old.seed")){
-    #   .Random.seed <<- old.seed
-    # }
+    lower <-
+      meandiffs -
+      s * sqrt((1 / fittedn) + (1 / controln)) * qvt
     
-    lower <- meandiffs - s * sqrt((1/fittedn) + (1/controln)) * qvt
-    upper <- meandiffs + s * sqrt((1/fittedn) + (1/controln)) * qvt
+    upper <-
+      meandiffs +
+      s * sqrt((1 / fittedn) + (1 / controln)) * qvt
     
-    pval <- c()
-    for (i in 1:(k-1)){
-      pval[i] <- 1 - mvtnorm::pmvt(-abs(Dj[i]), abs(Dj[i]), corr=R, delta=rep(0, k-1), df=N - k)[1]
+    pval <- numeric(length(meandiffs))
+    
+    for (i in seq_along(meandiffs)) {
+      
+      pval[i] <-
+        1 -
+        mvtnorm::pmvt(
+          lower = -abs(Dj[i]),
+          upper =  abs(Dj[i]),
+          corr  = R,
+          delta = rep(0, length(meandiffs)),
+          df    = N - k,
+          seed = 5L
+        )[1]
+      
     }
     
-    out[[ii]] <- cbind(diff=meandiffs, lower, upper, pval)
-    dimnames(out[[ii]]) <- list(paste(names(meandiffs), control, sep="-"), c("diff", "lwr.ci", "upr.ci","pval"))
+    out[[ii]] <- cbind(
+      diff   = meandiffs,
+      lwr.ci = lower,
+      upr.ci = upper,
+      pval   = pval
+    )
+    
+    rownames(out[[ii]]) <- paste(
+      names(meandiffs),
+      control,
+      sep = "-"
+    )
+    
   }
   
   names(out) <- ctrls
   
-  class(out) <- c("PostHocTest")
-  #  attr(out, "orig.call") <- NA
+  class(out) <- "PostHocTest"
+  
   attr(out, "conf.level") <- conf.level
   attr(out, "ordered") <- FALSE
-  attr(out, "method") <- ""
-  attr(out, "method.str") <- gettextf("\n  Dunnett's test for comparing several treatments with a control : %s \n", attr(out, "method"))
+  attr(out, "method") <- "Dunnett"
+  attr(out, "data.name") <- DNAME
   
-  return(out)
+  attr(out, "method.str") <- gettextf(
+    "\n  Dunnett's test for comparing several treatments with a control : %s\n",
+    attr(out, "method")
+  )
+  
+  out
   
 }
-

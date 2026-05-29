@@ -8,7 +8,7 @@
 \usage{
 jonckheereTerpstraTest(x, ...)
 
-\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action = na.pass, ...)
+\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action, ...)
 
 \method{jonckheereTerpstraTest}{default}(
   x,

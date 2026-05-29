@@ -164,8 +164,10 @@ for (m in methods_bci) {
 
 # ===============================================================
 # one-sided intervals
-for (m in methods_bci) {
-  
+methods_bci_onesided <- setdiff(methods_bci, "khouadji")
+
+for (m in methods_bci_onesided) {
+
   res.left  <- binomCI(x = 10, n = 40, method = m, sides = "left")
   res.right <- binomCI(x = 10, n = 40, method = m, sides = "right")
   res.two   <- binomCI(x = 10, n = 40, method = m, sides = "two.sided")

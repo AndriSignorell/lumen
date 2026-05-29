@@ -19,6 +19,12 @@
 #' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 #' variable of the same length.
 #'
+#' Pairwise comparisons are formed as \eqn{\bar{R}_i - \bar{R}_j} for all
+#' \eqn{i < j} (lower triangle of the mean-rank difference matrix, with
+#' groups ordered by their factor levels). For one-sided alternatives,
+#' \code{"greater"} tests whether group \eqn{i} tends to have larger
+#' observations than group \eqn{j}, and \code{"less"} tests the reverse.
+#'
 #' @name conoverTest
 #'
 #' @aliases conoverTest conoverTest.default conoverTest.formula
@@ -30,13 +36,17 @@
 #'   Passed directly to \code{\link{p.adjust}}.
 #' @param alternative a character string specifying the alternative
 #'   hypothesis. Must be one of \code{"two.sided"} (default),
-#'   \code{"greater"} or \code{"less"}.
+#'   \code{"greater"} or \code{"less"}. See Details for the direction
+#'   convention.
 #' @param output output format:
 #'   \itemize{
 #'     \item \code{"list"} pairwise comparison table
 #'     \item \code{"matrix"} lower-triangular matrix of adjusted p-values
 #'   }
 #' @param formula a formula of the form \code{response ~ group}.
+#'   Requires at least three groups (\eqn{k \ge 3}); Conover's test is
+#'   intended as a post hoc procedure following a significant
+#'   Kruskal-Wallis test.
 #' @param data an optional data frame containing the variables in
 #'   \code{formula}.
 #' @param subset an optional expression specifying a subset of observations.
@@ -57,8 +67,6 @@
 #' }
 #'
 #' @seealso
-#' \code{\link{dunnTest}},
-#' \code{\link{nemenyiTest}},
 #' \code{\link{kruskal.test}},
 #' \code{\link{wilcox.test}},
 #' \code{\link{p.adjust}}
@@ -103,13 +111,54 @@
 #' @concept multiple-comparisons
 #' @concept nonparametric
 #' @concept hypothesis-testing
-#' 
 #'
-
-
+#'
 #' @export
-conoverTest <- function (x, ...)
+conoverTest <- function(x, ...)
   UseMethod("conoverTest")
+
+
+# ======================================================================
+# Formula method
+# ======================================================================
+
+#' @rdname conoverTest
+#' @export
+conoverTest.formula <- function(
+    formula,
+    data,
+    subset,
+    na.action,
+    ...
+) {
+  
+  if (missing(formula) || length(formula) != 3L)
+    stop("'formula' missing or incorrect")
+  
+  ## IMPORTANT!!
+  ## --- capture subset / na.action HERE ---
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
+  
+  pf <- resolveFormula(
+    formula   = formula,
+    data      = data,
+    subset    = subset_expr,
+    na.action = na_expr,
+    allowed   = "n-sample-independent"
+  )
+  
+  y <- conoverTest(
+    x = pf$x,
+    g = pf$group,
+    ...
+  )
+  
+  y$data.name <- pf$data.name
+  
+  y
+  
+}
 
 
 #' @rdname conoverTest
@@ -127,20 +176,22 @@ conoverTest.default <- function(
 ) {
   
   alternative <- match.arg(alternative)
-  output <- match.arg(output)
-  method <- match.arg(method)
+  output      <- match.arg(output)
+  method      <- match.arg(method)
   
-  dat <- bedrock::groupedData(x, g)
+  dat <- resolveGroups(x, g)
   
-  x <- dat$x
-  g <- dat$g
+  x   <- dat$x
+  g   <- dat$g
   
-  N <- dat$n
-  k <- dat$k
-  n <- dat$group.sizes
+  N   <- dat$n
+  k   <- dat$k
+  # coerce to plain numeric vector to avoid table dimname artefacts in outer()
+  n   <- as.numeric(dat$group.sizes)
+  names(n) <- dat$group.names
   nms <- dat$group.names
   
-  rnk <- rank(x)
+  rnk  <- rank(x)
   mrnk <- tapply(rnk, g, mean)
   
   tau <- table(rnk[allDuplicated(rnk)])
@@ -151,8 +202,7 @@ conoverTest.default <- function(
   
   # Kruskal-Wallis H statistic
   H <- (12 / (N * (N + 1))) *
-    sum(tapply(rnk, g, sum)^2 / n) -
-    3 * (N + 1)
+    sum(tapply(rnk, g, sum)^2 / n) - 3 * (N + 1)
   
   if (tiesadj == 1) {
     s2 <- N * (N + 1) / 12
@@ -162,23 +212,19 @@ conoverTest.default <- function(
   
   tval <- mrnkdiff / sqrt(
     s2 * ((N - 1 - H / tiesadj) / (N - k)) * outer(1 / n, 1 / n, "+")
-    )
+  )
   
-  if (alternative == "less") {
+  # Pairs are formed as R_i - R_j for i < j (lower triangle).
+  # "greater": i tends to exceed j  -> large positive t -> upper tail
+  # "less":    j tends to exceed i  -> large negative t -> lower tail of |t|
+  if (alternative == "greater") {
+    pvals <- pt(abs(tval), df = N - k, lower.tail = FALSE)
     
+  } else if (alternative == "less") {
     pvals <- pt(abs(tval), df = N - k)
     
-  } else if (alternative == "greater") {
-    
-    pvals <- pt(abs(tval),
-                df = N - k,
-                lower.tail = FALSE)
-    
   } else {
-    
-    pvals <- 2 * pt(abs(tval),
-                    df = N - k,
-                    lower.tail = FALSE)
+    pvals <- 2 * pt(abs(tval), df = N - k, lower.tail = FALSE)
   }
   
   keep <- lower.tri(pvals)
@@ -235,7 +281,6 @@ conoverTest.default <- function(
     )
     
   } else {
-    
     out$res <- pmat[-1, -ncol(pmat), drop = FALSE]
   }
   
@@ -243,56 +288,15 @@ conoverTest.default <- function(
   
   class(out) <- c("rankTest", "htest")
   
-  attr(out, "main") <- gettextf(
+  attr(out, "main")      <- gettextf(
     "Conover's test of multiple comparisons : %s",
     method
   )
-  
-  attr(out, "method") <- method
-  attr(out, "output") <- output
+  attr(out, "method")    <- method
+  attr(out, "output")    <- output
+  attr(out, "data.name") <- dat$data.name
   
   out
-  
-}
-
-
-
-#' @rdname conoverTest
-#' @export
-conoverTest.formula <- function(
-    formula,
-    data,
-    subset,
-    na.action,
-    ...
-) {
-  
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  ## IMPORTANT!!
-  ## --- capture subset / na.action HERE ---
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
-
-  
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
-  )
-  
-  y <- conoverTest(
-    x = pf$x,
-    g = pf$group,
-    ...
-  )
-  
-  attr(y, "data.name") <- pf$data.name
-  
-  y
   
 }
 

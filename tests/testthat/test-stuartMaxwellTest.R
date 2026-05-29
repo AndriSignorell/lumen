@@ -122,6 +122,7 @@ test_that("non-numeric matrix throws error", {
   
   mat <- matrix(c("1","2","3","4"), nrow = 2)
   
+  # resolveContingency checks is.numeric(x) first; error message contains "numeric"
   expect_error(stuartMaxwellTest(mat), "numeric")
 })
 
@@ -134,7 +135,9 @@ test_that("negative entries throw error", {
 
 test_that("missing y throws error", {
   
-  expect_error(stuartMaxwellTest(factor(c("A","B","A"))), "'y' must be given")
+  # resolveContingency: when x is not a matrix and y is NULL,
+  # error message is "'y' must be given"
+  expect_error(stuartMaxwellTest(factor(c("A", "B", "A"))), "'y' must be given")
 })
 
 test_that("different length x and y throws error", {
@@ -147,9 +150,11 @@ test_that("different length x and y throws error", {
 
 test_that("fewer than 2 levels throws error", {
   
+  # factor(c("A","A")) has only 1 level -> resolveContingency fires
+  # "'x' and 'y' must each have at least 2 levels" before table() is built
   expect_error(
-    stuartMaxwellTest(factor(c("A","A")), factor(c("A","A"))),
-    "2 distinct"
+    stuartMaxwellTest(factor(c("A", "A")), factor(c("A", "A"))),
+    "at least 2 levels"
   )
 })
 
@@ -202,4 +207,5 @@ test_that("print.htest works", {
   
   expect_output(print(res), "Stuart-Maxwell")
 })
+
 

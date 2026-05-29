@@ -1,225 +1,245 @@
 
-#' Nemenyi Test 
-#' 
-#' A nonparametric post hoc test for multiple pairwise comparisons following 
-#' a significant Kruskal-Wallis or Friedman test, based on rank differences.
-#' 
-#' Performs Nemenyi's test of multiple comparisons. 
-#' 
-#' 
-#' ToDo!! ****************************************************************
-#' Tell when to use this test. References needed! Nemenyi proposed a
-#' test based on rank sums and the application of the family-wise error method
-#' to control Type I error inflation, if multiple comparisons are done. The
-#' Tukey and Kramer approach uses mean rank sums and can be employed for
-#' equally as well as unequally sized samples without ties.
-#' ToDo!! ****************************************************************
-#' 
+#' Nemenyi Test of Multiple Comparisons
+#'
+#' A nonparametric post hoc test for multiple pairwise comparisons following
+#' a significant Kruskal-Wallis test, based on differences in mean ranks.
+#'
+#' Performs Nemenyi's multiple comparison procedure for independent samples.
+#' The test compares all pairs of groups using rank differences and controls
+#' the family-wise error rate through the studentized range distribution
+#' (Tukey-type approximation) or an asymptotic chi-squared approximation.
+#'
+#' Nemenyi's test is commonly used as a post hoc procedure after a significant
+#' \code{\link{kruskal.test}} when all pairwise comparisons between groups are
+#' of interest. Unlike \code{\link{dunnTest}} and
+#' \code{\link{conoverTest}}, no additional p-value adjustment is applied,
+#' since multiplicity control is built into the test statistic.
+#'
+#' If \code{x} is a list, its elements are taken as the samples to be compared,
+#' and hence have to be numeric data vectors. In this case, \code{g} is
+#' ignored and one can simply use \code{nemenyiTest(x)}.
+#'
+#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping factor
+#' (or vector coercible to a factor) of the same length.
+#'
 #' @name nemenyiTest
 #' @aliases nemenyiTest nemenyiTest.default nemenyiTest.formula
+#'
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
-#' @param g a vector or factor object giving the group for the corresponding
-#' elements of \code{x}.  Ignored if \code{x} is a list.
-#' @param dist the distribution used for the test. Can be \code{tukey}
-#' (default) or \code{chisq}.
-#' @param out.list logical, defining if the output should be organized in
-#' listform.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-#' the data values and \code{rhs} the corresponding groups.
-#' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
-#' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
-#' @param \dots further arguments to be passed to or from methods.
-#' @return A list of class \code{htest}, containing the following components:
-#' \item{statistic}{ Nemenyi test} \item{p.value}{ the p-value for the test}
-#' \item{null.value}{is the value of the median specified by the null
-#' hypothesis. This equals the input argument \code{mu}. } \item{alternative}{a
-#' character string describing the alternative hypothesis.} \item{method}{ the
-#' type of test applied} \item{data.name}{a character string giving the names
-#' of the data.}
-#' 
-#' @seealso \code{\link{dunnTest}}, \code{\link{conoverTest}} 
-#' 
-#' @references Nemenyi, P. B. (1963) \emph{Distribution-Free Multiple
-#' Comparisons} New York, State University of New York, Downstate Medical
-#' Center
-#' 
-#' Hollander, M., Wolfe, D.A. (1999) \emph{Nonparametric Statistical Methods}
-#' New York, Wiley, pp. 787
-#' 
-#' Friedman, M. (1937) The use of ranks to avoid the assumption of normality
-#' implicit in the analysis of variance \emph{Journal of the American
-#' Statistical Association}, 32:675-701
-#' 
-#' Friedman, M. (1940) A comparison of alternative tests of significance for
-#' the problem of m rankings \emph{Annals of Mathematical Statistics}, 11:86-92
-#' 
+#' @param g a grouping factor corresponding to \code{x}. Ignored if
+#'   \code{x} is a list.
+#' @param dist character string specifying the reference distribution used for
+#'   the test statistic. One of \code{"tukey"} (default) or \code{"chisq"}.
+#' @param output character string specifying the output format. One of
+#'   \code{"list"} (default) or \code{"matrix"}.
+#' @param formula a formula of the form \code{response ~ group}.
+#' @param data an optional data frame containing the variables in
+#'   \code{formula}.
+#' @param subset an optional expression specifying a subset of observations to
+#'   be used.
+#' @param na.action a function specifying how missing values should be handled.
+#' @param \dots further arguments passed to methods.
+#'
+#' @return An object of class \code{c("rankTest", "htest")} containing:
+#' \describe{
+#'   \item{res}{pairwise comparison results, either as a list or matrix}
+#'   \item{pmat}{symmetric matrix of adjusted p-values}
+#' }
+#'
+#' Additional information is stored in attributes:
+#' \code{method}, \code{output}, \code{main}, and \code{data.name}.
+#'
+#' @seealso
+#' \code{\link{kruskal.test}}
+#'
+#' @references
+#' Nemenyi, P. B. (1963).
+#' \emph{Distribution-Free Multiple Comparisons}.
+#' PhD thesis, Princeton University.
+#'
+#' Hollander, M., Wolfe, D. A. and Chicken, E. (2014).
+#' \emph{Nonparametric Statistical Methods}.
+#' 3rd ed. Wiley.
+#'
 #' @examples
-#' 
-#' ## Hollander & Wolfe (1973), 116.
-#' ## Mucociliary efficiency from the rate of removal of dust in normal
-#' ##  subjects, subjects with obstructive airway disease, and subjects
-#' ##  with asbestosis.
-#' x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-#' y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-#' z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
-#' 
+#' ## Hollander & Wolfe example
+#' x <- c(2.9, 3.0, 2.5, 2.6, 3.2)
+#' y <- c(3.8, 2.7, 4.0, 2.4)
+#' z <- c(2.8, 3.4, 3.7, 2.2, 2.0)
+#'
 #' nemenyiTest(list(x, y, z))
-#' 
-#' ## Equivalently,
+#'
 #' x <- c(x, y, z)
-#' g <- factor(rep(1:3, c(5, 4, 5)),
-#'             labels = c("Normal subjects",
-#'                        "Subjects with obstructive airway disease",
-#'                        "Subjects with asbestosis"))
-#' 
+#' g <- factor(rep(1:3, c(5, 4, 5)))
+#'
 #' nemenyiTest(x, g)
-#' 
-#' ## Formula interface.
-#' boxplot(Ozone ~ Month, data = airquality)
+#'
+#' ## Formula interface
 #' nemenyiTest(Ozone ~ Month, data = airquality)
-#' 
-#' # Hedderich & Sachs, 2012, p. 555
-#' d.frm <- data.frame(x=c(28,30,33,35,38,41, 36,39,40,43,45,50, 44,45,47,49,53,54),
-#'                     g=c(rep(LETTERS[1:3], each=6)), stringsAsFactors=TRUE)
-#' 
-#' nemenyiTest(x~g, d.frm)
-
-
-
+#'
 #' @rdname nemenyiTest
 #' @family test.posthoc
 #' @concept multiple-comparisons
 #' @concept nonparametric
 #' @concept hypothesis-testing
 #'
-#'
+
 #' @export
-nemenyiTest <- function (x, ...)
+nemenyiTest <- function(x, ...)
   UseMethod("nemenyiTest")
 
 
+# ======================================================================
+# Formula method
+# ======================================================================
+
 #' @rdname nemenyiTest
 #' @export
-nemenyiTest.formula <- function (formula, data, subset, na.action, ...) {
+nemenyiTest.formula <- function(formula, data, subset, na.action, ...) {
   
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
+  if (missing(formula) || (length(formula) != 3L) ||
+      (length(attr(terms(formula[-2L]), "term.labels")) != 1L))
     stop("'formula' missing or incorrect")
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
-    m$data <- as.data.frame(data)
-  m[[1L]] <- quote(stats::model.frame)
-  m$... <- NULL
-  mf <- eval(m, parent.frame())
-  if (length(mf) > 2L)
-    stop("'formula' should be of the form response ~ group")
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  response <- attr(attr(mf, "terms"), "response")
-  y <- do.call("nemenyiTest", c(as.list(mf), list(...)))
-  y$data.name <- DNAME
+  
+  ## IMPORTANT!!
+  ## --- capture subset / na.action HERE ---
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
+  
+  pf <- resolveFormula(
+    formula   = formula,
+    data      = data,
+    subset    = subset_expr,
+    na.action = na_expr,
+    allowed   = "n-sample-independent"
+  )
+  
+  y <- nemenyiTest(
+    x = pf$x,
+    g = pf$group,
+    ...
+  )
+  
+  y$data.name <- pf$data.name
+  
   y
+  
 }
 
 
-
-
 #' @rdname nemenyiTest
 #' @export
-nemenyiTest.default <- function (x, g,
-                                 dist = c("tukey", "chisq"), out.list = TRUE, ...) {
+nemenyiTest.default <- function(
+    x,
+    g,
+    dist = c("tukey", "chisq"),
+    output = c("list", "matrix"),
+    ...
+) {
   
-  if (is.list(x)) {
-    if (length(x) < 2L) 
-      stop("'x' must be a list with at least 2 elements")
-    if (!missing(g)) 
-      warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1(substitute(x))
-    x <- lapply(x, function(u) u <- u[complete.cases(u)])
-    if (!all(sapply(x, is.numeric))) 
-      warning("some elements of 'x' are not numeric and will be coerced to numeric")
-    k <- length(x)
-    l <- lengths(x)
-    if (any(l == 0L)) 
-      stop("all groups must contain data")
-    g <- factor(rep.int(seq_len(k), l))
-    x <- unlist(x)
-  }
-  else {
-    if (length(x) != length(g)) 
-      stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
-    OK <- complete.cases(x, g)
-    x <- x[OK]
-    g <- g[OK]
-    g <- factor(g)
-    k <- nlevels(g)
-    if (k < 2L) 
-      stop("all observations are in the same group")
-  }
-  N <- length(x)
-  if (N < 2L) 
-    stop("not enough observations")  
+  output <- match.arg(output)
+  dist   <- match.arg(dist)
   
+  gd <- resolveGroups(x, g)
   
-  dist <- match.arg(dist, c("tukey", "chisq"))
+  x <- gd$x
+  g <- gd$g
   
-  nms <- levels(g)
+  N   <- gd$n
+  nms <- gd$group.names
+  # coerce to plain numeric vector to avoid table dimname artefacts in outer()
+  n   <- as.numeric(gd$group.sizes)
+  names(n) <- nms
   
-  n <- tapply(g, g, length)
-  rnk <- rank(x)
+  rnk  <- rank(x)
   mrnk <- tapply(rnk, g, mean)
   
   tau <- table(rnk[allDuplicated(rnk)])
+  
   tiesadj <- min(1, 1 - sum(tau^3 - tau) / (N^3 - N))
+  
   mrnkdiff <- outer(mrnk, mrnk, "-")
   
-  if(dist == "chisq"){
-    chi <- mrnkdiff^2 / ((N*(N+1)/12) * outer(1/n, 1/n, "+"))
-    pvals <- pchisq(tiesadj * chi, df=k-1, lower.tail=FALSE)
+  if (dist == "chisq") {
+    
+    chi <- mrnkdiff^2 /
+      ((N * (N + 1) / 12) * outer(1 / n, 1 / n, "+"))
+    
+    pvals <- pchisq(tiesadj * chi, df = length(n) - 1,
+                    lower.tail = FALSE)
+    
   } else {
-    z <- abs(mrnkdiff) / sqrt( (N*(N+1)/12) * outer(1/n, 1/n, "+"))
-    pvals <- ptukey(z * sqrt(2), nmeans=k, df=Inf, lower.tail=FALSE)
+    
+    z <- abs(mrnkdiff) / sqrt(
+      (N * (N + 1) / 12) * outer(1 / n, 1 / n, "+"))
+    
+    pvals <- ptukey(z * sqrt(2), nmeans = length(n),
+                    df = Inf, lower.tail = FALSE)
   }
   
+  keep      <- lower.tri(pvals)
+  pvals_vec <- pvals[keep]
   
-  keep <- lower.tri(pvals)
-  pvals <- pvals[keep]
-  m <- sum(keep)
+  # --- p-value matrix ----------------------------------------------------
+  
+  pmat <- matrix(
+    NA_real_,
+    nrow = length(nms),
+    ncol = length(nms),
+    dimnames = list(nms, nms)
+  )
+  
+  pmat[lower.tri(pmat)] <- pvals_vec
+  
+  pmatxt <- pmat
+  pmatxt[upper.tri(pmatxt)] <- t(pmatxt)[upper.tri(pmatxt)]
+  diag(pmatxt) <- 1
+  
+  attr(pmatxt, "lbl") <- apply(
+    pmatxt,
+    1,
+    function(x)
+      paste(rownames(pmatxt)[x < 0.05], collapse = ",")
+  )
+  
+  # --- output ------------------------------------------------------------
   
   out <- list()
   
-  # no p.adjustment in this test
-  # pvals <- p.adjust(pvals, method=method)
-  method.str <- "none" #method
-  
-  if(out.list){
-    dnames <- list(NULL, c("mean rank diff", "pval"))
-    if (!is.null(nms))
+  if (output == "list") {
+    
+    dnames <- list(
+      NULL,
+      c("mean rank diff", "pval")
+    )
+    
+    if (!is.null(nms)) {
       dnames[[1L]] <- outer(nms, nms, paste, sep = "-")[keep]
-    out[[1]] <- array(c(mrnkdiff[keep], pvals), c(length(mrnkdiff[keep]), 2L), dnames)
+    }
+    
+    out$res <- array(
+      c(mrnkdiff[keep], pvals_vec),
+      c(length(mrnkdiff[keep]), 2L),
+      dnames
+    )
     
   } else {
-    out[[1]] <- matrix(NA, nrow=length(nms), ncol=length(nms))
-    out[[1]][lower.tri(out[[1]], diag = FALSE)] <- pvals
-    dimnames(out[[1]]) <- list(nms, nms)
-    out[[1]] <- out[[1]][-1, -ncol(out[[1]])]
-    
+    out$res <- pmat[-1, -ncol(pmat), drop = FALSE]
   }
   
-  class(out) <- c("DunnTest")
-  attr(out, "main") <- gettextf("Nemenyi's test of multiple comparisons for independent samples (%s) ", dist)
-  attr(out, "method") <- method.str
-  attr(out, "out.list") <- out.list
+  out$pmat <- pmatxt
   
-  return(out)
+  class(out) <- c("rankTest", "htest")
+  
+  attr(out, "main")      <- gettextf(
+    "Nemenyi's test of multiple comparisons for independent samples (%s)",
+    dist
+  )
+  attr(out, "method")    <- "none"
+  attr(out, "output")    <- output
+  attr(out, "data.name") <- gd$data.name
+  
+  out
   
 }
-
 

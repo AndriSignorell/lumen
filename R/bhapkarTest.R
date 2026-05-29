@@ -62,27 +62,21 @@
 #' @concept hypothesis-testing
 #' @concept table-manipulation
 #' @concept nonparametric
+
 #' @export
 bhapkarTest <- function(x, y = NULL) {
   
-  DNAME <- if (is.matrix(x)) {
-    deparse(substitute(x))
-  } else {
-    paste(deparse(substitute(x)), "and", deparse(substitute(y)))
-  }
-  
   res <- stuartMaxwellTest(x = x, y = y)
   
-  ## Bhapkar statistic: Q_B = Q_SM / (1 - Q_SM / n)
-  ## where n is the total sample size (Sun & Yang 2008)
   Q_SM <- unname(res$statistic)
-  Q_B  <- Q_SM / (1 - Q_SM / res$n)
+  Q_B <- Q_SM / (1 - Q_SM / res$n)
+  res$statistic <- c("chi-squared" = Q_B)
   
-  res$statistic  <- c("chi-squared" = Q_B)
-  res$p.value    <- pchisq(Q_B, df = res$parameter, lower.tail = FALSE)
-  res$method     <- "Bhapkar test for marginal homogeneity"
-  res$data.name  <- DNAME
+  res$p.value <- pchisq(Q_B, df = res$parameter, lower.tail = FALSE)
+  res$method <- "Bhapkar test for marginal homogeneity"
   
   res
+  
 }
+
 

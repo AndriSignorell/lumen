@@ -112,7 +112,7 @@
 #' madRatioCI(x, y)
 #' madRatioCI(x, y, method = "boot", R = 499, type = "bca")
 #'
-#' @name mad-ci
+#' @name mad-confints
 #' @aliases madCI madDiffCI madRatioCI
 #' 
 
@@ -191,7 +191,7 @@ madCI <- function(x,
 
 
 
-#' @rdname mad-ci
+#' @rdname mad-confints
 #' @export
 madDiffCI <- function(x, y,
                       conf.level = 0.95,
@@ -274,7 +274,7 @@ madDiffCI <- function(x, y,
 
 
 
-#' @rdname mad-ci
+#' @rdname mad-confints
 #' @export
 madRatioCI <- function(x, y,
                        conf.level = 0.95,

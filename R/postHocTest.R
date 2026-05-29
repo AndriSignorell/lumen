@@ -322,9 +322,8 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
     }
     
     print.default(xx, digits = digits, ...)
-    
-    cat("---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n")
-    
+    .printSignifCodes()
+
   } else {
     
     for (nm in names(xx)) {

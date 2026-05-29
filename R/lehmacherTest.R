@@ -36,8 +36,7 @@
 #' string indicating what type of test was performed.} \item{data.name}{a
 #' character string giving the name of the data.}
 #' 
-#' @seealso \code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix),
-#' \code{\link{stuartMaxwellTest}}, \code{\link{woolfTest}} 
+#' @seealso \code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix)
 #' @references Lehmacher, W. (1980) Simultaneous sign tests for marginal
 #' homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
 #' 22, Issue 8, pages 795-798
@@ -62,48 +61,34 @@
 #'
 #'
 #' @export
+#' @export
 lehmacherTest <- function(x, y = NULL) {
   
-  if (is.matrix(x)) {
-    r <- nrow(x)
-    if ((r < 2L) || (ncol(x) != r))
-      stop("'x' must be square with at least two rows and columns")
-    if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
-      stop("all entries of 'x' must be nonnegative and finite")
-    if (any(x != round(x)))
-      warning("'x' contains non-integer counts", call. = FALSE)
-    DNAME <- deparse(substitute(x))
-    
-  } else {
-    
-    if (is.null(y))
-      stop("if 'x' is not a matrix, 'y' must be given")
-    if (length(x) != length(y))
-      stop("'x' and 'y' must have the same length")
-    
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
-    OK  <- complete.cases(x, y)
-    
-    ## Unite levels to ensure consistent category set
-    lev <- unique(c(as.character(x[OK]), as.character(y[OK])))
-    x   <- factor(x[OK], levels = lev)
-    y   <- factor(y[OK], levels = lev)
-    
-    r <- nlevels(x)
-    if (r < 2L)
-      stop("'x' and 'y' must have at least 2 distinct levels")
-    
-    x <- table(x, y)
-  }
+  CT <- resolveContingency(
+    x = x,
+    y = y,
+    square = TRUE
+  )
+  
+  x <- CT$table
+  DNAME <- CT$data.name
   
   rsum <- rowSums(x)
   csum <- colSums(x)
   
-  ## Guard against perfect agreement (denom = 0 -> statistic = 0)
-  denom     <- rsum + csum - 2 * diag(x)
-  STATISTIC <- ifelse(denom > 0, (rsum - csum)^2 / denom, 0)
+  denom <- rsum + csum - 2 * diag(x)
   
-  PVAL <- pchisq(STATISTIC, df = 1L, lower.tail = FALSE)
+  STATISTIC <- ifelse(
+    denom > 0,
+    (rsum - csum)^2 / denom,
+    0
+  )
+  
+  PVAL <- pchisq(
+    STATISTIC,
+    df = 1L,
+    lower.tail = FALSE
+  )
   
   structure(
     list(
@@ -116,6 +101,7 @@ lehmacherTest <- function(x, y = NULL) {
     ),
     class = "mtest"
   )
+  
 }
 
 
@@ -147,8 +133,7 @@ print.mtest <- function(x, digits = 4L, ...) {
     seq_along(x$statistic)
   
   print.default(out, digits = 3L, quote = FALSE, right = TRUE)
+  .printSignifCodes()
   
-  cat("\n---\nSignif. codes:  ",
-      "0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n")
   invisible(x)
 }

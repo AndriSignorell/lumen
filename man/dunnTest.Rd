@@ -4,7 +4,6 @@
 \alias{dunnTest}
 \alias{dunnTest.default}
 \alias{dunnTest.formula}
-\alias{print.rankTest}
 \title{Dunn's Test of Multiple Comparisons}
 \usage{
 dunnTest(x, ...)
@@ -19,15 +18,16 @@ dunnTest(x, ...)
   output = c("list", "matrix"),
   ...
 )
-
-\method{print}{rankTest}(x, digits = getOption("digits", 3), ...)
 }
 \arguments{
 \item{x}{a numeric vector of observations or a list of numeric vectors.}
 
 \item{\dots}{further arguments passed to methods.}
 
-\item{formula}{a formula of the form \code{response ~ group}.}
+\item{formula}{a formula of the form \code{response ~ group}.
+Requires at least three groups (\eqn{k \ge 3}); Dunn's test is
+intended as a post hoc procedure following a significant
+Kruskal-Wallis test.}
 
 \item{data}{an optional data frame containing the variables in
 \code{formula}.}
@@ -44,15 +44,14 @@ Passed directly to \code{\link{p.adjust}}.}
 
 \item{alternative}{a character string specifying the alternative
 hypothesis. Must be one of \code{"two.sided"} (default),
-\code{"greater"} or \code{"less"}.}
+\code{"greater"} or \code{"less"}. See Details for the direction
+convention.}
 
 \item{output}{output format:
 \itemize{
 \item \code{"list"} pairwise comparison table
 \item \code{"matrix"} lower-triangular matrix of adjusted p-values
 }}
-
-\item{digits}{number of digits used for printing.}
 }
 \value{
 An object of class \code{c("rankTest", "htest")} containing:
@@ -84,6 +83,12 @@ compared and must be numeric vectors. In this case \code{g} is ignored.
 
 Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 variable of the same length.
+
+Pairwise comparisons are formed as \eqn{\bar{R}_i - \bar{R}_j} for all
+\eqn{i < j} (lower triangle of the mean-rank difference matrix, with
+groups ordered by their factor levels). For one-sided alternatives,
+\code{"greater"} tests whether group \eqn{i} tends to have larger
+observations than group \eqn{j}, and \code{"less"} tests the reverse.
 }
 \examples{
 
@@ -126,7 +131,6 @@ Multiple comparisons using rank sums.
 \seealso{
 \code{\link{kruskal.test}},
 \code{\link{wilcox.test}},
-\code{\link{conoverTest}},
 \code{\link{p.adjust}}
 
 Other test.posthoc:
@@ -136,7 +140,8 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

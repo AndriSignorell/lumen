@@ -1,5 +1,4 @@
 
-
 #' van der Waerden Test
 #' 
 #' A nonparametric k-sample test based on normal scores (van der Waerden 
@@ -52,19 +51,18 @@
 #' components: \item{statistic}{the van der Waerden statistic.}
 #' \item{parameter}{the degrees of freedom of the approximate chi-squared
 #' distribution of the test statistic.} \item{p.value}{the p-value of the
-#' test.} \item{method}{the character string \code{"van-der-Waerden normal
+#' test.} \item{method}{the character string \code{"Van-der-Waerden normal
 #' scores test"}.} \item{data.name}{a character string giving the names of the
 #' data.}
 #' 
-#' @seealso \code{\link[coin]{normal_test}} in package \pkg{coin}
-#' (\url{https://CRAN.R-project.org/package=coin}),
+#' @seealso \code{\link[coin]{normal_test}} in package \pkg{coin},
 #' where the test is implemented in a more general context.
 #' 
 #' @references Conover, W. J., Iman, R. L. (1979). On multiple-comparisons
 #' procedures, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 #' 
-#' Conover, W. J. (1999). \emph{Practical Nonparameteric Statistics} (Third
-#' Edition ed.). Wiley. pp. 396406.
+#' Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (Third
+#' Edition ed.). Wiley. pp. 396--406.
 #' 
 #' @examples
 #' 
@@ -91,97 +89,86 @@
 #' boxplot(Ozone ~ Month, data = airquality)
 #' vanWaerdenTest(Ozone ~ Month, data = airquality)
 #' 
-
 #' @rdname vanWaerdenTest
-#' @family test.posthoc
-#' @concept multiple-comparisons
+#' @family test.omnibus
+#' @concept k-sample
 #' @concept nonparametric
 #' @concept hypothesis-testing
 #'
 #'
+
+
 #' @export
 vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
-
-
 #' @rdname vanWaerdenTest
+
+
 #' @export
-vanWaerdenTest.formula <- function (formula, data, subset, na.action, ...) {
-  
-  if (missing(formula) || (length(formula) != 3L)) 
+vanWaerdenTest.formula <- function(formula, data, subset, na.action, ...) {
+  if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
   
-  m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame()))) 
-    m$data <- as.data.frame(data)
-  m[[1L]] <- quote(stats::model.frame)
+  ## IMPORTANT!!
+  ## --- capture subset / na.action HERE ---
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
   
-  mf <- eval(m, parent.frame())
-  if (length(mf) > 2L) 
-    stop("'formula' should be of the form response ~ group")
+  pf <- resolveFormula(
+    formula   = formula,
+    data      = data,
+    subset    = subset_expr,
+    na.action = na_expr,
+    allowed   = "n-sample-independent"
+  )
   
-  DNAME <- paste(names(mf), collapse = " by ")
-  names(mf) <- NULL
-  y <- do.call("vanWaerdenTest", as.list(mf))
-  y$data.name <- DNAME
+  y <- vanWaerdenTest(
+    x = pf$x,
+    g = pf$group,
+    ...
+  )
+  
+  y$data.name <- pf$data.name
+  
   y
+  
 }
 
 
 
-
 #' @rdname vanWaerdenTest
 #' @export
-vanWaerdenTest.default <- function (x, g, ...) {
+vanWaerdenTest.default <- function(x, g, ...) {
   
-  ## This is literally kruskal.test code
+  gd <- resolveGroups(x, g)
   
-  if (is.list(x)) {
-    if (length(x) < 2L) 
-      stop("'x' must be a list with at least 2 elements")
-    if (!missing(g)) 
-      warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1(substitute(x))
-    x <- lapply(x, function(u) u <- u[complete.cases(u)])
-    if (!all(sapply(x, is.numeric))) 
-      warning("some elements of 'x' are not numeric and will be coerced to numeric")
-    k <- length(x)
-    l <- lengths(x)
-    if (any(l == 0L)) 
-      stop("all groups must contain data")
-    g <- factor(rep.int(seq_len(k), l))
-    x <- unlist(x)
-  }
-  else {
-    if (length(x) != length(g)) 
-      stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
-    OK <- complete.cases(x, g)
-    x <- x[OK]
-    g <- g[OK]
-    g <- factor(g)
-    k <- nlevels(g)
-    if (k < 2L) 
-      stop("all observations are in the same group")
-  }
-  n <- length(x)
-  if (n < 2L) 
-    stop("not enough observations")  
+  x <- gd$x
+  g <- gd$g
+  
+  n <- gd$n
+  k <- gd$k
   
   r <- rank(x)
+  z <- qnorm(r / (n + 1))
   
-  z <- qnorm(r/(n + 1))
+  statistic <- (n - 1) / sum(z^2) * sum(
+    tapply(z, g, sum)^2 / gd$group.sizes )
   
-  STATISTIC <- (n - 1) / sum(z^2) * 
-    sum(tapply(z, g, sum)^2 / tapply(z, g, length))
+  parameter <- as.numeric(k - 1L)
+  p.value   <- pchisq(statistic, parameter, lower.tail = FALSE)
   
-  PARAMETER <- k - 1L
-  PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
-  names(STATISTIC) <- "Van-der-Waerden chi-squared"
-  names(PARAMETER) <- "df"
-  RVAL <- list(statistic = STATISTIC, parameter = PARAMETER, 
-               p.value = PVAL, method = "Van-der-Waerden normal scores test", 
-               data.name = DNAME)
-  class(RVAL) <- "htest"
-  return(RVAL)
+  names(statistic) <- "Van-der-Waerden chi-squared"
+  names(parameter) <- "df"
+  
+  structure(
+    list(
+      statistic = statistic,
+      parameter = parameter,
+      p.value   = p.value,
+      method    = "Van-der-Waerden normal scores test",
+      data.name = gd$data.name
+    ),
+    class = "htest"
+  )
+  
 }
 

@@ -108,31 +108,18 @@
 #' the 2x2 Binomial Trial, \emph{Journal of the Royal Statistical Society},
 #' Ser. A, 148, 317-327.
 #' 
-#' Cardillo G. (2009) MyBarnard: a very compact routine for Barnard's exact
-#' test on 2x2 matrix.
-#' \url{https://ch.mathworks.com/matlabcentral/fileexchange/25760-mybarnard}
-#' 
-#' Galili T. (2010)
-#' \url{https://www.r-statistics.com/2010/02/barnards-exact-test-a-powerful-alternative-for-fishers-exact-test-implemented-in-r/}
-#' 
 #' Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two
 #' independent binomial proportions. \emph{Communications in
 #' Statistics-Simulation and Computation}, 38(1):78-91.
-#' 
-#' Trujillo-Ortiz, A., R. Hernandez-Walls, A. Castro-Perez, L.
-#' Rodriguez-Cardozo N.A. Ramos-Delgado and R. Garcia-Sanchez. (2004).
-#' Barnardextest:Barnard's Exact Probability Test. A MATLAB file. 
-#' WWW document. \url{https://www.mathworks.com/}
 #' 
 #' Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional exact
 #' tests for comparing two binomials.
 #' \url{https://www.researchgate.net/publication/242179503_Conditional_versus_Unconditional_Exact_Tests_for_Comparing_Two_Binomials}
 #' 
 #' Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version 2.0.
-#' \cr \url{https://CRAN.R-project.org/package=Exact}
 #' 
 #' @examples
-#' #' 
+#' 
 #' tab <- as.table(matrix(c(8, 14, 1, 3), nrow=2,
 #'                 dimnames=list(treat=c("I","II"), out=c("I","II"))))
 #' barnardTest(tab)
@@ -165,64 +152,76 @@
 #' @concept nonparametric
 #'
 #'
+
+
 #' @export
-barnardTest <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), 
-                         method = c("csm", "csm approximate", "z-pooled", "z-unpooled", "boschloo", 
-                                    "santner and snell"), 
-                         fixed = 1, useStoredCSM=FALSE, ...) {
+barnardTest <- function(
+    x,
+    y = NULL,
+    alternative = c("two.sided", "less", "greater"),
+    method = c(
+      "csm",
+      "csm approximate",
+      "z-pooled",
+      "z-unpooled",
+      "boschloo",
+      "santner and snell"
+    ),
+    fixed = 1,
+    useStoredCSM = FALSE,
+    ...
+) {
   
-  if (is.matrix(x)) {
-    r <- nrow(x)
-    if ((r < 2) || (ncol(x) != r)) 
-      stop("'x' must be square with at least two rows and columns")
-    if (any(x < 0) || anyNA(x)) 
-      stop("all entries of 'x' must be nonnegative and finite")
-    DNAME <- deparse(substitute(x))
+  CT <- resolveContingency(x, y)
+  
+  x <- CT$table
+  
+  if (nrow(x) != 2L || ncol(x) != 2L)
+    stop("'x' must be a 2 x 2 contingency table")
+  
+  lst <- list(
+    data = x,
+    alternative = match.arg(alternative),
+    method = match.arg(method),
+    to.plot = FALSE,
+    useStoredCSM = useStoredCSM,
+    ...
+  )
+  
+  if (identical(fixed, 1)) {
     
-  } else {
-    if (is.null(y)) 
-      stop("if 'x' is not a matrix, 'y' must be given")
-    if (length(x) != length(y)) 
-      stop("'x' and 'y' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
-    OK <- complete.cases(x, y)
-    x <- as.factor(x[OK])
-    y <- as.factor(y[OK])
-    r <- nlevels(x)
-    if ((r < 2) || (nlevels(y) != r)) 
-      stop("'x' and 'y' must have the same number of levels (minimum 2)")
-    x <- table(x, y)
+    lst$model <- c(lst, model = "binomial")[["model"]]
+    
+    lst$cond.row <- c(
+      list(...),
+      cond.row = TRUE
+    )[["cond.row"]]
+    
+  } else if (identical(fixed, 2)) {
+    
+    lst$model <- c(lst, model = "binomial")[["model"]]
+    
+    lst$cond.row <- c(
+      list(...),
+      cond.row = FALSE
+    )[["cond.row"]]
+    
+  } else if (identical(fixed, NA)) {
+    
+    lst$model <- c(
+      lst,
+      model = "multinomial"
+    )[["model"]]
+    
+  } else if (identical(sort(fixed), c(1, 2))) {
+    
+    stop(
+      "Use fisher.test() if both margins, rows AND columns, are fixed"
+    )
+    
   }
   
+  do.call(exact.test, lst)
   
-  lst <- list(data=x, 
-              alternative=match.arg(alternative), 
-              method=match.arg(method), 
-              to.plot = FALSE, useStoredCSM = useStoredCSM, ...)
-  
-  if(identical(fixed, 1)) {
-    lst[["model"]] <- c(lst, model="binomial")[["model"]]
-    lst[["cond.row"]] <- c(list(...), cond.row=TRUE)[["cond.row"]]
-    
-  } else if(identical(fixed, 2)) {
-    lst[["model"]] <- c(lst, model="binomial")[["model"]]
-    lst[["cond.row"]] <- c(list(...), cond.row=FALSE)[["cond.row"]]
-    
-  } else if(identical(fixed, NA)) {
-    lst[["model"]] <- c(lst, model="multinomial")[["model"]]
-    
-  } else if(identical(sort(fixed), c(1,2))) {
-    stop("Use fisher.test() if both margins, rows AND columns, are fixed")
-    # return(fisher.test(x, alternative = alternative))
-    
-  }
-  
-  res <- do.call(exact.test, lst)
-  
-  
-  return(res)
-  
-}  
-
-
+}
 

@@ -166,39 +166,35 @@ jonckheereTerpstraTest <- function(x, ...)
 jonckheereTerpstraTest.formula <- function(formula,
                                            data,
                                            subset,
-                                           na.action = na.pass,
+                                           na.action,
                                            ...) {
-  
+
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
   
-  args <- list(
+  ## IMPORTANT!!
+  ## --- capture subset / na.action HERE ---
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
+  
+  pf <- resolveFormula(
     formula   = formula,
-    na.action = na.action,
+    data      = data,
+    subset    = subset_expr,
+    na.action = na_expr,
     allowed   = "n-sample-independent"
   )
   
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(bedrock::resolveFormula, args)
-  
-  res <- jonckheereTerpstraTest.default(
-    x = d$x,
-    g = d$g,
+  y <- jonckheereTerpstraTest(
+    x = pf$x,
+    g = pf$group,
     ...
   )
   
-  res$data.name <- paste(
-    deparse(formula[[2L]]),
-    "by",
-    deparse(formula[[3L]])
-  )
+  y$data.name <- pf$data.name
   
-  res
+  y
+  
 }
 
 
@@ -217,79 +213,24 @@ jonckheereTerpstraTest.default <- function(
   alternative <- match.arg(alternative)
   method      <- match.arg(method)
   
-  ## ---------------------------------------------------------------------
-  ## List interface
-  ## ---------------------------------------------------------------------
+  DG <- resolveGroups(x, g)
   
-  if (is.list(x)) {
-    
-    if (length(x) < 2L)
-      stop("'x' must contain at least two groups")
-    
-    if (!missing(g))
-      warning("'g' ignored because 'x' is a list")
-    
-    DNAME <- deparse1(substitute(x))
-    
-    x <- lapply(x, function(z) z[is.finite(z)])
-    
-    if (!all(vapply(x, is.numeric, logical(1))))
-      stop("all groups must be numeric")
-    
-    sizes <- lengths(x)
-    
-    if (any(sizes == 0L))
-      stop("all groups must contain observations")
-    
-    g <- ordered(rep.int(seq_along(x), sizes))
-    x <- unlist(x)
-    
-  } else {
-    
-    ## -------------------------------------------------------------------
-    ## Standard interface
-    ## -------------------------------------------------------------------
-    
-    if (missing(g))
-      stop("'g' is missing")
-    
-    if (length(x) != length(g))
-      stop("'x' and 'g' must have same length")
-    
-    DNAME <- paste(
-      deparse1(substitute(x)),
-      "by",
-      deparse1(substitute(g))
-    )
-    
-    ok <- complete.cases(x, g)
-    x  <- x[ok]
-    g  <- g[ok]
-    
-    if (!(is.numeric(g) || is.factor(g) || is.ordered(g)))
-      stop("'g' must be numeric or a factor")
-    
-    g <- ordered(g)
-    
-  }
+  x <- DG$x
+  g <- ordered(DG$g)
   
-  n <- length(x)
+  n <- DG$n
+  k <- DG$k
   
-  if (n < 2L)
-    stop("not enough observations")
-  
-  k <- nlevels(g)
-  
-  if (k < 2L)
-    stop("all observations belong to same group")
+  DNAME <- DG$data.name
   
   ## ---------------------------------------------------------------------
   ## Ordering
   ## ---------------------------------------------------------------------
   
   ord <- order(g)
-  x   <- x[ord]
-  g   <- g[ord]
+  
+  x <- x[ord]
+  g <- g[ord]
   
   gsize  <- as.integer(table(g))
   cgsize <- c(0L, cumsum(gsize))
@@ -348,7 +289,6 @@ jonckheereTerpstraTest.default <- function(
   if (!is.null(R) && method != "permutation")
     warning("'R' is ignored when method != \"permutation\"")
   
-  
   ## ---------------------------------------------------------------------
   ## P-value calculation
   ## ---------------------------------------------------------------------
@@ -372,7 +312,10 @@ jonckheereTerpstraTest.default <- function(
     pdf <- .jtpdf(gsize)
     
     lower_tail <- sum(pdf[seq_len(JT_int + 1L)])
-    upper_tail <- if (JT_int == 0L) 1 else 1 - sum(pdf[seq_len(JT_int)])
+    upper_tail <- if (JT_int == 0L)
+      1
+    else
+      1 - sum(pdf[seq_len(JT_int)])
     
     PVAL <- switch(
       alternative,
@@ -386,19 +329,8 @@ jonckheereTerpstraTest.default <- function(
   } else {
     
     ## -------------------------------------------------------------------
-    ## Tie-corrected asymptotic variance (Hollander & Wolfe, eq. 6.19)
-    ##
-    ## Var(JT) = (A - B - C) / 72
-    ##         + (D * E) / (36 * N * (N-1) * (N-2))
-    ##         + (F * G) / (8  * N * (N-1))
-    ##
-    ## A = N^2 (2N + 3)
-    ## B = sum n_i^2 (2 n_i + 3)
-    ## C = sum t_j (t_j - 1)(2 t_j + 5)       [tie correction]
-    ## D = sum n_i (n_i - 1)(n_i - 2)
-    ## E = sum t_j (t_j - 1)(t_j - 2)         [tie correction]
-    ## F = sum n_i (n_i - 1)
-    ## G = sum t_j (t_j - 1)                   [tie correction]
+    ## Tie-corrected asymptotic variance
+    ## Hollander & Wolfe (1999), Eq. 6.19
     ## -------------------------------------------------------------------
     
     tie_tab <- as.numeric(table(x))
@@ -406,14 +338,16 @@ jonckheereTerpstraTest.default <- function(
     A <- n^2 * (2 * n + 3)
     B <- sum(gsize^2 * (2 * gsize + 3))
     C <- sum(tie_tab * (tie_tab - 1) * (2 * tie_tab + 5))
+    
     D <- sum(gsize * (gsize - 1) * (gsize - 2))
     E <- sum(tie_tab * (tie_tab - 1) * (tie_tab - 2))
+    
     F <- sum(gsize * (gsize - 1))
     G <- sum(tie_tab * (tie_tab - 1))
     
     sigma2 <- (A - B - C) / 72 +
       (D * E) / (36 * n * (n - 1) * (n - 2)) +
-      (F * G) / (8  * n * (n - 1))
+      (F * G) / (8 * n * (n - 1))
     
     muJT <- (n^2 - sum(gsize^2)) / 4
     
@@ -423,7 +357,10 @@ jonckheereTerpstraTest.default <- function(
       alternative,
       "increasing" = stats::pnorm(z, lower.tail = FALSE),
       "decreasing" = stats::pnorm(z),
-      "two.sided"  = min(2 * stats::pnorm(abs(z), lower.tail = FALSE), 1)
+      "two.sided"  = min(
+        2 * stats::pnorm(abs(z), lower.tail = FALSE),
+        1
+      )
     )
     
     METHOD <- paste(METHOD, "(asymptotic)")
@@ -445,6 +382,7 @@ jonckheereTerpstraTest.default <- function(
   class(rval) <- "htest"
   
   rval
+  
 }
 
 
