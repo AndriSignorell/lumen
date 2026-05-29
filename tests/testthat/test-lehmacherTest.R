@@ -9,11 +9,11 @@ x_ref <- matrix(c(400,40,20,10,
 # -------------------------------------------------------------------------
 # Basic functionality
 # -------------------------------------------------------------------------
-test_that("lehmacherTest returns an mtest object", {
+test_that("lehmacherTest returns an MHTest object", {
   
   res <- lehmacherTest(x_ref)
   
-  expect_s3_class(res, "mtest")
+  expect_s3_class(res, "MHTest")
   expect_true(is.numeric(res$statistic))
   expect_true(is.numeric(res$p.value))
   expect_true(is.numeric(res$p.value.corr))
@@ -122,11 +122,11 @@ test_that("different length x and y throws error", {
 # -------------------------------------------------------------------------
 # Print method
 # -------------------------------------------------------------------------
-test_that("print.mtest works", {
+test_that("print.MHTest works", {
   
   res <- lehmacherTest(x_ref)
   
   expect_output(print(res), "Lehmacher")
-  expect_output(print(res), "X-squared")
-  expect_output(print(res), "pval")
+  expect_output(print(res), "Chi²")
+  expect_output(print(res), "p-value")
 })

@@ -3,11 +3,12 @@
 \name{lehmacherTest}
 \alias{lehmacherTest}
 \alias{print.mtest}
+\alias{print.MHTest}
 \title{Lehmacher's Test for Marginal Homogenity}
 \usage{
 lehmacherTest(x, y = NULL)
 
-\method{print}{mtest}(x, digits = 4L, ...)
+\method{print}{MHTest}(x, digits = 1L, ...)
 }
 \arguments{
 \item{x}{either a two-dimensional contingency table in matrix form, or a
@@ -55,7 +56,9 @@ these.
 x <- matrix(c(400,40,20,10, 
               50,300,60,20, 
               10,40,120,5, 
-              5,90,50,80), nrow=4, byrow=TRUE)
+              5,90,50,80), nrow=4, byrow=TRUE, 
+              dimnames=list(LETTERS[1:4], LETTERS[1:4])
+           )
               
 lehmacherTest(x)
 

@@ -46,7 +46,9 @@
 #' x <- matrix(c(400,40,20,10, 
 #'               50,300,60,20, 
 #'               10,40,120,5, 
-#'               5,90,50,80), nrow=4, byrow=TRUE)
+#'               5,90,50,80), nrow=4, byrow=TRUE, 
+#'               dimnames=list(LETTERS[1:4], LETTERS[1:4])
+#'            )
 #'               
 #' lehmacherTest(x)
 #' 
@@ -99,7 +101,7 @@ lehmacherTest <- function(x, y = NULL) {
       method       = "Lehmacher-Test on Marginal Homogeneity",
       data.name    = DNAME
     ),
-    class = "mtest"
+    class = c("MHTest", "htest")
   )
   
 }
@@ -108,31 +110,27 @@ lehmacherTest <- function(x, y = NULL) {
 
 #' @rdname lehmacherTest
 #' @export
-print.mtest <- function(x, digits = 4L, ...) {
+print.MHTest <- function(x, digits = 1L, ...) {
   
   cat("\n")
   cat(strwrap(x$method, prefix = "\t"), sep = "\n")
   cat("\n")
-  cat("data:  ", x$data.name, "\n", sep = "")
+  cat("data:  ", x$data.name, "\n\n", sep = "")
   
   out <- cbind(
-    format(round(x$statistic, 4)),
-    format.pval(x$p.value,      digits = digits),
-    format.pval(x$p.value.corr, digits = digits),
-    symnum(x$p.value.corr,
-           corr      = FALSE,
-           na        = FALSE,
-           cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-           symbols   = c("***", "**", "*", ".", " "))
+    fm(x$statistic, digits=digits),
+    fm(x$p.value, fmt="p"),
+    fm(x$p.value.corr,  fmt="p"),
+    fm(x$p.value.corr, fmt="*")
   )
   
-  colnames(out) <- c("X-squared", "pval", "pval adj", " ")
+  colnames(out) <- c("Chi²", "p-value", "p-adj", " ")
   rownames(out) <- if (!is.null(names(x$statistic)))
     names(x$statistic)
   else
     seq_along(x$statistic)
   
-  print.default(out, digits = 3L, quote = FALSE, right = TRUE)
+  print.default(out, digits = 3L, print.gap = 3, quote = FALSE, right = TRUE)
   .printSignifCodes()
   
   invisible(x)
