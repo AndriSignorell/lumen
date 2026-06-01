@@ -2,79 +2,93 @@
 % Please edit documentation in R/hosmerLemeshowTest.R
 \name{hosmerLemeshowTest}
 \alias{hosmerLemeshowTest}
-\title{Hosmer-Lemeshow Goodness of Fit Tests}
+\alias{print.HosmerLemeshowTest}
+\title{Hosmer-Lemeshow Goodness of Fit Test}
 \usage{
-hosmerLemeshowTest(fit, obs, ngr = 10, X, verbose = FALSE)
+hosmerLemeshowTest(fit, obs, nGroups = 10, type = c("C", "H"))
+
+\method{print}{HosmerLemeshowTest}(x, digits = 4, details = FALSE, ...)
 }
 \arguments{
-\item{fit}{numeric vector with fitted probabilities.}
+\item{fit}{numeric vector of fitted probabilities, each in \code{[0, 1]},
+without missing values.}
 
-\item{obs}{numeric vector with observed values.}
+\item{obs}{numeric vector of observed binary outcomes (0 or 1), of the same
+length as \code{fit}, without missing values.}
 
-\item{ngr}{number of groups for C and H statistic.}
+\item{nGroups}{integer, number of groups. Must be \code{>= 3}.
+Default is \code{10}.}
 
-\item{X}{covariate(s) for le Cessie-van Houwelingen-Copas-Hosmer global
-goodness of fit test.}
+\item{type}{character, one of \code{"C"} (quantile-based groups) or
+\code{"H"} (equal-width groups).}
 
-\item{verbose}{logical, print intermediate results.}
+\item{x}{object of class \code{"HosmerLemeshowTest"}.}
+
+\item{digits}{number of significant digits to display.}
+
+\item{details}{logical; if \code{TRUE}, prints observed and expected counts
+for both outcome classes by group. Default is \code{FALSE}.}
+
+\item{...}{further arguments passed to or from methods.}
 }
 \value{
-A list of tests.
+An object of class \code{c("HosmerLemeshowTest", "htest")}, which
+is a list with components:
+\item{statistic}{the chi-squared test statistic, named \code{"X-squared"}.}
+\item{parameter}{degrees of freedom (\code{nGroups - 2}), named
+\code{"df"}.}
+\item{p.value}{p-value from the chi-squared distribution.}
+\item{method}{a character string describing the test.}
+\item{type}{the type of statistic computed (\code{"C"} or \code{"H"}).}
+\item{nGroups}{number of groups actually used (may be less than requested
+for type \code{"C"} if fewer unique quantile breaks are found).}
+\item{observed}{matrix of observed counts for both outcome classes per
+group.}
+\item{expected}{matrix of expected counts for both outcome classes per
+group.}
+\item{data.name}{a character string with the names of \code{fit} and
+\code{obs}.}
+
+The \code{print} method accepts a \code{details} argument; if \code{TRUE},
+observed and expected counts for both outcome classes are printed by group.
 }
 \description{
-A goodness-of-fit test for logistic regression models, assessing whether the
-observed event rates match the predicted probabilities across grouped
-subsets of the data.
+Computes the Hosmer-Lemeshow C or H goodness-of-fit test for a logistic
+regression model, assessing whether observed event rates match predicted
+probabilities across grouped subsets of the data.
 }
 \details{
-The function computes Hosmer-Lemeshow goodness of fit tests for C and H
-statistic as well as the le Cessie-van Houwelingen-Copas-Hosmer unweighted
-sum of squares test for global goodness of fit.
-
-Hosmer-Lemeshow goodness of fit tests are computed; see Lemeshow and Hosmer
-(1982).
-
-If \code{X} is specified, the le Cessie-van Houwelingen-Copas-Hosmer
-unweighted sum of squares test for global goodness of fit is additionally
-determined; see Hosmer et al. (1997).
-
-************************* CHECK *****************************
-A more general version of this test is implemented in function
-\code{residuals.lrm} in package \pkg{Design}.
-package does not exist!!!
-************************* CHECK *****************************
-}
-\note{
-Adapted from code by Matthias Kohl to conform to package standards.
+The C statistic groups observations by quantiles of the fitted probabilities
+(equal-frequency bins), while the H statistic uses equal-width intervals.
+Both statistics are asymptotically compared with a chi-squared distribution
+with \code{nGroups - 2} degrees of freedom under the null hypothesis of
+adequate fit; the approximation may be unreliable in small samples.
 }
 \examples{
-
 set.seed(111)
-
 x1 <- factor(sample(1:3, 50, replace = TRUE))
 x2 <- rnorm(50)
-obs <- sample(c(0,1), 50, replace = TRUE)
+obs <- sample(c(0, 1), 50, replace = TRUE)
+fit <- glm(obs ~ x1 + x2, family = binomial)
 
-fit <- glm(obs ~ x1+x2, family = binomial)
+res <- hosmerLemeshowTest(fit = fitted(fit), obs = obs, type = "C")
+res
 
-hosmerLemeshowTest(fit = fitted(fit), obs = obs, X = cbind(x1, x2))
+print(res, details = TRUE)
 
 }
 \references{
-Lemeshow, S. Hosmer, D.W., (1982): A review of goodness of fit
-statistics for use in the development of logistic regression models.
-\emph{American Journal of Epidemiology, \bold{115}(1), 92-106.}
-
-Hosmer, D.W., Hosmer, T., le Cessie, S., Lemeshow, S. (1997). A comparison
-of goodness-of-fit tests for the logistic regression model.
-\emph{Statistics in Medicine}, \bold{16}, 965-980.
+Lemeshow, S., Hosmer, D.W. (1982). A review of goodness of fit statistics
+for use in the development of logistic regression models.
+\emph{American Journal of Epidemiology}, \bold{115}(1), 92--106.
 }
 \seealso{
-\code{\link{glm}}
+\code{\link{leCessieTest}}, \code{\link{glm}}
 
 Other test.goodnessfit:
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
-\code{\link[=cochranQTest]{cochranQTest()}}
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{goodness-of-fit}
 \concept{hypothesis-testing}

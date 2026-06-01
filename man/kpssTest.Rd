@@ -8,7 +8,7 @@ kpssTest(
   y,
   type = c("mu", "tau"),
   lags = c("short", "long", "nil"),
-  use.lag = NULL
+  useLag = NULL
 )
 }
 \arguments{
@@ -18,10 +18,12 @@ kpssTest(
 
 \item{lags}{Maximum number of lags used for error term correction.}
 
-\item{use.lag}{User specified number of lags.}
+\item{useLag}{User specified number of lags.}
 }
 \value{
-An object of class \code{htest}.
+An object of class \code{htest}. In addition to the standard
+fields, the element \code{critical.values} contains the critical
+values at 10\\%, 5\\%, 2.5\\% and 1\\% significance levels.
 }
 \description{
 A test for stationarity in time series (Kwiatkowski-Phillips-Schmidt-Shin),
@@ -37,7 +39,10 @@ The test types specify as deterministic component either a constant
 (n/100)}}, whereas \code{lags="long"} sets the number of lags to
 \eqn{\sqrt[4]{12 \times (n/100)}}. If \code{lags="nil"} is choosen, then no
 error correction is made. Furthermore, one can specify a different number of
-maximum lags by setting \code{use.lag} accordingly.
+maximum lags by setting \code{useLag} accordingly.
+}
+\note{
+Based on code by Bernhard Pfaff
 }
 \examples{
 
@@ -57,9 +62,6 @@ Papers (CFDPs)'.
 \seealso{
 Other test.stationarity:
 \code{\link[=adfTest]{adfTest()}}
-}
-\author{
-Bernhard Pfaff
 }
 \concept{hypothesis-testing}
 \concept{test.stationarity}

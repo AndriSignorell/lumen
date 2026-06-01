@@ -133,7 +133,8 @@ doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
 \seealso{
 Other test.goodnessfit:
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
-\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{hypothesis-testing}
 \concept{nonparametric}

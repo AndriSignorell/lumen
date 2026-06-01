@@ -5,7 +5,7 @@
 \title{Bootstrap Confidence Interval for R-squared of a Linear Model}
 \usage{
 rSqCI(
-  x,
+  fit,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
   adjusted = TRUE,
@@ -15,7 +15,7 @@ rSqCI(
 )
 }
 \arguments{
-\item{x}{An object of class \code{"lm"}.}
+\item{fit}{An object of class \code{"lm"}.}
 
 \item{conf.level}{Confidence level for the interval. Default is \code{0.95}.}
 

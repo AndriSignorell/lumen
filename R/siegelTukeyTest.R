@@ -12,7 +12,7 @@
 #' two groups differ in spread. The test is distribution-free and does not
 #' assume normality, but it does assume equal medians under the null hypothesis
 #' of equal scale. If the medians differ, the test may detect that difference
-#' rather than a difference in scale; use \code{adjust.median = TRUE} to
+#' rather than a difference in scale; use \code{adjustMedian = TRUE} to
 #' remove median differences before testing.
 #'
 #' Ranks are assigned to the combined sorted sample in the pattern
@@ -29,13 +29,13 @@
 #' \strong{Note:} The Siegel-Tukey test has relatively low power compared to
 #' alternatives such as \code{\link{ansari.test}} or \code{\link{mood.test}},
 #' and may indicate significance due to median differences rather than scale
-#' differences when \code{adjust.median = FALSE}.
+#' differences when \code{adjustMedian = FALSE}.
 #'
 #' @name siegelTukeyTest
 #' @aliases siegelTukeyTest siegelTukeyTest.default siegelTukeyTest.formula
 #'
 #' @param x,y numeric vectors of data values.
-#' @param adjust.median logical; if \code{TRUE}, the median of \code{x} is
+#' @param adjustMedian logical; if \code{TRUE}, the median of \code{x} is
 #'   shifted to equal the median of \code{y} before ranking, to prevent median
 #'   differences from inflating the test statistic. Default is \code{FALSE}.
 #' @param alternative a character string specifying the alternative hypothesis:
@@ -135,12 +135,12 @@
 #' # median adjustment
 #' x <- c(177, 200, 227, 230, 232, 268, 272, 297)
 #' y <- c(47, 105, 126, 142, 158, 172, 197, 220, 225, 230, 262, 270)
-#' siegelTukeyTest(x, y, adjust.median = TRUE)
+#' siegelTukeyTest(x, y, adjustMedian = TRUE)
 #'
 #' # floating-point robustness (previously affected by merge precision bug)
 #' y2 <- c(-1, 2, 2.1, 3)
 #' x2 <- c(-5, -9, 13, 12, 90, 100)
-#' siegelTukeyTest(x2, y2, adjust.median = TRUE)  
+#' siegelTukeyTest(x2, y2, adjustMedian = TRUE)  
 #' # p ~ 0.1143
 #' 
 
@@ -193,14 +193,14 @@ siegelTukeyTest.formula <- function(formula, data, subset,
 #' @rdname siegelTukeyTest
 #' @export
 siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "greater"),
-                                    mu = 0, adjust.median = FALSE, exact = NA,
+                                    mu = 0, adjustMedian = FALSE, exact = NA,
                                     correct = TRUE, ...) {
   
   alternative <- match.arg(alternative)
   
   # validate logical arguments
-  if (!is.logical(adjust.median) || length(adjust.median) != 1L || is.na(adjust.median))
-    stop("'adjust.median' must be TRUE or FALSE")
+  if (!is.logical(adjustMedian) || length(adjustMedian) != 1L || is.na(adjustMedian))
+    stop("'adjustMedian' must be TRUE or FALSE")
   
   if (!is.logical(correct) || length(correct) != 1L || is.na(correct))
     stop("'correct' must be TRUE or FALSE")
@@ -227,7 +227,7 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
     stop("'x' and 'y' must contain at least two observations each")
   
   
-  if (adjust.median)
+  if (adjustMedian)
     x <- x - (median(x) - median(y))
   
   xx <- c(x, y)

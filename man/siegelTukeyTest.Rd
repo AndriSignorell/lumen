@@ -15,7 +15,7 @@ siegelTukeyTest(x, ...)
   y,
   alternative = c("two.sided", "less", "greater"),
   mu = 0,
-  adjust.median = FALSE,
+  adjustMedian = FALSE,
   exact = NA,
   correct = TRUE,
   ...
@@ -47,7 +47,7 @@ Partial matching is allowed.}
 \item{mu}{a single number specifying the location parameter under the null
 hypothesis. Default is \code{0}.}
 
-\item{adjust.median}{logical; if \code{TRUE}, the median of \code{x} is
+\item{adjustMedian}{logical; if \code{TRUE}, the median of \code{x} is
 shifted to equal the median of \code{y} before ranking, to prevent median
 differences from inflating the test statistic. Default is \code{FALSE}.}
 
@@ -86,7 +86,7 @@ The Siegel-Tukey test examines the null hypothesis that the variability
 two groups differ in spread. The test is distribution-free and does not
 assume normality, but it does assume equal medians under the null hypothesis
 of equal scale. If the medians differ, the test may detect that difference
-rather than a difference in scale; use \code{adjust.median = TRUE} to
+rather than a difference in scale; use \code{adjustMedian = TRUE} to
 remove median differences before testing.
 
 Ranks are assigned to the combined sorted sample in the pattern
@@ -103,7 +103,7 @@ variance is used. This behaviour can be overridden with \code{exact}.
 \strong{Note:} The Siegel-Tukey test has relatively low power compared to
 alternatives such as \code{\link{ansari.test}} or \code{\link{mood.test}},
 and may indicate significance due to median differences rather than scale
-differences when \code{adjust.median = FALSE}.
+differences when \code{adjustMedian = FALSE}.
 }
 \details{
 A nonparametric test for differences in scale (variability) between two
@@ -154,12 +154,12 @@ siegelTukeyTest(x, y)
 # median adjustment
 x <- c(177, 200, 227, 230, 232, 268, 272, 297)
 y <- c(47, 105, 126, 142, 158, 172, 197, 220, 225, 230, 262, 270)
-siegelTukeyTest(x, y, adjust.median = TRUE)
+siegelTukeyTest(x, y, adjustMedian = TRUE)
 
 # floating-point robustness (previously affected by merge precision bug)
 y2 <- c(-1, 2, 2.1, 3)
 x2 <- c(-5, -9, 13, 12, 90, 100)
-siegelTukeyTest(x2, y2, adjust.median = TRUE)  
+siegelTukeyTest(x2, y2, adjustMedian = TRUE)  
 # p ~ 0.1143
 
 }

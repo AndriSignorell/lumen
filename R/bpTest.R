@@ -8,7 +8,7 @@
 #' distributed as \eqn{\chi^2} with \eqn{k} degrees of freedom, where
 #' \eqn{k} is the number of predictors.
 #'
-#' @param lm_fit a fitted \code{\link[stats]{lm}} object.
+#' @param fit a fitted \code{\link[stats]{lm}} object.
 #'
 #' @return An object of class \code{"htest"} with the following components:
 #'   \describe{
@@ -41,14 +41,14 @@
 #'
 #'
 #' @export
-bpTest <- function(lm_fit) {
+bpTest <- function(fit) {
 
-  if (!inherits(lm_fit, "lm"))
-    stop("'lm_fit' must be a fitted lm object")
+  if (!inherits(fit, "lm"))
+    stop("'fit' must be a fitted lm object")
 
-  n      <- length(residuals(lm_fit))
-  resid2 <- residuals(lm_fit)^2
-  aux    <- lm(resid2 ~ fitted(lm_fit))
+  n      <- length(residuals(fit))
+  resid2 <- residuals(fit)^2
+  aux    <- lm(resid2 ~ fitted(fit))
   r2     <- summary(aux)$r.squared
   stat   <- n * r2
   df     <- length(coef(aux)) - 1L
@@ -60,7 +60,7 @@ bpTest <- function(lm_fit) {
       parameter = c(df = df),
       p.value   = p_val,
       method    = "Breusch-Pagan test (Koenker)",
-      data.name = deparse(formula(lm_fit))
+      data.name = deparse(formula(fit))
     ),
     class = "htest"
   )

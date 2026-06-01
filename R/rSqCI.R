@@ -7,7 +7,7 @@
 #'
 #' The bootstrap is based on resampling observations (pairs bootstrap).
 #'
-#' @param x An object of class \code{"lm"}.
+#' @param fit An object of class \code{"lm"}.
 #' @param conf.level Confidence level for the interval. Default is \code{0.95}.
 #' @param sides A character string specifying the type of interval:
 #'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
@@ -61,7 +61,7 @@
 #'
 #'
 #' @export
-rSqCI <- function(x,
+rSqCI <- function(fit,
                   conf.level = 0.95,
                   sides = c("two.sided", "left", "right"),
                   adjusted = TRUE,
@@ -69,13 +69,13 @@ rSqCI <- function(x,
                   seed = NULL,
                   ...) {
   
-  if (!inherits(x, "lm"))
-    stop("x must be an lm object")
+  if (!inherits(fit, "lm"))
+    stop("fit must be an lm object")
   
   sides <- match.arg(sides)
   
-  X <- model.matrix(x)
-  y <- model.response(model.frame(x))
+  X <- model.matrix(fit)
+  y <- model.response(model.frame(fit))
   
   alpha <- 1 - conf.level
   

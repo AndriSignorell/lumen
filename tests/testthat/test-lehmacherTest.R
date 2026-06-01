@@ -127,6 +127,6 @@ test_that("print.MHTest works", {
   res <- lehmacherTest(x_ref)
   
   expect_output(print(res), "Lehmacher")
-  expect_output(print(res), "Chi²")
+  expect_output(print(res), "Chi\u00B2")
   expect_output(print(res), "p-value")
 })

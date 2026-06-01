@@ -124,7 +124,7 @@ print.MHTest <- function(x, digits = 1L, ...) {
     fm(x$p.value.corr, fmt="*")
   )
   
-  colnames(out) <- c("Chi²", "p-value", "p-adj", " ")
+  colnames(out) <- c("Chi\u00B2", "p-value", "p-adj", " ")
   rownames(out) <- if (!is.null(names(x$statistic)))
     names(x$statistic)
   else
@@ -132,6 +132,7 @@ print.MHTest <- function(x, digits = 1L, ...) {
   
   print.default(out, digits = 3L, print.gap = 3, quote = FALSE, right = TRUE)
   .printSignifCodes()
+  cat("\n")
   
   invisible(x)
 }

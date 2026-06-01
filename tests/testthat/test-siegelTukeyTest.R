@@ -108,12 +108,12 @@ test_that("formula interface rejects incorrect formula", {
 })
 
 
-test_that("adjust.median changes result when medians differ", {
+test_that("adjustMedian changes result when medians differ", {
   x <- c(1, 2, 3, 4, 5)
   y <- c(10, 12, 14, 16, 18)
   
-  res_unadjusted <- siegelTukeyTest(x, y, adjust.median = FALSE)
-  res_adjusted   <- siegelTukeyTest(x, y, adjust.median = TRUE)
+  res_unadjusted <- siegelTukeyTest(x, y, adjustMedian = FALSE)
+  res_adjusted   <- siegelTukeyTest(x, y, adjustMedian = TRUE)
   
   expect_s3_class(res_adjusted, "htest")
   expect_false(isTRUE(all.equal(

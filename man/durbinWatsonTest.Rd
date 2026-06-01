@@ -2,107 +2,142 @@
 % Please edit documentation in R/durbinWatsonTest.R
 \name{durbinWatsonTest}
 \alias{durbinWatsonTest}
+\alias{durbinWatsonTest.formula}
+\alias{durbinWatsonTest.lm}
+\alias{durbinWatsonTest.numeric}
+\alias{durbinWatsonTest.default}
 \title{Durbin-Watson Test}
 \usage{
-durbinWatsonTest(
-  formula,
-  order.by = NULL,
+durbinWatsonTest(x, ...)
+
+\method{durbinWatsonTest}{formula}(
+  x,
+  data = list(),
+  orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
   exact = NULL,
   tol = 0.0000000001,
-  data = list()
+  ...
 )
+
+\method{durbinWatsonTest}{lm}(
+  x,
+  orderBy = NULL,
+  alternative = c("greater", "two.sided", "less"),
+  iterations = 15,
+  exact = NULL,
+  tol = 0.0000000001,
+  ...
+)
+
+\method{durbinWatsonTest}{numeric}(
+  x,
+  orderBy = NULL,
+  alternative = c("greater", "two.sided", "less"),
+  iterations = 15,
+  exact = NULL,
+  tol = 0.0000000001,
+  ...
+)
+
+\method{durbinWatsonTest}{default}(x, ...)
 }
 \arguments{
-\item{formula}{a symbolic description for the model to be tested (or a
-fitted \code{"lm"} object).}
+\item{x}{a symbolic description of the model to be tested (a
+\code{formula}), a fitted \code{"lm"} object, or a numeric vector of
+residuals.}
 
-\item{order.by}{Either a vector \code{z} or a formula with a single
-explanatory variable like \code{~ z}. The observations in the model are
-ordered by the size of \code{z}. If set to \code{NULL} (the default) the
-observations are assumed to be ordered (e.g., a time series).}
-
-\item{alternative}{a character string specifying the alternative hypothesis.}
-
-\item{iterations}{an integer specifying the number of iterations when
-calculating the p-value with the "pan" algorithm.}
-
-\item{exact}{logical. If set to \code{FALSE} a normal approximation will be
-used to compute the p value, if \code{TRUE} the "pan" algorithm is used. The
-default is to use "pan" if the sample size is < 100.}
-
-\item{tol}{tolerance. Eigenvalues computed have to be greater than
-\code{tol} to be treated as non-zero.}
+\item{...}{further arguments passed to or from other methods.}
 
 \item{data}{an optional data frame containing the variables in the model.
-By default the variables are taken from the environment which
-\code{durbinWatsonTest} is called from.}
+Only used for the \code{formula} method. By default variables are taken
+from the environment from which \code{durbinWatsonTest} is called.}
+
+\item{orderBy}{either a numeric vector or a one-sided formula
+\code{~ z}. Observations are reordered by increasing \code{z} before
+the test is applied. If \code{NULL} (the default) observations are
+assumed to be already ordered (e.g. a time series).}
+
+\item{alternative}{a character string specifying the alternative hypothesis,
+must be one of \code{"greater"} (default), \code{"two.sided"}, or
+\code{"less"}.}
+
+\item{iterations}{an integer specifying the number of iterations used by
+the \code{"pan"} algorithm when computing the exact p-value.}
+
+\item{exact}{logical. If \code{TRUE} the exact p-value is computed via the
+\code{"pan"} algorithm; if \code{FALSE} a normal approximation is used.
+The default is \code{TRUE} for sample sizes below 100 and \code{FALSE}
+otherwise.}
+
+\item{tol}{numeric tolerance. Eigenvalues smaller than \code{tol} are
+treated as zero.}
 }
 \value{
-An object of class \code{"htest"} containing: \item{statistic}{the
-test statistic.} \item{p.value}{the corresponding p-value.} \item{method}{a
-character string with the method used.} \item{data.name}{a character string
-with the data name.}
+An object of class \code{"htest"} with the following components:
+\describe{
+\item{\code{statistic}}{the Durbin-Watson test statistic.}
+\item{\code{p.value}}{the corresponding p-value.}
+\item{\code{alternative}}{a character string describing the alternative
+hypothesis.}
+\item{\code{method}}{a character string identifying the test.}
+\item{\code{data.name}}{a character string describing the data.}
+}
 }
 \description{
-A test for first-order autocorrelation in the residuals of a linear
-regression model, based on the ratio of successive squared residual
-differences to the total residual sum of squares.
-}
-\details{
-Performs the Durbin-Watson test for autocorrelation of disturbances.
-
 The Durbin-Watson test has the null hypothesis that the autocorrelation of
-the disturbances is 0. It is possible to test against the alternative that
-it is greater than, not equal to, or less than 0, respectively. This can be
-specified by the \code{alternative} argument.
+the disturbances is 0. The alternative hypothesis can be specified as
+greater than, not equal to, or less than 0 via the \code{alternative}
+argument.
 
 Under the assumption of normally distributed disturbances, the null
 distribution of the Durbin-Watson statistic is the distribution of a linear
 combination of chi-squared variables. The p-value is computed using the
-Fortran version of Applied Statistics Algorithm AS 153 by Farebrother (1980,
-1984). This algorithm is called "pan" or "gradsol". For large sample sizes
-the algorithm might fail to compute the p value; in that case a warning is
-printed and an approximate p value will be given; this p value is computed
-using a normal approximation with mean and variance of the Durbin-Watson
-test statistic.
+\code{"pan"} algorithm (Farebrother, 1980, 1984), implemented via Rcpp.
+For large sample sizes the algorithm might fail to compute the p-value;
+in that case a warning is printed and an approximate p-value is returned
+instead, computed via a normal approximation using the mean and variance of
+the Durbin-Watson statistic.
 
-Examples can not only be found on this page, but also on the help pages of
-the data sets \code{\link[lmtest]{bondyield}},
-\code{\link[lmtest]{currencysubstitution}},
-\code{\link[lmtest]{growthofmoney}}, \code{\link[lmtest]{moneydemand}},
-\code{\link[lmtest]{unemployment}}, \code{\link[lmtest]{wages}}.
-
-For an overview on R and econometrics see Racine & Hyndman (2002).
+Three methods are dispatched:
+\describe{
+\item{\code{formula}}{Fits the model from scratch using \code{data}.}
+\item{\code{lm}}{Extracts design matrix and response from a fitted
+\code{"lm"} object. The \code{data.name} field in the result reflects
+the model formula, not the name of the object.}
+\item{\code{numeric}}{Treats \code{x} as a vector of pre-computed
+residuals and fits an intercept-only design matrix. Note that this is
+\emph{not} equivalent to testing residuals from a fitted model with
+predictors; use the \code{lm} or \code{formula} method when a model
+exists.}
 }
-\note{
-This function was previously published as \code{dwtest} in the
-\pkg{lmtest} package and has been integrated here without logical changes.
+}
+\details{
+Tests for first-order autocorrelation in the residuals of a linear
+regression model, based on the ratio of successive squared residual
+differences to the total residual sum of squares.
 }
 \examples{
+## formula method
+x <- rep(c(-1, 1), 50)
 
-
-## generate two AR(1) error terms with parameter
-## rho = 0 (white noise) and rho = 0.9 respectively
 err1 <- rnorm(100)
+durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err1, x = x))
 
-## generate regressor and dependent variable
-x <- rep(c(-1,1), 50)
-y1 <- 1 + x + err1
+## autocorrelated errors (rho = 0.9)
+err2 <- stats::filter(err1, 0.9, method = "recursive")
+durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err2, x = x))
 
-## perform Durbin-Watson test
-durbinWatsonTest(y1 ~ x)
+## lm method
+fit <- lm(y ~ x, data = data.frame(y = 1 + x + err1, x = x))
+durbinWatsonTest(fit)
 
-err2 <- stats::filter(err1, 0.9, method="recursive")
-y2 <- 1 + x + err2
-durbinWatsonTest(y2 ~ x)
-
-## for a simple vector use:
+## numeric method (pre-computed residuals — intercept-only design assumed)
 e_t <- c(-32.33, -26.603, 2.215, -16.967, -1.148, -2.512, -1.967, 11.669,
          -0.513, 27.032, -4.422, 40.032, 23.577, 33.94, -2.787, -8.606,
           0.575, 6.848, -18.971, -29.063)
-durbinWatsonTest(e_t ~ 1)
+durbinWatsonTest(e_t)
 
 }
 \references{
@@ -116,19 +151,17 @@ J. Durbin & G.S. Watson (1971), Testing for Serial Correlation in Least
 Squares Regression III. \emph{Biometrika} \bold{58}, 1--19.
 
 R.W. Farebrother (1980), Pan's Procedure for the Tail Probabilities of the
-Durbin-Watson Statistic (Corr: 81V30 p189; AS R52: 84V33 p363- 366; AS R53:
-84V33 p366- 369). \emph{Applied Statistics} \bold{29}, 224--227.
+Durbin-Watson Statistic. \emph{Applied Statistics} \bold{29}, 224--227.
+(C++ reimplementation by Andri Signorell.)
 
-R. W. Farebrother (1984), AS R53 A Remark on Algorithms AS 106 (77V26
-p92-98), AS 153 (80V29 p224-227) and AS 155: The Distribution of a Linear
-Combination of \eqn{\chi^2} Random Variables (80V29 p323-333) \emph{Applied
-Statistics} \bold{33}, 366--369.
+R.W. Farebrother (1984), AS R53 A Remark on Algorithms AS 106, AS 153 and
+AS 155. \emph{Applied Statistics} \bold{33}, 366--369.
 
 W. Krämer & H. Sonnberger (1986), \emph{The Linear Regression Model under
 Test}. Heidelberg: Physica.
 
-J. Racine & R. Hyndman (2002), Using R To Teach Econometrics. \emph{Journal
-of Applied Econometrics} \bold{17}, 175--189.
+J. Racine & R. Hyndman (2002), Using R To Teach Econometrics.
+\emph{Journal of Applied Econometrics} \bold{17}, 175--189.
 }
 \seealso{
 \code{\link{lm}}
@@ -140,8 +173,9 @@ Other test.correlation:
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
 \author{
-Torsten Hothorn, Achim Zeileis, Richard W. Farebrother (pan.f),
-Clint Cummins (pan.f), Giovanni Millo, David Mitchell
+Torsten Hothorn, Achim Zeileis, Clint Cummins (original
+\code{"pan"} algorithm); Andri Signorell (Rcpp reimplementation);
+Giovanni Millo, David Mitchell (further contributions)
 }
 \concept{hypothesis-testing}
 \concept{regression}

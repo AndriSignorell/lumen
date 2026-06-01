@@ -28,7 +28,7 @@
 #' @param formula a symbolic description for the model to be tested (or a
 #' fitted \code{"lm"} object).
 #' @param order integer. maximal order of serial correlation to be tested.
-#' @param order.by Either a vector \code{z} or a formula with a single
+#' @param orderBy Either a vector \code{z} or a formula with a single
 #' explanatory variable like \code{~ z}. The observations in the model are
 #' ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 #' observations are assumed to be ordered (e.g., a time series).
@@ -94,7 +94,7 @@
 #'
 #'
 #' @export
-breuschGodfreyTest <- function(formula, order = 1, order.by = NULL,
+breuschGodfreyTest <- function(formula, order = 1, orderBy = NULL,
                                type = c("Chisq", "F"),
                                data = list(), fill = 0) {
 
@@ -115,13 +115,13 @@ breuschGodfreyTest <- function(formula, order = 1, order.by = NULL,
     X <- model.matrix(formula, data = data)
   }
 
-  if(!is.null(order.by))
+  if(!is.null(orderBy))
   {
-    if(inherits(order.by, "formula")) {
-      z <- model.matrix(order.by, data = data)
+    if(inherits(orderBy, "formula")) {
+      z <- model.matrix(orderBy, data = data)
       z <- as.vector(z[,ncol(z)])
     } else {
-      z <- order.by
+      z <- orderBy
     }
     X <- as.matrix(X[order(z),])
     y <- y[order(z)]

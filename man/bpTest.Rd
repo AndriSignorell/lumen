@@ -4,10 +4,10 @@
 \alias{bpTest}
 \title{Breusch-Pagan Test for Heteroscedasticity}
 \usage{
-bpTest(lm_fit)
+bpTest(fit)
 }
 \arguments{
-\item{lm_fit}{a fitted \code{\link[stats]{lm}} object.}
+\item{fit}{a fitted \code{\link[stats]{lm}} object.}
 }
 \value{
 An object of class \code{"htest"} with the following components:

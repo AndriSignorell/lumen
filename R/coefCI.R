@@ -4,7 +4,7 @@
 #' Computes bootstrap confidence intervals for regression coefficients
 #' from a linear model using a fast parallel implementation.
 #'
-#' @param x An object of class \code{"lm"}.
+#' @param fit An object of class \code{"lm"}.
 #' @param conf.level Confidence level. Default is \code{0.95}.
 #' @param sides Type of interval: \code{"two.sided"}, \code{"left"}, or \code{"right"}.
 #' @param R Number of bootstrap samples.
@@ -31,20 +31,20 @@
 #'
 #'
 #' @export
-coefCI <- function(x,
+coefCI <- function(fit,
                    conf.level = 0.95,
                    sides = c("two.sided", "left", "right"),
                    R = 2000,
                    seed = NULL,
                    ...) {
   
-  if (!inherits(x, "lm"))
-    stop("x must be an lm object")
+  if (!inherits(fit, "lm"))
+    stop("fit must be an lm object")
   
   sides <- match.arg(sides)
   
-  X <- model.matrix(x)
-  y <- model.response(model.frame(x))
+  X <- model.matrix(fit)
+  y <- model.response(model.frame(fit))
   
   alpha <- 1 - conf.level
   

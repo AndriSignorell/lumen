@@ -5,7 +5,7 @@
 \title{Bootstrap Confidence Intervals for Linear Model Coefficients}
 \usage{
 coefCI(
-  x,
+  fit,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
   R = 2000,
@@ -14,7 +14,7 @@ coefCI(
 )
 }
 \arguments{
-\item{x}{An object of class \code{"lm"}.}
+\item{fit}{An object of class \code{"lm"}.}
 
 \item{conf.level}{Confidence level. Default is \code{0.95}.}
 

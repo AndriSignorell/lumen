@@ -7,7 +7,7 @@
 breuschGodfreyTest(
   formula,
   order = 1,
-  order.by = NULL,
+  orderBy = NULL,
   type = c("Chisq", "F"),
   data = list(),
   fill = 0
@@ -19,7 +19,7 @@ fitted \code{"lm"} object).}
 
 \item{order}{integer. maximal order of serial correlation to be tested.}
 
-\item{order.by}{Either a vector \code{z} or a formula with a single
+\item{orderBy}{Either a vector \code{z} or a formula with a single
 explanatory variable like \code{~ z}. The observations in the model are
 ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 observations are assumed to be ordered (e.g., a time series).}
@@ -108,7 +108,8 @@ Models', \emph{Australian Economic Papers}, 17, 334-355.
 
 Other test.goodnessfit:
 \code{\link[=cochranQTest]{cochranQTest()}},
-\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{hypothesis-testing}
 \concept{regression}

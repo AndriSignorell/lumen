@@ -13,14 +13,18 @@
 #' (n/100)}}, whereas \code{lags="long"} sets the number of lags to
 #' \eqn{\sqrt[4]{12 \times (n/100)}}. If \code{lags="nil"} is choosen, then no
 #' error correction is made. Furthermore, one can specify a different number of
-#' maximum lags by setting \code{use.lag} accordingly.
+#' maximum lags by setting \code{useLag} accordingly.
 #' 
 #' @param y Vector to be tested for a unit root.
 #' @param type Type of deterministic part.
 #' @param lags Maximum number of lags used for error term correction.
-#' @param use.lag User specified number of lags.
-#' @return An object of class \code{htest}.
-#' @author Bernhard Pfaff
+#' @param useLag User specified number of lags.
+#' @return An object of class \code{htest}. In addition to the standard
+#'   fields, the element \code{critical.values} contains the critical 
+#'   values at 10\%, 5\%, 2.5\% and 1\% significance levels.
+#'   
+#' @note Based on code by Bernhard Pfaff
+#' 
 #' @references Kwiatkowski, D., Phillips, P.C.B., Schmidt, P. and Shin, Y.,
 #' (1992), Testing the Null Hypothesis of Stationarity Against the Alternative
 #' of a Unit Root: How Sure Are We That Economic Time Series Have a Unit Root?,
@@ -42,17 +46,17 @@
 #'
 #' @export 
 kpssTest <- function(y, type=c("mu", "tau"), 
-                     lags=c("short", "long", "nil"), use.lag=NULL){
+                     lags=c("short", "long", "nil"), useLag=NULL){
   
   ## KPSS-Test
   y <- na.omit(as.vector(y))
   n <- length(y)
   type <- match.arg(type)
   lags <- match.arg(lags)
-  if(!(is.null(use.lag))){
-    lmax <- as.integer(use.lag)
+  if(!(is.null(useLag))){
+    lmax <- as.integer(useLag)
     if(lmax < 0){
-      warning("\nuse.lag has to be positive and integer; lags='short' used.")
+      warning("\nuseLag has to be positive and integer; lags='short' used.")
     lmax <- trunc(4*(n/100)^0.25)}
   }else if(lags == "short"){
     lmax <- trunc(4*(n/100)^0.25)
@@ -98,7 +102,7 @@ kpssTest <- function(y, type=c("mu", "tau"),
       method = paste0("KPSS Test (", 
                       if (type == "mu") "Level Stationarity" else "Trend Stationarity",
                       ")"),
-      data.name = deparse(substitute(x))
+      data.name = deparse(substitute(y))
     ),
     class = "htest"
   )  
