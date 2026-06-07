@@ -111,11 +111,13 @@ corTest <- function(
   
   n <- crossprod(!is.na(x))
   
-  P <- 2 * pbeta(
-    (1 - abs(R)) / 2,
-    0.5,
-    (n - 2) / 2
-  )
+  # Correct two-sided p-value via t-statistic: t = r*sqrt((n-2)/(1-r^2))
+  # p = 2 * pt(-|t|, df = n-2)
+  # Using pt(x, df) = pbeta(df/(df+x^2), df/2, 1/2)/2 for the lower tail:
+  # 2 * pt(-|t|, n-2) = pbeta((n-2) / ((n-2) + (n-2)*R^2/(1-R^2)), (n-2)/2, 1/2)
+  # Simpler: compute T matrix directly
+  T_stat <- R * sqrt((n - 2) / pmax(1 - R^2, .Machine$double.eps))
+  P      <- 2 * pt(-abs(T_stat), df = n - 2)
   
   diag(P) <- NA
   

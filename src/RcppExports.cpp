@@ -141,22 +141,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// coef_boot_cpp
-NumericMatrix coef_boot_cpp(NumericMatrix X, NumericVector y, int R, double alpha, int seed, String method);
-RcppExport SEXP _lumen_coef_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP, SEXP methodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type R(RSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(coef_boot_cpp(X, y, R, alpha, seed, method));
-    return rcpp_result_gen;
-END_RCPP
-}
 // dgompertz_cpp
 Rcpp::NumericVector dgompertz_cpp(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
 RcppExport SEXP _lumen_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
@@ -298,22 +282,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rsq_boot_cpp
-NumericVector rsq_boot_cpp(NumericMatrix X, NumericVector y, int B, double alpha, bool adjusted, int seed);
-RcppExport SEXP _lumen_rsq_boot_cpp(SEXP XSEXP, SEXP ySEXP, SEXP BSEXP, SEXP alphaSEXP, SEXP adjustedSEXP, SEXP seedSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type B(BSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< bool >::type adjusted(adjustedSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(rsq_boot_cpp(X, y, B, alpha, adjusted, seed));
-    return rcpp_result_gen;
-END_RCPP
-}
 // pruns_rcpp
 double pruns_rcpp(int r, int n1, int n2, std::string alternative);
 RcppExport SEXP _lumen_pruns_rcpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
@@ -340,7 +308,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
     {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
     {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},
-    {"_lumen_coef_boot_cpp", (DL_FUNC) &_lumen_coef_boot_cpp, 6},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
@@ -351,7 +318,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 5},
     {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
-    {"_lumen_rsq_boot_cpp", (DL_FUNC) &_lumen_rsq_boot_cpp, 6},
     {"_lumen_pruns_rcpp", (DL_FUNC) &_lumen_pruns_rcpp, 4},
     {NULL, NULL, 0}
 };

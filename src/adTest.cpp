@@ -227,4 +227,3 @@ Rcpp::List ADtestR(const Rcpp::NumericVector& x) {
   );
 }
   
-  

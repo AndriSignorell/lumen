@@ -320,4 +320,5 @@
       MadRatioFn(constant),
       std::string(method.get_cstring())
     );
-  }
+}
+  

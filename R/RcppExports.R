@@ -41,10 +41,6 @@ blaker_find_crossing <- function(x, n, alpha, lo, hi, from_left, tol = 1e-10, sa
     .Call(`_lumen_blaker_find_crossing`, x, n, alpha, lo, hi, from_left, tol, safe_steps)
 }
 
-coef_boot_cpp <- function(X, y, R = 2000L, alpha = 0.05, seed = -1L, method = "perc") {
-    .Call(`_lumen_coef_boot_cpp`, X, y, R, alpha, seed, method)
-}
-
 dgompertz_cpp <- function(x, shape, rate, log) {
     .Call(`_lumen_dgompertz_cpp`, x, shape, rate, log)
 }
@@ -83,10 +79,6 @@ pan <- function(A, M, C, N) {
 
 pdirichlet_cpp <- function(q, alpha, n_sim) {
     .Call(`_lumen_pdirichlet_cpp`, q, alpha, n_sim)
-}
-
-rsq_boot_cpp <- function(X, y, B = 1000L, alpha = 0.05, adjusted = TRUE, seed = -1L) {
-    .Call(`_lumen_rsq_boot_cpp`, X, y, B, alpha, adjusted, seed)
 }
 
 pruns_rcpp <- function(r, n1, n2, alternative = "two.sided") {

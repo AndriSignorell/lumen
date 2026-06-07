@@ -117,7 +117,7 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
 # ==  internal helper functions  ===========================================
 
 
-.poissonCI_engine <- function(x, n, conf.level, sides, method, stdEst){
+.poissonCI_engine <- function(x, n, conf.level, sides, method, stdEst = NULL){
 
   # ref:  http://www.ijmo.org/papers/189-S083.pdf but wacklig!!!
   # http://www.math.montana.edu/~rjboik/classes/502/ci.pdf
@@ -145,8 +145,8 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
   
   # dot not return ci bounds outside [0, Inf]
   ci <- c( est = est, 
-           lci = max(0, CI["lci"]), 
-           uci = CI["uci"] )    # no limits on the right side
+           lci = max(0, unname(CI["lci"])), 
+           uci = unname(CI["uci"]) )    # no limits on the right side
   
   if(sides=="left")
     ci[3] <- Inf

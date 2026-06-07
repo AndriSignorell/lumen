@@ -92,7 +92,11 @@ scheffeTest.default <- function (x, g = NULL, which = NULL, contrasts = NULL, co
 #' @rdname scheffeTest
 #' @export
 scheffeTest.formula <- function (formula, data, subset, na.action, ...) {
-  scheffeTest(aov(formula, data, subset, na.action, ...))
+  args <- list(formula = formula)
+  if (!missing(data))      args$data      <- data
+  if (!missing(subset))    args$subset    <- subset
+  if (!missing(na.action)) args$na.action <- na.action
+  scheffeTest(do.call(aov, args), ...)
 }  
 
 

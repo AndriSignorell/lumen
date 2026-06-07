@@ -39,19 +39,11 @@ nearby endpoint.)}
 \code{\link[boot]{boot.ci}} for details.}
 }
 \value{
-If \code{length(probs) == 1}:
-named numeric vector with:
-\itemize{
-\item \code{est}: estimated quantile
-\item \code{lci}: lower confidence limit
-\item \code{uci}: upper confidence limit
-}
-
-Otherwise:
-matrix with columns \code{est}, \code{lci}, \code{uci}.
-
-or, if probs was a vector, a matrix with 3 columns consisting of estimate,
-lower ci, upper ci \code{est, lci, uci}
+A matrix with columns \code{est} (estimated quantile), \code{lci} (lower
+confidence limit), and \code{uci} (upper confidence limit), with one row
+per element of \code{probs}. For the \code{"exact"} method, an attribute
+\code{conf.level} reports the achieved coverage (which may differ from the
+requested level).
 }
 \description{
 Calculates the confidence interval for any quantile. Although bootstrapping

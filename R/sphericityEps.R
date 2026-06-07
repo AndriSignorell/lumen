@@ -70,9 +70,9 @@ sphericityEps <- function(S, p, g, n, method = c("both", "GG", "HF")) {
   HF <- min(1, (n * (p - 1) * e - 2) / ((p - 1) * (n - g - (p - 1) * e)))
   
   switch(method,
-         "GG"   = c("GG-epsilon" = GG),
-         "HF"   = c("HF-epsilon" = HF),
-         "both" = c("GG-epsilon" = GG, "HF-epsilon" = HF)
+         "GG"   = c(GG = GG),
+         "HF"   = c(HF = HF),
+         "both" = c(GG = GG, HF = HF)
   )
 }
 

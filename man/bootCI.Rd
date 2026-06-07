@@ -60,7 +60,7 @@ bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, bci.method="basic")
 
 # bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, bci.method="basic")
 
-# bootCI(d.pizza$operator, d.pizza$area, FUN=cramerV)
+# bootCI(Pizza$operator, Pizza$area, FUN=cramerV)
 
 spearman <- function(x,y) cor(x, y, method="spearman", use="p")
 bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)

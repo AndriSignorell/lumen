@@ -18,8 +18,8 @@
 
 #' @examples
 #' x <- do.call(rbind, 
-#'              tapply(bedrock::d.pizza$delivery_min, 
-#'                     bedrock::d.pizza$area, meanCI))
+#'              tapply(bedrock::Pizza$delivery_min, 
+#'                     bedrock::Pizza$area, meanCI))
 #' sumCI(x)
 #'
 

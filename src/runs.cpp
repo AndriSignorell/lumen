@@ -66,3 +66,5 @@ double pruns_rcpp(int r, int n1, int n2, std::string alternative = "two.sided") 
   
   return p2;
 }
+
+
