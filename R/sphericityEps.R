@@ -10,8 +10,8 @@
 #' @param g number of groups
 #' @param n number of subjects
 #' @param method a character string specifying which epsilon to return,
-#'   must be one of \code{"both"} (default), \code{"GG"} for 
-#'   Greenhouse-Geisser, or \code{"HF"} for Huynh-Feldt.
+#'   must be one of \code{"both"} (default), \code{"gg"} for 
+#'   Greenhouse-Geisser, or \code{"hf"} for Huynh-Feldt.
 #'    
 #' @return a numeric value
 
@@ -40,7 +40,7 @@
 #'
 #'
 #' @export
-sphericityEps <- function(S, p, g, n, method = c("both", "GG", "HF")) {
+sphericityEps <- function(S, p, g, n, method = c("both", "gg", "hf")) {
 
   ## Purpose: calculates the Greenhouse-Geisser and Huynh-Feldt epsilons
   ## -------------------------------------------------------------------
@@ -66,13 +66,13 @@ sphericityEps <- function(S, p, g, n, method = c("both", "GG", "HF")) {
   
   e <- (sum(diag(V)))^2 / sum(diag(V %*% V)) / (p - 1)
   
-  GG <- e
-  HF <- min(1, (n * (p - 1) * e - 2) / ((p - 1) * (n - g - (p - 1) * e)))
+  gg <- e
+  hf <- min(1, (n * (p - 1) * e - 2) / ((p - 1) * (n - g - (p - 1) * e)))
   
   switch(method,
-         "GG"   = c(GG = GG),
-         "HF"   = c(HF = HF),
-         "both" = c(GG = GG, HF = HF)
+         "gg"   = c(gg = gg),
+         "hf"   = c(hf = hf),
+         "both" = c(gg = gg, hf = hf)
   )
 }
 

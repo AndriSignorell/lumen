@@ -8,8 +8,8 @@ barnardTest(
   x,
   y = NULL,
   alternative = c("two.sided", "less", "greater"),
-  method = c("csm", "csm approximate", "z-pooled", "z-unpooled", "boschloo",
-    "santner and snell"),
+  method = c("csm", "csm-approximate", "z-pooled", "z-unpooled", "boschloo",
+    "santner-snell"),
   fixed = 1,
   useStoredCSM = FALSE,
   ...
@@ -26,8 +26,8 @@ must be one of \code{"two.sided"} (default), \code{"greater"} or
 \code{"less"}.  You can specify just the initial letter.}
 
 \item{method}{Indicates the method for finding the more extreme tables: must
-be either \code{"Zpooled"}, \code{"Z-unpooled"}, \code{"Santner and Snell"},
-\code{"Boschloo"}, \code{"CSM"}, or \code{"CSM approximate"}. CSM tests
+be either \code{"z-pooled"}, \code{"z-unpooled"}, \code{"santner-snell"},
+\code{"boschloo"}, \code{"csm"}, or \code{"csm-approximate"}. CSM tests
 cannot be calculated for multinomial models.}
 
 \item{fixed}{indicates which margins are fixed. \code{1} stands for row,

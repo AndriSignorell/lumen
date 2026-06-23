@@ -108,16 +108,24 @@ hotellingsT2Test.formula <- function(formula,
   
   rf <- do.call(bedrock::resolveFormula, args)
   
-  # resolveFormula uses split() internally, which flattens a matrix response
-  # to a vector.  Restore the original column structure.
-  p <- ncol(rf$mf[[1L]])
-  x <- matrix(rf$x, ncol = p, dimnames = list(NULL, colnames(rf$mf[[1L]])))
-  y <- matrix(rf$y, ncol = p, dimnames = list(NULL, colnames(rf$mf[[1L]])))
+  # rf$x is the full response matrix (both groups, n x p); rf$group is
+  # the matching full-length factor. rf$y is only a convenience alias
+  # for group 2 and is not used here. Split rf$x by row via rf$group
+  # directly - no flatten/reshape needed since rf$x is already a proper
+  # matrix under the current resolveFormula() contract.
+  lev <- levels(rf$group)
+  
+  x <- rf$x[rf$group == lev[1L], , drop = FALSE]
+  y <- rf$x[rf$group == lev[2L], , drop = FALSE]
+  
+  dimnames(x) <- list(NULL, colnames(rf$mf[[1L]]))
+  dimnames(y) <- list(NULL, colnames(rf$mf[[1L]]))
   
   res           <- hotellingsT2Test.default(x = x, y = y, ...)
   res$data.name <- rf$data.name
   res
 }
+
 
 
 

@@ -38,8 +38,8 @@
 #' \code{"yates"} . See Details.
 #' @param p a vector of probabilities of the same length of \code{x}.  An error
 #' is given if any entry of \code{p} is negative.
-#' @param rescale.p a logical scalar; if \code{TRUE} then p is rescaled (if
-#' necessary) to sum to 1. If rescale.p is \code{FALSE}, and p does not sum to
+#' @param rescaleP a logical scalar; if \code{TRUE} then p is rescaled (if
+#' necessary) to sum to 1. If rescaleP is \code{FALSE}, and p does not sum to
 #' 1, an error is given.
 
 #' @return A list with class \code{"htest"} containing the following
@@ -115,7 +115,7 @@
 #'
 #' @export
 gTest <- function(x, y = NULL, correct=c("none", "williams", "yates"), 
-                  p = rep(1/length(x), length(x)), rescale.p = FALSE) {
+                  p = rep(1/length(x), length(x)), rescaleP = FALSE) {
   
   
   # Log-likelihood tests of independence & goodness of fit
@@ -252,7 +252,7 @@ gTest <- function(x, y = NULL, correct=c("none", "williams", "yates"),
     if (any(p < 0)) 
       stop("probabilities must be non-negative.")
     if (abs(sum(p) - 1) > sqrt(.Machine$double.eps)) {
-      if (rescale.p) 
+      if (rescaleP) 
         p <- p/sum(p)
       else stop("probabilities must sum to 1.")
     }

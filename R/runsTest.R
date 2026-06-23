@@ -160,15 +160,21 @@ runsTest.formula <- function(formula,
   
   d <- do.call(bedrock::resolveFormula, args)
   
+  # d$x is the full response (both groups); d$y is only a convenience
+  # alias for group 2. Split explicitly by d$group instead of relying
+  # on d$x/d$y directly.
+  groups <- split(d$x, d$group)
+  
   res <- runsTest.default(
-    x = d$x,
-    y = d$y,
+    x = groups[[1L]],
+    y = groups[[2L]],
     ...
   )
   
   res$data.name <- d$data.name
   res
 }
+
 
 
 #' @rdname runsTest

@@ -86,7 +86,6 @@ for use in the development of logistic regression models.
 \code{\link{leCessieTest}}, \code{\link{glm}}
 
 Other test.goodnessfit:
-\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }

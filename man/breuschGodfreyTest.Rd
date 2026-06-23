@@ -6,16 +6,20 @@
 \usage{
 breuschGodfreyTest(
   formula,
+  data = list(),
   order = 1,
   orderBy = NULL,
-  type = c("Chisq", "F"),
-  data = list(),
+  type = c("chisq", "f"),
   fill = 0
 )
 }
 \arguments{
 \item{formula}{a symbolic description for the model to be tested (or a
 fitted \code{"lm"} object).}
+
+\item{data}{an optional data frame containing the variables in the model. By
+default the variables are taken from the environment which
+\code{breuschGodfreyTest} is called from.}
 
 \item{order}{integer. maximal order of serial correlation to be tested.}
 
@@ -24,12 +28,8 @@ explanatory variable like \code{~ z}. The observations in the model are
 ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 observations are assumed to be ordered (e.g., a time series).}
 
-\item{type}{the type of test statistic to be returned. Either \code{"Chisq"}
-for the Chi-squared test statistic or \code{"F"} for the F test statistic.}
-
-\item{data}{an optional data frame containing the variables in the model. By
-default the variables are taken from the environment which
-\code{breuschGodfreyTest} is called from.}
+\item{type}{the type of test statistic to be returned. Either \code{"chisq"}
+for the Chi-squared test statistic or \code{"f"} for the F test statistic.}
 
 \item{fill}{starting values for the lagged residuals in the auxiliary
 regression. By default \code{0} but can also be set to \code{NA}.}
@@ -93,25 +93,17 @@ y2 <- stats::filter(y1, 0.5, method = "recursive")
 breuschGodfreyTest(y2 ~ x)
 }
 \references{
-Johnston, J. (1984): \emph{Econometric Methods}, Third Edition,
-McGraw Hill Inc.
+Breusch, T. S. (1979). Testing for autocorrelation in dynamic linear
+models. \emph{Australian Economic Papers}, \emph{17}(31), 334–355.
 
-Godfrey, L.G. (1978): `Testing Against General Autoregressive and Moving
-Average Error Models when the Regressors Include Lagged Dependent
-Variables', \emph{Econometrica}, 46, 1293-1302.
-
-Breusch, T.S. (1979): `Testing for Autocorrelation in Dynamic Linear
-Models', \emph{Australian Economic Papers}, 17, 334-355.
+Godfrey, L. G. (1978). Testing against general autoregressive and moving
+average error models when the regressors include lagged dependent
+variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
 }
 \seealso{
 \code{\link{durbinWatsonTest}}
-
-Other test.goodnessfit:
-\code{\link[=cochranQTest]{cochranQTest()}},
-\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
-\code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{hypothesis-testing}
 \concept{regression}
-\concept{test.goodnessfit}
 \concept{time-series}
+\concept{topic.timeSeriesTests}

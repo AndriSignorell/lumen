@@ -4,7 +4,7 @@
 \alias{sphericityEps}
 \title{Greenhouse-Geisser And Huynh-Feldt Epsilons}
 \usage{
-sphericityEps(S, p, g, n, method = c("both", "GG", "HF"))
+sphericityEps(S, p, g, n, method = c("both", "gg", "hf"))
 }
 \arguments{
 \item{S}{pxp covariance matrix}
@@ -16,8 +16,8 @@ sphericityEps(S, p, g, n, method = c("both", "GG", "HF"))
 \item{n}{number of subjects}
 
 \item{method}{a character string specifying which epsilon to return,
-must be one of \code{"both"} (default), \code{"GG"} for
-Greenhouse-Geisser, or \code{"HF"} for Huynh-Feldt.}
+must be one of \code{"both"} (default), \code{"gg"} for
+Greenhouse-Geisser, or \code{"hf"} for Huynh-Feldt.}
 }
 \value{
 a numeric value

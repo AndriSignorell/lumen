@@ -6,31 +6,31 @@ p <- 4
 rho <- 0.5
 S_cs <- rho * matrix(1, p, p) + (1 - rho) * diag(p)  # compound symmetry
 
-test_that("sphericityEps: compound symmetry gives GG epsilon = 1", {
-  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "GG")
-  expect_equal(unname(res["GG"]), 1, tolerance = 1e-6)
+test_that("sphericityEps: compound symmetry gives gg epsilon = 1", {
+  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "gg")
+  expect_equal(unname(res["gg"]), 1, tolerance = 1e-6)
 })
 
-test_that("sphericityEps: compound symmetry gives HF epsilon = 1", {
-  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "HF")
-  expect_equal(unname(res["HF"]), 1, tolerance = 1e-3)
+test_that("sphericityEps: compound symmetry gives hf epsilon = 1", {
+  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "hf")
+  expect_equal(unname(res["hf"]), 1, tolerance = 1e-3)
 })
 
-test_that("sphericityEps: GG in (1/(p-1), 1]", {
+test_that("sphericityEps: gg in (1/(p-1), 1]", {
   S_arb <- diag(p) + 0.2 * matrix(rnorm(p^2), p, p)
   S_arb <- crossprod(S_arb)  # make positive definite
-  res   <- sphericityEps(S_arb, p = p, g = 1, n = 30, method = "GG")
-  gg    <- unname(res["GG"])
+  res   <- sphericityEps(S_arb, p = p, g = 1, n = 30, method = "gg")
+  gg    <- unname(res["gg"])
   expect_gte(gg, 1/(p-1) - 1e-6)
   expect_lte(gg, 1 + 1e-6)
 })
 
-test_that("sphericityEps: method='both' returns GG and HF", {
+test_that("sphericityEps: method='both' returns gg and hf", {
   res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "both")
-  expect_true(all(c("GG","HF") %in% names(res)))
+  expect_true(all(c("gg","hf") %in% names(res)))
 })
 
-test_that("sphericityEps: method='GG' returns only GG", {
-  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "GG")
-  expect_true("GG" %in% names(res))
+test_that("sphericityEps: method='gg' returns only gg", {
+  res <- sphericityEps(S_cs, p = p, g = 1, n = 20, method = "gg")
+  expect_true("gg" %in% names(res))
 })

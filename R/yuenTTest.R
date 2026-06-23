@@ -107,9 +107,16 @@ yuenTTest.formula <- function(formula,
     args
   )
   
+  # resolveFormula() returns d$x as the FULL response (both groups,
+  # length n) and d$group as the matching full-length factor - d$y is
+  # only a convenience alias for group 2, never group 1. Split on
+  # d$group explicitly instead of relying on d$x/d$y directly, or this
+  # silently compares "all observations" against "group 2 only".
+  groups <- split(d$x, d$group)
+  
   res <- yuenTTest.default(
-    x = d$x,
-    y = d$y,
+    x = groups[[1L]],
+    y = groups[[2L]],
     ...
   )
   

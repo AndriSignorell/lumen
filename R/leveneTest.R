@@ -38,7 +38,13 @@
 #' @param subset an optional vector specifying a subset of observations to be used.
 #' @param na.action a function which indicates what should happen 
 #' when the data contain NAs. Defaults to \code{getOption("na.action")}.
-
+#' @param .centerName internal, not intended to be set by the user. Used to pass
+#' the deparsed name of the \code{center} function through the method dispatch
+#' chain (from \code{leveneTest.formula} to \code{leveneTest.default}), since
+#' \code{substitute(center)} would otherwise only resolve to the literal
+#' symbol \code{"center"} rather than the original expression (e.g. \code{mean}
+#' or \code{median}) supplied by the caller.
+#' 
 #' @param ... arguments to be passed down, e.g., \code{data} for the
 #' \code{formula}; can also be used to pass arguments to
 #' the function given by \code{center} (e.g., \code{center=mean},
@@ -127,9 +133,10 @@ leveneTest.formula <- function(formula, data, subset,
                         na.action = na.action,
                         allowed   = "n-sample-independent")
   
-  leveneTest.default(x      = res$x,
-                     g      = res$group,
-                     center = center,
+  leveneTest.default(x           = res$x,
+                     g           = res$group,
+                     center      = center,
+                     .centerName = deparse(substitute(center)),
                      ...)
 }
 
@@ -137,7 +144,7 @@ leveneTest.formula <- function(formula, data, subset,
 
 #' @rdname leveneTest
 #' @export
-leveneTest.default <- function (x, g, center=median, ...) {
+leveneTest.default <- function (x, g, center = median, .centerName = NULL, ...) {
   
   if (is.list(x)) {
     if (length(x) < 2L) 
@@ -181,11 +188,9 @@ leveneTest.default <- function (x, g, center=median, ...) {
   ANOVA_TAB <- anova(lm(resp ~ g))
   
   rownames(ANOVA_TAB)[2] <- " "
-  dots <- deparse(substitute(...))
-  
   dots <- unlist(match.call(expand.dots=FALSE)$...)
-  center_x <- deparse(substitute(center))
-  if(!is.null(dots))
+  center_x <- if (!is.null(.centerName)) .centerName else deparse(substitute(center))
+  if (!is.null(dots))
     center_x <- paste0(center_x, 
                        gettextf("(%s)", 
                                 paste(gettextf("%s=%s", 

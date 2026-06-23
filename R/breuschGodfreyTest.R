@@ -32,8 +32,8 @@
 #' explanatory variable like \code{~ z}. The observations in the model are
 #' ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 #' observations are assumed to be ordered (e.g., a time series).
-#' @param type the type of test statistic to be returned. Either \code{"Chisq"}
-#' for the Chi-squared test statistic or \code{"F"} for the F test statistic.
+#' @param type the type of test statistic to be returned. Either \code{"chisq"}
+#' for the Chi-squared test statistic or \code{"f"} for the F test statistic.
 #' @param data an optional data frame containing the variables in the model. By
 #' default the variables are taken from the environment which
 #' \code{breuschGodfreyTest} is called from.
@@ -54,16 +54,15 @@
 #' as \code{bgtest} in the \pkg{lmtest} package and integrated here 
 #' without logical changes.
 #' 
-#' @references Johnston, J. (1984): \emph{Econometric Methods}, Third Edition,
-#' McGraw Hill Inc.
+#' @references
+#' Breusch, T. S. (1979). Testing for autocorrelation in dynamic linear 
+#'   models. \emph{Australian Economic Papers}, \emph{17}(31), 334–355.
 #'
-#' Godfrey, L.G. (1978): `Testing Against General Autoregressive and Moving
-#' Average Error Models when the Regressors Include Lagged Dependent
-#' Variables', \emph{Econometrica}, 46, 1293-1302.
-#'
-#' Breusch, T.S. (1979): `Testing for Autocorrelation in Dynamic Linear
-#' Models', \emph{Australian Economic Papers}, 17, 334-355.
-#' 
+#' Godfrey, L. G. (1978). Testing against general autoregressive and moving 
+#'   average error models when the regressors include lagged dependent 
+#'   variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
+#'   
+#'    
 #' @seealso \code{\link{durbinWatsonTest}}
 #' 
 #' @examples
@@ -87,17 +86,16 @@
 
 
 #' @rdname breuschGodfreyTest
-#' @family test.goodnessfit
+#' @family topic.timeSeriesTests
 #' @concept hypothesis-testing
 #' @concept regression
 #' @concept time-series
 #'
 #'
 #' @export
-breuschGodfreyTest <- function(formula, order = 1, orderBy = NULL,
-                               type = c("Chisq", "F"),
-                               data = list(), fill = 0) {
-
+breuschGodfreyTest <- function(formula, data = list(), order = 1, 
+                                 orderBy = NULL, type = c("chisq", "f"),
+                                 fill = 0){
   # from lmtest
 
   dname <- paste(deparse(substitute(formula)))
@@ -149,14 +147,14 @@ breuschGodfreyTest <- function(formula, order = 1, orderBy = NULL,
 
   switch(match.arg(type),
 
-         "Chisq" = {
+         "chisq" = {
            bg <- n * sum(auxfit$fitted^2)/sum(resi^2)
            p.val <- pchisq(bg, m, lower.tail = FALSE)
            df <- m
            names(df) <- "df"
          },
 
-         "F" = {
+         "f" = {
            uresi <- auxfit$residuals
            bg <- ((sum(resi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
            df <- c(m, n-k-m)
@@ -165,15 +163,15 @@ breuschGodfreyTest <- function(formula, order = 1, orderBy = NULL,
          })
 
   names(bg) <- "LM test"
-  RVAL <- list(statistic = bg, parameter = df,
+  res <- list(statistic = bg, parameter = df,
                method = paste("Breusch-Godfrey test for serial correlation of order up to", max(order)),
                p.value = p.val,
                data.name = dname,
                coefficients = cf,
                vcov = vc)
 
-  class(RVAL) <- c("breuschGodfreyTest", "htest")
-  return(RVAL)
+  class(res) <- c("breuschGodfreyTest", "htest")
+  return(res)
 
 }
 

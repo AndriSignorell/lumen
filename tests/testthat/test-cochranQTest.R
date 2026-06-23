@@ -231,3 +231,23 @@ test_that("print.htest works", {
   expect_output(print(res), "Cochran")
 })
 
+
+test_that("cochranQTest.formula works with the SAS reference example", {
+  
+  d.frm <- expand.grid(A = c("F", "U"), B = c("F", "U"), C = c("F", "U"))[
+    rep(1:8, c(6, 2, 2, 6, 16, 4, 4, 6)), ]
+  row.names(d.frm) <- NULL
+  
+  d.long <- reshape(d.frm, varying = 1:3, times = names(d.frm)[1:3],
+                    v.names = "resp", direction = "long")
+  
+  expect_no_error(res <- cochranQTest(resp ~ time | id, data = d.long))
+  expect_s3_class(res, "htest")
+  
+  # regression guard: resolveFormula() renamed 'group' to 'treatment'
+  # for n-sample-dependent designs; cochranQTest.formula() must read
+  # d$treatment, not d$group, or this silently produces NULL groups.
+  expect_false(is.na(res$statistic))
+  expect_false(is.na(res$p.value))
+})
+

@@ -224,7 +224,7 @@ cochranQTest.formula <- function(formula,
   
   res <- cochranQTest.default(
     y         = d$response,
-    groups    = d$group,
+    groups    = d$treatment,    # resolveFormula: 'group' renamed to 'treatment' for n-sample-dependent
     blocks    = d$block,
     method    = method,
     nresample = nresample,

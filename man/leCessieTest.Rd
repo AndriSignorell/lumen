@@ -74,7 +74,6 @@ of goodness-of-fit tests for the logistic regression model.
 \code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
 
 Other test.goodnessfit:
-\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
 }

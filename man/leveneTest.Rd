@@ -10,7 +10,7 @@ leveneTest(x, ...)
 
 \method{leveneTest}{formula}(formula, data, subset, na.action = na.pass, center = median, ...)
 
-\method{leveneTest}{default}(x, g, center = median, ...)
+\method{leveneTest}{default}(x, g, center = median, .centerName = NULL, ...)
 }
 \arguments{
 \item{x}{response variable for the default method, or a \code{lm} or
@@ -41,6 +41,13 @@ when the data contain NAs. Defaults to \code{getOption("na.action")}.}
 provides a more robust test (Brown-Forsythe-Test).}
 
 \item{g}{factor defining groups.}
+
+\item{.centerName}{internal, not intended to be set by the user. Used to pass
+the deparsed name of the \code{center} function through the method dispatch
+chain (from \code{leveneTest.formula} to \code{leveneTest.default}), since
+\code{substitute(center)} would otherwise only resolve to the literal
+symbol \code{"center"} rather than the original expression (e.g. \code{mean}
+or \code{median}) supplied by the caller.}
 }
 \value{
 An object of class "htest" representing the result of the

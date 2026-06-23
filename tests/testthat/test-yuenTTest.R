@@ -402,3 +402,26 @@ test_that("print.htest works", {
 })
 
 
+test_that("formula interface splits by group, not x vs convenience-y", {
+  
+  set.seed(1)
+  
+  x <- rnorm(20)
+  y <- rnorm(20, mean = 3)   # deutlich verschieden, damit ein Bug auffällt
+  
+  dat <- data.frame(
+    value = c(x, y),
+    group = factor(rep(c("A", "B"), c(20, 20)))
+  )
+  
+  res1 <- yuenTTest(x, y)
+  res2 <- yuenTTest(value ~ group, data = dat)
+  
+  # regression guard: resolveFormula()'s 'x' is now the full response
+  # (both groups), not group A alone - yuenTTest.formula() must split
+  # by 'group' explicitly, or this compares "all 40 obs" against
+  # "group B only" and silently returns the wrong statistic.
+  expect_equal(unname(res1$statistic), unname(res2$statistic))
+  expect_equal(unname(res1$p.value), unname(res2$p.value))
+})
+

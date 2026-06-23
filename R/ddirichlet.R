@@ -67,7 +67,7 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 #'
 #' @param q Numeric vector
 #' @param alpha Numeric vector (> 0)
-#' @param n_sim Number of simulations
+#' @param nSim Number of simulations
 #'
 #' @return Approximate probability
 #'
@@ -76,8 +76,8 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 #'
 
 #' @export
-pdirichlet <- function(q, alpha, n_sim = 1e5) {
-  pdirichlet_cpp(q, alpha, as.integer(n_sim))
+pdirichlet <- function(q, alpha, nSim = 1e5) {
+  pdirichlet_cpp(q, alpha, as.integer(nSim))
 }
 
 

@@ -54,10 +54,10 @@ test_that("gTest: observed and expected in result", {
   expect_equal(sum(res$expected), sum(res$observed), tolerance = 1e-10)
 })
 
-test_that("gTest: rescale.p=TRUE allows non-summing p", {
+test_that("gTest: rescaleP=TRUE allows non-summing p", {
   x <- c(89, 37, 30, 28, 2)
   p <- c(40, 20, 20, 15, 5)
-  res <- gTest(x, p = p, rescale.p = TRUE)
+  res <- gTest(x, p = p, rescaleP = TRUE)
   expect_s3_class(res, "htest")
 })
 

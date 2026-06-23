@@ -41,7 +41,7 @@ test_that("breuschGodfreyTest: order=4 gives df=4", {
 })
 
 test_that("breuschGodfreyTest: type='F' returns F statistic", {
-  res <- breuschGodfreyTest(y1 ~ x, type = "F")
+  res <- breuschGodfreyTest(y1 ~ x, type = "f")
   expect_named(res$parameter, c("df1", "df2"))
 })
 

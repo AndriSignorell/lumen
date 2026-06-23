@@ -106,10 +106,10 @@ zTest <- function (x, ...)
 #' @rdname zTest
 #' @export
 zTest.formula <- function(formula,
-                             data,
-                             subset,
-                             na.action = na.pass,
-                             ...) {
+                          data,
+                          subset,
+                          na.action = na.pass,
+                          ...) {
   
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
@@ -128,16 +128,20 @@ zTest.formula <- function(formula,
   
   d <- do.call(bedrock::resolveFormula, args)
   
+  # d$x is the full response (both groups); d$y is only a convenience
+  # alias for group 2. Split explicitly by d$group instead of relying
+  # on d$x/d$y directly.
+  groups <- split(d$x, d$group)
+  
   res <- zTest.default(
-    x = d$x,
-    y = d$y,
+    x = groups[[1L]],
+    y = groups[[2L]],
     ...
   )
   
   res$data.name <- d$data.name
   res
 }
-
 
 
 

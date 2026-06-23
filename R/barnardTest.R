@@ -70,10 +70,12 @@
 #' @param alternative a character string specifying the alternative hypothesis,
 #' must be one of \code{"two.sided"} (default), \code{"greater"} or
 #' \code{"less"}.  You can specify just the initial letter.
+#' 
 #' @param method Indicates the method for finding the more extreme tables: must
-#' be either \code{"Zpooled"}, \code{"Z-unpooled"}, \code{"Santner and Snell"},
-#' \code{"Boschloo"}, \code{"CSM"}, or \code{"CSM approximate"}. CSM tests
+#' be either \code{"z-pooled"}, \code{"z-unpooled"}, \code{"santner-snell"},
+#' \code{"boschloo"}, \code{"csm"}, or \code{"csm-approximate"}. CSM tests
 #' cannot be calculated for multinomial models.
+#' 
 #' @param fixed indicates which margins are fixed. \code{1} stands for row,
 #' \code{2} for columns, \code{NA} for none of both.
 #' @param useStoredCSM logical, use a stored ordering matrix for the CSM test
@@ -161,16 +163,25 @@ barnardTest <- function(
     alternative = c("two.sided", "less", "greater"),
     method = c(
       "csm",
-      "csm approximate",
+      "csm-approximate",
       "z-pooled",
       "z-unpooled",
       "boschloo",
-      "santner and snell"
+      "santner-snell"
     ),
     fixed = 1,
     useStoredCSM = FALSE,
     ...
 ) {
+  
+  
+  method = match.arg(method)
+  
+  # prepare interface used in exact.test
+  if(method == "csm-approximate") method <- "csm approximate"
+  if(method == "santner-snell")   method <- "santner and snell"
+  
+  
   
   CT <- resolveContingency(x, y)
   
@@ -182,7 +193,7 @@ barnardTest <- function(
   lst <- list(
     data = x,
     alternative = match.arg(alternative),
-    method = match.arg(method),
+    method = method,
     to.plot = FALSE,
     useStoredCSM = useStoredCSM,
     ...

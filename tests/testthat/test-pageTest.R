@@ -225,3 +225,27 @@ test_that("print.htest works", {
   expect_output(print(res), "Page")
 })
 
+
+test_that("pageTest.formula works with the Sachs reference example (L = 252)", {
+  
+  plng <- data.frame(
+    expand.grid(block = 1:9, group = c("B", "C", "D", "A")),
+    x = as.vector(
+      matrix(c(3,2,1,4, 4,2,3,1, 4,1,2,3, 4,2,3,1,
+               3,2,1,4, 4,1,2,3, 4,3,2,1, 3,1,2,4,
+               3,1,4,2),
+             nrow = 9, byrow = TRUE,
+             dimnames = list(1:9, LETTERS[1:4]))[, c("B", "C", "D", "A")]
+    )
+  )
+  
+  expect_no_error(res <- pageTest(x ~ group | block, data = plng))
+  expect_s3_class(res, "htest")
+  
+  # regression guard: resolveFormula() renamed 'group' to 'treatment'
+  # for n-sample-dependent designs; pageTest.formula() must read
+  # d$treatment, not d$group, or this silently produces NULL groups.
+  expect_equal(unname(res$statistic), 252)
+})
+
+

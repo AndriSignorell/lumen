@@ -77,12 +77,12 @@ test_that("rdirichlet: alpha <= 0 throws error", {
 
 test_that("pdirichlet: probability in [0,1]", {
   set.seed(1)
-  p <- pdirichlet(c(0.2, 0.3, 0.5), c(1, 1, 1), n_sim = 1e4)
+  p <- pdirichlet(c(0.2, 0.3, 0.5), c(1, 1, 1), nSim = 1e4)
   expect_true(p >= 0 && p <= 1)
 })
 
 test_that("pdirichlet: P(X <= 1) = 1 (maximal point on simplex)", {
-  p <- pdirichlet(c(1, 1, 1), c(1, 1, 1), n_sim = 1e5)
+  p <- pdirichlet(c(1, 1, 1), c(1, 1, 1), nSim = 1e5)
   expect_equal(p, 1, tolerance = 0.01)
 })
 

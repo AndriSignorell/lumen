@@ -9,7 +9,7 @@ gTest(
   y = NULL,
   correct = c("none", "williams", "yates"),
   p = rep(1/length(x), length(x)),
-  rescale.p = FALSE
+  rescaleP = FALSE
 )
 }
 \arguments{
@@ -25,8 +25,8 @@ a factor, \code{y} should be a factor of the same length.}
 \item{p}{a vector of probabilities of the same length of \code{x}.  An error
 is given if any entry of \code{p} is negative.}
 
-\item{rescale.p}{a logical scalar; if \code{TRUE} then p is rescaled (if
-necessary) to sum to 1. If rescale.p is \code{FALSE}, and p does not sum to
+\item{rescaleP}{a logical scalar; if \code{TRUE} then p is rescaled (if
+necessary) to sum to 1. If rescaleP is \code{FALSE}, and p does not sum to
 1, an error is given.}
 }
 \value{

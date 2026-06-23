@@ -4,14 +4,14 @@
 \alias{pdirichlet}
 \title{Dirichlet CDF (parallel Monte Carlo)}
 \usage{
-pdirichlet(q, alpha, n_sim = 100000)
+pdirichlet(q, alpha, nSim = 100000)
 }
 \arguments{
 \item{q}{Numeric vector}
 
 \item{alpha}{Numeric vector (> 0)}
 
-\item{n_sim}{Number of simulations}
+\item{nSim}{Number of simulations}
 }
 \value{
 Approximate probability
