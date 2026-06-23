@@ -174,7 +174,7 @@
 #' for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
 #' 783-798
 #' 
-#' A. Khouadji (1999) Sur une méthode d’approximation des intervalles 
+#' A. Khouadji (2025) Sur une méthode d’approximation des intervalles 
 #' de confiance pour une proportion binomiale.
 #' 
 #' @seealso \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
