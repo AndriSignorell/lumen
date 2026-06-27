@@ -8,7 +8,7 @@ tol <- 1e-6
 test_that("ddirichlet: symmetric Dirichlet(1,1,1) = 2 on simplex", {
   # Dir(1,1,1) is uniform on simplex; density = Gamma(3)/Gamma(1)^3 = 2
   x <- matrix(c(0.2, 0.3, 0.5), nrow = 1)
-  expect_equal(ddirichlet(x, alpha = c(1,1,1)), 2, tolerance = tol)
+  expect_equal(ddirichlet(x, concentration = c(1,1,1)), 2, tolerance = tol)
 })
 
 test_that("ddirichlet: density >= 0", {
@@ -40,7 +40,7 @@ test_that("ddirichlet log=TRUE", {
                log(ddirichlet(x, c(2, 3, 4))), tolerance = tol)
 })
 
-test_that("ddirichlet: alpha <= 0 throws error", {
+test_that("ddirichlet: concentration <= 0 throws error", {
   expect_error(ddirichlet(c(0.2, 0.3, 0.5), c(1, 0, 1)))
   expect_error(ddirichlet(c(0.2, 0.3, 0.5), c(1, -1, 1)))
 })
@@ -69,7 +69,7 @@ test_that("rdirichlet: returns n rows and k columns", {
   expect_equal(ncol(x), 3)
 })
 
-test_that("rdirichlet: alpha <= 0 throws error", {
+test_that("rdirichlet: concentration <= 0 throws error", {
   expect_error(rdirichlet(10, c(1, 0, 1)))
 })
 

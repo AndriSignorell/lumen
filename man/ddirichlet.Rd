@@ -4,12 +4,12 @@
 \alias{ddirichlet}
 \title{Dirichlet density}
 \usage{
-ddirichlet(x, alpha, log = FALSE)
+ddirichlet(x, concentration, log = FALSE)
 }
 \arguments{
 \item{x}{Numeric vector or matrix (rows sum to 1)}
 
-\item{alpha}{Numeric vector of concentration parameters (> 0)}
+\item{concentration}{Numeric vector of concentration parameters (> 0)}
 
 \item{log}{Logical; return log-density if TRUE}
 }

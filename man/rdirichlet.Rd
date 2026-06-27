@@ -4,12 +4,12 @@
 \alias{rdirichlet}
 \title{Random Dirichlet}
 \usage{
-rdirichlet(n, alpha)
+rdirichlet(n, concentration)
 }
 \arguments{
 \item{n}{Number of samples}
 
-\item{alpha}{Numeric vector of concentration parameters (> 0)}
+\item{concentration}{Numeric vector of concentration parameters (> 0)}
 }
 \value{
 Matrix with n rows

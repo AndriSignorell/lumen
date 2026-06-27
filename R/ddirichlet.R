@@ -23,7 +23,7 @@ NULL
 #' Computes the density of the Dirichlet distribution.
 #'
 #' @param x Numeric vector or matrix (rows sum to 1)
-#' @param alpha Numeric vector of concentration parameters (> 0)
+#' @param concentration Numeric vector of concentration parameters (> 0)
 #' @param log Logical; return log-density if TRUE
 #'
 #' @return Numeric vector of densities
@@ -37,15 +37,15 @@ NULL
 #'
 #'
 #' @export
-ddirichlet <- function(x, alpha, log = FALSE) {
+ddirichlet <- function(x, concentration, log = FALSE) {
   if (is.vector(x)) x <- matrix(x, nrow = 1)
   
-  if (any(alpha <= 0)) {
-    stop("alpha must be > 0")
+  if (any(concentration <= 0)) {
+    stop("concentration must be > 0")
   }
   
-  if (ncol(x) != length(alpha)) {
-    stop("x and alpha must have same length")
+  if (ncol(x) != length(concentration)) {
+    stop("x and concentration must have same length")
   }
   
   # check simplex (soft check)
@@ -53,8 +53,8 @@ ddirichlet <- function(x, alpha, log = FALSE) {
     return(rep(if (log) -Inf else 0, nrow(x)))
   }
   
-  logdens <- lgamma(sum(alpha)) - sum(lgamma(alpha)) +
-    rowSums((alpha - 1) * log(x))
+  logdens <- lgamma(sum(concentration)) - sum(lgamma(concentration)) +
+    rowSums((concentration - 1) * log(x))
   
   if (log) logdens else exp(logdens)
 }
@@ -66,7 +66,7 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 #' Fast parallel approximation of the Dirichlet CDF using RcppParallel.
 #'
 #' @param q Numeric vector
-#' @param alpha Numeric vector (> 0)
+#' @param concentration Numeric vector (> 0)
 #' @param nSim Number of simulations
 #'
 #' @return Approximate probability
@@ -76,8 +76,8 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 #'
 
 #' @export
-pdirichlet <- function(q, alpha, nSim = 1e5) {
-  pdirichlet_cpp(q, alpha, as.integer(nSim))
+pdirichlet <- function(q, concentration, nSim = 1e5) {
+  pdirichlet_cpp(q, concentration, as.integer(nSim))
 }
 
 
@@ -86,7 +86,7 @@ pdirichlet <- function(q, alpha, nSim = 1e5) {
 #' Generates random draws from a Dirichlet distribution.
 #'
 #' @param n Number of samples
-#' @param alpha Numeric vector of concentration parameters (> 0)
+#' @param concentration Numeric vector of concentration parameters (> 0)
 #'
 #' @return Matrix with n rows
 #'
@@ -94,14 +94,14 @@ pdirichlet <- function(q, alpha, nSim = 1e5) {
 #' rdirichlet(5, c(1,1,1))
 #'
 #' @export
-rdirichlet <- function(n, alpha) {
-  if (any(alpha <= 0)) {
-    stop("alpha must be > 0")
+rdirichlet <- function(n, concentration) {
+  if (any(concentration <= 0)) {
+    stop("concentration must be > 0")
   }
   
-  k <- length(alpha)
+  k <- length(concentration)
   
-  x <- matrix(rgamma(n * k, shape = alpha, rate = 1), nrow = n)
+  x <- matrix(rgamma(n * k, shape = concentration, rate = 1), nrow = n)
   x / rowSums(x)
 }
 
