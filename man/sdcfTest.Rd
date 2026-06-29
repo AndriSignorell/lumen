@@ -136,7 +136,8 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=steelTest]{steelTest()}}
+\code{\link[=steelTest]{steelTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

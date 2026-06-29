@@ -98,12 +98,13 @@ Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
 \seealso{
 \code{\link{woolfTest}}
 
-Other test.contingency:
+Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
-\code{\link[=gTest]{gTest()}},
-\code{\link[=mantelTrendTest]{mantelTrendTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{hypothesis-testing}
-\concept{table-manipulation}
-\concept{test.contingency}
+\concept{binary-outcome}
+\concept{categorical-test}
+\concept{homogeneity}
+\concept{test.categorical}

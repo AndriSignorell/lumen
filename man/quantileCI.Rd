@@ -78,12 +78,13 @@ quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 \code{\link[DescToolsX]{quantileX}}, \code{\link{quantile}},
 \code{\link{medianCI}}
 
-Other ci.location:
-\code{\link[=meanCI]{meanCI()}},
+Other ci.general:
+\code{\link[=bootCI]{bootCI()}},
+\code{\link{mad-confints}},
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=medianCI]{medianCI()}}
+\code{\link[=sumCI]{sumCI()}}
 }
-\concept{ci.location}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
-\concept{nonparametric}
+\concept{ci.general}
+\concept{confidence-interval}
+\concept{quantile}

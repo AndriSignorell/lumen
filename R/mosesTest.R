@@ -98,7 +98,7 @@
 #'   \code{"htest"} with components:
 #'   \describe{
 #'     \item{\code{statistic}}{Named vector containing
-#'       \code{S_raw} and \code{S_trimmed}.}
+#'       \code{sRaw} and \code{sTrimmed}.}
 #'     \item{\code{p.value}}{Named vector containing
 #'       \code{p_raw} and \code{p_trimmed}.}
 #'     \item{\code{extreme}}{Effective trimming parameter \eqn{h}.}
@@ -149,10 +149,13 @@
 #' mosesTest(score ~ group, data = df)
 #'
 #' @rdname mosesTest
-#' @family test.scale
-#' @concept hypothesis-testing
-#' @concept nonparametric
 
+
+#' @family test.variance  
+#' @concept variance-test  
+#' @concept nonparametric
+#'
+#'
 #' @export
 mosesTest <- function(x, ...)
   UseMethod("mosesTest")
@@ -374,8 +377,8 @@ mosesTest.default <- function(
   structure(
     list(
       statistic = c(
-        S_raw     = res_raw$S,
-        S_trimmed = res_trimmed$S
+        sRaw     = res_raw$S,
+        sTrimmed = res_trimmed$S
       ),
       
       p.value = c(
@@ -433,7 +436,7 @@ print.mosesTestResult <- function(
   cat(sprintf(
     "  %-32s  span = %4d,  p-value = %s\n",
     "Without trimming:",
-    x$statistic["S_raw"],
+    x$statistic["sRaw"],
     format.pval(
       x$p.value["p_raw"],
       digits = digits
@@ -446,7 +449,7 @@ print.mosesTestResult <- function(
       "After trimming %d from each end:",
       x$extreme
     ),
-    x$statistic["S_trimmed"],
+    x$statistic["sTrimmed"],
     format.pval(
       x$p.value["p_trimmed"],
       digits = digits

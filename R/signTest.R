@@ -105,8 +105,9 @@
 
 
 #' @rdname signTest
-#' @family test.location
-#' @concept hypothesis-testing
+
+#' @family test.location  
+#' @concept location-test  
 #' @concept nonparametric
 #'
 #'

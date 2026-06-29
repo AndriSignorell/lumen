@@ -119,12 +119,10 @@ homogeneity of variances in more than two samples from normal distributions;
 (nonparametric) two-sample tests for difference in scale.
 
 Other test.variance:
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=sphericityEps]{sphericityEps()}}
+\code{\link[=varCI]{varCI()}}
 }
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
 \concept{test.variance}
+\concept{variance-test}

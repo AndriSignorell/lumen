@@ -124,11 +124,11 @@ and approximate \emph{conditional} p-values for the Ansari-Bradley test, as
 well as different methods for handling ties.
 
 Other test.variance:
-\code{\link[=bpTest]{bpTest()}},
+\code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=sphericityEps]{sphericityEps()}},
+\code{\link[=varCI]{varCI()}},
 \code{\link[=varTest]{varTest()}}
 }
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
+\concept{homogeneity}
 \concept{test.variance}
+\concept{variance-test}

@@ -72,9 +72,10 @@
 
 
 #' @rdname scheffeTest
-#' @family test.posthoc
-#' @concept multiple-comparisons
-#' @concept hypothesis-testing
+
+#' @family test.posthoc  
+#' @concept post-hoc  
+#' @concept parametric
 #'
 #'
 #' @export

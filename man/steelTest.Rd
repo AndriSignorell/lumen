@@ -148,9 +148,9 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=sdcfTest]{sdcfTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{hypothesis-testing}
-\concept{multiple-comparisons}
 \concept{nonparametric}
+\concept{post-hoc}
 \concept{test.posthoc}

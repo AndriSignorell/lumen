@@ -72,13 +72,14 @@
 #'
 #' cochranArmitageTest(pain)
 #'
-#' @family test.trend
-#' @concept hypothesis-testing
+
+
+
+#' @family test.trend  
+#' @concept trend-test  
 #' @concept nonparametric
-#' @concept table-manipulation
 #'
-
-
+#'
 #' @export
 cochranArmitageTest <- function(x,
                                 alternative = c("two.sided", "increasing", "decreasing")) {

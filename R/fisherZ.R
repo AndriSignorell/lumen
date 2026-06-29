@@ -43,10 +43,10 @@
 
 
 #' @rdname fisherZ
-#' @family correlation
-#' @concept correlation
+
+#' @family test.correlation  
+#' @concept correlation  
 #' @concept transformation
-#' @concept descriptive-statistics
 #'
 #'
 #' @export

@@ -60,10 +60,6 @@ Autoregressive Time Series with a Unit Root, \emph{Econometrica}, \bold{49},
 
 Hamilton (1994), \emph{Time Series Analysis}, Princeton University Press.
 }
-\seealso{
-Other test.stationarity:
-\code{\link[=kpssTest]{kpssTest()}}
-}
 \concept{hypothesis-testing}
 \concept{test.stationarity}
 \concept{time-series}

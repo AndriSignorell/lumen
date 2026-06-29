@@ -98,7 +98,14 @@ Nordhausen, K., Sirkia, S., Oja, H., & Tyler, D. E. (2012).
 \emph{ICSNP: Tools for Multivariate Nonparametrics}. R package
 version 1.0-9. \url{https://cran.r-project.org/package=ICSNP}
 }
-\concept{hypothesis-testing}
-\concept{location}
+\seealso{
+Other test.location:
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
+\code{\link[=zTest]{zTest()}}
+}
+\concept{location-test}
 \concept{multivariate}
-\concept{topic.hypothesisTests}
+\concept{parametric}
+\concept{test.location}

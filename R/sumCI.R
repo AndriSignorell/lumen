@@ -24,9 +24,9 @@
 #'
 
 
-#' @family ci.other
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
+
+#' @family ci.general  
+#' @concept confidence-interval
 #'
 #'
 #' @export 

@@ -52,7 +52,7 @@ An object of class \code{"mosesTestResult"} inheriting from
 \code{"htest"} with components:
 \describe{
 \item{\code{statistic}}{Named vector containing
-\code{S_raw} and \code{S_trimmed}.}
+\code{sRaw} and \code{sTrimmed}.}
 \item{\code{p.value}}{Named vector containing
 \code{p_raw} and \code{p_trimmed}.}
 \item{\code{extreme}}{Effective trimming parameter \eqn{h}.}
@@ -172,7 +172,13 @@ A two-sample test.
 \code{\link{wilcox.test}},
 \code{\link{ks.test}},
 \code{\link{ansari.test}}
+
+Other test.variance:
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=varCI]{varCI()}},
+\code{\link[=varTest]{varTest()}}
 }
-\concept{hypothesis-testing}
 \concept{nonparametric}
-\concept{test.scale}
+\concept{test.variance}
+\concept{variance-test}

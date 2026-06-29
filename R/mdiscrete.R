@@ -74,6 +74,11 @@
 NULL
 
 #' @rdname disc.moments
+
+#' @family distributions  
+#' @concept distribution-function
+#'
+#'
 #' @export
 mbinom <- function(size, prob) {
   c(mean     = size * prob,

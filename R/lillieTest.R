@@ -73,10 +73,10 @@
 #' 
 
 
-#' @family test.normality
+
+#' @family test.normality  
+#' @concept normality-test  
 #' @concept goodness-of-fit
-#' @concept normality-testing
-#' @concept hypothesis-testing
 #'
 #'
 #' @export

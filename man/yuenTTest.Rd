@@ -93,7 +93,13 @@ The two-sample trimmed t for unequal population variances.
 }
 \seealso{
 \code{\link{t.test}}
+
+Other test.location:
+\code{\link{hotelling-t2-test}},
+\code{\link[=signTest]{signTest()}},
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=zTest]{zTest()}}
 }
-\concept{hypothesis-testing}
+\concept{location-test}
 \concept{robust-statistics}
-\concept{robust.tests}
+\concept{test.location}

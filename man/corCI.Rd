@@ -65,14 +65,16 @@ t(sapply(r, corCI, n = 30))
 \seealso{
 \code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
 
-Other correlation:
+Other test.correlation:
+\code{\link[=corTest]{corTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=fisherZ]{fisherZ()}}
 }
 \author{
 William Revelle \email{revelle@northwestern.edu},
 modified by Andri Signorell \email{andri@signorell.net}
 }
-\concept{confidence-intervals}
+\concept{confidence-interval}
 \concept{correlation}
-\concept{descriptive-statistics}
+\concept{test.correlation}
 \keyword{univar}

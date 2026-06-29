@@ -281,13 +281,8 @@ Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
-
-Other sample.size:
-\code{\link[=meanCIn]{meanCIn()}},
-\code{\link[=powerChisqTest]{powerChisqTest()}}
 }
 \concept{ci.proportion}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{confidence-interval}
+\concept{proportion}
 \concept{sample-size}
-\concept{sample.size}

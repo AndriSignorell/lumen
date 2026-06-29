@@ -58,10 +58,10 @@
 #' 
 
               
-#' @family ci.location
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
-#' @concept hypothesis-testing
+
+#' @family ci.general  
+#' @concept confidence-interval  
+#' @concept location-test
 #'
 #'
 #' @export

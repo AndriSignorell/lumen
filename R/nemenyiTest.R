@@ -78,12 +78,13 @@
 #' nemenyiTest(Ozone ~ Month, data = airquality)
 #'
 #' @rdname nemenyiTest
-#' @family test.posthoc
-#' @concept multiple-comparisons
-#' @concept nonparametric
-#' @concept hypothesis-testing
-#'
 
+
+#' @family test.posthoc  
+#' @concept post-hoc  
+#' @concept nonparametric
+#'
+#'
 #' @export
 nemenyiTest <- function(x, ...)
   UseMethod("nemenyiTest")
@@ -143,7 +144,7 @@ nemenyiTest.default <- function(
   gd <- resolveGroups(x, g)
   
   x <- gd$x
-  g <- gd$g
+  g <- gd$groups
   
   N   <- gd$n
   nms <- gd$group.names

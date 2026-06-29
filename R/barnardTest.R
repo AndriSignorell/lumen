@@ -96,6 +96,9 @@
 #' \item{nuisance.matrix}{Nuisance parameters, \code{p}, and the 
 #'          corresponding p-values for both one- and two-sided tests}
 #' 
+#' @note Requires the \pkg{Exact} package (available on CRAN). Install with
+#'   \code{install.packages("Exact")}.
+#'   
 #' @note
 #' Adapted from code by Peter Calhoun to conform to package standards.
 #' 
@@ -148,14 +151,14 @@
 
 
 #' @rdname barnardTest
-#' @family test.contingency
-#' @concept hypothesis-testing
-#' @concept table-manipulation
-#' @concept nonparametric
-#'
-#'
 
 
+
+#' @family test.categorical  
+#' @concept categorical-test  
+#' @concept exact-test
+#'
+#'
 #' @export
 barnardTest <- function(
     x,
@@ -174,6 +177,10 @@ barnardTest <- function(
     ...
 ) {
   
+  if (!requireNamespace("Exact", quietly = TRUE))
+    stop("Package 'Exact' is required for barnardTest(). ",
+         "Install it with: install.packages(\"Exact\")",
+         call. = FALSE)
   
   method = match.arg(method)
   
@@ -232,7 +239,7 @@ barnardTest <- function(
     
   }
   
-  do.call(exact.test, lst)
+  do.call(Exact::exact.test, lst)
   
 }
 

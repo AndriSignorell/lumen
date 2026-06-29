@@ -64,10 +64,6 @@ Analysis}, Paper 382-208.
 \code{\link{mcnemar.test}},
 \code{\link{chisq.test}}, \code{\link{mantelTrendTest}},
 \code{\link{breslowDayTest}}
-
-Other test.marginal:
-\code{\link[=lehmacherTest]{lehmacherTest()}},
-\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
 \concept{hypothesis-testing}
 \concept{nonparametric}

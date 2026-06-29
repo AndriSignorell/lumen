@@ -61,10 +61,12 @@
 #' print(res, details = TRUE)
 #'
 #' @rdname hosmerLemeshowTest
-#' @family test.goodnessfit
-#' @concept hypothesis-testing
-#' @concept goodness-of-fit
-#' @concept regression
+
+#' @family test.regression  
+#' @concept regression-diagnostics  
+#' @concept goodness-of-fit  
+#' @concept calibration
+#'
 #'
 #' @export
 hosmerLemeshowTest <- function(fit, obs, nGroups = 10, type = c("C", "H")) {

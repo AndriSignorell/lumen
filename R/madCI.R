@@ -87,13 +87,6 @@
 #'
 #' @seealso \code{\link{mad}}, \code{\link[DescToolsX]{madX}}
 #'
-#' @family topic.robustStatistics
-#' @concept confidence-intervals
-#' @concept robust-statistics
-#' @concept dispersion
-#' @concept two-sample
-#' @concept bootstrap
-#'
 #' @examples
 #' set.seed(1)
 #' x <- rlnorm(100)
@@ -117,6 +110,12 @@
 #' 
 
 
+
+#' @family ci.general  
+#' @concept confidence-interval  
+#' @concept robust-statistics
+#'
+#'
 #' @export
 madCI <- function(x,
                   conf.level = 0.95,

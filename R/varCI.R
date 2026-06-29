@@ -74,12 +74,13 @@
 #' 
 
 
-#' @family ci.dispersion
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
-#'
-#'
 
+
+#' @family test.variance  
+#' @concept variance-test  
+#' @concept confidence-interval
+#'
+#'
 #' @export
 varCI <- function(x,
                   conf.level = 0.95,

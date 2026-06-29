@@ -138,9 +138,10 @@
 #'        
 
 
-#' @family ci.proportion
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
+
+#' @family ci.proportion  
+#' @concept confidence-interval  
+#' @concept proportion
 #'
 #'
 #' @export

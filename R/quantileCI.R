@@ -52,13 +52,13 @@
 #'
 
 
-#' @family ci.location
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
-#' @concept nonparametric
-#'
-#'
 
+
+#' @family ci.general  
+#' @concept confidence-interval  
+#' @concept quantile
+#'
+#'
 #' @export
 quantileCI <- function(x,
                        conf.level = 0.95,

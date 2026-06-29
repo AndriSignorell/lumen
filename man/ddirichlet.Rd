@@ -24,12 +24,15 @@ ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 
 }
 \seealso{
-Other dist.other:
+Other distributions:
+\code{\link{cont.moments}},
 \code{\link[=dbenford]{dbenford()}},
 \code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
 \code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }
-\concept{dist.other}
+\concept{distribution-function}
 \concept{distributions}
-\concept{multivariate}

@@ -82,9 +82,7 @@ medianCI(x, method="boot", sides="right")
 \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
 
 Other ci.location:
-\code{\link[=meanCI]{meanCI()}},
-\code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=quantileCI]{quantileCI()}}
+\code{\link[=meanCI]{meanCI()}}
 }
 \concept{ci.location}
 \concept{confidence-intervals}

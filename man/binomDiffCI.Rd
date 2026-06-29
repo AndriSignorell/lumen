@@ -195,17 +195,15 @@ Interval estimation for the difference between independent proportions.
 \seealso{
 \code{\link{binom.test}}, \code{\link{prop.test}}
 
-Other topic.categoricalData:
-\code{\link[=binomRatioCI]{binomRatioCI()}}
-
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
+\concept{binary-outcome}
 \concept{categorical data}
 \concept{ci.proportion}
 \concept{confidence intervals}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{confidence-interval}
+\concept{proportion}
 \concept{topic.categoricalData}

@@ -82,13 +82,12 @@ Randomness. \emph{Journal of the American Statistical Association},
 \seealso{
 \code{\link{bartelsRankTest}}
 
-Other test.correlation:
+Other test.gof:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=corTest]{corTest()}},
-\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=runsTest]{runsTest()}}
 }
-\concept{hypothesis-testing}
-\concept{nonparametric}
-\concept{test.correlation}
-\concept{time-series}
+\concept{goodness-of-fit}
+\concept{randomness}
+\concept{test.gof}

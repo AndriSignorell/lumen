@@ -90,14 +90,14 @@
 #' vanWaerdenTest(Ozone ~ Month, data = airquality)
 #' 
 #' @rdname vanWaerdenTest
-#' @family test.omnibus
-#' @concept k-sample
+
+
+
+#' @family test.posthoc  
+#' @concept post-hoc  
 #' @concept nonparametric
-#' @concept hypothesis-testing
 #'
 #'
-
-
 #' @export
 vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
 #' @rdname vanWaerdenTest
@@ -142,7 +142,7 @@ vanWaerdenTest.default <- function(x, g, ...) {
   gd <- resolveGroups(x, g)
   
   x <- gd$x
-  g <- gd$g
+  g <- gd$groups
   
   n <- gd$n
   k <- gd$k

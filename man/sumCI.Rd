@@ -33,9 +33,12 @@ sumCI(x)
 \seealso{
 \code{\link{binomCI}},
 
-Other ci.other:
-\code{\link[=bootCI]{bootCI()}}
+Other ci.general:
+\code{\link[=bootCI]{bootCI()}},
+\code{\link{mad-confints}},
+\code{\link[=meanCIn]{meanCIn()}},
+\code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=quantileCI]{quantileCI()}}
 }
-\concept{ci.other}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{ci.general}
+\concept{confidence-interval}

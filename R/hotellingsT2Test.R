@@ -75,10 +75,12 @@
 #'
 #' @name hotelling-t2-test
 #' @aliases hotellingsT2Test hotellingsT2Test.default hotellingsT2Test.formula
-#' @family topic.hypothesisTests
-#' @concept hypothesis-testing
+
+#' @family test.location  
+#' @concept location-test  
+#' @concept parametric  
 #' @concept multivariate
-#' @concept location
+#'
 #'
 #' @export
 hotellingsT2Test <- function(x, ...) {

@@ -99,9 +99,9 @@
 
 
 #' @rdname postHoc
-#' @family test.posthoc
-#' @concept multiple-comparisons
-#' @concept hypothesis-testing
+
+#' @family test.posthoc  
+#' @concept post-hoc
 #'
 #'
 #' @export

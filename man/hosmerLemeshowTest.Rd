@@ -85,11 +85,11 @@ for use in the development of logistic regression models.
 \seealso{
 \code{\link{leCessieTest}}, \code{\link{glm}}
 
-Other test.goodnessfit:
-\code{\link[=cochranQTest]{cochranQTest()}},
+Other test.regression:
+\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }
+\concept{calibration}
 \concept{goodness-of-fit}
-\concept{hypothesis-testing}
-\concept{regression}
-\concept{test.goodnessfit}
+\concept{regression-diagnostics}
+\concept{test.regression}

@@ -87,13 +87,14 @@ with(mtcars, with(split(mpg, am),
 \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
 \code{\link[boot]{boot.ci}}
 
-Other ci.location:
-\code{\link[=meanCI]{meanCI()}},
-\code{\link[=medianCI]{medianCI()}},
-\code{\link[=quantileCI]{quantileCI()}}
+Other ci.general:
+\code{\link[=bootCI]{bootCI()}},
+\code{\link{mad-confints}},
+\code{\link[=meanCIn]{meanCIn()}},
+\code{\link[=quantileCI]{quantileCI()}},
+\code{\link[=sumCI]{sumCI()}}
 }
-\concept{ci.location}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
+\concept{ci.general}
+\concept{confidence-interval}
+\concept{location-test}
 \keyword{univar}

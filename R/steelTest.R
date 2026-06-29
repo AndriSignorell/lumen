@@ -114,12 +114,14 @@
 #' steelTest(Ozone ~ Month, data = airquality)
 #'
 #' @rdname steelTest
-#' @family test.posthoc
-#' @concept multiple-comparisons
+
+
+
+#' @family test.posthoc  
+#' @concept post-hoc  
 #' @concept nonparametric
-#' @concept hypothesis-testing
-
-
+#'
+#'
 #' @export
 steelTest <- function(x, ...)
   UseMethod("steelTest")
@@ -195,7 +197,7 @@ steelTest.default <- function(
   DG <- resolveGroups(x, g)
   
   x <- DG$x
-  g <- DG$g
+  g <- DG$groups
   
   gn <- DG$group.names
   

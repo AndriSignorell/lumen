@@ -116,10 +116,12 @@ Wiley, New York.
 in the package \pkg{BSDA} (reporting approximative confidence intervals).
 
 Other test.location:
+\code{\link{hotelling-t2-test}},
 \code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }
-\concept{hypothesis-testing}
+\concept{location-test}
 \concept{median}
 \concept{nonparametric}
 \concept{paired test}

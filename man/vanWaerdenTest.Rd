@@ -111,8 +111,18 @@ Edition ed.). Wiley. pp. 396--406.
 \seealso{
 \code{\link[coin]{normal_test}} in package \pkg{coin},
 where the test is implemented in a more general context.
+
+Other test.posthoc:
+\code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
+\code{\link{postHoc}},
+\code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=steelTest]{steelTest()}}
 }
-\concept{hypothesis-testing}
-\concept{k-sample}
 \concept{nonparametric}
-\concept{test.omnibus}
+\concept{post-hoc}
+\concept{test.posthoc}

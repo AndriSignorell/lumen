@@ -53,9 +53,11 @@ all.equal(r, fisherZInv(fisherZ(r)))
 \seealso{
 \code{\link{corCI}}, \code{\link{cor.test}}
 
-Other correlation:
-\code{\link[=corCI]{corCI()}}
+Other test.correlation:
+\code{\link[=corCI]{corCI()}},
+\code{\link[=corTest]{corTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}}
 }
 \concept{correlation}
-\concept{descriptive-statistics}
+\concept{test.correlation}
 \concept{transformation}

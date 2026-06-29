@@ -48,13 +48,15 @@
 
 
 #' @rdname woolfTest
-#' @family test.contingency
-#' @concept hypothesis-testing
-#' @concept table-manipulation
-#'
-#'
 
 
+
+#' @family test.categorical  
+#' @concept categorical-test  
+#' @concept homogeneity  
+#' @concept binary-outcome
+#'
+#'
 #' @export
 woolfTest <- function(x) {
   

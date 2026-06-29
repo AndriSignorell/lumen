@@ -67,9 +67,9 @@
 #'  
 
 #' @rdname dgompertz
-#' @family dist.other
-#' @concept distributions
-#' @concept survival-analysis
+
+#' @family distributions  
+#' @concept distribution-function
 #'
 #'
 #' @export

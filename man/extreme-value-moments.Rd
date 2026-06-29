@@ -99,8 +99,21 @@ Imperial College Press.
 Other topic.distributions.moments:
 \code{\link{cont.moments}},
 \code{\link{disc.moments}}
+
+Other distributions:
+\code{\link{cont.moments}},
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
+\code{\link[=dtri]{dtri()}},
+\code{\link[=rsum1]{rsum1()}}
 }
 \concept{continuous distribution}
+\concept{distribution-function}
+\concept{distributions}
 \concept{extreme value theory}
+\concept{extreme-value}
 \concept{moments}
 \concept{topic.distributions.moments}

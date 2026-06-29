@@ -98,8 +98,9 @@
 
 
 #' @rdname cochranQTest
-#' @family test.goodnessfit
-#' @concept hypothesis-testing
+
+#' @family test.ksample  
+#' @concept k-sample  
 #' @concept nonparametric
 #'
 #'

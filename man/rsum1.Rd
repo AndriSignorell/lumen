@@ -40,12 +40,15 @@ rsum1(1)
 
 }
 \seealso{
-Other dist.other:
+Other distributions:
+\code{\link{cont.moments}},
 \code{\link[=dbenford]{dbenford()}},
 \code{\link[=ddirichlet]{ddirichlet()}},
 \code{\link[=dgompertz]{dgompertz()}},
-\code{\link[=dtri]{dtri()}}
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
+\code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}}
 }
-\concept{data-manipulation}
-\concept{dist.other}
+\concept{distribution-function}
 \concept{distributions}

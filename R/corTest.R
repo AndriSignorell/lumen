@@ -83,10 +83,11 @@
 #'   maxPValue = 0.05
 #' )
 #'
-#' @family test.correlation
-#' @concept hypothesis-testing
-#' @concept correlation
-#' @concept descriptive-statistics
+
+#' @family test.correlation  
+#' @concept correlation  
+#' @concept hypothesis-test
+#'
 #'
 #' @export
 corTest <- function(

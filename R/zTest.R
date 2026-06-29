@@ -92,9 +92,10 @@
 
 
 #' @rdname zTest
-#' @family test.location
-#' @concept hypothesis-testing
-#' @concept descriptive-statistics
+
+#' @family test.location  
+#' @concept location-test  
+#' @concept parametric
 #'
 #'
 #' @export

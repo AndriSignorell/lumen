@@ -77,6 +77,12 @@
 NULL
 
 #' @rdname extreme-value-moments
+
+#' @family distributions  
+#' @concept distribution-function  
+#' @concept extreme-value
+#'
+#'
 #' @export
 mgumbel <- function(loc = 0, scale = 1) {
   c(mean     = loc + scale * 0.5772156649015329,

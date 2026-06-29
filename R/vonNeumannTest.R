@@ -68,12 +68,14 @@
 #' vonNeumannTest(cumsum(rnorm(30)), alternative = "less")
 #'
 #' @rdname vonNeumannTest
-#' @family test.correlation
-#' @concept hypothesis-testing
-#' @concept nonparametric
-#' @concept time-series
 
 
+
+#' @family test.gof  
+#' @concept goodness-of-fit  
+#' @concept randomness
+#'
+#'
 #' @export
 vonNeumannTest <- function(x,
                            alternative = c("two.sided", "less", "greater"),

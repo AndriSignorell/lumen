@@ -155,13 +155,12 @@ Sciences}, McGraw-Hill Kogakusha, Tokyo.
 \code{\link{rle}}, \code{\link{bartelsRankTest}},
 \code{\link{vonNeumannTest}}
 
-Other test.correlation:
+Other test.gof:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=corTest]{corTest()}},
-\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{hypothesis-testing}
-\concept{nonparametric}
-\concept{test.correlation}
-\concept{time-series}
+\concept{goodness-of-fit}
+\concept{randomness}
+\concept{test.gof}

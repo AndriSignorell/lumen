@@ -81,9 +81,8 @@ Other test.normality:
 Original C code by G. and J. Marsaglia.  \R interface by Adrian
 Baddeley.
 }
-\concept{distributions}
-\concept{goodness-of-fit}
-\concept{normality-testing}
+\concept{distribution-function}
+\concept{normality-test}
 \concept{test.normality}
 \keyword{distribution}
 \keyword{htest}

@@ -102,8 +102,11 @@ variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
 }
 \seealso{
 \code{\link{durbinWatsonTest}}
+
+Other test.regression:
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
-\concept{hypothesis-testing}
-\concept{regression}
-\concept{time-series}
-\concept{topic.timeSeriesTests}
+\concept{autocorrelation}
+\concept{regression-diagnostics}
+\concept{test.regression}

@@ -167,10 +167,9 @@ J. Racine & R. Hyndman (2002), Using R To Teach Econometrics.
 \code{\link{lm}}
 
 Other test.correlation:
-\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=corCI]{corCI()}},
 \code{\link[=corTest]{corTest()}},
-\code{\link[=runsTest]{runsTest()}},
-\code{\link[=vonNeumannTest]{vonNeumannTest()}}
+\code{\link[=fisherZ]{fisherZ()}}
 }
 \author{
 Torsten Hothorn, Achim Zeileis, Clint Cummins (original

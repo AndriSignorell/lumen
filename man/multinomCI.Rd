@@ -165,5 +165,5 @@ Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} (Goodman,
 Fitzpatrick-Scott, Quesenberry-Hurst)
 }
 \concept{ci.proportion}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{confidence-interval}
+\concept{proportion}

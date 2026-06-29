@@ -140,11 +140,14 @@
 #'
 #'
 #' @rdname pageTest
-#' @family test.trend
-#' @concept hypothesis-testing
+
+
+
+#' @family test.trend  
+#' @concept trend-test  
 #' @concept nonparametric
-
-
+#'
+#'
 #' @export
 pageTest <- function(y, ...) UseMethod("pageTest")
 

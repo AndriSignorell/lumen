@@ -117,6 +117,11 @@ dbenford <- function(x, ndigits = 1, log = FALSE) {
 
 
 #' @rdname dbenford
+
+#' @family distributions  
+#' @concept distribution-function
+#'
+#'
 #' @export
 rbenford <- function(n, ndigits = 1) {
   if (!isNumeric(ndigits, isPositive = TRUE, isIntegerValued = TRUE) ||

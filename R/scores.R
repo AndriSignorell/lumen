@@ -46,10 +46,10 @@
 #' 
 
 
-#' @family table.utils
-#' @concept table-manipulation
-#' @concept nonparametric
-#' @concept descriptive-statistics
+
+#' @family scores  
+#' @concept transformation  
+#' @concept normality-test
 #'
 #'
 #' @export

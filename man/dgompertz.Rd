@@ -88,12 +88,15 @@ and Epidemiological Tables}. Stata Press.
 \seealso{
 \code{\link{dexp}}
 
-Other dist.other:
+Other distributions:
+\code{\link{cont.moments}},
 \code{\link[=dbenford]{dbenford()}},
 \code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
 \code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }
-\concept{dist.other}
+\concept{distribution-function}
 \concept{distributions}
-\concept{survival-analysis}

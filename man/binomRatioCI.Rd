@@ -181,17 +181,12 @@ The distribution of Levin's measure of attributable risk.
 \seealso{
 \code{\link{binom.test}}, \code{\link{prop.test}}
 
-Other topic.categoricalData:
-\code{\link[=binomDiffCI]{binomDiffCI()}}
-
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
-\concept{categorical data}
+\concept{binary-outcome}
 \concept{ci.proportion}
-\concept{confidence intervals}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
-\concept{topic.categoricalData}
+\concept{confidence-interval}
+\concept{proportion}

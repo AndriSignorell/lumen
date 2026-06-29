@@ -86,10 +86,10 @@
 
 
 #' @rdname breuschGodfreyTest
-#' @family topic.timeSeriesTests
-#' @concept hypothesis-testing
-#' @concept regression
-#' @concept time-series
+
+#' @family test.regression  
+#' @concept regression-diagnostics  
+#' @concept autocorrelation
 #'
 #'
 #' @export

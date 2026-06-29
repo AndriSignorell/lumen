@@ -124,8 +124,9 @@ Other test.posthoc:
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}}
+\code{\link[=steelTest]{steelTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
 }
-\concept{hypothesis-testing}
-\concept{multiple-comparisons}
+\concept{parametric}
+\concept{post-hoc}
 \concept{test.posthoc}

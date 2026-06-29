@@ -99,11 +99,12 @@ Stuart-Maxwell test
 \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
 \code{\link{mantelTrendTest}}, \code{\link{breslowDayTest}}
 
-Other test.marginal:
-\code{\link[=bhapkarTest]{bhapkarTest()}},
-\code{\link[=lehmacherTest]{lehmacherTest()}}
+Other test.categorical:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{hypothesis-testing}
+\concept{categorical-test}
 \concept{nonparametric}
-\concept{table-manipulation}
-\concept{test.marginal}
+\concept{test.categorical}

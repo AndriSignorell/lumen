@@ -29,9 +29,11 @@
 #' 
 
 #' @rdname binomCI
-#' @family sample.size
+
+#' @family ci.proportion  
+#' @concept confidence-interval  
+#' @concept proportion  
 #' @concept sample-size
-#' @concept confidence-intervals
 #'
 #'
 #' @export

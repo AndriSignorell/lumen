@@ -56,9 +56,9 @@
 
 
 #' @rdname lehmacherTest
-#' @family test.marginal
-#' @concept hypothesis-testing
-#' @concept table-manipulation
+
+#' @family test.categorical  
+#' @concept categorical-test  
 #' @concept nonparametric
 #'
 #'

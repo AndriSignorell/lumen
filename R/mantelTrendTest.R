@@ -60,11 +60,14 @@
 #' mantelTrendTest(Job)
 #' mantelTrendTest(Job, srow = c(7.5, 20, 32.5, 60))
 #'
-#' @family test.contingency
-#' @concept hypothesis-testing
-#' @concept table-manipulation
 
 
+
+#' @family test.trend  
+#' @concept trend-test  
+#' @concept nonparametric
+#'
+#'
 #' @export
 mantelTrendTest <- function(x, srow = 1:nrow(x), scol = 1:ncol(x)) {
   

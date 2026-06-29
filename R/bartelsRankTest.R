@@ -86,14 +86,14 @@
 
 
 #' @rdname bartelsRankTest
-#' @family test.correlation
-#' @concept hypothesis-testing
-#' @concept nonparametric
-#' @concept time-series
-#'
-#'
 
 
+
+#' @family test.gof  
+#' @concept goodness-of-fit  
+#' @concept randomness
+#'
+#'
 #' @export
 bartelsRankTest <- function(x,
                             alternative = c("two.sided", "trend", "oscillation"),

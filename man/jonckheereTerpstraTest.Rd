@@ -170,8 +170,10 @@ against trend.
 \seealso{
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=pageTest]{pageTest()}}
 }
-\concept{hypothesis-testing}
+\concept{k-sample}
 \concept{nonparametric}
 \concept{test.trend}
+\concept{trend-test}

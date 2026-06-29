@@ -90,6 +90,5 @@ Other test.normality:
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}
-\concept{hypothesis-testing}
-\concept{normality-testing}
+\concept{normality-test}
 \concept{test.normality}

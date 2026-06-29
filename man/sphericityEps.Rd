@@ -4,14 +4,14 @@
 \alias{sphericityEps}
 \title{Greenhouse-Geisser And Huynh-Feldt Epsilons}
 \usage{
-sphericityEps(S, p, g, n, method = c("both", "gg", "hf"))
+sphericityEps(S, p, nGroups, n, method = c("both", "gg", "hf"))
 }
 \arguments{
 \item{S}{pxp covariance matrix}
 
 \item{p}{dimension of observation vectors}
 
-\item{g}{number of groups}
+\item{nGroups}{number of groups}
 
 \item{n}{number of subjects}
 
@@ -46,13 +46,6 @@ Chapman & Hall, London, p.54-55
 }
 \seealso{
 \code{\link{aov}}
-
-Other test.variance:
-\code{\link[=bpTest]{bpTest()}},
-\code{\link[=leveneTest]{leveneTest()}},
-\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=varTest]{varTest()}}
 }
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
-\concept{test.variance}
+\concept{anova}
+\concept{variance-analysis}

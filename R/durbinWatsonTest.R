@@ -356,3 +356,5 @@ durbinWatsonTest.default <- function(x, ...) {                           # (1) s
          "greater"   = pnorm(dw, mean = dmean, sd = sqrt(dvar))
   )
 }
+
+

@@ -63,7 +63,17 @@ cat("The median is:",  format(med),"\n")
 \seealso{
 the \code{\link{Weibull}} distribution functions in \R's
 \pkg{stats} package.
+
+Other distributions:
+\code{\link{cont.moments}},
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}},
+\code{\link[=rsum1]{rsum1()}}
 }
-\concept{dist.extreme}
+\concept{distribution-function}
 \concept{distributions}
-\concept{extreme-value-theory}
+\concept{extreme-value}

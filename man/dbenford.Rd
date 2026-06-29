@@ -106,12 +106,17 @@ Newcomb, S. (1881) Note on the Frequency of Use of the Different Digits in
 Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
 }
 \seealso{
-Other dist.other:
+Other distributions:
+\code{\link{cont.moments}},
 \code{\link[=ddirichlet]{ddirichlet()}},
 \code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
 \code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }
 \concept{dist.other}
+\concept{distribution-function}
 \concept{distributions}
 \concept{goodness-of-fit}

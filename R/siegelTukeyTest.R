@@ -145,13 +145,14 @@
 #' 
 
 #' @rdname siegelTukeyTest
-#' @family test.variance
-#' @concept hypothesis-testing
+
+
+
+#' @family test.variance  
+#' @concept variance-test  
 #' @concept nonparametric
 #'
 #'
-
-
 #' @export
 siegelTukeyTest <- function (x, ...)  UseMethod("siegelTukeyTest")
 

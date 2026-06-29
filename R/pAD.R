@@ -55,10 +55,10 @@
 
 
 #' @rdname pAD
-#' @family test.normality
-#' @concept goodness-of-fit
-#' @concept normality-testing
-#' @concept distributions
+
+#' @family test.normality  
+#' @concept normality-test  
+#' @concept distribution-function
 #'
 #'
 #' @export

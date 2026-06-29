@@ -31,9 +31,9 @@
 #'
 
 
-#' @family dist.other
-#' @concept distributions
-#' @concept data-manipulation
+
+#' @family distributions  
+#' @concept distribution-function
 #'
 #'
 #' @export

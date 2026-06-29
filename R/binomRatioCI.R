@@ -110,10 +110,6 @@
 #'
 #' @seealso \code{\link{binom.test}}, \code{\link{prop.test}}
 #'
-#' @family topic.categoricalData
-#' @concept categorical data
-#' @concept confidence intervals
-#'
 #' @examples
 #'
 #' # Example from Koopman (1984)
@@ -158,12 +154,15 @@
 #' )
 #'
 #'
-#' @family ci.proportion
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
+
+
+
+#' @family ci.proportion  
+#' @concept confidence-interval  
+#' @concept proportion  
+#' @concept binary-outcome
 #'
-
-
+#'
 #' @export
 binomRatioCI <- function(
     x1, n1,

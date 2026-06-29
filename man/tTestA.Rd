@@ -118,9 +118,11 @@ t.test(x, y, paired = TRUE)
 \code{\link{t.test}}
 
 Other test.location:
+\code{\link{hotelling-t2-test}},
 \code{\link[=signTest]{signTest()}},
+\code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
+\concept{location-test}
+\concept{parametric}
 \concept{test.location}

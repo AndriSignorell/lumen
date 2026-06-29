@@ -130,11 +130,6 @@ Cochran, W.G. (1950) The Comparison of Percentages in Matched
 Samples. \emph{Biometrika}. 37 (3/4): 256-266.
 doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
 }
-\seealso{
-Other test.goodnessfit:
-\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
-\code{\link[=leCessieTest]{leCessieTest()}}
-}
-\concept{hypothesis-testing}
+\concept{k-sample}
 \concept{nonparametric}
-\concept{test.goodnessfit}
+\concept{test.ksample}

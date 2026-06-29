@@ -64,12 +64,15 @@
 #' yuenTTest(extra ~ group, data = sleep)
 #'
 #' @rdname yuenTTest
-#' @family robust.tests
+
+
+
+
+#' @family test.location  
+#' @concept location-test  
 #' @concept robust-statistics
-#' @concept hypothesis-testing
-
-
-
+#'
+#'
 #' @export
 yuenTTest <- function(x, ...)
   UseMethod("yuenTTest")

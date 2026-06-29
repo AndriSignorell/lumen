@@ -17,7 +17,7 @@ test_that("mosesTest returns an htest-compatible object", {
   
   expect_named(
     res$statistic,
-    c("S_raw", "S_trimmed")
+    c("sRaw", "sTrimmed")
   )
   
   expect_named(
@@ -235,8 +235,8 @@ test_that("trimming affects span statistic", {
   )
   
   expect_true(
-    res1$statistic["S_trimmed"] <=
-      res0$statistic["S_raw"]
+    res1$statistic["sTrimmed"] <=
+      res0$statistic["sRaw"]
   )
 })
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/kpssTest.R
 \name{kpssTest}
 \alias{kpssTest}
-\title{KPSS Test}
+\title{Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity in Time Series}
 \usage{
 kpssTest(
   y,
@@ -60,9 +60,12 @@ Download possible at: \url{https://cowles.yale.edu/}, see rubric 'Discussion
 Papers (CFDPs)'.
 }
 \seealso{
-Other test.stationarity:
-\code{\link[=adfTest]{adfTest()}}
+Other test.gof:
+\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=runsTest]{runsTest()}},
+\code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{hypothesis-testing}
-\concept{test.stationarity}
+\concept{goodness-of-fit}
+\concept{test.gof}
 \concept{time-series}

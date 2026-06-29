@@ -52,10 +52,10 @@
 
 
 #' @keywords univar
-#' @family correlation
-#' @concept correlation
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
+
+#' @family test.correlation  
+#' @concept correlation  
+#' @concept confidence-interval
 #'
 #'
 #' @export

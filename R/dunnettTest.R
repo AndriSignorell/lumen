@@ -92,9 +92,10 @@
 #' dunnettTest(Ozone ~ Month, data = airquality, control = c("5", "8"))
 #' 
 #' @rdname dunnettTest
-#' @family test.posthoc
-#' @concept multiple-comparisons
-#' @concept hypothesis-testing
+
+#' @family test.posthoc  
+#' @concept post-hoc  
+#' @concept parametric
 #'
 #'
 #' @export
@@ -158,7 +159,7 @@ dunnettTest.default <- function(
   DG <- resolveGroups(x, g)
   
   x <- DG$x
-  g <- DG$g
+  g <- DG$groups
   
   N <- DG$n
   k <- DG$k

@@ -80,10 +80,9 @@
 
 
 #' @rdname varTest
-#' @family test.variance
-#' @concept hypothesis-testing
-#' @concept descriptive-statistics
-#' @concept confidence-intervals
+
+#' @family test.variance  
+#' @concept variance-test
 #'
 #'
 #' @export

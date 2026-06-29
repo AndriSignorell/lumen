@@ -128,8 +128,9 @@
 
 
 #' @rdname dtri
-#' @family dist.other
-#' @concept distributions
+
+#' @family distributions  
+#' @concept distribution-function
 #'
 #'
 #' @export

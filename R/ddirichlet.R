@@ -31,9 +31,9 @@ NULL
 #' @examples
 #' ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 #'
-#' @family dist.other
-#' @concept distributions
-#' @concept multivariate
+
+#' @family distributions  
+#' @concept distribution-function
 #'
 #'
 #' @export
@@ -67,7 +67,7 @@ ddirichlet <- function(x, concentration, log = FALSE) {
 #'
 #' @param q Numeric vector
 #' @param concentration Numeric vector (> 0)
-#' @param nSim Number of simulations
+#' @param R Number of simulations
 #'
 #' @return Approximate probability
 #'
@@ -76,8 +76,8 @@ ddirichlet <- function(x, concentration, log = FALSE) {
 #'
 
 #' @export
-pdirichlet <- function(q, concentration, nSim = 1e5) {
-  pdirichlet_cpp(q, concentration, as.integer(nSim))
+pdirichlet <- function(q, concentration, R = 1e5) {
+  pdirichlet_cpp(q, concentration, as.integer(R))
 }
 
 

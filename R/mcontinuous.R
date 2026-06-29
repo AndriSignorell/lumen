@@ -96,6 +96,11 @@
 NULL
 
 #' @rdname cont.moments
+
+#' @family distributions  
+#' @concept distribution-function
+#'
+#'
 #' @export
 mnorm <- function(mean, sd) {
   c(mean     = mean,

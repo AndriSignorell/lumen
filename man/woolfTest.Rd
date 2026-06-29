@@ -53,17 +53,18 @@ and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
 \seealso{
 \code{\link{mantelhaen.test}}, \code{\link{breslowDayTest}}
 
-Other test.contingency:
+Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
 \code{\link[=breslowDayTest]{breslowDayTest()}},
-\code{\link[=gTest]{gTest()}},
-\code{\link[=mantelTrendTest]{mantelTrendTest()}}
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
 \author{
 David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
 }
-\concept{hypothesis-testing}
+\concept{binary-outcome}
+\concept{categorical-test}
+\concept{homogeneity}
 \concept{odds ratio}
-\concept{table-manipulation}
-\concept{test.contingency}
+\concept{test.categorical}
 \concept{topic.contingencyTests}

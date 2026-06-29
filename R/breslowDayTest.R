@@ -88,13 +88,15 @@
 #' 
 
 #' @rdname breslowDayTest
-#' @family test.contingency
-#' @concept hypothesis-testing
-#' @concept table-manipulation
-#'
-#'
 
 
+
+#' @family test.categorical  
+#' @concept categorical-test  
+#' @concept homogeneity  
+#' @concept binary-outcome
+#'
+#'
 #' @export
 breslowDayTest <- function(x, OR = NA, correct = FALSE) {
   

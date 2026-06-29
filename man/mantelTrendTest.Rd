@@ -73,12 +73,11 @@ extensions of the Mantel-Haenszel procedure.
 Cochran-Mantel-Haenszel test; \code{\link{chisq.test}} for the
 general chi-squared test of independence.
 
-Other test.contingency:
-\code{\link[=barnardTest]{barnardTest()}},
-\code{\link[=breslowDayTest]{breslowDayTest()}},
-\code{\link[=gTest]{gTest()}},
-\code{\link[=woolfTest]{woolfTest()}}
+Other test.trend:
+\code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
+\code{\link[=pageTest]{pageTest()}}
 }
-\concept{hypothesis-testing}
-\concept{table-manipulation}
-\concept{test.contingency}
+\concept{nonparametric}
+\concept{test.trend}
+\concept{trend-test}

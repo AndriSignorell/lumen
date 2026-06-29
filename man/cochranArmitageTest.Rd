@@ -88,9 +88,9 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley
 
 Other test.trend:
 \code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=pageTest]{pageTest()}}
 }
-\concept{hypothesis-testing}
 \concept{nonparametric}
-\concept{table-manipulation}
 \concept{test.trend}
+\concept{trend-test}

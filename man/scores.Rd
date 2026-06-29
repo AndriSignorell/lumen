@@ -55,7 +55,6 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 \seealso{
 \code{\link{cochranArmitageTest}}, \code{\link{cor}}
 }
-\concept{descriptive-statistics}
-\concept{nonparametric}
-\concept{table-manipulation}
-\concept{table.utils}
+\concept{normality-test}
+\concept{scores}
+\concept{transformation}

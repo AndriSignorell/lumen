@@ -106,10 +106,10 @@
 #' ## Formula interface
 #' dunnTest(Ozone ~ Month, data = airquality)
 #'
-#' @family test.posthoc
-#' @concept multiple-comparisons
+
+#' @family test.posthoc  
+#' @concept post-hoc  
 #' @concept nonparametric
-#' @concept hypothesis-testing
 #'
 #'
 #' @export
@@ -175,7 +175,7 @@ dunnTest.default <- function(
   dat <- resolveGroups(x, g)
   
   x   <- dat$x
-  g   <- dat$g
+  g   <- dat$groups
   
   N   <- dat$n
   k   <- dat$k

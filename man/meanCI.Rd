@@ -107,9 +107,7 @@ testing} Elsevier Academic Press
 \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
 
 Other ci.location:
-\code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=medianCI]{medianCI()}},
-\code{\link[=quantileCI]{quantileCI()}}
+\code{\link[=medianCI]{medianCI()}}
 }
 \concept{ci.location}
 \concept{confidence-intervals}

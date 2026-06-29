@@ -96,8 +96,14 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 \seealso{
 \code{\link{meanCI}}, \code{\link{medianCI}},
 \code{\link{varTest}}, \code{\link[DescToolsX]{varX}}
+
+Other test.variance:
+\code{\link[=leveneTest]{leveneTest()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
+\code{\link[=varTest]{varTest()}}
 }
-\concept{ci.dispersion}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{confidence-interval}
+\concept{test.variance}
+\concept{variance-test}
 \keyword{univar}

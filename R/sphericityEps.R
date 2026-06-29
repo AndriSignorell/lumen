@@ -7,7 +7,7 @@
 #'  
 #' @param S pxp covariance matrix
 #' @param p dimension of observation vectors
-#' @param g number of groups
+#' @param nGroups number of groups
 #' @param n number of subjects
 #' @param method a character string specifying which epsilon to return,
 #'   must be one of \code{"both"} (default), \code{"gg"} for 
@@ -34,19 +34,19 @@
 #' 
 
 
-#' @family test.variance
-#' @concept hypothesis-testing
-#' @concept descriptive-statistics
+
+#' @family anova  
+#' @concept variance-analysis
 #'
 #'
 #' @export
-sphericityEps <- function(S, p, g, n, method = c("both", "gg", "hf")) {
+sphericityEps <- function(S, p, nGroups, n, method = c("both", "gg", "hf")) {
 
   ## Purpose: calculates the Greenhouse-Geisser and Huynh-Feldt epsilons
   ## -------------------------------------------------------------------
   ## Arguments: S pxp covariance matrix
   ##            p dimension of observation vectors
-  ##            g number of groups
+  ##            nGroups number of groups
   ##            n number of subjects
   
   ## Lit:    E.F. Vonesh + V.M. Chinchilli (1997), p.84-86
@@ -67,7 +67,7 @@ sphericityEps <- function(S, p, g, n, method = c("both", "gg", "hf")) {
   e <- (sum(diag(V)))^2 / sum(diag(V %*% V)) / (p - 1)
   
   gg <- e
-  hf <- min(1, (n * (p - 1) * e - 2) / ((p - 1) * (n - g - (p - 1) * e)))
+  hf <- min(1, (n * (p - 1) * e - 2) / ((p - 1) * (n - nGroups - (p - 1) * e)))
   
   switch(method,
          "gg"   = c(gg = gg),

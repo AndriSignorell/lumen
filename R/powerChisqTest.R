@@ -40,9 +40,11 @@
 #' 
  
 
-#' @family sample.size
-#' @concept sample-size
-#' @concept hypothesis-testing
+
+#' @family power  
+#' @concept power  
+#' @concept sample-size  
+#' @concept chi-square-based
 #'
 #'
 #' @export

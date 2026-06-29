@@ -53,13 +53,14 @@
 #' leCessieTest(fit = fitted(fit), obs = obs, X = model.matrix(fit)[, -1, drop = FALSE])
 #'
 #' @rdname leCessieTest
-#' @family test.goodnessfit
-#' @concept hypothesis-testing
+
+
+
+#' @family test.regression  
+#' @concept regression-diagnostics  
 #' @concept goodness-of-fit
-#' @concept regression
 #'
-
-
+#'
 #' @export
 leCessieTest <- function(fit, obs, X) {
   
@@ -153,3 +154,6 @@ print.LeCessieTest <- function(x, digits = 4, ...) {
   )
   invisible(x)
 }
+
+
+

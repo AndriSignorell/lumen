@@ -188,7 +188,8 @@ sdcfTest.default <- function(
   DG <- resolveGroups(x, g)
   
   x  <- DG$x
-  g  <- DG$g
+  g  <- DG$groups
+  
   gn <- DG$group.names
   k  <- DG$k
   

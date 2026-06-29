@@ -62,12 +62,8 @@ behavioral sciences (2nd ed.)} Hillsdale, NJ: Lawrence Erlbaum.
 }
 \seealso{
 \code{\link{power.t.test}}
-
-Other sample.size:
-\code{\link[=binomCI]{binomCI()}},
-\code{\link[=meanCIn]{meanCIn()}}
 }
-\concept{hypothesis-testing}
+\concept{chi-square-based}
+\concept{power}
 \concept{sample-size}
-\concept{sample.size}
 \keyword{htest}

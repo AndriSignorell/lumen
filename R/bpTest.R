@@ -35,9 +35,9 @@
 
 
 
-#' @family test.variance
-#' @concept hypothesis-testing
-#' @concept regression
+
+#' @family test.gof  
+#' @concept goodness-of-fit
 #'
 #'
 #' @export

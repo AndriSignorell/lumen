@@ -136,7 +136,19 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 Other topic.distributions.moments:
 \code{\link{disc.moments}},
 \code{\link{extreme-value-moments}}
+
+Other distributions:
+\code{\link[=dbenford]{dbenford()}},
+\code{\link[=ddirichlet]{ddirichlet()}},
+\code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
+\code{\link[=dtri]{dtri()}},
+\code{\link{extreme-value-moments}},
+\code{\link[=rsum1]{rsum1()}}
 }
 \concept{continuous distribution}
+\concept{distribution-function}
+\concept{distributions}
 \concept{moments}
 \concept{topic.distributions.moments}

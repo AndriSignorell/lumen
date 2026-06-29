@@ -1,5 +1,5 @@
 
-#' KPSS Test
+#' Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity in Time Series
 #' 
 #' A test for stationarity in time series (Kwiatkowski-Phillips-Schmidt-Shin), 
 #' complementary to unit root tests such as the ADF test. It tests the null 
@@ -39,9 +39,10 @@
 #' summary(kpss.gnp)
 #' 
 
-#' @family test.stationarity
+
+#' @family test.gof  
+#' @concept goodness-of-fit  
 #' @concept time-series
-#' @concept hypothesis-testing
 #'
 #'
 #' @export 

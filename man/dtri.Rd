@@ -141,15 +141,19 @@ New York.
 \link[stats:Uniform]{Uniform}, Probability Distributions and Random
 Numbers.
 
-Other dist.other:
+Other distributions:
+\code{\link{cont.moments}},
 \code{\link[=dbenford]{dbenford()}},
 \code{\link[=ddirichlet]{ddirichlet()}},
 \code{\link[=dgompertz]{dgompertz()}},
+\code{\link{disc.moments}},
+\code{\link{drevgumbel}},
+\code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }
 \concept{bounded support}
 \concept{continuous distribution}
-\concept{dist.other}
+\concept{distribution-function}
 \concept{distributions}
 \concept{dpqr}
 \concept{topic.distributions}

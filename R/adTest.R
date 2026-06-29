@@ -1,5 +1,4 @@
 
-
 #' Anderson-Darling Test of Goodness-of-Fit
 #' 
 #' A goodness-of-fit test assessing whether a sample follows a specified 
@@ -70,10 +69,10 @@
 #'
 
  
-#' @family test.normality
+
+#' @family test.normality  
+#' @concept normality-test  
 #' @concept goodness-of-fit
-#' @concept normality-testing
-#' @concept hypothesis-testing
 #'
 #'
 #' @export
@@ -82,9 +81,10 @@ andersonDarlingTest <- function(x, null="punif", ..., estimated=FALSE, nullname)
   ##
   ## andarl.R
   ##
-  ##  Anderson-Darling test and null distribution
+  ## Anderson-Darling test and null distribution
   ##
-  ## $Revision: 1.10 $ $Date: 2018/06/06 08:25:51 $
+  ## Revision: 1.10 
+  ## Date: 2018/06/06 08:25:51 
   ##
   
   
@@ -177,9 +177,10 @@ simpleADtest <- function(U) {
 
 # == internal helper functions ========================================
 
-##  recog.R
+## recog.R
 ##
-## $Revision: 1.4 $ $Date: 2014/06/24 02:13:35 $
+## Revision: 1.4 
+## Date: 2014/06/24 02:13:35 
 ##
 
 recogniseCdf <- function(s="punif") {
@@ -220,10 +221,11 @@ recogniseCdf <- function(s="punif") {
 }
 
 
-getfunky <- function(fname) {
-  a <- mget(fname, mode="function", ifnotfound=list(NULL), inherits=TRUE)[[1]]
+getfunky <- function(funname) {
+  a <- mget(funname, mode="function", ifnotfound=list(NULL), inherits=TRUE)[[1]]
   return(a)
 }
+
 
 getCdf <- function(s="punif", fatal=TRUE) {
   sname <- deparse(substitute(s), nlines=1L)
@@ -247,9 +249,8 @@ getCdf <- function(s="punif", fatal=TRUE) {
 }
 
 
-# braun.R
+
 # Braun (1980) method for composite null hypothesis
-#
 
 braun <- function(U, simpletest, m) {
   

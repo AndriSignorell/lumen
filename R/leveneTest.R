@@ -109,9 +109,10 @@
 
 
 
-#' @family test.variance
-#' @concept hypothesis-testing
-#' @concept descriptive-statistics
+
+#' @family test.variance  
+#' @concept variance-test  
+#' @concept homogeneity
 #'
 #'
 #' @export

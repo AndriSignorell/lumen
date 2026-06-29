@@ -150,11 +150,15 @@
 #' 
 #'
 #' @rdname jonckheereTerpstraTest
-#' @family test.trend
-#' @concept hypothesis-testing
-#' @concept nonparametric
 
 
+
+#' @family test.trend  
+#' @concept trend-test  
+#' @concept nonparametric  
+#' @concept k-sample
+#'
+#'
 #' @export
 jonckheereTerpstraTest <- function(x, ...)
   UseMethod("jonckheereTerpstraTest")
@@ -216,8 +220,8 @@ jonckheereTerpstraTest.default <- function(
   DG <- resolveGroups(x, g)
   
   x <- DG$x
-  g <- ordered(DG$g)
-  
+  g <- ordered(DG$groups)
+
   n <- DG$n
   k <- DG$k
   

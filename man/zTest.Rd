@@ -127,9 +127,11 @@ vieweg
 \code{\link{t.test}}, \code{\link{print.htest}}
 
 Other test.location:
+\code{\link{hotelling-t2-test}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}}
+\code{\link[=tTestA]{tTestA()}},
+\code{\link[=yuenTTest]{yuenTTest()}}
 }
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
+\concept{location-test}
+\concept{parametric}
 \concept{test.location}

@@ -124,12 +124,14 @@
 #' runsTest(A, B, exact = TRUE)
 #'
 #' @rdname runsTest
-#' @family test.correlation
-#' @concept hypothesis-testing
-#' @concept nonparametric
-#' @concept time-series
 
 
+
+#' @family test.gof  
+#' @concept goodness-of-fit  
+#' @concept randomness
+#'
+#'
 #' @export
 runsTest <- function(x, ...) UseMethod("runsTest")
 

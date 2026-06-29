@@ -39,12 +39,13 @@
 #' of regression residuals}.
 #' Economics Letters 6, 255-259.
 
-#' @family test.normality
-#' @concept goodness-of-fit
-#' @concept normality-testing
-#' @concept hypothesis-testing
+
 #'
 
+#' @family test.normality  
+#' @concept normality-test  
+#' @concept goodness-of-fit
+#'
 #'
 #' @export
 

@@ -119,6 +119,9 @@ matrix is not used in the calculation of confidence intervals or
 non-inferiority tests, so CSM can still be very computationally intensive."}
 }
 \note{
+Requires the \pkg{Exact} package (available on CRAN). Install with
+\code{install.packages("Exact")}.
+
 Adapted from code by Peter Calhoun to conform to package standards.
 }
 \examples{
@@ -170,13 +173,12 @@ Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version 2.0.
 \seealso{
 \code{\link{fisher.test}}
 
-Other test.contingency:
+Other test.categorical:
 \code{\link[=breslowDayTest]{breslowDayTest()}},
-\code{\link[=gTest]{gTest()}},
-\code{\link[=mantelTrendTest]{mantelTrendTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{hypothesis-testing}
-\concept{nonparametric}
-\concept{table-manipulation}
-\concept{test.contingency}
+\concept{categorical-test}
+\concept{exact-test}
+\concept{test.categorical}

@@ -28,10 +28,10 @@
 #' meanCIn(ci=c(25, 27), sd=5) 
 #' 
 
-#' @family sample.size
+
+#' @family ci.general  
+#' @concept confidence-interval  
 #' @concept sample-size
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
 #'
 #'
 #' @export

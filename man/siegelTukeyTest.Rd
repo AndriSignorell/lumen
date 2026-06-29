@@ -176,11 +176,11 @@ Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 \code{\link{wilcox.test}}, \code{\link{leveneTest}}
 
 Other test.variance:
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=leveneTest]{leveneTest()}},
-\code{\link[=sphericityEps]{sphericityEps()}},
+\code{\link[=mosesTest]{mosesTest()}},
+\code{\link[=varCI]{varCI()}},
 \code{\link[=varTest]{varTest()}}
 }
-\concept{hypothesis-testing}
 \concept{nonparametric}
 \concept{test.variance}
+\concept{variance-test}

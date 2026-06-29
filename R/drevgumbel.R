@@ -39,9 +39,10 @@
 #' 
 
 #' @rdname drevgumbel
-#' @family dist.extreme
-#' @concept distributions
-#' @concept extreme-value-theory
+
+#' @family distributions  
+#' @concept distribution-function  
+#' @concept extreme-value
 #'
 #'
 #' @export

@@ -100,12 +100,10 @@ res2 <- corTest(
 }
 \seealso{
 Other test.correlation:
-\code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=corCI]{corCI()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
-\code{\link[=runsTest]{runsTest()}},
-\code{\link[=vonNeumannTest]{vonNeumannTest()}}
+\code{\link[=fisherZ]{fisherZ()}}
 }
 \concept{correlation}
-\concept{descriptive-statistics}
-\concept{hypothesis-testing}
+\concept{hypothesis-test}
 \concept{test.correlation}
