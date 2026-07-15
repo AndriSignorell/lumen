@@ -36,9 +36,7 @@
 
 
 
-#' @family test.gof  
-#' @concept goodness-of-fit
-#'
+#' @family test.regression  
 #'
 #' @export
 bpTest <- function(fit) {

@@ -41,8 +41,6 @@
 #'   The \code{print} method accepts a \code{details} argument; if \code{TRUE},
 #'   observed and expected counts for both outcome classes are printed by group.
 #'
-#' @seealso \code{\link{leCessieTest}}, \code{\link{glm}}
-#'
 #' @references
 #' Lemeshow, S., Hosmer, D.W. (1982). A review of goodness of fit statistics
 #' for use in the development of logistic regression models.
@@ -60,14 +58,15 @@
 #'
 #' print(res, details = TRUE)
 #'
-#' @rdname hosmerLemeshowTest
-
+#' @seealso \code{\link{glm}}
+#'
 #' @family test.regression  
 #' @concept regression-diagnostics  
 #' @concept goodness-of-fit  
 #' @concept calibration
 #'
 #'
+#' @rdname hosmerLemeshowTest
 #' @export
 hosmerLemeshowTest <- function(fit, obs, nGroups = 10, type = c("C", "H")) {
   

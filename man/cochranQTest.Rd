@@ -130,6 +130,16 @@ Cochran, W.G. (1950) The Comparison of Percentages in Matched
 Samples. \emph{Biometrika}. 37 (3/4): 256-266.
 doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
 }
+\seealso{
+Other test.categorical:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
+}
 \concept{k-sample}
 \concept{nonparametric}
-\concept{test.ksample}
+\concept{test.categorical}

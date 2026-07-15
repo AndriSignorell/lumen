@@ -81,9 +81,6 @@
 #'     Siegel-Tukey ranks.}
 #' }
 #'
-#' @seealso \code{\link{ansari.test}}, \code{\link{mood.test}},
-#'   \code{\link{wilcox.test}}, \code{\link{leveneTest}}
-#'
 #' @references
 #' Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
 #' for relative spread in unpaired samples. \emph{Journal of the American
@@ -93,7 +90,7 @@
 #' Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @note
-#' Originally based on a blog post by Tal Galili:
+#' Originally based on a blog post by Tal Galili:\cr
 #' \url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
 #'
 #' @examples
@@ -115,7 +112,7 @@
 #' x  <- c(26.3, 26.5, 26.8, 27.0, 27.0, 27.2, 27.3,
 #'         27.3, 27.4, 27.5, 27.6, 27.8, 27.9)
 #' id <- c(2, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1, 1, 2) - 1
-#' siegelTukeyTest(x ~ id)
+#' siegelTukeyTest(x ~ factor(id))
 #'
 #' # Sachs (2007), S. 314
 #' A <- c(10.1, 7.3, 12.6, 2.4, 6.1, 8.5, 8.8, 9.4, 10.1, 9.8)
@@ -148,6 +145,8 @@
 
 
 
+#' @seealso [stats::ansari.test], [stats::mood.test], [stats::wilcox.test]
+#'
 #' @family test.variance  
 #' @concept variance-test  
 #' @concept nonparametric

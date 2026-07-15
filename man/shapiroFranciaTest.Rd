@@ -58,7 +58,7 @@ Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 }
 \seealso{
 \link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
+normality.  \link[lyra:plotQQ]{lyra::plotQQ} for producing extended normal
 quantile-quantile plots.
 
 Other test.normality:
@@ -66,7 +66,6 @@ Other test.normality:
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pAD]{pAD()}},
 \code{\link[=pearsonTest]{pearsonTest()}}
 }
 \concept{goodness-of-fit}

@@ -107,7 +107,7 @@
 #' 
 
 
-#' @family test.contingency
+#' @family test.categorical
 #' @concept hypothesis-testing
 #' @concept goodness-of-fit
 #' @concept table-manipulation

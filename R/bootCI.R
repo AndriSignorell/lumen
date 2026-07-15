@@ -29,9 +29,6 @@
 #' estimate, as calculated by \code{FUN}} \item{lci}{lower bound of the
 #' confidence interval} \item{uci}{upper bound of the confidence interval}
 #' 
-#' @seealso \code{\link{meanCI}}, \code{\link{medianCI}}
-#' 
-#' @keywords univar nonparametric
 #' @examples
 #' 
 #' set.seed(1984)
@@ -47,8 +44,6 @@
 #' 
 #' 
 #' 
-
-
 #' @family ci.general  
 #' @concept confidence-interval  
 #' @concept bootstrap

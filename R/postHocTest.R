@@ -316,8 +316,8 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
     
     for (nm in names(xx)) {
       if ("pval" %in% names(xx[[nm]])) {
-        xx[[nm]]$signif <- aurora::fm(xx[[nm]]$pval, fmt = "*")
-        xx[[nm]]$pval <- aurora::fm(xx[[nm]]$pval, fmt = "p")
+        xx[[nm]]$signif <- lyra::fm(xx[[nm]]$pval, fmt = "*")
+        xx[[nm]]$pval <- lyra::fm(xx[[nm]]$pval, fmt = "p")
       }
     }
     
@@ -327,7 +327,7 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
   } else {
     
     for (nm in names(xx)) {
-      xx[[nm]][] <- aurora::fm(xx[[nm]], fmt = "p", na.form = "-")
+      xx[[nm]][] <- lyra::fm(xx[[nm]], fmt = "p", na.form = "-")
     }
     
     print(xx, digits = digits, quote = FALSE, ...)
@@ -350,7 +350,7 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' @param x An object of class \code{"PostHocTest"}, typically returned by
 #'   \code{\link[lumen]{postHocTest}}.
 #' @param ... Additional graphical parameters passed to
-#'   \code{\link[aurora]{plotDot}} and base plotting functions.
+#'   \code{\link[lyra]{plotDot}} and base plotting functions.
 #'
 #' @details
 #' For each factor in \code{x}, a dot plot is produced displaying pairwise
@@ -361,7 +361,7 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' Invisibly returns \code{NULL}.
 #'
 #' @seealso
-#' \code{\link[aurora]{plotDot}}
+#' \code{\link[lyra]{plotDot}}
 #' 
 
 #' @method plot PostHocTest
@@ -376,7 +376,7 @@ plot.PostHocTest <- function(x, ...){
     
     xi <- x[[i]][, -4L, drop = FALSE]
     
-    aurora::plotDot(xi, items=rownames(xi), ...)
+    lyra::plotDot(xi, items=rownames(xi), ...)
     
     abline(v = 0, lty = 2, lwd = 0.5, ...)
     title(main = paste0(format(100 * attr(x, "conf.level"), digits = 2L), 

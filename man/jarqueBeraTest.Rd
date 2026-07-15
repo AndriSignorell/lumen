@@ -59,7 +59,6 @@ Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pAD]{pAD()}},
 \code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }

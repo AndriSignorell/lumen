@@ -84,6 +84,7 @@ bartelsRankTest(tourists, alternative="trend", method="beta")
 x <- c(528, 348, 264, -20, - 167, 575, 410, -4, 430, - 122)
 
 bartelsRankTest(x, method="beta")
+
 }
 \references{
 Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test
@@ -99,14 +100,14 @@ successive difference to the variance. \emph{Annals of Mathematical
 Statistics} \bold{12}, 367-395.
 }
 \seealso{
-\code{\link[randtests]{rank.test}}, \code{\link{runsTest}}
+\code{\link[randtests]{rank.test}}
 
-Other test.gof:
-\code{\link[=bpTest]{bpTest()}},
+Other test.timeseries:
+\code{\link[=adfTest]{adfTest()}},
 \code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=runsTest]{runsTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
 \concept{goodness-of-fit}
 \concept{randomness}
-\concept{test.gof}
+\concept{test.timeseries}

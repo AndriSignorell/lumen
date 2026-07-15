@@ -35,7 +35,6 @@
 #' @note
 #' Based on code by Michael Hoehle.
 #' 
-#' @seealso \code{\link{woolfTest}} 
 #' @references Breslow, N. E., N. E. Day (1980) The Analysis of Case-Control
 #' Studies \emph{Statistical Methods in Cancer Research: Vol. 1}. Lyon, France,
 #' IARC Scientific Publications.

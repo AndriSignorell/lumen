@@ -105,7 +105,7 @@
 #' conoverTest(x, g)
 #'
 #' ## Formula interface
-#' conoverTest(Ozone ~ Month, data = airquality)
+#' conoverTest(Ozone ~ factor(Month), data = airquality)
 #'
 
 #' @family test.posthoc  

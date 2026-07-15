@@ -2,45 +2,41 @@
 #' Confidence Intervals for Multinomial Proportions
 #' 
 #' Confidence intervals for multinomial proportions are often approximated by
-#' single binomial confidence intervals, which might in practice often yield
-#' satisfying results, but is properly speaking not correct. This function
-#' calculates simultaneous confidence intervals for multinomial proportions
-#' either according to the methods of Sison and Glaz, Goodman, Wald, Wald with
-#' continuity correction or Wilson.
+#' independent binomial confidence intervals per class, which can work well in
+#' practice but is strictly speaking not correct. This function computes
+#' simultaneous confidence intervals for multinomial proportions, using one of
+#' several methods, e.g. Sison-Glaz, Wald or Wilson.
 #' 
 #' Given a vector of observations with the number of samples falling in each
 #' class of a multinomial distribution, builds the simultaneous confidence
-#' intervals for the multinomial probabilities according to the method proposed
-#' by the mentioned authors. The R code for Sison and Glaz (1995) has been
-#' translated from thes SAS code written by May and Johnson (2000). See the
-#' references for the other methods (qh = Quesenberry-Hurst, fs =
-#' Fitzpatrick-Scott).\cr Some approaches for the confidence intervals can
-#' potentially yield negative results or values beyond 1. These would be reset
-#' such as not to exceed the range of \verb{[0, 1]}.
+#' intervals for the multinomial probabilities according to the method passed
+#' in \code{method} (see \code{method} below for the full list). The R code for
+#' Sison-Glaz (1995) has been translated from the SAS code written by May and
+#' Johnson (2000). See the references for the other methods (\code{qh} =
+#' Quesenberry-Hurst, \code{fs} = Fitzpatrick-Scott).\cr Some of the methods
+#' can yield confidence limits below 0 or above 1; these are truncated to
+#' \verb{[0, 1]}.
 #' 
-#' @param x A vector of positive integers representing the number of
-#' occurrences of each class. The total number of samples equals the sum of
-#' such elements.
-#' @param conf.level confidence level, defaults to 0.95.
-#' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. You can specify just the initial letter. \code{"left"} would
-#' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
-#' @param method character string specifing which method to use; can be one out
-#' of \code{"sisonglaz"}, \code{"cplus1"}, \code{"goodman"}, \code{"wald"},
-#' \code{"waldcc"}, \code{"wilson"}, \code{"qh"}, \code{"fs"}.  Method can be
-#' abbreviated. See details. Defaults to \code{"sisonglaz"}.
+#' @param x vector of positive integers, the number of occurrences observed in
+#' each class; the total number of samples is \code{sum(x)}.
+#' @param conf.level confidence level; defaults to \code{0.95}.
+#' @param sides character string specifying the side of the confidence
+#' interval, one of \code{"two.sided"} (default), \code{"left"} or
+#' \code{"right"}; can be abbreviated. \code{"left"} corresponds to a
+#' hypothesis of \code{"greater"} in \code{t.test()}.
+#' @param method character string specifying which method to use, one of
+#' \code{"sison-glaz"} (default), \code{"cplus1"}, \code{"goodman"},
+#' \code{"wald"}, \code{"waldcc"}, \code{"wilson"}, \code{"qh"} or
+#' \code{"fs"}; can be abbreviated. See \sQuote{Details} for the individual
+#' methods.
 #' @return A matrix with 3 columns: \item{est}{estimate} \item{lci}{lower
 #' bound of the confidence interval} \item{uci}{upper bound of the
 #' confidence interval}
 #' 
 #' The number of rows correspond to the dimension of x.
-#' @author Pablo J. Villacorta Iglesias <pjvi@@decsai.ugr.es>\cr Department of
-#' Computer Science and Artificial Intelligence, University of Granada (Spain)
-#' (Sison-Glaz)
-#' 
-#' Andri Signorell <andri@@signorell.net> (Goodman, Wald, Wilson,
-#' Fitzpatrick-Scott, Quesenberry-Hurst)
+#' @note Based on code by Pablo J. Villacorta Iglesias (Sison-Glaz),  
+#' Andri Signorell (Goodman, Wald, Wilson,
+#' Fitzpatrick-Scott, Quesenberry-Hurst), adapted to coform to package standards.
 #' 
 #' @references Fitzpatrick, S. and Scott, A. (1987). Quick simultaneous
 #' confidence interval for multinomial proportions. \emph{Journal of American
@@ -97,7 +93,7 @@
 #' x <- c(35, 74, 22, 69)
 #' 
 #' multinomCI(x, method="goodman")
-#' multinomCI(x, method="sisonglaz")
+#' multinomCI(x, method="sison-glaz")
 #' multinomCI(x, method="cplus1")
 #' multinomCI(x, method="wald")
 #' multinomCI(x, method="waldcc")
@@ -133,7 +129,7 @@
 #' 
 #' x <- c(56, 72, 73, 59, 62, 87, 58)
 #' do.call(cbind, lapply(c("wald", "waldcc", "wilson", 
-#'                         "qh", "goodman", "fs", "sisonglaz"),
+#'                         "qh", "goodman", "fs", "sison-glaz"),
 #'                       function(m) round(multinomCI(x, method=m)[,-1], 3)))
 #'        
 
@@ -146,7 +142,7 @@
 #'
 #' @export
 multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")) {
+                       method = c("sison-glaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")) {
   
   # Code originally from 
   # Pablo J. Villacorta Iglesias <pjvi@decsai.ugr.es>\n
@@ -158,7 +154,7 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   k <- length(x)
   p <- x/n
   
-  if (missing(method)) method <- "sisonglaz"
+  if (missing(method)) method <- "sison-glaz"
   if(missing(sides)) sides <- "two.sided"
   
   sides <- match.arg(sides, choices = c("two.sided","left","right"), 
@@ -168,18 +164,18 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
 
   
   method <- match.arg(arg = method, 
-                      choices = c("sisonglaz", "cplus1", "goodman", 
+                      choices = c("sison-glaz", "cplus1", "goodman", 
                                   "wald", "waldcc", "wilson", "qh", "fs"))
   
   res <- switch( method
-        , "goodman" =   { .multinomCI.goodman(x, n, k, conf.level) }
-        , "wald" =      { .multinomCI.wald(x, n, conf.level) }
-        , "waldcc" =    { .multinomCI.wald_cc(x, n, conf.level) }
-        , "wilson" =    { .multinomCI.wilson(x, n, conf.level) }
-        , "fs" =        { .multinomCI.fs(x, n, conf.level) }
-        , "qh" =        { .multinomCI.qh(x, n, k, conf.level) }
-        , "sisonglaz" = { .multinomCI.sisonglaz(x, n, k, conf.level) }
-        , "cplus1" =    { .multinomCI.cplus1(x, n, k, conf.level) }
+        , "goodman" =    { .multinomCI.goodman(x, n, k, conf.level) }
+        , "wald" =       { .multinomCI.wald(x, n, conf.level) }
+        , "waldcc" =     { .multinomCI.wald_cc(x, n, conf.level) }
+        , "wilson" =     { .multinomCI.wilson(x, n, conf.level) }
+        , "fs" =         { .multinomCI.fs(x, n, conf.level) }
+        , "qh" =         { .multinomCI.qh(x, n, k, conf.level) }
+        , "sison-glaz" = { .multinomCI.sisonglaz(x, n, k, conf.level) }
+        , "cplus1" =     { .multinomCI.cplus1(x, n, k, conf.level) }
         )
   
   if(sides=="left")
@@ -190,6 +186,10 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   return(res)
 }
 
+
+
+
+# == internal helper functions ============================================
 
 #' @keywords internal
 .moments <- function(c, lambda) {

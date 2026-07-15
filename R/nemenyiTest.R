@@ -75,7 +75,7 @@
 #' nemenyiTest(x, g)
 #'
 #' ## Formula interface
-#' nemenyiTest(Ozone ~ Month, data = airquality)
+#' nemenyiTest(Ozone ~ factor(Month), data = airquality)
 #'
 #' @rdname nemenyiTest
 

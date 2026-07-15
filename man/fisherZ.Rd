@@ -54,9 +54,7 @@ all.equal(r, fisherZInv(fisherZ(r)))
 \code{\link{corCI}}, \code{\link{cor.test}}
 
 Other test.correlation:
-\code{\link[=corCI]{corCI()}},
-\code{\link[=corTest]{corTest()}},
-\code{\link[=durbinWatsonTest]{durbinWatsonTest()}}
+\code{\link[=corTest]{corTest()}}
 }
 \concept{correlation}
 \concept{test.correlation}

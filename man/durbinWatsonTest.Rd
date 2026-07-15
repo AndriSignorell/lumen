@@ -118,6 +118,12 @@ Tests for first-order autocorrelation in the residuals of a linear
 regression model, based on the ratio of successive squared residual
 differences to the total residual sum of squares.
 }
+\note{
+Contains code by Torsten Hothorn, Achim Zeileis, Clint Cummins (original
+\code{"pan"} algorithm), Giovanni Millo, David Mitchell,
+Andri Signorell (Rcpp reimplementation), all adapted to conform to
+package standards
+}
 \examples{
 ## formula method
 x <- rep(c(-1, 1), 50)
@@ -166,17 +172,13 @@ J. Racine & R. Hyndman (2002), Using R To Teach Econometrics.
 \seealso{
 \code{\link{lm}}
 
-Other test.correlation:
-\code{\link[=corCI]{corCI()}},
-\code{\link[=corTest]{corTest()}},
-\code{\link[=fisherZ]{fisherZ()}}
-}
-\author{
-Torsten Hothorn, Achim Zeileis, Clint Cummins (original
-\code{"pan"} algorithm); Andri Signorell (Rcpp reimplementation);
-Giovanni Millo, David Mitchell (further contributions)
+Other test.regression:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{hypothesis-testing}
 \concept{regression}
-\concept{test.correlation}
+\concept{test.regression}
 \concept{time-series}

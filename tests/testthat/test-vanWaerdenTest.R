@@ -202,7 +202,7 @@ test_that("vanWaerdenTest.formula: na.action = na.omit drops NAs silently", {
 
 test_that("vanWaerdenTest: airquality formula example runs without error", {
   expect_no_error({
-    res <- vanWaerdenTest(Ozone ~ Month, data = airquality, na.action = na.omit)
+    res <- vanWaerdenTest(Ozone ~ factor(Month), data = airquality, na.action = na.omit)
     expect_s3_class(res, "htest")
     expect_equal(unname(res$parameter), 4)   # 5 months -> df = 4
     expect_lt(res$p.value, 0.05)

@@ -127,8 +127,17 @@ New York. 937 pp.
 }
 \seealso{
 \code{\link{chisq.test}}.
+
+Other test.categorical:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{goodness-of-fit}
 \concept{hypothesis-testing}
 \concept{table-manipulation}
-\concept{test.contingency}
+\concept{test.categorical}

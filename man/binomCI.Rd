@@ -280,7 +280,8 @@ de confiance pour une proportion binomiale.
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}}
+\code{\link[=multinomCI]{multinomCI()}},
+\code{\link[=poissonCI]{poissonCI()}}
 }
 \concept{ci.proportion}
 \concept{confidence-interval}

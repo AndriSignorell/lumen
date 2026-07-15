@@ -14,7 +14,7 @@ along with confidence intervals. A vertical reference line at zero is added.}
 \code{\link[lumen]{postHocTest}}.}
 
 \item{...}{Additional graphical parameters passed to
-\code{\link[aurora]{plotDot}} and base plotting functions.}
+\code{\link[lyra]{plotDot}} and base plotting functions.}
 }
 \value{
 Invisibly returns \code{NULL}.
@@ -31,7 +31,7 @@ differences in means and their confidence intervals. The confidence level
 is taken from the \code{"conf.level"} attribute of \code{x}.
 }
 \seealso{
-\code{\link[aurora]{plotDot}}
+\code{\link[lyra]{plotDot}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

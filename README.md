@@ -125,7 +125,7 @@ Most hypothesis tests return objects compatible with the standard `htest` interf
 
 ## Dependencies
 
-`lumen` imports several packages used for statistical computation and infrastructure, including `boot`, `aurora`, `bedrock`, `Exact`, `mvtnorm`, `stats`, `withr`, and `gld`. C++ support is provided through `Rcpp`, `RcppParallel`, and `RcppArmadillo`.
+`lumen` imports several packages used for statistical computation and infrastructure, including `boot`, `lyra`, `bedrock`, `Exact`, `mvtnorm`, `stats`, `withr`, and `gld`. C++ support is provided through `Rcpp`, `RcppParallel`, and `RcppArmadillo`.
 
 ## Documentation
 

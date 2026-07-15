@@ -37,9 +37,8 @@
 #' Data Analysis}, Vol. 50, pp. 775 - 782.\cr
 #' https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 #' (might be outdated)
-#' @keywords univar
-#' @examples
 #' 
+#' @examples
 #' x <- mtcars$mpg
 #' 
 #' varCI(x, na.rm=TRUE)
@@ -72,14 +71,9 @@
 #' varCI(x, method="boot", type="perc")
 #' varCI(x, method="boot", type="bca")
 #' 
-
-
-
-
 #' @family test.variance  
 #' @concept variance-test  
 #' @concept confidence-interval
-#'
 #'
 #' @export
 varCI <- function(x,
@@ -122,6 +116,7 @@ varCI <- function(x,
 
 # == internal helper functions ===============================================
 
+#' @keywords internal
 .varCI.classic <- function(x, conf.level) {
   
   df <- length(x) - 1
@@ -134,6 +129,7 @@ varCI <- function(x,
 }
 
 
+#' @keywords internal
 .varCI.bonett <- function(x, conf.level) {
   
   n <- length(x)
@@ -163,7 +159,7 @@ varCI <- function(x,
 }
 
 
-
+#' @keywords internal
 .varCI.boot <- function(x, conf.level, ...) {
   
   args <- .extractBootArgs(list(...))

@@ -274,7 +274,9 @@ binomCI <- function(x, n,
 }
 
 
+# ==  internal helper functions  ===========================================
 
+#' @keywords internal
 .binomCI_engine <- function(x, n, conf.level, sides, method, stdEst){
   
   alpha <- 1 - conf.level
@@ -329,9 +331,6 @@ binomCI <- function(x, n,
 
 }
 
-
-
-# ==  internal helper functions  ===========================================
 
 #' @keywords internal
 .binomCI.wilson <- function(x, n, alpha) {

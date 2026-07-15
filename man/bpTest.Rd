@@ -42,11 +42,10 @@ Koenker, R. (1981). A note on studentizing a test for heteroscedasticity.
 \seealso{
 \code{\link[stats]{lm}}
 
-Other test.gof:
-\code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=kpssTest]{kpssTest()}},
-\code{\link[=runsTest]{runsTest()}},
-\code{\link[=vonNeumannTest]{vonNeumannTest()}}
+Other test.regression:
+\code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
+\code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
+\code{\link[=leCessieTest]{leCessieTest()}}
 }
-\concept{goodness-of-fit}
-\concept{test.gof}
+\concept{test.regression}

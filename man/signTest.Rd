@@ -126,4 +126,3 @@ Other test.location:
 \concept{nonparametric}
 \concept{paired test}
 \concept{test.location}
-\concept{topic.nonparametricTests}

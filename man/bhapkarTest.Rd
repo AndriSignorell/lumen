@@ -62,10 +62,18 @@ Analysis}, Paper 382-208.
 }
 \seealso{
 \code{\link{mcnemar.test}},
-\code{\link{chisq.test}}, \code{\link{mantelTrendTest}},
-\code{\link{breslowDayTest}}
+\code{\link{chisq.test}}, \code{\link{mantelTrendTest}}
+
+Other test.categorical:
+\code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=gTest]{gTest()}},
+\code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
+\code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{hypothesis-testing}
 \concept{nonparametric}
 \concept{table-manipulation}
-\concept{test.marginal}
+\concept{test.categorical}

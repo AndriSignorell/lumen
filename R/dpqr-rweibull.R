@@ -1,5 +1,5 @@
 
-#' The Reverse (or Negative) Weibull Distribution
+#' Reversed Weibull Distribution
 #' 
 #' The Reverse Weibull distribution, also known as the Type III extreme 
 #' value distribution, is the distribution of the negative of a 
@@ -15,38 +15,36 @@
 #' \deqn{G(z) = \exp\left\{-\left[-\left(\frac{z-a}{b}\right)\right]^s\right\}}{G(z) = exp(-(-(z-a)/b)^s)}
 #' for \eqn{z < a} and one otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 #'  
-#' \strong{Note:} \verb{    } Within extreme value theory the reverse Weibull distibution (also
+#' \strong{Note:} Within extreme value theory the reverse Weibull distibution (also
 #' known as the negative Weibull distribution) is often referred to as the
 #' Weibull distribution.  We make a distinction to avoid confusion with the
 #' three-parameter distribution used in survival analysis, which is related by
 #' a change of sign to the distribution given above.
 #' 
-#' @name drweibull
+#' @name dpqr-rweibull
 #' @aliases drweibull prweibull qrweibull rrweibull dnweibull pnweibull qnweibull rnweibull
 #' 
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param loc,scale,shape Location, scale and shape parameters (can be given as
-#' vectors).
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default), probabilities are 
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param loc,scale,shape location, scale and shape parameters (can be given as
+#' vectors)
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
-#' @return \code{drweibull} and \code{dnweibull} give the density function,
-#' \code{prweibull} and \code{pnweibull} give the distribution function,
-#' \code{qrweibull} and \code{qnweibull} give the quantile function,
-#' \code{rrweibull} and \code{rnweibull} generate random deviates.
-#' @seealso \code{\link{rfrechet}}, \code{\link{rgev}}, \code{\link{rgumbel}}
+#' @return \code{drweibull()} and \code{dnweibull()} give the density
+#' function, \code{prweibull()} and \code{pnweibull()} give the distribution
+#' function, \code{qrweibull()} and \code{qnweibull()} give the quantile
+#' function, \code{rrweibull()} and \code{rnweibull()} generate random
+#' deviates.
+#' @seealso [distributions-overview]
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept reverse Weibull
-#' @concept bounded tail
-#' @concept dpqr
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -60,10 +58,9 @@
 #' 
 
 
-#' @rdname drweibull
+#' @rdname dpqr-rweibull
 #' @export
-"drweibull"<-
-  function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
+drweibull <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
   {
     if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
     x <- (x - loc)/scale
@@ -81,10 +78,9 @@
 
 
 
-#' @rdname drweibull
+#' @rdname dpqr-rweibull
 #' @export
-"prweibull"<-
-  function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+prweibull <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
   {
     if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
     q <- pmin((q - loc)/scale,0)
@@ -93,10 +89,9 @@
     p
   }
 
-#' @rdname drweibull
+#' @rdname dpqr-rweibull
 #' @export
-"qrweibull"<-
-  function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qrweibull <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
   {
     if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
       stop("`p' must contain probabilities in (0,1)")
@@ -105,14 +100,34 @@
     loc - scale * (-log(p))^(1/shape)
   }
 
-#' @rdname drweibull
+#' @rdname dpqr-rweibull
 #' @export
-"rrweibull"<-
-  function(n, loc = 0, scale = 1, shape = 1)
+rrweibull <- function(n, loc = 0, scale = 1, shape = 1)
   {
     if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
     loc - scale * rexp(n)^(1/shape)
   }
+
+
+# "negative Weibull" is an alternative name for the same reverse Weibull
+# distribution (see Details) -- exported as plain synonyms, not separate
+# implementations.
+
+#' @rdname dpqr-rweibull
+#' @export
+dnweibull <- drweibull
+
+#' @rdname dpqr-rweibull
+#' @export
+pnweibull <- prweibull
+
+#' @rdname dpqr-rweibull
+#' @export
+qnweibull <- qrweibull
+
+#' @rdname dpqr-rweibull
+#' @export
+rnweibull <- rrweibull
 
 
 

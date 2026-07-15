@@ -101,9 +101,9 @@ average error models when the regressors include lagged dependent
 variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
 }
 \seealso{
-\code{\link{durbinWatsonTest}}
-
 Other test.regression:
+\code{\link[=bpTest]{bpTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }

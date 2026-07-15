@@ -114,7 +114,7 @@ kruskal.test(x, g)
 dunnTest(x, g)
 
 ## Formula interface
-dunnTest(Ozone ~ Month, data = airquality)
+dunnTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{

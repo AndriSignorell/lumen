@@ -62,7 +62,6 @@
 #' Conover, W. J. (1980): \emph{Practical Nonparametric Statistics, 2nd ed}.
 #' Wiley, New York.
 #' 
-#' @family topic.nonparametricTests
 #' @concept paired test
 #' @concept median
 #' 

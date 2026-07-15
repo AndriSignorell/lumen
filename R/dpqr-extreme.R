@@ -12,39 +12,39 @@
 #' variables from a specified distribution.
 #' 
 #' 
-#' @name dextreme
+#' @name dpqr-extreme
 #' @aliases dextreme pextreme qextreme rextreme
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param densfun,distnfun,quantfun Density, distribution and quantile function
+#' 
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param densfun,distnfun,quantfun density, distribution and quantile function
 #' of the specified distribution. The density function must have a \code{log}
 #' argument (a simple wrapper can always be constructed to achieve this).
-#' @param \dots Parameters of the specified distribution.
-#' @param distn A character string, optionally given as an alternative to
+#' @param \dots parameters of the specified distribution
+#' @param distn a character string, optionally given as an alternative to
 #' \code{densfun}, \code{distnfun} and \code{quantfun} such that the density,
 #' distribution and quantile functions are formed upon the addition of the
-#' prefixes \code{d}, \code{p} and \code{q} respectively.
-#' @param mlen The number of independent variables.
-#' @param largest Logical; if \code{TRUE} (default) use maxima, otherwise
-#' minima.
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default) probabilities are 
-#' \verb{P[X <= x]}, otherwise P\verb{[X > x]}.
-#' @return \code{dextreme} gives the density function, \code{pextreme} gives
-#' the distribution function and \code{qextreme} gives the quantile function of
-#' the maximum/minimum of \code{mlen} independent variables from a specified
-#' distibution. \code{rextreme} generates random deviates.
+#' prefixes \code{d}, \code{p} and \code{q} respectively
+#' @param mlen the number of independent variables
+#' @param largest logical; if \code{TRUE} (default) use maxima, otherwise
+#' minima
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default) probabilities are 
+#' \verb{P[X <= x]}, otherwise P\verb{[X > x]}
+#' 
+#' @return \code{dextreme()} gives the density function, \code{pextreme()}
+#' gives the distribution function and \code{qextreme()} gives the quantile
+#' function of the maximum/minimum of \code{mlen} independent variables from a
+#' specified distribution. \code{rextreme()} generates random deviates.
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept maxima
-#' @concept minima
-#' @concept dpqr
+#' @seealso [distributions-overview]
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -58,15 +58,12 @@
 #' pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)
 #' ## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 #' 
-
-#' @rdname dextreme
+#' 
+#' @rdname dpqr-extreme
 #' @export
-"dextreme"<-
-  function(x, densfun, distnfun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
+dextreme <- function(x, densfun, distnfun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
   {
-    if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
-       mlen %% 1 != 0) 
-      stop("`mlen' must be a non-negative integer")
+    .checkOrderIndex(mlen)
     if(missing(densfun))
       densfun <- get(paste("d", distn, sep=""), mode="function")
     if(missing(distnfun))
@@ -83,14 +80,11 @@
   }
 
 
-#' @rdname dextreme
+#' @rdname dpqr-extreme
 #' @export
-"pextreme"<-
-  function(q, distnfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+pextreme <- function(q, distnfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
   {
-    if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
-       mlen %% 1 != 0) 
-      stop("`mlen' must be a non-negative integer")
+    .checkOrderIndex(mlen)
     if(missing(distnfun))
       distnfun <- get(paste("p", distn, sep=""), mode="function")
     distn <- distnfun(q, ...)
@@ -101,16 +95,13 @@
   }
 
 
-#' @rdname dextreme
+#' @rdname dpqr-extreme
 #' @export
-"qextreme"<-
-  function(p, quantfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+qextreme <- function(p, quantfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
   {
     if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
       stop("`p' must contain probabilities in (0,1)")
-    if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
-       mlen %% 1 != 0) 
-      stop("`mlen' must be a non-negative integer")
+    .checkOrderIndex(mlen)
     if(missing(quantfun))
       quantfun <- get(paste("q", distn, sep=""), mode="function")
     if(!lower.tail) p <- 1 - p
@@ -121,14 +112,11 @@
   }
 
 
-#' @rdname dextreme
+#' @rdname dpqr-extreme
 #' @export
-"rextreme"<-
-  function(n, quantfun, ..., distn, mlen = 1, largest = TRUE)
+rextreme <- function(n, quantfun, ..., distn, mlen = 1, largest = TRUE)
   {
-    if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
-       mlen %% 1 != 0) 
-      stop("`mlen' must be a non-negative integer")
+    .checkOrderIndex(mlen)
     if(missing(quantfun))
       quantfun <- get(paste("q", distn, sep=""), mode="function")
     if(largest)

@@ -82,12 +82,12 @@ Randomness. \emph{Journal of the American Statistical Association},
 \seealso{
 \code{\link{bartelsRankTest}}
 
-Other test.gof:
+Other test.timeseries:
+\code{\link[=adfTest]{adfTest()}},
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=runsTest]{runsTest()}}
 }
 \concept{goodness-of-fit}
 \concept{randomness}
-\concept{test.gof}
+\concept{test.timeseries}

@@ -78,14 +78,16 @@ medianCI(x, method="boot", sides="right")
 
 }
 \seealso{
-\code{\link{wilcox.test}}, \code{\link{meanCI}},
+\code{\link{wilcox.test}},
 \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
 
 Other ci.location:
-\code{\link[=meanCI]{meanCI()}}
+\code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=quantileCI]{quantileCI()}},
+\code{\link[=sumCI]{sumCI()}}
 }
 \concept{ci.location}
 \concept{confidence-intervals}
 \concept{descriptive-statistics}
 \concept{nonparametric}
-\keyword{univar}

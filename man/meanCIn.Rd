@@ -53,11 +53,7 @@ meanCIn(ci=c(25, 27), sd=5)
 \code{\link{binomCIn}()}
 
 Other ci.general:
-\code{\link[=bootCI]{bootCI()}},
-\code{\link{mad-confints}},
-\code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=quantileCI]{quantileCI()}},
-\code{\link[=sumCI]{sumCI()}}
+\code{\link[=bootCI]{bootCI()}}
 }
 \concept{ci.general}
 \concept{confidence-interval}

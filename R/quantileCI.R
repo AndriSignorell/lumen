@@ -35,8 +35,6 @@
 #' \code{conf.level} reports the achieved coverage (which may differ from the
 #' requested level).
 #' @note based on code of W Huber on StackExchange
-#' @seealso \code{\link[DescToolsX]{quantileX}}, \code{\link{quantile}},
-#' \code{\link{medianCI}}
 #' @examples
 #' 
 #' x <- mtcars$mpg
@@ -50,13 +48,13 @@
 #' quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 #'
 #'
-
-
-
-
-#' @family ci.general  
+#' @seealso \code{\link[DescToolsX]{quantileX}}, \code{\link{quantile}},
+#' \code{\link{medianCI}}
+#' 
+#' @family ci.location  
 #' @concept confidence-interval  
 #' @concept quantile
+#'
 #'
 #'
 #' @export

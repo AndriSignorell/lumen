@@ -31,14 +31,13 @@ sumCI(x)
 \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
 }
 \seealso{
-\code{\link{binomCI}},
+\code{\link{binomCI}}
 
-Other ci.general:
-\code{\link[=bootCI]{bootCI()}},
-\code{\link{mad-confints}},
-\code{\link[=meanCIn]{meanCIn()}},
+Other ci.location:
+\code{\link[=meanCI]{meanCI()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=medianCI]{medianCI()}},
 \code{\link[=quantileCI]{quantileCI()}}
 }
-\concept{ci.general}
+\concept{ci.location}
 \concept{confidence-interval}

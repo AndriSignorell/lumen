@@ -44,7 +44,6 @@
 #' @note
 #' Based on code by Frederico Caeiro.
 #' 
-#' @seealso \code{\link[randtests]{rank.test}}, \code{\link{runsTest}}
 #' @references Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test
 #' for Randomness, \emph{Journal of the American Statistical Association},
 #' \bold{77} (377), 40-46.
@@ -82,18 +81,15 @@
 #' x <- c(528, 348, 264, -20, - 167, 575, 410, -4, 430, - 122)
 #' 
 #' bartelsRankTest(x, method="beta")
-
-
-
-#' @rdname bartelsRankTest
-
-
-
-#' @family test.gof  
+#' 
+#' @seealso \code{\link[randtests]{rank.test}}
+#' 
+#' @family test.timeseries
 #' @concept goodness-of-fit  
 #' @concept randomness
 #'
 #'
+#' @rdname bartelsRankTest
 #' @export
 bartelsRankTest <- function(x,
                             alternative = c("two.sided", "trend", "oscillation"),

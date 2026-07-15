@@ -60,12 +60,12 @@ Download possible at: \url{https://cowles.yale.edu/}, see rubric 'Discussion
 Papers (CFDPs)'.
 }
 \seealso{
-Other test.gof:
+Other test.timeseries:
+\code{\link[=adfTest]{adfTest()}},
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=runsTest]{runsTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
 \concept{goodness-of-fit}
-\concept{test.gof}
+\concept{test.timeseries}
 \concept{time-series}

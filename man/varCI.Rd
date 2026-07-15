@@ -52,7 +52,6 @@ when the data is normally distributed and provides good performance for
 moderately non-normal data. See the references for the details.
 }
 \examples{
-
 x <- mtcars$mpg
 
 varCI(x, na.rm=TRUE)
@@ -106,4 +105,3 @@ Other test.variance:
 \concept{confidence-interval}
 \concept{test.variance}
 \concept{variance-test}
-\keyword{univar}

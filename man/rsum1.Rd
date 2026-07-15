@@ -42,12 +42,11 @@ rsum1(1)
 \seealso{
 Other distributions:
 \code{\link{cont.moments}},
-\code{\link[=dbenford]{dbenford()}},
-\code{\link[=ddirichlet]{ddirichlet()}},
-\code{\link[=dgompertz]{dgompertz()}},
 \code{\link{disc.moments}},
-\code{\link{drevgumbel}},
-\code{\link[=dtri]{dtri()}},
+\code{\link{dpqr-RevGumbel}},
+\code{\link{dpqr-dirichlet}},
+\code{\link{dpqr-gompertz}},
+\code{\link{dpqr-tri}},
 \code{\link{extreme-value-moments}}
 }
 \concept{distribution-function}

@@ -35,7 +35,7 @@
 #' \item{uci}{upper bound of the confidence interval}
 #' @seealso \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
 #' \code{\link[boot]{boot.ci}}
-#' @keywords univar
+#' 
 #' @examples
 #' 
 #' x <- mtcars[mtcars$am == 0, "mpg"]
@@ -56,12 +56,8 @@
 #'   meanDiffCI(`0`, `1`) )
 #' )
 #' 
-
-              
-
-#' @family ci.general  
+#' @family ci.location  
 #' @concept confidence-interval  
-#' @concept location-test
 #'
 #'
 #' @export
@@ -132,6 +128,7 @@ meanDiffCI <- function(x,
 
 # == internal helper functions ================================================
 
+#' @keywords internal
 .meanDiffCI.classic <- function(x,
                                 y,
                                 conf.level,
@@ -161,6 +158,7 @@ meanDiffCI <- function(x,
 
 
 
+#' @keywords internal
 .meanDiffCI.boot <- function(x,
                              y,
                              conf.level,

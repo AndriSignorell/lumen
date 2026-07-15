@@ -1,5 +1,5 @@
 
-#' The Gumbel Distribution
+#' Gumbel Distribution
 #' 
 #' The Gumbel distribution, also known as the Type I extreme value 
 #' distribution, is a continuous distribution used to model the maximum 
@@ -15,27 +15,26 @@
 #' \deqn{G(z) = \exp\left\{-\exp\left[-\left(\frac{z-a}{b}\right)\right]\right\}}{G(z) = exp(-exp(-(z-a)/b))}
 #' for all real \eqn{z}, where \eqn{b > 0}.
 #'  
-#' @name dgumbel
+#' @name dpqr-gumbel
 #' @aliases dgumbel pgumbel qgumbel rgumbel
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param loc,scale Location and scale parameters (can be given as vectors).
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default), probabilities are 
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param loc,scale location and scale parameters (can be given as vectors)
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
-#' @return \code{dgumbel} gives the density function, \code{pgumbel} gives the
-#' distribution function, \code{qgumbel} gives the quantile function, and
-#' \code{rgumbel} generates random deviates.
+#' @return \code{dgumbel()} gives the density function, \code{pgumbel()} gives
+#' the distribution function, \code{qgumbel()} gives the quantile function,
+#' and \code{rgumbel()} generates random deviates.
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept Gumbel
-#' @concept dpqr
+#' @seealso [distributions-overview]
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -49,37 +48,33 @@
 #' 
 
 
-#' @rdname dgumbel
+#' @rdname dpqr-gumbel
 #' @export
-"dgumbel"<-
-  function(x, loc = 0, scale = 1, log = FALSE)
+dgumbel <- function(x, loc = 0, scale = 1, log = FALSE)
   {
     dgev(x, loc = loc, scale = scale, shape = 0, log = log)
   }
 
 
-#' @rdname dgumbel
+#' @rdname dpqr-gumbel
 #' @export
-"pgumbel"<-
-  function(q, loc = 0, scale = 1, lower.tail = TRUE)
+pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE)
   {
     pgev(q, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail)
   }
 
 
-#' @rdname dgumbel
+#' @rdname dpqr-gumbel
 #' @export
-"qgumbel"<-
-  function(p, loc = 0, scale = 1, lower.tail = TRUE)
+qgumbel <- function(p, loc = 0, scale = 1, lower.tail = TRUE)
   {
     qgev(p, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail)
   }
 
 
-#' @rdname dgumbel
+#' @rdname dpqr-gumbel
 #' @export
-"rgumbel"<-
-  function(n, loc = 0, scale = 1)
+rgumbel <- function(n, loc = 0, scale = 1)
   {
     rgev(n, loc = loc, scale = scale, shape = 0)
   }

@@ -106,7 +106,7 @@ sdcfTest(x, g)
 sdcfTest(x, g, output = "matrix")
 
 ## Formula interface
-sdcfTest(Ozone ~ Month, data = airquality)
+sdcfTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{

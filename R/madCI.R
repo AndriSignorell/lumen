@@ -108,14 +108,13 @@
 #' @name mad-confints
 #' @aliases madCI madDiffCI madRatioCI
 #' 
-
-
-
-#' @family ci.general  
+#' @family ci.variance  
 #' @concept confidence-interval  
 #' @concept robust-statistics
-#'
-#'
+NULL
+
+
+#' @rdname mad-confints
 #' @export
 madCI <- function(x,
                   conf.level = 0.95,

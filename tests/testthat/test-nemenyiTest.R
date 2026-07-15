@@ -177,7 +177,7 @@ test_that("nemenyiTest.formula: na.action = na.omit drops NAs silently", {
 
 test_that("nemenyiTest: airquality formula example runs without error", {
   expect_no_error({
-    res <- nemenyiTest(Ozone ~ Month, data = airquality, na.action = na.omit)
+    res <- nemenyiTest(Ozone ~ factor(Month), data = airquality, na.action = na.omit)
     expect_s3_class(res, "rankTest")
     expect_equal(nrow(res$res), 10L)   # 5 months -> 10 pairs
   })

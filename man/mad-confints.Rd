@@ -153,14 +153,7 @@ intervals for median absolute deviations. \emph{arXiv:1910.00229}
 }
 \seealso{
 \code{\link{mad}}, \code{\link[DescToolsX]{madX}}
-
-Other ci.general:
-\code{\link[=bootCI]{bootCI()}},
-\code{\link[=meanCIn]{meanCIn()}},
-\code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=quantileCI]{quantileCI()}},
-\code{\link[=sumCI]{sumCI()}}
 }
-\concept{ci.general}
+\concept{ci.variance}
 \concept{confidence-interval}
 \concept{robust-statistics}

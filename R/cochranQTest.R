@@ -99,7 +99,7 @@
 
 #' @rdname cochranQTest
 
-#' @family test.ksample  
+#' @family test.categorical
 #' @concept k-sample  
 #' @concept nonparametric
 #'

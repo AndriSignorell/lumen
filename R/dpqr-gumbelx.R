@@ -12,34 +12,33 @@
 #' location and scale parameters.
 #' 
 #' 
-#' @name dgumbelx
+#' @name dpqr-gumbelx
 #' @aliases dgumbelx pgumbelx qgumbelx rgumbelx
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param interval A length two vector containing the end-points of the
-#' interval to be searched for the quantiles, passed to the uniroot function.
-#' @param loc1,scale1,loc2,scale2 Location and scale parameters of the two
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param interval a length two vector containing the end-points of the
+#' interval to be searched for the quantiles, passed to the uniroot function
+#' @param loc1,scale1,loc2,scale2 location and scale parameters of the two
 #' Gumbel distributions. The second location parameter must be greater than or
 #' equal to the first location parameter.
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default), probabilities are 
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, \verb{P[X > x]}
-#' @param \dots Other arguments passed to uniroot.
-#' @return \code{dgumbelx} gives the density function, \code{pgumbelx} gives
-#' the distribution function, \code{qgumbelx} gives the quantile function, and
-#' \code{rgumbelx} generates random deviates.
+#' @param \dots other arguments passed to uniroot
+#' @return \code{dgumbelx()} gives the density function, \code{pgumbelx()}
+#' gives the distribution function, \code{qgumbelx()} gives the quantile
+#' function, and \code{rgumbelx()} generates random deviates.
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @seealso \code{\link[evd]{fgev}}, \code{\link{uniroot}}
+#' @seealso [distributions-overview]; \code{\link{uniroot}}, which
+#' \code{qgumbelx()} uses for root finding
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept extended Gumbel
-#' @concept dpqr
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -54,10 +53,9 @@
 
 
 
-#' @rdname dgumbelx
+#' @rdname dpqr-gumbelx
 #' @export
-"dgumbelx"<-
-  function(x, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, log = FALSE)
+dgumbelx <- function(x, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, log = FALSE)
   {
     if(min(scale1) < 0 || min(scale2) < 0) stop("invalid scale")
     if(any(loc1 > loc2)) stop("loc1 cannot be greater than loc2")
@@ -69,10 +67,9 @@
   }
 
 
-#' @rdname dgumbelx
+#' @rdname dpqr-gumbelx
 #' @export
-"pgumbelx"<-
-  function(q, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, lower.tail = TRUE)
+pgumbelx <- function(q, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, lower.tail = TRUE)
   {
     if(min(scale1) < 0 || min(scale2) < 0) stop("invalid scale")
     if(any(loc1 > loc2)) stop("loc1 cannot be greater than loc2")
@@ -84,10 +81,9 @@
   }
 
 
-#' @rdname dgumbelx
+#' @rdname dpqr-gumbelx
 #' @export
-"qgumbelx"<-
-  function(p, interval, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, lower.tail = TRUE, ...)
+qgumbelx <- function(p, interval, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, lower.tail = TRUE, ...)
   {
     if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
       stop("`p' must contain probabilities in (0,1)")
@@ -105,10 +101,9 @@
   }
 
 
-#' @rdname dgumbelx
+#' @rdname dpqr-gumbelx
 #' @export
-"rgumbelx"<-
-  function(n, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1)
+rgumbelx <- function(n, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1)
   {
     if(min(scale1) < 0 || min(scale2) < 0) stop("invalid scale")
     if(any(loc1 > loc2)) stop("loc1 cannot be greater than loc2")

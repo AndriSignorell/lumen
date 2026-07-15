@@ -30,8 +30,8 @@ Must be one of \code{"two.sided"} (default), \code{"less"}, or
 A named numeric vector with elements:
 \describe{
 \item{cor}{The input correlation coefficient \code{rho}.}
-\item{lwr.ci}{Lower bound of the confidence interval.}
-\item{upr.ci}{Upper bound of the confidence interval.}
+\item{lci}{Lower bound of the confidence interval.}
+\item{uci}{Upper bound of the confidence interval.}
 }
 }
 \description{
@@ -53,6 +53,9 @@ For \code{alternative = "two.sided"}, a symmetric interval on the
 \eqn{z}-scale is used. For one-sided alternatives, the interval is
 unbounded on one side.
 }
+\note{
+Based on code by William Revelle
+}
 \examples{
 # Confidence interval for a single correlation
 corCI(0.5, n = 30)
@@ -64,17 +67,7 @@ t(sapply(r, corCI, n = 30))
 }
 \seealso{
 \code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
-
-Other test.correlation:
-\code{\link[=corTest]{corTest()}},
-\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
-\code{\link[=fisherZ]{fisherZ()}}
 }
-\author{
-William Revelle \email{revelle@northwestern.edu},
-modified by Andri Signorell \email{andri@signorell.net}
-}
+\concept{ci.correlation}
 \concept{confidence-interval}
 \concept{correlation}
-\concept{test.correlation}
-\keyword{univar}

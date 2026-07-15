@@ -68,9 +68,10 @@
 #'
 #' @seealso \code{\link{lm}}
 #'
-#' @author Torsten Hothorn, Achim Zeileis, Clint Cummins (original
-#'   \code{"pan"} algorithm); Andri Signorell (Rcpp reimplementation);
-#'   Giovanni Millo, David Mitchell (further contributions)
+#' @note Contains code by Torsten Hothorn, Achim Zeileis, Clint Cummins (original
+#'   \code{"pan"} algorithm), Giovanni Millo, David Mitchell, 
+#'   Andri Signorell (Rcpp reimplementation), all adapted to conform to 
+#'   package standards
 #'
 #' @references
 #' J. Durbin & G.S. Watson (1950), Testing for Serial Correlation in Least
@@ -117,7 +118,7 @@
 #'           0.575, 6.848, -18.971, -29.063)
 #' durbinWatsonTest(e_t)
 #'
-#' @family test.correlation
+#' @family test.regression
 #' @concept hypothesis-testing
 #' @concept regression
 #' @concept time-series

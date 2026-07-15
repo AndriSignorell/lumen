@@ -89,8 +89,6 @@
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{a character string giving the name of the data.}
 #'
-#' @seealso \code{\link{rle}}, \code{\link{bartelsRankTest}},
-#'   \code{\link{vonNeumannTest}}
 #'
 #' @references
 #' Wackerly, D., Mendenhall, W., Scheaffer, R. L. (1986)
@@ -123,15 +121,14 @@
 #' B <- c(17,23,13,24,33,21,18,16,32)
 #' runsTest(A, B, exact = TRUE)
 #'
-#' @rdname runsTest
-
-
-
-#' @family test.gof  
+#' @seealso \code{\link{rle}}
+#'   
+#' @family test.timeseries
 #' @concept goodness-of-fit  
 #' @concept randomness
 #'
 #'
+#' @rdname runsTest
 #' @export
 runsTest <- function(x, ...) UseMethod("runsTest")
 

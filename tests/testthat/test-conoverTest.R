@@ -193,7 +193,7 @@ test_that("conoverTest.formula: na.action = na.omit drops NAs silently", {
 
 test_that("conoverTest: airquality formula example runs without error", {
   expect_no_error({
-    res <- conoverTest(Ozone ~ Month, data = airquality, na.action = na.omit)
+    res <- conoverTest(Ozone ~ factor(Month), data = airquality, na.action = na.omit)
     expect_s3_class(res, "rankTest")
     # 5 months -> 10 pairwise comparisons
     expect_equal(nrow(res$res), 10L)

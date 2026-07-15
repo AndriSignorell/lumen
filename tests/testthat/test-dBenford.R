@@ -32,13 +32,13 @@ test_that("dbenford log=TRUE returns log of density", {
   expect_equal(dbenford(1, log = TRUE), log(log10(2)), tolerance = 1e-10)
 })
 
-test_that("dbenford ndigits=2: probabilities sum to 1", {
-  expect_equal(sum(dbenford(10:99, ndigits = 2)), 1, tolerance = 1e-10)
+test_that("dbenford nDigits=2: probabilities sum to 1", {
+  expect_equal(sum(dbenford(10:99, nDigits = 2)), 1, tolerance = 1e-10)
 })
 
-test_that("dbenford ndigits=2: out-of-range gives 0", {
-  expect_equal(dbenford(9,  ndigits = 2), 0)
-  expect_equal(dbenford(100, ndigits = 2), 0)
+test_that("dbenford nDigits=2: out-of-range gives 0", {
+  expect_equal(dbenford(9,  nDigits = 2), 0)
+  expect_equal(dbenford(100, nDigits = 2), 0)
 })
 
 # --- pbenford ---
@@ -86,9 +86,9 @@ test_that("qbenford: invalid p throws error", {
 })
 
 
-test_that("dbenford: invalid ndigits throws error", {
-  expect_error(dbenford(1, ndigits = 0))
-  expect_error(dbenford(1, ndigits = 3))
+test_that("dbenford: invalid nDigits throws error", {
+  expect_error(dbenford(1, nDigits = 0))
+  expect_error(dbenford(1, nDigits = 3))
 })
 
 test_that("dbenford: invalid log argument throws error", {
@@ -99,9 +99,9 @@ test_that("dbenford: NaN propagates", {
   expect_true(is.nan(dbenford(NaN)))
 })
 
-test_that("pbenford ndigits=2 works at bounds", {
-  expect_equal(pbenford(9, ndigits = 2), 0)
-  expect_equal(pbenford(99, ndigits = 2), 1)
+test_that("pbenford nDigits=2 works at bounds", {
+  expect_equal(pbenford(9, nDigits = 2), 0)
+  expect_equal(pbenford(99, nDigits = 2), 1)
 })
 
 test_that("qbenford preserves NA and NaN", {
@@ -115,9 +115,9 @@ test_that("rbenford returns values in support", {
   expect_true(all(x %in% 1:9))
 })
 
-test_that("rbenford ndigits=2 returns values in support", {
+test_that("rbenford nDigits=2 returns values in support", {
   set.seed(1)
-  x <- rbenford(1000, ndigits = 2)
+  x <- rbenford(1000, nDigits = 2)
   expect_true(all(x %in% 10:99))
 })
 

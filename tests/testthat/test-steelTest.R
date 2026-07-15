@@ -278,7 +278,7 @@ test_that("steelTest.formula: na.action = na.omit drops NAs silently", {
 
 test_that("steelTest: airquality example runs without error", {
   expect_no_error({
-    res <- steelTest(Ozone ~ Month, data = airquality,
+    res <- steelTest(Ozone ~ factor(Month), data = airquality,
                      na.action = na.omit, control = "5")
     expect_s3_class(res, "rankTest")
     expect_equal(nrow(res$res), 4L)   # 5 months, control = "5" -> 4 rows

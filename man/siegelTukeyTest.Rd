@@ -112,7 +112,7 @@ and the center of the combined sorted sample, and a Wilcoxon-Mann-Whitney
 statistic is then computed on these ranks.
 }
 \note{
-Originally based on a blog post by Tal Galili:
+Originally based on a blog post by Tal Galili:\cr
 \url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
 }
 \examples{
@@ -134,7 +134,7 @@ ansari.test(old, new, alternative = "greater")
 x  <- c(26.3, 26.5, 26.8, 27.0, 27.0, 27.2, 27.3,
         27.3, 27.4, 27.5, 27.6, 27.8, 27.9)
 id <- c(2, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1, 1, 2) - 1
-siegelTukeyTest(x ~ id)
+siegelTukeyTest(x ~ factor(id))
 
 # Sachs (2007), S. 314
 A <- c(10.1, 7.3, 12.6, 2.4, 6.1, 8.5, 8.8, 9.4, 10.1, 9.8)
@@ -172,8 +172,7 @@ Sheskin, D. J. (2004): \emph{Handbook of Parametric and Nonparametric
 Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-\code{\link{ansari.test}}, \code{\link{mood.test}},
-\code{\link{wilcox.test}}, \code{\link{leveneTest}}
+\link[stats:ansari.test]{stats::ansari.test}, \link[stats:mood.test]{stats::mood.test}, \link[stats:wilcox.test]{stats::wilcox.test}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

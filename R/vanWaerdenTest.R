@@ -86,8 +86,8 @@
 #' 
 #' ## Formula interface.
 #' require(graphics)
-#' boxplot(Ozone ~ Month, data = airquality)
-#' vanWaerdenTest(Ozone ~ Month, data = airquality)
+#' boxplot(Ozone ~ factor(Month), data = airquality)
+#' vanWaerdenTest(Ozone ~ factor(Month), data = airquality)
 #' 
 #' @rdname vanWaerdenTest
 

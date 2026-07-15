@@ -34,9 +34,6 @@
 #' \item{lci}{lower bound of the confidence interval} \item{uci}{upper
 #' bound of the confidence interval}
 #' 
-#' @seealso \code{\link{wilcox.test}}, \code{\link{meanCI}},
-#' \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
-#' @keywords univar
 #' @examples
 #' 
 #' set.seed(448)
@@ -63,16 +60,13 @@
 #' medianCI(x, method="boot", sides="right")
 #' 
 #' 
-
-
-# Confidence intervall for the median
-
-
+#' @seealso \code{\link{wilcox.test}}, 
+#' \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
+#' 
 #' @family ci.location
 #' @concept confidence-intervals
 #' @concept descriptive-statistics
 #' @concept nonparametric
-#'
 #'
 #' @export
 medianCI <- function(x, 
@@ -127,8 +121,9 @@ medianCI <- function(x,
 }
 
 
+# == internal helper functions ===============================================
 
-
+#' @keywords internal
 .medianCI.binom <- function( x, conf.level = 0.95,
                             sides = c("two.sided", "left", "right"), na.rm = FALSE ){
   
@@ -163,6 +158,7 @@ medianCI <- function(x,
 
 
 
+#' @keywords internal
 .medianCI.boot <- function(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
                            na.rm = FALSE, ...) {
   

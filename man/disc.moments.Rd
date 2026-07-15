@@ -105,11 +105,10 @@ Other topic.distributions.moments:
 
 Other distributions:
 \code{\link{cont.moments}},
-\code{\link[=dbenford]{dbenford()}},
-\code{\link[=ddirichlet]{ddirichlet()}},
-\code{\link[=dgompertz]{dgompertz()}},
-\code{\link{drevgumbel}},
-\code{\link[=dtri]{dtri()}},
+\code{\link{dpqr-RevGumbel}},
+\code{\link{dpqr-dirichlet}},
+\code{\link{dpqr-gompertz}},
+\code{\link{dpqr-tri}},
 \code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }

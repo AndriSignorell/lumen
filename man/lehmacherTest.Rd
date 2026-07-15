@@ -74,7 +74,10 @@ homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
 \code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=gTest]{gTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }

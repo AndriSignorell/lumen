@@ -71,10 +71,12 @@ of goodness-of-fit tests for the logistic regression model.
 \emph{Statistics in Medicine}, \bold{16}, 965--980.
 }
 \seealso{
-\code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
+\code{\link{glm}}
 
 Other test.regression:
+\code{\link[=bpTest]{bpTest()}},
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
 }
 \concept{goodness-of-fit}

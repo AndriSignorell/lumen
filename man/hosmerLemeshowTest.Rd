@@ -83,10 +83,12 @@ for use in the development of logistic regression models.
 \emph{American Journal of Epidemiology}, \bold{115}(1), 92--106.
 }
 \seealso{
-\code{\link{leCessieTest}}, \code{\link{glm}}
+\code{\link{glm}}
 
 Other test.regression:
+\code{\link[=bpTest]{bpTest()}},
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }
 \concept{calibration}

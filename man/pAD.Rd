@@ -52,7 +52,6 @@ algorithm \code{adinf} (accurate to 4-5 places) or the slower algorithm
   qAD(0.5, n=5)
   qAD(0.5)
 
-
 }
 \references{
 Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
@@ -69,13 +68,7 @@ February 2004.  \url{http://www.jstatsoft.org/v09/i02}
 \seealso{
 \code{\link{andersonDarlingTest}}
 
-Other test.normality:
-\code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
-\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
-\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
-\code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pearsonTest]{pearsonTest()}},
-\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
+\link{distributions-overview}
 }
 \author{
 Original C code by G. and J. Marsaglia.  \R interface by Adrian
@@ -83,6 +76,3 @@ Baddeley.
 }
 \concept{distribution-function}
 \concept{normality-test}
-\concept{test.normality}
-\keyword{distribution}
-\keyword{htest}

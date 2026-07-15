@@ -26,7 +26,7 @@
 #' @seealso \code{\link{power.t.test}}
 #' @references Cohen, J. (1988) \emph{Statistical power analysis for the
 #' behavioral sciences (2nd ed.)} Hillsdale, NJ: Lawrence Erlbaum.
-#' @keywords htest
+#' 
 #' @examples
 #' 
 #' ## Exercise 7.1 P. 249 from Cohen (1988) 

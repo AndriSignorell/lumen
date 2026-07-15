@@ -38,7 +38,7 @@
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #' 
 #' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [aurora::plotQQ] for producing extended normal
+#' normality.  [lyra::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
 #' @examples

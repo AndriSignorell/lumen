@@ -125,7 +125,7 @@ steelTest(x, g)
 steelTest(x, g, control = "1")
 
 ## Formula interface
-steelTest(Ozone ~ Month, data = airquality)
+steelTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{

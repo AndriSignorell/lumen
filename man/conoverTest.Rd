@@ -116,7 +116,7 @@ kruskal.test(x, g)
 conoverTest(x, g)
 
 ## Formula interface
-conoverTest(Ozone ~ Month, data = airquality)
+conoverTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{

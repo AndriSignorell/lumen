@@ -101,7 +101,10 @@ Stuart-Maxwell test
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
 \code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }

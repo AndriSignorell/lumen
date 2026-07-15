@@ -93,7 +93,7 @@ leveneTest(x ~ grp, data=serum, center=mean, trim=0.1)
 leveneTest( c(rnorm(10), rnorm(10, 0, 2)), 
             factor(rep(c("A","B"), each=10)) )
 
-leveneTest(Ozone ~ Month, data = airquality)
+leveneTest(Ozone ~ factor(Month), data = airquality)
 
 leveneTest(count ~ spray, data = InsectSprays)
 # Compare this to fligner.test() and bartlett.test()
@@ -110,7 +110,7 @@ Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278-292.
 }
 \seealso{
 \link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[aurora:plotQQ]{aurora::plotQQ} for producing extended normal
+normality.  \link[lyra:plotQQ]{lyra::plotQQ} for producing extended normal
 quantile-quantile plots.
 
 \link[stats:fligner.test]{stats::fligner.test} for a rank-based (nonparametric)

@@ -95,14 +95,14 @@ g <- factor(rep(1:3, c(5, 4, 5)),
 dunnettTest(x, g)
 
 ## Formula interface
-boxplot(Ozone ~ Month, data = airquality)
-dunnettTest(Ozone ~ Month, data = airquality)
+boxplot(Ozone ~ factor(Month), data = airquality)
+dunnettTest(Ozone ~ factor(Month), data = airquality)
 
 ## Single control level with adjusted confidence
-dunnettTest(Ozone ~ Month, data = airquality, control = "8", conf.level = 0.9)
+dunnettTest(Ozone ~ factor(Month), data = airquality, control = "8", conf.level = 0.9)
 
 ## Multiple control levels
-dunnettTest(Ozone ~ Month, data = airquality, control = c("5", "8"))
+dunnettTest(Ozone ~ factor(Month), data = airquality, control = c("5", "8"))
 
 }
 \references{

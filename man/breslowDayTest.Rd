@@ -96,10 +96,11 @@ Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
 \emph{Journal of the American Statistical Association}, 91, 14-26.
 }
 \seealso{
-\code{\link{woolfTest}}
-
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}

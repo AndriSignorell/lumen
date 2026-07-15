@@ -63,8 +63,6 @@
 #'   variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
 #'   
 #'    
-#' @seealso \code{\link{durbinWatsonTest}}
-#' 
 #' @examples
 #' ## Generate a stationary and an AR(1) series
 #' x <- rep(c(1, -1), 50)

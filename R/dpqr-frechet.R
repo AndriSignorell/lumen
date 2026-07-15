@@ -1,6 +1,6 @@
 
 
-#' The Frechet Distribution
+#' Fréchet Distribution
 #' 
 #' The Fréchet distribution, also known as the Type II extreme value 
 #' distribution, is a continuous probability distribution for the maximum 
@@ -16,29 +16,29 @@
 #' \deqn{G(z) = \exp\left\{-\left(\frac{z-a}{b}\right)^{-s}\right\}}
 #' for \eqn{z > a} and zero otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 #' 
-#' @name dfrechet
+#' @name dpqr-frechet
 #' @aliases dfrechet pfrechet qfrechet rfrechet
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param loc,scale,shape Location, scale and shape parameters (can be given as
-#' vectors).
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default), probabilities are 
+#' 
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param loc,scale,shape location, scale and shape parameters (can be given as
+#' vectors)
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
-#' @return \code{dfrechet} gives the density function, \code{pfrechet} gives
-#' the distribution function, \code{qfrechet} gives the quantile function, and
-#' \code{rfrechet} generates random deviates.
+#' 
+#' @return \code{dfrechet()} gives the density function, \code{pfrechet()}
+#' gives the distribution function, \code{qfrechet()} gives the quantile
+#' function, and \code{rfrechet()} generates random deviates.
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept Frechet
-#' @concept heavy tail
-#' @concept dpqr
+#' @seealso [distributions-overview]
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -52,10 +52,9 @@
 #' 
 
 
-#' @rdname dfrechet
+#' @rdname dpqr-frechet
 #' @export
-"dfrechet"<-
-  function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
+dfrechet <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
   {
     if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
     x <- (x - loc)/scale
@@ -71,10 +70,9 @@
     d
   }
 
-#' @rdname dfrechet
+#' @rdname dpqr-frechet
 #' @export
-"pfrechet"<-
-  function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+pfrechet <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
   {
     if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
     q <- pmax((q - loc)/scale,0)
@@ -83,10 +81,9 @@
     p
   }
 
-#' @rdname dfrechet
+#' @rdname dpqr-frechet
 #' @export
-"qfrechet"<-
-  function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qfrechet <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
   {
     if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
       stop("`p' must contain probabilities in (0,1)")
@@ -95,10 +92,9 @@
     loc + scale * (-log(p))^(-1/shape)
   }
 
-#' @rdname dfrechet
+#' @rdname dpqr-frechet
 #' @export
-"rfrechet"<-
-  function(n, loc = 0, scale = 1, shape = 1)
+rfrechet <- function(n, loc = 0, scale = 1, shape = 1)
   {
     if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
     loc + scale * rexp(n)^(-1/shape)

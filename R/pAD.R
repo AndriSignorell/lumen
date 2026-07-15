@@ -41,7 +41,7 @@
 #' Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
 #' Distribution.  \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
 #' February 2004.  \url{http://www.jstatsoft.org/v09/i02}
-#' @keywords distribution htest
+#'  
 #' @examples
 #' 
 #'   pAD(1.1, n=5)
@@ -51,16 +51,12 @@
 #'   qAD(0.5, n=5)
 #'   qAD(0.5)
 #' 
-#' 
-
-
-#' @rdname pAD
-
-#' @family test.normality  
+#' @seealso [distributions-overview]
 #' @concept normality-test  
 #' @concept distribution-function
 #'
 #'
+#' @rdname pAD
 #' @export
 pAD <- function(q, n=Inf, lower.tail=TRUE, fast=TRUE) {
   

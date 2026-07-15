@@ -138,12 +138,11 @@ Other topic.distributions.moments:
 \code{\link{extreme-value-moments}}
 
 Other distributions:
-\code{\link[=dbenford]{dbenford()}},
-\code{\link[=ddirichlet]{ddirichlet()}},
-\code{\link[=dgompertz]{dgompertz()}},
 \code{\link{disc.moments}},
-\code{\link{drevgumbel}},
-\code{\link[=dtri]{dtri()}},
+\code{\link{dpqr-RevGumbel}},
+\code{\link{dpqr-dirichlet}},
+\code{\link{dpqr-gompertz}},
+\code{\link{dpqr-tri}},
 \code{\link{extreme-value-moments}},
 \code{\link[=rsum1]{rsum1()}}
 }

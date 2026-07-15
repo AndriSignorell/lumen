@@ -60,28 +60,28 @@ test_that("ptri: NA input gives NA", {
   expect_true(is.na(ptri(NA)))
 })
 
-# --- qTri ---
+# --- qtri ---
 
-test_that("qTri: known value min=1, max=4, mode=3 at p=0.25", {
-  expect_equal(qTri(0.25, 1, 4, 3), 2.224745, tolerance = 1e-5)
+test_that("qtri: known value min=1, max=4, mode=3 at p=0.25", {
+  expect_equal(qtri(0.25, 1, 4, 3), 2.224745, tolerance = 1e-5)
 })
 
-test_that("qTri: p=0 returns min", {
-  expect_equal(qTri(0, 0, 1, 0.5), 0)
+test_that("qtri: p=0 returns min", {
+  expect_equal(qtri(0, 0, 1, 0.5), 0)
 })
 
-test_that("qTri: p=1 returns max", {
-  expect_equal(qTri(1, 0, 1, 0.5), 1)
+test_that("qtri: p=1 returns max", {
+  expect_equal(qtri(1, 0, 1, 0.5), 1)
 })
 
-test_that("qTri: ptri(qTri(p)) == p roundtrip", {
+test_that("qtri: ptri(qtri(p)) == p roundtrip", {
   p <- c(0.1, 0.25, 0.5, 0.75, 0.9)
-  expect_equal(ptri(qTri(p)), p, tolerance = 1e-10)
+  expect_equal(ptri(qtri(p)), p, tolerance = 1e-10)
 })
 
-test_that("qTri: invalid params throw error", {
-  expect_error(qTri(0.5, 0, 1, 1.5))   # mode > max
-  expect_error(qTri(0.5, 0, 1, -0.1))  # mode < min
+test_that("qtri: invalid params throw error", {
+  expect_error(qtri(0.5, 0, 1, 1.5))   # mode > max
+  expect_error(qtri(0.5, 0, 1, -0.1))  # mode < min
 })
 
 
@@ -94,31 +94,31 @@ test_that("ptri invalid parameters throw error", {
   expect_error(ptri(0.5, 0, 1, 0))
 })
 
-test_that("qTri invalid probability throws error", {
-  expect_error(qTri(-0.1))
-  expect_error(qTri(1.1))
+test_that("qtri invalid probability throws error", {
+  expect_error(qtri(-0.1))
+  expect_error(qtri(1.1))
 })
 
-test_that("qTri preserves NA", {
-  expect_true(is.na(qTri(NA)))
+test_that("qtri preserves NA", {
+  expect_true(is.na(qtri(NA)))
 })
 
-test_that("rTri returns correct length", {
+test_that("rtri returns correct length", {
   set.seed(1)
-  expect_length(rTri(100), 100)
+  expect_length(rtri(100), 100)
 })
 
-test_that("rTri stays inside support", {
+test_that("rtri stays inside support", {
   set.seed(1)
-  x <- rTri(1000, 2, 5, 3)
+  x <- rtri(1000, 2, 5, 3)
   
   expect_true(all(x >= 2))
   expect_true(all(x <= 5))
 })
 
-test_that("rTri invalid n throws error", {
-  expect_error(rTri(0))
-  expect_error(rTri(-1))
-  expect_error(rTri(1.5))
+test_that("rtri invalid n throws error", {
+  expect_error(rtri(0))
+  expect_error(rtri(-1))
+  expect_error(rtri(1.5))
 })
 

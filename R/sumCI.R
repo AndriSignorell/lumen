@@ -8,24 +8,20 @@
 #' 
 #' @param x a matrix with 3 columns, containing the estimate in the first column 
 #' followed by the lower and the upper confidence interval .
-
 #' @return a vector with the sum and the lower, upper confidence 
 #' bound of the confidence interval
-
-#' @seealso \code{\link{binomCI}},
-
+#' 
 #' @references \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
-
+#' 
 #' @examples
 #' x <- do.call(rbind, 
 #'              tapply(bedrock::Pizza$delivery_min, 
 #'                     bedrock::Pizza$area, meanCI))
 #' sumCI(x)
 #'
-
-
-
-#' @family ci.general  
+#' @seealso \code{\link{binomCI}}
+#' 
+#' @family ci.location  
 #' @concept confidence-interval
 #'
 #'

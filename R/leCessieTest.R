@@ -36,8 +36,6 @@
 #' Adapted from code by Matthias Kohl (MKmisc) to conform to package
 #' standards.
 #'
-#' @seealso \code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
-#'
 #' @references
 #' Hosmer, D.W., Hosmer, T., le Cessie, S., Lemeshow, S. (1997). A comparison
 #' of goodness-of-fit tests for the logistic regression model.
@@ -52,15 +50,14 @@
 #'
 #' leCessieTest(fit = fitted(fit), obs = obs, X = model.matrix(fit)[, -1, drop = FALSE])
 #'
-#' @rdname leCessieTest
-
-
-
+#' @seealso \code{\link{glm}}
+#'
 #' @family test.regression  
 #' @concept regression-diagnostics  
 #' @concept goodness-of-fit
 #'
 #'
+#' @rdname leCessieTest
 #' @export
 leCessieTest <- function(fit, obs, X) {
   

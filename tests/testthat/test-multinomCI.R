@@ -44,7 +44,7 @@ test_that("multinomCI: wider CI with higher conf.level", {
 })
 
 test_that("multinomCI: all methods return valid result", {
-  methods <- c("sisonglaz","goodman","wald","waldcc","wilson")
+  methods <- c("sison-glaz","goodman","wald","waldcc","wilson")
   for (m in methods) {
     res <- multinomCI(x, method = m)
     expect_true(all(res[,"lci"] >= 0), label = paste(m, "lci>=0"))

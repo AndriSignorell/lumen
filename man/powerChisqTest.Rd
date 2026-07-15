@@ -66,4 +66,3 @@ behavioral sciences (2nd ed.)} Hillsdale, NJ: Lawrence Erlbaum.
 \concept{chi-square-based}
 \concept{power}
 \concept{sample-size}
-\keyword{htest}

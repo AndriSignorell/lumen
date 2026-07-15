@@ -100,8 +100,6 @@ res2 <- corTest(
 }
 \seealso{
 Other test.correlation:
-\code{\link[=corCI]{corCI()}},
-\code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=fisherZ]{fisherZ()}}
 }
 \concept{correlation}

@@ -152,15 +152,14 @@ Siegel, S. (1956) \emph{Nonparametric Statistics for the Behavioural
 Sciences}, McGraw-Hill Kogakusha, Tokyo.
 }
 \seealso{
-\code{\link{rle}}, \code{\link{bartelsRankTest}},
-\code{\link{vonNeumannTest}}
+\code{\link{rle}}
 
-Other test.gof:
+Other test.timeseries:
+\code{\link[=adfTest]{adfTest()}},
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
 \concept{goodness-of-fit}
 \concept{randomness}
-\concept{test.gof}
+\concept{test.timeseries}

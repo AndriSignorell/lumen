@@ -55,7 +55,10 @@ and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
+\code{\link[=bhapkarTest]{bhapkarTest()}},
 \code{\link[=breslowDayTest]{breslowDayTest()}},
+\code{\link[=cochranQTest]{cochranQTest()}},
+\code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
@@ -67,4 +70,3 @@ David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
 \concept{homogeneity}
 \concept{odds ratio}
 \concept{test.categorical}
-\concept{topic.contingencyTests}

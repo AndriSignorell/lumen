@@ -1,5 +1,5 @@
 
-#' The Triangular Distribution
+#' Triangular Distribution
 #' 
 #' The triangular distribution is a continuous distribution with a lower 
 #' bound, an upper bound, and a mode, producing a piecewise linear, 
@@ -38,8 +38,16 @@
 #' \deqn{E(X) = \frac{a + b + c}{3}} \deqn{Var(X) = \frac{a^2 + b^2 + c^2 - ab
 #' - ac - bc}{18}}
 #' 
-#' @name dtri
-#' @aliases Triangular dtri ptri qTri rTri
+#' The triangular distribution is so named because of the shape of its
+#' probability density function. The average of two independent identically
+#' distributed uniform random variables with parameters \code{min=}\eqn{\alpha}
+#' and \code{max=}\eqn{\beta} has a triangular distribution with parameters
+#' \code{min=}\eqn{\alpha}, \code{max=}\eqn{\beta}, and
+#' \code{mode=}\eqn{(\beta-\alpha)/2}.
+#' 
+#' @name dpqr-tri
+#' @aliases Triangular dtri ptri qtri rtri
+#' 
 #' @param x vector of quantiles.  Missing values (\code{NA}s) are allowed.
 #' @param q vector of quantiles.  Missing values (\code{NA}s) are allowed.
 #' @param p vector of probabilities between 0 and 1.  Missing values
@@ -52,24 +60,18 @@
 #' value is \code{max=1}.
 #' @param mode vector of modes of the random variable.  The default value is
 #' \code{mode=1/2}.
-#' @return \code{dtri} gives the density, \code{ptri} gives the distribution
-#' function, \code{qTri} gives the quantile function, and \code{rTri} generates
-#' random deviates.
-#' @note The triangular distribution is so named because of the shape of its
-#' probability density function.  The average of two independent identically
-#' distributed uniform random variables with parameters \code{min=}\eqn{\alpha}
-#' and \code{max=}\eqn{\beta} has a triangular distribution with parameters
-#' \code{min=}\eqn{\alpha}, \code{max=}\eqn{\beta}, and
-#' \code{mode=}\eqn{(\beta-\alpha)/2}.
+#' @return \code{dtri()} gives the density, \code{ptri()} gives the
+#' distribution function, \code{qtri()} gives the quantile function, and
+#' \code{rtri()} generates random deviates.
 #' 
 #' The triangular distribution is sometimes used as an input distribution in
 #' probability risk assessment.
 #' 
 #' @note
-#' Based on code by Steven P. Millard. 
+#' Based on code by Steven P. Millard previously published in
+#' the \pkg{EnvStats} package, adapted to conform to package standards.
 #' 
-#' @seealso \link[stats:Uniform]{Uniform}, Probability Distributions and Random
-#' Numbers.
+#' @seealso [distributions-overview]; \link[stats:Uniform]{Uniform}
 #' 
 #' @references Forbes, C., M. Evans, N. Hastings, and B. Peacock. (2011).
 #' Statistical Distributions.  Fourth Edition. John Wiley and Sons, Hoboken,
@@ -78,12 +80,6 @@
 #' Johnson, N. L., S. Kotz, and N. Balakrishnan. (1995).  \emph{Continuous
 #' Univariate Distributions, Volume 2}.  Second Edition. John Wiley and Sons,
 #' New York.
-#' 
-#' @family topic.distributions
-#' @concept continuous distribution
-#' @concept triangular distribution
-#' @concept bounded support
-#' @concept dpqr
 #' 
 #' 
 #' @examples
@@ -107,7 +103,7 @@
 #'   # The 25'th percentile of a triangular distribution with parameters 
 #'   # min=1, max=4, and mode=3: 
 #' 
-#'   qTri(0.25, 1, 4, 3) 
+#'   qtri(0.25, 1, 4, 3) 
 #'   #[1] 2.224745
 #' 
 #'   #----------
@@ -117,7 +113,7 @@
 #'   # (Note: the call to set.seed simply allows you to reproduce this example.)
 #' 
 #'   set.seed(10) 
-#'   rTri(4, 3, 20, 12) 
+#'   rtri(4, 3, 20, 12) 
 #'   #[1] 11.811593  9.850955 11.081885 13.539496
 #' 
 
@@ -127,12 +123,9 @@
 
 
 
-#' @rdname dtri
-
-#' @family distributions  
+#' @rdname dpqr-tri
 #' @concept distribution-function
-#'
-#'
+#' @concept sampling
 #' @export
 dtri <- function (x, min = 0, max = 1, mode = 1/2) {
   names.x <- names(x)
@@ -167,7 +160,7 @@ dtri <- function (x, min = 0, max = 1, mode = 1/2) {
 
 
 
-#' @rdname dtri
+#' @rdname dpqr-tri
 #' @export
 ptri <- function (q, min = 0, max = 1, mode = 1/2) {
   names.q <- names(q)
@@ -210,9 +203,9 @@ ptri <- function (q, min = 0, max = 1, mode = 1/2) {
 
 
 
-#' @rdname dtri
+#' @rdname dpqr-tri
 #' @export
-qTri <- function (p, min = 0, max = 1, mode = 1/2) {
+qtri <- function (p, min = 0, max = 1, mode = 1/2) {
   names.p <- names(p)
   arg.mat <- .cbind.no.warn(p = as.vector(p), min = as.vector(min),
                            max = as.vector(max), mode = as.vector(mode))
@@ -253,9 +246,9 @@ qTri <- function (p, min = 0, max = 1, mode = 1/2) {
 }
 
 
-#' @rdname dtri
+#' @rdname dpqr-tri
 #' @export
-rTri <- function (n, min = 0, max = 1, mode = 1/2) {
+rtri <- function (n, min = 0, max = 1, mode = 1/2) {
   ln <- length(n)
   if (ln < 1)
     stop("'n' must be non-empty.")
@@ -280,7 +273,7 @@ rTri <- function (n, min = 0, max = 1, mode = 1/2) {
       stop(paste("All values of 'mode' must be larger than",
                  "the corresponding values of 'min', and all",
                  "values of 'max' must be larger than the", "corresponding values of 'mode'."))
-    return(qTri(p = runif(n), min = min, max = max, mode = mode))
+    return(qtri(p = runif(n), min = min, max = max, mode = mode))
   }
 }
 

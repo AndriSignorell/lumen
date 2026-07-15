@@ -1,29 +1,30 @@
 
-#' "Reverse" Gumbel Distribution Functions
+#' Reverse Gumbel Distribution
 #' 
 #' Density, distribution function, quantile function and random generation for
 #' the \dQuote{Reverse} Gumbel distribution with parameters \code{location} and
 #' \code{scale}.
 #' 
 #' 
-#' @name drevgumbel
+#' @name dpqr-RevGumbel
 #' @aliases dRevGumbel pRevGumbel qRevGumbel qRevGumbelExp rRevGumbel
 #' @param x,q numeric vector of abscissa (or quantile) values at which to
-#' evaluate the density or distribution function.
+#' evaluate the density or distribution function
 #' @param p numeric vector of probabilities at which to evaluate the quantile
-#' function.
+#' function
 #' @param location location of the distribution
-#' @param scale scale (\eqn{> 0}) of the distribution.
+#' @param scale scale (\eqn{> 0}) of the distribution
 #' @param n number of random variates, i.e., \code{\link{length}} of resulting
-#' vector of \code{rRevGumbel(..)}.
+#' vector of \code{rRevGumbel()}
 #' @return a numeric vector, of the same length as \code{x}, \code{q}, or
 #' \code{p} for the first three functions, and of length \code{n} for
 #' \code{rRevGumbel()}.
-#' @seealso the \code{\link{Weibull}} distribution functions in \R's
-#' \pkg{stats} package.
+#' @seealso [distributions-overview]; the \code{\link{Weibull}} distribution
+#' functions in \R's \pkg{stats} package.
 #' @note
-#' Based on code by Werner Stahel; partly inspired by package \pkg{VGAM}. Martin
-#' Maechler for numeric cosmetic.
+#' Based on code by Werner Stahel, partly inspired by the \pkg{VGAM} package
+#' (numeric refinements by Martin Maechler), adapted to conform to package
+#' standards.
 #' 
 #' @examples
 #' 
@@ -38,23 +39,18 @@
 #' cat("The median is:",  format(med),"\n")
 #' 
 
-#' @rdname drevgumbel
-
-#' @family distributions  
-#' @concept distribution-function  
+#' @rdname dpqr-RevGumbel
+#' @concept distribution-function
 #' @concept extreme-value
-#'
-#'
 #' @export
 dRevGumbel <- function (x, location = 0, scale = 1) {
-  # from VGAM  -- if (is.null(x)) FALSE else ifelse(is.na(x), FALSE, x)
   if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
-  temp = exp((x - location)/scale)
+  temp <- exp((x - location)/scale)
   temp * exp(-temp)/scale
 }
 
-#' @rdname drevgumbel
+#' @rdname dpqr-RevGumbel
 #' @export
 pRevGumbel <- function (q, location = 0, scale = 1) {
   
@@ -63,28 +59,28 @@ pRevGumbel <- function (q, location = 0, scale = 1) {
   1-exp(-exp((q - location)/scale))
 }
 
-#' @rdname drevgumbel
+#' @rdname dpqr-RevGumbel
 #' @export
 qRevGumbel <- function (p, location = 0, scale = 1)
 {
   if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
-  location + scale * log(-log(p))
+  location + scale * log(-log1p(-p))
 }
 
 
-#' @rdname drevgumbel
+#' @rdname dpqr-RevGumbel
 #' @export
 rRevGumbel <- function (n, location = 0, scale = 1)
 {
-  if (!isNumeric(scale, isPositive=TRUE, isIntegerValued=TRUE))
+  if (!isNumeric(n, isPositive=TRUE, isIntegerValued=TRUE))
     stop("bad input for argument \"n\"")
   if (!isNumeric(scale, isPositive=TRUE))
     stop("\"scale\" must be positive")
   location + scale * log(-log(runif(n)))
 }
 
-#' @rdname drevgumbel
+#' @rdname dpqr-RevGumbel
 #' @export
 qRevGumbelExp <- function (p) exp(qRevGumbel(p))
 

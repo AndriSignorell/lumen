@@ -69,17 +69,9 @@ bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)
 
 }
 \seealso{
-\code{\link{meanCI}}, \code{\link{medianCI}}
-
 Other ci.general:
-\code{\link{mad-confints}},
-\code{\link[=meanCIn]{meanCIn()}},
-\code{\link[=meanDiffCI]{meanDiffCI()}},
-\code{\link[=quantileCI]{quantileCI()}},
-\code{\link[=sumCI]{sumCI()}}
+\code{\link[=meanCIn]{meanCIn()}}
 }
 \concept{bootstrap}
 \concept{ci.general}
 \concept{confidence-interval}
-\keyword{nonparametric}
-\keyword{univar}

@@ -241,7 +241,7 @@ test_that("dunnettTest.formula: na.action = na.omit drops NAs silently", {
 
 test_that("dunnettTest: airquality formula example runs without error", {
   expect_no_error({
-    res <- dunnettTest(Ozone ~ Month, data = airquality,
+    res <- dunnettTest(Ozone ~ factor(Month), data = airquality,
                        na.action = na.omit, control = "5")
     expect_s3_class(res, "PostHocTest")
     # 5 months, control = "5" -> 4 treatment rows

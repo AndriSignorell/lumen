@@ -89,7 +89,7 @@ g <- factor(rep(1:3, c(5, 4, 5)))
 nemenyiTest(x, g)
 
 ## Formula interface
-nemenyiTest(Ozone ~ Month, data = airquality)
+nemenyiTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{

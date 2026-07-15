@@ -27,10 +27,6 @@
 #' @param y a factor with the same levels as \code{x}; ignored if \code{x} is a
 #' matrix. 
 #' 
-#' @seealso \code{\link{mcnemar.test}},
-#' \code{\link{chisq.test}}, \code{\link{mantelTrendTest}},
-#' \code{\link{breslowDayTest}} 
-#' 
 #' @references Bhapkar V.P. (1966) A note on the equivalence of two test
 #' criteria for hypotheses in categorical data. \emph{Journal of the American
 #' Statistical Association}, 61: 228-235.
@@ -57,12 +53,16 @@
 
 
 
-#' @rdname bhapkarTest
-#' @family test.marginal
+#' @seealso \code{\link{mcnemar.test}},
+#' \code{\link{chisq.test}}, \code{\link{mantelTrendTest}}
+#' 
+#' @family test.categorical
 #' @concept hypothesis-testing
 #' @concept table-manipulation
 #' @concept nonparametric
-
+#' 
+#' 
+#' @rdname bhapkarTest
 #' @export
 bhapkarTest <- function(x, y = NULL) {
   

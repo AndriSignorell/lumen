@@ -43,7 +43,7 @@
 #'
 
  
-#' @family test.stationarity
+#' @family test.timeseries
 #' @concept time-series
 #' @concept hypothesis-testing
 #'

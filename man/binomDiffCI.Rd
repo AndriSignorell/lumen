@@ -131,11 +131,11 @@ meths <- c("wald", "wald-cc", "agresti-caffo",
                     "brown-li-jeffreys", "hauck-anderson")
                     
 xci <- binomDiffCI(x1, n1, x2, n2, method=meths)
-aurora::fm(xci[,-1], digits=4)
+lyra::fm(xci[,-1], digits=4)
 
 x1 <- 9; n1 <- 10; x2 <- 3; n2 <- 10
 yci <- binomDiffCI(x1, n1, x2, n2, method=meths)
-aurora::fm(yci[, -1], digits=4)
+lyra::fm(yci[, -1], digits=4)
 
 # https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9
 bedrock::setNamesX(round(
@@ -198,7 +198,8 @@ Interval estimation for the difference between independent proportions.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}}
+\code{\link[=multinomCI]{multinomCI()}},
+\code{\link[=poissonCI]{poissonCI()}}
 }
 \concept{binary-outcome}
 \concept{categorical data}

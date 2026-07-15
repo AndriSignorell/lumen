@@ -72,7 +72,7 @@
 #' poissonCI(sum(petri), length(petri))
 #' 
 
-#' @family ci.count
+#' @family ci.proportion
 #' @concept confidence-intervals
 #' @concept descriptive-statistics
 #' @concept distributions
@@ -117,6 +117,7 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
 # ==  internal helper functions  ===========================================
 
 
+#' @keywords internal
 .poissonCI_engine <- function(x, n, conf.level, sides, method, stdEst = NULL){
 
   # ref:  http://www.ijmo.org/papers/189-S083.pdf but wacklig!!!

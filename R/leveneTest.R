@@ -68,7 +68,7 @@
 #' Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278-292.
 #' 
 #' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [aurora::plotQQ] for producing extended normal
+#' normality.  [lyra::plotQQ] for producing extended normal
 #' quantile-quantile plots.
 #' 
 #' @seealso [stats::fligner.test] for a rank-based (nonparametric)
@@ -101,7 +101,7 @@
 #' leveneTest( c(rnorm(10), rnorm(10, 0, 2)), 
 #'             factor(rep(c("A","B"), each=10)) )
 #' 
-#' leveneTest(Ozone ~ Month, data = airquality)
+#' leveneTest(Ozone ~ factor(Month), data = airquality)
 #' 
 #' leveneTest(count ~ spray, data = InsectSprays)
 #' # Compare this to fligner.test() and bartlett.test()

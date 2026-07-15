@@ -1,5 +1,5 @@
 
-#' The Generalized Pareto Distribution
+#' Generalized Pareto Distribution
 #' 
 #' The Generalized Pareto Distribution (GPD) is a two-parameter family 
 #' of distributions used to model exceedances over a high threshold, 
@@ -16,34 +16,32 @@
 #' - {1+s(z-a)/b}^(-1/s)} for \eqn{1+s(z-a)/b > 0} and \eqn{z > a}, where
 #' \eqn{b > 0}.  If \eqn{s = 0} the distribution is defined by continuity.
 #' 
-#' @name dgpd
+#' @name dpqr-gpd
 #' @aliases dgpd pgpd qgpd rgpd
-#' @param x,q Vector of quantiles.
-#' @param p Vector of probabilities.
-#' @param n Number of observations.
-#' @param loc,scale,shape Location, scale and shape parameters; the
-#' \code{shape} argument cannot be a vector (must have length one).
-#' @param log Logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail Logical; if \code{TRUE} (default), probabilities are 
+#' @param x,q vector of quantiles
+#' @param p vector of probabilities
+#' @param n number of observations
+#' @param loc,scale,shape location, scale and shape parameters; the
+#' \code{shape} argument cannot be a vector (must have length one)
+#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
-#' @return \code{dgpd} gives the density function, \code{pgpd} gives the
-#' distribution function, \code{qgpd} gives the quantile function, and
-#' \code{rgpd} generates random deviates.
+#' @return \code{dgpd()} gives the density function, \code{pgpd()} gives the
+#' distribution function, \code{qgpd()} gives the quantile function, and
+#' \code{rgpd()} generates random deviates.
 #' 
 #' @note
-#' Based on code by Alec Stephenson. 
+#' Based on code by Alec Stephenson previously published in
+#' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @seealso \code{\link[evd]{fpot}}
+#' @seealso [distributions-overview]; \code{evd::fpot()} for fitting
+#' peaks-over-threshold models
 #' 
 #' @references Pickands, J. (1975) Statistical inference using extreme order
 #' statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
 #' 
-#' @family topic.extremevalue.distributions
-#' @concept continuous distribution
-#' @concept extreme value theory
-#' @concept peaks over threshold
-#' @concept GPD
-#' @concept dpqr
+#' @concept distribution-function
+#' @concept extreme-value
 #' 
 #' @examples
 #' 
@@ -56,10 +54,9 @@
 #' ## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 #' 
 
-#' @rdname dgpd
+#' @rdname dpqr-gpd
 #' @export
-"dgpd"<-
-  function(x, loc = 0, scale = 1, shape = 0, log = FALSE)
+dgpd <- function(x, loc = 0, scale = 1, shape = 0, log = FALSE)
   {
     if(min(scale) <= 0) stop("invalid scale")
     if(length(shape) != 1) stop("invalid shape")
@@ -81,10 +78,9 @@
   }
 
 
-#' @rdname dgpd
+#' @rdname dpqr-gpd
 #' @export
-"pgpd" <-
-  function(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgpd <- function(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
   {
     if(min(scale) <= 0) stop("invalid scale")
     if(length(shape) != 1) stop("invalid shape")
@@ -98,10 +94,9 @@
     p
   }
 
-#' @rdname dgpd
+#' @rdname dpqr-gpd
 #' @export
-"qgpd"<-
-  function(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgpd <- function(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
   {
     if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
       stop("`p' must contain probabilities in (0,1)")
@@ -113,10 +108,9 @@
   }
 
 
-#' @rdname dgpd
+#' @rdname dpqr-gpd
 #' @export
-"rgpd"<-
-  function(n, loc = 0, scale = 1, shape = 0)
+rgpd <- function(n, loc = 0, scale = 1, shape = 0)
   {
     if(min(scale) < 0) stop("invalid scale")
     if(length(shape) != 1) stop("invalid shape")

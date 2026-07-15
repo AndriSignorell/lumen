@@ -40,7 +40,7 @@
 #' 
 
 
-#' @family test.gof  
+#' @family test.timeseries
 #' @concept goodness-of-fit  
 #' @concept time-series
 #'

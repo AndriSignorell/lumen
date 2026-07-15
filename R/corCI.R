@@ -1,3 +1,4 @@
+
 #' Confidence Interval for a Pearson Correlation
 #'
 #' Computes confidence intervals for a Pearson correlation coefficient
@@ -32,14 +33,11 @@
 #' @return A named numeric vector with elements:
 #' \describe{
 #'   \item{cor}{The input correlation coefficient \code{rho}.}
-#'   \item{lwr.ci}{Lower bound of the confidence interval.}
-#'   \item{upr.ci}{Upper bound of the confidence interval.}
+#'   \item{lci}{Lower bound of the confidence interval.}
+#'   \item{uci}{Upper bound of the confidence interval.}
 #' }
 #'
-#' @author William Revelle \email{revelle@@northwestern.edu},
-#'   modified by Andri Signorell \email{andri@@signorell.net}
-#'
-#' @seealso \code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
+#' @note Based on code by William Revelle
 #'
 #' @examples
 #' # Confidence interval for a single correlation
@@ -49,11 +47,9 @@
 #' r <- seq(0, 0.9, by = 0.1)
 #' t(sapply(r, corCI, n = 30))
 #'
-
-
-#' @keywords univar
-
-#' @family test.correlation  
+#' @seealso \code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
+#'
+#' @family ci.correlation  
 #' @concept correlation  
 #' @concept confidence-interval
 #'
