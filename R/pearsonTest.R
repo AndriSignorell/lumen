@@ -48,7 +48,7 @@
 #' n.param.est=2)}.
 #' 
 #' @note
-#' Based on code by Juergen Gross. 
+#' Based on code by Juergen Gross, adapted to conform to package standards. 
 #' 
 #' @references Moore, D.S. (1986): Tests of the chi-squared type. In:
 #' D'Agostino, R.B. and Stephens, M.A., eds.: Goodness-of-Fit Techniques.

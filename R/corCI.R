@@ -37,7 +37,7 @@
 #'   \item{uci}{Upper bound of the confidence interval.}
 #' }
 #'
-#' @note Based on code by William Revelle
+#' @note Based on code by William Revelle, adapted to conform to package standards.
 #'
 #' @examples
 #' # Confidence interval for a single correlation

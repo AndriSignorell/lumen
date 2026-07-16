@@ -10,6 +10,7 @@
 #' 
 #' 
 #' @name woolfTest
+#' 
 #' @param x a \eqn{2 \times 2 \times k}{2 x 2 x k} table, where the last
 #' dimension refers to the strata.
 #' @return A list of class \code{"htest"} containing the following components:
@@ -20,9 +21,10 @@
 #' character string giving the name(s) of the data.} \item{observed}{the
 #' observed counts.} \item{expected}{the expected counts under the null
 #' hypothesis.}
-#' @note This function was previously published as \code{woolf_test()} in the
-#' \pkg{vcd} package and has been integrated here without logical changes.
-#' @author David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
+#' 
+#' @note Based on code by David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly 
+#' previously published as \code{woolf_test()} in the
+#' \pkg{vcd} package, adapted to conform to package standards.
 #' 
 #' @seealso \code{\link{mantelhaen.test}}, \code{\link{breslowDayTest}}
 #' 

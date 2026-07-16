@@ -2,71 +2,114 @@
 % Please edit documentation in R/adfTest.R
 \name{adfTest}
 \alias{adfTest}
-\title{Augmented-Dickey-Fuller Unit Root Test}
+\title{Augmented Dickey-Fuller Unit Root Test}
 \usage{
 adfTest(
   y,
   type = c("none", "drift", "trend"),
   lags = 1,
-  selectlags = c("Fixed", "AIC", "BIC")
+  selectlags = c("fixed", "aic", "bic")
 )
 }
 \arguments{
-\item{y}{Vector to be tested for a unit root.}
+\item{y}{numeric vector or univariate time series to be tested for a
+unit root}
 
-\item{type}{Test type, either \code{"none"}, \code{"drift"} or
-\code{"trend"}.}
+\item{type}{the deterministic part of the test regression, one of
+\code{"none"} (default), \code{"drift"} or \code{"trend"}}
 
-\item{lags}{Number of lags for endogenous variable to be included.}
+\item{lags}{the number of lagged difference terms to be included. If
+\code{selectlags} is not \code{"fixed"}, this is the maximum number of
+lags considered in the lag selection.}
 
-\item{selectlags}{Lag selection can be achieved according to the Akaike
-\code{"AIC"} or the Bayes \code{"BIC"} information criteria. The maximum
-number of lags considered is set by \code{lags}. The default is to use a
-\code{"fixed"} lag length set by \code{lags}.}
+\item{selectlags}{the lag selection method, one of \code{"fixed"}
+(default, use \code{lags} as given), \code{"aic"} or \code{"bic"}
+(choose the lag order up to \code{lags} that minimizes the respective
+information criterion). Case-insensitive, so \code{"AIC"} and
+\code{"BIC"} are accepted as well.}
 }
 \value{
-An object of class \code{htest}.
+an object of class \code{"htest"} containing the following
+components:
+\item{statistic}{the tau statistic, followed by the phi statistic(s)
+if \code{type} is \code{"drift"} or \code{"trend"}. The p-value refers
+to the tau statistic.}
+\item{parameter}{the number of lagged differences included in the test
+regression (after lag selection, if requested)}
+\item{p.value}{the interpolated p-value of the tau statistic}
+\item{critical.values}{a matrix with the 1\\%, 5\\% and 10\\% critical
+values of all reported statistics, interpolated for the effective
+sample size (not shown on screen)}
+\item{alternative}{a character string describing the alternative
+hypothesis}
+\item{method}{a character string indicating the test performed}
+\item{data.name}{a character string giving the name of the data}
 }
 \description{
-Performs the augmented Dickey-Fuller unit root test in time series, testing
-whether a time series is stationary. It extends the simple Dickey-Fuller
+Performs the augmented Dickey-Fuller test for a unit root in a time
+series, testing the null hypothesis of nonstationarity against the
+alternative of (trend-)stationarity. It extends the simple Dickey-Fuller
 test by including lagged difference terms to account for autocorrelation.
 }
 \details{
-The function \code{adfTest()} computes the augmented Dickey-Fuller test. If
-type is set to \code{"none"} neither an intercept nor a trend is included in
-the test regression. If it is set to \code{"drift"} an intercept is added
-and if it is set to \code{"trend"} both an intercept and a trend is added.
-The critical values are taken from Hamilton (1994) and Dickey and
-Fuller(1981).
+If \code{type} is set to \code{"none"} neither an intercept nor a trend
+is included in the test regression, \code{"drift"} adds an intercept and
+\code{"trend"} adds both an intercept and a linear trend.
+
+The reported test statistic is the t statistic of the lagged level
+(\code{tau1}, \code{tau2} or \code{tau3}, depending on \code{type}).
+For \code{type = "drift"} and \code{type = "trend"} the F statistics
+\code{phi1} resp. \code{phi2} and \code{phi3} of Dickey and Fuller (1981),
+testing joint hypotheses on the deterministic terms, are reported as
+additional statistics; their critical values are contained in the
+\code{critical.values} component of the result.
+
+The p-value refers to the tau statistic and is obtained by linear
+interpolation in the finite sample quantiles given by Fuller (1976),
+following the approach of \code{tseries::adf.test()}. If the statistic
+falls outside the range of the table, the p-value is reported as the
+respective boundary (0.01 or 0.99) and a warning is issued. The critical
+values are taken from Hamilton (1994) and Dickey and Fuller (1981).
+
+Missing values are not allowed.
 }
 \note{
-Adapted from code by Bernhard Pfaff to conform to package standards.
+Based on code by Bernhard Pfaff previously published in the \pkg{urca}
+package, adapted to conform to package standards.
 }
 \examples{
+adfTest(AirPassengers, lags = 3, type = "trend")
 
-lc.df <- adfTest(y=AirPassengers, lags=3, type='trend')
-summary(lc.df)
+# a random walk should not be rejected
+set.seed(5)
+rw <- cumsum(rnorm(200))
+adfTest(rw, type = "drift")
 
 }
 \references{
-Dickey, D. A. and Fuller, W. A. (1979), Distributions of the
-Estimators For Autoregressive Time Series with a Unit Root, \emph{Journal of
-the American Statistical Association}, \bold{75}, 427--431.
+Dickey, D. A. and Fuller, W. A. (1979) Distribution of the
+estimators for autoregressive time series with a unit root, \emph{Journal
+of the American Statistical Association}, \bold{74}, 427--431.
 
-Dickey, D. A. and Fuller, W. A. (1981), Likelihood Ratio Statistics for
-Autoregressive Time Series with a Unit Root, \emph{Econometrica}, \bold{49},
-1057--1072.
+Dickey, D. A. and Fuller, W. A. (1981) Likelihood ratio statistics for
+autoregressive time series with a unit root, \emph{Econometrica},
+\bold{49}, 1057--1072.
 
-Hamilton (1994), \emph{Time Series Analysis}, Princeton University Press.
+Fuller, W. A. (1976) \emph{Introduction to Statistical Time Series},
+New York: Wiley.
+
+Hamilton, J. D. (1994) \emph{Time Series Analysis}, Princeton:
+Princeton University Press.
 }
 \seealso{
+\code{\link{kpssTest}}
+
 Other test.timeseries:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
 \code{\link[=kpssTest]{kpssTest()}},
 \code{\link[=runsTest]{runsTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{hypothesis-testing}
+\concept{stationarity}
 \concept{test.timeseries}
-\concept{time-series}
+\concept{unit-root}

@@ -7,23 +7,26 @@
 andersonDarlingTest(x, null = "punif", ..., estimated = FALSE, nullname)
 }
 \arguments{
-\item{x}{Numeric vector of data values.}
+\item{x}{numeric vector of data values}
 
-\item{null}{A function, or a character string giving the name of a function,
-to compute the cumulative distribution function for the null distribution.}
+\item{null}{a function, or a character string giving the name of a
+function, to compute the cumulative distribution function for the null
+distribution}
 
-\item{\dots}{Additional arguments for the cumulative distribution function.}
+\item{\dots}{additional arguments for the cumulative distribution function}
 
-\item{estimated}{Logical value indicating whether the parameters of the
+\item{estimated}{logical value indicating whether the parameters of the
 distribution were estimated using the data \code{x} (composite null
-hypothesis), or were fixed in advance (simple null hypothesis, the default).}
+hypothesis), or were fixed in advance (simple null hypothesis, the
+default)}
 
-\item{nullname}{Optional character string describing the null distribution.
-The default is \code{"uniform distribution"}.}
+\item{nullname}{optional character string describing the null
+distribution. By default the name is derived from \code{null}, e.g.
+\code{"uniform distribution"} for the default \code{null="punif"}.}
 }
 \value{
-An object of class \code{"htest"} representing the result of the
-hypothesis test.
+an object of class \code{"htest"} representing the result of the
+hypothesis test
 }
 \description{
 A goodness-of-fit test assessing whether a sample follows a specified
@@ -48,18 +51,22 @@ calculated from the same data \code{x}), then this should be indicated by
 setting the argument \code{estimated=TRUE}.  The test will then use the
 method of Braun (1980) to adjust for the effect of parameter estimation.
 
-Note that Braun's method involves randomly dividing the data into two
-equally-sized subsets, so the \eqn{p}-value is not exactly the same if the
-test is repeated.  This technique is expected to work well when the number
-of observations in \code{x} is large.
+Note that Braun's method involves randomly dividing the data into
+\eqn{m \approx \sqrt{n}}{m ~ sqrt(n)} groups, so the \eqn{p}-value is not
+exactly the same if the test is repeated.  This technique is expected to
+work well when the number of observations in \code{x} is large. If there
+are too few observations for the adjustment (\eqn{n \le 4}{n <= 4}), the
+unadjusted test is performed and a warning is issued.
+
+Missing values are silently removed.
 }
 \note{
 Original C code by George Marsaglia and John Marsaglia; R interface by
-Adrian Baddeley. Rewritten in C++ with an adapted R interface to conform
-to package standards.
+Adrian Baddeley, previously published in the \pkg{goftest} package.
+Rewritten in C++ with an adapted R interface to conform to package
+standards.
 }
 \examples{
-
 x <- rnorm(10, mean=2, sd=1)
 andersonDarlingTest(x, "pnorm", mean=2, sd=1)
 andersonDarlingTest(x, "pnorm", mean=mean(x), sd=sd(x), estimated=TRUE)
@@ -71,18 +78,20 @@ certain 'goodness-of-fit' criteria based on stochastic processes.
 \emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
 
 Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-\emph{Journal of the American Statistical Association} \bold{49}, 765--769.
+\emph{Journal of the American Statistical Association} \bold{49},
+765--769.
 
-Braun, H. (1980) A simple method for testing goodness-of-fit in the presence
-of nuisance parameters.  \emph{Journal of the Royal Statistical Society}
-\bold{42}, 53--63.
+Braun, H. (1980) A simple method for testing goodness-of-fit in the
+presence of nuisance parameters. \emph{Journal of the Royal Statistical
+Society, Series B} \bold{42}, 53--63.
 
 Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-Distribution.  \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
-February 2004.  \url{http://www.jstatsoft.org/v09/i02}
+distribution. \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
+\doi{10.18637/jss.v009.i02}
 }
 \seealso{
-\code{\link{pAD}} for the null distribution of the test statistic.
+\code{\link{pAD}} for the null distribution of the test
+statistic
 
 Other test.normality:
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},

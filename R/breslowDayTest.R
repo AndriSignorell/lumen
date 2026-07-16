@@ -33,7 +33,7 @@
 #' statistic asymptotically chi-square. 
 #' 
 #' @note
-#' Based on code by Michael Hoehle.
+#' Based on code by Michael Hoehle, adapted to conform to package standards.
 #' 
 #' @references Breslow, N. E., N. E. Day (1980) The Analysis of Case-Control
 #' Studies \emph{Statistical Methods in Cancer Research: Vol. 1}. Lyon, France,

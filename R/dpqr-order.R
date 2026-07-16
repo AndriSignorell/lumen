@@ -1,4 +1,5 @@
 
+
 #' Distributions of Order Statistics
 #' 
 #' Density, distribution, and random generation functions for a selected 
@@ -6,13 +7,9 @@
 #' a given size drawn from any specified distribution, derived analytically 
 #' using the beta distribution representation of order statistics.
 #' 
-#' Density function, distribution function and random generation for a selected
-#' order statistic of a given number of independent variables from a specified
-#' distribution.
-#' 
-#' 
 #' @name dpqr-order
 #' @aliases dorder porder rorder
+#' 
 #' @param x,q vector of quantiles
 #' @param n number of observations
 #' @param dFun,pFun,qFun density, distribution and quantile function
@@ -53,17 +50,6 @@
 #' porder(2:4, distn = "exp", rate = 1.2, mlen = 2, j = 2)
 #' rorder(5, qgamma, shape = 1, mlen = 10, j = 2)
 #' 
-
-#' @noRd
-.checkOrderIndex <- function(mlen, j = 1) {
-  if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
-     mlen %% 1 != 0) 
-    stop("argument 'mlen' must be a positive integer")
-  if(!is.numeric(j) || length(j) != 1 || j < 1 || j %% 1 != 0) 
-    stop("argument 'j' must be a positive integer")
-  if(j > mlen)
-    stop("argument 'j' cannot be greater than 'mlen'")
-}
 
 
 #' @rdname dpqr-order
@@ -123,3 +109,18 @@ rorder <- function(n, qFun, ..., distn,  mlen = 1, j = 1, largest = TRUE)
     qFun(rbeta(n, mlen+1-j, j), ...)
   }
 
+
+
+
+# == internal helper functions ===============================================
+
+#' @noRd
+.checkOrderIndex <- function(mlen, j = 1) {
+  if(!is.numeric(mlen) || length(mlen) != 1 || mlen < 1 ||
+     mlen %% 1 != 0) 
+    stop("argument 'mlen' must be a positive integer")
+  if(!is.numeric(j) || length(j) != 1 || j < 1 || j %% 1 != 0) 
+    stop("argument 'j' must be a positive integer")
+  if(j > mlen)
+    stop("argument 'j' cannot be greater than 'mlen'")
+}

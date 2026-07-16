@@ -44,13 +44,19 @@ test_that("pRevGumbel: relation to pgumbel", {
                1 - pgumbel(-q, loc = 0, scale = 1), tolerance = tol)
 })
 
-test_that("qRevGumbel: pRevGumbel(qRevGumbel(1-p)) == p roundtrip", {
-  # qRevGumbel(p) = loc + scale*log(-log(p)) inverts the survival function:
-  # 1 - pRevGumbel(q) = exp(-exp((q-loc)/scale))
-  # => pRevGumbel(qRevGumbel(1-p)) == p
+test_that("qRevGumbel: pRevGumbel(qRevGumbel(p)) == p roundtrip", {
+  # qRevGumbel(p) = loc + scale*log(-log(1-p)) inverts the CDF
+  # pRevGumbel(q) = 1 - exp(-exp((q-loc)/scale))
   p <- c(0.1, 0.25, 0.5, 0.75, 0.9)
-  expect_equal(pRevGumbel(qRevGumbel(1 - p, location = 1, scale = 2),
+  expect_equal(pRevGumbel(qRevGumbel(p, location = 1, scale = 2),
                           location = 1, scale = 2), p, tolerance = tol)
+})
+
+test_that("qRevGumbel: median anchor and monotonicity", {
+  # pins the orientation of the quantile function,
+  # guards against re-inverting it (the median is invariant)
+  expect_equal(qRevGumbel(0.5), log(log(2)), tolerance = tol)
+  expect_true(all(diff(qRevGumbel(seq(0.05, 0.95, by = 0.05))) > 0))
 })
 
 test_that("rRevGumbel: returns correct length", {

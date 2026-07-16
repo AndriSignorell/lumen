@@ -28,9 +28,10 @@
 #' @param fast Logical value indicating whether to use a fast algorithm or a
 #' slower, more accurate algorithm, in the case \code{n=Inf}.
 #' @return A numeric vector of the same length as \code{p} or \code{q}.
-#' @author Original C code by G. and J. Marsaglia.  \R interface by Adrian
-#' Baddeley.
-#' @seealso \code{\link{andersonDarlingTest}}
+#' 
+#' @note Original C code by G. and J. Marsaglia.  \R interface by Adrian
+#' Baddeley, adapted to conform to package standards.
+#' 
 #' @references Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 #' certain 'goodness-of-fit' criteria based on stochastic processes.
 #' \emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
@@ -51,7 +52,7 @@
 #'   qAD(0.5, n=5)
 #'   qAD(0.5)
 #' 
-#' @seealso [distributions-overview]
+#' @seealso \code{\link{andersonDarlingTest}}, [distributions-overview]
 #' @concept normality-test  
 #' @concept distribution-function
 #'

@@ -48,13 +48,7 @@
 #' test.} \item{method}{a character string indicating what type of test was
 #' performed.} \item{data.name}{a character string giving the name of the
 #' data.}
-#' @note based on code from Jim Lemon
-#' 
-#' @seealso \code{\link{bhapkarTest}} for a more powerful alternative to the
-#' Stuart-Maxwell test
-#' 
-#' \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
-#' \code{\link{mantelTrendTest}}, \code{\link{breslowDayTest}}
+#' @note Based on code from Jim Lemon, adapted to conform to package standards.
 #' 
 #' @references Stuart, A (1955) A test for homogeneity of the marginal
 #' distributions in a two-way classification. \emph{Biometrika}, 42, 412-416.
@@ -85,17 +79,18 @@
 #' 
 #' stuartMaxwellTest(mc)
 #' 
-
-
-#' @rdname stuartMaxwellTest
-
-
-
+#' 
+#' @seealso \code{\link{bhapkarTest}} for a more powerful alternative to the
+#' Stuart-Maxwell test
+#' 
+#' \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
+#' 
 #' @family test.categorical  
 #' @concept categorical-test  
 #' @concept nonparametric
 #'
 #'
+#' @rdname stuartMaxwellTest
 #' @export
 stuartMaxwellTest <- function(x, y = NULL) {
   

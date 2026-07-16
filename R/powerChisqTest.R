@@ -21,7 +21,8 @@
 #' invalid arguments are given.
 #' 
 #' @note
-#' Based on code by Stephane Champely, and Peter Dalgaard. 
+#' Based on code by Stephane Champely, and Peter Dalgaard, adapted to conform 
+#' to package standards. 
 #' 
 #' @seealso \code{\link{power.t.test}}
 #' @references Cohen, J. (1988) \emph{Statistical power analysis for the

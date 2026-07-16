@@ -169,7 +169,7 @@ test_that("n < 10 throws error", {
   
   expect_error(
     bartelsRankTest(1:9),
-    "greater than 9"
+    "at least 10"
   )
 })
 

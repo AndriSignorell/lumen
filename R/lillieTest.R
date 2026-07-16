@@ -51,7 +51,7 @@
 #' used when the Dallal-Wilkinson approximation fails.)
 #' 
 #' @note
-#' Based on code by Juergen Gross. 
+#' Based on code by Juergen Gross, adapted to conform to package standards. 
 #' 
 #' @references Dallal, G.E. and Wilkinson, L. (1986): An analytic approximation
 #' to the distribution of Lilliefors' test for normality. The American

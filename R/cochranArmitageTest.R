@@ -27,7 +27,7 @@
 #' \item{data.name}{a character string giving the names of the data.}
 #'
 #' @note
-#' Based on code by Eric Lecoutre.
+#' Based on code by Eric Lecoutre, adapted to conform to package standards.
 #'
 #' \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
 #'

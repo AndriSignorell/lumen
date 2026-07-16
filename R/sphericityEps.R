@@ -16,7 +16,7 @@
 #' @return a numeric value
 
 #' @note
-#' Based on code by Hans Rudolf Roth.
+#' Based on code by Hans Rudolf Roth, adapted to conform to package standards.
 #' 
 #' @seealso \code{\link{aov}} 
 #' 

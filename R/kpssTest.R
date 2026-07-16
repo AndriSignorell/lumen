@@ -23,7 +23,7 @@
 #'   fields, the element \code{critical.values} contains the critical 
 #'   values at 10\%, 5\%, 2.5\% and 1\% significance levels.
 #'   
-#' @note Based on code by Bernhard Pfaff
+#' @note Based on code by Bernhard Pfaff, adapted to conform to package standards.
 #' 
 #' @references Kwiatkowski, D., Phillips, P.C.B., Schmidt, P. and Shin, Y.,
 #' (1992), Testing the Null Hypothesis of Stationarity Against the Alternative
@@ -38,8 +38,7 @@
 #' kpss.gnp <- kpssTest(AirPassengers, type="tau", lags="short")
 #' summary(kpss.gnp)
 #' 
-
-
+#' 
 #' @family test.timeseries
 #' @concept goodness-of-fit  
 #' @concept time-series

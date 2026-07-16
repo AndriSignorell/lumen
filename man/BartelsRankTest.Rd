@@ -13,31 +13,37 @@ bartelsRankTest(
 \arguments{
 \item{x}{a numeric vector containing the observations}
 
-\item{alternative}{a character string specifying the alternative hypothesis,
-must be one of "\code{two.sided}" (default), "\code{trend}" or
-"\code{oscillation}".}
+\item{alternative}{a character string specifying the alternative
+hypothesis, must be one of "\code{two.sided}" (default), "\code{trend}"
+or "\code{oscillation}"}
 
-\item{method}{a character string specifying the method used to compute the
-p-value. Must be one of \code{normal} (default), \code{beta} or \code{auto}.}
+\item{method}{a character string specifying the method used to compute
+the p-value, must be one of \code{"auto"} (default), \code{"normal"} or
+\code{"beta"}. With \code{"auto"} the beta approximation is used for
+sample sizes up to 100 and the normal approximation otherwise.}
 }
 \value{
-A list with class "htest" containing the components:
-\item{statistic}{the value of the normalized statistic test.}
-\item{parameter, n}{the size of the data, after the remotion of consecutive
-duplicate values.} \item{p.value}{the p-value of the test.}
+a list with class \code{"htest"} containing the following
+components:
+\item{statistic}{the value of the normalized test statistic}
+\item{parameter, n}{the sample size, after the removal of missing
+values}
+\item{p.value}{the p-value of the test}
 \item{alternative}{a character string describing the alternative
-hypothesis.} \item{method}{a character string indicating the test
-performed.} \item{data.name}{a character string giving the name of the
-data.} \item{rvn}{the value of the RVN statistic (not show on screen).}
-\item{nm}{the value of the NM statistic, the numerator of RVN (not show on
-screen).} \item{mu}{the mean value of the RVN statistic (not show on
-screen).} \item{var}{the variance of the RVN statistic (not show on
-screen).}
+hypothesis}
+\item{method}{a character string indicating the test performed}
+\item{data.name}{a character string giving the name of the data}
+\item{rvn}{the value of the RVN statistic (not shown on screen)}
+\item{nm}{the value of the NM statistic, the numerator of RVN (not
+shown on screen)}
+\item{mu}{the mean value of the RVN statistic (not shown on screen)}
+\item{var}{the variance of the RVN statistic (not shown on screen)}
 }
 \description{
 A nonparametric test for randomness of a sequence (so it tests whether
 data is sampled randomly from an underlying population), based on the
-ratio of the mean square successive difference of ranks to the rank variance.
+ratio of the mean square successive difference of ranks to the rank
+variance.
 }
 \details{
 Data must at least be measured on an ordinal scale.
@@ -48,59 +54,62 @@ n}{R_i=rank(X_i), i=1,...,n}. It is known that \eqn{(RVN-2)/\sigma} is
 asymptotically standard normal, where
 \eqn{\sigma^2=\frac{4(n-2)(5n^2-2n-9)}{5n(n+1)(n-1)^2}}{\sigma^2=[4(n-2)(5n^2-2n-9)]/[5n(n+1)(n-1)^2]}.
 
-By using the alternative "\code{trend}" the null hypothesis of randomness is
-tested against a trend. By using the alternative "\code{oscillation}" the
-null hypothesis of randomness is tested against a systematic oscillation.
+By using the alternative "\code{trend}" the null hypothesis of randomness
+is tested against a trend. By using the alternative "\code{oscillation}"
+the null hypothesis of randomness is tested against a systematic
+oscillation.
 
 Missing values are silently removed.
 
-Bartels test is a rank version of von Neumann's test.
+Bartels test is a rank version of von Neumann's test, see
+\code{\link{vonNeumannTest}}.
 }
 \note{
-Based on code by Frederico Caeiro.
+Based on code by Frederico Caeiro previously published in the
+\pkg{randtests} package, adapted to conform to package standards.
 }
 \examples{
-
 ## Example 5.1 in Gibbons and Chakraborti (2003), p.98.
-## Annual data on total number of tourists to the United States for 1970-1982.
+## Annual data on total number of tourists to the United States
+## for 1970-1982.
 
 years <- 1970:1982
-tourists <- c(12362, 12739, 13057, 13955, 14123,  15698, 17523, 18610, 19842,
-      20310, 22500, 23080, 21916)
+tourists <- c(12362, 12739, 13057, 13955, 14123, 15698, 17523, 18610,
+              19842, 20310, 22500, 23080, 21916)
 plot(years, tourists, pch=20)
 
 bartelsRankTest(tourists, alternative="trend", method="beta")
 
-#  Bartels Ratio Test
+#  Bartels rank test of randomness (beta approximation)
 #
 # data:  tourists
-# statistic = -3.6453, n = 13, p-value = 1.21e-08
+# z = -3.6453, n = 13, p-value = 1.21e-08
 # alternative hypothesis: trend
 
 
 ## Example in Bartels (1982).
-## Changes in stock levels for 1968-1969 to 1977-1978 (in $A million), deflated by the
-## Australian gross domestic product (GDP) price index (base 1966-1967).
-x <- c(528, 348, 264, -20, - 167, 575, 410, -4, 430, - 122)
+## Changes in stock levels for 1968-1969 to 1977-1978 (in $A million),
+## deflated by the Australian gross domestic product (GDP) price index
+## (base 1966-1967).
+x <- c(528, 348, 264, -20, -167, 575, 410, -4, 430, -122)
 
 bartelsRankTest(x, method="beta")
 
 }
 \references{
-Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test
-for Randomness, \emph{Journal of the American Statistical Association},
-\bold{77} (377), 40-46.
+Bartels, R. (1982) The Rank Version of von Neumann's Ratio
+Test for Randomness, \emph{Journal of the American Statistical
+Association}, \bold{77} (377), 40-46.
 
 Gibbons, J.D. and Chakraborti, S. (2003) \emph{Nonparametric Statistical
-Inference}, 4th ed. (pp. 97-98). URL:
-\url{http://books.google.pt/books?id=dPhtioXwI9cC&lpg=PA97&ots=ZGaQCmuEUq}
+Inference}, 4th ed., New York: Marcel Dekker (pp. 97-98).
 
 von Neumann, J. (1941) Distribution of the ratio of the mean square
 successive difference to the variance. \emph{Annals of Mathematical
 Statistics} \bold{12}, 367-395.
 }
 \seealso{
-\code{\link[randtests]{rank.test}}
+\code{\link{vonNeumannTest}}, \code{\link{runsTest}}
 
 Other test.timeseries:
 \code{\link[=adfTest]{adfTest()}},
@@ -108,6 +117,6 @@ Other test.timeseries:
 \code{\link[=runsTest]{runsTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{goodness-of-fit}
+\concept{nonparametric}
 \concept{randomness}
 \concept{test.timeseries}

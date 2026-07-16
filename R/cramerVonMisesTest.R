@@ -29,7 +29,7 @@
 #' character string giving the name(s) of the data.}
 #' 
 #' @note
-#' Based on code by Juergen Gross. 
+#' Based on code by Juergen Gross, adapted to conform to package standards. 
 #' 
 #' @references Stephens, M.A. (1986): Tests based on EDF statistics. In:
 #' D'Agostino, R.B. and Stephens, M.A., eds.: Goodness-of-Fit Techniques.

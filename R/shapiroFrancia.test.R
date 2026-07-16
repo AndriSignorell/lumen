@@ -31,7 +31,7 @@
 #' for sample sizes greater than 10.
 #' 
 #' @note
-#' Based on code by Juergen Gross. 
+#' Based on code by Juergen Gross, adapted to conform to package standards. 
 #' 
 #' @references Royston, P. (1993): A pocket-calculator algorithm for the
 #' Shapiro-Francia test for non-normality: an application to medicine.
