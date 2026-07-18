@@ -5,19 +5,19 @@ test_that("sumCI: returns named vector sum/lci/uci", {
   m <- matrix(c(10, 8, 12, 20, 17, 23), nrow = 2,
               dimnames = list(NULL, c("est","lci","uci")))
   res <- sumCI(m)
-  expect_named(res, c("sum","lci","uci"))
+  expect_named(res, c("est","lci","uci"))
 })
 
 test_that("sumCI: sum = sum of estimates", {
   m <- matrix(c(10, 20, 8, 17, 12, 23), nrow = 2)
   res <- sumCI(m)
-  expect_equal(unname(res["sum"]), 30)
+  expect_equal(unname(res["est"]), 30)
 })
 
 test_that("sumCI: lci <= sum <= uci", {
   m <- matrix(c(10, 20, 8, 17, 12, 23), nrow = 2)
   res <- sumCI(m)
-  expect_true(res["lci"] <= res["sum"] && res["sum"] <= res["uci"])
+  expect_true(res["lci"] <= res["est"] && res["est"] <= res["uci"])
 })
 
 test_that("sumCI: CI width = sqrt(sum of squared half-widths)", {
@@ -32,7 +32,7 @@ test_that("sumCI: CI width = sqrt(sum of squared half-widths)", {
 test_that("sumCI: single row gives trivial result", {
   m <- matrix(c(5, 3, 7), nrow = 1)
   res <- sumCI(m)
-  expect_equal(unname(res["sum"]), 5)
+  expect_equal(unname(res["est"]), 5)
   expect_equal(unname(res["lci"]), 3)
   expect_equal(unname(res["uci"]), 7)
 })

@@ -16,21 +16,21 @@ binomRatioCI(
 )
 }
 \arguments{
-\item{x1}{Number of successes in the first group (numerator).}
+\item{x1}{number of successes in the first group (numerator).}
 
-\item{n1}{Number of trials in the first group.}
+\item{n1}{number of trials in the first group.}
 
-\item{x2}{Number of successes in the second group (denominator).}
+\item{x2}{number of successes in the second group (denominator).}
 
-\item{n2}{Number of trials in the second group.}
+\item{n2}{number of trials in the second group.}
 
-\item{conf.level}{Confidence level, default is 0.95.}
+\item{conf.level}{confidence level, default is 0.95.}
 
-\item{sides}{A character string specifying the type of confidence interval:
+\item{sides}{a character string specifying the type of confidence interval:
 \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
 Partial matching is allowed.}
 
-\item{method}{One of:
+\item{method}{one of:
 \code{"koopman"},
 \code{"bailey"},
 \code{"adj-log"},
@@ -38,12 +38,22 @@ Partial matching is allowed.}
 \code{"sinh-1"},
 \code{"noether"}.}
 
-\item{tol}{Desired accuracy (convergence tolerance) for the iterative
+\item{tol}{desired accuracy (convergence tolerance) for the iterative
 root-finding procedure used by the Koopman interval.}
 }
 \value{
-A matrix with three columns containing the estimated ratio and the
-lower and upper confidence limits.
+If recycling yields a single case, a named numeric vector with
+elements:
+\describe{
+\item{\code{est}}{point estimate of the ratio of binomial proportions,
+\code{(x1/n1) / (x2/n2)}.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
+
+If recycling yields multiple cases, a data frame with one row per case is
+returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+the remaining columns contain the recycled argument values.
 }
 \description{
 Computes confidence intervals for the ratio of two independent binomial
@@ -100,54 +110,37 @@ Small continuity corrections are therefore applied internally where needed.
 Some methods may produce infinite limits when one observed proportion is
 zero. This is expected behavior for ratio parameters.
 
+\strong{Which interval should be used?}\cr
 The choice of method remains an active topic of discussion. The Koopman
 interval is often recommended due to its comparatively good coverage
 properties across a broad range of scenarios.
 }
+\note{
+Based on code by Ken Aho, adapted to conform to package standards.
+}
 \examples{
 
 # Example from Koopman (1984)
+binomRatioCI(
+  x1 = 36, n1 = 40, 
+  x2 = 16, n2 = 80,   method = "katz-log")
 
 binomRatioCI(
-  x1 = 36, n1 = 40,
-  x2 = 16, n2 = 80,
-  method = "katz-log"
-)
-
-binomRatioCI(
-  x1 = 36, n1 = 40,
-  x2 = 16, n2 = 80,
-  method = "koopman"
-)
-
+  x1 = 36, n1 = 40, 
+  x2 = 16, n2 = 80,   method = "koopman")
 
 # Compare several methods
-
-meths <- c(
-  "katz-log",
-  "adj-log",
-  "bailey",
-  "koopman",
-  "noether",
-  "sinh-1"
-)
-
+meths <- c("katz-log", "adj-log", "bailey", "koopman", "noether", "sinh-1")
 binomRatioCI(
-  x1 = 25, n1 = 100,
-  x2 = 10, n2 = 100,
-  method = meths
-)
-
+  x1 = 25, n1 = 100, 
+  x2 = 10, n2 = 100,   method = meths)
 
 # Sparse data
-
 binomRatioCI(
-  x1 = 1, n1 = 20,
-  x2 = 0, n2 = 20,
-  method = meths
-)
-
-
+  x1 = 1, n1 = 20, 
+  x2 = 0, n2 = 20,   method = meths )
+  
+  
 }
 \references{
 Bailey BJR (1987).

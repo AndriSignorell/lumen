@@ -4,9 +4,9 @@
 \alias{dpqr-dirichlet}
 \alias{ddirichlet}
 \alias{pdirichlet}
-\alias{rdirichlet}
 \alias{qdirichlet}
-\title{Dirichlet distribution functions}
+\alias{rdirichlet}
+\title{Dirichlet Distribution}
 \usage{
 ddirichlet(x, concentration, log = FALSE)
 
@@ -17,33 +17,27 @@ rdirichlet(n, concentration)
 qdirichlet()
 }
 \arguments{
-\item{x}{numeric vector or matrix (rows sum to 1)}
+\item{x}{numeric vector or matrix (rows sum to 1).}
 
-\item{concentration}{numeric vector of concentration parameters (> 0)}
+\item{concentration}{numeric vector of concentration parameters (> 0).}
 
-\item{log}{logical; return log-density if TRUE}
+\item{log}{logical; return log-density if TRUE.}
 
-\item{q}{numeric vector}
+\item{q}{numeric vector of quantiles.}
 
-\item{R}{number of simulations}
+\item{R}{number of Monte Carlo simulations used to approximate the CDF.}
 
-\item{n}{number of samples}
+\item{n}{number of samples.}
 }
 \value{
-Numeric vector of densities
-
-Approximate probability
-
-Matrix with n rows
+\code{ddirichlet()} gives a numeric vector of densities (one per
+row of \code{x}), \code{pdirichlet()} gives an approximate probability,
+and \code{rdirichlet()} generates a matrix with \code{n} rows of random
+deviates. \code{qdirichlet()} only signals an error, as no unique
+multivariate quantile function exists.
 }
 \description{
 Density, random generation, and basic utilities for the Dirichlet distribution.
-
-Fast parallel approximation of the Dirichlet CDF using RcppParallel.
-
-Generates random draws from a Dirichlet distribution.
-
-The Dirichlet distribution has no unique multivariate quantile function.
 }
 \details{
 The Dirichlet distribution is a multivariate generalization of the Beta
@@ -52,26 +46,13 @@ distribution defined on the simplex:
 }
 \examples{
 ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
-
-pdirichlet(c(0.2,0.3,0.5), c(1,1,1))
-
+pdirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 rdirichlet(5, c(1,1,1))
 
 }
 \seealso{
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}},
-\code{\link[=rsum1]{rsum1()}}
+\link{distributions-overview}
 }
-\concept{bayesian}
-\concept{dirichlet-distribution}
 \concept{distribution-function}
-\concept{distributions}
-\concept{dpqr}
-\concept{multivariate-distribution}
-\concept{simplex}
+\concept{multivariate}
+\concept{proportion}

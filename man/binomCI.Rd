@@ -54,18 +54,26 @@ the method-specific internally used alternative point estimate
 
 \item{p}{probability for success, defaults to \code{0.5} as worst case.}
 
-\item{width}{the width of the confidence interval}
+\item{width}{the width of the confidence interval.}
 
 \item{interval}{a vector containing the end-points of the interval to be
 searched for the root. The defaults are set to \code{c(1, 100000)}.}
 }
 \value{
-A named vector with 3 elements \code{est, lci, uci}
-for estimate, lower and upper confidence interval.
+If recycling yields a single case, a named numeric vector with
+elements:
+\describe{
+\item{\code{est}}{point estimate of the binomial proportion; \code{x/n}
+if \code{stdEst = TRUE}, otherwise the method-specific estimate.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
 
-For more than one argument each, a 3-column matrix is returned.
+If recycling yields multiple cases, a data frame with one row per case is
+returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+the remaining columns contain the recycled argument values.
 
-\code{binomCIn()} returns a single numeric value
+\code{binomCIn} returns a single numeric value giving the required sample size.
 }
 \description{
 \code{binomCI()} computes confidence intervals for binomial proportions
@@ -167,7 +175,7 @@ Some methods may produce limits outside the admissible range
 \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 within the valid parameter space.
 
-\strong{Which interval should be used?}
+\strong{Which interval should be used?}\cr
 The Wald interval is known to have poor coverage properties,
 particularly for small sample sizes or proportions near 0 or 1.
 In contrast, the Clopper-Pearson interval is conservative and
@@ -184,7 +192,7 @@ by setting \code{stdEst = FALSE}. These estimators are typically
 slightly shrunk toward 0.5 compared to the usual estimator \eqn{x/n}.
 See the cited literature for further details.
 
-\strong{Required Samplesize (by \code{binomCIn()}): }
+\strong{Required Samplesize} (by \code{binomCIn()}): \cr
 The required sample size for a given confidence interval width depends
 on the assumed population proportion. Since this proportion is often
 unknown at the planning stage of a study, a conservative approach is to
@@ -198,9 +206,9 @@ level of precision.
 
 The function is based on earlier work by Matthias Kohl in package \pkg{SLmisc},
 whose original implementation provided the methodological foundation
-The implementations of the Pratt, Mid-p, and Blaker methods are
+The implementations of the Pratt, Mid-p, Blaker and Khouadji methods are
 based on contributions by Rand R. Wilcox, Michael Hoehle,
-and Ralph Scherer, respectively.
+Ralph Scherer, and Carl Pearson, respectively.
 
 The current implementation was written and is maintained by
 Andri Signorell.

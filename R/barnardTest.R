@@ -69,7 +69,7 @@
 #'
 #' @param x a numeric vector or a two-dimensional contingency table in
 #' matrix form. \code{x} and \code{y} can also both be factors.
-#' @param y a factor object; ignored if \code{x} is a matrix
+#' @param y a factor object; ignored if \code{x} is a matrix.
 #' @param alternative a character string specifying the alternative
 #' hypothesis, must be one of \code{"two.sided"} (default),
 #' \code{"greater"} or \code{"less"}. You can specify just the initial
@@ -81,28 +81,29 @@
 #' demanding method (see the Details and the \code{useStoredCSM} argument).
 #' @param fixed indicates which margin is fixed: \code{1} for rows
 #' (default), \code{2} for columns, or \code{NA} for none of both
-#' (multinomial model)
+#' (multinomial model).
 #' @param useStoredCSM logical, use a stored ordering matrix for the CSM
-#' test to greatly reduce the computation time (default is \code{FALSE})
+#' test to greatly reduce the computation time (default is \code{FALSE}).
 #' @param \dots further arguments passed on to \code{Exact::exact.test()},
-#' e.g. \code{npNumbers} or \code{conf.int}
-#' @return a list with class \code{"htest"} containing the following
+#' e.g. \code{npNumbers} or \code{conf.int}.
+#' 
+#' @return A list with class \code{"htest"} containing the following
 #' components:
-#' \item{statistic}{the value of the test statistic used to order the
-#' tables}
-#' \item{parameter}{the sizes of the two samples}
-#' \item{p.value}{the p-value of the test}
-#' \item{estimate}{the observed difference in proportions}
-#' \item{null.value}{the difference in proportions under the null
-#' hypothesis}
-#' \item{alternative}{a character string describing the alternative
-#' hypothesis}
-#' \item{np}{the value of the nuisance parameter that maximizes the
-#' p-value}
-#' \item{np.range}{the range of nuisance parameters considered}
-#' \item{model, method}{character strings describing the sampling model and
-#' the method used to order the tables}
-#' \item{data.name}{a character string giving the name of the data}
+#'   \item{\code{statistic}}{the value of the test statistic used to order the
+#'     tables.}
+#'   \item{\code{parameter}}{the sizes of the two samples.}
+#'   \item{\code{p.value}}{the p-value of the test.}
+#'   \item{\code{estimate}}{the observed difference in proportions.}
+#'   \item{\code{null.value}}{the difference in proportions under the null
+#'     hypothesis.}
+#'   \item{\code{alternative}}{a character string describing the alternative
+#'     hypothesis.}
+#'   \item{\code{np}}{the value of the nuisance parameter that maximizes the
+#'     p-value.}
+#'   \item{\code{np.range}}{the range of nuisance parameters considered.}
+#'   \item{\code{model}, \code{method}}{character strings describing the
+#'     sampling model and the method used to order the tables.}
+#'   \item{\code{data.name}}{a character string giving the name of the data.}
 #'
 #' @note
 #' \code{barnardTest()} is an interface to \code{Exact::exact.test()} by

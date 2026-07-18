@@ -7,19 +7,19 @@
 scores(x, MARGIN = 1, method = c("table", "ranks", "ridit", "modridit"))
 }
 \arguments{
-\item{x}{A contingency table (matrix or array of counts).}
+\item{x}{a contingency table (matrix or array of counts).}
 
-\item{MARGIN}{An integer indicating the margin over which to compute
+\item{MARGIN}{an integer indicating the margin over which to compute
 the scores. Defaults to \code{1} (rows). Use \code{2} for columns.}
 
-\item{method}{A character string specifying the scoring method.
+\item{method}{a character string specifying the scoring method.
 One of:
 \itemize{
-\item \code{"table"}: Uses numeric dimnames if available, otherwise
+\item \code{"table"}: uses numeric dimnames if available, otherwise
 assigns sequential integers.
-\item \code{"ranks"}: Mid-ranks based on cumulative frequencies.
-\item \code{"ridit"}: Ridit scores (ranks divided by total count).
-\item \code{"modridit"}: Modified ridit scores (ranks divided by
+\item \code{"ranks"}: mid-ranks based on cumulative frequencies.
+\item \code{"ridit"}: ridit scores (ranks divided by total count).
+\item \code{"modridit"}: modified ridit scores (ranks divided by
 total count + 1).
 }}
 }
@@ -55,6 +55,6 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 \seealso{
 \code{\link{cochranArmitageTest}}, \code{\link{cor}}
 }
-\concept{normality-test}
+\concept{ordinal}
 \concept{scores}
 \concept{transformation}

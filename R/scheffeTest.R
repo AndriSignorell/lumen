@@ -33,8 +33,8 @@
 #' 
 #' @return A list of classes \code{c("PostHocTest")}, with one component for
 #' each term requested in \code{which}. Each component is a matrix with columns
-#' \code{diff} giving the difference in the observed means, \code{lwr.ci}
-#' giving the lower end point of the interval, \code{upr.ci} giving the upper
+#' \code{diff} giving the difference in the observed means, \code{lci}
+#' giving the lower end point of the interval, \code{uci} giving the upper
 #' end point and \code{pval} giving the p-value after adjustment for the
 #' multiple comparisons.
 #' 
@@ -69,14 +69,10 @@
 #' # just p-values:
 #' scheffeTest(r.aov, conf.level=NA)
 #' 
-
-
 #' @rdname scheffeTest
-
-#' @family test.posthoc  
-#' @concept post-hoc  
+#' @family test.posthoc
+#' @concept post-hoc
 #' @concept parametric
-#'
 #'
 #' @export
 scheffeTest <- function (x, ...)
@@ -154,18 +150,26 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
     #     sscoeff <- contrasts * contrasts %*% (1/n)
     
     dferr <- x$df.residual
-    dfgrp <- length(x$residuals) - dferr - 1
+    
+    # dfgrp must be the CURRENT term's own degrees of freedom
+    # (nlevels(term) - 1), not the whole model's combined between-groups
+    # df; using the latter is only correct by coincidence for single-
+    # factor models and gives materially wrong (too conservative, up to
+    # flipping significance) intervals/p-values for any model with more
+    # than one factor, since Scheffe's critical value is defined per the
+    # contrast space of the SPECIFIC factor being tested.
+    dfgrp <- length(means) - 1
     
     pval <- pf(psi^2/(MSE*sscoeff*dfgrp),
                df1=dfgrp, df2=dferr, lower.tail=FALSE)
     
-    critvalue <- dfgrp * qf(1-conf.level, dfgrp, dferr, lower.tail=FALSE)
+    critvalue <- dfgrp * qf(conf.level, dfgrp, dferr)
     
     lwr <- psi - sqrt(critvalue) * sqrt(MSE * sscoeff)
     upr <- psi + sqrt(critvalue) * sqrt(MSE * sscoeff)
     
     out[[nm]] <- cbind(diff=psi, lwr, upr, pval)
-    colnames(out[[nm]]) <- c("diff","lwr.ci","upr.ci","pval")
+    colnames(out[[nm]]) <- c("diff","lci","uci","pval")
     
     if(!autoContr) {
       # define contrasts rownames

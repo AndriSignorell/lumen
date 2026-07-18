@@ -2,64 +2,95 @@
 % Please edit documentation in R/jarqueBeraTest.R
 \name{jarqueBeraTest}
 \alias{jarqueBeraTest}
-\title{(Robust) Jarque-Bera Test}
+\title{Jarque-Bera Test}
 \usage{
-jarqueBeraTest(
-  x,
-  robust = TRUE,
-  method = c("chisq", "mc"),
-  R = 1000,
-  na.rm = FALSE
-)
+jarqueBeraTest(x, robust = TRUE, method = c("chisq", "mc"), R = 1000)
 }
 \arguments{
-\item{x}{A numeric vector of observations.}
+\item{x}{a numeric vector of data values.}
 
-\item{robust}{Logical. Should the robust version be used?}
+\item{robust}{logical, if \code{TRUE} (default) the robust test of Gel
+and Gastwirth (2008) is performed, otherwise the classical Jarque-Bera
+test.}
 
-\item{method}{Character string specifying how p-values are obtained:
-\code{"chisq"} (asymptotic chi-square approximation) or
+\item{method}{a character string specifying how the p-value is computed,
+one of \code{"chisq"} (default, asymptotic chi-squared approximation) or
 \code{"mc"} (Monte Carlo simulation).}
 
-\item{R}{Number of Monte Carlo simulations.}
-
-\item{na.rm}{Logical. Should missing values be removed?}
+\item{R}{the number of Monte Carlo replicates used for
+\code{method = "mc"} (default is \code{1000}).}
 }
 \value{
-An object of class \code{"htest"}.
+A list with class \code{"htest"} containing the following
+components:
+\item{statistic}{the value of the test statistic.}
+\item{parameter}{the degrees of freedom (\code{method = "chisq"}), or
+the number of Monte Carlo replicates (\code{method = "mc"}).}
+\item{p.value}{the p-value of the test.}
+\item{method}{a character string indicating the test performed and how
+the p-value was computed.}
+\item{data.name}{a character string giving the name of the data.}
 }
 \description{
-A goodness-of-fit test for normality based on sample skewness and kurtosis.
+A goodness-of-fit test for normality based on sample skewness and
+kurtosis, in its classical form or the robust modification of Gel and
+Gastwirth (2008).
 }
 \details{
-This function performs either the classical Jarque-Bera test or the robust
-Jarque-Bera test proposed by Gel and Gastwirth (2008).
+This function performs either the classical Jarque-Bera test or the
+robust Jarque-Bera test proposed by Gel and Gastwirth (2008). The robust
+version (the default) replaces the classical standard deviation by the
+average absolute deviation from the median (MAAD), which makes the test
+considerably less sensitive to outliers. The kurtosis component is then
+scaled with the constant \eqn{C_2 = 64} derived in Gel and Gastwirth
+(2008), the skewness component with \eqn{C_1 = 6} as in the classical
+test.
 
-The robust version replaces the classical standard deviation by the mean
-absolute deviation from the median.
+With \code{method = "chisq"} the statistic is referred to its asymptotic
+chi-squared distribution with 2 degrees of freedom. With
+\code{method = "mc"} the p-value is estimated by Monte Carlo simulation
+from \code{R} samples of the same size drawn from the standard normal
+distribution, using the finite-sample correction
+\eqn{(m + 1)/(R + 1)}, where \eqn{m} is the number of simulated
+statistics at least as large as the observed one.
+
+Missing values are silently removed.
 }
 \note{
-Based on the implementation of \code{rjb.test} from the
-\pkg{lawstat} package by W. Wallace Hui, Yulia R. Gel,
-Joseph L. Gastwirth, and Weiwen Miao.
-The code was refactored and adapted to conform to package standards.
+Based on code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth and
+Weiwen Miao previously published as \code{rjb.test()} in the
+\pkg{lawstat} package, adapted to conform to package standards.
+}
+\examples{
+set.seed(1)
+x <- rnorm(100)
+
+jarqueBeraTest(x)                   # robust version (default)
+jarqueBeraTest(x, robust = FALSE)   # classical Jarque-Bera test
+
+# Monte Carlo p-value
+jarqueBeraTest(x, method = "mc", R = 5000)
+
+# heavy-tailed alternative
+jarqueBeraTest(rt(100, df = 2))
+
 }
 \references{
-Gel, Y. R. and Gastwirth, J. L. (2008).
-\emph{A robust modification of the Jarque-Bera test of normality}.
-Economics Letters 99, 30-32.
+Gel, Y. R. and Gastwirth, J. L. (2008) A robust modification of the
+Jarque-Bera test of normality. \emph{Economics Letters}, 99, 30-32.
 
-Jarque, C. and Bera, A. (1980).
-\emph{Efficient tests for normality, homoscedasticity and serial independence
-of regression residuals}.
-Economics Letters 6, 255-259.
+Jarque, C. and Bera, A. (1980) Efficient tests for normality,
+homoscedasticity and serial independence of regression residuals.
+\emph{Economics Letters}, 6, 255-259.
 }
 \seealso{
+\code{\link{andersonDarlingTest}},
+\code{\link{cramerVonMisesTest}}, \code{\link{shapiro.test}}
+
 Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

@@ -2,14 +2,11 @@
 % Please edit documentation in R/dpqr-order.R
 \name{dpqr-order}
 \alias{dpqr-order}
-\alias{.checkOrderIndex}
 \alias{dorder}
 \alias{porder}
 \alias{rorder}
 \title{Distributions of Order Statistics}
 \usage{
-.checkOrderIndex(mlen, j)
-
 dorder(x, dFun, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, log = FALSE)
 
 porder(q, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, lower.tail = TRUE)
@@ -17,33 +14,33 @@ porder(q, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, lower.tail = TRUE)
 rorder(n, qFun, ..., distn, mlen = 1, j = 1, largest = TRUE)
 }
 \arguments{
-\item{mlen}{the number of independent variables}
-
-\item{j}{the order statistic, taken as the \code{j}th largest (default) or
-smallest of \code{mlen}, according to the value of \code{largest}}
-
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{dFun, pFun, qFun}{density, distribution and quantile function
 of the specified distribution. The density function must have a \code{log}
 argument (a simple wrapper can always be constructed to achieve this).}
 
-\item{\dots}{parameters of the specified distribution}
+\item{\dots}{parameters of the specified distribution.}
 
 \item{distn}{a character string, optionally specified as an alternative to
 \code{dFun}, \code{pFun} and \code{qFun} such that the density,
 distribution and quantile functions are formed upon the addition of the
-prefixes \code{d}, \code{p} and \code{q} respectively}
+prefixes \code{d}, \code{p} and \code{q} respectively.}
+
+\item{mlen}{the number of independent variables.}
+
+\item{j}{the order statistic, taken as the \code{j}th largest (default) or
+smallest of \code{mlen}, according to the value of \code{largest}.}
 
 \item{largest}{logical; if \code{TRUE} (default) use the \code{j}th largest
-order statistic, otherwise use the \code{j}th smallest}
+order statistic, otherwise use the \code{j}th smallest.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default) probabilities are
-\verb{P[X <= x]}, otherwise P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise P\verb{[X > x]}.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dorder()} gives the density function and \code{porder()}
@@ -57,11 +54,6 @@ Density, distribution, and random generation functions for a selected
 order statistic (the j-th largest or smallest value) from a sample of
 a given size drawn from any specified distribution, derived analytically
 using the beta distribution representation of order statistics.
-}
-\details{
-Density function, distribution function and random generation for a selected
-order statistic of a given number of independent variables from a specified
-distribution.
 }
 \note{
 Based on code by Alec Stephenson previously published in
@@ -77,17 +69,7 @@ rorder(5, qgamma, shape = 1, mlen = 10, j = 2)
 
 }
 \seealso{
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}
 }
-\concept{continuous distribution}
-\concept{order statistics}
-\concept{ranks}
-\concept{topic.extremevalue.distributions}
-\keyword{internal}
+\concept{distribution-function}
+\concept{order-statistic}

@@ -7,7 +7,7 @@
 \alias{pgompertz}
 \alias{qgompertz}
 \alias{rgompertz}
-\title{The Gompertz distribution}
+\title{Gompertz Distribution}
 \usage{
 dgompertz(x, shape, rate = 1, log = FALSE)
 
@@ -15,19 +15,19 @@ pgompertz(q, shape, rate = 1, lower.tail = TRUE, log.p = FALSE)
 
 qgompertz(p, shape, rate = 1, lower.tail = TRUE, log.p = FALSE)
 
-rgompertz(n, shape = 1, rate = 1)
+rgompertz(n, shape, rate = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
-\item{shape, rate}{vector of shape and rate parameters}
+\item{shape, rate}{vector of shape and rate parameters.}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as log(p)}
+\item{log, log.p}{logical; if TRUE, probabilities p are given as log(p).}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are \eqn{P(X
-}{P(X <= x)}\eqn{\le x)}{P(X <= x)}, otherwise, \eqn{P(X > x)}{P(X > x)}}
+}{P(X <= x)}\eqn{\le x)}{P(X <= x)}, otherwise, \eqn{P(X > x)}{P(X > x)}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
 \item{n}{number of observations. If \code{length(n) > 1}, the length is
 taken to be the number required.}
@@ -53,16 +53,15 @@ exp(-b/a (exp(ax) - 1))}
 For \eqn{a=0} the Gompertz is equivalent to the exponential distribution
 with constant hazard and rate \eqn{b}.
 
-The probability distribution function is \deqn{F(x | a, b) = 1 - \exp(-b/a
-}{F(x | a, b) = 1 - exp(-b/a (exp(ax) - 1))}\deqn{(e^{ax} - 1))}{F(x | a, b)
-= 1 - exp(-b/a (exp(ax) - 1))}
+The probability distribution function is
+\deqn{F(x | a, b) = 1 - \exp(-b/a (e^{ax} - 1))}{F(x | a, b) = 1 - exp(-b/a (exp(ax) - 1))}
 
 Thus if \eqn{a} is negative, letting \eqn{x} tend to infinity shows that
 there is a non-zero probability \eqn{1 - \exp(b/a)}{1 - exp(b/a)} of living
-forever.  On these occasions \code{qgompertz} and \code{rgompertz} will
+forever.  On these occasions \code{qgompertz()} and \code{rgompertz()} will
 return \code{Inf}.
 
-\strong{Note:} \verb{    } Some implementations of the Gompertz restrict \eqn{a} to be strictly
+\strong{Note:} Some implementations of the Gompertz restrict \eqn{a} to be strictly
 positive, which ensures that the probability of survival decreases to zero
 as \eqn{x} increases to infinity.  The more flexible implementation given
 here is consistent with \code{streg} in Stata.
@@ -87,16 +86,7 @@ Stata Press (2007) \emph{Stata Release 10 Manual: Survival Analysis
 and Epidemiological Tables}. Stata Press.
 }
 \seealso{
-\code{\link{dexp}}
-
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}},
-\code{\link[=rsum1]{rsum1()}}
+\link{distributions-overview}; \code{\link{dexp}}
 }
+\concept{demographics}
 \concept{distribution-function}
-\concept{distributions}

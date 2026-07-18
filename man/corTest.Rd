@@ -13,49 +13,30 @@ corTest(
 )
 }
 \arguments{
-\item{x}{Numeric matrix or data.frame.}
+\item{x}{a numeric matrix or data frame.}
 
-\item{method}{Character string specifying the correlation method.
-Passed to \code{\link{cor}}.
+\item{method}{a character string specifying the correlation method, one
+of \code{"pearson"} (default), \code{"spearman"} or \code{"kendall"}.
+Passed to \code{\link{cor}}.}
 
-One of:
+\item{use}{a character string giving a method for computing correlations
+in the presence of missing values, passed to \code{\link{cor}}. Default
+is \code{"pairwise.complete.obs"}.}
 
-\describe{
-\item{\code{\"pearson\"}}{Pearson product-moment correlation}
-\item{\code{\"spearman\"}}{Spearman rank correlation}
-\item{\code{\"kendall\"}}{Kendall rank correlation}
-}
+\item{triangle}{a character string specifying which part of the matrices
+should be returned, one of \code{"full"} (default), \code{"upper"} or
+\code{"lower"}. The other triangle is set to \code{NA}.}
 
-Default is \code{\"pearson\"}.}
-
-\item{use}{Character string passed to \code{\link{cor}}.
-Default is \code{\"pairwise.complete.obs\"}.}
-
-\item{triangle}{Character string specifying which part of the
-matrices should be returned.
-
-One of:
-
-\describe{
-\item{\code{\"full\"}}{Return the complete matrices}
-\item{\code{\"upper\"}}{Return only the upper triangle}
-\item{\code{\"lower\"}}{Return only the lower triangle}
-}
-
-Default is \code{\"full\"}.}
-
-\item{maxPValue}{Optional upper limit for displayed p-values.
-Correlations with p-values larger than \code{maxPValue}
-are replaced with \code{NA}.}
+\item{maxPValue}{optional upper limit for reported correlations.
+Correlations with p-values larger than \code{maxPValue} are replaced
+with \code{NA}.}
 }
 \value{
 A list with three matrices:
-
-\describe{
-\item{cor}{Correlation matrix}
-\item{pValue}{Matrix of p-values}
-\item{n}{Matrix of pairwise sample sizes}
-}
+\item{\code{cor}}{the correlation matrix.}
+\item{\code{pValue}}{the matrix of two-sided p-values (\code{NA} on the
+diagonal).}
+\item{\code{n}}{the matrix of sample sizes used per pair.}
 }
 \description{
 Compute correlation coefficients, p-values, and pairwise sample sizes
@@ -65,27 +46,28 @@ for all variable pairs in a numeric matrix.
 Pearson, Spearman, and Kendall correlations are supported via the
 \code{method} argument passed to \code{\link{cor}}.
 
-Compared to repeatedly calling \code{\link[stats]{cor.test}},
-this implementation is fully vectorised and substantially faster
-for matrices with many variables.
+Compared to repeatedly calling \code{\link{cor.test}}, this
+implementation is fully vectorised and substantially faster for matrices
+with many variables.
 
-Missing values are handled using pairwise complete observations.
+For Pearson and Spearman correlations, the two-sided p-value under the
+null hypothesis \eqn{\rho = 0} is computed from the t statistic
+\deqn{t = r \sqrt{\frac{n - 2}{1 - r^2}}}{t = r * sqrt((n-2)/(1-r^2))}
+with \eqn{n - 2} degrees of freedom. This is exact for the Pearson
+coefficient under normality and an approximation for the Spearman
+coefficient (as used by \code{cor.test} for larger samples). For the
+Kendall coefficient the normal approximation
+\deqn{z = \frac{3 \tau \sqrt{n (n-1)}}{\sqrt{2 (2 n + 5)}}}{z = 3*tau*sqrt(n(n-1)) / sqrt(2(2n+5))}
+is used; note that no correction for ties is applied here. Cells with
+fewer than 3 (Pearson/Spearman) resp. 2 (Kendall) pairwise observations
+get an \code{NA} p-value.
 
-For a Pearson correlation coefficient \eqn{r}
-with sample size \eqn{n},
-the two-sided p-value under the null hypothesis
-\eqn{\rho = 0} can be computed as:
-
-\deqn{
-p = 2 * F_{Beta}((1 - |r|)/2, 1/2, (n-2)/2)
-}
-
-where \eqn{F_{Beta}} is the Beta distribution CDF.
-
-This formulation avoids explicitly computing the t-statistic and is
-numerically stable for correlations close to ±1.
+If \code{use} requests pairwise handling of missing values (the
+default), the sample sizes in \code{n} are the pairwise counts;
+otherwise all pairs share the number of complete cases.
 }
 \examples{
+set.seed(1)
 X <- matrix(rnorm(200), 50, 4)
 
 res <- corTest(X)
@@ -99,9 +81,10 @@ res2 <- corTest(
 
 }
 \seealso{
+\code{\link{cor}}, \code{\link{cor.test}}
+
 Other test.correlation:
 \code{\link[=fisherZ]{fisherZ()}}
 }
 \concept{correlation}
-\concept{hypothesis-test}
 \concept{test.correlation}

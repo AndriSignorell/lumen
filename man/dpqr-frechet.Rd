@@ -6,7 +6,7 @@
 \alias{pfrechet}
 \alias{qfrechet}
 \alias{rfrechet}
-\title{The Frechet Distribution}
+\title{Fréchet Distribution}
 \usage{
 dfrechet(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
@@ -17,19 +17,19 @@ qfrechet(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
 rfrechet(n, loc = 0, scale = 1, shape = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{loc, scale, shape}{location, scale and shape parameters (can be given as
-vectors)}
+vectors).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dfrechet()} gives the density function, \code{pfrechet()}
@@ -68,18 +68,7 @@ pfrechet(qfrechet(p, 1, 2, 0.8), 1, 2, 0.8)
 
 }
 \seealso{
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}
 }
-\concept{Frechet}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{heavy tail}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

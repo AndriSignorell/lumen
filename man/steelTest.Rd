@@ -16,6 +16,7 @@ steelTest(x, ...)
   control = NULL,
   alternative = c("two.sided", "greater", "less"),
   output = c("list", "matrix"),
+  alpha = 0.05,
   ...
 )
 }
@@ -48,10 +49,13 @@ hypothesis. One of \code{"two.sided"}, \code{"greater"} or
 
 \item{output}{character string specifying the output format. One of
 \code{"list"} (default) or \code{"matrix"}.}
+
+\item{alpha}{the significance level used to compile the groups flagged
+as significantly different in the label attribute of the p-value
+matrix (default is \code{0.05})}
 }
 \value{
-An object of class \code{c("rankTest", "htest")} containing:
-\describe{
+An object of class \code{"rankTest"} containing:
 \item{res}{
 comparison results. For \code{output="list"} a matrix with
 columns \code{W}, \code{z} and \code{pval}; for
@@ -66,7 +70,6 @@ observed Steel test statistic.
 }
 \item{p.value}{
 asymptotic p-value for the global Steel test.
-}
 }
 
 Additional information is stored in attributes:
@@ -148,8 +151,7 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=sdcfTest]{sdcfTest()}}
 }
 \concept{nonparametric}
 \concept{post-hoc}

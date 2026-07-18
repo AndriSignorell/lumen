@@ -17,13 +17,13 @@
 #'  
 #' @name dpqr-gumbel
 #' @aliases dgumbel pgumbel qgumbel rgumbel
-#' @param x,q vector of quantiles
-#' @param p vector of probabilities
-#' @param n number of observations
-#' @param loc,scale location and scale parameters (can be given as vectors)
-#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param x,q vector of quantiles.
+#' @param p vector of probabilities.
+#' @param n number of observations.
+#' @param loc,scale location and scale parameters (can be given as vectors).
+#' @param log logical; if \code{TRUE}, the log density is returned.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
-#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
+#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return \code{dgumbel()} gives the density function, \code{pgumbel()} gives
 #' the distribution function, \code{qgumbel()} gives the quantile function,
 #' and \code{rgumbel()} generates random deviates.

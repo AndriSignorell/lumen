@@ -7,26 +7,26 @@
 andersonDarlingTest(x, null = "punif", ..., estimated = FALSE, nullname)
 }
 \arguments{
-\item{x}{numeric vector of data values}
+\item{x}{numeric vector of data values.}
 
 \item{null}{a function, or a character string giving the name of a
 function, to compute the cumulative distribution function for the null
-distribution}
+distribution.}
 
-\item{\dots}{additional arguments for the cumulative distribution function}
+\item{\dots}{additional arguments for the cumulative distribution function.}
 
 \item{estimated}{logical value indicating whether the parameters of the
 distribution were estimated using the data \code{x} (composite null
 hypothesis), or were fixed in advance (simple null hypothesis, the
-default)}
+default).}
 
 \item{nullname}{optional character string describing the null
 distribution. By default the name is derived from \code{null}, e.g.
 \code{"uniform distribution"} for the default \code{null="punif"}.}
 }
 \value{
-an object of class \code{"htest"} representing the result of the
-hypothesis test
+An object of class \code{"htest"} representing the result of the
+hypothesis test.
 }
 \description{
 A goodness-of-fit test assessing whether a sample follows a specified
@@ -97,7 +97,6 @@ Other test.normality:
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

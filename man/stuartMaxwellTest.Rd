@@ -59,11 +59,11 @@ have equal row and column marginals. (See:
 \url{https://www.john-uebersax.com/stat/mcnemar.htm#stuart})
 }
 \note{
-based on code from Jim Lemon
+Based on code from Jim Lemon, adapted to conform to package standards.
 }
 \examples{
 
-# Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#stuart
+# Source: https://john-uebersax.com/stat/mcnemar.htm#stuart
 hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 stuartMaxwellTest(hyp)
 
@@ -81,6 +81,7 @@ mc <- as.table(matrix(c(
 
 stuartMaxwellTest(mc)
 
+
 }
 \references{
 Stuart, A (1955) A test for homogeneity of the marginal
@@ -97,7 +98,6 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
 Stuart-Maxwell test
 
 \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
-\code{\link{mantelTrendTest}}, \code{\link{breslowDayTest}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
@@ -106,6 +106,7 @@ Other test.categorical:
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{categorical-test}

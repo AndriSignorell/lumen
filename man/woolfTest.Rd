@@ -17,8 +17,9 @@ of freedom of the approximate chi-squared distribution of the test
 statistic.} \item{p.value}{\eqn{p}-value for the test.} \item{method}{a
 character string indicating the type of test performed.} \item{data.name}{a
 character string giving the name(s) of the data.} \item{observed}{the
-observed counts.} \item{expected}{the expected counts under the null
-hypothesis.}
+per-stratum log odds ratios (not the raw table counts).}
+\item{expected}{the inverse-variance-weighted mean log odds ratio across
+strata.}
 }
 \description{
 A test for homogeneity of odds ratios across several 2×2 contingency
@@ -30,8 +31,9 @@ Test for homogeneity on \eqn{2 \times 2 \times k}{2 x 2 x k} tables over
 strata (i.e., whether the log odds ratios are the same in all strata).
 }
 \note{
-This function was previously published as \code{woolf_test()} in the
-\pkg{vcd} package and has been integrated here without logical changes.
+Based on code by David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
+previously published as \code{woolf_test()} in the
+\pkg{vcd} package, adapted to conform to package standards.
 }
 \examples{
 
@@ -43,7 +45,6 @@ migraine <- xtabs(freq ~ .,
             )
 
 woolfTest(migraine)
-
 
 }
 \references{
@@ -60,13 +61,10 @@ Other test.categorical:
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}
 }
-\author{
-David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly
-}
-\concept{binary-outcome}
 \concept{categorical-test}
 \concept{homogeneity}
-\concept{odds ratio}
+\concept{odds-ratio}
 \concept{test.categorical}

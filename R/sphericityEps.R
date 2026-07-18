@@ -5,16 +5,16 @@
 #' for assessing and correcting for violations of the sphericity assumption 
 #' in repeated measures ANOVA.
 #'  
-#' @param S pxp covariance matrix
-#' @param p dimension of observation vectors
-#' @param nGroups number of groups
-#' @param n number of subjects
+#' @param S pxp covariance matrix.
+#' @param p dimension of observation vectors.
+#' @param nGroups number of groups.
+#' @param n number of subjects.
 #' @param method a character string specifying which epsilon to return,
 #'   must be one of \code{"both"} (default), \code{"gg"} for 
 #'   Greenhouse-Geisser, or \code{"hf"} for Huynh-Feldt.
 #'    
-#' @return a numeric value
-
+#' @return A numeric value.
+#'
 #' @note
 #' Based on code by Hans Rudolf Roth, adapted to conform to package standards.
 #' 
@@ -29,15 +29,17 @@
 #' 
 #' @examples
 #' 
-#' ## find!
+#' # a 4x4 covariance matrix among 4 repeated measurements, 20 subjects,
+#' # one between-subject group
+#' set.seed(1)
+#' A <- matrix(rnorm(16), 4, 4)
+#' S <- A %*% t(A) + diag(4)
 #' 
+#' sphericityEps(S, p = 4, nGroups = 1, n = 20)
+#' sphericityEps(S, p = 4, nGroups = 1, n = 20, method = "gg")
 #' 
-
-
-
-#' @family anova  
+#' @family anova
 #' @concept variance-analysis
-#'
 #'
 #' @export
 sphericityEps <- function(S, p, nGroups, n, method = c("both", "gg", "hf")) {

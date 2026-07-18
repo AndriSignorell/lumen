@@ -72,11 +72,16 @@ Required for \code{madDiffCI} and \code{madRatioCI}.}
 }
 \value{
 A named numeric vector with three elements:
-\item{est}{Point estimate: \code{mad(x)} for \code{madCI};
-\eqn{\mathrm{MAD}(x) - \mathrm{MAD}(y)} for \code{madDiffCI};
-\eqn{(\mathrm{MAD}(x)/\mathrm{MAD}(y))^2} for \code{madRatioCI}.}
-\item{lci}{Lower confidence bound.}
-\item{uci}{Upper confidence bound.}
+\itemize{
+\item \code{est}: point estimate:\cr
+\verb{  } \eqn{\mathrm{mad}(x)} for \code{madCI}\cr
+\verb{  } \eqn{\mathrm{mad}(x) - \mathrm{mad}(y)}
+for \code{madDiffCI} \cr
+\verb{  } \eqn{(\mathrm{mad}(x)/\mathrm{mad}(y))^2}
+for \code{madRatioCI}
+\item \code{lci}: lower confidence bound.
+\item \code{uci}: upper confidence bound.
+}
 }
 \description{
 Confidence intervals for the median absolute deviation (MAD) of a single

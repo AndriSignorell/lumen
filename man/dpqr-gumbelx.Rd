@@ -26,25 +26,25 @@ qgumbelx(
 rgumbelx(n, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{loc1, scale1, loc2, scale2}{location and scale parameters of the two
 Gumbel distributions. The second location parameter must be greater than or
 equal to the first location parameter.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, \verb{P[X > x]}}
+\verb{P[X <= x]}, otherwise, \verb{P[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
 \item{interval}{a length two vector containing the end-points of the
-interval to be searched for the quantiles, passed to the uniroot function}
+interval to be searched for the quantiles, passed to the uniroot function.}
 
-\item{\dots}{other arguments passed to uniroot}
+\item{\dots}{other arguments passed to uniroot.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dgumbelx()} gives the density function, \code{pgumbelx()}
@@ -79,19 +79,8 @@ pgumbelx(qgumbelx(p, interval = c(0,10), 0, 0.5, 1, 2), 0, 0.5, 1, 2)
 
 }
 \seealso{
-\code{\link[evd]{fgev}}, \code{\link{uniroot}}
-
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}; \code{\link{uniroot}}, which
+\code{qgumbelx()} uses for root finding
 }
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extended Gumbel}
-\concept{extreme value theory}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

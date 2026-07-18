@@ -1,5 +1,4 @@
 
-
 #' Confidence Intervals for Binomial Proportions
 #' 
 #' \code{binomCI()} computes confidence intervals for binomial proportions
@@ -95,7 +94,7 @@
 #' \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 #' within the valid parameter space.
 #'
-#' \strong{Which interval should be used?}
+#' \strong{Which interval should be used?}\cr
 #' The Wald interval is known to have poor coverage properties,
 #' particularly for small sample sizes or proportions near 0 or 1.
 #' In contrast, the Clopper-Pearson interval is conservative and
@@ -134,17 +133,25 @@
 #' the method-specific internally used alternative point estimate
 #' (\code{FALSE}).
 #' 
-#' @return A named vector with 3 elements \code{est, lci, uci}
-#' for estimate, lower and upper confidence interval.
-#' 
-#' For more than one argument each, a 3-column matrix is returned.
+#' @return If recycling yields a single case, a named numeric vector with
+#' elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate of the binomial proportion; \code{x/n}
+#'     if \code{stdEst = TRUE}, otherwise the method-specific estimate.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
+#' }
+#'
+#' If recycling yields multiple cases, a data frame with one row per case is
+#' returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+#' the remaining columns contain the recycled argument values.
 #' 
 #' @section Contributors:
 #' The function is based on earlier work by Matthias Kohl in package \pkg{SLmisc},
 #' whose original implementation provided the methodological foundation
-#' The implementations of the Pratt, Mid-p, and Blaker methods are
+#' The implementations of the Pratt, Mid-p, Blaker and Khouadji methods are
 #' based on contributions by Rand R. Wilcox, Michael Hoehle,
-#' and Ralph Scherer, respectively.
+#' Ralph Scherer, and Carl Pearson, respectively.
 #' 
 #' The current implementation was written and is maintained by
 #' Andri Signorell. 

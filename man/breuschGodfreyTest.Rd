@@ -17,65 +17,72 @@ breuschGodfreyTest(
 \item{formula}{a symbolic description for the model to be tested (or a
 fitted \code{"lm"} object).}
 
-\item{data}{an optional data frame containing the variables in the model. By
-default the variables are taken from the environment which
+\item{data}{an optional data frame containing the variables in the
+model. By default the variables are taken from the environment which
 \code{breuschGodfreyTest} is called from.}
 
-\item{order}{integer. maximal order of serial correlation to be tested.}
+\item{order}{integer, the maximal order of serial correlation to be
+tested.}
 
-\item{orderBy}{Either a vector \code{z} or a formula with a single
+\item{orderBy}{either a vector \code{z} or a formula with a single
 explanatory variable like \code{~ z}. The observations in the model are
 ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 observations are assumed to be ordered (e.g., a time series).}
 
-\item{type}{the type of test statistic to be returned. Either \code{"chisq"}
-for the Chi-squared test statistic or \code{"f"} for the F test statistic.}
+\item{type}{the type of test statistic to be returned, either
+\code{"chisq"} (default) for the chi-squared test statistic or
+\code{"f"} for the F test statistic. Case-insensitive.}
 
 \item{fill}{starting values for the lagged residuals in the auxiliary
 regression. By default \code{0} but can also be set to \code{NA}.}
 }
 \value{
 A list with class \code{"breuschGodfreyTest"} inheriting from
-\code{"htest"} containing the following components: \item{statistic}{the
-value of the test statistic.} \item{p.value}{the p-value of the test.}
-\item{parameter}{degrees of freedom.} \item{method}{a character string
-indicating what type of test was performed.} \item{data.name}{a character
-string giving the name(s) of the data.} \item{coefficients}{coefficient
-estimates from the auxiliary regression.} \item{vcov}{corresponding
-covariance matrix estimate.}
+\code{"htest"} containing the following components:
+\item{\code{statistic}}{the value of the test statistic.}
+\item{\code{parameter}}{the degrees of freedom.}
+\item{\code{p.value}}{the p-value of the test.}
+\item{\code{method}}{a character string indicating what type of test was
+performed.}
+\item{\code{data.name}}{a character string giving the name(s) of the
+data.}
+\item{\code{coefficients}}{coefficient estimates from the auxiliary
+regression.}
+\item{\code{vcov}}{the corresponding covariance matrix estimate.}
 }
 \description{
 A test for autocorrelation in the residuals of regression models,
-generalizing the Durbin-Watson test to handle higher-order autocorrelation
-and models with lagged dependent variables.
+generalizing the Durbin-Watson test to handle higher-order
+autocorrelation and models with lagged dependent variables.
 }
 \details{
-\code{breuschGodfreyTest} performs the Breusch-Godfrey test for higher-order
-serial correlation.
+\code{breuschGodfreyTest} performs the Breusch-Godfrey test for
+higher-order serial correlation.
 
-Under \eqn{H_0} the test statistic is asymptotically Chi-squared with
-degrees of freedom as given in \code{parameter}.  If \code{type} is set to
-\code{"F"} the function returns a finite sample version of the test
+Under \eqn{H_0} the test statistic is asymptotically chi-squared with
+degrees of freedom as given in \code{parameter}. If \code{type} is set
+to \code{"f"} the function returns a finite sample version of the test
 statistic, employing an \eqn{F} distribution with degrees of freedom as
 given in \code{parameter}.
 
-By default, the starting values for the lagged residuals in the auxiliary
-regression are chosen to be 0 (as in Godfrey 1978) but could also be set to
-\code{NA} to omit them.
+By default, the starting values for the lagged residuals in the
+auxiliary regression are chosen to be 0 (as in Godfrey 1978) but could
+also be set to \code{NA} to omit them.
 
 \code{breuschGodfreyTest} also returns the coefficients and estimated
 covariance matrix from the auxiliary regression that includes the lagged
-residuals.  Hence, \code{CoefTest} (package: RegClassTools) can be used to
-inspect the results. (Note, however, that standard theory does not always
-apply to the standard errors and t-statistics in this regression.)
+residuals, accessible via \code{coef()} and \code{vcov()} on the result.
+(Note, however, that standard theory does not always apply to the
+standard errors and t-statistics in this regression.)
 }
 \note{
-Based on code by David Mitchell, and Achim Zeileis. Previously published
-as \code{bgtest} in the \pkg{lmtest} package and integrated here
-without logical changes.
+Based on code by David Mitchell and Achim Zeileis previously published
+as \code{bgtest()} in the \pkg{lmtest} package, adapted to conform to
+package standards.
 }
 \examples{
 ## Generate a stationary and an AR(1) series
+set.seed(1)
 x <- rep(c(1, -1), 50)
 
 y1 <- 1 + x + rnorm(100)
@@ -91,16 +98,19 @@ durbinWatsonTest(y1 ~ x)
 
 y2 <- stats::filter(y1, 0.5, method = "recursive")
 breuschGodfreyTest(y2 ~ x)
+
 }
 \references{
-Breusch, T. S. (1979). Testing for autocorrelation in dynamic linear
-models. \emph{Australian Economic Papers}, \emph{17}(31), 334–355.
+Breusch, T. S. (1978) Testing for autocorrelation in dynamic linear
+models. \emph{Australian Economic Papers}, 17, 334-355.
 
-Godfrey, L. G. (1978). Testing against general autoregressive and moving
+Godfrey, L. G. (1978) Testing against general autoregressive and moving
 average error models when the regressors include lagged dependent
-variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
+variables. \emph{Econometrica}, 46, 1293-1301.
 }
 \seealso{
+\code{\link{durbinWatsonTest}}
+
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},

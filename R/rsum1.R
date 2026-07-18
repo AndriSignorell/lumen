@@ -9,8 +9,8 @@
 #' Optionally, the result can be rounded to a specified number of digits
 #' while preserving the total sum of 1.
 #'
-#' @param n Integer. Number of components (must be >= 1).
-#' @param digits Optional integer. If provided, the result is rounded to
+#' @param n integer. Number of components (must be >= 1).
+#' @param digits optional integer. If provided, the result is rounded to
 #'   the specified number of decimal places. A correction is applied to
 #'   ensure the sum remains exactly 1.
 #'

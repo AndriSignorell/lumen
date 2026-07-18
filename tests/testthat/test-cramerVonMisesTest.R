@@ -53,3 +53,16 @@ test_that("cramerVonMisesTest: method string correct", {
   res <- cramerVonMisesTest(rnorm(20))
   expect_equal(res$method, "Cramer-von Mises normality test")
 })
+
+
+test_that("cramerVonMisesTest: identical to nortest::cvm.test", {
+  skip_if_not_installed("nortest")
+
+  set.seed(1)
+  for (dd in list(rnorm(100, 5, 3), runif(80), rt(60, 3))) {
+    a <- cramerVonMisesTest(dd)
+    b <- nortest::cvm.test(dd)
+    expect_equal(unname(a$statistic), unname(b$statistic), tolerance = 1e-12)
+    expect_equal(a$p.value, b$p.value, tolerance = 1e-12)
+  }
+})

@@ -8,50 +8,41 @@
 \alias{rextreme}
 \title{Distributions of Maxima and Minima}
 \usage{
-dextreme(
-  x,
-  densfun,
-  distnfun,
-  ...,
-  distn,
-  mlen = 1,
-  largest = TRUE,
-  log = FALSE
-)
+dextreme(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
 
-pextreme(q, distnfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+pextreme(q, pFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
 
-qextreme(p, quantfun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+qextreme(p, qFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
 
-rextreme(n, quantfun, ..., distn, mlen = 1, largest = TRUE)
+rextreme(n, qFun, ..., distn, mlen = 1, largest = TRUE)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
-\item{densfun, distnfun, quantfun}{density, distribution and quantile function
+\item{dFun, pFun, qFun}{density, distribution and quantile function
 of the specified distribution. The density function must have a \code{log}
 argument (a simple wrapper can always be constructed to achieve this).}
 
-\item{\dots}{parameters of the specified distribution}
+\item{\dots}{parameters of the specified distribution.}
 
 \item{distn}{a character string, optionally given as an alternative to
-\code{densfun}, \code{distnfun} and \code{quantfun} such that the density,
+\code{dFun}, \code{pFun} and \code{qFun} such that the density,
 distribution and quantile functions are formed upon the addition of the
-prefixes \code{d}, \code{p} and \code{q} respectively}
+prefixes \code{d}, \code{p} and \code{q} respectively.}
 
-\item{mlen}{the number of independent variables}
+\item{mlen}{the number of independent variables.}
 
 \item{largest}{logical; if \code{TRUE} (default) use maxima, otherwise
-minima}
+minima.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default) probabilities are
-\verb{P[X <= x]}, otherwise P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dextreme()} gives the density function, \code{pextreme()}
@@ -82,6 +73,7 @@ dextreme(2:4, distn = "exp", mlen = 2, largest = FALSE)
 pextreme(2:4, distn = "exp", rate = 1.2, mlen = 2)
 qextreme(seq(0.9, 0.6, -0.1), distn = "exp", rate = 1.2, mlen = 2)
 rextreme(5, qgamma, shape = 1, mlen = 10)
+
 p <- (1:9)/10
 pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)
 ## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
@@ -89,18 +81,7 @@ pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)
 
 }
 \seealso{
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}
 }
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{maxima}
-\concept{minima}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

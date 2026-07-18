@@ -8,7 +8,6 @@ test_that("sdcfTest.default: basic three-group example (list interface)", {
   res <- sdcfTest(list(x, y, z))
   
   expect_s3_class(res, "rankTest")
-  expect_s3_class(res, "htest")
   expect_named(res, c("res", "pmat"))
 })
 

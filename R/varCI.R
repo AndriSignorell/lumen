@@ -23,12 +23,13 @@
 #' @param \dots further arguments, can be used to provide further arguments to
 #' the boot function.
 #' 
-#' @return Named numeric vector with:
-#' \itemize{
-#'   \item \code{var}: sample variance
-#'   \item \code{lci}: lower confidence limit
-#'   \item \code{uci}: upper confidence limit
+#' @return A named numeric vector with elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
 #' }
+#' 
 #' @seealso \code{\link{meanCI}}, \code{\link{medianCI}},
 #' \code{\link{varTest}}, \code{\link[DescToolsX]{varX}} 
 #' 
@@ -122,7 +123,7 @@ varCI <- function(x,
   df <- length(x) - 1
   v  <- var(x)
   
-  c(var = v,
+  c(est = v,
     lci = df * v / qchisq( (1 - conf.level) / 2, df, lower.tail = FALSE),
     uci = df * v / qchisq((1 - conf.level) / 2, df)
   )
@@ -152,7 +153,7 @@ varCI <- function(x,
   lci <- exp(log(cc * v) - z * se)
   uci <- exp(log(cc * v) + z * se)
   
-  c(var = v,
+  c(est = v,
     lci = lci,
     uci = uci
   )
@@ -182,7 +183,7 @@ varCI <- function(x,
   if (args$type == "norm") {
     
     c(
-      var = boot.fun$t0,
+      est = boot.fun$t0,
       lci = ci[[4]][2],
       uci = ci[[4]][3]
     )
@@ -190,7 +191,7 @@ varCI <- function(x,
   } else {
     
     c(
-      var = boot.fun$t0,
+      est = boot.fun$t0,
       lci = ci[[4]][4],
       uci = ci[[4]][5]
     )

@@ -8,8 +8,13 @@
 #' 
 #' @param x a matrix with 3 columns, containing the estimate in the first column 
 #' followed by the lower and the upper confidence interval .
-#' @return a vector with the sum and the lower, upper confidence 
-#' bound of the confidence interval
+#' 
+#' @return A named numeric vector with elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate, \code{sum(x)}.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
+#' }
 #' 
 #' @references \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
 #' 
@@ -35,6 +40,10 @@ sumCI <- function(x){
   if (!is.matrix(x) || ncol(x) != 3) {
     stop("`x` must be a matrix with 3 columns: est, lci, uci.", call. = FALSE)
   }
+  if (any(x[, 3] < x[, 2], na.rm = TRUE)) {
+    warning("some rows have uci < lci; check that columns are in the ",
+            "expected order (est, lci, uci)", call. = FALSE)
+  }
   
   # --- extract ---
   est <- x[, 1]
@@ -49,7 +58,7 @@ sumCI <- function(x){
   est_sum <- sum(est)
   
   c(
-    sum = est_sum,
+    est = est_sum,
     lci = est_sum - hw_sum,
     uci = est_sum + hw_sum
   )

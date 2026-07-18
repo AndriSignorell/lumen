@@ -181,7 +181,7 @@ test_that("non-2-level table throws error", {
   
   expect_error(
     cochranArmitageTest(tab),
-    "rx2"
+    "kx2"
   )
 })
 
@@ -205,3 +205,19 @@ test_that("print.htest works", {
   expect_output(print(res), "Cochran-Armitage")
 })
 
+
+
+test_that("NA and negative counts throw error", {
+
+  tab <- matrix(c(10, 9, NA, 7, 0, 1, 0, 3), byrow = TRUE, nrow = 2)
+  expect_error(cochranArmitageTest(tab), "nonnegative")
+
+  tab2 <- matrix(c(10, 9, -1, 7, 0, 1, 0, 3), byrow = TRUE, nrow = 2)
+  expect_error(cochranArmitageTest(tab2), "nonnegative")
+})
+
+
+test_that("higher-dimensional arrays throw error", {
+
+  expect_error(cochranArmitageTest(array(1, dim = c(2, 2, 2))), "kx2")
+})

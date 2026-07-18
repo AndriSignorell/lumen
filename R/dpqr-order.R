@@ -10,24 +10,24 @@
 #' @name dpqr-order
 #' @aliases dorder porder rorder
 #' 
-#' @param x,q vector of quantiles
-#' @param n number of observations
+#' @param x,q vector of quantiles.
+#' @param n number of observations.
 #' @param dFun,pFun,qFun density, distribution and quantile function
 #' of the specified distribution. The density function must have a \code{log}
 #' argument (a simple wrapper can always be constructed to achieve this).
-#' @param \dots parameters of the specified distribution
+#' @param \dots parameters of the specified distribution.
 #' @param distn a character string, optionally specified as an alternative to
 #' \code{dFun}, \code{pFun} and \code{qFun} such that the density,
 #' distribution and quantile functions are formed upon the addition of the
-#' prefixes \code{d}, \code{p} and \code{q} respectively
-#' @param mlen the number of independent variables
+#' prefixes \code{d}, \code{p} and \code{q} respectively.
+#' @param mlen the number of independent variables.
 #' @param j the order statistic, taken as the \code{j}th largest (default) or
-#' smallest of \code{mlen}, according to the value of \code{largest}
+#' smallest of \code{mlen}, according to the value of \code{largest}.
 #' @param largest logical; if \code{TRUE} (default) use the \code{j}th largest
-#' order statistic, otherwise use the \code{j}th smallest
-#' @param log logical; if \code{TRUE}, the log density is returned
+#' order statistic, otherwise use the \code{j}th smallest.
+#' @param log logical; if \code{TRUE}, the log density is returned.
 #' @param lower.tail logical; if \code{TRUE} (default) probabilities are 
-#' \verb{P[X <= x]}, otherwise P\verb{[X > x]}
+#' \verb{P[X <= x]}, otherwise P\verb{[X > x]}.
 #' @return \code{dorder()} gives the density function and \code{porder()}
 #' gives the distribution function of a selected order statistic from a
 #' sample of size \code{mlen}, from a specified distribution.

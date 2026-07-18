@@ -24,14 +24,14 @@
 #' @name dpqr-rweibull
 #' @aliases drweibull prweibull qrweibull rrweibull dnweibull pnweibull qnweibull rnweibull
 #' 
-#' @param x,q vector of quantiles
-#' @param p vector of probabilities
-#' @param n number of observations
+#' @param x,q vector of quantiles.
+#' @param p vector of probabilities.
+#' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
-#' vectors)
-#' @param log logical; if \code{TRUE}, the log density is returned
+#' vectors).
+#' @param log logical; if \code{TRUE}, the log density is returned.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
-#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
+#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return \code{drweibull()} and \code{dnweibull()} give the density
 #' function, \code{prweibull()} and \code{pnweibull()} give the distribution
 #' function, \code{qrweibull()} and \code{qnweibull()} give the quantile

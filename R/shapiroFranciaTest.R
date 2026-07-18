@@ -39,28 +39,22 @@
 #' 
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #' 
-#' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [lyra::plotQQ] for producing extended normal
-#' quantile-quantile plots.
-#' 
+#' @seealso \code{\link{shapiro.test}} for performing the Shapiro-Wilk test
+#' for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
+#'
 #' @examples
 #' 
 #' shapiroFranciaTest(rnorm(100, mean = 5, sd = 3))
 #' shapiroFranciaTest(runif(100, min = 2, max = 4))
 #'
-#'
-
-
-
-#' @family test.normality  
-#' @concept normality-test  
+#' @family test.normality
+#' @concept normality-test
 #' @concept goodness-of-fit
 #'
-#'
-#'@export 
+#' @export
 shapiroFranciaTest <- function (x) {
   
-    DNAME <- deparse(substitute(x))
+    DNAME <- deparse1(substitute(x))
     x <- sort(x[complete.cases(x)])
     n <- length(x)
     if ((n < 5 || n > 5000)) 
@@ -77,5 +71,5 @@ shapiroFranciaTest <- function (x) {
                  method = "Shapiro-Francia normality test", 
         data.name = DNAME)
     class(RVAL) <- "htest"
-    return(RVAL)
+    RVAL
 }

@@ -34,11 +34,11 @@ the ... arguments.  See \code{\link[boot]{boot.ci}}.}
 the boot function.}
 }
 \value{
-Named numeric vector with:
-\itemize{
-\item \code{var}: sample variance
-\item \code{lci}: lower confidence limit
-\item \code{uci}: upper confidence limit
+A named numeric vector with elements:
+\describe{
+\item{\code{est}}{point estimate.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
 }
 }
 \description{

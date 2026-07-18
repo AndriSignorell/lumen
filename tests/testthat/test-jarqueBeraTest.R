@@ -84,18 +84,25 @@ test_that("method string does not contain 'Robust' when robust = FALSE", {
 })
 
 test_that("method string reflects p-value method", {
-  expect_match(jarqueBeraTest(x_norm, method = "chisq")$method, "Chi-square")
-  expect_match(jarqueBeraTest(x_norm, method = "mc",    R = 99)$method,  "Monte Carlo")
+  # parentheses are regex metacharacters and must be escaped to match
+  # them literally
+  expect_match(jarqueBeraTest(x_norm, method = "chisq", robust=FALSE)$method, "Jarque-Bera test \\(chi-squared approximation\\)")
+  expect_match(jarqueBeraTest(x_norm, method = "chisq", robust=TRUE)$method, "Robust Jarque-Bera test \\(chi-squared approximation\\)")
+  expect_match(jarqueBeraTest(x_norm, method = "mc",    R = 99)$method,  "Jarque-Bera test \\(Monte Carlo\\)")
 })
 
 # --- NA handling --------------------------------------------------------------
 
-test_that("na.rm = TRUE removes NAs and runs", {
-  expect_no_error(jarqueBeraTest(x_na, na.rm = TRUE))
-})
+test_that("NA values are silently removed", {
+  # harmonized with the other normality tests (andersonDarlingTest,
+  # cramerVonMisesTest, lillieTest): NAs are always dropped silently,
+  # there is no na.rm argument
+  expect_no_error(jarqueBeraTest(x_na))
 
-test_that("na.rm = FALSE stops on NA", {
-  expect_error(jarqueBeraTest(x_na, na.rm = FALSE), "missing values")
+  out_na  <- jarqueBeraTest(x_na)
+  out_ref <- jarqueBeraTest(x_na[!is.na(x_na)])
+  expect_equal(out_na$statistic, out_ref$statistic)
+  expect_equal(out_na$p.value,   out_ref$p.value)
 })
 
 # --- Input validation ---------------------------------------------------------

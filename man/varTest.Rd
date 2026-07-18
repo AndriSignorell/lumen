@@ -20,20 +20,20 @@ varTest(x, ...)
 \method{varTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 }
 \arguments{
-\item{x}{A numeric vector of data values, or a formula.}
+\item{x}{a numeric vector of data values, or a formula.}
 
-\item{...}{Further arguments passed to methods.}
+\item{...}{further arguments passed to methods.}
 
-\item{y}{An optional second numeric vector. If provided, a two-sample variance
+\item{y}{an optional second numeric vector. If provided, a two-sample variance
 test is performed.}
 
-\item{sigma2_0}{A numeric value specifying the null hypothesis variance for
+\item{sigma2_0}{a numeric value specifying the null hypothesis variance for
 the one-sample test. Required if \code{y} is \code{NULL}.}
 
-\item{alternative}{Character string specifying the alternative hypothesis.
+\item{alternative}{character string specifying the alternative hypothesis.
 Must be one of \code{"two.sided"}, \code{"less"}, or \code{"greater"}.}
 
-\item{type}{Character string specifying the test type:
+\item{type}{character string specifying the test type:
 \itemize{
 \item \code{"classic"}: uses the conventional two-sided p-value
 \eqn{2 \cdot \min(P(T \le t), P(T \ge t))}.
@@ -42,32 +42,32 @@ i.e. the probability of observing values with density less than or equal
 to the observed density under the null distribution.
 }}
 
-\item{formula}{A formula of the form \code{lhs ~ rhs}, where \code{lhs}
+\item{formula}{a formula of the form \code{lhs ~ rhs}, where \code{lhs}
 gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
-\item{data}{An optional matrix or data frame (or similar; see
+\item{data}{an optional matrix or data frame (or similar; see
 \code{\link[stats]{model.frame}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{An optional vector specifying a subset of observations
+\item{subset}{an optional vector specifying a subset of observations
 to be used in the analysis.}
 
-\item{na.action}{A function which indicates what should happen when
+\item{na.action}{a function which indicates what should happen when
 the data contain \code{NA}s. Defaults to
 \code{getOption("na.action")}.}
 }
 \value{
 An object of class \code{"htest"} with components:
-\item{statistic}{The test statistic.}
-\item{parameter}{Degrees of freedom.}
-\item{p.value}{The p-value of the test.}
-\item{estimate}{Sample variance(s).}
-\item{null.value}{The null hypothesis value (one-sample only).}
-\item{alternative}{The alternative hypothesis.}
-\item{method}{A character string indicating the test performed.}
-\item{data.name}{Description of the data.}
+\item{statistic}{the test statistic.}
+\item{parameter}{degrees of freedom.}
+\item{p.value}{the p-value of the test.}
+\item{estimate}{sample variance(s).}
+\item{null.value}{the null hypothesis value (one-sample only).}
+\item{alternative}{the alternative hypothesis.}
+\item{method}{a character string indicating the test performed.}
+\item{data.name}{description of the data.}
 }
 \description{
 Performs a one-sample or two-sample test for variance, analogous to

@@ -29,8 +29,12 @@ of \code{"wald"}, \code{"score"}, \code{"exact"} or \code{"byar"}.  Method
 can be abbreviated. See details. Defaults to \code{"score"}.}
 }
 \value{
-A vector with 3 elements for estimate, lower confidence intervall
-and upper for the upper one.
+A named numeric vector with elements:
+\describe{
+\item{\code{est}}{point estimate.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
 }
 \description{
 Computes the confidence intervals of a poisson distributed variable's
@@ -99,6 +103,4 @@ Other ci.proportion:
 \code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{ci.proportion}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
-\concept{distributions}
+\concept{confidence-interval}

@@ -19,8 +19,9 @@
 #' statistic.} \item{p.value}{\eqn{p}-value for the test.} \item{method}{a
 #' character string indicating the type of test performed.} \item{data.name}{a
 #' character string giving the name(s) of the data.} \item{observed}{the
-#' observed counts.} \item{expected}{the expected counts under the null
-#' hypothesis.}
+#' per-stratum log odds ratios (not the raw table counts).}
+#' \item{expected}{the inverse-variance-weighted mean log odds ratio across
+#' strata.}
 #' 
 #' @note Based on code by David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly 
 #' previously published as \code{woolf_test()} in the
@@ -30,8 +31,6 @@
 #' 
 #' @references Woolf, B. 1955: On estimating the relation between blood group
 #' and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
-#' 
-#' @concept odds ratio
 #' 
 #' @examples
 #' 
@@ -43,25 +42,17 @@
 #'             )
 #' 
 #' woolfTest(migraine)
-#' 
-#' 
-# the VCD package (available via CRAN) has a function called woolf_test()
-
-
-#' @rdname woolfTest
-
-
-
-#' @family test.categorical  
-#' @concept categorical-test  
-#' @concept homogeneity  
-#' @concept binary-outcome
 #'
+#' @rdname woolfTest
+#' @family test.categorical
+#' @concept categorical-test
+#' @concept homogeneity
+#' @concept odds-ratio
 #'
 #' @export
 woolfTest <- function(x) {
   
-  DNAME <- deparse(substitute(x))
+  DNAME <- deparse1(substitute(x))
   
   if (!is.array(x) || length(dim(x)) != 3L || any(dim(x)[1:2] != 2L))
     stop("'x' must be a 2x2xK array")

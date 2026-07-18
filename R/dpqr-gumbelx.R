@@ -14,18 +14,18 @@
 #' 
 #' @name dpqr-gumbelx
 #' @aliases dgumbelx pgumbelx qgumbelx rgumbelx
-#' @param x,q vector of quantiles
-#' @param p vector of probabilities
-#' @param n number of observations
+#' @param x,q vector of quantiles.
+#' @param p vector of probabilities.
+#' @param n number of observations.
 #' @param interval a length two vector containing the end-points of the
-#' interval to be searched for the quantiles, passed to the uniroot function
+#' interval to be searched for the quantiles, passed to the uniroot function.
 #' @param loc1,scale1,loc2,scale2 location and scale parameters of the two
 #' Gumbel distributions. The second location parameter must be greater than or
 #' equal to the first location parameter.
-#' @param log logical; if \code{TRUE}, the log density is returned
+#' @param log logical; if \code{TRUE}, the log density is returned.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
-#' \verb{P[X <= x]}, otherwise, \verb{P[X > x]}
-#' @param \dots other arguments passed to uniroot
+#' \verb{P[X <= x]}, otherwise, \verb{P[X > x]}.
+#' @param \dots other arguments passed to uniroot.
 #' @return \code{dgumbelx()} gives the density function, \code{pgumbelx()}
 #' gives the distribution function, \code{qgumbelx()} gives the quantile
 #' function, and \code{rgumbelx()} generates random deviates.

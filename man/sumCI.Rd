@@ -11,8 +11,12 @@ sumCI(x)
 followed by the lower and the upper confidence interval .}
 }
 \value{
-a vector with the sum and the lower, upper confidence
-bound of the confidence interval
+A named numeric vector with elements:
+\describe{
+\item{\code{est}}{point estimate, \code{sum(x)}.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
 }
 \description{
 Starting with a response variable that obtains different
@@ -35,6 +39,7 @@ sumCI(x)
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=medianCI]{medianCI()}},
 \code{\link[=quantileCI]{quantileCI()}}

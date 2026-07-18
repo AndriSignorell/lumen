@@ -88,3 +88,38 @@ test_that("corTest: NA values handled pairwise", {
 })
 
 
+
+
+test_that("corTest: kendall p-values match cor.test normal approximation", {
+  # regression test: kendall p-values were formerly computed from the
+  # (wrong) t formula; now the z approximation is used
+  set.seed(2)
+  K <- matrix(rnorm(120), 40, 3)   # tie-free
+
+  res <- corTest(K, method = "kendall")
+
+  for (i in 1:2) for (j in (i + 1):3) {
+    ct <- cor.test(K[, i], K[, j], method = "kendall", exact = FALSE)
+    expect_equal(res$pValue[i, j], ct$p.value, tolerance = 1e-8)
+  }
+})
+
+
+test_that("corTest: n respects use = 'complete.obs'", {
+  Xna <- X
+  Xna[1:5, 1] <- NA
+
+  res <- corTest(Xna, use = "complete.obs")
+
+  expect_true(all(res$n == sum(complete.cases(Xna))))
+})
+
+
+test_that("corTest: p-value is NA for insufficient pairwise observations", {
+  Xs <- matrix(rnorm(20), 10, 2)
+  Xs[3:10, 1] <- NA    # only 2 complete pairs
+
+  res <- corTest(Xs)
+
+  expect_true(is.na(res$pValue[1, 2]))
+})

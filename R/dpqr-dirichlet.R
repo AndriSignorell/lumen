@@ -9,12 +9,12 @@
 #' @name dpqr-dirichlet
 #' @aliases ddirichlet pdirichlet qdirichlet rdirichlet
 #' 
-#' @param x numeric vector or matrix (rows sum to 1)
-#' @param q numeric vector of quantiles
-#' @param n number of samples
-#' @param concentration numeric vector of concentration parameters (> 0)
-#' @param R number of Monte Carlo simulations used to approximate the CDF
-#' @param log logical; return log-density if TRUE
+#' @param x numeric vector or matrix (rows sum to 1).
+#' @param q numeric vector of quantiles.
+#' @param n number of samples.
+#' @param concentration numeric vector of concentration parameters (> 0).
+#' @param R number of Monte Carlo simulations used to approximate the CDF.
+#' @param log logical; return log-density if TRUE.
 #'
 #' @return \code{ddirichlet()} gives a numeric vector of densities (one per
 #' row of \code{x}), \code{pdirichlet()} gives an approximate probability,

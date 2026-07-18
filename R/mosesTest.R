@@ -149,12 +149,9 @@
 #' mosesTest(score ~ group, data = df)
 #'
 #' @rdname mosesTest
-
-
-#' @family test.variance  
-#' @concept variance-test  
+#' @family test.variance
+#' @concept variance-test
 #' @concept nonparametric
-#'
 #'
 #' @export
 mosesTest <- function(x, ...)
@@ -188,7 +185,7 @@ mosesTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(bedrock::resolveFormula, args)
+  d <- do.call(resolveFormula, args)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
@@ -218,9 +215,9 @@ mosesTest.default <- function(
 ) {
   
   DNAME <- paste(
-    deparse(substitute(x)),
+    deparse1(substitute(x)),
     "and",
-    deparse(substitute(y))
+    deparse1(substitute(y))
   )
   
   x <- x[is.finite(x)]
@@ -283,9 +280,15 @@ mosesTest.default <- function(
   }
   
   ## --- pooled ranks -----------------------------------------------------
-  
+  # Ascending ranks (smallest value = rank 1). The span (range of the
+  # control group's ranks) is direction-invariant for continuous data,
+  # but NOT when ties straddle the group boundary and ties.method="first"
+  # (or "min"/"max") is used, since tie-breaking by original position is
+  # direction-dependent. Ascending order is used here as the natural,
+  # unambiguous convention.
+
   R_all <- rank(
-    -c(x, y),
+    c(x, y),
     ties.method = ties.method
   )
   
@@ -416,6 +419,10 @@ mosesTest.default <- function(
 # Print method
 # -------------------------------------------------------------------------
 
+#' @param digits number of significant digits to display
+#' @param \dots further arguments passed to or from methods
+#'
+#' @rdname mosesTest
 #' @export
 print.mosesTestResult <- function(
     x,

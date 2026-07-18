@@ -1,5 +1,22 @@
 
 
+install.packages("tinytex")
+tinytex::install_tinytex()
+tinytex::tlmgr_install("makeindex")
+Sys.which("pdflatex")
+tinytex::tlmgr_path("add")
+
+texbin <- file.path(tinytex::tinytex_root(), "bin", "windows")
+
+Sys.setenv(
+  PATH = paste(texbin, Sys.getenv("PATH"), sep = .Platform$path.sep)
+)
+
+Sys.which("pdflatex")
+
+tinytex::uninstall_tinytex()
+tinytex::install_tinytex()
+  
 Rcpp::compileAttributes()
 devtools::clean_dll()
 devtools::document()
@@ -27,6 +44,10 @@ available::available("clarity", browse = FALSE)
 
 pkgdown::build_site()
 
+tools::Rd2pdf(
+  "C:/temp/lumen",
+  output = "C:/temp/lumen-manual.pdf"
+)
 
 rename_rda <- function(old_file, old_name, new_name, data_dir = "C:/temp/bedrock/data/") {
   e <- new.env()
@@ -176,7 +197,10 @@ plotBar(VADeaths/1e3,  box=FALSE, bg="lightyellow", main="VADeaths",
 
 
 
-debug(pal)
-pal()
+Hmisc', 'coin', 'BSDA
 
-preview()
+
+x <- c(24, 61, 59, 98, 73, 68, 91, 94, 79, 63, 82, 89)
+g <- ordered(rep(1:3, c(3, 4, 5)))
+ 
+res <- jonckheereTerpstraTest(x, g, method = "exact", alternative="increasing")

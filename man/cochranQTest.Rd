@@ -29,24 +29,29 @@ cochranQTest(y, ...)
 )
 }
 \arguments{
-\item{y}{either a numeric vector of data values, or a data matrix.}
+\item{y}{either a numeric vector of data values, or a matrix with the
+blocks in the rows and the groups in the columns.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
-\item{groups}{a vector giving the group for the corresponding elements of y
-if this is a vector; ignored if y is a matrix. If not a factor object, it is
-coerced to one.}
+\item{groups}{a vector giving the group for the corresponding elements
+of \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+a factor object, it is coerced to one.}
 
-\item{blocks}{a vector giving the block for the corresponding elements of y
-if this is a vector; ignored if y is a matrix. If not a factor object, it is
-coerced to one.}
+\item{blocks}{a vector giving the block for the corresponding elements
+of \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+a factor object, it is coerced to one.}
 
-\item{method}{"asymptotic" (default), or "approximate"}
+\item{method}{a character string specifying how the p-value is computed,
+one of \code{"asymptotic"} (default, chi-squared approximation) or
+\code{"approximate"} (Monte Carlo permutation via the \pkg{coin}
+package).}
 
-\item{nresample}{number of Monte Carlo replicates (for approximate)}
+\item{nresample}{the number of Monte Carlo replicates used for
+\code{method = "approximate"} (default is \code{1e4}).}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function which indicates what should happen when the
+data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 
 \item{formula}{a formula of the form \code{y ~ groups | blocks}.}
 
@@ -54,17 +59,20 @@ contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 \code{\link{model.frame}}) containing the variables in the formula. By
 default the variables are taken from \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional vector specifying a subset of observations to
+be used.}
 }
 \value{
-A list with class \code{htest} containing the following components:
-
-\item{statistic}{the value of Cochran's chi-squared statistic.}
-\item{parameter}{the degrees of freedom of the approximate chi-squared
-distribution of the test statistic.} \item{p.value}{the p-value of the
-test.} \item{method}{the character string "Cochran's Q-Test".}
-\item{data.name}{a character string giving the names of the data.}
+A list with class \code{"htest"} containing the following
+components:
+\item{\code{statistic}}{the value of Cochran's chi-squared statistic.}
+\item{\code{parameter}}{the degrees of freedom of the approximate
+chi-squared distribution of the test statistic (asymptotic method
+only).}
+\item{\code{p.value}}{the p-value of the test.}
+\item{\code{method}}{a character string indicating the test performed and
+the method used to compute the p-value.}
+\item{\code{data.name}}{a character string giving the names of the data.}
 }
 \description{
 A nonparametric test for dependent samples with dichotomous data,
@@ -80,25 +88,27 @@ for each group.
 Cochran's Q test is a nonparametric method for testing whether the
 proportions of a binary outcome differ across multiple related groups,
 while accounting for block effects. It can be regarded as an extension
-of McNemar's test to more than two groups.
+of McNemar's test to more than two groups. The null hypothesis is that,
+apart from block effects, the probability of a "success" (coded as 1)
+is the same in all groups.
 
-The null hypothesis is that, apart from block effects, the probability
-of a "success" (coded as 1) is the same in all groups.
+If \code{y} is a matrix, groups and blocks are inferred from the columns
+and rows, respectively. Missing values in \code{y} lead to the removal
+of the corresponding blocks (for both methods). Missing values are not
+allowed in \code{groups} or \code{blocks}. If all blocks give identical
+responses, the statistic is 0 by convention and the p-value 1.
 
-If \code{y} is a matrix, groups and blocks are inferred from the column
-and row indices, respectively. Missing values in \code{y} lead to the
-removal of the corresponding blocks. Missing values are not allowed in
-\code{groups} or \code{blocks}.
+With \code{method = "asymptotic"} the test statistic is referred to its
+approximate chi-squared distribution. With \code{method = "approximate"}
+a Monte Carlo permutation p-value is obtained via
+\code{coin::symmetry_test()}, whose quadratic-form statistic coincides
+with Cochran's Q for this design.
 
-The asymptotic test statistic is computed directly. Optionally, exact or
-Monte Carlo inference can be obtained via the \pkg{coin} package.
-
-Cochran's Q test is closely related to the Friedman test, but is specifically
-designed for binary (0/1) responses.
+Cochran's Q test is closely related to the Friedman test, but is
+specifically designed for binary (0/1) responses.
 }
 \examples{
-
-# example in: 
+# example in:
 # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
 # pp. S. 1824
 
@@ -107,28 +117,27 @@ d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
             rep(1:8, c(6,2,2,6,16,4,4,6)), ]
 row.names(d.frm) <- NULL
 
-# rearrange to long shape    
-d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[c(1:3)], 
+# rearrange to long shape
+d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[c(1:3)],
                   v.names="resp", direction="long")
 
-
-# after having done the hard work of data organisation, performing the test is a piece of cake....
+# after having done the hard work of data organisation,
+# performing the test is a piece of cake....
 cochranQTest(resp ~ time | id, data=d.long)
 
 # and let's perform a post hoc analysis using mcnemar's test
 z <- split(d.long, f=d.long$time)
-pairwise.table(function(i, j) { 
+pairwise.table(function(i, j) {
     mcnemar.test(z[[i]]$resp, z[[j]]$resp, correct=FALSE)$p.value
-  }, 
-  level.names = names(z), 
+  },
+  level.names = names(z),
   p.adjust.method = "fdr"
 )
 
 }
 \references{
 Cochran, W.G. (1950) The Comparison of Percentages in Matched
-Samples. \emph{Biometrika}. 37 (3/4): 256-266.
-doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.
+Samples. \emph{Biometrika}, 37 (3/4): 256-266.
 }
 \seealso{
 Other test.categorical:
@@ -137,6 +146,7 @@ Other test.categorical:
 \code{\link[=breslowDayTest]{breslowDayTest()}},
 \code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }

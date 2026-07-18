@@ -10,11 +10,11 @@ along with confidence intervals. A vertical reference line at zero is added.}
 \method{plot}{PostHocTest}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{"PostHocTest"}, typically returned by
-\code{\link[lumen]{postHocTest}}.}
+\item{x}{an object of class \code{"PostHocTest"}, typically returned by
+\code{\link{postHocTest}}.}
 
-\item{...}{Additional graphical parameters passed to
-\code{\link[lyra]{plotDot}} and base plotting functions.}
+\item{...}{additional graphical parameters passed to
+\code{\link[pharos]{plotDot}} and base plotting functions.}
 }
 \value{
 Invisibly returns \code{NULL}.
@@ -31,7 +31,7 @@ differences in means and their confidence intervals. The confidence level
 is taken from the \code{"conf.level"} attribute of \code{x}.
 }
 \seealso{
-\code{\link[lyra]{plotDot}}
+\code{\link[pharos]{plotDot}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
@@ -41,9 +41,7 @@ Other test.posthoc:
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
-\concept{graphics}
 \concept{multiple-comparisons}
 \concept{test.posthoc}

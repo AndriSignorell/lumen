@@ -35,9 +35,12 @@ the type of bootstrap confidence interval can be defined via this. The
 defaults are \code{R=999} and \code{type="perc"}.}
 }
 \value{
-a numeric vector with 3 elements: \item{median}{median}
-\item{lci}{lower bound of the confidence interval} \item{uci}{upper
-bound of the confidence interval}
+A named numeric vector with elements:
+\describe{
+\item{\code{est}}{point estimate}
+\item{\code{lci}}{lower confidence interval bound}
+\item{\code{uci}}{upper confidence interval bound}
+}
 }
 \description{
 Calculate the confidence interval for the median.
@@ -83,6 +86,7 @@ medianCI(x, method="boot", sides="right")
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=quantileCI]{quantileCI()}},
 \code{\link[=sumCI]{sumCI()}}

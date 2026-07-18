@@ -7,7 +7,10 @@
 #' 
 #' Performs one- and two-sample sign tests on vectors of data.
 #' 
-#' The formula interface is only applicable for the 2-sample test.
+#' There is no formula interface: unlike \code{\link{wilcox.test}}'s
+#' \code{paired} argument, a one-sample or paired-samples design has no
+#' natural mapping to \code{response ~ group} formula semantics (the
+#' pairing order is not expressible that way), so none is offered here.
 #' 
 #' \code{signTest} computes a \dQuote{Dependent-samples Sign-Test} if both
 #' \code{x} and \code{y} are provided.  If only \code{x} is provided, the
@@ -23,14 +26,14 @@
 #' 
 #' The confidence levels are exact.
 #' 
-#' @aliases signTest signTest.default signTest.formula
+#' @aliases signTest
 #' @param x numeric vector of data values. Non-finite (e.g. infinite or
 #' missing) values will be omitted.
 #' @param y an optional numeric vector of data values: as with x non-finite
 #' values will be omitted.
 #' @param mu a number specifying an optional parameter used to form the null
 #' hypothesis. See Details.
-#' @param alternative is a character string, one of \code{"greater"},
+#' @param alternative a character string, one of \code{"greater"},
 #' \code{"less"}, or \code{"two.sided"}, or the initial letter of each,
 #' indicating the specification of the alternative hypothesis. For one-sample
 #' tests, \code{alternative} refers to the true median of the parent population
@@ -95,20 +98,10 @@
 #' # same as:
 #' with(d.light, signTest(black - white))
 #' 
-
-
-# Note: Formula only where it is semantically relevant.
-# it does not make sense to implement formula interface for 
-# onesample/paired design, as the order might not be given.
-# wilcox.test produces Error: cannot use 'paired' in formula method!
-
-
 #' @rdname signTest
-
-#' @family test.location  
-#' @concept location-test  
+#' @family test.location
+#' @concept location-test
 #' @concept nonparametric
-#'
 #'
 #' @export
 signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"),
@@ -133,7 +126,7 @@ signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"
     if (length(x) != length(y))
       stop("'x' and 'y' must have the same length")
     
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     OK <- complete.cases(x, y)
     x <- x[OK]
     y <- y[OK]
@@ -141,7 +134,7 @@ signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"
     x <- (x - y)
     
   } else {
-    DNAME <- deparse(substitute(x))
+    DNAME <- deparse1(substitute(x))
     x <- x[is.finite(x)]
     METHOD <- "One-sample Sign-Test"
   }
@@ -153,6 +146,9 @@ signTest <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"
   if(n.valid > 0) {
     RVAL <- binom.test(x=sum(d > 0), n=n.valid, p=0.5, alternative = alternative, conf.level = conf.level )
   } else {
+    warning("all differences are exactly zero (relative to 'mu'); ",
+            "the sign test is undefined and the reported p-value ",
+            "carries no information")
     RVAL <- binom.test(x=1, n=1)
   }
   

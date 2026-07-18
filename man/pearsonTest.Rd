@@ -9,7 +9,7 @@ pearsonTest(x, nClasses = ceiling(2 * (n^(2/5))), adjust = TRUE)
 \arguments{
 \item{x}{a numeric vector of data values. Missing values are allowed.}
 
-\item{nClasses}{The number of classes. The default is due to Moore (1986).}
+\item{nClasses}{the number of classes. The default is due to Moore (1986).}
 
 \item{adjust}{logical; if \code{TRUE} (default), the p-value is computed
 from a chi-square distribution with \code{nClasses}-3 degrees of freedom,
@@ -61,13 +61,13 @@ The function call \code{pearsonTest(x)} essentially produces the same
 result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)),
 n.param.est=2)}.
 
-Based on code by Juergen Gross.
+Based on code by Juergen Gross, adapted to conform to package standards.
 }
 \examples{
 
 pearsonTest(rnorm(100, mean = 5, sd = 3))
 pearsonTest(runif(100, min = 2, max = 4))
-
+#' @family test.normality
 }
 \references{
 Moore, D.S. (1986): Tests of the chi-squared type. In:
@@ -77,17 +77,8 @@ Marcel Dekker, New York.
 Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 }
 \seealso{
-\link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[lyra:plotQQ]{lyra::plotQQ} for producing extended normal
-quantile-quantile plots.
-
-Other test.normality:
-\code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
-\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
-\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
-\code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
+\code{\link{shapiro.test}} for performing the Shapiro-Wilk test
+for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
 }
 \concept{goodness-of-fit}
 \concept{normality-test}
-\concept{test.normality}

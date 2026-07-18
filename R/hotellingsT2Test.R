@@ -17,36 +17,38 @@
 #' The formula interface (\code{cbind(v1, v2) ~ g}) is available for the
 #' two-sample case only.
 #'
-#' @param x       A numeric matrix or data frame (observations in rows,
+#' @param x       a numeric matrix or data frame (observations in rows,
 #'   variables in columns).
-#' @param y       An optional numeric matrix or data frame for the two-sample
+#' @param y       an optional numeric matrix or data frame for the two-sample
 #'   test.  If \code{NULL} (default) a one-sample test is performed.
-#' @param mu      A numeric vector of length \eqn{p} giving the hypothesised
+#' @param mu      a numeric vector of length \eqn{p} giving the hypothesised
 #'   mean (one-sample) or mean difference (two-sample).  \code{NULL} is
 #'   interpreted as the zero vector.
-#' @param test    A character string selecting the reference distribution:
+#' @param test    a character string selecting the reference distribution:
 #'   \code{"f"} (exact F-distribution, default) or \code{"chi"}
 #'   (chi-squared approximation).
-#' @param formula A formula of the form \code{cbind(v1, v2, ...) ~ g} where
+#' @param formula a formula of the form \code{cbind(v1, v2, ...) ~ g} where
 #'   the left-hand side is a numeric matrix of response variables and \code{g}
 #'   is a factor with exactly two levels.
-#' @param data    An optional data frame (or similar, see
+#' @param data    an optional data frame (or similar, see
 #'   \code{\link{model.frame}}) containing the variables in \code{formula}.
 #'   Defaults to the environment of \code{formula}.
-#' @param subset  An optional vector specifying a subset of observations.
-#' @param na.action A function indicating what should happen when the data
+#' @param subset  an optional vector specifying a subset of observations.
+#' @param na.action a function indicating what should happen when the data
 #'   contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
-#' @param \dots  Further arguments passed to or from methods.
+#' @param \dots  further arguments passed to or from methods.
 #'
 #' @return An object of class \code{"htest"} containing:
-#'   \item{statistic}{The value of the T2-statistic (scaled to follow an F- or
+#'   \item{statistic}{the value of the T2-statistic (scaled to follow an F- or
 #'     chi-squared distribution depending on \code{test}).}
-#'   \item{parameter}{Degrees of freedom of the reference distribution.}
-#'   \item{p.value}{The p-value of the test.}
-#'   \item{null.value}{The hypothesised mean or mean difference.}
-#'   \item{alternative}{Always \code{"two.sided"}.}
-#'   \item{method}{A character string describing the test variant performed.}
-#'   \item{data.name}{A character string giving the name(s) of the input
+#'   \item{parameter}{degrees of freedom of the reference distribution.}
+#'   \item{p.value}{the p-value of the test.}
+#'   \item{estimate}{the sample mean vector (one-sample) or the difference
+#'     of the sample mean vectors (two-sample).}
+#'   \item{null.value}{the hypothesised mean or mean difference.}
+#'   \item{alternative}{always \code{"two.sided"}.}
+#'   \item{method}{a character string describing the test variant performed.}
+#'   \item{data.name}{a character string giving the name(s) of the input
 #'     data.}
 #'
 #' @note
@@ -66,21 +68,19 @@
 #'   satis   = c(1, 3, 2, 4, 6, 6, 5, 5, 4),
 #'   know    = c(3, 7, 2, 6, 8, 8, 10, 10, 6))
 #'
-#' with(math.teach,
-#'   hotellingsT2Test(cbind(satis, know) ~ teacher))
+#' hotellingsT2Test(cbind(satis, know) ~ teacher, data = math.teach)
 #'
 #' # chi-squared approximation
-#' with(math.teach,
-#'   hotellingsT2Test(cbind(satis, know) ~ teacher, test = "chi"))
+#' hotellingsT2Test(cbind(satis, know) ~ teacher, data = math.teach,
+#'                  test = "chi")
 #'
-#' @name hotelling-t2-test
+#' @name hotellingsT2Test
 #' @aliases hotellingsT2Test hotellingsT2Test.default hotellingsT2Test.formula
-
-#' @family test.location  
-#' @concept location-test  
-#' @concept parametric  
-#' @concept multivariate
 #'
+#' @family test.location
+#' @concept location-test
+#' @concept parametric
+#' @concept multivariate
 #'
 #' @export
 hotellingsT2Test <- function(x, ...) {
@@ -89,40 +89,42 @@ hotellingsT2Test <- function(x, ...) {
 
 
 
-#' @rdname hotelling-t2-test
+#' @rdname hotellingsT2Test
 #' @export
 hotellingsT2Test.formula <- function(formula,
                                      data,
                                      subset,
                                      na.action = na.pass,
                                      ...) {
-  
+
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect.")
-  
-  args <- list(
-    formula   = formula,
+
+  # NOTE: subset must be passed as an unevaluated expression and resolved
+  # only inside resolveFormula() (against 'data'); do NOT route it through
+  # do.call() with a pre-built args list, since do.call()'s default
+  # quote = FALSE evaluates any language-object list element immediately,
+  # in the wrong environment (it would look for a variable named after the
+  # subset expression here, rather than a column of 'data').
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+
+  rf <- resolveFormula(
+    formula,
+    data,
+    subset    = subset_expr,
     na.action = na.action,
     allowed   = "two-sample-independent"
   )
-  if (!missing(data))   args$data   <- data
-  if (!missing(subset)) args$subset <- substitute(subset)
-  
-  rf <- do.call(bedrock::resolveFormula, args)
-  
-  # rf$x is the full response matrix (both groups, n x p); rf$group is
-  # the matching full-length factor. rf$y is only a convenience alias
-  # for group 2 and is not used here. Split rf$x by row via rf$group
-  # directly - no flatten/reshape needed since rf$x is already a proper
-  # matrix under the current resolveFormula() contract.
+
+  # split the full response matrix rf$x by the group factor
   lev <- levels(rf$group)
-  
+
   x <- rf$x[rf$group == lev[1L], , drop = FALSE]
   y <- rf$x[rf$group == lev[2L], , drop = FALSE]
-  
+
   dimnames(x) <- list(NULL, colnames(rf$mf[[1L]]))
   dimnames(y) <- list(NULL, colnames(rf$mf[[1L]]))
-  
+
   res           <- hotellingsT2Test.default(x = x, y = y, ...)
   res$data.name <- rf$data.name
   res
@@ -131,29 +133,29 @@ hotellingsT2Test.formula <- function(formula,
 
 
 
-#' @rdname hotelling-t2-test
+#' @rdname hotellingsT2Test
 #' @export
 hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
                                      test = c("f", "chi"), ...) {
-  
+
   # --- data name -------------------------------------------------------
   DNAME <- if (is.null(y)) {
-    deparse(substitute(x))
+    deparse1(substitute(x))
   } else {
-    paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
   }
-  
+
   # --- validate x ------------------------------------------------------
   x <- as.matrix(x)
   if (!is.numeric(x))
     stop("Argument 'x' must be numeric.")
   x <- x[complete.cases(x), , drop = FALSE]
   p <- ncol(x)
-  
+
   if (nrow(x) <= p)
     stop("'x' must have more rows than columns for the covariance matrix ",
          "to be non-singular.")
-  
+
   # --- validate y ------------------------------------------------------
   if (!is.null(y)) {
     y <- as.matrix(y)
@@ -162,12 +164,12 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
     y <- y[complete.cases(y), , drop = FALSE]
     if (ncol(y) != p)
       stop("'x' and 'y' must have the same number of columns.")
-    
+
     if (nrow(y) <= p)
       stop("'y' must have more rows than columns for the covariance matrix ",
            "to be non-singular.")
   }
-  
+
   # --- validate mu -----------------------------------------------------
   if (is.null(mu)) {
     mu <- rep(0, p)
@@ -177,36 +179,43 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
     if (length(mu) != p)
       stop("Length of 'mu' must equal the number of columns of 'x' (", p, ").")
   }
-  
+
   test <- match.arg(test)
-  
+
   # --- compute ---------------------------------------------------------
-  res <- .hotellingsT2_engine(x, y, mu, test)
-  
+  res <- .hotellingsT2Engine(x, y, mu, test)
+
   # --- build htest object ----------------------------------------------
   STATISTIC           <- res$statistic
   names(STATISTIC)    <- "T.2"
-  
+
   PARAMETER <- if (!is.na(res$df2)) {
     c(df1 = res$df1, df2 = res$df2)
   } else {
     c(df = res$df1)
   }
-  
+
   METHOD <- if (is.null(y)) {
     "Hotelling's one-sample T-squared test"
   } else {
     "Hotelling's two-sample T-squared test"
   }
-  
+
   nval_label  <- if (is.null(y)) "location" else "location difference"
   NVAL        <- setNames(mu, rep(nval_label, length(mu)))
-  
+
+  ESTIMATE <- res$estimate
+  names(ESTIMATE) <- paste(
+    if (is.null(y)) "mean of" else "mean difference of",
+    names(ESTIMATE)
+  )
+
   structure(
     list(
       statistic   = STATISTIC,
       parameter   = PARAMETER,
       p.value     = res$pValue,
+      estimate    = ESTIMATE,
       null.value  = NVAL,
       alternative = "two.sided",
       method      = METHOD,
@@ -221,15 +230,15 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
 # == internal helper functions =================================================
 
 
-# Internal engine — operates on validated matrices only
+# internal engine, operates on validated matrices only
 
-.hotellingsT2_engine <- function(x, y = NULL, mu, test) {
-  
+.hotellingsT2Engine <- function(x, y = NULL, mu, test) {
+
   n <- nrow(x)
   p <- ncol(x)
-  
+
   if (is.null(y)) {
-    
+
     # one-sample
     diff    <- colMeans(x) - mu
     S_inv   <- tryCatch(
@@ -239,6 +248,7 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
         "the test cannot be computed."
       )
     )
+    est     <- setNames(colMeans(x), colnames(x))
     T2      <- as.numeric(n * t(diff) %*% S_inv %*% diff)
     scale   <- switch(test, f = (n - p) / (p * (n - 1)), chi = 1)
     stat    <- T2 * scale
@@ -247,9 +257,9 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
     pval    <- switch(test,
                       f   = pf(stat,        df1, df2, lower.tail = FALSE),
                       chi = pchisq(stat,    df1,       lower.tail = FALSE))
-    
+
   } else {
-    
+
     # two-sample
     n1      <- n
     n2      <- nrow(y)
@@ -264,6 +274,7 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
         "the test cannot be computed."
       )
     )
+    est     <- setNames(xm - ym, colnames(x))
     diff    <- xm - ym - mu
     T2      <- as.numeric(n1 * n2 / (n1 + n2) * t(diff) %*% Sp_inv %*% diff)
     scale   <- switch(test,
@@ -276,7 +287,8 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
                       f   = pf(stat,        df1, df2, lower.tail = FALSE),
                       chi = pchisq(stat,    df1,       lower.tail = FALSE))
   }
-  
-  list(statistic = stat, pValue = pval, df1 = df1, df2 = df2)
+
+  list(statistic = stat, pValue = pval, df1 = df1, df2 = df2,
+       estimate = est)
 }
 

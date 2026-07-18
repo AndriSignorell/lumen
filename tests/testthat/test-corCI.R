@@ -5,11 +5,11 @@ tol <- 1e-4
 
 test_that("corCI: output has names cor/lci/uci", {
   res <- corCI(0.5, n = 30)
-  expect_named(res, c("cor", "lci", "uci"))
+  expect_named(res, c("est", "lci", "uci"))
 })
 
 test_that("corCI: cor element equals input rho", {
-  expect_equal(unname(corCI(0.5, n = 30)["cor"]), 0.5)
+  expect_equal(unname(corCI(0.5, n = 30)["est"]), 0.5)
 })
 
 test_that("corCI: CI contains rho", {

@@ -61,3 +61,47 @@ test_that("breuschGodfreyTest: statistic >= 0", {
   res <- breuschGodfreyTest(y1 ~ x)
   expect_gte(unname(res$statistic), 0)
 })
+
+
+test_that("breuschGodfreyTest: identical to lmtest::bgtest", {
+  skip_if_not_installed("lmtest")
+
+  for (ord in c(1L, 4L)) {
+    a <- breuschGodfreyTest(y1 ~ x, order = ord)
+    b <- lmtest::bgtest(y1 ~ x, order = ord)
+    expect_equal(unname(a$statistic), unname(b$statistic), tolerance = 1e-12)
+    expect_equal(a$p.value, b$p.value, tolerance = 1e-12)
+    expect_equal(a$coefficients, b$coefficients, tolerance = 1e-12)
+    expect_equal(a$vcov, b$vcov, tolerance = 1e-12)
+  }
+
+  a <- breuschGodfreyTest(y1 ~ x, order = 2, type = "f")
+  b <- lmtest::bgtest(y1 ~ x, order = 2, type = "F")
+  expect_equal(unname(a$statistic), unname(b$statistic), tolerance = 1e-12)
+  expect_equal(a$p.value, b$p.value, tolerance = 1e-12)
+})
+
+test_that("breuschGodfreyTest: type is case-insensitive", {
+  a <- breuschGodfreyTest(y1 ~ x, type = "F")
+  b <- breuschGodfreyTest(y1 ~ x, type = "f")
+  expect_equal(a$statistic, b$statistic)
+})
+
+test_that("breuschGodfreyTest: invalid order throws error", {
+  expect_error(breuschGodfreyTest(y1 ~ x, order = 0), "positive integer")
+  expect_error(breuschGodfreyTest(y1 ~ x, order = -1), "positive integer")
+})
+
+test_that("breuschGodfreyTest: vcov and df.residual methods work (coeftest)", {
+  skip_if_not_installed("lmtest")
+
+  res <- breuschGodfreyTest(y1 ~ x, order = 2)
+  expect_equal(vcov(res), res$vcov)
+  expect_equal(df.residual(res), NULL)   # chisq: single df
+
+  res_f <- breuschGodfreyTest(y1 ~ x, order = 2, type = "f")
+  expect_equal(df.residual(res_f), unname(res_f$parameter["df2"]))
+
+  ct <- lmtest::coeftest(res)
+  expect_equal(nrow(ct), length(res$coefficients))
+})

@@ -140,13 +140,9 @@
 #'
 #'
 #' @rdname pageTest
-
-
-
-#' @family test.trend  
-#' @concept trend-test  
+#' @family test.trend
+#' @concept trend-test
 #' @concept nonparametric
-#'
 #'
 #' @export
 pageTest <- function(y, ...) UseMethod("pageTest")
@@ -263,7 +259,7 @@ pageTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(bedrock::resolveFormula, args)
+  d <- do.call(resolveFormula, args)
   
   res <- pageTest.default(
     y      = d$response,

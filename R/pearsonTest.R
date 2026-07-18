@@ -15,7 +15,7 @@
 #' somewhere between the two, see also Moore (1986).
 #' 
 #' @param x a numeric vector of data values. Missing values are allowed.
-#' @param nClasses The number of classes. The default is due to Moore (1986).
+#' @param nClasses the number of classes. The default is due to Moore (1986).
 #' @param adjust logical; if \code{TRUE} (default), the p-value is computed
 #' from a chi-square distribution with \code{nClasses}-3 degrees of freedom,
 #' otherwise from a chi-square distribution with \code{nClasses}-1 degrees of
@@ -56,28 +56,23 @@
 #' 
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #' 
-#' @seealso [stats::shapiro.test] for performing the Shapiro-Wilk test for
-#' normality.  [lyra::plotQQ] for producing extended normal
-#' quantile-quantile plots.
+#' @seealso \code{\link{shapiro.test}} for performing the Shapiro-Wilk test
+#' for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
 #' 
 #' @examples
 #' 
 #' pearsonTest(rnorm(100, mean = 5, sd = 3))
 #' pearsonTest(runif(100, min = 2, max = 4))
-#' 
-
-
-#' @family test.normality  
-#' @concept normality-test  
+#' #' @family test.normality
+#' @concept normality-test
 #' @concept goodness-of-fit
-#'
 #'
 #' @export
 pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))), 
                          adjust = TRUE) {
   
-    DNAME <- deparse(substitute(x))
-    x <- x[complete.cases(x)]
+    DNAME <- deparse1(substitute(x))
+    x <- x[!is.na(x)]
     n <- length(x)
     if (adjust) {
         dfd <- 2
@@ -85,7 +80,11 @@ pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))),
     else {
         dfd <- 0
     }
-    num <- floor(1 + nClasses * pnorm(x, mean(x), sd(x)))
+    # clamp to nClasses: for extremely extreme outliers, pnorm() can
+    # round to exactly 1 in double precision, which would otherwise push
+    # an observation into a nonexistent (nClasses+1)-th bin and make
+    # tabulate() silently drop it
+    num <- pmin(floor(1 + nClasses * pnorm(x, mean(x), sd(x))), nClasses)
     count <- tabulate(num, nClasses)
     prob <- rep(1/nClasses, nClasses)
     xpec <- n * prob
@@ -98,6 +97,6 @@ pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))),
         df = nClasses - 1 - dfd)
     
     class(RVAL) <- "htest"
-    return(RVAL)
+    RVAL
     
 }

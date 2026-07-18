@@ -7,7 +7,7 @@
 \alias{qRevGumbel}
 \alias{qRevGumbelExp}
 \alias{rRevGumbel}
-\title{"Reverse" Gumbel Distribution Functions}
+\title{Reverse Gumbel Distribution}
 \usage{
 dRevGumbel(x, location = 0, scale = 1)
 
@@ -21,20 +21,20 @@ qRevGumbelExp(p)
 }
 \arguments{
 \item{x, q}{numeric vector of abscissa (or quantile) values at which to
-evaluate the density or distribution function}
+evaluate the density or distribution function.}
 
-\item{location}{location of the distribution}
+\item{location}{location of the distribution.}
 
-\item{scale}{scale (\eqn{> 0}) of the distribution}
+\item{scale}{scale (\eqn{> 0}) of the distribution.}
 
 \item{p}{numeric vector of probabilities at which to evaluate the quantile
-function}
+function.}
 
 \item{n}{number of random variates, i.e., \code{\link{length}} of resulting
-vector of \code{rRevGumbel()}}
+vector of \code{rRevGumbel()}.}
 }
 \value{
-a numeric vector, of the same length as \code{x}, \code{q}, or
+A numeric vector, of the same length as \code{x}, \code{q}, or
 \code{p} for the first three functions, and of length \code{n} for
 \code{rRevGumbel()}.
 }
@@ -44,8 +44,9 @@ the \dQuote{Reverse} Gumbel distribution with parameters \code{location} and
 \code{scale}.
 }
 \note{
-Based on code by Werner Stahel, partly inspired by the \pkg{VGAM} package;
-numeric refinements by Martin Maechler, adapted to conform to package standards
+Based on code by Werner Stahel, partly inspired by the \pkg{VGAM} package
+(numeric refinements by Martin Maechler), adapted to conform to package
+standards.
 }
 \examples{
 
@@ -61,18 +62,8 @@ cat("The median is:",  format(med),"\n")
 
 }
 \seealso{
-the \code{\link{Weibull}} distribution functions in \R's
-\pkg{stats} package.
-
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}},
-\code{\link[=rsum1]{rsum1()}}
+\link{distributions-overview}; the \code{\link{Weibull}} distribution
+functions in \R's \pkg{stats} package.
 }
 \concept{distribution-function}
-\concept{distributions}
 \concept{extreme-value}

@@ -9,14 +9,14 @@
 #' @name dpqr-RevGumbel
 #' @aliases dRevGumbel pRevGumbel qRevGumbel qRevGumbelExp rRevGumbel
 #' @param x,q numeric vector of abscissa (or quantile) values at which to
-#' evaluate the density or distribution function
+#' evaluate the density or distribution function.
 #' @param p numeric vector of probabilities at which to evaluate the quantile
-#' function
-#' @param location location of the distribution
-#' @param scale scale (\eqn{> 0}) of the distribution
+#' function.
+#' @param location location of the distribution.
+#' @param scale scale (\eqn{> 0}) of the distribution.
 #' @param n number of random variates, i.e., \code{\link{length}} of resulting
-#' vector of \code{rRevGumbel()}
-#' @return a numeric vector, of the same length as \code{x}, \code{q}, or
+#' vector of \code{rRevGumbel()}.
+#' @return A numeric vector, of the same length as \code{x}, \code{q}, or
 #' \code{p} for the first three functions, and of length \code{n} for
 #' \code{rRevGumbel()}.
 #' @seealso [distributions-overview]; the \code{\link{Weibull}} distribution

@@ -22,31 +22,31 @@ yuenTTest(x, ...)
 )
 }
 \arguments{
-\item{x}{Numeric vector of observations.}
+\item{x}{numeric vector of observations.}
 
-\item{\dots}{Further arguments passed to methods.}
+\item{\dots}{further arguments passed to methods.}
 
-\item{formula}{Formula of the form \code{lhs ~ rhs}.}
+\item{formula}{a formula of the form \code{lhs ~ rhs}.}
 
-\item{data}{Optional data frame for the formula interface.}
+\item{data}{optional data frame for the formula interface.}
 
-\item{subset}{Optional subset expression.}
+\item{subset}{optional subset expression.}
 
 \item{na.action}{NA handling function.}
 
-\item{y}{Optional second numeric vector.}
+\item{y}{optional second numeric vector.}
 
-\item{alternative}{Character string specifying the alternative
+\item{alternative}{character string specifying the alternative
 hypothesis. One of \code{"two.sided"}, \code{"less"},
 or \code{"greater"}.}
 
-\item{mu}{Hypothesized trimmed mean (or trimmed mean difference).}
+\item{mu}{hypothesized trimmed mean (or trimmed mean difference).}
 
-\item{paired}{Logical indicating whether a paired test is performed.}
+\item{paired}{logical indicating whether a paired test is performed.}
 
-\item{conf.level}{Confidence level for the confidence interval.}
+\item{conf.level}{confidence level for the confidence interval.}
 
-\item{trim}{Fraction of observations trimmed from each tail.
+\item{trim}{fraction of observations trimmed from each tail.
 Must satisfy \code{0 <= trim < 0.5}.}
 }
 \value{
@@ -95,9 +95,10 @@ The two-sample trimmed t for unequal population variances.
 \code{\link{t.test}}
 
 Other test.location:
-\code{\link{hotelling-t2-test}},
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
 \code{\link[=zTest]{zTest()}}
 }
 \concept{location-test}

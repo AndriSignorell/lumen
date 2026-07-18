@@ -30,9 +30,12 @@
 #' the type of bootstrap confidence interval can be defined via this. The
 #' defaults are \code{R=999} and \code{type="perc"}.
 #' 
-#' @return a numeric vector with 3 elements: \item{median}{median}
-#' \item{lci}{lower bound of the confidence interval} \item{uci}{upper
-#' bound of the confidence interval}
+#' @return A named numeric vector with elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate}
+#'   \item{\code{lci}}{lower confidence interval bound}
+#'   \item{\code{uci}}{upper confidence interval bound}
+#' }
 #' 
 #' @examples
 #' 
@@ -77,20 +80,14 @@ medianCI <- function(x,
   if(na.rm) x <- na.omit(x)
 
   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-  
-  # if(sides!="two.sided")
-  #   conf.level <- 1 - 2*(1-conf.level)
-  
-  # alte Version, ziemlich grosse Unterschiede zu wilcox.test:
-  # Bosch: Formelsammlung Statistik (bei Markus Naepflin), S. 95
-  # x <- sort(x)
-  # return( c(
-  # x[ qbinom(alpha/2,length(x),0.5) ], ### lower limit
-  # x[ qbinom(1-alpha/2,length(x),0.5) ] ### upper limit
-  # ) )
-  
+
+  # note: no top-level sides -> conf.level transform here, unlike
+  # meanCI/meanDiffCI/multinomCI: .medianCI.binom() computes one-sided
+  # binomial CIs natively (see below), and .medianCI.boot() applies its
+  # own transform internally -- applying it here too would double it.
+
   method <- match.arg(arg=method, choices=c("exact","boot"))
-  
+
   switch( method
           , "exact" = { # this is the SAS-way to do it
             # https://stat.ethz.ch/pipermail/r-help/2003-September/039636.html
@@ -103,21 +100,22 @@ medianCI <- function(x,
   med <- median(x, na.rm=na.rm)
   if(is.na(med)) {   # do not report a CI if the median is not defined...
     res <- rep(NA, 3)
-    
-  } else {
-    res <- c(median=med, r)
-    # report the conf.level which can deviate from the required one
-    if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
+    names(res) <- c("median","lci","uci")
+    return( res )
   }
+
+  res <- c(median=med, r)
+  # report the conf.level which can deviate from the required one
+  if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
   names(res) <- c("median","lci","uci")
-  
+
   if(sides=="left")
     res[3] <- Inf
   else if(sides=="right")
     res[2] <- -Inf
-  
+
   return( res )
-  
+
 }
 
 

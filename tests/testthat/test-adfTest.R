@@ -126,19 +126,19 @@ test_that("adfTest: parameter reports the lags actually used", {
   x <- as.vector(arima.sim(list(ar = c(0.4, 0.3)), 200))
 
   r_fix <- suppressWarnings(adfTest(x, lags = 6, type = "drift"))
-  r_aic <- suppressWarnings(adfTest(x, lags = 6, selectlags = "aic",
+  r_aic <- suppressWarnings(adfTest(x, lags = 6, selectLags = "aic",
                                     type = "drift"))
 
   expect_equal(unname(r_fix$parameter["lags"]), 6L)
   expect_lte(unname(r_aic$parameter["lags"]), 6L)
 })
 
-test_that("adfTest: selectlags is case-insensitive", {
+test_that("adfTest: selectLags is case-insensitive", {
   set.seed(3)
   x <- as.vector(arima.sim(list(ar = c(0.4, 0.3)), 200))
 
-  r_lower <- suppressWarnings(adfTest(x, lags = 6, selectlags = "aic"))
-  r_upper <- suppressWarnings(adfTest(x, lags = 6, selectlags = "AIC"))
+  r_lower <- suppressWarnings(adfTest(x, lags = 6, selectLags = "aic"))
+  r_upper <- suppressWarnings(adfTest(x, lags = 6, selectLags = "AIC"))
 
   expect_equal(r_lower$statistic, r_upper$statistic)
   expect_equal(r_lower$parameter, r_upper$parameter)

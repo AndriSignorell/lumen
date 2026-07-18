@@ -29,9 +29,13 @@
 #' \code{"wald"}, \code{"waldcc"}, \code{"wilson"}, \code{"qh"} or
 #' \code{"fs"}; can be abbreviated. See \sQuote{Details} for the individual
 #' methods.
-#' @return A matrix with 3 columns: \item{est}{estimate} \item{lci}{lower
-#' bound of the confidence interval} \item{uci}{upper bound of the
-#' confidence interval}
+#' 
+#' @return A numeric matrix with one row per class and columns:
+#' \describe{
+#'   \item{\code{est}}{estimated difference}
+#'   \item{\code{lci}}{lower confidence limit}
+#'   \item{\code{uci}}{upper confidence limit}
+#' }
 #' 
 #' The number of rows correspond to the dimension of x.
 #' @note Based on code by Pablo J. Villacorta Iglesias (Sison-Glaz),  
@@ -132,9 +136,7 @@
 #'                         "qh", "goodman", "fs", "sison-glaz"),
 #'                       function(m) round(multinomCI(x, method=m)[,-1], 3)))
 #'        
-
-
-
+#'        
 #' @family ci.proportion  
 #' @concept confidence-interval  
 #' @concept proportion

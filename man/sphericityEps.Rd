@@ -7,20 +7,20 @@
 sphericityEps(S, p, nGroups, n, method = c("both", "gg", "hf"))
 }
 \arguments{
-\item{S}{pxp covariance matrix}
+\item{S}{pxp covariance matrix.}
 
-\item{p}{dimension of observation vectors}
+\item{p}{dimension of observation vectors.}
 
-\item{nGroups}{number of groups}
+\item{nGroups}{number of groups.}
 
-\item{n}{number of subjects}
+\item{n}{number of subjects.}
 
 \item{method}{a character string specifying which epsilon to return,
 must be one of \code{"both"} (default), \code{"gg"} for
 Greenhouse-Geisser, or \code{"hf"} for Huynh-Feldt.}
 }
 \value{
-a numeric value
+A numeric value.
 }
 \description{
 Computes the Greenhouse-Geisser and Huynh-Feldt epsilon correction factors
@@ -28,12 +28,18 @@ for assessing and correcting for violations of the sphericity assumption
 in repeated measures ANOVA.
 }
 \note{
-Based on code by Hans Rudolf Roth.
+Based on code by Hans Rudolf Roth, adapted to conform to package standards.
 }
 \examples{
 
-## find!
+# a 4x4 covariance matrix among 4 repeated measurements, 20 subjects,
+# one between-subject group
+set.seed(1)
+A <- matrix(rnorm(16), 4, 4)
+S <- A \%*\% t(A) + diag(4)
 
+sphericityEps(S, p = 4, nGroups = 1, n = 20)
+sphericityEps(S, p = 4, nGroups = 1, n = 20, method = "gg")
 
 }
 \references{

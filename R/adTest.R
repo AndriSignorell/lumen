@@ -31,20 +31,20 @@
 #'
 #' Missing values are silently removed.
 #'
-#' @param x numeric vector of data values
+#' @param x numeric vector of data values.
 #' @param null a function, or a character string giving the name of a
 #' function, to compute the cumulative distribution function for the null
-#' distribution
-#' @param \dots additional arguments for the cumulative distribution function
+#' distribution.
+#' @param \dots additional arguments for the cumulative distribution function.
 #' @param estimated logical value indicating whether the parameters of the
 #' distribution were estimated using the data \code{x} (composite null
 #' hypothesis), or were fixed in advance (simple null hypothesis, the
-#' default)
+#' default).
 #' @param nullname optional character string describing the null
 #' distribution. By default the name is derived from \code{null}, e.g.
 #' \code{"uniform distribution"} for the default \code{null="punif"}.
-#' @return an object of class \code{"htest"} representing the result of the
-#' hypothesis test
+#' @return An object of class \code{"htest"} representing the result of the
+#' hypothesis test.
 #'
 #' @note
 #' Original C code by George Marsaglia and John Marsaglia; R interface by

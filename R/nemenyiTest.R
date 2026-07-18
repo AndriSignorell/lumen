@@ -40,7 +40,7 @@
 #' @param na.action a function specifying how missing values should be handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{c("rankTest", "htest")} containing:
+#' @return An object of class \code{"rankTest"} containing:
 #' \describe{
 #'   \item{res}{pairwise comparison results, either as a list or matrix}
 #'   \item{pmat}{symmetric matrix of adjusted p-values}
@@ -78,12 +78,9 @@
 #' nemenyiTest(Ozone ~ factor(Month), data = airquality)
 #'
 #' @rdname nemenyiTest
-
-
-#' @family test.posthoc  
-#' @concept post-hoc  
+#' @family test.posthoc
+#' @concept post-hoc
 #' @concept nonparametric
-#'
 #'
 #' @export
 nemenyiTest <- function(x, ...)
@@ -102,8 +99,7 @@ nemenyiTest.formula <- function(formula, data, subset, na.action, ...) {
       (length(attr(terms(formula[-2L]), "term.labels")) != 1L))
     stop("'formula' missing or incorrect")
   
-  ## IMPORTANT!!
-  ## --- capture subset / na.action HERE ---
+  # capture subset / na.action here, before they are evaluated
   subset_expr <- if (!missing(subset)) substitute(subset) else NULL
   na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
   
@@ -230,7 +226,7 @@ nemenyiTest.default <- function(
   
   out$pmat <- pmatxt
   
-  class(out) <- c("rankTest", "htest")
+  class(out) <- "rankTest"
   
   attr(out, "main")      <- gettextf(
     "Nemenyi's test of multiple comparisons for independent samples (%s)",

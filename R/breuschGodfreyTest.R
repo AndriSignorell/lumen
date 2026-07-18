@@ -1,70 +1,78 @@
 
 #' Breusch-Godfrey Test
-#' 
-#' A test for autocorrelation in the residuals of regression models, 
-#' generalizing the Durbin-Watson test to handle higher-order autocorrelation 
-#' and models with lagged dependent variables.
-#' 
-#' \code{breuschGodfreyTest} performs the Breusch-Godfrey test for higher-order
-#' serial correlation.
 #'
-#' Under \eqn{H_0} the test statistic is asymptotically Chi-squared with
-#' degrees of freedom as given in \code{parameter}.  If \code{type} is set to
-#' \code{"F"} the function returns a finite sample version of the test
+#' A test for autocorrelation in the residuals of regression models,
+#' generalizing the Durbin-Watson test to handle higher-order
+#' autocorrelation and models with lagged dependent variables.
+#'
+#' \code{breuschGodfreyTest} performs the Breusch-Godfrey test for
+#' higher-order serial correlation.
+#'
+#' Under \eqn{H_0} the test statistic is asymptotically chi-squared with
+#' degrees of freedom as given in \code{parameter}. If \code{type} is set
+#' to \code{"f"} the function returns a finite sample version of the test
 #' statistic, employing an \eqn{F} distribution with degrees of freedom as
 #' given in \code{parameter}.
 #'
-#' By default, the starting values for the lagged residuals in the auxiliary
-#' regression are chosen to be 0 (as in Godfrey 1978) but could also be set to
-#' \code{NA} to omit them.
+#' By default, the starting values for the lagged residuals in the
+#' auxiliary regression are chosen to be 0 (as in Godfrey 1978) but could
+#' also be set to \code{NA} to omit them.
 #'
 #' \code{breuschGodfreyTest} also returns the coefficients and estimated
 #' covariance matrix from the auxiliary regression that includes the lagged
-#' residuals.  Hence, \code{CoefTest} (package: RegClassTools) can be used to
-#' inspect the results. (Note, however, that standard theory does not always
-#' apply to the standard errors and t-statistics in this regression.)
+#' residuals, accessible via \code{coef()} and \code{vcov()} on the result.
+#' (Note, however, that standard theory does not always apply to the
+#' standard errors and t-statistics in this regression.)
 #'
 #' @name breuschGodfreyTest
 #' @param formula a symbolic description for the model to be tested (or a
 #' fitted \code{"lm"} object).
-#' @param order integer. maximal order of serial correlation to be tested.
-#' @param orderBy Either a vector \code{z} or a formula with a single
+#' @param order integer, the maximal order of serial correlation to be
+#' tested.
+#' @param orderBy either a vector \code{z} or a formula with a single
 #' explanatory variable like \code{~ z}. The observations in the model are
 #' ordered by the size of \code{z}. If set to \code{NULL} (the default) the
 #' observations are assumed to be ordered (e.g., a time series).
-#' @param type the type of test statistic to be returned. Either \code{"chisq"}
-#' for the Chi-squared test statistic or \code{"f"} for the F test statistic.
-#' @param data an optional data frame containing the variables in the model. By
-#' default the variables are taken from the environment which
+#' @param type the type of test statistic to be returned, either
+#' \code{"chisq"} (default) for the chi-squared test statistic or
+#' \code{"f"} for the F test statistic. Case-insensitive.
+#' @param data an optional data frame containing the variables in the
+#' model. By default the variables are taken from the environment which
 #' \code{breuschGodfreyTest} is called from.
 #' @param fill starting values for the lagged residuals in the auxiliary
 #' regression. By default \code{0} but can also be set to \code{NA}.
-
+#' 
 #' @return A list with class \code{"breuschGodfreyTest"} inheriting from
-#' \code{"htest"} containing the following components: \item{statistic}{the
-#' value of the test statistic.} \item{p.value}{the p-value of the test.}
-#' \item{parameter}{degrees of freedom.} \item{method}{a character string
-#' indicating what type of test was performed.} \item{data.name}{a character
-#' string giving the name(s) of the data.} \item{coefficients}{coefficient
-#' estimates from the auxiliary regression.} \item{vcov}{corresponding
-#' covariance matrix estimate.}
-#' 
-#' @note
-#' Based on code by David Mitchell, and Achim Zeileis. Previously published 
-#' as \code{bgtest} in the \pkg{lmtest} package and integrated here 
-#' without logical changes.
-#' 
-#' @references
-#' Breusch, T. S. (1979). Testing for autocorrelation in dynamic linear 
-#'   models. \emph{Australian Economic Papers}, \emph{17}(31), 334–355.
+#' \code{"htest"} containing the following components:
+#'   \item{\code{statistic}}{the value of the test statistic.}
+#'   \item{\code{parameter}}{the degrees of freedom.}
+#'   \item{\code{p.value}}{the p-value of the test.}
+#'   \item{\code{method}}{a character string indicating what type of test was
+#'     performed.}
+#'   \item{\code{data.name}}{a character string giving the name(s) of the
+#'     data.}
+#'   \item{\code{coefficients}}{coefficient estimates from the auxiliary
+#'     regression.}
+#'   \item{\code{vcov}}{the corresponding covariance matrix estimate.}
 #'
-#' Godfrey, L. G. (1978). Testing against general autoregressive and moving 
-#'   average error models when the regressors include lagged dependent 
-#'   variables. \emph{Econometrica}, \emph{46}(6), 1293–1302.
-#'   
-#'    
+#' @note
+#' Based on code by David Mitchell and Achim Zeileis previously published
+#' as \code{bgtest()} in the \pkg{lmtest} package, adapted to conform to
+#' package standards.
+#'
+#' @references
+#' Breusch, T. S. (1978) Testing for autocorrelation in dynamic linear
+#' models. \emph{Australian Economic Papers}, 17, 334-355.
+#'
+#' Godfrey, L. G. (1978) Testing against general autoregressive and moving
+#' average error models when the regressors include lagged dependent
+#' variables. \emph{Econometrica}, 46, 1293-1301.
+#'
+#' @seealso \code{\link{durbinWatsonTest}}
+#'
 #' @examples
 #' ## Generate a stationary and an AR(1) series
+#' set.seed(1)
 #' x <- rep(c(1, -1), 50)
 #'
 #' y1 <- 1 + x + rnorm(100)
@@ -80,29 +88,25 @@
 #'
 #' y2 <- stats::filter(y1, 0.5, method = "recursive")
 #' breuschGodfreyTest(y2 ~ x)
-
-
-
-#' @rdname breuschGodfreyTest
-
-#' @family test.regression  
-#' @concept regression-diagnostics  
+#'
+#' @family test.regression
+#' @concept regression-diagnostics
 #' @concept autocorrelation
 #'
-#'
 #' @export
-breuschGodfreyTest <- function(formula, data = list(), order = 1, 
-                                 orderBy = NULL, type = c("chisq", "f"),
-                                 fill = 0){
-  # from lmtest
+breuschGodfreyTest <- function(formula, data = list(), order = 1,
+                               orderBy = NULL, type = c("chisq", "f"),
+                               fill = 0) {
 
-  dname <- paste(deparse(substitute(formula)))
+  type <- match.arg(tolower(type), c("chisq", "f"))
 
-  if(!inherits(formula, "formula")) {
-    X <- if(is.matrix(formula$x))
+  dname <- deparse1(substitute(formula))
+
+  if (!inherits(formula, "formula")) {
+    X <- if (is.matrix(formula$x))
       formula$x
     else model.matrix(terms(formula), model.frame(formula))
-    y <- if(is.vector(formula$y))
+    y <- if (is.vector(formula$y))
       formula$y
     else model.response(model.frame(formula))
   } else {
@@ -111,42 +115,48 @@ breuschGodfreyTest <- function(formula, data = list(), order = 1,
     X <- model.matrix(formula, data = data)
   }
 
-  if(!is.null(orderBy))
-  {
-    if(inherits(orderBy, "formula")) {
+  if (!is.null(orderBy)) {
+    if (inherits(orderBy, "formula")) {
       z <- model.matrix(orderBy, data = data)
-      z <- as.vector(z[,ncol(z)])
+      z <- as.vector(z[, ncol(z)])
     } else {
       z <- orderBy
     }
-    X <- as.matrix(X[order(z),])
+    X <- as.matrix(X[order(z), ])
     y <- y[order(z)]
   }
+
+  order <- as.integer(order)
+  if (length(order) != 1L || is.na(order) || order < 1L)
+    stop("'order' must be a positive integer")
 
   n <- nrow(X)
   k <- ncol(X)
   order <- 1:order
   m <- length(order)
-  resi <- lm.fit(X,y)$residuals
+  resi <- lm.fit(X, y)$residuals
 
-  Z <- sapply(order, function(x) c(rep(fill, length.out = x), resi[1:(n-x)]))
-  if(any(na <- !complete.cases(Z))) {
+  Z <- sapply(order, function(x)
+    c(rep(fill, length.out = x), resi[1:(n - x)]))
+  if (any(na <- !complete.cases(Z))) {
     X <- X[!na, , drop = FALSE]
     Z <- Z[!na, , drop = FALSE]
     y <- y[!na]
     resi <- resi[!na]
     n <- nrow(X)
   }
-  auxfit <- lm.fit(cbind(X,Z), resi)
+  auxfit <- lm.fit(cbind(X, Z), resi)
 
   cf <- auxfit$coefficients
-  vc <- chol2inv(auxfit$qr$qr) * sum(auxfit$residuals^2) / auxfit$df.residual
-  names(cf) <- colnames(vc) <- rownames(vc) <- c(colnames(X), paste("lag(resid)", order, sep = "_"))
+  vc <- chol2inv(auxfit$qr$qr) *
+    sum(auxfit$residuals^2) / auxfit$df.residual
+  names(cf) <- colnames(vc) <- rownames(vc) <-
+    c(colnames(X), paste("lag(resid)", order, sep = "_"))
 
-  switch(match.arg(type),
+  switch(type,
 
          "chisq" = {
-           bg <- n * sum(auxfit$fitted^2)/sum(resi^2)
+           bg <- n * sum(auxfit$fitted.values^2) / sum(resi^2)
            p.val <- pchisq(bg, m, lower.tail = FALSE)
            df <- m
            names(df) <- "df"
@@ -154,28 +164,33 @@ breuschGodfreyTest <- function(formula, data = list(), order = 1,
 
          "f" = {
            uresi <- auxfit$residuals
-           bg <- ((sum(resi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
-           df <- c(m, n-k-m)
+           bg <- ((sum(resi^2) - sum(uresi^2)) / m) /
+             (sum(uresi^2) / (n - k - m))
+           df <- c(m, n - k - m)
            names(df) <- c("df1", "df2")
            p.val <- pf(bg, df1 = df[1], df2 = df[2], lower.tail = FALSE)
          })
 
   names(bg) <- "LM test"
-  res <- list(statistic = bg, parameter = df,
-               method = paste("Breusch-Godfrey test for serial correlation of order up to", max(order)),
-               p.value = p.val,
-               data.name = dname,
-               coefficients = cf,
-               vcov = vc)
+  res <- list(statistic = bg,
+              parameter = df,
+              method = paste("Breusch-Godfrey test for serial",
+                             "correlation of order up to", max(order)),
+              p.value = p.val,
+              data.name = dname,
+              coefficients = cf,
+              vcov = vc)
 
   class(res) <- c("breuschGodfreyTest", "htest")
-  return(res)
-
+  res
 }
 
 
-# vcov.breuschGodfreyTest <- function(object, ...) object$vcov
-# df.residual.breuschGodfreyTest <- function(object, ...) if(length(df <- object$parameter) > 1L) df[2] else NULL
+#' @export
+vcov.breuschGodfreyTest <- function(object, ...)
+  object$vcov
 
 
-
+#' @export
+df.residual.breuschGodfreyTest <- function(object, ...)
+  if (length(df <- object$parameter) > 1L) unname(df[2L]) else NULL

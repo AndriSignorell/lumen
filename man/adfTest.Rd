@@ -8,42 +8,42 @@ adfTest(
   y,
   type = c("none", "drift", "trend"),
   lags = 1,
-  selectlags = c("fixed", "aic", "bic")
+  selectLags = c("fixed", "aic", "bic")
 )
 }
 \arguments{
 \item{y}{numeric vector or univariate time series to be tested for a
-unit root}
+unit root.}
 
 \item{type}{the deterministic part of the test regression, one of
-\code{"none"} (default), \code{"drift"} or \code{"trend"}}
+\code{"none"} (default), \code{"drift"} or \code{"trend"}.}
 
 \item{lags}{the number of lagged difference terms to be included. If
-\code{selectlags} is not \code{"fixed"}, this is the maximum number of
+\code{selectLags} is not \code{"fixed"}, this is the maximum number of
 lags considered in the lag selection.}
 
-\item{selectlags}{the lag selection method, one of \code{"fixed"}
+\item{selectLags}{the lag selection method, one of \code{"fixed"}
 (default, use \code{lags} as given), \code{"aic"} or \code{"bic"}
 (choose the lag order up to \code{lags} that minimizes the respective
 information criterion). Case-insensitive, so \code{"AIC"} and
 \code{"BIC"} are accepted as well.}
 }
 \value{
-an object of class \code{"htest"} containing the following
+An object of class \code{"htest"} containing the following
 components:
-\item{statistic}{the tau statistic, followed by the phi statistic(s)
-if \code{type} is \code{"drift"} or \code{"trend"}. The p-value refers
-to the tau statistic.}
-\item{parameter}{the number of lagged differences included in the test
-regression (after lag selection, if requested)}
-\item{p.value}{the interpolated p-value of the tau statistic}
-\item{critical.values}{a matrix with the 1\\%, 5\\% and 10\\% critical
+\item{\code{statistic}}{the tau statistic, followed by the phi
+statistic(s) if \code{type} is \code{"drift"} or \code{"trend"}. The
+p-value refers to the tau statistic.}
+\item{\code{parameter}}{the number of lagged differences included in the
+test regression (after lag selection, if requested).}
+\item{\code{p.value}}{the interpolated p-value of the tau statistic.}
+\item{\code{critical.values}}{a matrix with the 1\\%, 5\\% and 10\\% critical
 values of all reported statistics, interpolated for the effective
-sample size (not shown on screen)}
-\item{alternative}{a character string describing the alternative
-hypothesis}
-\item{method}{a character string indicating the test performed}
-\item{data.name}{a character string giving the name of the data}
+sample size (not shown on screen).}
+\item{\code{alternative}}{a character string describing the alternative
+hypothesis.}
+\item{\code{method}}{a character string indicating the test performed.}
+\item{\code{data.name}}{a character string giving the name of the data.}
 }
 \description{
 Performs the augmented Dickey-Fuller test for a unit root in a time

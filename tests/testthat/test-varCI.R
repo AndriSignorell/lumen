@@ -14,19 +14,19 @@ x_nas   <- c(1, 2, NA, 4, 5)
 test_that("result is a named numeric vector with var/lci/uci", {
   out <- varCI(x_norm)
   expect_type(out, "double")
-  expect_named(out, c("var", "lci", "uci"))
+  expect_named(out, c("est", "lci", "uci"))
 })
 
 test_that("var equals sample variance", {
   out <- varCI(x_norm)
-  expect_equal(out[["var"]], var(x_norm))
+  expect_equal(out[["est"]], var(x_norm))
 })
 
 test_that("lci <= var <= uci", {
   for (method in c("classic", "bonett")) {
     out <- varCI(x_norm, method = method)
-    expect_true(out[["lci"]] <= out[["var"]])
-    expect_true(out[["var"]] <= out[["uci"]])
+    expect_true(out[["lci"]] <= out[["est"]])
+    expect_true(out[["est"]] <= out[["uci"]])
   }
 })
 
@@ -64,7 +64,7 @@ test_that("classic: known result for x_norm at 90%", {
 
 test_that("bonett: known results from Bonett (2006) paper at 90%", {
   out <- sqrt(varCI(x_bonett, method = "bonett", conf.level = 0.90))
-  expect_equal(out[["var"]]^2, var(x_bonett))
+  expect_equal(out[["est"]]^2, var(x_bonett))
   expect_equal(out[["lci"]], 0.3592, tolerance = 1e-3)
   expect_equal(out[["uci"]], 0.9359, tolerance = 1e-3)
 })
@@ -90,15 +90,15 @@ test_that("bonett: stop for n <= 4", {
 test_that("boot: result has correct structure", {
   set.seed(1)
   out <- varCI(x_norm, method = "boot", R = 999)
-  expect_named(out, c("var", "lci", "uci"))
-  expect_equal(out[["var"]], var(x_norm))
+  expect_named(out, c("est", "lci", "uci"))
+  expect_equal(out[["est"]], var(x_norm))
 })
 
 test_that("boot: lci <= var <= uci", {
   set.seed(1)
   out <- varCI(x_norm, method = "boot", R = 999)
-  expect_true(out[["lci"]] <= out[["var"]])
-  expect_true(out[["var"]] <= out[["uci"]])
+  expect_true(out[["lci"]] <= out[["est"]])
+  expect_true(out[["est"]] <= out[["uci"]])
 })
 
 test_that("boot: type = 'norm' produces valid interval", {
@@ -141,13 +141,13 @@ test_that("sides = 'left': lci is higher than two.sided lci", {
 
 test_that("na.rm = TRUE removes NAs and produces valid result", {
   out <- varCI(x_nas, na.rm = TRUE)
-  expect_named(out, c("var", "lci", "uci"))
-  expect_equal(out[["var"]], var(c(1, 2, 4, 5)))
+  expect_named(out, c("est", "lci", "uci"))
+  expect_equal(out[["est"]], var(c(1, 2, 4, 5)))
 })
 
 test_that("na.rm = FALSE with NAs returns NA for var", {
   out <- varCI(x_nas, na.rm = FALSE)
-  expect_true(is.na(out[["var"]]))
+  expect_true(is.na(out[["est"]]))
 })
 
 # ── input validation ──────────────────────────────────────────────────────────

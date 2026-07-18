@@ -251,3 +251,24 @@ test_that("cochranQTest.formula works with the SAS reference example", {
   expect_false(is.na(res$p.value))
 })
 
+
+
+test_that("incomplete blocks are also removed for method = 'approximate'", {
+
+  skip_if_not_installed("coin")
+
+  mat    <- matrix(c(1,0,1, 0,1,0, 1,1,0, 0,0,1, 1,0,0), nrow = 5, byrow = TRUE)
+  mat_na <- mat
+  mat_na[2, 2] <- NA
+
+  # the permutation statistic is deterministic, so it must match the
+  # statistic computed on the data with the incomplete block dropped
+  set.seed(1)
+  res_na   <- cochranQTest(mat_na, method = "approximate", nresample = 199)
+  set.seed(1)
+  res_full <- cochranQTest(mat[-2, ], method = "approximate", nresample = 199)
+
+  expect_equal(unname(res_na$statistic), unname(res_full$statistic),
+               tolerance = 1e-10)
+  expect_null(res_na$parameter)
+})

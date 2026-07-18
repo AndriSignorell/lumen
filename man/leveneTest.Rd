@@ -13,85 +13,83 @@ leveneTest(x, ...)
 \method{leveneTest}{default}(x, g, center = median, .centerName = NULL, ...)
 }
 \arguments{
-\item{x}{response variable for the default method, or a \code{lm} or
-\code{formula} object. If \code{y} is a linear-model object or a formula,
-the variables on the right-hand-side of the model must all be factors and
-must be completely crossed.}
+\item{x}{a numeric vector of data values (default method), or a
+\code{formula} (formula method).}
 
-\item{...}{arguments to be passed down, e.g., \code{data} for the
-\code{formula}; can also be used to pass arguments to
-the function given by \code{center} (e.g., \code{center=mean},
-\code{trim=0.1} specify the 10\% trimmed mean).}
+\item{\dots}{arguments to be passed down, e.g. \code{data} for the
+formula method; can also be used to pass arguments to the function
+given by \code{center} (e.g. \code{trim = 0.1} for a trimmed mean when
+\code{center = mean}).}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and \code{rhs} the corresponding groups.}
+\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+gives the data values and \code{rhs} the corresponding groups.}
 
 \item{data}{an optional matrix or data frame (or similar: see
 \code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
+\code{formula}. By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be used.}
+\item{subset}{an optional vector specifying a subset of observations to
+be used.}
 
-\item{na.action}{a function which indicates what should happen
-when the data contain NAs. Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function which indicates what should happen when the
+data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 
-\item{center}{The name of a function to compute the center of each group;
-\code{mean} gives the original Levene's test; the default, \code{median},
-provides a more robust test (Brown-Forsythe-Test).}
+\item{center}{the name of a function to compute the center of each
+group; \code{mean} gives the original Levene's test, the default,
+\code{median}, provides the more robust Brown-Forsythe test.}
 
-\item{g}{factor defining groups.}
+\item{g}{factor defining the groups; ignored if \code{x} is a list.}
 
-\item{.centerName}{internal, not intended to be set by the user. Used to pass
-the deparsed name of the \code{center} function through the method dispatch
-chain (from \code{leveneTest.formula} to \code{leveneTest.default}), since
-\code{substitute(center)} would otherwise only resolve to the literal
-symbol \code{"center"} rather than the original expression (e.g. \code{mean}
-or \code{median}) supplied by the caller.}
+\item{.centerName}{internal, not intended to be set by the user. Used
+to pass the deparsed name of the \code{center} function through the
+method dispatch chain (from \code{leveneTest.formula} to
+\code{leveneTest.default}), since \code{substitute(center)} would
+otherwise only resolve to the literal symbol \code{"center"} rather
+than the original expression (e.g. \code{mean} or \code{median})
+supplied by the caller.}
 }
 \value{
-An object of class "htest" representing the result of the
-hypothesis test.
+An object of class \code{"htest"} representing the result of
+the hypothesis test.
 }
 \description{
-A test for homogeneity of variances across two or more groups,
-more robust to departures from normality than Bartlett's test.
+A test for homogeneity of variances across two or more groups, more
+robust to departures from normality than Bartlett's test.
 }
 \details{
-Computes Levene's test for homogeneity of variance across groups.
-
-Let \eqn{X_{ij}} be the jth observation of X for the ith group.
-Let \eqn{Z_{ij} = |X_{ij} - X_i|}, where \eqn{X_i} is the mean of X in the ith group.
-Levene's test statistic is
-\deqn{ W_0 = \frac{ \sum_i n_i (\bar{Z}_i - \bar{Z})^2 / (g - 1) }{ \sum_i 
-\sum_j (Z_{ij} - \bar{Z}_i)^2 / \sum_i (n_i - 1) } }
-where \eqn{n_i} is the number of observations in group i and g is the number of
-groups.
+Let \eqn{X_{ij}} be the jth observation of X for the ith group. Let
+\eqn{Z_{ij} = |X_{ij} - X_i|}, where \eqn{X_i} is the center (by
+default the median) of X in the ith group. Levene's test statistic is
+\deqn{W_0 = \frac{\sum_i n_i (\bar{Z}_i - \bar{Z})^2 / (g - 1)}{\sum_i
+\sum_j (Z_{ij} - \bar{Z}_i)^2 / \sum_i (n_i - 1)}}
+where \eqn{n_i} is the number of observations in group i and g is the
+number of groups. Using the median instead of the mean for \eqn{X_i}
+yields the more robust variant known as the Brown-Forsythe test, which
+is the default here.
 }
 \note{
-Based on \code{car::leveneTest()} by John Fox, with contributions
-by Derek Ogle and Brian Ripley, rewritten to conform to common
-R standards while retaining the original calculation logic.
+Based on \code{car::leveneTest()} by John Fox, with contributions by
+Derek Ogle and Brian Ripley, adapted to conform to package standards.
 }
 \examples{
-
 ## example from ansari.test:
 ## Hollander & Wolfe (1973, p. 86f):
 ## Serum iron determination using Hyland control sera
 serum <- data.frame(
-    grp = rep(c("ramsay", "jung.parekh"), each=20),
-    x   = c(111, 107, 100, 99, 102, 106, 109, 108, 104, 99,
-              101, 96, 97, 102, 107, 113, 116, 113, 110, 98,
-            107, 108, 106, 98, 105, 103, 110, 105, 104,
-              100, 96, 108, 103, 104, 114, 114, 113, 108, 106, 99)
+  grp = rep(c("ramsay", "jung.parekh"), each = 20),
+  x   = c(111, 107, 100, 99, 102, 106, 109, 108, 104, 99,
+          101, 96, 97, 102, 107, 113, 116, 113, 110, 98,
+          107, 108, 106, 98, 105, 103, 110, 105, 104,
+          100, 96, 108, 103, 104, 114, 114, 113, 108, 106, 99)
 )
 
-leveneTest(x ~ grp, data=serum)
-leveneTest(x ~ grp, data=serum, center=mean)
-leveneTest(x ~ grp, data=serum, center=mean, trim=0.1)
+leveneTest(x ~ grp, data = serum)
+leveneTest(x ~ grp, data = serum, center = mean)
+leveneTest(x ~ grp, data = serum, center = mean, trim = 0.1)
 
-leveneTest( c(rnorm(10), rnorm(10, 0, 2)), 
-            factor(rep(c("A","B"), each=10)) )
+leveneTest(c(rnorm(10), rnorm(10, 0, 2)),
+           factor(rep(c("A", "B"), each = 10)))
 
 leveneTest(Ozone ~ factor(Month), data = airquality)
 
@@ -100,28 +98,18 @@ leveneTest(count ~ spray, data = InsectSprays)
 
 }
 \references{
-Fox, J. and Weisberg, S. (2019) \emph{An R Companion to Applied Regression}.
-Third Edition. Sage, Thousand Oaks, CA.
+Fox, J. and Weisberg, S. (2019) \emph{An R Companion to Applied
+Regression}, 3rd ed., Thousand Oaks, CA: Sage.
 
-Levene, H. (1960) Robust tests for equality of variances.
-in Ingram, O., Hotelling, H. et al. (Hrsg.) (1960) Contributions
-to Probability and Statistics, \emph{Essays in Honor of Harold Hotelling}.
-Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278-292.
+Levene, H. (1960) Robust tests for equality of variances. In: Olkin,
+I. et al., eds.: \emph{Contributions to Probability and Statistics:
+Essays in Honor of Harold Hotelling}, Stanford University Press,
+pp. 278-292.
 }
 \seealso{
-\link[stats:shapiro.test]{stats::shapiro.test} for performing the Shapiro-Wilk test for
-normality.  \link[lyra:plotQQ]{lyra::plotQQ} for producing extended normal
-quantile-quantile plots.
-
-\link[stats:fligner.test]{stats::fligner.test} for a rank-based (nonparametric)
-\eqn{k}-sample test for homogeneity of variances; \link[stats:mood.test]{stats::mood.test}
-for another rank-based two-sample test for a difference in scale parameters;
-\link{varTest} and \link[stats:bartlett.test]{stats::bartlett.test}] for parametric tests
-for the homogeneity in variance.
-
-\code{\link[coin:ScaleTests]{ansari_test}} in package \pkg{coin} for exact
-and approximate \emph{conditional} p-values for the Ansari-Bradley test, as
-well as different methods for handling ties.
+\code{\link{fligner.test}} for a rank-based (nonparametric)
+k-sample test for homogeneity of variances, \code{\link{bartlett.test}}
+for a parametric alternative
 
 Other test.variance:
 \code{\link[=mosesTest]{mosesTest()}},

@@ -13,9 +13,10 @@ dunnTest(x, ...)
 \method{dunnTest}{default}(
   x,
   g,
-  method = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
+  method = p.adjust.methods,
   alternative = c("two.sided", "less", "greater"),
   output = c("list", "matrix"),
+  alpha = 0.05,
   ...
 )
 }
@@ -24,45 +25,47 @@ dunnTest(x, ...)
 
 \item{\dots}{further arguments passed to methods.}
 
-\item{formula}{a formula of the form \code{response ~ group}.
-Requires at least three groups (\eqn{k \ge 3}); Dunn's test is
-intended as a post hoc procedure following a significant
-Kruskal-Wallis test.}
+\item{formula}{a formula of the form \code{response ~ group}.}
 
 \item{data}{an optional data frame containing the variables in
 \code{formula}.}
 
 \item{subset}{an optional expression specifying a subset of observations.}
 
-\item{na.action}{a function indicating how missing values should be handled.}
+\item{na.action}{a function indicating how missing values should be
+handled.}
 
-\item{g}{a grouping variable corresponding to \code{x}. Ignored when
+\item{g}{a grouping variable corresponding to \code{x}; ignored when
 \code{x} is a list.}
 
-\item{method}{method used to adjust p-values for multiple comparisons.
+\item{method}{the method used to adjust the p-values for multiple
+comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
 Passed directly to \code{\link{p.adjust}}.}
 
 \item{alternative}{a character string specifying the alternative
-hypothesis. Must be one of \code{"two.sided"} (default),
-\code{"greater"} or \code{"less"}. See Details for the direction
-convention.}
+hypothesis, must be one of \code{"two.sided"} (default), \code{"less"}
+or \code{"greater"}. See the Details for the direction convention.}
 
-\item{output}{output format:
+\item{output}{the output format:
 \itemize{
-\item \code{"list"} pairwise comparison table
-\item \code{"matrix"} lower-triangular matrix of adjusted p-values
+\item \code{"list"} pairwise comparison table.
+\item \code{"matrix"} lower-triangular matrix of adjusted p-values.
 }}
+
+\item{alpha}{the significance level used to compile the groups flagged
+as significantly different in the label attribute of the p-value matrix
+(default is \code{0.05}).}
 }
 \value{
-An object of class \code{c("rankTest", "htest")} containing:
+An object of class \code{"rankTest"} containing:
 \describe{
-\item{res}{
-Pairwise comparison results. Depending on \code{output},
+\item{\code{res}}{
+pairwise comparison results. Depending on \code{output},
 either a table of mean-rank differences and adjusted p-values
 or a lower-triangular p-value matrix.
 }
-\item{pmat}{
-Symmetric matrix of adjusted p-values.
+\item{\code{pmat}}{
+symmetric matrix of adjusted p-values.
 }
 }
 }
@@ -76,24 +79,24 @@ adjustment for multiple testing.
 procedure appropriate after rejection of the Kruskal-Wallis null
 hypothesis. In contrast to performing separate Wilcoxon rank-sum tests,
 Dunn's procedure preserves the pooled ranking and variance estimate
-underlying the Kruskal-Wallis test.
+underlying the Kruskal-Wallis test. It is intended as a post hoc
+procedure following a significant Kruskal-Wallis test, i.e. typically
+for three or more groups.
 
 If \code{x} is a list, its elements are taken as the samples to be
 compared and must be numeric vectors. In this case \code{g} is ignored.
-
 Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 variable of the same length.
 
-Pairwise comparisons are formed as \eqn{\bar{R}_i - \bar{R}_j} for all
-\eqn{i < j} (lower triangle of the mean-rank difference matrix, with
-groups ordered by their factor levels). For one-sided alternatives,
-\code{"greater"} tests whether group \eqn{i} tends to have larger
-observations than group \eqn{j}, and \code{"less"} tests the reverse.
+Each pairwise comparison is labeled \code{"B-A"}, where \code{A} precedes
+\code{B} in the ordering of the group levels, and reports the mean rank
+difference \eqn{\bar{R}_B - \bar{R}_A}. For one-sided alternatives,
+\code{"greater"} tests whether \code{B} tends to have larger observations
+than \code{A} (upper tail), and \code{"less"} tests the reverse (lower
+tail).
 }
 \examples{
-
 ## Hollander & Wolfe (1973), p. 116
-
 x <- c(2.9, 3.0, 2.5, 2.6, 3.2)
 y <- c(3.8, 2.7, 4.0, 2.4)
 z <- c(2.8, 3.4, 3.7, 2.2, 2.0)
@@ -118,19 +121,14 @@ dunnTest(Ozone ~ factor(Month), data = airquality)
 
 }
 \references{
-Dunn, O. J. (1961).
-Multiple comparisons among means.
-\emph{Journal of the American Statistical Association},
-56(293), 52--64.
+Dunn, O. J. (1961) Multiple comparisons among means. \emph{Journal of
+the American Statistical Association}, 56 (293), 52-64.
 
-Dunn, O. J. (1964).
-Multiple comparisons using rank sums.
-\emph{Technometrics},
-6(3), 241--252.
+Dunn, O. J. (1964) Multiple comparisons using rank sums.
+\emph{Technometrics}, 6 (3), 241-252.
 }
 \seealso{
-\code{\link{kruskal.test}},
-\code{\link{wilcox.test}},
+\code{\link{kruskal.test}}, \code{\link{wilcox.test}},
 \code{\link{p.adjust}}
 
 Other test.posthoc:
@@ -141,9 +139,8 @@ Other test.posthoc:
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
+\concept{k-sample}
 \concept{nonparametric}
-\concept{post-hoc}
 \concept{test.posthoc}

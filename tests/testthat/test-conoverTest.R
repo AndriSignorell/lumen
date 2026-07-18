@@ -7,7 +7,9 @@ test_that("conoverTest.default: basic three-group example (list interface)", {
   res <- conoverTest(list(x, y, z))
   
   expect_s3_class(res, "rankTest")
-  expect_s3_class(res, "htest")
+  # deliberately NOT an htest: the object has no statistic/p.value/method
+  # components, so it must not claim the class
+  expect_false(inherits(res, "htest"))
   expect_true(is.list(res))
   expect_named(res, c("res", "pmat"))
 })
@@ -237,4 +239,53 @@ test_that("conoverTest is generally more powerful than dunnTest on well-separate
   
   # At least as powerful: mean p-value from Conover <= mean from Dunn
   expect_lte(mean(p_conover), mean(p_dunn))
+})
+
+test_that("conoverTest.default: one-sided alternatives respect the direction", {
+  # Comparisons are labeled "B-A" (B = later factor level) and report
+  # Rbar_B - Rbar_A; "greater" tests B > A. Regression test for the
+  # former abs()-based one-sided p-values, under which "less" could
+  # never fall below 0.5.
+  set.seed(1)
+  x <- c(rnorm(20, 0), rnorm(20, 5))
+  g <- factor(rep(c("A", "B"), each = 20))   # comparison label: "B-A"
+
+  p_gr <- conoverTest(x, g, method = "none", alternative = "greater")$res[, "pval"]
+  p_le <- conoverTest(x, g, method = "none", alternative = "less")$res[, "pval"]
+
+  expect_lt(p_gr, 0.001)    # B clearly above A
+  expect_gt(p_le, 0.999)
+
+  # reversed direction
+  p_gr2 <- conoverTest(-x, g, method = "none", alternative = "greater")$res[, "pval"]
+  p_le2 <- conoverTest(-x, g, method = "none", alternative = "less")$res[, "pval"]
+
+  expect_gt(p_gr2, 0.999)
+  expect_lt(p_le2, 0.001)
+})
+
+
+test_that("conoverTest.default: two.sided equals 2 * min(one-sided)", {
+  set.seed(2)
+  x <- c(rnorm(10), rnorm(10, 1), rnorm(10, 2))
+  g <- rep(letters[1:3], each = 10)
+
+  p2 <- conoverTest(x, g, method = "none", alternative = "two.sided")$res[, "pval"]
+  pg <- conoverTest(x, g, method = "none", alternative = "greater")$res[, "pval"]
+  pl <- conoverTest(x, g, method = "none", alternative = "less")$res[, "pval"]
+
+  expect_equal(unname(p2), unname(2 * pmin(pg, pl)), tolerance = 1e-12)
+})
+
+
+test_that("conoverTest.default: alpha controls the significance label", {
+  set.seed(1)
+  x <- c(rnorm(20, 0), rnorm(20, 5))
+  g <- rep(c("A", "B"), each = 20)
+
+  res0 <- conoverTest(x, g, alpha = 0)     # nothing can be flagged
+  expect_true(all(attr(res0$pmat, "lbl") == ""))
+
+  res5 <- conoverTest(x, g, alpha = 0.05)  # clear separation is flagged
+  expect_true(any(attr(res5$pmat, "lbl") != ""))
 })

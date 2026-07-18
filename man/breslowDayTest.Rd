@@ -4,47 +4,66 @@
 \alias{breslowDayTest}
 \title{Breslow-Day Test for Homogeneity of the Odds Ratios}
 \usage{
-breslowDayTest(x, OR = NA, correct = FALSE)
+breslowDayTest(x, OR = NULL, correct = FALSE)
 }
 \arguments{
 \item{x}{a \eqn{2 \times 2 \times k}{2 x 2 x k} table.}
 
-\item{OR}{the odds ratio to be tested against. If left undefined (default)
-the Mantel-Haenszel estimate will be used.}
+\item{OR}{the odds ratio to be tested against. If left undefined
+(default) the Mantel-Haenszel estimate will be used.}
 
-\item{correct}{If TRUE, the Breslow-Day test with Tarone's adjustment is
-computed, which subtracts an adjustment factor to make the resulting
-statistic asymptotically chi-square.}
+\item{correct}{logical, if \code{TRUE} the Breslow-Day test with
+Tarone's adjustment is computed, which subtracts an adjustment factor to
+make the resulting statistic asymptotically chi-squared.}
+}
+\value{
+A list with class \code{"htest"} containing the following
+components:
+\item{\code{statistic}}{the value of the chi-squared test statistic.}
+\item{\code{parameter}}{the degrees of freedom of the approximate
+chi-squared distribution of the test statistic (\eqn{k-1}).}
+\item{\code{p.value}}{the p-value of the test.}
+\item{\code{method}}{a character string indicating the test performed.}
+\item{\code{data.name}}{a character string giving the name of the data.}
+\item{\code{n}}{the total number of observations (not shown on screen).}
 }
 \description{
-A test for homogeneity of odds ratios across several 2×2 contingency
+A test for homogeneity of odds ratios across several 2x2 contingency
 tables (strata), commonly used to verify whether a confounding effect
 is constant across subgroups, as required by the Mantel-Haenszel method.
-Calculates the Breslow-Day test of homogeneity for a \eqn{2 \times 2 \times
-k}{2 x 2 x k} table, in order to investigate if all \eqn{k} strata have the
-same OR. If OR is not given, the Mantel-Haenszel estimate is used.
 }
 \details{
-For the Breslow-Day test to be valid, the sample size should be relatively
-large in each stratum, and at least 80\\% of the expected cell counts should
-be greater than 5. Note that this is a stricter sample size requirement than
-the requirement for the Cochran-Mantel-Haenszel test for tables, in that
-each stratum sample size (not just the overall sample size) must be
-relatively large. Even when the Breslow-Day test is valid, it might not be
-very powerful against certain alternatives, as discussed in Breslow and Day
-(1980).
+Calculates the Breslow-Day test of homogeneity for a
+\eqn{2 \times 2 \times k}{2 x 2 x k} table, in order to investigate if
+all \eqn{k} strata have the same OR. If \code{OR} is not given, the
+Mantel-Haenszel estimate is used.
 
-Alternatively, it might be better to cast the entire inference problem into
-the setting of a logistic regression model. Here, the underlying question of
-the Breslow-Day test can be answered by investigating whether an interaction
-term with the strata variable is necessary (e.g. using a likelihood ratio
-test using the \code{anova} function).
+For the Breslow-Day test to be valid, the sample size should be
+relatively large in each stratum, and at least 80\\% of the expected cell
+counts should be greater than 5. Note that this is a stricter sample
+size requirement than the requirement for the Cochran-Mantel-Haenszel
+test for tables, in that each stratum sample size (not just the overall
+sample size) must be relatively large. Even when the Breslow-Day test is
+valid, it might not be very powerful against certain alternatives, as
+discussed in Breslow and Day (1980).
+
+The statistic is referred to a chi-squared distribution with \eqn{k-1}
+degrees of freedom; this also applies when a prespecified \code{OR} is
+supplied. Note that Tarone's adjustment is derived for the
+Mantel-Haenszel estimate; a warning is issued if \code{correct = TRUE}
+is combined with a user-supplied \code{OR}.
+
+Alternatively, it might be better to cast the entire inference problem
+into the setting of a logistic regression model. Here, the underlying
+question of the Breslow-Day test can be answered by investigating
+whether an interaction term with the strata variable is necessary (e.g.
+using a likelihood ratio test using the \code{anova} function).
 }
 \note{
-Based on code by Michael Hoehle.
+Based on code by Michael Hoehle, adapted to conform to package
+standards.
 }
 \examples{
-
 migraine <- xtabs(freq ~ .,
             cbind(expand.grid(treatment=c("active", "placebo"),
                               response =c("better", "same"),
@@ -67,7 +86,6 @@ male
 breslowDayTest(migraine)
 breslowDayTest(migraine, correct = TRUE)
 
-
 salary <- array(
       c(38, 12, 102, 141, 12, 9, 136, 383),
       dim=c(2, 2, 2),
@@ -81,31 +99,35 @@ breslowDayTest(salary, OR = 4.02)
 
 }
 \references{
-Breslow, N. E., N. E. Day (1980) The Analysis of Case-Control
-Studies \emph{Statistical Methods in Cancer Research: Vol. 1}. Lyon, France,
-IARC Scientific Publications.
+Breslow, N. E. and Day, N. E. (1980) The Analysis of
+Case-Control Studies. \emph{Statistical Methods in Cancer Research:
+Vol. 1}. Lyon, France, IARC Scientific Publications.
 
 Tarone, R.E. (1985) On heterogeneity tests based on efficient scores,
 \emph{Biometrika}, 72, pp. 91-95.
 
-Jones, M. P., O'Gorman, T. W., Lemka, J. H., and Woolson, R. F. (1989) A
-Monte Carlo Investigation of Homogeneity Tests of the Odds Ratio Under
-Various Sample Size Configurations \emph{Biometrics}, 45, 171-181 \cr
+Jones, M. P., O'Gorman, T. W., Lemka, J. H., and Woolson, R. F. (1989)
+A Monte Carlo Investigation of Homogeneity Tests of the Odds Ratio
+Under Various Sample Size Configurations. \emph{Biometrics}, 45,
+171-181.
 
-Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study
-\emph{Journal of the American Statistical Association}, 91, 14-26.
+Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control
+Study. \emph{Journal of the American Statistical Association}, 91,
+14-26.
 }
 \seealso{
+\code{\link{mantelhaen.test}}
+
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
 \code{\link[=bhapkarTest]{bhapkarTest()}},
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=gTest]{gTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
-\concept{binary-outcome}
 \concept{categorical-test}
 \concept{homogeneity}
 \concept{test.categorical}

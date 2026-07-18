@@ -22,7 +22,7 @@ test_that("dunnettTest.default: result matrix has correct columns", {
   
   mat <- res[[1L]]
   expect_true(is.matrix(mat))
-  expect_equal(colnames(mat), c("diff", "lwr.ci", "upr.ci", "pval"))
+  expect_equal(colnames(mat), c("diff", "lci", "uci", "pval"))
 })
 
 
@@ -59,8 +59,8 @@ test_that("dunnettTest.default: CI contains diff when groups are identical", {
   mat <- res[["a"]]
   
   # CI should contain 0 (no real difference)
-  expect_true(all(mat[, "lwr.ci"] <= 0))
-  expect_true(all(mat[, "upr.ci"] >= 0))
+  expect_true(all(mat[, "lci"] <= 0))
+  expect_true(all(mat[, "uci"] >= 0))
 })
 
 
@@ -72,8 +72,8 @@ test_that("dunnettTest.default: CI is wider for lower conf.level", {
   res95 <- dunnettTest(x, g, control = "ctrl", conf.level = 0.95)
   res80 <- dunnettTest(x, g, control = "ctrl", conf.level = 0.80)
   
-  width95 <- res95[["ctrl"]][, "upr.ci"] - res95[["ctrl"]][, "lwr.ci"]
-  width80 <- res80[["ctrl"]][, "upr.ci"] - res80[["ctrl"]][, "lwr.ci"]
+  width95 <- res95[["ctrl"]][, "uci"] - res95[["ctrl"]][, "lci"]
+  width80 <- res80[["ctrl"]][, "uci"] - res80[["ctrl"]][, "lci"]
   
   expect_true(all(width95 > width80))
 })
@@ -205,7 +205,10 @@ test_that("dunnettTest.formula: data.name is set from formula", {
   )
   
   res <- dunnettTest(val ~ grp, data = df)
-  expect_equal(res$data.name, "val ~ grp")
+  # data.name is stored as an attribute (a list component would sit
+  # between the control matrices and corrupt the PostHocTest structure)
+  expect_null(res$data.name)
+  expect_equal(attr(res, "data.name"), "val ~ grp")
 })
 
 
@@ -272,3 +275,36 @@ test_that("dunnettTest: list and vector+g interfaces give identical results", {
                tolerance = 1e-10)
 })
 
+
+
+test_that("dunnettTest: matches multcomp single-step Dunnett", {
+  skip_if_not_installed("multcomp")
+
+  aq <- na.omit(airquality[, c("Ozone", "Month")])
+  aq$g <- factor(aq$Month)
+
+  fit <- aov(Ozone ~ g, data = aq)
+  gl  <- multcomp::glht(fit, linfct = multcomp::mcp(g = "Dunnett"))
+  set.seed(1)
+  sm  <- summary(gl)
+  ci  <- confint(gl, level = 0.95)
+
+  res <- dunnettTest(aq$Ozone, aq$g)
+
+  # both use randomized quasi-Monte-Carlo integration -> loose tolerance
+  expect_equal(unname(res[["5"]][, "pval"]),
+               unname(as.vector(sm$test$pvalues)), tolerance = 5e-3)
+  expect_equal(unname(res[["5"]][, "lci"]),
+               unname(ci$confint[, "lwr"]), tolerance = 5e-3)
+  expect_equal(unname(res[["5"]][, "uci"]),
+               unname(ci$confint[, "upr"]), tolerance = 5e-3)
+})
+
+
+test_that("dunnettTest: invalid conf.level throws error", {
+  x <- rnorm(30)
+  g <- rep(1:3, each = 10)
+
+  expect_error(dunnettTest(x, g, conf.level = 1.2), "conf.level")
+  expect_error(dunnettTest(x, g, conf.level = 0),   "conf.level")
+})

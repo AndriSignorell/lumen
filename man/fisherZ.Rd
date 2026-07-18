@@ -10,16 +10,17 @@ fisherZ(rho)
 fisherZInv(z)
 }
 \arguments{
-\item{rho}{Numeric vector. Pearson correlation coefficient(s), typically
+\item{rho}{numeric vector. Pearson correlation coefficient(s), typically
 in the interval \eqn{[-1, 1]}. Values of \eqn{\pm 1} are mapped to
 \eqn{\pm \infty}.}
 
-\item{z}{Numeric vector. Fisher \eqn{z}-transformed values.}
+\item{z}{numeric vector. Fisher \eqn{z}-transformed values.}
 }
 \value{
+A numeric vector as follows:
 \describe{
-\item{fisherZ}{Numeric vector of Fisher \eqn{z}-transformed values.}
-\item{fisherZInv}{Numeric vector of correlation coefficients.}
+\item{\code{fisherZ}}{Fisher \eqn{z}-transformed values.}
+\item{\code{fisherZInv}}{correlation coefficients.}
 }
 }
 \description{

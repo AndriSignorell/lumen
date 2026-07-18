@@ -18,17 +18,17 @@
 #' generally more powerful and is therefore preferred in practice.
 #'
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in
-#' matrix form, or a factor
+#' matrix form, or a factor.
 #' @param y a factor with the same levels as \code{x}; ignored if \code{x}
-#' is a matrix
-#' @return a list with class \code{"htest"} containing the following
+#' is a matrix.
+#' @return A list with class \code{"htest"} containing the following
 #' components:
-#' \item{statistic}{the value of the chi-squared test statistic}
-#' \item{parameter}{the degrees of freedom of the approximate chi-squared
-#' distribution of the test statistic}
-#' \item{p.value}{the p-value of the test}
-#' \item{method}{a character string indicating the test performed}
-#' \item{data.name}{a character string giving the name of the data}
+#'   \item{\code{statistic}}{the value of the chi-squared test statistic.}
+#'   \item{\code{parameter}}{the degrees of freedom of the approximate
+#'     chi-squared distribution of the test statistic.}
+#'   \item{\code{p.value}}{the p-value of the test.}
+#'   \item{\code{method}}{a character string indicating the test performed.}
+#'   \item{\code{data.name}}{a character string giving the name of the data.}
 #'
 #' @references Bhapkar V.P. (1966) A note on the equivalence of two test
 #' criteria for hypotheses in categorical data. \emph{Journal of the

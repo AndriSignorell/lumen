@@ -157,7 +157,7 @@ runsTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(bedrock::resolveFormula, args)
+  d <- do.call(resolveFormula, args)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
@@ -194,7 +194,7 @@ runsTest.default <- function(x,
     if (length(x) == 0L || length(y) == 0L)
       stop("'x' and 'y' must be non-empty")
     
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     
     grp <- c(rep(0L, length(x)), rep(1L, length(y)))
     val <- c(x, y)
@@ -213,7 +213,9 @@ runsTest.default <- function(x,
       x           = xy,
       alternative = alternative,
       exact       = exact,
-      na.rm       = FALSE
+      correct     = correct,
+      na.rm       = FALSE,
+      ...
     )
     res$data.name <- DNAME
     res$method    <- "Wald-Wolfowitz Runs Test"
@@ -223,7 +225,7 @@ runsTest.default <- function(x,
   ## -------------------------------------------------------------------
   ## One-sample runs test
   ## -------------------------------------------------------------------
-  DNAME       <- deparse(substitute(x))
+  DNAME       <- deparse1(substitute(x))
   alternative <- match.arg(alternative)
   
   if (na.rm) {

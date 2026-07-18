@@ -19,14 +19,14 @@
 #' @name dpqr-frechet
 #' @aliases dfrechet pfrechet qfrechet rfrechet
 #' 
-#' @param x,q vector of quantiles
-#' @param p vector of probabilities
-#' @param n number of observations
+#' @param x,q vector of quantiles.
+#' @param p vector of probabilities.
+#' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
-#' vectors)
-#' @param log logical; if \code{TRUE}, the log density is returned
+#' vectors).
+#' @param log logical; if \code{TRUE}, the log density is returned.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
-#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}
+#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' 
 #' @return \code{dfrechet()} gives the density function, \code{pfrechet()}
 #' gives the distribution function, \code{qfrechet()} gives the quantile

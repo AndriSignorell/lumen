@@ -39,22 +39,26 @@ find a numeric solution. The t distribution is used.
 }
 \details{
 The required sample sizes for a specific width of confidence interval for
-the mean depends recursively on the sample size, as the samplesize defines
+the mean depends recursively on the sample size, as the sample size defines
 the degrees of freedom in the t-distribution. Although in most practical
 cases it will be sufficient to use the normal distribution, we might be
 interested in exact results.
 }
 \examples{
 
-meanCIn(ci=c(25, 27), sd=5) 
+meanCIn(ci=c(25, 27), sd=5)
 
 }
 \seealso{
 \code{\link{binomCIn}()}
 
-Other ci.general:
-\code{\link[=bootCI]{bootCI()}}
+Other ci.location:
+\code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=medianCI]{medianCI()}},
+\code{\link[=quantileCI]{quantileCI()}},
+\code{\link[=sumCI]{sumCI()}}
 }
-\concept{ci.general}
+\concept{ci.location}
 \concept{confidence-interval}
 \concept{sample-size}

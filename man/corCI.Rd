@@ -12,26 +12,26 @@ corCI(
 )
 }
 \arguments{
-\item{rho}{Numeric. Pearson correlation coefficient. Must be a single
+\item{rho}{numeric; Pearson correlation coefficient. Must be a single
 value in the interval \eqn{[-1, 1]}.}
 
-\item{n}{Integer. Sample size used to estimate the correlation.
+\item{n}{integer; sample size used to estimate the correlation.
 Must be at least 3.}
 
-\item{conf.level}{Numeric. Confidence level for the interval.
+\item{conf.level}{numeric; confidence level for the interval.
 Must be a single value in the open interval \eqn{(0, 1)}.
 Default is \code{0.95}.}
 
-\item{alternative}{Character string specifying the alternative hypothesis.
+\item{alternative}{character string specifying the alternative hypothesis.
 Must be one of \code{"two.sided"} (default), \code{"less"}, or
 \code{"greater"}. Partial matching is allowed.}
 }
 \value{
 A named numeric vector with elements:
 \describe{
-\item{cor}{The input correlation coefficient \code{rho}.}
-\item{lci}{Lower bound of the confidence interval.}
-\item{uci}{Upper bound of the confidence interval.}
+\item{\code{est}}{point estimate (correlation coefficient \code{rho}).}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
 }
 }
 \description{
@@ -54,7 +54,7 @@ For \code{alternative = "two.sided"}, a symmetric interval on the
 unbounded on one side.
 }
 \note{
-Based on code by William Revelle
+Based on code by William Revelle, adapted to conform to package standards.
 }
 \examples{
 # Confidence interval for a single correlation

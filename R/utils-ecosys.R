@@ -4,21 +4,19 @@
 #    (to be used in every package, where needed)
 
 
-# Check and resolve verbose level
-#
-# @description
-# Resolves verbosity level using the following priority:
-# \itemize{
-#   \item function argument
-#   \item global option \code{DescTools.verbose}
-#   \item default (2)
-# }
-#
-# @param verbose Optional integer (1–3).
-#
-# @return Integer in {1,2,3}.
-
-
+#' Check and resolve verbose level
+#'
+#' @description
+#' Resolves verbosity level using the following priority:
+#' \itemize{
+#'   \item function argument
+#'   \item global option \code{DescTools.verbose}
+#'   \item default (2)
+#' }
+#'
+#' @param verbose Optional integer (1-3).
+#'
+#' @return Integer in \{1, 2, 3\}.
 #' @keywords internal
 .checkVerbose <- function(verbose = NULL){
   
@@ -57,6 +55,11 @@
 #' @keywords internal
 .extractBootArgs <- function(dots) {
   
+  # NOTE: default type = "bca" here does not match what several CI
+  # functions' own documentation states (e.g. meanCI/meanDiffCI/
+  # quantileCI's docs say the default is "basic"). One of the two needs
+  # to be reconciled -- either update this default to "basic", or update
+  # those functions' @param \dots docs to say "bca".
   bedrock::extractArgs(
     dots,
     defaults = list(
@@ -78,58 +81,3 @@
     }
   )
 }
-
-
- 
-# ## ============================================================
-# ## Example usage in gini()
-# ## ============================================================
-# 
-# # inside gini():
-# dots <- list(...)
-# boot_args <- .extractBootArgs(dots)
-# 
-# boot.fun <- boot::boot(
-#   data = x,
-#   statistic = function(z, i, u, unbiased)
-#     i.gini(z[i], u[i], unbiased),
-#   R = boot_args$R,
-#   u = weights,
-#   unbiased = unbiased,
-#   parallel = boot_args$parallel,
-#   ncpus = boot_args$ncpus
-# )
-# 
-# ci <- boot::boot.ci(
-#   boot.fun,
-#   conf = conf.level,
-#   type = boot_args$type
-# )
-# 
-
-## ============================================================
-## CONSOLIDATION CHECKLIST (run across package)
-## ============================================================
-
-# Replace patterns like:
-# inDots(..., arg="type", default="bca")
-# inDots(..., arg="R", default=999)
-# inDots(..., arg="parallel", default="no")
-# inDots(..., arg="ncpus", default=...)
-
-# With:
-# boot_args <- .extractBootArgs(list(...))
-
-# Search targets:
-# grep -R "inDots" .
-# grep -R "type =" .
-# grep -R "R =" .
-# grep -R "parallel =" .
-# grep -R "ncpus =" .
-
-# Goal:
-# unify ALL bootstrap argument handling via .extractBootArgs()
-
-## ============================================================
-## END
-## ============================================================

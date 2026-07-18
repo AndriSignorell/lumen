@@ -2,41 +2,47 @@
 % Please edit documentation in R/leCessieTest.R
 \name{leCessieTest}
 \alias{leCessieTest}
+\alias{leCessieTest.default}
+\alias{leCessieTest.glm}
 \alias{print.LeCessieTest}
 \title{le Cessie-van Houwelingen-Copas-Hosmer Global Goodness of Fit Test}
 \usage{
-leCessieTest(fit, obs, X)
+leCessieTest(x, ...)
+
+\method{leCessieTest}{glm}(x, ...)
+
+\method{leCessieTest}{default}(x, obs, X, ...)
 
 \method{print}{LeCessieTest}(x, digits = 4, ...)
 }
 \arguments{
-\item{fit}{numeric vector of fitted probabilities, each in \code{[0, 1]},
-without missing values.}
+\item{x}{a fitted binomial \code{\link{glm}} object (\code{glm} method),
+or a numeric vector of fitted probabilities, each in \eqn{[0, 1]},
+without missing values (default method).}
 
-\item{obs}{numeric vector of observed binary outcomes (0 or 1), of the same
-length as \code{fit}, without missing values.}
+\item{\dots}{further arguments passed to methods.}
 
-\item{X}{numeric matrix of covariates, with \code{nrow(X) == length(fit)},
-without missing values. Use \code{model.matrix(fit)[, -1, drop = FALSE]}
-to ensure a matrix is passed even for single-predictor models.}
+\item{obs}{numeric vector of observed binary outcomes (0 or 1), of the
+same length as \code{x}, without missing values; unused for the
+\code{glm} method.}
 
-\item{x}{object of class \code{"LeCessieTest"}.}
+\item{X}{the full numeric design matrix used to fit the model,
+including the intercept column, with \code{nrow(X) == length(x)} and
+without missing values; unused for the \code{glm} method. See the
+Details.}
 
 \item{digits}{number of significant digits to display.}
-
-\item{...}{further arguments passed to or from methods.}
 }
 \value{
-An object of class \code{c("LeCessieTest", "htest")}, which is a
-list with components:
+An object of class \code{c("LeCessieTest", "htest")}, which is
+a list with components:
 \item{statistic}{the standardised Z statistic, named \code{"Z"}.}
 \item{p.value}{two-sided p-value from the standard normal distribution.}
 \item{method}{a character string describing the test.}
 \item{sse}{observed sum of squared errors.}
 \item{expected}{expected sum of squared errors under H0.}
 \item{sd}{standard deviation of the sum of squared errors under H0.}
-\item{data.name}{a character string with the names of \code{fit} and
-\code{obs}.}
+\item{data.name}{a character string with the name(s) of the data.}
 }
 \description{
 Computes the le Cessie-van Houwelingen-Copas-Hosmer unweighted sum of
@@ -45,33 +51,54 @@ squares test for global goodness of fit of a logistic regression model.
 \details{
 The test compares the observed sum of squared residuals to its expected
 value under the null hypothesis of correct model specification. The
-standardised difference follows an approximate standard normal distribution.
+standardised difference follows an approximate standard normal
+distribution.
 
-Unlike the Hosmer-Lemeshow tests, this test does not rely on grouping and
-is therefore sensitive to a different class of model misspecification.
-It requires the covariate matrix \code{X} used to fit the model.
+Unlike the Hosmer-Lemeshow tests, this test does not rely on grouping
+and is therefore sensitive to a different class of model
+misspecification.
+
+The default method requires the \emph{full} design matrix \code{X} used
+to fit the model, i.e. including the intercept column, as produced by
+\code{model.matrix(fit)}. Omitting the intercept column changes the
+projection used to estimate the standard deviation of the test
+statistic under the null and gives a materially different, incorrect
+result. The \code{glm} method extracts the design matrix, fitted
+probabilities and observed outcomes directly from a fitted model object
+and is therefore the safer interface.
 }
 \note{
-Adapted from code by Matthias Kohl (MKmisc) to conform to package
-standards.
+Adapted from code by Matthias Kohl previously published as
+\code{HLgof.test()} in the \pkg{MKmisc} package, adapted to conform to
+package standards.
 }
 \examples{
 set.seed(111)
-x1 <- factor(sample(1:3, 50, replace = TRUE))
-x2 <- rnorm(50)
+x1  <- factor(sample(1:3, 50, replace = TRUE))
+x2  <- rnorm(50)
 obs <- sample(c(0, 1), 50, replace = TRUE)
-fit <- glm(obs ~ x1 + x2, family = binomial)
 
-leCessieTest(fit = fitted(fit), obs = obs, X = model.matrix(fit)[, -1, drop = FALSE])
+model <- glm(obs ~ x1 + x2, family = binomial)
+
+# glm method: design matrix, fitted values and outcomes are extracted
+# from the model, including the intercept column
+leCessieTest(model)
+
+# equivalent call with explicit arguments (note: full design matrix!)
+leCessieTest(fitted(model), obs, model.matrix(model))
 
 }
 \references{
-Hosmer, D.W., Hosmer, T., le Cessie, S., Lemeshow, S. (1997). A comparison
-of goodness-of-fit tests for the logistic regression model.
-\emph{Statistics in Medicine}, \bold{16}, 965--980.
+le Cessie, S. and van Houwelingen, J.C. (1991) A goodness-of-fit test
+for binary regression models based on smoothing methods.
+\emph{Biometrics}, 47, 1267-1282.
+
+Hosmer, D.W., Hosmer, T., le Cessie, S. and Lemeshow, S. (1997) A
+comparison of goodness-of-fit tests for the logistic regression model.
+\emph{Statistics in Medicine}, 16, 965-980.
 }
 \seealso{
-\code{\link{glm}}
+\code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
 
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},

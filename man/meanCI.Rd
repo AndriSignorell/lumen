@@ -52,11 +52,11 @@ defaults, being \code{"basic"} for \code{type}, option
 \code{parallel} and \code{999} for \code{R}.}
 }
 \value{
-Named numeric vector with:
-\itemize{
-\item \code{est}: estimated mean
-\item \code{lci}: lower confidence limit
-\item \code{uci}: upper confidence limit
+A named numeric vector with elements:
+\describe{
+\item{\code{est}}{point estimate}
+\item{\code{lci}}{lower confidence interval bound}
+\item{\code{uci}}{upper confidence interval bound}
 }
 }
 \description{
@@ -67,6 +67,10 @@ both, normal and trimmed means.
 \details{
 The confidence intervals for the trimmed means use winsorized variances as
 described in the references.
+
+The bootstrap type \code{"stud"} (studentized) requires a variance
+estimate to be returned alongside the point estimate on every bootstrap
+replicate; this is supported for both the trimmed and untrimmed mean.
 }
 \examples{
 
@@ -107,11 +111,11 @@ testing} Elsevier Academic Press
 \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
 
 Other ci.location:
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=medianCI]{medianCI()}},
 \code{\link[=quantileCI]{quantileCI()}},
 \code{\link[=sumCI]{sumCI()}}
 }
 \concept{ci.location}
-\concept{confidence-intervals}
-\concept{descriptive-statistics}
+\concept{confidence-interval}

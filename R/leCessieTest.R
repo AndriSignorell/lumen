@@ -6,116 +6,173 @@
 #'
 #' The test compares the observed sum of squared residuals to its expected
 #' value under the null hypothesis of correct model specification. The
-#' standardised difference follows an approximate standard normal distribution.
+#' standardised difference follows an approximate standard normal
+#' distribution.
 #'
-#' Unlike the Hosmer-Lemeshow tests, this test does not rely on grouping and
-#' is therefore sensitive to a different class of model misspecification.
-#' It requires the covariate matrix \code{X} used to fit the model.
+#' Unlike the Hosmer-Lemeshow tests, this test does not rely on grouping
+#' and is therefore sensitive to a different class of model
+#' misspecification.
+#'
+#' The default method requires the \emph{full} design matrix \code{X} used
+#' to fit the model, i.e. including the intercept column, as produced by
+#' \code{model.matrix(fit)}. Omitting the intercept column changes the
+#' projection used to estimate the standard deviation of the test
+#' statistic under the null and gives a materially different, incorrect
+#' result. The \code{glm} method extracts the design matrix, fitted
+#' probabilities and observed outcomes directly from a fitted model object
+#' and is therefore the safer interface.
 #'
 #' @name leCessieTest
-#' @param fit numeric vector of fitted probabilities, each in \code{[0, 1]},
-#'   without missing values.
-#' @param obs numeric vector of observed binary outcomes (0 or 1), of the same
-#'   length as \code{fit}, without missing values.
-#' @param X numeric matrix of covariates, with \code{nrow(X) == length(fit)},
-#'   without missing values. Use \code{model.matrix(fit)[, -1, drop = FALSE]}
-#'   to ensure a matrix is passed even for single-predictor models.
+#' @aliases leCessieTest leCessieTest.default leCessieTest.glm
 #'
-#' @return An object of class \code{c("LeCessieTest", "htest")}, which is a
-#'   list with components:
-#'   \item{statistic}{the standardised Z statistic, named \code{"Z"}.}
-#'   \item{p.value}{two-sided p-value from the standard normal distribution.}
-#'   \item{method}{a character string describing the test.}
-#'   \item{sse}{observed sum of squared errors.}
-#'   \item{expected}{expected sum of squared errors under H0.}
-#'   \item{sd}{standard deviation of the sum of squared errors under H0.}
-#'   \item{data.name}{a character string with the names of \code{fit} and
-#'     \code{obs}.}
+#' @param x a fitted binomial \code{\link{glm}} object (\code{glm} method),
+#' or a numeric vector of fitted probabilities, each in \eqn{[0, 1]},
+#' without missing values (default method).
+#' @param obs numeric vector of observed binary outcomes (0 or 1), of the
+#' same length as \code{x}, without missing values; unused for the
+#' \code{glm} method.
+#' @param X the full numeric design matrix used to fit the model,
+#' including the intercept column, with \code{nrow(X) == length(x)} and
+#' without missing values; unused for the \code{glm} method. See the
+#' Details.
+#' @param \dots further arguments passed to methods.
+#'
+#' @return An object of class \code{c("LeCessieTest", "htest")}, which is
+#' a list with components:
+#' \item{statistic}{the standardised Z statistic, named \code{"Z"}.}
+#' \item{p.value}{two-sided p-value from the standard normal distribution.}
+#' \item{method}{a character string describing the test.}
+#' \item{sse}{observed sum of squared errors.}
+#' \item{expected}{expected sum of squared errors under H0.}
+#' \item{sd}{standard deviation of the sum of squared errors under H0.}
+#' \item{data.name}{a character string with the name(s) of the data.}
 #'
 #' @note
-#' Adapted from code by Matthias Kohl (MKmisc) to conform to package
-#' standards.
+#' Adapted from code by Matthias Kohl previously published as
+#' \code{HLgof.test()} in the \pkg{MKmisc} package, adapted to conform to
+#' package standards.
 #'
 #' @references
-#' Hosmer, D.W., Hosmer, T., le Cessie, S., Lemeshow, S. (1997). A comparison
-#' of goodness-of-fit tests for the logistic regression model.
-#' \emph{Statistics in Medicine}, \bold{16}, 965--980.
+#' le Cessie, S. and van Houwelingen, J.C. (1991) A goodness-of-fit test
+#' for binary regression models based on smoothing methods.
+#' \emph{Biometrics}, 47, 1267-1282.
+#'
+#' Hosmer, D.W., Hosmer, T., le Cessie, S. and Lemeshow, S. (1997) A
+#' comparison of goodness-of-fit tests for the logistic regression model.
+#' \emph{Statistics in Medicine}, 16, 965-980.
+#'
+#' @seealso \code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
 #'
 #' @examples
 #' set.seed(111)
-#' x1 <- factor(sample(1:3, 50, replace = TRUE))
-#' x2 <- rnorm(50)
+#' x1  <- factor(sample(1:3, 50, replace = TRUE))
+#' x2  <- rnorm(50)
 #' obs <- sample(c(0, 1), 50, replace = TRUE)
-#' fit <- glm(obs ~ x1 + x2, family = binomial)
 #'
-#' leCessieTest(fit = fitted(fit), obs = obs, X = model.matrix(fit)[, -1, drop = FALSE])
+#' model <- glm(obs ~ x1 + x2, family = binomial)
 #'
-#' @seealso \code{\link{glm}}
+#' # glm method: design matrix, fitted values and outcomes are extracted
+#' # from the model, including the intercept column
+#' leCessieTest(model)
 #'
-#' @family test.regression  
-#' @concept regression-diagnostics  
+#' # equivalent call with explicit arguments (note: full design matrix!)
+#' leCessieTest(fitted(model), obs, model.matrix(model))
+#'
+#' @family test.regression
+#' @concept regression-diagnostics
 #' @concept goodness-of-fit
 #'
-#'
+#' @export
+leCessieTest <- function(x, ...)
+  UseMethod("leCessieTest")
+
+
+
 #' @rdname leCessieTest
 #' @export
-leCessieTest <- function(fit, obs, X) {
-  
-  # --- input validation -------------------------------------------------------
-  
+leCessieTest.glm <- function(x, ...) {
+
+  if (!(x$family$family %in% c("binomial", "quasibinomial")))
+    stop("'x' must be a binomial glm")
+
+  obs <- model.response(model.frame(x))
+
+  if (is.matrix(obs))
+    stop("matrix responses (cbind(successes, failures)) are not ",
+         "supported; supply fitted probabilities and binary outcomes ",
+         "directly via the default method")
+
+  if (is.factor(obs)) {
+    if (nlevels(obs) != 2L)
+      stop("the response must have exactly two levels")
+    obs <- as.integer(obs) - 1L        # first level = failure, as in glm
+  } else if (is.logical(obs)) {
+    obs <- as.integer(obs)
+  }
+
+  res <- leCessieTest.default(x = fitted(x), obs = obs,
+                              X = model.matrix(x))
+  res$data.name <- deparse1(formula(x))
+
+  res
+}
+
+
+
+#' @rdname leCessieTest
+#' @export
+leCessieTest.default <- function(x, obs, X, ...) {
+
+  fit <- x
+
+  # --- input validation -------------------------------------------------
+
   if (!is.numeric(fit) || !is.numeric(obs))
-    stop("'fit' and 'obs' must be numeric vectors.")
+    stop("'x' and 'obs' must be numeric vectors")
   if (length(fit) != length(obs))
-    stop("'fit' and 'obs' must have the same length.")
+    stop("'x' and 'obs' must have the same length")
   if (anyNA(fit))
-    stop("'fit' must not contain missing values.")
+    stop("'x' must not contain missing values")
   if (anyNA(obs))
-    stop("'obs' must not contain missing values.")
+    stop("'obs' must not contain missing values")
   if (any(fit < 0 | fit > 1))
-    stop("'fit' must contain probabilities in [0, 1].")
+    stop("'x' must contain probabilities in [0, 1]")
   if (!all(obs %in% c(0, 1)))
-    stop("'obs' must be binary (0 or 1 only).")
+    stop("'obs' must be binary (0 or 1 only)")
   if (!is.matrix(X) || !is.numeric(X))
-    stop("'X' must be a numeric matrix.")
+    stop("'X' must be a numeric matrix")
   if (nrow(X) != length(fit))
-    stop("'X' must have the same number of rows as the length of 'fit'.")
+    stop("'X' must have the same number of rows as the length of 'x'")
   if (anyNA(X))
-    stop("'X' must not contain missing values.")
-  
-  # --- test statistic ---------------------------------------------------------
-  
+    stop("'X' must not contain missing values")
+  if (!any(apply(X, 2, function(col) all(col == col[1]))))
+    warning("'X' does not appear to contain an intercept column; ",
+            "see the Details section for why this matters")
+
+  # --- test statistic -----------------------------------------------------
+
   p   <- fit
   y   <- obs == 1L
   wt  <- p * (1 - p)
   sse <- sum((y - p)^2)
   ev  <- sum(wt)
-  
+
   # weighted projection of (1 - 2p) onto X to obtain SD of SSE under H0
-  d      <- 1 - 2 * p
-  z      <- lm.wfit(X, d, wt, method = "qr")
-  sd     <- sqrt(sum((z$residuals * sqrt(z$weights))^2))
-  
+  d  <- 1 - 2 * p
+  z  <- lm.wfit(X, d, wt, method = "qr")
+  sd <- sqrt(sum((z$residuals * sqrt(z$weights))^2))
+
   if (sd <= .Machine$double.eps)
-    stop(
-      "Unable to compute test statistic: ",
-      "the estimated standard deviation is zero."
-    )
-  
+    stop("unable to compute test statistic: ",
+         "the estimated standard deviation is zero")
+
   z_stat  <- (sse - ev) / sd
   p.value <- 2 * pnorm(abs(z_stat), lower.tail = FALSE)
-  
-  data.name <- paste(
-    paste(deparse(substitute(fit)), collapse = ""),
-    "and",
-    paste(deparse(substitute(obs)), collapse = "")
-  )
-  method <- paste(
-    "le Cessie-van Houwelingen-Copas-Hosmer",
-    "global goodness of fit test"
-  )
-  
-  # --- return -----------------------------------------------------------------
-  
+
+  data.name <- paste(deparse1(substitute(x)), "and", deparse1(substitute(obs)))
+  method <- paste("le Cessie-van Houwelingen-Copas-Hosmer",
+                  "global goodness of fit test")
+
   structure(
     list(
       statistic = c("Z" = z_stat),
@@ -131,11 +188,9 @@ leCessieTest <- function(fit, obs, X) {
 }
 
 
-#' @param x object of class \code{"LeCessieTest"}.
-#' @param digits number of significant digits to display.
-#' @param ... further arguments passed to or from methods.
-#'
 
+#' @param digits number of significant digits to display.
+#'
 #' @rdname leCessieTest
 #' @export
 print.LeCessieTest <- function(x, digits = 4, ...) {
@@ -151,6 +206,3 @@ print.LeCessieTest <- function(x, digits = 4, ...) {
   )
   invisible(x)
 }
-
-
-

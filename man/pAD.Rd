@@ -43,6 +43,10 @@ algorithm \code{adinf} (accurate to 4-5 places) or the slower algorithm
 \code{ADinf} (accurate to 11 places) described in Marsaglia and Marsaglia
 (2004).
 }
+\note{
+Original C code by G. and J. Marsaglia.  \R interface by Adrian
+Baddeley, adapted to conform to package standards.
+}
 \examples{
 
   pAD(1.1, n=5)
@@ -66,13 +70,7 @@ Distribution.  \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
 February 2004.  \url{http://www.jstatsoft.org/v09/i02}
 }
 \seealso{
-\code{\link{andersonDarlingTest}}
-
-\link{distributions-overview}
-}
-\author{
-Original C code by G. and J. Marsaglia.  \R interface by Adrian
-Baddeley.
+\code{\link{andersonDarlingTest}}, \link{distributions-overview}
 }
 \concept{distribution-function}
 \concept{normality-test}

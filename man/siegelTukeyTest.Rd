@@ -64,21 +64,19 @@ tie-corrected variance).}
 }
 \value{
 An object of class \code{"htest"} with the following components:
-\describe{
-\item{\code{statistic}}{the Wilcoxon rank-sum statistic \eqn{W} computed
+\item{statistic}{the Wilcoxon rank-sum statistic \eqn{W} computed
 on the Siegel-Tukey ranks.}
-\item{\code{p.value}}{the p-value of the test.}
-\item{\code{null.value}}{the location parameter \code{mu} under the null
+\item{p.value}{the p-value of the test.}
+\item{null.value}{the location parameter \code{mu} under the null
 hypothesis.}
-\item{\code{alternative}}{a character string describing the alternative
+\item{alternative}{a character string describing the alternative
 hypothesis.}
-\item{\code{method}}{a character string identifying the test.}
-\item{\code{data.name}}{a character string giving the names of the data.}
-\item{\code{exact}}{logical indicating whether the exact distribution was
+\item{method}{a character string identifying the test.}
+\item{data.name}{a character string giving the names of the data.}
+\item{exact}{logical indicating whether the exact distribution was
 used.}
-\item{\code{ties}}{logical indicating whether ties were present in the
+\item{ties}{logical indicating whether ties were present in the
 Siegel-Tukey ranks.}
-}
 }
 \description{
 The Siegel-Tukey test examines the null hypothesis that the variability
@@ -172,7 +170,8 @@ Sheskin, D. J. (2004): \emph{Handbook of Parametric and Nonparametric
 Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-\link[stats:ansari.test]{stats::ansari.test}, \link[stats:mood.test]{stats::mood.test}, \link[stats:wilcox.test]{stats::wilcox.test}
+\code{\link{ansari.test}}, \code{\link{mood.test}},
+\code{\link{wilcox.test}}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

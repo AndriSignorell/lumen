@@ -90,26 +90,20 @@
 #' vanWaerdenTest(Ozone ~ factor(Month), data = airquality)
 #' 
 #' @rdname vanWaerdenTest
-
-
-
-#' @family test.posthoc  
-#' @concept post-hoc  
+#' @family test.location
+#' @concept location-test
 #' @concept nonparametric
-#'
 #'
 #' @export
 vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
+
 #' @rdname vanWaerdenTest
-
-
 #' @export
 vanWaerdenTest.formula <- function(formula, data, subset, na.action, ...) {
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
   
-  ## IMPORTANT!!
-  ## --- capture subset / na.action HERE ---
+  # capture subset / na.action here, before they are evaluated
   subset_expr <- if (!missing(subset)) substitute(subset) else NULL
   na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
   

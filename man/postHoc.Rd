@@ -39,16 +39,17 @@ postHocTest(x, ...)
 \method{print}{PostHocTest}(x, digits = getOption("digits", 3), ...)
 }
 \arguments{
-\item{x}{An object of class \code{aov}.}
+\item{x}{an object of class \code{aov}.}
 
 \item{\dots}{further arguments, not used so far.}
 
 \item{which}{a character vector listing terms in the fitted model for which
 the intervals should be calculated. Defaults to all the terms.}
 
-\item{method}{one of \code{"hsd"}, \code{"bonf"}, \code{"lsd"},
-\code{"scheffe"}, \code{"newmankeuls"}, defining the method for the pairwise
-comparisons.\cr For the post hoc test of tables the methods of
+\item{method}{one of \code{"hsd"}, \code{"bonferroni"}, \code{"lsd"},
+\code{"scheffe"}, \code{"newmankeuls"}, \code{"duncan"}, defining the
+method for the pairwise comparisons (may be abbreviated).\cr For the
+post hoc test of tables the methods of
 \code{\link{p.adjust}} can be supplied. See the detail there.}
 
 \item{conf.level}{a numeric value between zero and one giving the
@@ -65,16 +66,10 @@ if method is not either \code{hsd} or \code{newmankeuls}.}
 \item{digits}{controls the number of fixed digits to print.}
 }
 \value{
-An object of class \code{PostHocTest}.
-
-\bold{Tables} \verb{ } For tables pairwise chi-square test can be performed,
-either without correction or with correction for multiple testing following
-the logic in \code{\link{p.adjust}}.
-
-an object of type "postHocTest", which will either be \cr A) a list
-of data.frames containing the mean difference, lower ci, upper ci and the
-p-value, if a conf.level was defined (something else than NA) or \cr B) a
-list of matrices with the p-values, if conf.level has been set to NA.
+An object of class \code{"PostHocTest"}: a list of data frames
+containing the mean difference, lower and upper confidence interval bounds,
+and p-value when \code{conf.level} is not \code{NA}; otherwise, a list of
+p-value matrices.
 }
 \description{
 Provides a unified interface for several parametric post hoc tests
@@ -83,40 +78,41 @@ comparisons of group means with different methods for controlling
 the family-wise error rate.
 }
 \details{
-\bold{Overview.}
 Post hoc tests differ in how strongly they control type I error.
 Conservative methods reduce false positives but have lower power,
 while more liberal methods increase power at the cost of a higher
 false positive rate.
 
-\bold{Available methods.}
-\itemize{
-\item \strong{LSD (Fisher)}: No adjustment for multiple testing;
+\strong{LSD (Fisher)}: \verb{   }No adjustment for multiple testing;
 highest power but inflated type I error. Mainly suitable for a small
 number of groups.
 
-\item \strong{Bonferroni} (Dunn's (Bonferroni) t-test): Adjusts p-values
+\strong{Bonferroni} (Dunn's (Bonferroni) t-test): \verb{   }Adjusts p-values
 by the number of comparisons;
 simple and robust, but often overly conservative.
 
-\item \strong{Tukey HSD}: Controls the family-wise error rate for all
+\strong{Tukey HSD}: \verb{   }Controls the family-wise error rate for all
 pairwise comparisons; widely used and generally recommended for balanced
 designs.
 
-\item \strong{Newman-Keuls}: Stepwise procedure with more power than Tukey,
+\strong{Newman-Keuls}: \verb{   }Stepwise procedure with more power than Tukey,
 but weaker error control; may inflate type I error.
 
-\item \strong{Duncan}: Similar to Newman-Keuls but more liberal; provides
+\strong{Duncan}: \verb{   }Similar to Newman-Keuls but more liberal; provides
 higher power at the cost of increased false positives.
 
-\item \strong{Scheffé}: Very conservative; suitable for both pairwise and
+\strong{Scheffé}: \verb{   }Very conservative; suitable for both pairwise and
 complex (contrast-based) comparisons.
-}
 
-\bold{Guidance.}
+\strong{Guidance}\cr
 Tukey HSD is typically a good default for pairwise comparisons.
 Bonferroni is useful when strict error control is required.
 Scheffé is appropriate for more complex contrasts.
+
+\strong{Tables} \cr
+For tables pairwise chi-square tests can be performed,
+either without correction or with correction for multiple testing following
+the logic in \code{\link{p.adjust}}.
 }
 \examples{
 
@@ -149,8 +145,7 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{post-hoc}
 \concept{test.posthoc}

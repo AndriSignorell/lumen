@@ -40,9 +40,8 @@ must be one of \code{"two.sided"} (default), \code{"greater"} or
 \item{mu}{a number indicating the true value of the mean (or difference in
 means if you are performing a two sample test).}
 
-\item{paired}{paired = \code{TRUE} is not supported here and only present
-for consistency of arguments. Use the one-sample-test for the differences
-instead.}
+\item{paired}{logical; paired tests are not supported. Use a one-sample test
+on the differences instead.}
 
 \item{var.equal}{a logical variable indicating whether to treat the two
 variances as being equal. If \code{TRUE} then the pooled variance is used to
@@ -55,7 +54,9 @@ to the degrees of freedom is used.}
 }
 \value{
 A list with class \code{"htest"} containing the following
-components: \item{statistic}{the value of the t-statistic.}
+components:
+
+\item{statistic}{the value of the t-statistic.}
 \item{parameter}{the degrees of freedom for the t-statistic.}
 \item{p.value}{the p-value for the test.} \item{conf.int}{a confidence
 interval for the mean appropriate to the specified alternative hypothesis.}
@@ -112,14 +113,14 @@ tTestA(mx=mean(x-y), sx=sd(x-y), nx=length(x-y))
 # compared to 
 t.test(x, y, paired = TRUE)
 
-
 }
 \seealso{
 \code{\link{t.test}}
 
 Other test.location:
-\code{\link{hotelling-t2-test}},
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=signTest]{signTest()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }

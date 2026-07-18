@@ -38,42 +38,42 @@ Computes the mean and variance of common extreme value distributions
 given their parameters.
 }
 \details{
-\strong{Gumbel:}\cr
-\eqn{\mu = a + b\gamma}\cr
-\eqn{\mathrm{Var}(X) = \frac{\pi^2}{6} b^2}\cr
-where \eqn{\gamma \approx 0.5772} is the Euler-Mascheroni constant,
-\eqn{a} = \code{loc} and \eqn{b} = \code{scale}.
+\tabular{lll}{
+\strong{Distribution} \tab \strong{Mean}
+\tab \strong{Variance} \cr
+Gumbel \tab
+\eqn{a + b\gamma} \tab
+\eqn{\frac{\pi^2}{6}b^2} \cr
+Fréchet \tab
+\eqn{a + b\Gamma(1 - 1/s) \quad (s > 1)} \tab
+\eqn{b^2\left[\Gamma(1 - 2/s) -
+      \Gamma(1 - 1/s)^2\right] \quad (s > 2)} \cr
+Reverse Weibull \verb{  } \tab
+\eqn{a - b\Gamma(1 + 1/s)} \tab
+\eqn{b^2\left[\Gamma(1 + 2/s) -
+      \Gamma(1 + 1/s)^2\right]} \cr
+GEV \tab
+\eqn{a + b\frac{\Gamma(1-s)-1}{s}
+      \quad (s \ne 0,\ s < 1)} \verb{  } \tab
+\eqn{b^2\frac{\Gamma(1-2s)-\Gamma(1-s)^2}{s^2}
+      \quad (s \ne 0,\ s < 1/2)} \cr
+GPD \tab
+\eqn{a + \frac{b}{1-s} \quad (s < 1)} \tab
+\eqn{\frac{b^2}{(1-s)^2(1-2s)} \quad (s < 1/2)} \cr
+Gompertz \tab
+numerical integration for \eqn{\alpha > 0} \tab dito \cr
+\tab  \eqn{1/\beta}  for \eqn{\alpha = 0};
+\tab \eqn{1/\beta^2} for \eqn{\alpha = 0}; \cr
+\tab \code{NA} for \eqn{\alpha < 0} \tab dito \cr
+}
 
-\strong{Fréchet:}\cr
-\eqn{\mu = a + b\,\Gamma(1 - 1/s) \quad (s > 1)}\cr
-\eqn{\mathrm{Var}(X) = b^2\left[\Gamma(1 - 2/s) - 
-  \Gamma(1 - 1/s)^2\right] \quad (s > 2)}\cr
-where \eqn{a} = \code{loc}, \eqn{b} = \code{scale} and
-\eqn{s} = \code{shape}.
-
-\strong{Reverse Weibull:}\cr
-\eqn{\mu = a - b\,\Gamma(1 + 1/s)}\cr
-\eqn{\mathrm{Var}(X) = b^2\left[\Gamma(1 + 2/s) - 
-  \Gamma(1 + 1/s)^2\right]}\cr
-where \eqn{a} = \code{loc}, \eqn{b} = \code{scale} and
-\eqn{s} = \code{shape}.
-
-\strong{GEV:}\cr
-For \eqn{s = 0} (Gumbel), \eqn{s > 0} (Fréchet) and \eqn{s < 0}
-(Reverse Weibull), the moments are computed accordingly. Mean exists
-for \eqn{s < 1}, variance for \eqn{s < 1/2}.
-
-\strong{GPD:}\cr
-\eqn{\mu = a + \frac{b}{1-s} \quad (s < 1)}\cr
-\eqn{\mathrm{Var}(X) = \frac{b^2}{(1-s)^2(1-2s)} \quad (s < 1/2)}\cr
-where \eqn{a} = \code{loc}, \eqn{b} = \code{scale} and
-\eqn{s} = \code{shape}.
-
-\strong{Gompertz:}\cr
-For \eqn{a > 0} the moments are computed numerically via integration.
-For \eqn{a = 0} the distribution reduces to the exponential with
-\eqn{\mu = 1/b} and \eqn{\mathrm{Var}(X) = 1/b^2}.
-For \eqn{a < 0} the moments do not exist (\code{NA}).
+For the first five distributions, \eqn{a} = \code{loc},
+\eqn{b} = \code{scale}, and \eqn{s} = \code{shape}. For the GEV with
+\eqn{s = 0}, the Gumbel moments apply. Furthermore,
+\eqn{\gamma \approx 0.5772} is the Euler-Mascheroni constant. For the
+Gompertz distribution, \eqn{\alpha} = \code{shape} and
+\eqn{\beta} = \code{rate}; moments for \eqn{\alpha > 0} are computed
+numerically by integration.
 }
 \examples{
 mgumbel(loc = 0, scale = 1)
@@ -94,25 +94,9 @@ Imperial College Press.
 }
 \seealso{
 \code{\link{dgumbel}}, \code{\link{dfrechet}},
-\code{\link{drweibull}}, \code{\link{dgev}}, \code{\link{dgpd}}
-
-Other topic.distributions.moments:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}}
-
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link[=rsum1]{rsum1()}}
+\code{\link{drweibull}}, \code{\link{dgev}}, \code{\link{dgpd}},
+\link{distributions-overview}
 }
-\concept{continuous distribution}
-\concept{distribution-function}
-\concept{distributions}
-\concept{extreme value theory}
+\concept{distribution-summary}
 \concept{extreme-value}
-\concept{moments}
-\concept{topic.distributions.moments}
+\concept{moment}

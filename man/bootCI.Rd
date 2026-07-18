@@ -21,11 +21,11 @@ bootCI(
 \item{y}{NULL (default) or a vector with compatible dimensions to \code{x},
 when a bivariate statistic is used.}
 
-\item{FUN}{the function to be used}
+\item{FUN}{the function to be used.}
 
 \item{...}{further arguments are passed to the function \code{FUN}.}
 
-\item{bci.method}{A vector of character strings representing the type of
+\item{bci.method}{a vector of character strings representing the type of
 intervals required. The value should be any subset of the values
 \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"},
 as it is passed on as \code{method} to \code{\link[boot]{boot.ci}}.}
@@ -37,16 +37,19 @@ interval, must be one of \code{"two.sided"} (default), \code{"left"} or
 \code{"right"}. You can specify just the initial letter. \code{"left"} would
 be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
-\item{R}{The number of bootstrap replicates. Usually this will be a single
+\item{R}{number of bootstrap replicates. Usually this will be a single
 positive integer. For importance resampling, some resamples may use one set
 of weights and others use a different set of weights. In this case \code{R}
 would be a vector of integers where each component gives the number of
 resamples from each of the rows of weights.}
 }
 \value{
-a named numeric vector with 3 elements: \item{est}{the specific
-estimate, as calculated by \code{FUN}} \item{lci}{lower bound of the
-confidence interval} \item{uci}{upper bound of the confidence interval}
+A named numeric vector with three elements:
+\describe{
+\item{\code{est}}{the estimate calculated by \code{FUN}.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
 }
 \description{
 Convenience wrapper for calculating bootstrap confidence intervals for
@@ -67,10 +70,6 @@ bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)
 
 
 
-}
-\seealso{
-Other ci.general:
-\code{\link[=meanCIn]{meanCIn()}}
 }
 \concept{bootstrap}
 \concept{ci.general}

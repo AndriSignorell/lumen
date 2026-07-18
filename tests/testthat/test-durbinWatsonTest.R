@@ -122,3 +122,25 @@ test_that("durbinWatsonTest: orderBy changes DW statistic", {
   res2 <- durbinWatsonTest(y ~ x1 + x2, data = df3, orderBy = ~z, exact = TRUE)
   expect_false(isTRUE(all.equal(unname(res1$statistic), unname(res2$statistic))))
 })
+
+
+test_that("durbinWatsonTest: orderBy as vector equals orderBy as formula", {
+  # regression test: the plain-vector form used to crash in
+  # model.matrix()
+  set.seed(3)
+  df3 <- cbind(df, z = rnorm(n))
+
+  res_fml <- durbinWatsonTest(y ~ x1 + x2, data = df3, orderBy = ~ z,
+                              exact = TRUE)
+  res_vec <- durbinWatsonTest(y ~ x1 + x2, data = df3, orderBy = df3$z,
+                              exact = TRUE)
+
+  expect_equal(unname(res_fml$statistic), unname(res_vec$statistic),
+               tolerance = 1e-12)
+  expect_equal(res_fml$p.value, res_vec$p.value, tolerance = 1e-12)
+})
+
+
+test_that("durbinWatsonTest: unsupported input class throws error", {
+  expect_error(durbinWatsonTest(list(1, 2, 3)), "no applicable method")
+})

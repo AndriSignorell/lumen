@@ -12,17 +12,17 @@
 #' The function supports different scoring methods, including simple
 #' table-based scores, ranks, and ridit-type transformations.
 #'
-#' @param x A contingency table (matrix or array of counts).
-#' @param MARGIN An integer indicating the margin over which to compute
+#' @param x a contingency table (matrix or array of counts).
+#' @param MARGIN an integer indicating the margin over which to compute
 #'   the scores. Defaults to \code{1} (rows). Use \code{2} for columns.
-#' @param method A character string specifying the scoring method.
+#' @param method a character string specifying the scoring method.
 #'   One of:
 #'   \itemize{
-#'     \item \code{"table"}: Uses numeric dimnames if available, otherwise
+#'     \item \code{"table"}: uses numeric dimnames if available, otherwise
 #'       assigns sequential integers.
-#'     \item \code{"ranks"}: Mid-ranks based on cumulative frequencies.
-#'     \item \code{"ridit"}: Ridit scores (ranks divided by total count).
-#'     \item \code{"modridit"}: Modified ridit scores (ranks divided by
+#'     \item \code{"ranks"}: mid-ranks based on cumulative frequencies.
+#'     \item \code{"ridit"}: ridit scores (ranks divided by total count).
+#'     \item \code{"modridit"}: modified ridit scores (ranks divided by
 #'       total count + 1).
 #'   }
 #'
@@ -43,14 +43,10 @@
 #' \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
 #'
 #' @seealso \code{\link{cochranArmitageTest}}, \code{\link{cor}}
-#' 
-
-
-
-#' @family scores  
-#' @concept transformation  
-#' @concept normality-test
 #'
+#' @family scores
+#' @concept transformation
+#' @concept ordinal
 #'
 #' @export
 scores <- function(x, MARGIN=1, 
@@ -58,6 +54,7 @@ scores <- function(x, MARGIN=1,
   
   # used by cochranArmitageTest, pearsonCor, spearmanCor
   
+  method <- match.arg(method)
   
   # original by Eric Lecoutre
   # https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html

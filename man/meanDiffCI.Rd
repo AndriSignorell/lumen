@@ -49,9 +49,12 @@ Satterthwaite) approximation to the degrees of freedom is used. Passed on to
 the boot function.}
 }
 \value{
-a numeric vector with 3 elements: \item{meandiff}{the difference:
-mean(x) - mean(y)} \item{lci}{lower bound of the confidence interval}
-\item{uci}{upper bound of the confidence interval}
+A named numeric vector with elements:
+\describe{
+\item{\code{meandiff}}{point estimate, the difference: mean(x) - mean(y)}
+\item{\code{lci}}{lower confidence interval bound}
+\item{\code{uci}}{upper confidence interval bound}
+}
 }
 \description{
 Calculates the confidence interval for the difference of two means either
@@ -61,6 +64,10 @@ the classical way or with the bootstrap approach.
 This function collects code from two sources. The classical confidence
 interval is calculated by means of \code{\link{t.test}}. The bootstrap
 intervals are strongly based on the example in \code{\link[boot]{boot}}.
+
+The bootstrap type \code{"stud"} (studentized) is not supported: the
+statistic functions used here return only the point estimate, not a
+per-replicate variance estimate, so requesting it raises an error.
 }
 \examples{
 
@@ -73,6 +80,7 @@ meanDiffCI(x, y, conf.level=0.99, na.rm=TRUE)
 # the different types of bootstrap confints
 meanDiffCI(x, y, method="boot", type="norm", na.rm=TRUE)
 meanDiffCI(x, y, method="boot", type="basic", na.rm=TRUE)
+# type="stud" is not supported (see Details) and raises an error:
 # meanDiffCI(x, y, method="boot", type="stud", na.rm=TRUE)
 meanDiffCI(x, y, method="boot", type="perc", na.rm=TRUE)
 meanDiffCI(x, y, method="boot", type="bca", na.rm=TRUE)
@@ -89,6 +97,7 @@ with(mtcars, with(split(mpg, am),
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=medianCI]{medianCI()}},
 \code{\link[=quantileCI]{quantileCI()}},
 \code{\link[=sumCI]{sumCI()}}

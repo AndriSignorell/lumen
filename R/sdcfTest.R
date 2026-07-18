@@ -32,6 +32,9 @@
 #'   \code{x} is a list.
 #' @param output character string specifying the output format. One of
 #'   \code{"list"} (default) or \code{"matrix"}.
+#' @param alpha the significance level used to compile the groups flagged
+#'   as significantly different in the label attribute of the p-value
+#'   matrix (default is \code{0.05})
 #' @param formula a formula of the form \code{response ~ group}.
 #' @param data an optional data frame containing the variables in
 #'   \code{formula}.
@@ -41,8 +44,7 @@
 #'   handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{c("rankTest", "htest")} containing:
-#' \describe{
+#' @return An object of class \code{"rankTest"} containing:
 #'   \item{res}{
 #'     comparison results. For \code{output="list"} a matrix with
 #'     columns \code{z} and \code{pval}; for
@@ -52,7 +54,6 @@
 #'   \item{pmat}{
 #'     symmetric matrix of adjusted p-values with diagonal 1.
 #'   }
-#' }
 #'
 #' Additional information is stored in attributes:
 #' \code{method}, \code{output}, \code{main}, and
@@ -114,8 +115,7 @@
 #' @concept multiple-comparisons
 #' @concept nonparametric
 #' @concept hypothesis-testing
-
-
+#'
 #' @export
 sdcfTest <- function(x, ...)
   UseMethod("sdcfTest")
@@ -180,6 +180,7 @@ sdcfTest.default <- function(
       "list",
       "matrix"
     ),
+    alpha = 0.05,
     ...
 ) {
   
@@ -278,7 +279,7 @@ sdcfTest.default <- function(
     pmatxt,
     1,
     function(z)
-      paste(rownames(pmatxt)[!is.na(z) & z < 0.05], collapse = ",")
+      paste(rownames(pmatxt)[!is.na(z) & z < alpha], collapse = ",")
   )
   
   # --- output -------------------------------------------------------------
@@ -294,7 +295,7 @@ sdcfTest.default <- function(
   
   out$pmat <- pmatxt
   
-  class(out) <- c("rankTest", "htest")
+  class(out) <- "rankTest"
   
   attr(out, "main")      <- "Steel-Dwass-Critchlow-Fligner all-pairs test"
   attr(out, "method")    <- "Dwass-Steel-Critchlow-Fligner"

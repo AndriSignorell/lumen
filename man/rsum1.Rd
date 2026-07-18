@@ -7,9 +7,9 @@
 rsum1(n, digits = NULL)
 }
 \arguments{
-\item{n}{Integer. Number of components (must be >= 1).}
+\item{n}{integer. Number of components (must be >= 1).}
 
-\item{digits}{Optional integer. If provided, the result is rounded to
+\item{digits}{optional integer. If provided, the result is rounded to
 the specified number of decimal places. A correction is applied to
 ensure the sum remains exactly 1.}
 }
@@ -38,16 +38,6 @@ rsum1(5)
 rsum1(5, digits = 2)
 rsum1(1)
 
-}
-\seealso{
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{disc.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}}
 }
 \concept{distribution-function}
 \concept{distributions}

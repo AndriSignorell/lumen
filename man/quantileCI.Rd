@@ -17,7 +17,7 @@ quantileCI(
 \arguments{
 \item{x}{a (non-empty) numeric vector of data values.}
 
-\item{conf.level}{confidence level of the interval}
+\item{conf.level}{confidence level of the interval.}
 
 \item{sides}{a character string specifying the side of the confidence
 interval, must be one of \code{"two.sided"} (default), \code{"left"} or
@@ -29,8 +29,8 @@ out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See
 Details.}
 
 \item{probs}{numeric vector of probabilities with values in \emph{\verb{[0,1]}}.
-(Values up to \code{2e-14} outside that range are accepted and moved to the
-nearby endpoint.)}
+Values up to \code{2e-14} outside that range are accepted and moved to the
+nearby endpoint.}
 
 \item{na.rm}{logical. Should missing values be removed? Defaults to
 \code{FALSE}.}
@@ -39,9 +39,15 @@ nearby endpoint.)}
 \code{\link[boot]{boot.ci}} for details.}
 }
 \value{
-A matrix with columns \code{est} (estimated quantile), \code{lci} (lower
-confidence limit), and \code{uci} (upper confidence limit), with one row
-per element of \code{probs}. For the \code{"exact"} method, an attribute
+A numeric matrix with one row per element of \code{probs} and
+columns:
+\describe{
+\item{\code{est}}{estimated quantile.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
+}
+
+For the \code{"exact"} method, the attribute
 \code{conf.level} reports the achieved coverage (which may differ from the
 requested level).
 }
@@ -56,9 +62,6 @@ The \code{"exact"} method corresponds to the way the confidence interval for
 the median is calculated in SAS. \cr The boot confidence interval type is
 calculated by means of \code{\link[boot]{boot.ci}} with default type
 \code{"basic"}.
-}
-\note{
-based on code of W Huber on StackExchange
 }
 \examples{
 
@@ -80,6 +83,7 @@ quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
+\code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=medianCI]{medianCI()}},
 \code{\link[=sumCI]{sumCI()}}

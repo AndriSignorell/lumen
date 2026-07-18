@@ -38,8 +38,7 @@ mtri(min = 0, max = 1, mode = 0.5)
 
 \item{rate}{rate parameter (1/mean) of the exponential distribution.}
 
-\item{shape, }{rate shape and scale parameters of the gamma and beta
-distributions.}
+\item{shape}{shape parameter of the gamma distribution.}
 
 \item{meanlog, sdlog}{mean and standard deviation on the log scale
 (log-normal distribution).}
@@ -67,42 +66,40 @@ Computes the mean and variance of common continuous distributions given
 their parameters.
 }
 \details{
-\strong{Normal:}\cr
-\eqn{\mu = \mu}\cr
-\eqn{\mathrm{Var}(X) = \sigma^2}
-
-\strong{Exponential:}\cr
-\eqn{\mu = \frac{1}{\lambda}}\cr
-\eqn{\mathrm{Var}(X) = \frac{1}{\lambda^2}}
-
-\strong{Gamma:}\cr
-\eqn{\mu = \frac{\alpha}{\beta}}\cr
-\eqn{\mathrm{Var}(X) = \frac{\alpha}{\beta^2}}
-
-\strong{Log-Normal:}\cr
-\eqn{\mu = \exp(\mu_{log} + \frac{1}{2}\sigma_{log}^2)}\cr
-\eqn{\mathrm{Var}(X) = (\exp(\sigma_{log}^2) - 1) \cdot \exp(2\mu_{log} + \sigma_{log}^2)}
-
-\strong{Beta:}\cr
-\eqn{\mu = \frac{\alpha}{\alpha + \beta}}\cr
-\eqn{\mathrm{Var}(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}}
-
-\strong{Chi-Squared:}\cr
-\eqn{\mu = \nu}\cr
-\eqn{\mathrm{Var}(X) = 2\nu}
-
-\strong{t-Distribution:}\cr
-\eqn{\mu = 0 \quad (\nu > 1)}\cr
-\eqn{\mathrm{Var}(X) = \frac{\nu}{\nu-2} \quad (\nu > 2)}
-
-\strong{F-Distribution:}\cr
-\eqn{\mu = \frac{n_2}{n_2-2} \quad (n_2 > 2)}\cr
-\eqn{\mathrm{Var}(X) = \frac{2n_2^2(n_1+n_2-2)}{n_1(n_2-2)^2(n_2-4)} \quad (n_2 > 4)}
-
-\strong{Triangular:}\cr
-\eqn{\mu = \frac{a + b + c}{3}}\cr
-\eqn{\mathrm{Var}(X) = \frac{a^2 + b^2 + c^2 - ab - ac - bc}{18}}\cr
-where \eqn{a} = \code{min}, \eqn{b} = \code{max} and \eqn{c} = \code{mode}.
+\tabular{lll}{
+\strong{Distribution \verb{    } } \tab \strong{Mean \verb{               }} \tab \strong{Variance   } \cr
+Normal \tab
+\eqn{\mu} \tab
+\eqn{\sigma^2} \cr
+Exponential \tab
+\eqn{\frac{1}{\lambda}} \tab
+\eqn{\frac{1}{\lambda^2}} \cr
+Gamma \tab
+\eqn{\frac{\alpha}{\beta}} \tab
+\eqn{\frac{\alpha}{\beta^2}} \cr
+Log-normal \tab
+\eqn{\exp(\mu_{log} + \frac{1}{2}\sigma_{log}^2)} \tab
+\eqn{(\exp(\sigma_{log}^2) - 1)
+      \exp(2\mu_{log} + \sigma_{log}^2)} \cr
+Beta \tab
+\eqn{\frac{\alpha}{\alpha + \beta}} \tab
+\eqn{\frac{\alpha\beta}
+      {(\alpha+\beta)^2(\alpha+\beta+1)}} \cr
+Chi-squared \tab
+\eqn{\nu} \tab
+\eqn{2\nu} \cr
+t-distribution \tab
+\eqn{0 \quad (\nu > 1)} \tab
+\eqn{\frac{\nu}{\nu-2} \quad (\nu > 2)} \cr
+F-distribution \tab
+\eqn{\frac{n_2}{n_2-2} \quad (n_2 > 2)} \tab
+\eqn{\frac{2n_2^2(n_1+n_2-2)}
+      {n_1(n_2-2)^2(n_2-4)} \quad (n_2 > 4)} \cr
+Triangular \tab
+\eqn{\frac{a + b + c}{3}} \tab
+\eqn{\frac{a^2 + b^2 + c^2 - ab - ac - bc}{18}} \cr
+\tab   where \eqn{a} = \code{min}, \eqn{b} = \code{max} and \eqn{c} = \code{mode}\cr
+}
 }
 \examples{
 mnorm(mean = 0, sd = 1)
@@ -131,23 +128,7 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \code{\link[stats]{dnorm}}, \code{\link[stats]{dexp}},
 \code{\link[stats]{dgamma}}, \code{\link[stats]{dlnorm}},
 \code{\link[stats]{dbeta}}, \code{\link[stats]{dchisq}},
-\code{\link[stats]{dt}}, \code{\link[stats]{df}}
-
-Other topic.distributions.moments:
-\code{\link{disc.moments}},
-\code{\link{extreme-value-moments}}
-
-Other distributions:
-\code{\link{disc.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}},
-\code{\link[=rsum1]{rsum1()}}
+\code{\link[stats]{dt}}, \code{\link[stats]{df}}, \link{distributions-overview}
 }
-\concept{continuous distribution}
-\concept{distribution-function}
-\concept{distributions}
-\concept{moments}
-\concept{topic.distributions.moments}
+\concept{distribution-summary}
+\concept{moment}

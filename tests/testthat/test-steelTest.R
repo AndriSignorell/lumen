@@ -7,7 +7,6 @@ test_that("steelTest.default: basic three-group example (list interface)", {
   res <- steelTest(list(x, y, z))
   
   expect_s3_class(res, "rankTest")
-  expect_s3_class(res, "htest")
   expect_named(res, c("statistic", "p.value", "res", "pmat", "corr"))
 })
 

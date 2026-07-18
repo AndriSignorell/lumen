@@ -5,20 +5,20 @@
 #' and random-generation (\code{r}) functions for several distributions
 #' not covered by base R, plus moment (\code{m}) functions -- mean and
 #' variance -- for those and for several distributions base R already
-#' provides d/p/q/r for. A \code{.} marks a combination with no function.
+#' provides d-p-q-r for. A \code{-} marks a combination with no function.
 #'
 #' @section Extreme value distributions:
 #'
-#' | Distribution | d | p | q | r | m |
-#' |---|---|---|---|---|---|
-#' | Generic extreme | [dextreme()] | [pextreme()] | [qextreme()] | [rextreme()] | . |
-#' | Gen. Extreme Value | [dgev()] | [pgev()] | [qgev()] | [rgev()] | [mgev()] |
-#' | Gumbel | [dgumbel()] | [pgumbel()] | [qgumbel()] | [rgumbel()] | [mgumbel()] |
-#' | Gumbel, maximum of two | [dgumbelx()] | [pgumbelx()] | [qgumbelx()] | [rgumbelx()] | . |
-#' | Fréchet | [dfrechet()] | [pfrechet()] | [qfrechet()] | [rfrechet()] | [mfrechet()] |
-#' | Reversed Weibull | [drweibull()] | [prweibull()] | [qrweibull()] | [rrweibull()] | [mrweibull()] |
-#' | Reverse Gumbel | [dRevGumbel()] | [pRevGumbel()] | [qRevGumbel()] | [rRevGumbel()] | . |
-#' | Order statistics | [dorder()] | [porder()] | . | [rorder()] | . |
+#' | \strong{Distribution} | \strong{d-p-q-r} | \strong{Moments} |
+#' |---|---|---|
+#' | Generic extreme | [dpqr-extreme] | \code{-} |
+#' | Gen. Extreme Value | [dpqr-gev] | [mgev()] |
+#' | Gumbel | [dpqr-gumbel] | [mgumbel()] |
+#' | Gumbel, maximum of two \verb{  } | [dpqr-gumbelx] | \code{-} |
+#' | Fréchet | [dpqr-frechet] | [mfrechet()] |
+#' | Reversed Weibull | [dpqr-rweibull] | [mrweibull()] |
+#' | Reverse Gumbel | [dpqr-RevGumbel] \verb{  } | \code{-} |
+#' | Order statistics | [dpqr-order] | \code{-} |
 #'
 #' Order statistics have no quantile function (\code{qorder()} does not
 #' exist). \code{\link{qRevGumbelExp}} is a specialized quantile for the
@@ -27,35 +27,33 @@
 #'
 #' @section Other distributions:
 #'
-#' | Distribution | d | p | q | r | m |
-#' |---|---|---|---|---|---|
+#' | \strong{Distribution} | \strong{d-p-q-r} | \strong{Moments} |
+#' |---|---|---|
 #' | Benford | [dpqr-benford] | [mbenford()] |
-#' | Dirichlet | [dpqr-dirichlet] | . |
-#' | Gompertz | [dpqr-gompertz] | [mgompertz()] |
-#' | Gen. Pareto | [dpqr-gpd] | [mgpd()] |
+#' | Dirichlet | [dpqr-dirichlet] | \code{-} |
+#' | Gompertz | [dpqr-gompertz] \verb{  } | [mgompertz()] |
+#' | Gen. Pareto \verb{  } | [dpqr-gpd] | [mgpd()] |
 #' | Triangular | [dpqr-tri] | [mtri()] |
 #'
 #' @section Moments for base R distributions:
-#' For these, \code{d}/\code{p}/\code{q}/\code{r} already exist in
+#' For these, \code{d}-\code{p}-\code{q}-\code{r} already exist in
 #' \pkg{stats} -- lumen only adds the moments function.
 #'
-#' | Distribution | stats:: | Moments |
+#' | \strong{Distribution} | \strong{d-p-q-r} | \strong{Moments} |
 #' |---|---|---|
 #' | Beta | [stats::Beta] | [mbeta()] |
-#' | Binomial | \link[stats:Binomial]{Binomial} | [mbinom()] |
-#' 
-#' 
-#' | Chi-squared | \code{dchisq}/\code{pchisq}/\code{qchisq}/\code{rchisq} | [mchisq()] |
-#' | Exponential | \code{dexp}/\code{pexp}/\code{qexp}/\code{rexp} | [mexp()] |
-#' | F | \code{df}/\code{pf}/\code{qf}/\code{rf} | [mf()] |
-#' | Gamma | \code{dgamma}/\code{pgamma}/\code{qgamma}/\code{rgamma} | [mgamma()] |
-#' | Geometric | \code{dgeom}/\code{pgeom}/\code{qgeom}/\code{rgeom} | [mgeom()] |
-#' | Hypergeometric | \code{dhyper}/\code{phyper}/\code{qhyper}/\code{rhyper} | [mhyper()] |
-#' | Log-normal | \code{dlnorm}/\code{plnorm}/\code{qlnorm}/\code{rlnorm} | [mlnorm()] |
-#' | Negative binomial | \code{dnbinom}/\code{pnbinom}/\code{qnbinom}/\code{rnbinom} | [mnbinom()] |
-#' | Normal | \code{dnorm}/\code{pnorm}/\code{qnorm}/\code{rnorm} | [mnorm()] |
-#' | Poisson | \code{dpois}/\code{ppois}/\code{qpois}/\code{rpois} | [mpois()] |
-#' | Student's t | \code{dt}/\code{pt}/\code{qt}/\code{rt} | [mt()] |
+#' | Binomial | [stats::Binomial] | [mbinom()] |
+#' | Chi-squared | [stats::Chisquare] | [mchisq()] |
+#' | Exponential | [stats::Exponential] | [mexp()] |
+#' | F | [stats::FDist] | [mf()] |
+#' | Gamma | [stats::GammaDist] | [mgamma()] |
+#' | Geometric | [stats::Geometric] | [mgeom()] |
+#' | Hypergeometric | [stats::Hypergeometric] \verb{  } | [mhyper()] |
+#' | Log-normal | [stats::Lognormal] | [mlnorm()] |
+#' | Negative binomial \verb{  }| [stats::NegBinomial] | [mnbinom()] |
+#' | Normal | [stats::Normal] | [mnorm()] |
+#' | Poisson | [stats::Poisson] | [mpois()] |
+#' | Student's t | [stats::TDist] | [mt()] |
 #'
 #' @section Standalone:
 #' [rsum1()] generates a Dirichlet-distributed sample (which sums to 1

@@ -49,32 +49,33 @@ Computes the mean and variance of common discrete distributions given
 their parameters.
 }
 \details{
-\strong{Binomial:}\cr
-\eqn{\mu = n \cdot p}\cr
-\eqn{\mathrm{Var}(X) = n \cdot p \cdot (1-p)}
+\tabular{lll}{
+\strong{Distribution\verb{       } } \tab \strong{Mean\verb{                 } } \tab \strong{Variance} \cr
+Binomial \tab
+\eqn{np} \tab
+\eqn{np(1-p)} \cr
+Poisson \tab
+\eqn{\lambda} \tab
+\eqn{\lambda} \cr
+Geometric \tab
+\eqn{\frac{1-p}{p}} \tab
+\eqn{\frac{1-p}{p^2}} \cr
+Negative binomial \tab
+\eqn{\frac{r(1-p)}{p}} \tab
+\eqn{\frac{r(1-p)}{p^2}} \cr
+Hypergeometric \tab
+\eqn{\frac{km}{N}} \tab
+\eqn{\frac{km}{N}\frac{n}{N}\frac{N-k}{N-1}} \cr
+Benford \tab
+\eqn{\sum_d d\log_{10}\left(1 + \frac{1}{d}\right)} \tab
+\eqn{\sum_d d^2\log_{10}\left(1 + \frac{1}{d}\right) - \mu^2} \cr
+}
 
-\strong{Poisson:}\cr
-\eqn{\mu = \lambda}\cr
-\eqn{\mathrm{Var}(X) = \lambda}
-
-\strong{Geometric:}\cr
-\eqn{\mu = \frac{1-p}{p}}\cr
-\eqn{\mathrm{Var}(X) = \frac{1-p}{p^2}}
-
-\strong{Negative Binomial:}\cr
-\eqn{\mu = \frac{r(1-p)}{p}}\cr
-\eqn{\mathrm{Var}(X) = \frac{r(1-p)}{p^2}}
-
-\strong{Hypergeometric:}\cr
-\eqn{\mu = \frac{km}{N}}\cr
-\eqn{\mathrm{Var}(X) = \frac{km}{N} \cdot \frac{n}{N} \cdot \frac{N-k}{N-1}}
-
-\strong{Benford:}\cr
-\eqn{\mu = \sum_{d} d \cdot \log_{10}\left(1 + \frac{1}{d}\right)}\cr
-\eqn{\mathrm{Var}(X) = \sum_{d} d^2 \cdot \log_{10}\left(1 + 
-  \frac{1}{d}\right) - \mu^2}\cr
-where the sum runs over \eqn{d \in \{1,\ldots,9\}} for \code{ndigits = 1}
-and \eqn{d \in \{10,\ldots,99\}} for \code{ndigits = 2}. As there is no
+For the binomial distribution, \eqn{n} = \code{size}; for the negative
+binomial distribution, \eqn{r} = \code{size}; and for the hypergeometric
+distribution, \eqn{N = m + n}. For Benford's distribution, the sum runs
+over \eqn{d \in \{1,\ldots,9\}} for \code{ndigits = 1} and
+\eqn{d \in \{10,\ldots,99\}} for \code{ndigits = 2}. As there is no
 closed-form solution, the moments are computed numerically.
 }
 \examples{
@@ -97,23 +98,7 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \seealso{
 \code{\link[stats]{Binomial}}, \code{\link[stats]{Poisson}},
 \code{\link[stats]{Geometric}}, \code{\link[stats]{NegBinomial}},
-\code{\link[stats]{Hypergeometric}}
-
-Other topic.distributions.moments:
-\code{\link{cont.moments}},
-\code{\link{extreme-value-moments}}
-
-Other distributions:
-\code{\link{cont.moments}},
-\code{\link{dpqr-RevGumbel}},
-\code{\link{dpqr-dirichlet}},
-\code{\link{dpqr-gompertz}},
-\code{\link{dpqr-tri}},
-\code{\link{extreme-value-moments}},
-\code{\link[=rsum1]{rsum1()}}
+\code{\link[stats]{Hypergeometric}}, \link{distributions-overview}
 }
-\concept{discrete distribution}
-\concept{distribution-function}
-\concept{distributions}
-\concept{moments}
-\concept{topic.distributions.moments}
+\concept{distribution-summary}
+\concept{moment}

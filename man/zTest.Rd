@@ -4,7 +4,7 @@
 \alias{zTest}
 \alias{zTest.default}
 \alias{zTest.formula}
-\title{Z Test for Known Population Standard Deviation}
+\title{z-Test for Known Population Standard Deviation}
 \usage{
 zTest(x, ...)
 
@@ -56,7 +56,8 @@ in relation to the hypothesized value of the mean.}
 \item{mu}{a number specifying the hypothesized mean of the population.}
 
 \item{sd_pop}{a number specifying the known standard deviation of the
-population.}
+population. For the two-sample test, this single value is assumed to be
+the common known standard deviation of both populations.}
 
 \item{conf.level}{confidence level for the interval computation.}
 }
@@ -127,9 +128,10 @@ vieweg
 \code{\link{t.test}}, \code{\link{print.htest}}
 
 Other test.location:
-\code{\link{hotelling-t2-test}},
+\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}}
 }
 \concept{location-test}

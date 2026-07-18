@@ -24,29 +24,31 @@
 #' Bartels test is a rank version of von Neumann's test, see
 #' \code{\link{vonNeumannTest}}.
 #'
-#' @param x a numeric vector containing the observations
+#' @param x a numeric vector containing the observations.
 #' @param alternative a character string specifying the alternative
 #' hypothesis, must be one of "\code{two.sided}" (default), "\code{trend}"
-#' or "\code{oscillation}"
+#' or "\code{oscillation}".
 #' @param method a character string specifying the method used to compute
 #' the p-value, must be one of \code{"auto"} (default), \code{"normal"} or
 #' \code{"beta"}. With \code{"auto"} the beta approximation is used for
 #' sample sizes up to 100 and the normal approximation otherwise.
-#' @return a list with class \code{"htest"} containing the following
+#' @return A list with class \code{"htest"} containing the following
 #' components:
-#' \item{statistic}{the value of the normalized test statistic}
-#' \item{parameter, n}{the sample size, after the removal of missing
-#' values}
-#' \item{p.value}{the p-value of the test}
-#' \item{alternative}{a character string describing the alternative
-#' hypothesis}
-#' \item{method}{a character string indicating the test performed}
-#' \item{data.name}{a character string giving the name of the data}
-#' \item{rvn}{the value of the RVN statistic (not shown on screen)}
-#' \item{nm}{the value of the NM statistic, the numerator of RVN (not
-#' shown on screen)}
-#' \item{mu}{the mean value of the RVN statistic (not shown on screen)}
-#' \item{var}{the variance of the RVN statistic (not shown on screen)}
+#'   \item{\code{statistic}}{the value of the normalized test statistic.}
+#'   \item{\code{parameter}, \code{n}}{the sample size, after the removal of
+#'     missing values.}
+#'   \item{\code{p.value}}{the p-value of the test.}
+#'   \item{\code{alternative}}{a character string describing the alternative
+#'     hypothesis.}
+#'   \item{\code{method}}{a character string indicating the test performed.}
+#'   \item{\code{data.name}}{a character string giving the name of the data.}
+#'   \item{\code{rvn}}{the value of the RVN statistic (not shown on screen).}
+#'   \item{\code{nm}}{the value of the NM statistic, the numerator of RVN (not
+#'     shown on screen).}
+#'   \item{\code{mu}}{the mean value of the RVN statistic (not shown on
+#'     screen).}
+#'   \item{\code{var}}{the variance of the RVN statistic (not shown on
+#'     screen).}
 #'
 #' @note
 #' Based on code by Frederico Caeiro previously published in the

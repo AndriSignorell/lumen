@@ -29,9 +29,12 @@ hypothesis of \code{"greater"} in \code{t.test()}.}
 methods.}
 }
 \value{
-A matrix with 3 columns: \item{est}{estimate} \item{lci}{lower
-bound of the confidence interval} \item{uci}{upper bound of the
-confidence interval}
+A numeric matrix with one row per class and columns:
+\describe{
+\item{\code{est}}{estimated difference}
+\item{\code{lci}}{lower confidence limit}
+\item{\code{uci}}{upper confidence limit}
+}
 
 The number of rows correspond to the dimension of x.
 }
@@ -115,6 +118,7 @@ x <- c(56, 72, 73, 59, 62, 87, 58)
 do.call(cbind, lapply(c("wald", "waldcc", "wilson", 
                         "qh", "goodman", "fs", "sison-glaz"),
                       function(m) round(multinomCI(x, method=m)[,-1], 3)))
+       
        
 }
 \references{

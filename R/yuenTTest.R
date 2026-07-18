@@ -22,21 +22,21 @@
 #' @name yuenTTest
 #' @aliases yuenTTest yuenTTest.default yuenTTest.formula
 #'
-#' @param x Numeric vector of observations.
-#' @param y Optional second numeric vector.
-#' @param alternative Character string specifying the alternative
+#' @param x numeric vector of observations.
+#' @param y optional second numeric vector.
+#' @param alternative character string specifying the alternative
 #'   hypothesis. One of \code{"two.sided"}, \code{"less"},
 #'   or \code{"greater"}.
-#' @param paired Logical indicating whether a paired test is performed.
-#' @param mu Hypothesized trimmed mean (or trimmed mean difference).
-#' @param conf.level Confidence level for the confidence interval.
-#' @param trim Fraction of observations trimmed from each tail.
+#' @param paired logical indicating whether a paired test is performed.
+#' @param mu hypothesized trimmed mean (or trimmed mean difference).
+#' @param conf.level confidence level for the confidence interval.
+#' @param trim fraction of observations trimmed from each tail.
 #'   Must satisfy \code{0 <= trim < 0.5}.
-#' @param formula Formula of the form \code{lhs ~ rhs}.
-#' @param data Optional data frame for the formula interface.
-#' @param subset Optional subset expression.
+#' @param formula a formula of the form \code{lhs ~ rhs}.
+#' @param data optional data frame for the formula interface.
+#' @param subset optional subset expression.
 #' @param na.action NA handling function.
-#' @param \dots Further arguments passed to methods.
+#' @param \dots further arguments passed to methods.
 #'
 #' @return
 #' An object of class \code{"htest"}.
@@ -64,14 +64,9 @@
 #' yuenTTest(extra ~ group, data = sleep)
 #'
 #' @rdname yuenTTest
-
-
-
-
-#' @family test.location  
-#' @concept location-test  
+#' @family test.location
+#' @concept location-test
 #' @concept robust-statistics
-#'
 #'
 #' @export
 yuenTTest <- function(x, ...)
@@ -106,7 +101,7 @@ yuenTTest.formula <- function(formula,
     args$subset <- substitute(subset)
   
   d <- do.call(
-    bedrock::resolveFormula,
+    resolveFormula,
     args
   )
   
@@ -123,11 +118,7 @@ yuenTTest.formula <- function(formula,
     ...
   )
   
-  res$data.name <- paste(
-    deparse(formula[[2L]]),
-    "by",
-    deparse(formula[[3L]])
-  )
+  res$data.name <- d$data.name
   
   res
   
@@ -178,9 +169,9 @@ yuenTTest.default <- function(
   if (!is.null(y)) {
     
     dname <- paste(
-      deparse(substitute(x)),
+      deparse1(substitute(x)),
       "and",
-      deparse(substitute(y))
+      deparse1(substitute(y))
     )
     
     if (paired) {
@@ -198,7 +189,7 @@ yuenTTest.default <- function(
     
   } else {
     
-    dname <- deparse(substitute(x))
+    dname <- deparse1(substitute(x))
     
     if (paired)
       stop("'y' is missing for paired test")
@@ -433,7 +424,7 @@ yuenTTest.default <- function(
     na.rm = TRUE
   )
   
-  wz <- bedrock::winsorize(
+  wz <- winsorize(
     z,
     val = q
   )
@@ -454,7 +445,7 @@ yuenTTest.default <- function(
     na.rm = TRUE
   )
   
-  wz <- bedrock::winsorize(
+  wz <- winsorize(
     z,
     val = q
   )

@@ -8,19 +8,19 @@ lumen provides density (\code{d}), CDF (\code{p}), quantile (\code{q}),
 and random-generation (\code{r}) functions for several distributions
 not covered by base R, plus moment (\code{m}) functions -- mean and
 variance -- for those and for several distributions base R already
-provides d/p/q/r for. A \code{.} marks a combination with no function.
+provides d-p-q-r for. A \code{-} marks a combination with no function.
 }
 \section{Extreme value distributions}{
-\tabular{llllll}{
-   Distribution \tab d \tab p \tab q \tab r \tab m \cr
-   Generic extreme \tab \code{\link[=dextreme]{dextreme()}} \tab \code{\link[=pextreme]{pextreme()}} \tab \code{\link[=qextreme]{qextreme()}} \tab \code{\link[=rextreme]{rextreme()}} \tab . \cr
-   Gen. Extreme Value \tab \code{\link[=dgev]{dgev()}} \tab \code{\link[=pgev]{pgev()}} \tab \code{\link[=qgev]{qgev()}} \tab \code{\link[=rgev]{rgev()}} \tab \code{\link[=mgev]{mgev()}} \cr
-   Gumbel \tab \code{\link[=dgumbel]{dgumbel()}} \tab \code{\link[=pgumbel]{pgumbel()}} \tab \code{\link[=qgumbel]{qgumbel()}} \tab \code{\link[=rgumbel]{rgumbel()}} \tab \code{\link[=mgumbel]{mgumbel()}} \cr
-   Gumbel, maximum of two \tab \code{\link[=dgumbelx]{dgumbelx()}} \tab \code{\link[=pgumbelx]{pgumbelx()}} \tab \code{\link[=qgumbelx]{qgumbelx()}} \tab \code{\link[=rgumbelx]{rgumbelx()}} \tab . \cr
-   Fréchet \tab \code{\link[=dfrechet]{dfrechet()}} \tab \code{\link[=pfrechet]{pfrechet()}} \tab \code{\link[=qfrechet]{qfrechet()}} \tab \code{\link[=rfrechet]{rfrechet()}} \tab \code{\link[=mfrechet]{mfrechet()}} \cr
-   Reversed Weibull \tab \code{\link[=drweibull]{drweibull()}} \tab \code{\link[=prweibull]{prweibull()}} \tab \code{\link[=qrweibull]{qrweibull()}} \tab \code{\link[=rrweibull]{rrweibull()}} \tab \code{\link[=mrweibull]{mrweibull()}} \cr
-   Reverse Gumbel \tab \code{\link[=dRevGumbel]{dRevGumbel()}} \tab \code{\link[=pRevGumbel]{pRevGumbel()}} \tab \code{\link[=qRevGumbel]{qRevGumbel()}} \tab \code{\link[=rRevGumbel]{rRevGumbel()}} \tab . \cr
-   Order statistics \tab \code{\link[=dorder]{dorder()}} \tab \code{\link[=porder]{porder()}} \tab . \tab \code{\link[=rorder]{rorder()}} \tab . \cr
+\tabular{lll}{
+   \strong{Distribution} \tab \strong{d-p-q-r} \tab \strong{Moments} \cr
+   Generic extreme \tab \link{dpqr-extreme} \tab \code{-} \cr
+   Gen. Extreme Value \tab \link{dpqr-gev} \tab \code{\link[=mgev]{mgev()}} \cr
+   Gumbel \tab \link{dpqr-gumbel} \tab \code{\link[=mgumbel]{mgumbel()}} \cr
+   Gumbel, maximum of two \verb{  } \tab \link{dpqr-gumbelx} \tab \code{-} \cr
+   Fréchet \tab \link{dpqr-frechet} \tab \code{\link[=mfrechet]{mfrechet()}} \cr
+   Reversed Weibull \tab \link{dpqr-rweibull} \tab \code{\link[=mrweibull]{mrweibull()}} \cr
+   Reverse Gumbel \tab \link{dpqr-RevGumbel} \verb{  } \tab \code{-} \cr
+   Order statistics \tab \link{dpqr-order} \tab \code{-} \cr
 }
 
 
@@ -31,37 +31,35 @@ general-purpose \code{q} slot -- use \code{\link{qRevGumbel}} for that.
 }
 
 \section{Other distributions}{
-\tabular{llllll}{
-   Distribution \tab d \tab p \tab q \tab r \tab m \cr
-   Benford \tab \link{dpqr-benford} \tab \code{\link[=mbenford]{mbenford()}} \tab  \tab  \tab  \cr
-   Dirichlet \tab \link{dpqr-dirichlet} \tab . \tab  \tab  \tab  \cr
-   Gompertz \tab \link{dpqr-gompertz} \tab \code{\link[=mgompertz]{mgompertz()}} \tab  \tab  \tab  \cr
-   Gen. Pareto \tab \link{dpqr-gpd} \tab \code{\link[=mgpd]{mgpd()}} \tab  \tab  \tab  \cr
-   Triangular \tab \link{dpqr-tri} \tab \code{\link[=mtri]{mtri()}} \tab  \tab  \tab  \cr
+\tabular{lll}{
+   \strong{Distribution} \tab \strong{d-p-q-r} \tab \strong{Moments} \cr
+   Benford \tab \link{dpqr-benford} \tab \code{\link[=mbenford]{mbenford()}} \cr
+   Dirichlet \tab \link{dpqr-dirichlet} \tab \code{-} \cr
+   Gompertz \tab \link{dpqr-gompertz} \verb{  } \tab \code{\link[=mgompertz]{mgompertz()}} \cr
+   Gen. Pareto \verb{  } \tab \link{dpqr-gpd} \tab \code{\link[=mgpd]{mgpd()}} \cr
+   Triangular \tab \link{dpqr-tri} \tab \code{\link[=mtri]{mtri()}} \cr
 }
 }
 
 \section{Moments for base R distributions}{
 
-For these, \code{d}/\code{p}/\code{q}/\code{r} already exist in
+For these, \code{d}-\code{p}-\code{q}-\code{r} already exist in
 \pkg{stats} -- lumen only adds the moments function.\tabular{lll}{
-   Distribution \tab stats:: \tab Moments \cr
+   \strong{Distribution} \tab \strong{d-p-q-r} \tab \strong{Moments} \cr
    Beta \tab \link[stats:Beta]{stats::Beta} \tab \code{\link[=mbeta]{mbeta()}} \cr
-   Binomial \tab \link[stats:Binomial]{Binomial} \tab \code{\link[=mbinom]{mbinom()}} \cr
+   Binomial \tab \link[stats:Binomial]{stats::Binomial} \tab \code{\link[=mbinom]{mbinom()}} \cr
+   Chi-squared \tab \link[stats:Chisquare]{stats::Chisquare} \tab \code{\link[=mchisq]{mchisq()}} \cr
+   Exponential \tab \link[stats:Exponential]{stats::Exponential} \tab \code{\link[=mexp]{mexp()}} \cr
+   F \tab \link[stats:FDist]{stats::FDist} \tab \code{\link[=mf]{mf()}} \cr
+   Gamma \tab \link[stats:GammaDist]{stats::GammaDist} \tab \code{\link[=mgamma]{mgamma()}} \cr
+   Geometric \tab \link[stats:Geometric]{stats::Geometric} \tab \code{\link[=mgeom]{mgeom()}} \cr
+   Hypergeometric \tab \link[stats:Hypergeometric]{stats::Hypergeometric} \verb{  } \tab \code{\link[=mhyper]{mhyper()}} \cr
+   Log-normal \tab \link[stats:Lognormal]{stats::Lognormal} \tab \code{\link[=mlnorm]{mlnorm()}} \cr
+   Negative binomial \verb{  } \tab \link[stats:NegBinomial]{stats::NegBinomial} \tab \code{\link[=mnbinom]{mnbinom()}} \cr
+   Normal \tab \link[stats:Normal]{stats::Normal} \tab \code{\link[=mnorm]{mnorm()}} \cr
+   Poisson \tab \link[stats:Poisson]{stats::Poisson} \tab \code{\link[=mpois]{mpois()}} \cr
+   Student's t \tab \link[stats:TDist]{stats::TDist} \tab \code{\link[=mt]{mt()}} \cr
 }
-
-
-| Chi-squared | \code{dchisq}/\code{pchisq}/\code{qchisq}/\code{rchisq} | \code{\link[=mchisq]{mchisq()}} |
-| Exponential | \code{dexp}/\code{pexp}/\code{qexp}/\code{rexp} | \code{\link[=mexp]{mexp()}} |
-| F | \code{df}/\code{pf}/\code{qf}/\code{rf} | \code{\link[=mf]{mf()}} |
-| Gamma | \code{dgamma}/\code{pgamma}/\code{qgamma}/\code{rgamma} | \code{\link[=mgamma]{mgamma()}} |
-| Geometric | \code{dgeom}/\code{pgeom}/\code{qgeom}/\code{rgeom} | \code{\link[=mgeom]{mgeom()}} |
-| Hypergeometric | \code{dhyper}/\code{phyper}/\code{qhyper}/\code{rhyper} | \code{\link[=mhyper]{mhyper()}} |
-| Log-normal | \code{dlnorm}/\code{plnorm}/\code{qlnorm}/\code{rlnorm} | \code{\link[=mlnorm]{mlnorm()}} |
-| Negative binomial | \code{dnbinom}/\code{pnbinom}/\code{qnbinom}/\code{rnbinom} | \code{\link[=mnbinom]{mnbinom()}} |
-| Normal | \code{dnorm}/\code{pnorm}/\code{qnorm}/\code{rnorm} | \code{\link[=mnorm]{mnorm()}} |
-| Poisson | \code{dpois}/\code{ppois}/\code{qpois}/\code{rpois} | \code{\link[=mpois]{mpois()}} |
-| Student's t | \code{dt}/\code{pt}/\code{qt}/\code{rt} | \code{\link[=mt]{mt()}} |
 }
 
 \section{Standalone}{

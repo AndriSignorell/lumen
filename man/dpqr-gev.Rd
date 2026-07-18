@@ -6,7 +6,7 @@
 \alias{pgev}
 \alias{qgev}
 \alias{rgev}
-\title{The Generalized Extreme Value Distribution}
+\title{Generalized Extreme Value Distribution}
 \usage{
 dgev(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
@@ -17,19 +17,19 @@ qgev(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
 rgev(n, loc = 0, scale = 1, shape = 0)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{loc, scale, shape}{location, scale and shape parameters; the
-\code{shape} argument cannot be a vector (must have length one)}
+\code{shape} argument cannot be a vector (must have length one).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dgev()} gives the density function, \code{pgev()} gives the
@@ -81,19 +81,8 @@ maximum (or minimum) of meteorological elements.  \emph{Quart. J. R. Met.
 Soc.}, \bold{81}, 158--171.
 }
 \seealso{
-\code{\link[evd]{fgev}}
-
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}; \code{evd::fgev()} for fitting the GEV
+to data
 }
-\concept{GEV}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

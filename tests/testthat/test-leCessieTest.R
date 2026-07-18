@@ -7,27 +7,27 @@ x2  <- rnorm(50)
 obs <- sample(c(0, 1), 50, replace = TRUE)
 fit <- glm(obs ~ x1 + x2, family = binomial)
 f   <- fitted(fit)
-X   <- model.matrix(fit)[, -1, drop = FALSE]
+X   <- model.matrix(fit)   # full design matrix, incl. intercept
 
 test_that("leCessieTest: returns htest / LeCessieTest", {
-  res <- leCessieTest(fit = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, obs = obs, X = X)
   expect_s3_class(res, "htest")
   expect_s3_class(res, "LeCessieTest")
 })
 
 test_that("leCessieTest: statistic named Z", {
-  res <- leCessieTest(fit = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, obs = obs, X = X)
   expect_named(res$statistic, "Z")
 })
 
 test_that("leCessieTest: p.value in [0, 1]", {
-  res <- leCessieTest(fit = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, obs = obs, X = X)
   expect_gte(res$p.value, 0)
   expect_lte(res$p.value, 1)
 })
 
 test_that("leCessieTest: sse, expected, sd are positive scalars", {
-  res <- leCessieTest(fit = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, obs = obs, X = X)
   expect_gt(res$sse,      0)
   expect_gt(res$expected, 0)
   expect_gt(res$sd,       0)
@@ -41,8 +41,8 @@ test_that("leCessieTest: well-specified model gives large p", {
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x, family = binomial)
   res <- leCessieTest(
-    fit = fitted(g), obs = y,
-    X   = model.matrix(g)[, -1, drop = FALSE]
+    x   = fitted(g), obs = y,
+    X   = model.matrix(g)   # full design matrix, incl. intercept
   )
   expect_gt(res$p.value, 0.05)
 })
@@ -57,8 +57,8 @@ test_that("leCessieTest: misspecified model gives small p", {
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x1 + x2, family = binomial)   # missing interaction
   res <- leCessieTest(
-    fit = fitted(g), obs = y,
-    X   = model.matrix(g)[, -1, drop = FALSE]
+    x   = fitted(g), obs = y,
+    X   = model.matrix(g)   # full design matrix, incl. intercept
   )
   expect_lt(res$p.value, 0.05)
 })
@@ -82,6 +82,41 @@ test_that("leCessieTest: input validation - X row mismatch", {
 })
 
 test_that("leCessieTest: print method runs without error", {
-  res <- leCessieTest(fit = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, obs = obs, X = X)
   expect_output(print(res))
+})
+
+
+test_that("leCessieTest.glm: matches the default method with the full design matrix", {
+  res_default <- leCessieTest(x = f, obs = obs, X = X)
+  res_glm     <- leCessieTest(fit)
+
+  expect_equal(unname(res_glm$statistic), unname(res_default$statistic))
+  expect_equal(res_glm$p.value, res_default$p.value)
+})
+
+test_that("leCessieTest.glm: data.name reflects the model formula", {
+  res <- leCessieTest(fit)
+  expect_equal(res$data.name, "obs ~ x1 + x2")
+})
+
+test_that("leCessieTest: omitting the intercept column warns and changes the result", {
+  # regression test: earlier documentation instructed passing
+  # model.matrix(fit)[, -1] (no intercept), which silently gives a
+  # materially different, incorrect result
+  Xno <- model.matrix(fit)[, -1, drop = FALSE]
+
+  expect_warning(
+    res_no <- leCessieTest(f, obs, Xno),
+    "intercept"
+  )
+  res_full <- leCessieTest(f, obs, X)
+
+  expect_false(isTRUE(all.equal(unname(res_no$statistic),
+                                unname(res_full$statistic))))
+})
+
+test_that("leCessieTest.glm: rejects a non-binomial glm", {
+  g <- glm(x2 ~ x1, family = gaussian)
+  expect_error(leCessieTest(g), "binomial")
 })

@@ -198,3 +198,22 @@ test_that("n equals total count", {
   expect_equal(res$n, sum(migraine))
 })
 
+
+
+test_that("OR = NA is backward compatible with OR = NULL (MH estimate)", {
+
+  res_null <- breslowDayTest(salary)
+  res_na   <- breslowDayTest(salary, OR = NA)
+
+  expect_equal(res_null$statistic, res_na$statistic, tolerance = 1e-12)
+  expect_equal(res_null$p.value, res_na$p.value, tolerance = 1e-12)
+})
+
+
+test_that("Tarone correction with user-supplied OR warns", {
+
+  expect_warning(
+    breslowDayTest(salary, OR = 4.02, correct = TRUE),
+    "Tarone"
+  )
+})

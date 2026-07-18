@@ -6,55 +6,51 @@
 #' comparisons of group means with different methods for controlling
 #' the family-wise error rate.
 #'
-#' \bold{Overview.}
+#' @details
 #' Post hoc tests differ in how strongly they control type I error.
 #' Conservative methods reduce false positives but have lower power,
 #' while more liberal methods increase power at the cost of a higher
 #' false positive rate.
 #'
-#' \bold{Available methods.}
-#' \itemize{
-#'   \item \strong{LSD (Fisher)}: No adjustment for multiple testing;
+#' \strong{LSD (Fisher)}: \verb{   }No adjustment for multiple testing;
 #'   highest power but inflated type I error. Mainly suitable for a small
 #'   number of groups.
 #'
-#'   \item \strong{Bonferroni} (Dunn's (Bonferroni) t-test): Adjusts p-values 
+#' \strong{Bonferroni} (Dunn's (Bonferroni) t-test): \verb{   }Adjusts p-values 
 #'   by the number of comparisons;
 #'   simple and robust, but often overly conservative.
 #'
-#'   \item \strong{Tukey HSD}: Controls the family-wise error rate for all
+#' \strong{Tukey HSD}: \verb{   }Controls the family-wise error rate for all
 #'   pairwise comparisons; widely used and generally recommended for balanced
 #'   designs.
 #'
-#'   \item \strong{Newman-Keuls}: Stepwise procedure with more power than Tukey,
+#' \strong{Newman-Keuls}: \verb{   }Stepwise procedure with more power than Tukey,
 #'   but weaker error control; may inflate type I error.
 #'
-#'   \item \strong{Duncan}: Similar to Newman-Keuls but more liberal; provides
+#' \strong{Duncan}: \verb{   }Similar to Newman-Keuls but more liberal; provides
 #'   higher power at the cost of increased false positives.
 #'
-#'   \item \strong{Scheffé}: Very conservative; suitable for both pairwise and
+#'  \strong{Scheffé}: \verb{   }Very conservative; suitable for both pairwise and
 #'   complex (contrast-based) comparisons.
-#' }
-#'
-#' \bold{Guidance.}
+#' 
+#' \strong{Guidance}\cr
 #' Tukey HSD is typically a good default for pairwise comparisons.
 #' Bonferroni is useful when strict error control is required.
 #' Scheffé is appropriate for more complex contrasts.
 #'
-#'
-#' @return An object of class \code{PostHocTest}.
-#'  
-#' \bold{Tables} \verb{ } For tables pairwise chi-square test can be performed,
+#' \strong{Tables} \cr
+#' For tables pairwise chi-square tests can be performed,
 #' either without correction or with correction for multiple testing following
 #' the logic in \code{\link{p.adjust}}. 
 #' 
 #' @name postHoc
 #' @aliases postHocTest postHocTest.aov postHocTest.table postHocTest.matrix print.postHocTest plot.postHocTest
 #' 
-#' @param x An object of class \code{aov}.
-#' @param method one of \code{"hsd"}, \code{"bonf"}, \code{"lsd"},
-#' \code{"scheffe"}, \code{"newmankeuls"}, defining the method for the pairwise
-#' comparisons.\cr For the post hoc test of tables the methods of
+#' @param x an object of class \code{aov}.
+#' @param method one of \code{"hsd"}, \code{"bonferroni"}, \code{"lsd"},
+#' \code{"scheffe"}, \code{"newmankeuls"}, \code{"duncan"}, defining the
+#' method for the pairwise comparisons (may be abbreviated).\cr For the
+#' post hoc test of tables the methods of
 #' \code{\link{p.adjust}} can be supplied. See the detail there. 
 #' @param which a character vector listing terms in the fitted model for which
 #' the intervals should be calculated. Defaults to all the terms. 
@@ -70,10 +66,10 @@
 #' @param digits controls the number of fixed digits to print.
 #' @param \dots further arguments, not used so far.
 #'  
-#' @return an object of type "postHocTest", which will either be \cr A) a list
-#' of data.frames containing the mean difference, lower ci, upper ci and the
-#' p-value, if a conf.level was defined (something else than NA) or \cr B) a
-#' list of matrices with the p-values, if conf.level has been set to NA. 
+#' @return An object of class \code{"PostHocTest"}: a list of data frames
+#' containing the mean difference, lower and upper confidence interval bounds,
+#' and p-value when \code{conf.level} is not \code{NA}; otherwise, a list of
+#' p-value matrices.
 #' 
 #' @seealso \code{\link{TukeyHSD}}, \code{\link{aov}},
 #' \code{\link{pairwise.t.test}}, \code{\link{scheffeTest}} 
@@ -96,13 +92,9 @@
 #' postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd",
 #'             conf.level=NA)
 #' 
-
-
 #' @rdname postHoc
-
-#' @family test.posthoc  
+#' @family test.posthoc
 #' @concept post-hoc
-#'
 #'
 #' @export
 postHocTest <- function (x, ...)
@@ -195,7 +187,7 @@ postHocTest.aov <- function (x, which = NULL,
     
     if (!is.null(conf.level) && !is.na(conf.level)) {
       
-      dnames <- list(NULL, c("diff", "lwr.ci", "upr.ci", "pval"))
+      dnames <- list(NULL, c("diff", "lci", "uci", "pval"))
       if (!is.null(nms))
         dnames[[1L]] <- outer(nms, nms, paste, sep = "-")[keep]
       
@@ -237,6 +229,10 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
   
   # http://support.sas.com/resources/papers/proceedings14/1544-2014.pdf
   
+  if (!missing(conf.level) && !is.na(conf.level))
+    warning("conf.level is not supported for postHocTest.matrix; ",
+            "only p-values are returned")
+  
   # no conf.level supported so far
   conf.level  <- NA
   
@@ -254,7 +250,7 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
   #  pvals[] <- format.pval(pvals, digits = 2, na.form = "-")
   pvals <- pvals[-1, -ncol(pvals)]
   out <- list()
-  out[[deparse(substitute(x))]] <- pvals
+  out[[deparse1(substitute(x))]] <- pvals
   
   class(out) <- c("PostHocTest")
   attr(out, "orig.call") <- "table"
@@ -316,8 +312,8 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
     
     for (nm in names(xx)) {
       if ("pval" %in% names(xx[[nm]])) {
-        xx[[nm]]$signif <- lyra::fm(xx[[nm]]$pval, fmt = "*")
-        xx[[nm]]$pval <- lyra::fm(xx[[nm]]$pval, fmt = "p")
+        xx[[nm]]$signif <- fm(xx[[nm]]$pval, fmt = "*")
+        xx[[nm]]$pval <- fm(xx[[nm]]$pval, fmt = "p")
       }
     }
     
@@ -327,7 +323,7 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
   } else {
     
     for (nm in names(xx)) {
-      xx[[nm]][] <- lyra::fm(xx[[nm]], fmt = "p", na.form = "-")
+      xx[[nm]][] <- fm(xx[[nm]], fmt = "p", na.form = "-")
     }
     
     print(xx, digits = digits, quote = FALSE, ...)
@@ -347,10 +343,10 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' along with confidence intervals. A vertical reference line at zero is added.
 #'
 #'
-#' @param x An object of class \code{"PostHocTest"}, typically returned by
-#'   \code{\link[lumen]{postHocTest}}.
-#' @param ... Additional graphical parameters passed to
-#'   \code{\link[lyra]{plotDot}} and base plotting functions.
+#' @param x an object of class \code{"PostHocTest"}, typically returned by
+#'   \code{\link{postHocTest}}.
+#' @param ... additional graphical parameters passed to
+#'   \code{\link[pharos]{plotDot}} and base plotting functions.
 #'
 #' @details
 #' For each factor in \code{x}, a dot plot is produced displaying pairwise
@@ -361,14 +357,11 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' Invisibly returns \code{NULL}.
 #'
 #' @seealso
-#' \code{\link[lyra]{plotDot}}
-#' 
-
+#' \code{\link[pharos]{plotDot}}
+#'
 #' @method plot PostHocTest
 #' @family test.posthoc
 #' @concept multiple-comparisons
-#' @concept graphics
-#'
 #'
 #' @export
 plot.PostHocTest <- function(x, ...){
@@ -376,7 +369,7 @@ plot.PostHocTest <- function(x, ...){
     
     xi <- x[[i]][, -4L, drop = FALSE]
     
-    lyra::plotDot(xi, items=rownames(xi), ...)
+    plotDot(xi, items=rownames(xi), ...)
     
     abline(v = 0, lty = 2, lwd = 0.5, ...)
     title(main = paste0(format(100 * attr(x, "conf.level"), digits = 2L), 
@@ -394,7 +387,10 @@ plot.PostHocTest <- function(x, ...){
   se <- sqrt(MSE * outer(1/n, 1/n, "+"))
   keep <- lower.tri(se)
   
-  width <- qt(1 - (1 - conf.level)/(k * (k - 1)), df) * se[keep]
+  # divide by the number of pairwise comparisons k*(k-1)/2, matching the
+  # pvals formula below; using k*(k-1) here previously made the interval
+  # inconsistent with (too wide relative to) its own p-values
+  width <- qt(1 - (1 - conf.level)/(k * (k - 1) / 2), df) * se[keep]
   est <- center / se[keep]
   pvals <- pmin(2 * pt(abs(est), df = df, lower.tail = FALSE) * (k*(k-1)/2), 1)
   

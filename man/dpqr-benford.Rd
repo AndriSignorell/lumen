@@ -19,20 +19,20 @@ qbenford(p, nDigits = 1, lower.tail = TRUE, log.p = FALSE)
 rbenford(n, nDigits = 1)
 }
 \arguments{
-\item{x, q}{a vector of quantiles, see \code{nDigits}}
+\item{x, q}{a vector of quantiles, see \code{nDigits}.}
 
 \item{nDigits}{number of leading digits, either 1 or 2.  If 1 then the
 support of the distribution is \{1, ..., 9\}, else \{10, ..., 99\}.}
 
-\item{log}{logical; if \code{TRUE}, densities are given as \code{log(d)}}
+\item{log}{logical; if \code{TRUE}, densities are given as \code{log(d)}.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\eqn{P(X \le x)}, otherwise \eqn{P(X > x)}}
+\eqn{P(X \le x)}, otherwise \eqn{P(X > x)}.}
 
 \item{log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
-\code{log(p)}}
+\code{log(p)}.}
 
-\item{p}{a vector of probabilities}
+\item{p}{a vector of probabilities.}
 
 \item{n}{number of observations. A single positive integer.  Else if
 \code{length(n) > 1} then the length is taken to be the number required.}
@@ -56,7 +56,7 @@ digits. It is commonly applied in fraud detection and data quality
 assessment.
 
 Benford's Law (aka \emph{the significant-digit law}) is the empirical
-observation that in many naturally occuring tables of numerical data, the
+observation that in many naturally occurring tables of numerical data, the
 leading significant (nonzero) digit is not uniformly distributed in
 \eqn{\{1,2,\ldots,9\}}{1:9}. Instead, the leading significant digit
 (\eqn{=D}, say) obeys the law
@@ -66,16 +66,16 @@ probability the first significant digit is 1 is approximately \eqn{0.301},
 etc.
 
 Benford's Law was apparently first discovered in 1881 by
-astronomer/mathematician S. Newcombe. It started by the observation that the
+astronomer/mathematician S. Newcomb. It started with the observation that the
 pages of a book of logarithms were dirtiest at the beginning and
 progressively cleaner throughout. In 1938, a General Electric physicist
 called F. Benford rediscovered the law on this same observation. Over
-several years he collected data from different sources as different as
+several years he collected data from sources as different as
 atomic weights, baseball statistics, numerical data from \emph{Reader's
 Digest}, and drainage areas of rivers.
 
-Applications of Benford's Law has been as diverse as to the area of fraud
-detection in accounting and the design computers.
+Applications of Benford's Law have been as diverse as fraud detection
+in accounting and the design of computers.
 }
 \note{
 Based on code by T. W. Yee previously published in
@@ -109,3 +109,4 @@ Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
 \link{distributions-overview}
 }
 \concept{distribution-function}
+\concept{goodness-of-fit}

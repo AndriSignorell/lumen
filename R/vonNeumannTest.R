@@ -68,20 +68,16 @@
 #' vonNeumannTest(cumsum(rnorm(30)), alternative = "less")
 #'
 #' @rdname vonNeumannTest
-
-
-
 #' @family test.timeseries
-#' @concept goodness-of-fit  
+#' @concept goodness-of-fit
 #' @concept randomness
-#'
 #'
 #' @export
 vonNeumannTest <- function(x,
                            alternative = c("two.sided", "less", "greater"),
                            unbiased    = TRUE) {
   
-  DNAME <- deparse(substitute(x))
+  DNAME <- deparse1(substitute(x))
   
   x <- x[!is.na(x)]
   

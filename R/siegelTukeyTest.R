@@ -65,21 +65,19 @@
 #' @param \dots further arguments passed to or from methods.
 #'
 #' @return An object of class \code{"htest"} with the following components:
-#' \describe{
-#'   \item{\code{statistic}}{the Wilcoxon rank-sum statistic \eqn{W} computed
+#'   \item{statistic}{the Wilcoxon rank-sum statistic \eqn{W} computed
 #'     on the Siegel-Tukey ranks.}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{null.value}}{the location parameter \code{mu} under the null
+#'   \item{p.value}{the p-value of the test.}
+#'   \item{null.value}{the location parameter \code{mu} under the null
 #'     hypothesis.}
-#'   \item{\code{alternative}}{a character string describing the alternative
+#'   \item{alternative}{a character string describing the alternative
 #'     hypothesis.}
-#'   \item{\code{method}}{a character string identifying the test.}
-#'   \item{\code{data.name}}{a character string giving the names of the data.}
-#'   \item{\code{exact}}{logical indicating whether the exact distribution was
+#'   \item{method}{a character string identifying the test.}
+#'   \item{data.name}{a character string giving the names of the data.}
+#'   \item{exact}{logical indicating whether the exact distribution was
 #'     used.}
-#'   \item{\code{ties}}{logical indicating whether ties were present in the
+#'   \item{ties}{logical indicating whether ties were present in the
 #'     Siegel-Tukey ranks.}
-#' }
 #'
 #' @references
 #' Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
@@ -140,17 +138,13 @@
 #' siegelTukeyTest(x2, y2, adjustMedian = TRUE)  
 #' # p ~ 0.1143
 #' 
-
 #' @rdname siegelTukeyTest
-
-
-
-#' @seealso [stats::ansari.test], [stats::mood.test], [stats::wilcox.test]
+#' @seealso \code{\link{ansari.test}}, \code{\link{mood.test}},
+#'   \code{\link{wilcox.test}}
 #'
-#' @family test.variance  
-#' @concept variance-test  
+#' @family test.variance
+#' @concept variance-test
 #' @concept nonparametric
-#'
 #'
 #' @export
 siegelTukeyTest <- function (x, ...)  UseMethod("siegelTukeyTest")
@@ -179,7 +173,7 @@ siegelTukeyTest.formula <- function(formula, data, subset,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(bedrock::resolveFormula, args)
+  d <- do.call(resolveFormula, args)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
@@ -222,7 +216,7 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
   if (!is.numeric(x) || !is.numeric(y))
     stop("'x' and 'y' must be numeric")
   
-  dname <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  dname <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
   
   # remove non-finite values
   x <- x[is.finite(x)]

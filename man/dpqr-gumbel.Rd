@@ -6,7 +6,7 @@
 \alias{pgumbel}
 \alias{qgumbel}
 \alias{rgumbel}
-\title{The Gumbel Distribution}
+\title{Gumbel Distribution}
 \usage{
 dgumbel(x, loc = 0, scale = 1, log = FALSE)
 
@@ -17,18 +17,18 @@ qgumbel(p, loc = 0, scale = 1, lower.tail = TRUE)
 rgumbel(n, loc = 0, scale = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
-\item{loc, scale}{location and scale parameters (can be given as vectors)}
+\item{loc, scale}{location and scale parameters (can be given as vectors).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dgumbel()} gives the density function, \code{pgumbel()} gives
@@ -67,17 +67,7 @@ pgumbel(qgumbel(p, -1, 2), -1, 2)
 
 }
 \seealso{
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}
 }
-\concept{Gumbel}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

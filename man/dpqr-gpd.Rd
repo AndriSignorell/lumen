@@ -6,7 +6,7 @@
 \alias{pgpd}
 \alias{qgpd}
 \alias{rgpd}
-\title{The Generalized Pareto Distribution}
+\title{Generalized Pareto Distribution}
 \usage{
 dgpd(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
@@ -17,19 +17,19 @@ qgpd(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
 rgpd(n, loc = 0, scale = 1, shape = 0)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{loc, scale, shape}{location, scale and shape parameters; the
-\code{shape} argument cannot be a vector (must have length one)}
+\code{shape} argument cannot be a vector (must have length one).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{dgpd()} gives the density function, \code{pgpd()} gives the
@@ -73,20 +73,8 @@ Pickands, J. (1975) Statistical inference using extreme order
 statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
 }
 \seealso{
-\code{\link[evd]{fpot}}
-
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}},
-\code{\link{dpqr-rweibull}}
+\link{distributions-overview}; \code{evd::fpot()} for fitting
+peaks-over-threshold models
 }
-\concept{GPD}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{peaks over threshold}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

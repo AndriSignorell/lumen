@@ -64,6 +64,7 @@
 #' \eqn{[-1, 1]}. In such cases, interval bounds are truncated to remain within
 #' the valid range.
 #'
+#' \strong{Which interval should be used?}\cr
 #' The choice of method remains an active topic of discussion. The Wald
 #' interval is known to perform poorly in many practical situations.
 #' Reviews such as Fagerland et al. (2011) provide comparative evaluations and
@@ -71,15 +72,15 @@
 #' 
 #' Miettinen-Nurminen might be a sensible default. Newcombe-Score is almost equivalent.
 #'
-#' @param x1 Number of successes in the first group.
-#' @param n1 Number of trials in the first group.
-#' @param x2 Number of successes in the second group.
-#' @param n2 Number of trials in the second group.
-#' @param conf.level Confidence level, default is 0.95.
-#' @param sides A character string specifying the type of confidence interval:
+#' @param x1 number of successes in the first group.
+#' @param n1 number of trials in the first group.
+#' @param x2 number of successes in the second group.
+#' @param n2 number of trials in the second group.
+#' @param conf.level confidence level, default is 0.95.
+#' @param sides a character string specifying the type of confidence interval:
 #'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
 #'   Partial matching is allowed.
-#' @param method One of:
+#' @param method one of:
 #'   \code{"miettinen-nurminen"},
 #'   \code{"newcombe-score"},
 #'   \code{"newcombe-score-cc"},
@@ -94,8 +95,19 @@
 #'   \code{"haldane"},
 #'   \code{"jeffreys-perks"}.
 #'
-#' @return A matrix with three columns containing the estimate of the
-#' difference and the lower and upper confidence limits.
+#' @return If recycling yields a single case, a named numeric vector with
+#' elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate of the difference in binomial
+#'     proportions, \code{x1/n1 - x2/n2}.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
+#' }
+#'
+#' If recycling yields multiple cases, a data frame with one row per case is
+#' returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+#' the remaining columns contain the recycled argument values.
+#' 
 #'
 #' @references
 #' Agresti A, Caffo B (2000).
@@ -152,11 +164,11 @@
 #'                     "brown-li-jeffreys", "hauck-anderson")
 #'                     
 #' xci <- binomDiffCI(x1, n1, x2, n2, method=meths)
-#' lyra::fm(xci[,-1], digits=4)
+#' pharos::fm(xci[,-1], digits=4)
 #' 
 #' x1 <- 9; n1 <- 10; x2 <- 3; n2 <- 10
 #' yci <- binomDiffCI(x1, n1, x2, n2, method=meths)
-#' lyra::fm(yci[, -1], digits=4)
+#' pharos::fm(yci[, -1], digits=4)
 #' 
 #' # https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9
 #' bedrock::setNamesX(round(
@@ -172,8 +184,6 @@
 #'              "5. Mee", "6. Miettinen-Nurminen", "10. Score, no CC", "11. Score, CC",
 #'              "12. Hauck-Andersen", "13. Agresti-Caffo", "16. Brown-Li"))
 #'
-
-  
 # x1 <- 56; n1 <- 70; x2 <- 48; n2 <- 80
 # xci <- binomDiffCI(x1, n1, x2, n2, 
 #                    method=eval(formals(binomDiffCI)$method))
@@ -182,10 +192,6 @@
 # conf.level <- 0.95
 # xci
 # 
-
-
-
-
 #' @family ci.proportion  
 #' @concept confidence-interval  
 #' @concept proportion  

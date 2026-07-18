@@ -2,7 +2,7 @@
 % Please edit documentation in R/kpssTest.R
 \name{kpssTest}
 \alias{kpssTest}
-\title{Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity in Time Series}
+\title{Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity}
 \usage{
 kpssTest(
   y,
@@ -12,60 +12,92 @@ kpssTest(
 )
 }
 \arguments{
-\item{y}{Vector to be tested for a unit root.}
+\item{y}{numeric vector or univariate time series to be tested for
+stationarity.}
 
-\item{type}{Type of deterministic part.}
+\item{type}{the deterministic part of the model, one of \code{"mu"}
+(default, constant) or \code{"tau"} (constant plus linear trend).}
 
-\item{lags}{Maximum number of lags used for error term correction.}
+\item{lags}{the rule for the number of lags used for the error term
+correction, one of \code{"short"} (default), \code{"long"} or
+\code{"nil"}. See the Details. Ignored if \code{useLag} is given.}
 
-\item{useLag}{User specified number of lags.}
+\item{useLag}{an optional integer explicitly specifying the number of
+lags, overriding \code{lags}.}
 }
 \value{
-An object of class \code{htest}. In addition to the standard
-fields, the element \code{critical.values} contains the critical
-values at 10\\%, 5\\%, 2.5\\% and 1\\% significance levels.
+An object of class \code{"htest"} containing the following
+components:
+\item{statistic}{the value of the KPSS test statistic.}
+\item{parameter}{the number of lags used for the error term correction.}
+\item{p.value}{the interpolated p-value of the test.}
+\item{critical.values}{the asymptotic critical values at the 10\%, 5\%,
+2.5\% and 1\% significance levels (not shown on screen).}
+\item{alternative}{a character string describing the alternative
+hypothesis.}
+\item{method}{a character string indicating the test performed.}
+\item{data.name}{a character string giving the name of the data.}
 }
 \description{
-A test for stationarity in time series (Kwiatkowski-Phillips-Schmidt-Shin),
-complementary to unit root tests such as the ADF test. It tests the null
-hypothesis of stationarity rather than the null of a unit root.
+A test for stationarity in time series, complementary to unit root tests
+such as the ADF test: it tests the null hypothesis of stationarity
+against the alternative of a unit root.
 }
 \details{
-Performs the KPSS unit root test, where the Null hypothesis is stationarity.
-The test types specify as deterministic component either a constant
-\code{"mu"} or a constant with linear trend \code{"tau"}.
+Performs the KPSS test (Kwiatkowski et al., 1992), where the null
+hypothesis is stationarity. The test types specify as deterministic
+component either a constant (\code{"mu"}, null hypothesis of level
+stationarity) or a constant with linear trend (\code{"tau"}, null
+hypothesis of trend stationarity).
 
-\code{lags="short"} sets the number of lags to \eqn{\sqrt[4]{4 \times
-(n/100)}}, whereas \code{lags="long"} sets the number of lags to
-\eqn{\sqrt[4]{12 \times (n/100)}}. If \code{lags="nil"} is choosen, then no
-error correction is made. Furthermore, one can specify a different number of
-maximum lags by setting \code{useLag} accordingly.
+\code{lags = "short"} sets the number of lags used for the long-run
+variance estimation to \eqn{4 (n/100)^{1/4}}{4*(n/100)^(1/4)}, whereas
+\code{lags = "long"} sets it to \eqn{12 (n/100)^{1/4}}{12*(n/100)^(1/4)}
+(each truncated to an integer). With \code{lags = "nil"} no error
+correction is made. Alternatively, an explicit number of lags can be
+given via \code{useLag}, which then takes precedence.
+
+The p-value is obtained by linear interpolation in the asymptotic
+critical values of Kwiatkowski et al. (1992, Table 1), following the
+approach of \code{tseries::kpss.test()}. If the statistic falls outside
+the range of the table, the p-value is reported as the respective
+boundary (0.01 or 0.10) and a warning is issued.
+
+Missing values are silently removed.
 }
 \note{
-Based on code by Bernhard Pfaff
+Based on code by Bernhard Pfaff previously published in the \pkg{urca}
+package, adapted to conform to package standards.
 }
 \examples{
+# trend-stationary series: null hypothesis is not rejected
+set.seed(1)
+x <- 0.2 * seq_len(200) + rnorm(200)
+kpssTest(x, type = "tau")
 
-kpss.gnp <- kpssTest(AirPassengers, type="tau", lags="short")
-summary(kpss.gnp)
+# random walk: null hypothesis of level stationarity is rejected
+set.seed(2)
+rw <- cumsum(rnorm(200))
+kpssTest(rw, type = "mu")
+
+kpssTest(AirPassengers, type = "tau", lags = "short")
 
 }
 \references{
-Kwiatkowski, D., Phillips, P.C.B., Schmidt, P. and Shin, Y.,
-(1992), Testing the Null Hypothesis of Stationarity Against the Alternative
-of a Unit Root: How Sure Are We That Economic Time Series Have a Unit Root?,
-\emph{Journal of Econometrics}, \bold{54}, 159--178.
-
-Download possible at: \url{https://cowles.yale.edu/}, see rubric 'Discussion
-Papers (CFDPs)'.
+Kwiatkowski, D., Phillips, P. C. B., Schmidt, P. and
+Shin, Y. (1992) Testing the null hypothesis of stationarity against the
+alternative of a unit root: How sure are we that economic time series
+have a unit root? \emph{Journal of Econometrics}, \bold{54}, 159--178.
 }
 \seealso{
+\code{\link{adfTest}}
+
 Other test.timeseries:
 \code{\link[=adfTest]{adfTest()}},
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
 \code{\link[=runsTest]{runsTest()}},
 \code{\link[=vonNeumannTest]{vonNeumannTest()}}
 }
-\concept{goodness-of-fit}
+\concept{stationarity}
 \concept{test.timeseries}
-\concept{time-series}
+\concept{unit-root}

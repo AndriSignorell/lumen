@@ -143,9 +143,64 @@ test_that("zero variance scores throw error", {
 })
 
 test_that("non-monotone scores produce warning", {
+  # c(4,3,2,1) is strictly decreasing, which is monotone (r^2 is
+  # sign-invariant) and must NOT warn; a genuinely non-monotone sequence
+  # is needed to exercise the warning path
   expect_warning(
-    mantelTrendTest(Job, srow = c(4,3,2,1)),
+    mantelTrendTest(Job, srow = c(1,3,2,4)),
     "ordinal"
   )
+})
+
+test_that("strictly decreasing scores do not produce a warning", {
+  # regression test: decreasing scores are monotone and must not warn
+  expect_no_warning(
+    mantelTrendTest(Job, srow = c(4,3,2,1))
+  )
+})
+
+test_that("decreasing scores give the same statistic as increasing (sign-invariant)", {
+  res_inc <- suppressWarnings(mantelTrendTest(Job, srow = 1:4))
+  res_dec <- suppressWarnings(mantelTrendTest(Job, srow = 4:1))
+
+  expect_equal(unname(res_inc$statistic), unname(res_dec$statistic))
+  expect_equal(res_inc$p.value, res_dec$p.value)
+})
+# -------------------------------------------------------------------------
+# Automatic scores from numeric dimnames
+# -------------------------------------------------------------------------
+test_that("character dimnames (Job) still default to 1:nrow/1:ncol", {
+  res_auto     <- mantelTrendTest(Job)
+  res_explicit <- mantelTrendTest(Job, srow = 1:4, scol = 1:4)
+
+  expect_equal(res_auto$statistic, res_explicit$statistic)
+})
+
+test_that("numeric row dimnames are used as default srow", {
+  dose <- matrix(c(10,9,10,7, 0,1,0,3), nrow = 4,
+                 dimnames = list(dose = c("0","1","5","20"),
+                                 resp = c("no","yes")))
+
+  res_auto   <- mantelTrendTest(dose)
+  res_manual <- mantelTrendTest(dose, srow = c(0,1,5,20), scol = c(1,2))
+
+  expect_equal(unname(res_auto$statistic), unname(res_manual$statistic))
+
+  # and it must differ from the old 1:nrow(x) default, since these
+  # dimnames are not evenly spaced
+  res_old_default <- mantelTrendTest(dose, srow = 1:4, scol = 1:2)
+  expect_false(isTRUE(all.equal(unname(res_auto$statistic),
+                                unname(res_old_default$statistic))))
+})
+
+test_that("explicit srow/scol still override the automatic default", {
+  dose <- matrix(c(10,9,10,7, 0,1,0,3), nrow = 4,
+                 dimnames = list(dose = c("0","1","5","20"),
+                                 resp = c("no","yes")))
+
+  res <- mantelTrendTest(dose, srow = c(1, 2, 3, 4))
+
+  expect_equal(unname(res$statistic),
+               unname(mantelTrendTest(dose, srow = 1:4, scol = c(1,2))$statistic))
 })
 

@@ -2,55 +2,62 @@
 % Please edit documentation in R/hosmerLemeshowTest.R
 \name{hosmerLemeshowTest}
 \alias{hosmerLemeshowTest}
+\alias{hosmerLemeshowTest.glm}
+\alias{hosmerLemeshowTest.default}
 \alias{print.HosmerLemeshowTest}
 \title{Hosmer-Lemeshow Goodness of Fit Test}
 \usage{
-hosmerLemeshowTest(fit, obs, nGroups = 10, type = c("C", "H"))
+hosmerLemeshowTest(x, ...)
+
+\method{hosmerLemeshowTest}{glm}(x, nGroups = 10, type = c("C", "H"), ...)
+
+\method{hosmerLemeshowTest}{default}(x, obs, nGroups = 10, type = c("C", "H"), ...)
 
 \method{print}{HosmerLemeshowTest}(x, digits = 4, details = FALSE, ...)
 }
 \arguments{
-\item{fit}{numeric vector of fitted probabilities, each in \code{[0, 1]},
-without missing values.}
+\item{x}{either a numeric vector of fitted probabilities, each in
+\eqn{[0, 1]} and without missing values, or a fitted binomial
+\code{\link{glm}} object, from which fitted probabilities and observed
+outcomes are extracted.}
 
-\item{obs}{numeric vector of observed binary outcomes (0 or 1), of the same
-length as \code{fit}, without missing values.}
+\item{\dots}{further arguments passed to methods.}
 
-\item{nGroups}{integer, number of groups. Must be \code{>= 3}.
-Default is \code{10}.}
+\item{nGroups}{integer, the number of groups (default is \code{10}).
+Must be at least 3.}
 
-\item{type}{character, one of \code{"C"} (quantile-based groups) or
-\code{"H"} (equal-width groups).}
+\item{type}{the type of statistic, one of \code{"C"} (default,
+quantile-based groups) or \code{"H"} (equal-width groups on
+\eqn{[0, 1]}).}
 
-\item{x}{object of class \code{"HosmerLemeshowTest"}.}
+\item{obs}{a numeric vector of observed binary outcomes (0 or 1) of the
+same length as \code{x}, without missing values; unused for the
+\code{glm} method.}
 
 \item{digits}{number of significant digits to display.}
 
-\item{details}{logical; if \code{TRUE}, prints observed and expected counts
-for both outcome classes by group. Default is \code{FALSE}.}
-
-\item{...}{further arguments passed to or from methods.}
+\item{details}{logical; if \code{TRUE}, prints observed and expected
+counts for both outcome classes by group. Default is \code{FALSE}.}
 }
 \value{
-An object of class \code{c("HosmerLemeshowTest", "htest")}, which
-is a list with components:
-\item{statistic}{the chi-squared test statistic, named \code{"X-squared"}.}
-\item{parameter}{degrees of freedom (\code{nGroups - 2}), named
-\code{"df"}.}
-\item{p.value}{p-value from the chi-squared distribution.}
+An object of class \code{c("HosmerLemeshowTest", "htest")},
+which is a list with components:
+\item{statistic}{the chi-squared test statistic.}
+\item{parameter}{the degrees of freedom (number of groups used minus 2).}
+\item{p.value}{the p-value of the test.}
 \item{method}{a character string describing the test.}
 \item{type}{the type of statistic computed (\code{"C"} or \code{"H"}).}
-\item{nGroups}{number of groups actually used (may be less than requested
-for type \code{"C"} if fewer unique quantile breaks are found).}
+\item{nGroups}{the number of groups actually used (may be less than
+requested if quantile breaks coincide or groups are empty).}
 \item{observed}{matrix of observed counts for both outcome classes per
 group.}
 \item{expected}{matrix of expected counts for both outcome classes per
 group.}
-\item{data.name}{a character string with the names of \code{fit} and
-\code{obs}.}
+\item{data.name}{a character string giving the names of the data.}
 
-The \code{print} method accepts a \code{details} argument; if \code{TRUE},
-observed and expected counts for both outcome classes are printed by group.
+The \code{print} method accepts a \code{details} argument; if
+\code{TRUE}, observed and expected counts for both outcome classes are
+printed by group.
 }
 \description{
 Computes the Hosmer-Lemeshow C or H goodness-of-fit test for a logistic
@@ -58,29 +65,46 @@ regression model, assessing whether observed event rates match predicted
 probabilities across grouped subsets of the data.
 }
 \details{
-The C statistic groups observations by quantiles of the fitted probabilities
-(equal-frequency bins), while the H statistic uses equal-width intervals.
-Both statistics are asymptotically compared with a chi-squared distribution
-with \code{nGroups - 2} degrees of freedom under the null hypothesis of
-adequate fit; the approximation may be unreliable in small samples.
+The C statistic groups observations by quantiles of the fitted
+probabilities (equal-frequency bins), while the H statistic uses
+equal-width intervals on \eqn{[0, 1]} (e.g. 0--0.1, 0.1--0.2, ... for
+\code{nGroups = 10}), as defined in Lemeshow and Hosmer (1982). Groups
+that contain no observations are dropped with a warning, and the
+degrees of freedom are based on the number of groups actually used.
+
+Both statistics are asymptotically compared with a chi-squared
+distribution with \eqn{g - 2} degrees of freedom (\eqn{g} the number of
+groups used) under the null hypothesis of adequate fit. This is the
+convention for a model evaluated on its development data; for an
+external validation sample, \eqn{g} degrees of freedom would be
+appropriate. The approximation may be unreliable in small samples; a
+warning is issued when expected cell counts fall below 5.
 }
 \examples{
 set.seed(111)
-x1 <- factor(sample(1:3, 50, replace = TRUE))
-x2 <- rnorm(50)
+x1  <- factor(sample(1:3, 50, replace = TRUE))
+x2  <- rnorm(50)
 obs <- sample(c(0, 1), 50, replace = TRUE)
-fit <- glm(obs ~ x1 + x2, family = binomial)
 
-res <- hosmerLemeshowTest(fit = fitted(fit), obs = obs, type = "C")
+model <- glm(obs ~ x1 + x2, family = binomial)
+
+# glm method: probabilities and outcomes are extracted from the model
+hosmerLemeshowTest(model)
+
+# equivalent call with explicit vectors
+res <- hosmerLemeshowTest(fitted(model), obs, type = "C")
 res
 
 print(res, details = TRUE)
 
 }
 \references{
-Lemeshow, S., Hosmer, D.W. (1982). A review of goodness of fit statistics
-for use in the development of logistic regression models.
+Lemeshow, S. and Hosmer, D. W. (1982) A review of goodness of fit
+statistics for use in the development of logistic regression models.
 \emph{American Journal of Epidemiology}, \bold{115}(1), 92--106.
+
+Hosmer, D. W., Lemeshow, S. and Sturdivant, R. X. (2013) \emph{Applied
+Logistic Regression}, 3rd ed., New York: Wiley.
 }
 \seealso{
 \code{\link{glm}}

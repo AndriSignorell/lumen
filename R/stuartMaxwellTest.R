@@ -61,7 +61,7 @@
 #' 
 #' @examples
 #' 
-#' # Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#stuart
+#' # Source: https://john-uebersax.com/stat/mcnemar.htm#stuart
 #' hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 #' stuartMaxwellTest(hyp)
 #' 

@@ -4,7 +4,7 @@
 \alias{dunnettTest}
 \alias{dunnettTest.default}
 \alias{dunnettTest.formula}
-\title{Dunnett's Test for Comparing Several Treatments With a Control}
+\title{Dunnett's Test for Comparing Treatments With a Control}
 \usage{
 dunnettTest(x, ...)
 
@@ -13,69 +13,70 @@ dunnettTest(x, ...)
 \method{dunnettTest}{default}(x, g, control = NULL, conf.level = 0.95, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data vectors.}
+\item{x}{a numeric vector of data values or a list of numeric vectors.}
 
-\item{\dots}{further arguments to be passed to or from methods.}
+\item{\dots}{further arguments passed to or from methods.}
 
-\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-the data values and \code{rhs} the corresponding groups.}
+\item{formula}{a formula of the form \code{lhs ~ rhs}, where \code{lhs}
+contains the data values and \code{rhs} defines the corresponding groups.}
 
-\item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
-\code{formula}.  By default the variables are taken from
-\code{environment(formula)}.}
+\item{data}{an optional matrix or data frame (or a similar object; see
+\code{\link{model.frame}}) containing the variables in \code{formula}.
+By default, the variables are taken from \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional vector specifying a subset of observations to
+be used.}
 
-\item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
+\item{na.action}{a function indicating how missing values should be
+handled. Defaults to \code{getOption("na.action")}.}
 
-\item{g}{a vector or factor object giving the group for the corresponding
-elements of \code{x}.  Ignored if \code{x} is a list.}
+\item{g}{a vector or factor identifying the group of each element of
+\code{x}; ignored if \code{x} is a list.}
 
-\item{control}{the level of the control group against which the others
-should be tested. Defaults to the first group. Multiple levels are accepted;
-the calculation is then performed separately for each one. Must be a
-character string matching one or more levels of \code{g}.}
+\item{control}{a character vector identifying one or more control levels.
+Each specified control is compared separately with all remaining groups.
+Defaults to the first group.}
 
-\item{conf.level}{confidence level of the interval.}
+\item{conf.level}{the confidence level for the simultaneous confidence
+intervals. Defaults to \code{0.95}.}
 }
 \value{
-A list of class \code{"PostHocTest"}, containing one matrix named
-after each control level, with columns \code{diff} giving the difference in
-observed means, \code{lwr.ci} giving the lower end point of the interval,
-\code{upr.ci} giving the upper end point, and \code{pval} giving the p-value
-after adjustment for multiple comparisons.
+An object of class \code{"PostHocTest"}: a list containing one
+matrix for each control level. Each matrix has columns \code{diff} for
+the observed mean difference (treatment minus control), \code{lci}
+and \code{uci} for the simultaneous confidence limits, and
+\code{pval} for the multiplicity-adjusted p-value.
 
-There are print and plot methods for class \code{"PostHocTest"}. The plot
-method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
-creates its own values for each plot.
+Print and plot methods are available for class \code{"PostHocTest"}.
+The plot method supplies its own axis labels and title and therefore does
+not accept \code{xlab}, \code{ylab}, or \code{main}.
 }
 \description{
-A parametric post hoc test for multiple comparisons of several
-treatment groups against a single control group, controlling the
-familywise error rate.
+Performs Dunnett's parametric post hoc test for comparing multiple
+treatment groups with a control group while controlling the familywise
+error rate.
 }
 \details{
-Performs Dunnett's test for comparing several treatments with a control.
-
-\code{dunnettTest} does the post hoc pairwise multiple comparisons
-procedure.
-
-If \code{x} is a list, its elements are taken as the samples to be compared,
-and hence have to be numeric data vectors.  In this case, \code{g} is
-ignored, and one can simply use \code{dunnettTest(x)} to perform the test.
-If the samples are not yet contained in a list, use
+If \code{x} is a list, its elements are taken as the samples to be
+compared and must therefore be numeric vectors. In this case, \code{g}
+is ignored. The test can be performed with \code{dunnettTest(x)} or,
+if the samples are stored in separate objects, with
 \code{dunnettTest(list(x, ...))}.
 
-Otherwise, \code{x} must be a numeric data vector, and \code{g} must be a
-vector or factor object of the same length as \code{x} giving the group for
-the corresponding elements of \code{x}.
+Otherwise, \code{x} must be a numeric vector and \code{g} a vector or
+factor of the same length that identifies the group of each observation.
+
+The adjusted p-values and simultaneous confidence intervals are
+two-sided. The confidence limits use the equicoordinate quantile of
+\eqn{\max_j |T_j|} (\code{tail = "both.tails"} in
+\code{mvtnorm::qmvt()}), in accordance with the adjusted p-values
+\eqn{1 - P(\max_j |T_j| \le |t_i|)}. Multivariate t probabilities are
+evaluated by randomized quasi-Monte Carlo integration using
+\pkg{mvtnorm}. A fixed seed ensures that repeated calls produce identical
+results up to the numerical integration accuracy.
 }
 \examples{
-
-## Hollander & Wolfe (1973), 116.
+## Hollander and Wolfe (1973, p. 116)
 ## Mucociliary efficiency from the rate of removal of dust in normal
 ##  subjects, subjects with obstructive airway disease, and subjects
 ##  with asbestosis.
@@ -85,7 +86,7 @@ z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
 
 dunnettTest(list(x, y, z))
 
-## Equivalently,
+## Equivalent vector-and-group interface
 x <- c(x, y, z)
 g <- factor(rep(1:3, c(5, 4, 5)),
             labels = c("Normal subjects",
@@ -98,17 +99,19 @@ dunnettTest(x, g)
 boxplot(Ozone ~ factor(Month), data = airquality)
 dunnettTest(Ozone ~ factor(Month), data = airquality)
 
-## Single control level with adjusted confidence
-dunnettTest(Ozone ~ factor(Month), data = airquality, control = "8", conf.level = 0.9)
+## Single control level with a 90\% simultaneous confidence level
+dunnettTest(Ozone ~ factor(Month), data = airquality,
+            control = "8", conf.level = 0.9)
 
 ## Multiple control levels
-dunnettTest(Ozone ~ factor(Month), data = airquality, control = c("5", "8"))
+dunnettTest(Ozone ~ factor(Month), data = airquality,
+            control = c("5", "8"))
 
 }
 \references{
-Dunnett C. W. (1955) A multiple comparison procedure for
-comparing several treatments with a control, \emph{Journal of the American
-Statistical Association}, 50:1096--1121.
+Dunnett, C. W. (1955). A multiple comparison procedure for comparing
+several treatments with a control. \emph{Journal of the American
+Statistical Association}, \bold{50}, 1096--1121.
 }
 \seealso{
 \code{\link{print.PostHocTest}},
@@ -124,9 +127,8 @@ Other test.posthoc:
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
+\concept{k-sample}
 \concept{parametric}
-\concept{post-hoc}
 \concept{test.posthoc}

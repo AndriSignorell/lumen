@@ -9,8 +9,8 @@
 #' If all return values are length 1, the result is simplified to an
 #' atomic vector. Otherwise, a list is returned.
 #'
-#' @param FUN A function to be applied elementwise.
-#' @param ... Arguments passed to \code{FUN}. These are recycled to a
+#' @param FUN a function to be applied elementwise.
+#' @param ... arguments passed to \code{FUN}. These are recycled to a
 #'   common length using \code{.recycle()}.
 #'
 #' @return A vector (if scalar results) or a list.

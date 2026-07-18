@@ -1,69 +1,4 @@
 
-# == internal constants ================================================
-
-# Empirical quantiles of the Dickey-Fuller tau statistics,
-# Fuller (1976), Table 8.5.2 (reproduced in Hamilton 1994, Table B.6).
-# Rows: sample sizes 25, 50, 100, 250, 500, Inf;
-# columns: probabilities 0.01, 0.025, 0.05, 0.10, 0.90, 0.95, 0.975, 0.99.
-
-.adfTauProbs <- c(0.01, 0.025, 0.05, 0.10, 0.90, 0.95, 0.975, 0.99)
-.adfTabN     <- c(25, 50, 100, 250, 500, 1e5)
-
-.adfTauTable <- list(
-  none = rbind(
-    c(-2.66, -2.26, -1.95, -1.60, 0.92, 1.33, 1.70, 2.16),
-    c(-2.62, -2.25, -1.95, -1.61, 0.91, 1.31, 1.66, 2.08),
-    c(-2.60, -2.24, -1.95, -1.61, 0.90, 1.29, 1.64, 2.03),
-    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.29, 1.63, 2.01),
-    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.28, 1.62, 2.00),
-    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.28, 1.62, 2.00)),
-  drift = rbind(
-    c(-3.75, -3.33, -3.00, -2.63, -0.37,  0.00, 0.34, 0.72),
-    c(-3.58, -3.22, -2.93, -2.60, -0.40, -0.03, 0.29, 0.66),
-    c(-3.51, -3.17, -2.89, -2.58, -0.42, -0.05, 0.26, 0.63),
-    c(-3.46, -3.14, -2.88, -2.57, -0.42, -0.06, 0.24, 0.62),
-    c(-3.44, -3.13, -2.87, -2.57, -0.43, -0.07, 0.24, 0.61),
-    c(-3.43, -3.12, -2.86, -2.57, -0.44, -0.07, 0.23, 0.60)),
-  trend = rbind(
-    c(-4.38, -3.95, -3.60, -3.24, -1.14, -0.80, -0.50, -0.15),
-    c(-4.15, -3.80, -3.50, -3.18, -1.19, -0.87, -0.58, -0.24),
-    c(-4.04, -3.73, -3.45, -3.15, -1.22, -0.90, -0.62, -0.28),
-    c(-3.99, -3.69, -3.43, -3.13, -1.23, -0.92, -0.64, -0.31),
-    c(-3.98, -3.68, -3.42, -3.13, -1.24, -0.93, -0.65, -0.32),
-    c(-3.96, -3.66, -3.41, -3.12, -1.25, -0.94, -0.66, -0.33)))
-
-# Critical values (1%, 5%, 10%) of the phi F statistics,
-# Dickey and Fuller (1981), Tables IV-VI; rows as above.
-# All values verified against the original paper. Note that urca
-# carries a transcription error in the phi3 row for n = 250
-# (5%/10% values duplicated from the n = 100 row); the correct
-# values per Table VI are 6.34 and 5.39.
-
-.adfPhiTable <- list(
-  phi1 = rbind(
-    c(7.88, 5.18, 4.12),
-    c(7.06, 4.86, 3.94),
-    c(6.70, 4.71, 3.86),
-    c(6.52, 4.63, 3.81),
-    c(6.47, 4.61, 3.79),
-    c(6.43, 4.59, 3.78)),
-  phi2 = rbind(
-    c(8.21, 5.68, 4.67),
-    c(7.02, 5.13, 4.31),
-    c(6.50, 4.88, 4.16),
-    c(6.22, 4.75, 4.07),
-    c(6.15, 4.71, 4.05),
-    c(6.09, 4.68, 4.03)),
-  phi3 = rbind(
-    c(10.61, 7.24, 5.91),
-    c( 9.31, 6.73, 5.61),
-    c( 8.73, 6.49, 5.47),
-    c( 8.43, 6.34, 5.39),
-    c( 8.34, 6.30, 5.36),
-    c( 8.27, 6.25, 5.34)))
-
-
-
 #' Augmented Dickey-Fuller Unit Root Test
 #'
 #' Performs the augmented Dickey-Fuller test for a unit root in a time
@@ -93,32 +28,33 @@
 #' Missing values are not allowed.
 #'
 #' @param y numeric vector or univariate time series to be tested for a
-#' unit root
+#' unit root.
 #' @param type the deterministic part of the test regression, one of
-#' \code{"none"} (default), \code{"drift"} or \code{"trend"}
+#' \code{"none"} (default), \code{"drift"} or \code{"trend"}.
 #' @param lags the number of lagged difference terms to be included. If
-#' \code{selectlags} is not \code{"fixed"}, this is the maximum number of
+#' \code{selectLags} is not \code{"fixed"}, this is the maximum number of
 #' lags considered in the lag selection.
-#' @param selectlags the lag selection method, one of \code{"fixed"}
+#' @param selectLags the lag selection method, one of \code{"fixed"}
 #' (default, use \code{lags} as given), \code{"aic"} or \code{"bic"}
 #' (choose the lag order up to \code{lags} that minimizes the respective
 #' information criterion). Case-insensitive, so \code{"AIC"} and
 #' \code{"BIC"} are accepted as well.
-#' @return an object of class \code{"htest"} containing the following
+#' 
+#' @return An object of class \code{"htest"} containing the following
 #' components:
-#' \item{statistic}{the tau statistic, followed by the phi statistic(s)
-#' if \code{type} is \code{"drift"} or \code{"trend"}. The p-value refers
-#' to the tau statistic.}
-#' \item{parameter}{the number of lagged differences included in the test
-#' regression (after lag selection, if requested)}
-#' \item{p.value}{the interpolated p-value of the tau statistic}
-#' \item{critical.values}{a matrix with the 1\%, 5\% and 10\% critical
-#' values of all reported statistics, interpolated for the effective
-#' sample size (not shown on screen)}
-#' \item{alternative}{a character string describing the alternative
-#' hypothesis}
-#' \item{method}{a character string indicating the test performed}
-#' \item{data.name}{a character string giving the name of the data}
+#'   \item{\code{statistic}}{the tau statistic, followed by the phi
+#'     statistic(s) if \code{type} is \code{"drift"} or \code{"trend"}. The
+#'     p-value refers to the tau statistic.}
+#'   \item{\code{parameter}}{the number of lagged differences included in the
+#'     test regression (after lag selection, if requested).}
+#'   \item{\code{p.value}}{the interpolated p-value of the tau statistic.}
+#'   \item{\code{critical.values}}{a matrix with the 1\%, 5\% and 10\% critical
+#'     values of all reported statistics, interpolated for the effective
+#'     sample size (not shown on screen).}
+#'   \item{\code{alternative}}{a character string describing the alternative
+#'     hypothesis.}
+#'   \item{\code{method}}{a character string indicating the test performed.}
+#'   \item{\code{data.name}}{a character string giving the name of the data.}
 #'
 #' @note
 #' Based on code by Bernhard Pfaff previously published in the \pkg{urca}
@@ -154,10 +90,10 @@
 #'
 #' @export
 adfTest <- function(y, type = c("none", "drift", "trend"),
-                    lags = 1, selectlags = c("fixed", "aic", "bic")) {
+                    lags = 1, selectLags = c("fixed", "aic", "bic")) {
 
   type <- match.arg(type)
-  selectlags <- match.arg(tolower(selectlags), c("fixed", "aic", "bic"))
+  selectLags <- match.arg(tolower(selectLags), c("fixed", "aic", "bic"))
 
   DNAME <- deparse(substitute(y))
 
@@ -200,8 +136,8 @@ adfTest <- function(y, type = c("none", "drift", "trend"),
   }
 
   # lag selection by information criterion
-  if (lags > 1 && selectlags != "fixed") {
-    penalty <- switch(selectlags, aic = 2, bic = log(length(z.diff)))
+  if (lags > 1 && selectLags != "fixed") {
+    penalty <- switch(selectLags, aic = 2, bic = log(length(z.diff)))
     critRes <- rep(NA_real_, lags)
     for (i in 2:lags)
       critRes[i] <- AIC(fitADF(i), k = penalty)
@@ -265,3 +201,70 @@ adfTest <- function(y, type = c("none", "drift", "trend"),
          data.name       = DNAME),
     class = "htest")
 }
+
+
+
+# == internal constants ================================================
+
+
+# Empirical quantiles of the Dickey-Fuller tau statistics,
+# Fuller (1976), Table 8.5.2 (reproduced in Hamilton 1994, Table B.6).
+# Rows: sample sizes 25, 50, 100, 250, 500, Inf;
+# columns: probabilities 0.01, 0.025, 0.05, 0.10, 0.90, 0.95, 0.975, 0.99.
+
+.adfTauProbs <- c(0.01, 0.025, 0.05, 0.10, 0.90, 0.95, 0.975, 0.99)
+.adfTabN     <- c(25, 50, 100, 250, 500, 1e5)
+
+.adfTauTable <- list(
+  none = rbind(
+    c(-2.66, -2.26, -1.95, -1.60, 0.92, 1.33, 1.70, 2.16),
+    c(-2.62, -2.25, -1.95, -1.61, 0.91, 1.31, 1.66, 2.08),
+    c(-2.60, -2.24, -1.95, -1.61, 0.90, 1.29, 1.64, 2.03),
+    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.29, 1.63, 2.01),
+    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.28, 1.62, 2.00),
+    c(-2.58, -2.23, -1.95, -1.62, 0.89, 1.28, 1.62, 2.00)),
+  drift = rbind(
+    c(-3.75, -3.33, -3.00, -2.63, -0.37,  0.00, 0.34, 0.72),
+    c(-3.58, -3.22, -2.93, -2.60, -0.40, -0.03, 0.29, 0.66),
+    c(-3.51, -3.17, -2.89, -2.58, -0.42, -0.05, 0.26, 0.63),
+    c(-3.46, -3.14, -2.88, -2.57, -0.42, -0.06, 0.24, 0.62),
+    c(-3.44, -3.13, -2.87, -2.57, -0.43, -0.07, 0.24, 0.61),
+    c(-3.43, -3.12, -2.86, -2.57, -0.44, -0.07, 0.23, 0.60)),
+  trend = rbind(
+    c(-4.38, -3.95, -3.60, -3.24, -1.14, -0.80, -0.50, -0.15),
+    c(-4.15, -3.80, -3.50, -3.18, -1.19, -0.87, -0.58, -0.24),
+    c(-4.04, -3.73, -3.45, -3.15, -1.22, -0.90, -0.62, -0.28),
+    c(-3.99, -3.69, -3.43, -3.13, -1.23, -0.92, -0.64, -0.31),
+    c(-3.98, -3.68, -3.42, -3.13, -1.24, -0.93, -0.65, -0.32),
+    c(-3.96, -3.66, -3.41, -3.12, -1.25, -0.94, -0.66, -0.33)))
+
+# Critical values (1%, 5%, 10%) of the phi F statistics,
+# Dickey and Fuller (1981), Tables IV-VI; rows as above.
+# All values verified against the original paper. Note that urca
+# carries a transcription error in the phi3 row for n = 250
+# (5%/10% values duplicated from the n = 100 row); the correct
+# values per Table VI are 6.34 and 5.39.
+
+.adfPhiTable <- list(
+  phi1 = rbind(
+    c(7.88, 5.18, 4.12),
+    c(7.06, 4.86, 3.94),
+    c(6.70, 4.71, 3.86),
+    c(6.52, 4.63, 3.81),
+    c(6.47, 4.61, 3.79),
+    c(6.43, 4.59, 3.78)),
+  phi2 = rbind(
+    c(8.21, 5.68, 4.67),
+    c(7.02, 5.13, 4.31),
+    c(6.50, 4.88, 4.16),
+    c(6.22, 4.75, 4.07),
+    c(6.15, 4.71, 4.05),
+    c(6.09, 4.68, 4.03)),
+  phi3 = rbind(
+    c(10.61, 7.24, 5.91),
+    c( 9.31, 6.73, 5.61),
+    c( 8.73, 6.49, 5.47),
+    c( 8.43, 6.34, 5.39),
+    c( 8.34, 6.30, 5.36),
+    c( 8.27, 6.25, 5.34)))
+

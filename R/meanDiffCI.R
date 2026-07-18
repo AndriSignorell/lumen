@@ -7,6 +7,10 @@
 #' This function collects code from two sources. The classical confidence
 #' interval is calculated by means of \code{\link{t.test}}. The bootstrap
 #' intervals are strongly based on the example in \code{\link[boot]{boot}}.
+#'
+#' The bootstrap type \code{"stud"} (studentized) is not supported: the
+#' statistic functions used here return only the point estimate, not a
+#' per-replicate variance estimate, so requesting it raises an error.
 #' 
 #' @param x a (non-empty) numeric vector of data values.
 #' @param y a (non-empty) numeric vector of data values.
@@ -30,12 +34,17 @@
 #' \code{FALSE}.
 #' @param \dots further arguments, can be used to provide further arguments to
 #' the boot function.
-#' @return a numeric vector with 3 elements: \item{meandiff}{the difference:
-#' mean(x) - mean(y)} \item{lci}{lower bound of the confidence interval}
-#' \item{uci}{upper bound of the confidence interval}
+#'
+#' @return A named numeric vector with elements:
+#' \describe{
+#'   \item{\code{meandiff}}{point estimate, the difference: mean(x) - mean(y)}
+#'   \item{\code{lci}}{lower confidence interval bound}
+#'   \item{\code{uci}}{upper confidence interval bound}
+#' }
+#'
 #' @seealso \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
 #' \code{\link[boot]{boot.ci}}
-#' 
+#'
 #' @examples
 #' 
 #' x <- mtcars[mtcars$am == 0, "mpg"]
@@ -47,6 +56,7 @@
 #' # the different types of bootstrap confints
 #' meanDiffCI(x, y, method="boot", type="norm", na.rm=TRUE)
 #' meanDiffCI(x, y, method="boot", type="basic", na.rm=TRUE)
+#' # type="stud" is not supported (see Details) and raises an error:
 #' # meanDiffCI(x, y, method="boot", type="stud", na.rm=TRUE)
 #' meanDiffCI(x, y, method="boot", type="perc", na.rm=TRUE)
 #' meanDiffCI(x, y, method="boot", type="bca", na.rm=TRUE)
@@ -167,6 +177,11 @@ meanDiffCI <- function(x,
   
   args <- .extractBootArgs(list(...))
   
+  if (args$type == "stud")
+    stop("bootstrap type 'stud' is not supported by meanDiffCI(): ",
+         "the statistic function does not return a per-replicate ",
+         "variance estimate; use type = 'bca', 'perc', 'basic' or 'norm'")
+  
   if (paired) {
     
     d <- x - y
@@ -183,13 +198,19 @@ meanDiffCI <- function(x,
     
   } else {
     
+    # boot's own example for two-sample stratified bootstrapping
+    # (stype = "f"): the data matrix 'd' keeps its ORIGINAL row order
+    # across every replicate; only the frequency vector 'f' (aligned to
+    # that original order) varies. Since group 1's rows are always the
+    # first length(x) rows by construction below, gp1 identifies them
+    # directly without needing to inspect d[, 2] at all.
     diff.means <- function(d, f) {
-      
-      gp1 <- 1:table(as.numeric(d[, 2]))[1]
-      
+
+      gp1 <- seq_len(length(x))
+
       m1 <- sum(d[gp1, 1] * f[gp1]) / sum(f[gp1])
       m2 <- sum(d[-gp1, 1] * f[-gp1]) / sum(f[-gp1])
-      
+
       m1 - m2
     }
     

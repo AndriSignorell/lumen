@@ -8,8 +8,8 @@
 #' @param x a (non-empty) numeric vector of data values.
 #' @param y NULL (default) or a vector with compatible dimensions to \code{x},
 #' when a bivariate statistic is used.
-#' @param FUN the function to be used
-#' @param bci.method A vector of character strings representing the type of
+#' @param FUN the function to be used.
+#' @param bci.method a vector of character strings representing the type of
 #' intervals required. The value should be any subset of the values
 #' \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"},
 #' as it is passed on as \code{method} to \code{\link[boot]{boot.ci}}.
@@ -19,15 +19,18 @@
 #' \code{"right"}. You can specify just the initial letter. \code{"left"} would
 #' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
 #' @param ... further arguments are passed to the function \code{FUN}.
-#' @param R The number of bootstrap replicates. Usually this will be a single
+#' @param R number of bootstrap replicates. Usually this will be a single
 #' positive integer. For importance resampling, some resamples may use one set
 #' of weights and others use a different set of weights. In this case \code{R}
 #' would be a vector of integers where each component gives the number of
 #' resamples from each of the rows of weights.
 #' 
-#' @return a named numeric vector with 3 elements: \item{est}{the specific
-#' estimate, as calculated by \code{FUN}} \item{lci}{lower bound of the
-#' confidence interval} \item{uci}{upper bound of the confidence interval}
+#' @return A named numeric vector with three elements:
+#' \describe{
+#'   \item{\code{est}}{the estimate calculated by \code{FUN}.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
+#' }
 #' 
 #' @examples
 #' 
@@ -82,7 +85,6 @@ bootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
   else if(sides=="right")
     res[2] <- -Inf
   
-  names(res)[1] <- deparse(substitute(FUN))
   return(res)
   
 }

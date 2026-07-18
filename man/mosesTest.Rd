@@ -4,6 +4,7 @@
 \alias{mosesTest}
 \alias{mosesTest.default}
 \alias{mosesTest.formula}
+\alias{print.mosesTestResult}
 \title{Moses Test of Extreme Reactions}
 \usage{
 mosesTest(x, ...)
@@ -17,12 +18,14 @@ mosesTest(x, ...)
   ties.method = c("first", "average", "random", "max", "min"),
   ...
 )
+
+\method{print}{mosesTestResult}(x, digits = getOption("digits"), ...)
 }
 \arguments{
 \item{x}{Numeric vector of observations from the control group.
 Non-finite values are removed.}
 
-\item{\dots}{Further arguments passed to or from methods.}
+\item{\dots}{further arguments passed to or from methods}
 
 \item{formula}{A formula of the form \code{lhs ~ rhs}, where
 \code{lhs} gives the observations and \code{rhs} the grouping
@@ -46,6 +49,8 @@ span. If \code{NULL}, defaults to
 \item{ties.method}{Character string passed to \code{\link{rank}}.
 Default \code{"first"} preserves integer-valued ranks and exact
 combinatorial validity.}
+
+\item{digits}{number of significant digits to display}
 }
 \value{
 An object of class \code{"mosesTestResult"} inheriting from

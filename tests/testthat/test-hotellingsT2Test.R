@@ -8,11 +8,12 @@ test_that("one-sample F: htest structure is correct", {
   res <- hotellingsT2Test(x)
   
   expect_s3_class(res, "htest")
-  expect_named(res, c("statistic", "parameter", "p.value", "null.value",
-                      "alternative", "method", "data.name"))
+  expect_named(res, c("statistic", "parameter", "p.value", "estimate",
+                      "null.value", "alternative", "method", "data.name"))
   expect_named(res$statistic,  "T.2")
   expect_named(res$parameter,  c("df1", "df2"))
   expect_true(all(names(res$null.value) == "location"))
+  expect_true(is.numeric(res$estimate))
   expect_equal(res$alternative, "two.sided")
   expect_match(res$method, "one-sample")
 })
@@ -109,6 +110,7 @@ test_that("two-sample F: htest structure is correct", {
   expect_named(res$statistic,  "T.2")
   expect_named(res$parameter,  c("df1", "df2"))
   expect_true(all(names(res$null.value) == "location difference"))
+  expect_true(is.numeric(res$estimate))
   expect_match(res$method,     "two-sample")
 })
 
@@ -293,4 +295,25 @@ test_that("NAs in x are silently dropped", {
 test_that("invalid test argument raises error", {
   x <- matrix(rnorm(30 * 2), 30, 2)
   expect_error(hotellingsT2Test(x, test = "t"), "arg")
+})
+
+
+test_that("formula interface: subset works when the expression is not a local variable", {
+  # regression test: hotellingsT2Test.formula used to route subset through
+  # do.call() with a pre-built args list, whose default quote = FALSE
+  # evaluated the subset expression immediately in the wrong environment
+  # (looking for a variable "keep" instead of resolving it against data)
+  set.seed(1)
+  df <- data.frame(
+    g    = factor(rep(c("a", "b"), each = 20)),
+    v1   = c(rnorm(20, 0), rnorm(20, 1)),
+    v2   = c(rnorm(20, 0), rnorm(20, 2))
+  )
+  df$keep <- c(rep(TRUE, 15), rep(FALSE, 5), rep(TRUE, 20))
+  rm(list = "keep", envir = environment())   # no local 'keep' variable exists
+
+  expect_no_error(
+    res <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)
+  )
+  expect_s3_class(res, "htest")
 })

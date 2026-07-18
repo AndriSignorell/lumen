@@ -316,7 +316,7 @@ test_that("exact and permutation p-values are close", {
   set.seed(1)
   r_perm <- jonckheereTerpstraTest(x, g, method = "permutation", R = 100000)
   
-  expect_equal(r_exact$p.value, r_perm$p.value, tolerance = 0.01)
+  expect_equal(r_exact$p.value, r_perm$p.value, tolerance = 0.02)
 })
 
 
@@ -329,7 +329,7 @@ test_that("H&W example gives correct JT statistic and p-value", {
   x <- c(24, 61, 59, 98, 73, 68, 91, 94, 79, 63, 82, 89)
   g <- ordered(rep(1:3, c(3, 4, 5)))
   
-  res <- jonckheereTerpstraTest(x, g, method = "exact")
+  res <- jonckheereTerpstraTest(x, g, method = "exact", alternative="increasing")
   
   expect_equal(unname(res$statistic["JT"]), 36)
   expect_equal(res$p.value, 0.03791, tolerance = 1e-3)

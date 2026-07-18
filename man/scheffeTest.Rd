@@ -45,27 +45,27 @@ non default contrasts are used.  Default value of \code{contrasts} is
 level to use.  If this is set to NA, just a matrix with the p-values will be
 returned.}
 
-\item{formula}{A formula of the form \code{lhs ~ rhs}, where \code{lhs}
+\item{formula}{a formula of the form \code{lhs ~ rhs}, where \code{lhs}
 gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
-\item{data}{An optional matrix or data frame (or similar; see
+\item{data}{an optional matrix or data frame (or similar; see
 \code{\link[stats]{model.frame}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{An optional vector specifying a subset of observations
+\item{subset}{an optional vector specifying a subset of observations
 to be used in the analysis.}
 
-\item{na.action}{A function which indicates what should happen when
+\item{na.action}{a function which indicates what should happen when
 the data contain \code{NA}s. Defaults to
 \code{getOption("na.action")}.}
 }
 \value{
 A list of classes \code{c("PostHocTest")}, with one component for
 each term requested in \code{which}. Each component is a matrix with columns
-\code{diff} giving the difference in the observed means, \code{lwr.ci}
-giving the lower end point of the interval, \code{upr.ci} giving the upper
+\code{diff} giving the difference in the observed means, \code{lci}
+giving the lower end point of the interval, \code{uci} giving the upper
 end point and \code{pval} giving the p-value after adjustment for the
 multiple comparisons.
 
@@ -122,8 +122,7 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{parametric}
 \concept{post-hoc}

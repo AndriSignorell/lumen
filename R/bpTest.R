@@ -11,13 +11,11 @@
 #' @param fit a fitted \code{\link[stats]{lm}} object.
 #'
 #' @return An object of class \code{"htest"} with the following components:
-#'   \describe{
 #'     \item{\code{statistic}}{the BP test statistic.}
 #'     \item{\code{parameter}}{degrees of freedom.}
 #'     \item{\code{p.value}}{p-value based on the \eqn{\chi^2} distribution.}
 #'     \item{\code{method}}{character string describing the test.}
 #'     \item{\code{data.name}}{the formula of the fitted model.}
-#'   }
 #'
 #' @references
 #'   Breusch, T.S. and Pagan, A.R. (1979). A simple test for heteroscedasticity

@@ -6,9 +6,9 @@
 #' equals the sentinel value \code{".all"}, all available choices are
 #' returned. Otherwise \code{match.arg()} is applied.
 #'
-#' @param method A character value specifying one or more methods.
-#' @param several.ok Logical. Should multiple matches be allowed?
-#' @param fn The calling function whose formal argument definition
+#' @param method a character value specifying one or more methods.
+#' @param several.ok logical. Should multiple matches be allowed?
+#' @param fn the calling function whose formal argument definition
 #'   contains the available method choices. Defaults to the parent
 #'   function.
 #'

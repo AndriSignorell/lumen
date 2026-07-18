@@ -1,60 +1,79 @@
 Package: lumen
-Title: Hypothesis Tests for DescToolsX
-Version: 0.0.0.924  
+Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
+Version: 0.0.0.925  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
          role = c("aut", "cre"),
          comment = c(ORCID = "0000-0003-4311-1969")),
-  person("R-Core",                                role = c("ctb")),
-  person("Adrian"        , "Baddeley",            role = c("ctb")),
-  person("Frederico"     , "Caeiro",              role = c("ctb")),
-  person("Peter"         , "Calhoun",             role = c("ctb")),
-  person("Stephane"      , "Champely",            role = c("ctb")),
-  person("Clint"         , "Cummins",             role = c("ctb")),
-  person("Peter"         , "Dalgaard",            role = c("ctb")),
-  person("Richard W."    , "Farebrother",         role = c("ctb")),
-  person("John"          , "Fox",                 role = c("ctb")),
-  person("Michael"       , "Friendly",            role = c("ctb")),
-  person("Tal"           , "Galili",              role = c("ctb")),
-  person("Joseph L."     , "Gastwirth",           role = c("ctb")),
-  person("Yulia R."      , "Gel",                 role = c("ctb")),
-  person("Juergen"       , "Gross",               role = c("ctb")),
-  person("Michael"       , "Hoehle",              role = c("ctb")),
-  person("Kurt"          , "Hornik",              role = c("ctb")),
-  person("Torsten"       , "Hothorn",             role = c("ctb")),
-  person("Pete"          , "Hurd",                role = c("ctb")),
-  person("Wallace W."    , "Hui",                 role = c("ctb")),
-  person("Christopher"   , "Jackson",             role = c("ctb")),
-  person("Matthias"      , "Kohl",                role = c("ctb")),
-  person("Jim"           , "Lemon",               role = c("ctb")),
-  person("Eric"          , "Lecoutre",            role = c("ctb")),
-  person("Daniel"        , "Malter",              role = c("ctb")),
-  person("George"        , "Marsaglia",           role = c("ctb")),
-  person("John"          , "Marsaglia",           role = c("ctb")),
-  person("David"         , "Meyer",               role = c("ctb")),
-  person("Weiwen"        , "Miao",                role = c("ctb")),
-  person("Steven P."     , "Millard",             role = c("ctb")),
-  person("Giovanni"      , "Millo",               role = c("ctb")),
-  person("David"         , "Mitchell",            role = c("ctb")),
-  person("Klaus"         , "Nordhausen",          role = c("ctb")),
-  person("Bernhard"      , "Pfaff",               role = c("ctb")),
-  person("Hans Rudolf"   , "Roth",                role = c("ctb")),
-  person("Venkatraman E.", "Seshan",              role = c("ctb")),
-  person("Greg"          , "Snow",                role = c("ctb")),
-  person("Alec"          , "Stephenson",          role = c("ctb")),
-  person("Stefan"        , "Wellek",              role = c("ctb")),
-  person("T. W."         , "Yee",                 role = c("ctb")),
-  person("Achim"         , "Zeileis",             role = c("ctb"))
-  )
-Description: Provides hypothesis tests used in DescToolsX.
+  person("R-Core",                                        role = c("ctb")),
+  person("Ken"                  , "Aho",                  role = c("ctb")),
+  person("Chandima N. P. G."    , "Arachchige",           role = c("ctb")),
+  person("Adrian"               , "Baddeley",             role = c("ctb")),
+  person("Frederico"            , "Caeiro",               role = c("ctb")),
+  person("Peter"                , "Calhoun",              role = c("ctb")),
+  person("Stephane"             , "Champely",             role = c("ctb")),
+  person("Clint"                , "Cummins",              role = c("ctb")),
+  person("Peter"                , "Dalgaard",             role = c("ctb")),
+  person("John"                 , "Fox",                  role = c("ctb")),
+  person("Michael"              , "Friendly",             role = c("ctb")),
+  person("Tal"                  , "Galili",               role = c("ctb")),
+  person("Joseph L."            , "Gastwirth",            role = c("ctb")),
+  person("Yulia R."             , "Gel",                  role = c("ctb")),
+  person("Juergen"              , "Gross",                role = c("ctb")),
+  person("Michael"              , "Hoehle",               role = c("ctb")),
+  person("Kurt"                 , "Hornik",               role = c("ctb")),
+  person("Torsten"              , "Hothorn",              role = c("ctb")),
+  person("W. Wallace"           , "Hui",                  role = c("ctb")),
+  person("Pete"                 , "Hurd",                 role = c("ctb")),
+  person("Pablo J."             , "Villacorta Iglesias",  role = c("ctb")),
+  person("Christopher"          , "Jackson",              role = c("ctb")),
+  person("W. D."                , "Johnson",              role = c("ctb")),
+  person("Matthias"             , "Kohl",                 role = c("ctb")),
+  person("Eric"                 , "Lecoutre",             role = c("ctb")),
+  person("Jim"                  , "Lemon",                role = c("ctb")),
+  person("Martin"               , "Maechler",             role = c("ctb")),
+  person("George"               , "Marsaglia",            role = c("ctb")),
+  person("John"                 , "Marsaglia",            role = c("ctb")),
+  person("W. L."                , "May",                  role = c("ctb")),
+  person("David"                , "Meyer",                role = c("ctb")),
+  person("Weiwen"               , "Miao",                 role = c("ctb")),
+  person("Steven P."            , "Millard",              role = c("ctb")),
+  person("Giovanni"             , "Millo",                role = c("ctb")),
+  person("David"                , "Mitchell",             role = c("ctb")),
+  person("Klaus"                , "Nordhausen",           role = c("ctb")),
+  person("Derek"                , "Ogle",                 role = c("ctb")),
+  person("Carl"                 , "Pearson",              role = c("ctb")),
+  person("Bernhard"             , "Pfaff",                role = c("ctb")),
+  person("Luke A."              , "Prendergast",          role = c("ctb")),
+  person("William"              , "Revelle",              role = c("ctb")),
+  person("Brian"                , "Ripley",               role = c("ctb")),
+  person("Hans Rudolf"          , "Roth",                 role = c("ctb")),
+  person("Ralph"                , "Scherer",              role = c("ctb")),
+  person("Werner"               , "Stahel",               role = c("ctb")),
+  person("Alec"                 , "Stephenson",           role = c("ctb")),
+  person("Stefan"               , "Wellek",               role = c("ctb")),
+  person("Rand R."              , "Wilcox",               role = c("ctb")),
+  person("T. W."                , "Yee",                  role = c("ctb")),
+  person("Achim"                , "Zeileis",              role = c("ctb")),
+  person("OpenAI Codex",  role = c("ctb"), 
+    comment = "AI-assisted code and documentation review; all suggestions reviewed by the maintainer"),
+  person("Anthropic Claude", role = c("ctb"),
+    comment = "AI-assisted code and documentation review; all suggestions reviewed by the maintainer")
+ )
+Description: Extends 'DescToolsX' with a coherent collection of classical,
+    robust, nonparametric, and specialized hypothesis tests, confidence
+    intervals, and probability distributions. Consistent interfaces and
+    carefully documented implementations make advanced statistical methods
+    readily accessible in everyday R workflows.
 Depends: R (>= 4.2.0)
 License: GPL (>= 2)
 Encoding: UTF-8
 LinkingTo: Rcpp, RcppParallel, RcppArmadillo
 Roxygen: list(markdown = TRUE)
-Imports: lyra, bedrock, mvtnorm, stats, boot, gld
-Suggests: testthat (>= 3.0.0), Exact, goftest, coin, flexsurv, randtests, lmtest
+Imports: pharos, bedrock, mvtnorm, stats, boot, gld
+Suggests: testthat (>= 3.0.0), Exact, goftest, coin, flexsurv, 
+  randtests, lmtest, nortest, multcomp, tseries
 Config/testthat/edition: 3
 URL: https://andrisignorell.github.io/lumen/,
             https://github.com/AndriSignorell/lumen/

@@ -10,7 +10,7 @@
 \alias{pnweibull}
 \alias{qnweibull}
 \alias{rnweibull}
-\title{The Reverse (or Negative) Weibull Distribution}
+\title{Reversed Weibull Distribution}
 \usage{
 drweibull(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
@@ -29,19 +29,19 @@ qnweibull(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
 rnweibull(n, loc = 0, scale = 1, shape = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles.}
 
 \item{loc, scale, shape}{location, scale and shape parameters (can be given as
-vectors)}
+vectors).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned}
+\item{log}{logical; if \code{TRUE}, the log density is returned.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
-\verb{P[X <= x]}, otherwise, P\verb{[X > x]}}
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
-\item{p}{vector of probabilities}
+\item{p}{vector of probabilities.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 }
 \value{
 \code{drweibull()} and \code{dnweibull()} give the density
@@ -66,7 +66,7 @@ The reverse Weibull distribution function with parameters
 \deqn{G(z) = \exp\left\{-\left[-\left(\frac{z-a}{b}\right)\right]^s\right\}}{G(z) = exp(-(-(z-a)/b)^s)}
 for \eqn{z < a} and one otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 
-\strong{Note:} \verb{    } Within extreme value theory the reverse Weibull distibution (also
+\strong{Note:} Within extreme value theory the reverse Weibull distibution (also
 known as the negative Weibull distribution) is often referred to as the
 Weibull distribution.  We make a distinction to avoid confusion with the
 three-parameter distribution used in survival analysis, which is related by
@@ -88,20 +88,7 @@ prweibull(qrweibull(p, -1, 2, 0.8), -1, 2, 0.8)
 
 }
 \seealso{
-\code{\link{rfrechet}}, \code{\link{rgev}}, \code{\link{rgumbel}}
-
-Other topic.extremevalue.distributions:
-\code{\link{dpqr-extreme}},
-\code{\link{dpqr-frechet}},
-\code{\link{dpqr-gev}},
-\code{\link{dpqr-gpd}},
-\code{\link{dpqr-gumbel}},
-\code{\link{dpqr-gumbelx}},
-\code{\link{dpqr-order}}
+\link{distributions-overview}
 }
-\concept{bounded tail}
-\concept{continuous distribution}
-\concept{dpqr}
-\concept{extreme value theory}
-\concept{reverse Weibull}
-\concept{topic.extremevalue.distributions}
+\concept{distribution-function}
+\concept{extreme-value}

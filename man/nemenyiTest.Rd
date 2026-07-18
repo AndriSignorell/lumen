@@ -43,7 +43,7 @@ the test statistic. One of \code{"tukey"} (default) or \code{"chisq"}.}
 \code{"list"} (default) or \code{"matrix"}.}
 }
 \value{
-An object of class \code{c("rankTest", "htest")} containing:
+An object of class \code{"rankTest"} containing:
 \describe{
 \item{res}{pairwise comparison results, either as a list or matrix}
 \item{pmat}{symmetric matrix of adjusted p-values}
@@ -112,8 +112,7 @@ Other test.posthoc:
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
 \code{\link[=sdcfTest]{sdcfTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{nonparametric}
 \concept{post-hoc}

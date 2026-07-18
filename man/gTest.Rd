@@ -13,33 +13,35 @@ gTest(
 )
 }
 \arguments{
-\item{x}{a numeric vector or matrix. \code{x} and \code{y} can also both be
-factors.}
+\item{x}{a numeric vector or matrix. \code{x} and \code{y} can also both
+be factors.}
 
-\item{y}{a numeric vector; ignored if \code{x} is a matrix.  If \code{x} is
-a factor, \code{y} should be a factor of the same length.}
+\item{y}{a numeric vector; ignored if \code{x} is a matrix. If \code{x}
+is a factor, \code{y} should be a factor of the same length.}
 
-\item{correct}{one out of \code{"none"} (default), \code{"williams"},
-\code{"yates"} . See Details.}
+\item{correct}{the correction to be applied, one of \code{"none"}
+(default), \code{"williams"} or \code{"yates"}. See the Details.}
 
-\item{p}{a vector of probabilities of the same length of \code{x}.  An error
-is given if any entry of \code{p} is negative.}
+\item{p}{a vector of probabilities of the same length as \code{x}
+(goodness-of-fit test only). An error is given if any entry of \code{p}
+is negative.}
 
-\item{rescaleP}{a logical scalar; if \code{TRUE} then p is rescaled (if
-necessary) to sum to 1. If rescaleP is \code{FALSE}, and p does not sum to
-1, an error is given.}
+\item{rescaleP}{logical; if \code{TRUE} then \code{p} is rescaled (if
+necessary) to sum to 1. If \code{rescaleP} is \code{FALSE}, and \code{p}
+does not sum to 1, an error is given.}
 }
 \value{
 A list with class \code{"htest"} containing the following
-components: \item{statistic}{the value the chi-squared test statistic.}
+components:
+\item{statistic}{the value of the G test statistic.}
 \item{parameter}{the degrees of freedom of the approximate chi-squared
-distribution of the test statistic, \code{NA} if the p-value is computed by
-Monte Carlo simulation.} \item{p.value}{the p-value for the test.}
-\item{method}{a character string indicating the type of test performed, and
-whether Monte Carlo simulation or continuity correction was used.}
+distribution of the test statistic.}
+\item{p.value}{the p-value of the test.}
+\item{method}{a character string indicating the type of test performed,
+and whether a correction was used.}
 \item{data.name}{a character string giving the name(s) of the data.}
-\item{observed}{the observed counts.} \item{expected}{the expected counts
-under the null hypothesis.}
+\item{observed}{the observed counts (before any continuity correction).}
+\item{expected}{the expected counts under the null hypothesis.}
 }
 \description{
 A goodness-of-fit or test of independence based on the log-likelihood
@@ -47,41 +49,43 @@ ratio (G-statistic), serving as an asymptotically equivalent alternative
 to the chi-squared test.
 }
 \details{
-\code{gTest} performs chi-squared contingency table tests and
+\code{gTest} performs log-likelihood ratio contingency table tests and
 goodness-of-fit tests.
 
 The G-test is also called "Likelihood Ratio Test" and is asymptotically
-equivalent to the Pearson ChiSquare-test but not usually used when analyzing
-2x2 tables. It is used in logistic regression and loglinear modeling which
-involves contingency tables. The G-test is also reported in the standard
-summary of \code{Desc} for tables.
+equivalent to the Pearson chi-squared test but not usually used when
+analyzing 2x2 tables. It is used in logistic regression and loglinear
+modeling which involves contingency tables.
 
-If \code{x} is a matrix with one row or column, or if \code{x} is a vector
-and \code{y} is not given, then a \emph{goodness-of-fit test} is performed
-(\code{x} is treated as a one-dimensional contingency table).  The entries
-of \code{x} must be non-negative integers.  In this case, the hypothesis
-tested is whether the population probabilities equal those in \code{p}, or
-are all equal if \code{p} is not given.
+If \code{x} is a matrix with one row or column, or if \code{x} is a
+vector and \code{y} is not given, then a \emph{goodness-of-fit test} is
+performed (\code{x} is treated as a one-dimensional contingency table).
+The entries of \code{x} must be non-negative integers. In this case, the
+hypothesis tested is whether the population probabilities equal those in
+\code{p}, or are all equal if \code{p} is not given.
 
-If \code{x} is a matrix with at least two rows and columns, it is taken as a
-two-dimensional contingency table: the entries of \code{x} must be
-non-negative integers.  Otherwise, \code{x} and \code{y} must be vectors or
-factors of the same length; cases with missing values are removed, the
-objects are coerced to factors, and the contingency table is computed from
-these.  Then G-test is performed on the null hypothesis that the joint
-distribution of the cell counts in a 2-dimensional contingency table is the
-product of the row and column marginals.
+If \code{x} is a matrix with at least two rows and columns, it is taken
+as a two-dimensional contingency table: the entries of \code{x} must be
+non-negative integers. Otherwise, \code{x} and \code{y} must be vectors
+or factors of the same length; cases with missing values are removed,
+the objects are coerced to factors, and the contingency table is
+computed from these. Then the G-test is performed on the null hypothesis
+that the joint distribution of the cell counts in a 2-dimensional
+contingency table is the product of the row and column marginals.
+
+Williams' correction (Williams, 1976) divides the statistic by a factor
+\eqn{q > 1} and can be used for both test types. Yates' continuity
+correction is only defined for 2x2 tables (independence) resp. two data
+values (goodness-of-fit).
 }
 \note{
-Adapted from code by Pete Hurd to conform to package standards.
+Based on code by Pete Hurd, adapted to conform to package standards.
 }
 \examples{
-
-
-## From Agresti(2007) p.39
-M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
-dimnames(M) <- list(gender=c("M","F"),
-                    party=c("Democrat","Independent", "Republican"))
+## From Agresti (2007), p. 39
+M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(M) <- list(gender = c("M", "F"),
+                    party  = c("Democrat", "Independent", "Republican"))
 
 (Xsq <- gTest(M))   # Prints test summary
 
@@ -94,13 +98,13 @@ Xsq$expected        # expected counts under the null
 x <- c(A = 20, B = 15, C = 25)
 gTest(x)
 gTest(as.table(x))             # the same
-x <- c(89,37,30,28,2)
-p <- c(40,20,20,15,5)
+x <- c(89, 37, 30, 28, 2)
+p <- c(40, 20, 20, 15, 5)
 try(
 gTest(x, p = p)                # gives an error
 )
 # works
-p <- c(0.40,0.20,0.20,0.19,0.01)
+p <- c(0.40, 0.20, 0.20, 0.19, 0.01)
 # Expected count in category 5
 # is 1.86 < 5 ==> chi square approx.
 gTest(x, p = p)                # maybe doubtful, but is ok!
@@ -111,22 +115,18 @@ gTest(table(x))                # NOT 'gTest(x)'!
 
 }
 \references{
-Hope, A. C. A. (1968) A simplified Monte Carlo significance test
-procedure.  \emph{J. Roy, Statist. Soc. B} \bold{30}, 582--598.
+Agresti, A. (2007) \emph{An Introduction to Categorical Data
+Analysis}, 2nd ed., New York: John Wiley & Sons. Page 38.
 
-Patefield, W. M. (1981) Algorithm AS159.  An efficient method of generating
-r x c tables with given row and column totals.  \emph{Applied Statistics}
-\bold{30}, 91--97.
+Sokal, R. R. and Rohlf, F. J. (2012) \emph{Biometry: The Principles and
+Practice of Statistics in Biological Research}, 4th ed., New York:
+W. H. Freeman and Co.
 
-Agresti, A. (2007) \emph{An Introduction to Categorical Data Analysis, 2nd
-ed.}, New York: John Wiley & Sons.  Page 38.
-
-Sokal, R. R., F. J. Rohlf (2012) \emph{Biometry: the principles and practice
-of statistics in biological research}. 4th edition. W. H. Freeman and Co.:
-New York. 937 pp.
+Williams, D. A. (1976) Improved likelihood ratio tests for complete
+contingency tables. \emph{Biometrika}, 63, 33-37.
 }
 \seealso{
-\code{\link{chisq.test}}.
+\code{\link{chisq.test}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
@@ -134,10 +134,10 @@ Other test.categorical:
 \code{\link[=breslowDayTest]{breslowDayTest()}},
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=lehmacherTest]{lehmacherTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
+\concept{categorical-test}
 \concept{goodness-of-fit}
-\concept{hypothesis-testing}
-\concept{table-manipulation}
 \concept{test.categorical}

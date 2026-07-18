@@ -21,8 +21,12 @@
 #' of \code{"wald"}, \code{"score"}, \code{"exact"} or \code{"byar"}.  Method
 #' can be abbreviated. See details. Defaults to \code{"score"}.
 #' 
-#' @return A vector with 3 elements for estimate, lower confidence intervall
-#' and upper for the upper one.
+#' @return A named numeric vector with elements:
+#' \describe{
+#'   \item{\code{est}}{point estimate.}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
+#' }
 #' 
 #' @references Agresti, A. and Coull, B.A. (1998) Approximate is better than
 #' "exact" for interval estimation of binomial proportions. \emph{American
@@ -71,12 +75,8 @@
 #' 
 #' poissonCI(sum(petri), length(petri))
 #' 
-
 #' @family ci.proportion
-#' @concept confidence-intervals
-#' @concept descriptive-statistics
-#' @concept distributions
-#'
+#' @concept confidence-interval
 #'
 #' @export
 poissonCI <- function(x, n = 1, conf.level = 0.95, 
@@ -128,8 +128,14 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
   # see also:   pois.conf.int {epitools}
   
   alpha <- 1 - conf.level
+  
+  # For a one-sided interval, the reported bound is one side of a
+  # (narrower, two-sided) interval computed at a DOUBLED alpha: the
+  # two-sided interval's tail probability alpha_used/2 must equal the
+  # target one-sided alpha, i.e. alpha_used = 2 * alpha. Verified against
+  # poisson.test(..., alternative = "greater")'s native one-sided bound.
   if (sides != "two.sided")
-    alpha <- alpha / 2
+    alpha <- alpha * 2
   
   CI <- switch( method
                 , "exact" = { .poissonCI.exact(x, n, alpha) }
@@ -173,7 +179,6 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
 .poissonCI.score <- function(x, n, alpha) {
   
   z <- qnorm(1 - alpha/2)
-  lambda <- x/n
 
   term1 <- (x + z^2/2)/n
   term2 <- z * n^-0.5 * sqrt(x/n + z^2/(4*n))

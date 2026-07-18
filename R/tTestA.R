@@ -33,9 +33,8 @@
 #' \code{"less"}.  You can specify just the initial letter.
 #' @param mu a number indicating the true value of the mean (or difference in
 #' means if you are performing a two sample test).
-#' @param paired paired = \code{TRUE} is not supported here and only present
-#' for consistency of arguments. Use the one-sample-test for the differences
-#' instead.
+#' @param paired logical; paired tests are not supported. Use a one-sample test
+#' on the differences instead.
 #' @param var.equal a logical variable indicating whether to treat the two
 #' variances as being equal. If \code{TRUE} then the pooled variance is used to
 #' estimate the variance otherwise the Welch (or Satterthwaite) approximation
@@ -44,7 +43,9 @@
 #' @param \dots further arguments to be passed to or from methods.
 #' 
 #' @return A list with class \code{"htest"} containing the following
-#' components: \item{statistic}{the value of the t-statistic.}
+#' components: 
+#' 
+#' \item{statistic}{the value of the t-statistic.}
 #' \item{parameter}{the degrees of freedom for the t-statistic.}
 #' \item{p.value}{the p-value for the test.} \item{conf.int}{a confidence
 #' interval for the mean appropriate to the specified alternative hypothesis.}
@@ -81,14 +82,9 @@
 #' # compared to 
 #' t.test(x, y, paired = TRUE)
 #' 
-#' 
- 
-
-
-#' @family test.location  
-#' @concept location-test  
+#' @family test.location
+#' @concept location-test
 #' @concept parametric
-#'
 #'
 #' @export
 tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
@@ -106,13 +102,13 @@ tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
                                conf.level < 0 || conf.level > 1))
     stop("'conf.level' must be a single number between 0 and 1")
   
+  # data.name reflects the expressions supplied for the summary means,
+  # since there is no raw data vector to deparse here (unlike t.test())
   if (!is.null(my)) {
-    dname <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    dname <- paste(deparse1(substitute(mx)), "and", deparse1(substitute(my)))
     
   } else {
-    dname <- deparse(substitute(x))
-    if (paired)
-      stop("'y' is missing for paired test")
+    dname <- deparse1(substitute(mx))
   }
   
   vx <- sx^2
@@ -125,23 +121,16 @@ tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
     if (stderr < 10 * .Machine$double.eps * abs(mx))
       stop("data are essentially constant")
     tstat <- (mx - mu)/stderr
-    method <- if (paired)
-      "Paired t-test"
-    else "One Sample t-test"
-    estimate <- setNamesX(mx, if (paired)
-      "mean of the differences"
-      else "mean of x")
+    method <- "One Sample t-test"
+    estimate <- setNamesX(mx, "mean of x")
     
   } else {
-    # ny <- length(y)
     if (nx < 1 || (!var.equal && nx < 2))
       stop("not enough 'x' observations")
     if (ny < 1 || (!var.equal && ny < 2))
       stop("not enough 'y' observations")
     if (var.equal && nx + ny < 3)
       stop("not enough observations")
-    # my <- mean(y)
-    # vy <- var(y)
     vy <- sy^2
     method <- paste(if (!var.equal)
       "Welch", "Two Sample t-test")
@@ -185,7 +174,7 @@ tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
   cint <- mu + cint * stderr
   names(tstat) <- "t"
   names(df) <- "df"
-  names(mu) <- if (paired || !is.null(my))
+  names(mu) <- if (!is.null(my))
     "difference in means"
   else "mean"
   attr(cint, "conf.level") <- conf.level

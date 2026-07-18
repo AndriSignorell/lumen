@@ -1,5 +1,5 @@
 
-#' Z Test for Known Population Standard Deviation
+#' z-Test for Known Population Standard Deviation
 #' 
 #' A parametric test for the mean of a normal distribution when the population 
 #' variance is known, or for comparing two means with known variances, based 
@@ -29,7 +29,8 @@
 #' values will be omitted.
 #' @param mu a number specifying the hypothesized mean of the population.
 #' @param sd_pop a number specifying the known standard deviation of the
-#' population.
+#' population. For the two-sample test, this single value is assumed to be
+#' the common known standard deviation of both populations.
 #' @param alternative a character string specifying the alternative hypothesis,
 #' must be one of \code{"two.sided"} (default), \code{"greater"} or
 #' \code{"less"}.  You can specify just the initial letter. \cr For one-sample
@@ -89,14 +90,10 @@
 #'                      int=c(6.5,5.4,8.1,3.5,0.5,3.8,6.8,4.9,9.5,6.2,4.1))
 #' with(d.oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
 #' 
-
-
 #' @rdname zTest
-
-#' @family test.location  
-#' @concept location-test  
+#' @family test.location
+#' @concept location-test
 #' @concept parametric
-#'
 #'
 #' @export
 zTest <- function (x, ...)
@@ -127,7 +124,7 @@ zTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(bedrock::resolveFormula, args)
+  d <- do.call(resolveFormula, args)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
@@ -159,7 +156,7 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
     stop("'conf.level' must be a single number between 0 and 1")
   
   if (!is.null(y)) {
-    dname <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+    dname <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     
     if (paired)
       xok <- yok <- complete.cases(x, y)
@@ -171,7 +168,7 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
     y <- y[yok]
     
   } else {
-    dname <- deparse(substitute(x))
+    dname <- deparse1(substitute(x))
     if (paired)
       stop("'y' is missing for paired test")
     xok <- !is.na(x)
@@ -186,7 +183,6 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   
   nx <- length(x)
   mx <- mean(x)
-  # vx <- sd_pop^2
   
   if (is.null(y)) {
     if (nx < 2)
@@ -196,7 +192,7 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
       stop("data are essentially constant")
     zstat <- (mx - mu)/stderr
     
-    method <- method <- if (paired)
+    method <- if (paired)
       "Paired z-test" else "One Sample z-test"
     estimate <- setNamesX(mx, if (paired)
       "mean of the differences"

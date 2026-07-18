@@ -7,14 +7,14 @@
 #' transformation is applied to obtain approximately normally distributed
 #' values, from which confidence intervals can be derived.
 #'
-#' @param rho Numeric. Pearson correlation coefficient. Must be a single
+#' @param rho numeric; Pearson correlation coefficient. Must be a single
 #'   value in the interval \eqn{[-1, 1]}.
-#' @param n Integer. Sample size used to estimate the correlation.
+#' @param n integer; sample size used to estimate the correlation.
 #'   Must be at least 3.
-#' @param conf.level Numeric. Confidence level for the interval.
+#' @param conf.level numeric; confidence level for the interval.
 #'   Must be a single value in the open interval \eqn{(0, 1)}.
 #'   Default is \code{0.95}.
-#' @param alternative Character string specifying the alternative hypothesis.
+#' @param alternative character string specifying the alternative hypothesis.
 #'   Must be one of \code{"two.sided"} (default), \code{"less"}, or
 #'   \code{"greater"}. Partial matching is allowed.
 #'
@@ -32,9 +32,9 @@
 #'
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{cor}{The input correlation coefficient \code{rho}.}
-#'   \item{lci}{Lower bound of the confidence interval.}
-#'   \item{uci}{Upper bound of the confidence interval.}
+#'   \item{\code{est}}{point estimate (correlation coefficient \code{rho}).}
+#'   \item{\code{lci}}{lower confidence interval bound.}
+#'   \item{\code{uci}}{upper confidence interval bound.}
 #' }
 #'
 #' @note Based on code by William Revelle, adapted to conform to package standards.
@@ -75,7 +75,7 @@ corCI <- function(rho, n, conf.level = 0.95,
   
   # handle perfect correlation
   if (abs(rho) >= 1) {
-    return(c(cor = rho, lwr.ci = rho, upr.ci = rho))
+    return(c(est = rho, lci = rho, uci = rho))
   }
   
   # numerical stability
@@ -92,7 +92,7 @@ corCI <- function(rho, n, conf.level = 0.95,
   
   ci <- fisherZInv(ci)
   
-  setNamesX(c(rho, ci), c("cor", "lci", "uci"))
+  setNamesX(c(rho, ci), c("est", "lci", "uci"))
   
 }
 

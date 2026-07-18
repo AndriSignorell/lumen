@@ -7,13 +7,16 @@
 #' Exactly one of the parameters \code{effectSize}, \code{n}, \code{power} or
 #' \code{sig.level} must be passed as NULL, and this parameter is determined
 #' from the others. Note that the last one has non-NULL default, so \code{NULL}
-#' must be explicitly passed, if you want to compute it.
+#' must be explicitly passed, if you want to compute it. \code{df} must
+#' always be supplied; it cannot be solved for.
 #' 
 #' @param n total number of observations.
 #' @param effectSize effect size.
-#' @param df degree of freedom (depends on the chosen test.
-#' @param sig.level Significance level (Type I error probability).
-#' @param power Power of test (1 minus Type II error probability).
+#' @param df degrees of freedom of the chi-squared distribution, e.g.
+#' \code{(rows-1)*(cols-1)} for a test of independence. Must always be
+#' supplied.
+#' @param sig.level significance level (Type I error probability).
+#' @param power target power (1 minus Type II error probability).
 #' @return Object of class "power.htest", a list of the arguments (including
 #' the computed one) augmented with 'method' and 'note' elements.
 #' @note \code{\link{uniroot}} is used to solve power equation for unknowns, so
@@ -38,28 +41,25 @@
 #' 
 #' ## Exercise 7.8 p. 270
 #' powerChisqTest(effectSize=0.1, df=(5-1)*(6-1), power=0.80, sig.level=0.05)
-#' 
- 
-
-
-#' @family power  
-#' @concept power  
-#' @concept sample-size  
+#' #' @family power
+#' @concept power
+#' @concept sample-size
 #' @concept chi-square-based
-#'
 #'
 #' @export
 powerChisqTest <- function (n = NULL, effectSize = NULL, df = NULL, sig.level = 0.05, power = NULL) {
   
-  if (sum(sapply(list(effectSize, n, df, power, sig.level), is.null)) != 1)
-    stop("exactly one of effectSize, n, df, power or sig.level must be NULL")
+  if (is.null(df))
+    stop("'df' must always be specified; it cannot be solved for")
+  if (sum(sapply(list(effectSize, n, power, sig.level), is.null)) != 1)
+    stop("exactly one of effectSize, n, power or sig.level must be NULL")
   if (!is.null(effectSize) && effectSize < 0)
     stop("effectSize must be positive")
   if (!is.null(n) && n < 1)
     stop("number of observations must be at least 1")
-  if (!is.null(sig.level) && !is.numeric(sig.level) || any(0 > sig.level | sig.level > 1))
+  if (!is.null(sig.level) && (!is.numeric(sig.level) || any(0 > sig.level | sig.level > 1)))
     stop(sQuote("sig.level"), " must be numeric in [0, 1]")
-  if (!is.null(power) && !is.numeric(power) || any(0 > power | power > 1))
+  if (!is.null(power) && (!is.numeric(power) || any(0 > power | power > 1)))
     stop(sQuote("power"), " must be numeric in [0, 1]")
   p.body <- quote({
     k <- qchisq(sig.level, df = df, lower = FALSE)

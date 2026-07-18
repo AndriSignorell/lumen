@@ -36,22 +36,22 @@
 #' @name dpqr-benford
 #' @aliases Benford benford dbenford pbenford qbenford rbenford
 #' 
-#' @param x,q a vector of quantiles, see \code{nDigits}
+#' @param x,q a vector of quantiles, see \code{nDigits}.
 #' 
-#' @param p a vector of probabilities
+#' @param p a vector of probabilities.
 #' @param n number of observations. A single positive integer.  Else if
 #' \code{length(n) > 1} then the length is taken to be the number required.
 #' 
 #' @param nDigits number of leading digits, either 1 or 2.  If 1 then the
 #' support of the distribution is \{1, ..., 9\}, else \{10, ..., 99\}.
 #' 
-#' @param log logical; if \code{TRUE}, densities are given as \code{log(d)}
+#' @param log logical; if \code{TRUE}, densities are given as \code{log(d)}.
 #' 
 #' @param log.p logical; if \code{TRUE}, probabilities \code{p} are given as
-#' \code{log(p)}
+#' \code{log(p)}.
 #' 
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are
-#' \eqn{P(X \le x)}, otherwise \eqn{P(X > x)}
+#' \eqn{P(X \le x)}, otherwise \eqn{P(X > x)}.
 #' 
 #' @return \code{dbenford()} gives the density, \code{pbenford()} gives the
 #' distribution function, \code{qbenford()} gives the quantile function, and

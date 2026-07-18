@@ -66,3 +66,23 @@ test_that("gTest: williams correction gives larger p than none", {
   res_will <- gTest(M, correct = "williams")
   expect_gte(res_will$p.value, res_none$p.value)
 })
+
+
+test_that("gTest: observed keeps original counts under Yates correction", {
+  # regression test: the continuity-corrected (+-0.5) counts used to be
+  # returned as 'observed'
+  tab <- as.table(matrix(c(10, 4, 3, 11), 2))
+
+  res <- gTest(tab, correct = "yates")
+
+  expect_equal(unname(as.vector(res$observed)), c(10, 4, 3, 11))
+  expect_equal(sum(res$expected), sum(res$observed), tolerance = 1e-10)
+})
+
+
+test_that("gTest: input validation", {
+  expect_error(gTest(c(10, -1, 5)), "nonnegative")
+  expect_error(gTest(c(10, 20), p = c(0.5, 0.4)), "sum to 1")
+  expect_error(gTest(c(A = 5), y = NULL), "2 elements")
+  expect_no_error(gTest(matrix(1:4, 2), correct = "yates"))
+})

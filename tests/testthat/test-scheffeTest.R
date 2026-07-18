@@ -36,15 +36,15 @@ test_that("scheffeTest: CI contains diff for equal groups", {
   res <- scheffeTest(aov(y ~ g, data = df2))
   # CI for all pairs should contain 0
   diffs <- res[[1]][, "diff"]
-  lcis  <- res[[1]][, "lwr.ci"]
-  ucis  <- res[[1]][, "upr.ci"]
+  lcis  <- res[[1]][, "lci"]
+  ucis  <- res[[1]][, "uci"]
   expect_true(all(lcis <= 0 & 0 <= ucis, na.rm = TRUE))
 })
 
 test_that("scheffeTest: wider CI with higher conf.level", {
   res95 <- scheffeTest(fit, conf.level = 0.95)[[1]]
   res99 <- scheffeTest(fit, conf.level = 0.99)[[1]]
-  w95   <- mean(res95[,"upr.ci"] - res95[,"lwr.ci"], na.rm = TRUE)
-  w99   <- mean(res99[,"upr.ci"] - res99[,"lwr.ci"], na.rm = TRUE)
+  w95   <- mean(res95[,"uci"] - res95[,"lci"], na.rm = TRUE)
+  w99   <- mean(res99[,"uci"] - res99[,"lci"], na.rm = TRUE)
   expect_gt(w99, w95)
 })

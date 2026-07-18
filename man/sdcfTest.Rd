@@ -10,7 +10,7 @@ sdcfTest(x, ...)
 
 \method{sdcfTest}{formula}(formula, data, subset, na.action, ...)
 
-\method{sdcfTest}{default}(x, g, output = c("list", "matrix"), ...)
+\method{sdcfTest}{default}(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{a numeric vector of observations, or a list of numeric
@@ -34,10 +34,13 @@ handled.}
 
 \item{output}{character string specifying the output format. One of
 \code{"list"} (default) or \code{"matrix"}.}
+
+\item{alpha}{the significance level used to compile the groups flagged
+as significantly different in the label attribute of the p-value
+matrix (default is \code{0.05})}
 }
 \value{
-An object of class \code{c("rankTest", "htest")} containing:
-\describe{
+An object of class \code{"rankTest"} containing:
 \item{res}{
 comparison results. For \code{output="list"} a matrix with
 columns \code{z} and \code{pval}; for
@@ -46,7 +49,6 @@ with diagonal 1.
 }
 \item{pmat}{
 symmetric matrix of adjusted p-values with diagonal 1.
-}
 }
 
 Additional information is stored in attributes:
@@ -136,8 +138,7 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=steelTest]{steelTest()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}}
+\code{\link[=steelTest]{steelTest()}}
 }
 \concept{hypothesis-testing}
 \concept{multiple-comparisons}

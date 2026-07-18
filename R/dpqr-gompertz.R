@@ -38,12 +38,12 @@
 #' @name dpqr-gompertz
 #' @aliases Gompertz dgompertz pgompertz qgompertz rgompertz
 #' 
-#' @param x,q vector of quantiles
-#' @param shape,rate vector of shape and rate parameters
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p)
+#' @param x,q vector of quantiles.
+#' @param shape,rate vector of shape and rate parameters.
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are \eqn{P(X
-#' }{P(X <= x)}\eqn{\le x)}{P(X <= x)}, otherwise, \eqn{P(X > x)}{P(X > x)}
-#' @param p vector of probabilities
+#' }{P(X <= x)}\eqn{\le x)}{P(X <= x)}, otherwise, \eqn{P(X > x)}{P(X > x)}.
+#' @param p vector of probabilities.
 #' @param n number of observations. If \code{length(n) > 1}, the length is
 #' taken to be the number required.
 #' @return \code{dgompertz()} gives the density, \code{pgompertz()} gives the

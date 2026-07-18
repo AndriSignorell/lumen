@@ -2,75 +2,83 @@
 % Please edit documentation in R/lehmacherTest.R
 \name{lehmacherTest}
 \alias{lehmacherTest}
-\alias{print.mtest}
 \alias{print.MHTest}
-\title{Lehmacher's Test for Marginal Homogenity}
+\title{Lehmacher's Test for Marginal Homogeneity}
 \usage{
-lehmacherTest(x, y = NULL)
+lehmacherTest(x, y = NULL, p.adjust.method = "hochberg")
 
 \method{print}{MHTest}(x, digits = 1L, ...)
 }
 \arguments{
-\item{x}{either a two-dimensional contingency table in matrix form, or a
-factor object.}
+\item{x}{either a two-dimensional square contingency table in matrix
+form, or a factor object.}
 
-\item{y}{a factor object; ignored if x is a matrix.}
+\item{y}{a factor object; ignored if \code{x} is a matrix.}
 
-\item{digits}{a non-null value for digits specifies the minimum number of
-significant digits to be printed in values. See details in
-\code{\link{print.default}}.}
+\item{p.adjust.method}{the method used to adjust the per-category
+p-values for multiple comparisons, passed to \code{\link{p.adjust}}.
+Default is \code{"hochberg"}, as recommended by Lehmacher (1980).}
 
-\item{\dots}{further arguments to be passed to or from other methods. They
-are ignored in this function.}
+\item{digits}{a non-null value for digits specifies the minimum number
+of significant digits to be printed. See \code{\link{print.default}}.}
+
+\item{\dots}{further arguments to be passed to or from other methods,
+ignored in this function.}
 }
 \value{
-A list with class \code{"mtest"} containing the following
-components: \item{statistic}{a vector with the value of the test
-statistics.} \item{parameter}{the degrees of freedom, which is always 1 in
-lehmacherTest.} \item{p.value}{a vector with the p-values of the single
-tests.} \item{p.value.corr}{a vector with the "hochberg" adjusted p-values
-of the single tests. (See \code{\link{p.adjust}})} \item{method}{a character
-string indicating what type of test was performed.} \item{data.name}{a
-character string giving the name of the data.}
+A list with class \code{c("MHTest", "htest")} containing the
+following components:
+\item{statistic}{a vector with the value of the test statistic for each
+category.}
+\item{parameter}{the degrees of freedom, which is always 1.}
+\item{p.value}{a vector with the p-values of the individual tests.}
+\item{p.value.corr}{a vector with the adjusted p-values of the
+individual tests (see \code{p.adjust.method}).}
+\item{method}{a character string indicating the test performed.}
+\item{data.name}{a character string giving the name of the data.}
 }
 \description{
-A nonparametric test for marginal homogeneity in square contingency tables
-for dependent samples, based on a normal approximation of the cell
-frequency differences.
+A nonparametric test for marginal homogeneity in square contingency
+tables for dependent samples, based on a normal approximation of the
+cell frequency differences.
 }
 \details{
-Performs Lehmacher's chi-squared test for marginal homogenity in a symmetric
-two-dimensional contingency table.
+Performs Lehmacher's chi-squared test for marginal homogeneity in a
+square two-dimensional contingency table.
 
-The null is that the probabilities of being classified into cells \verb{[i,j]} and
-\verb{[j,i]} are the same.
+Unlike Bowker's test of symmetry, which tests whether
+\eqn{P(i,j) = P(j,i)} for every off-diagonal cell pair, Lehmacher's
+test addresses marginal homogeneity: the null hypothesis is that, for
+every category \eqn{i}, the row and column marginal probabilities agree,
+\eqn{P(i \cdot) = P(\cdot i)}. One test statistic is computed per
+category and referred to a chi-squared distribution with 1 degree of
+freedom; the resulting p-values are adjusted for multiple comparisons.
 
-If x is a matrix, it is taken as a two-dimensional contingency table, and
-hence its entries should be nonnegative integers. Otherwise, both x and y
-must be vectors or factors of the same length. Incomplete cases are removed,
-vectors are coerced into factors, and the contingency table is computed from
-these.
+If \code{x} is a matrix, it is taken as a two-dimensional contingency
+table, and hence its entries should be nonnegative integers. Otherwise,
+both \code{x} and \code{y} must be vectors or factors of the same
+length. Incomplete cases are removed, vectors are coerced into factors,
+and the contingency table is computed from these.
 }
 \examples{
+x <- matrix(c(400, 40, 20, 10,
+              50, 300, 60, 20,
+              10, 40, 120, 5,
+              5, 90, 50, 80), nrow = 4, byrow = TRUE,
+            dimnames = list(LETTERS[1:4], LETTERS[1:4]))
 
-x <- matrix(c(400,40,20,10, 
-              50,300,60,20, 
-              10,40,120,5, 
-              5,90,50,80), nrow=4, byrow=TRUE, 
-              dimnames=list(LETTERS[1:4], LETTERS[1:4])
-           )
-              
 lehmacherTest(x)
-
 
 }
 \references{
 Lehmacher, W. (1980) Simultaneous sign tests for marginal
-homogeneity of square contingency tables \emph{Biometrical Journal}, Volume
-22, Issue 8, pages 795-798
+homogeneity of square contingency tables. \emph{Biometrical Journal},
+22 (8), 795-798.
 }
 \seealso{
-\code{\link{mcnemar.test}} (resp. BowkerTest for a CxC-matrix)
+\code{\link{stuartMaxwellTest}}, \code{\link{bhapkarTest}} for
+related tests of marginal homogeneity; \code{\link{mcnemar.test}} for
+the 2x2 case
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
@@ -78,9 +86,11 @@ Other test.categorical:
 \code{\link[=breslowDayTest]{breslowDayTest()}},
 \code{\link[=cochranQTest]{cochranQTest()}},
 \code{\link[=gTest]{gTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}},
 \code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}},
 \code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{categorical-test}
-\concept{nonparametric}
+\concept{marginal-homogeneity}
+\concept{paired-samples}
 \concept{test.categorical}

@@ -38,6 +38,9 @@
 #'   \code{"less"}.
 #' @param output character string specifying the output format. One of
 #'   \code{"list"} (default) or \code{"matrix"}.
+#' @param alpha the significance level used to compile the groups flagged
+#'   as significantly different in the label attribute of the p-value
+#'   matrix (default is \code{0.05})
 #' @param formula a formula of the form \code{response ~ group}.
 #' @param data an optional data frame containing the variables in
 #'   \code{formula}.
@@ -47,8 +50,7 @@
 #'   handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{c("rankTest", "htest")} containing:
-#' \describe{
+#' @return An object of class \code{"rankTest"} containing:
 #'   \item{res}{
 #'     comparison results. For \code{output="list"} a matrix with
 #'     columns \code{W}, \code{z} and \code{pval}; for
@@ -64,7 +66,6 @@
 #'   \item{p.value}{
 #'     asymptotic p-value for the global Steel test.
 #'   }
-#' }
 #'
 #' Additional information is stored in attributes:
 #' \code{method}, \code{alternative}, \code{output},
@@ -114,13 +115,9 @@
 #' steelTest(Ozone ~ factor(Month), data = airquality)
 #'
 #' @rdname steelTest
-
-
-
-#' @family test.posthoc  
-#' @concept post-hoc  
+#' @family test.posthoc
+#' @concept post-hoc
 #' @concept nonparametric
-#'
 #'
 #' @export
 steelTest <- function(x, ...)
@@ -188,6 +185,7 @@ steelTest.default <- function(
       "list",
       "matrix"
     ),
+    alpha = 0.05,
     ...
 ) {
   
@@ -429,7 +427,7 @@ steelTest.default <- function(
     pmat,
     1,
     function(x)
-      paste(rownames(pmat)[!is.na(x) & x < 0.05], collapse = ",")
+      paste(rownames(pmat)[!is.na(x) & x < alpha], collapse = ",")
   )
   
   ## ------------------------------------------------------------
@@ -444,7 +442,7 @@ steelTest.default <- function(
     corr      = R
   )
   
-  class(out) <- c("rankTest", "htest")
+  class(out) <- "rankTest"
   
   attr(out, "main")        <- "Steel test for multiple comparisons with a control"
   attr(out, "method")      <- "Steel"
