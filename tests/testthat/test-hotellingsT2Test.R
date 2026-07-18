@@ -310,7 +310,7 @@ test_that("formula interface: subset works when the expression is not a local va
     v2   = c(rnorm(20, 0), rnorm(20, 2))
   )
   df$keep <- c(rep(TRUE, 15), rep(FALSE, 5), rep(TRUE, 20))
-  rm(list = "keep", envir = environment())   # no local 'keep' variable exists
+  suppressWarnings(rm(list = "keep", envir = environment()))   # no local 'keep' variable exists
 
   expect_no_error(
     res <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)

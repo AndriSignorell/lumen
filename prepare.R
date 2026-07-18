@@ -30,6 +30,12 @@ devtools::build_manual(pkg = "C:/temp/lumen")
 devtools::build_manual(pkg = "C:/temp/pharos")
 devtools::build_manual(pkg = "C:/temp/bedrock")
 
+
+pkgdown::build_site()
+pkgdown::build_reference_index()
+
+
+
 devtools::document()
 devtools::load_all()
 devtools::check()

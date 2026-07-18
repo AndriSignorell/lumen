@@ -23,6 +23,7 @@
 <url><loc>/reference/cramerVonMisesTest.html</loc></url>
 <url><loc>/reference/disc.moments.html</loc></url>
 <url><loc>/reference/distributions-overview.html</loc></url>
+<url><loc>/reference/dot-checkVerbose.html</loc></url>
 <url><loc>/reference/dpqr-benford.html</loc></url>
 <url><loc>/reference/dpqr-dirichlet.html</loc></url>
 <url><loc>/reference/dpqr-extreme.html</loc></url>
@@ -45,6 +46,7 @@
 <url><loc>/reference/gTest.html</loc></url>
 <url><loc>/reference/hosmerLemeshowTest.html</loc></url>
 <url><loc>/reference/hotelling-t2-test.html</loc></url>
+<url><loc>/reference/hotellingsT2Test.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/jarqueBeraTest.html</loc></url>
 <url><loc>/reference/jonckheereTerpstraTest.html</loc></url>

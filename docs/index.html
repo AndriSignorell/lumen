@@ -5,14 +5,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hypothesis Tests for DescToolsX • lumen</title>
+<title>Statistical Tests, Confidence Intervals, and Distributions for DescToolsX • lumen</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Hypothesis Tests for DescToolsX">
-<meta property="og:description" content="Provides hypothesis tests used in DescToolsX.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Statistical Tests, Confidence Intervals, and Distributions for DescToolsX">
+<meta property="og:description" content="Extends DescToolsX with a coherent collection of classical, robust, nonparametric, and specialized hypothesis tests, confidence intervals, and probability distributions. Consistent interfaces and carefully documented implementations make advanced statistical methods readily accessible in everyday R workflows.">
+<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.923</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
       </span>
     </div>
 
@@ -65,7 +71,8 @@
 <div class="section level1">
 <div class="page-header"><h1 id="lumen">lumen<a class="anchor" aria-label="anchor" href="#lumen"></a>
 </h1></div>
-<p><code>lumen</code> provides hypothesis tests, confidence intervals, and selected statistical distribution utilities used in the DescToolsX ecosystem. It is designed as a focused statistical companion package: methodologically transparent, API-consistent, and suitable for use in applied statistical workflows.</p>
+<p><code>lumen</code> provides hypothesis tests, confidence intervals, and selected statistical distributions used across the DescToolsX ecosystem. It is designed as a focused statistical companion package: methodologically transparent, API-consistent, and suitable for use in applied statistical workflows.</p>
+<p>Every function ships with a documented reference — a textbook formula, an original paper, or a well-established R implementation it was checked against — rather than a bare implementation.</p>
 <p>The package is currently under active development.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -79,13 +86,13 @@
 <div class="section level2">
 <h2 id="scope">Scope<a class="anchor" aria-label="anchor" href="#scope"></a>
 </h2>
-<p><code>lumen</code> collects statistical procedures that are commonly useful in exploratory analysis, inference, and methodological comparison. The current package includes:</p>
+<p><code>lumen</code> collects statistical procedures that are commonly useful in exploratory analysis, inference, and methodological comparison:</p>
 <ul>
 <li>hypothesis tests for goodness-of-fit, normality, stationarity, randomness, contingency tables, marginal homogeneity, and nonparametric group comparisons</li>
-<li>confidence intervals for proportions, differences and ratios of proportions, means, medians, variances, correlations, regression coefficients, and related quantities</li>
-<li>post-hoc procedures and multiple-comparison helpers</li>
-<li>selected distribution functions, including extreme-value, Dirichlet, Gompertz, triangular, Benford, and order-statistic distributions</li>
-<li>bootstrap confidence interval helpers</li>
+<li>post-hoc procedures and multiple-comparison methods, both parametric (Dunnett, Scheffé, Tukey via <code><a href="reference/postHoc.html">postHoc()</a></code>) and nonparametric (Conover, Dunn, Nemenyi, Steel, DSCF)</li>
+<li>confidence intervals for proportions, differences and ratios of proportions, means, medians, variances, sums, correlations, and quantiles, each with classical, robust, and bootstrap variants where applicable</li>
+<li>selected probability distributions, including extreme-value (GEV, GPD, Gumbel, Fréchet, reversed Weibull), Dirichlet, Gompertz, triangular, Benford, and order-statistic distributions, plus their mean/variance companions</li>
+<li>generic bootstrap confidence interval and power-analysis helpers</li>
 </ul>
 </div>
 <div class="section level2">
@@ -124,9 +131,16 @@
 <span><span class="fu"><a href="reference/barnardTest.html">barnardTest</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="bootstrap-confidence-intervals">Bootstrap confidence intervals<a class="anchor" aria-label="anchor" href="#bootstrap-confidence-intervals"></a>
+<h3 id="post-hoc-comparisons-after-anova">Post hoc comparisons after ANOVA<a class="anchor" aria-label="anchor" href="#post-hoc-comparisons-after-anova"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/postHoc.html">postHoc</a></span><span class="op">(</span><span class="va">fit</span>, method <span class="op">=</span> <span class="st">"hsd"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="bootstrap-confidence-intervals">Bootstrap confidence intervals<a class="anchor" aria-label="anchor" href="#bootstrap-confidence-intervals"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1984</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/bootCI.html">bootCI</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, FUN <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, bci.method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -136,108 +150,68 @@
 </h2>
 <p><code>lumen</code> follows the broader DescToolsX design philosophy:</p>
 <ul>
-<li>predictable lowerCamelCase function names</li>
-<li>explicit argument validation</li>
-<li>transparent method choices</li>
-<li>clean separation between user-facing interfaces and computational engines</li>
-<li>compatibility with familiar base R idioms where appropriate</li>
+<li>predictable lowerCamelCase function names, with <code>.default</code>/<code>.formula</code>/<code>.glm</code> S3 methods offered wherever a formula or model-object interface makes sense</li>
+<li>explicit argument validation with informative error messages</li>
+<li>transparent method choices — where a test or interval admits more than one established computation (e.g. exact vs. asymptotic, classical vs. bootstrap), the alternatives are exposed as an explicit <code>method</code>/<code>type</code> argument rather than hidden behind a single default</li>
+<li>clean separation between user-facing interfaces and computational engines, with performance-critical algorithms (exact permutation and rank distributions, Wellek’s exact Page test tables, run-length distributions) implemented in C++ via Rcpp/RcppParallel/RcppArmadillo</li>
+<li>compatibility with familiar base R idioms: most hypothesis tests return <code>htest</code>-compatible objects usable with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code>$statistic</code>, <code>$p.value</code>, and friends</li>
 </ul>
-<p>Most hypothesis tests return objects compatible with the standard <code>htest</code> interface. Confidence interval functions generally return compact vectors or matrices with estimates and interval bounds.</p>
 </div>
 <div class="section level2">
-<h2 id="selected-functions">Selected functions<a class="anchor" aria-label="anchor" href="#selected-functions"></a>
+<h2 id="function-reference">Function reference<a class="anchor" aria-label="anchor" href="#function-reference"></a>
 </h2>
+<p>The sections below group the most commonly used functions by purpose. The full alphabetical reference, including internal helpers and every distribution variant, is available via <code>?lumen</code> and the <a href="https://andrisignorell.github.io/lumen/reference/index.html" class="external-link">pkgdown site</a>.</p>
 <div class="section level3">
-<h3 id="hypothesis-tests">Hypothesis tests<a class="anchor" aria-label="anchor" href="#hypothesis-tests"></a>
+<h3 id="goodness-of-fit-and-normality">Goodness-of-fit and normality<a class="anchor" aria-label="anchor" href="#goodness-of-fit-and-normality"></a>
 </h3>
-<ul>
-<li>
-<code><a href="reference/andersonDarlingTest.html">andersonDarlingTest()</a></code> — Anderson-Darling goodness-of-fit test</li>
-<li>
-<code><a href="reference/bartelsRankTest.html">bartelsRankTest()</a></code> — Bartels rank test for randomness</li>
-<li>
-<code><a href="reference/barnardTest.html">barnardTest()</a></code> — Barnard’s unconditional test for 2 x 2 tables</li>
-<li>
-<code><a href="reference/bhapkarTest.html">bhapkarTest()</a></code> — Bhapkar marginal homogeneity test</li>
-<li>
-<code><a href="reference/breslowDayTest.html">breslowDayTest()</a></code> — Breslow-Day test for homogeneity of odds ratios</li>
-<li>
-<code><a href="reference/cochranArmitageTest.html">cochranArmitageTest()</a></code> — Cochran-Armitage trend test</li>
-<li>
-<code><a href="reference/cochranQTest.html">cochranQTest()</a></code> — Cochran’s Q test</li>
-<li>
-<code><a href="reference/cramerVonMisesTest.html">cramerVonMisesTest()</a></code> — Cramer-von Mises goodness-of-fit test</li>
-<li>
-<code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code> — Durbin-Watson test</li>
-<li>
-<code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code> — Jarque-Bera normality test</li>
-<li>
-<code><a href="reference/kpssTest.html">kpssTest()</a></code> — KPSS stationarity test</li>
-<li>
-<code><a href="reference/leveneTest.html">leveneTest()</a></code> — Levene test for equality of variances</li>
-<li>
-<code><a href="reference/lillieTest.html">lillieTest()</a></code> — Lilliefors normality test</li>
-<li>
-<code><a href="reference/siegelTukeyTest.html">siegelTukeyTest()</a></code> — Siegel-Tukey test for scale differences</li>
-<li>
-<code><a href="reference/stuartMaxwellTest.html">stuartMaxwellTest()</a></code> — Stuart-Maxwell marginal homogeneity test</li>
-<li>
-<code><a href="reference/woolfTest.html">woolfTest()</a></code> — Woolf test for homogeneity of odds ratios</li>
-</ul>
+<p><code><a href="reference/andersonDarlingTest.html">andersonDarlingTest()</a></code> · <code><a href="reference/cramerVonMisesTest.html">cramerVonMisesTest()</a></code> · <code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code> · <code><a href="reference/lillieTest.html">lillieTest()</a></code> · <code><a href="reference/pearsonTest.html">pearsonTest()</a></code> · <code><a href="reference/shapiroFranciaTest.html">shapiroFranciaTest()</a></code></p>
+</div>
+<div class="section level3">
+<h3 id="time-series-stationarity-autocorrelation-randomness">Time series: stationarity, autocorrelation, randomness<a class="anchor" aria-label="anchor" href="#time-series-stationarity-autocorrelation-randomness"></a>
+</h3>
+<p><code><a href="reference/adfTest.html">adfTest()</a></code> · <code><a href="reference/kpssTest.html">kpssTest()</a></code> · <code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code> · <code><a href="reference/breuschGodfreyTest.html">breuschGodfreyTest()</a></code> · <code><a href="reference/bpTest.html">bpTest()</a></code> · <code><a href="reference/bartelsRankTest.html">bartelsRankTest()</a></code> · <code><a href="reference/runsTest.html">runsTest()</a></code> · <code><a href="reference/vonNeumannTest.html">vonNeumannTest()</a></code></p>
+</div>
+<div class="section level3">
+<h3 id="categorical-and-contingency-table-tests">Categorical and contingency-table tests<a class="anchor" aria-label="anchor" href="#categorical-and-contingency-table-tests"></a>
+</h3>
+<p><code><a href="reference/barnardTest.html">barnardTest()</a></code> · <code><a href="reference/bhapkarTest.html">bhapkarTest()</a></code> · <code><a href="reference/breslowDayTest.html">breslowDayTest()</a></code> · <code><a href="reference/stuartMaxwellTest.html">stuartMaxwellTest()</a></code> · <code><a href="reference/woolfTest.html">woolfTest()</a></code> · <code><a href="reference/cochranArmitageTest.html">cochranArmitageTest()</a></code> · <code><a href="reference/cochranQTest.html">cochranQTest()</a></code> · <code><a href="reference/gTest.html">gTest()</a></code> · <code><a href="reference/lehmacherTest.html">lehmacherTest()</a></code> · <code><a href="reference/mantelTrendTest.html">mantelTrendTest()</a></code> · <code><a href="reference/hosmerLemeshowTest.html">hosmerLemeshowTest()</a></code> · <code><a href="reference/leCessieTest.html">leCessieTest()</a></code></p>
+</div>
+<div class="section level3">
+<h3 id="location-and-scale-tests">Location and scale tests<a class="anchor" aria-label="anchor" href="#location-and-scale-tests"></a>
+</h3>
+<p><code><a href="reference/hotellingsT2Test.html">hotellingsT2Test()</a></code> · <code><a href="reference/signTest.html">signTest()</a></code> · <code><a href="reference/tTestA.html">tTestA()</a></code> · <code><a href="reference/yuenTTest.html">yuenTTest()</a></code> · <code><a href="reference/zTest.html">zTest()</a></code> · <code><a href="reference/varTest.html">varTest()</a></code> · <code><a href="reference/leveneTest.html">leveneTest()</a></code> · <code><a href="reference/siegelTukeyTest.html">siegelTukeyTest()</a></code></p>
+</div>
+<div class="section level3">
+<h3 id="post-hoc-and-multiple-comparisons">Post hoc and multiple comparisons<a class="anchor" aria-label="anchor" href="#post-hoc-and-multiple-comparisons"></a>
+</h3>
+<p><code><a href="reference/postHoc.html">postHoc()</a></code> (Tukey HSD, Bonferroni, LSD, Scheffé, Newman-Keuls, Duncan) · <code><a href="reference/scheffeTest.html">scheffeTest()</a></code> · <code><a href="reference/conoverTest.html">conoverTest()</a></code> · <code><a href="reference/dunnTest.html">dunnTest()</a></code> · <code><a href="reference/dunnettTest.html">dunnettTest()</a></code> · <code><a href="reference/nemenyiTest.html">nemenyiTest()</a></code> · <code><a href="reference/steelTest.html">steelTest()</a></code> · <code><a href="reference/sdcfTest.html">sdcfTest()</a></code> · <code><a href="reference/vanWaerdenTest.html">vanWaerdenTest()</a></code> · <code><a href="reference/jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code> · <code><a href="reference/pageTest.html">pageTest()</a></code></p>
+</div>
+<div class="section level3">
+<h3 id="power-analysis">Power analysis<a class="anchor" aria-label="anchor" href="#power-analysis"></a>
+</h3>
+<p><code><a href="reference/powerChisqTest.html">powerChisqTest()</a></code></p>
 </div>
 <div class="section level3">
 <h3 id="confidence-intervals">Confidence intervals<a class="anchor" aria-label="anchor" href="#confidence-intervals"></a>
 </h3>
-<ul>
-<li>
-<code><a href="reference/binomCI.html">binomCI()</a></code> — confidence intervals for binomial proportions</li>
-<li>
-<code><a href="reference/binomDiffCI.html">binomDiffCI()</a></code> — confidence intervals for differences of binomial proportions</li>
-<li>
-<code><a href="reference/binomRatioCI.html">binomRatioCI()</a></code> — confidence intervals for ratios of binomial proportions</li>
-<li>
-<code><a href="reference/bootCI.html">bootCI()</a></code> — bootstrap confidence intervals</li>
-<li>
-<code><a href="reference/corCI.html">corCI()</a></code> — confidence intervals for correlations</li>
-<li>
-<code><a href="reference/meanCI.html">meanCI()</a></code> — confidence intervals for means</li>
-<li>
-<code><a href="reference/medianCI.html">medianCI()</a></code> — confidence intervals for medians</li>
-<li>
-<code><a href="reference/multinomCI.html">multinomCI()</a></code> — confidence intervals for multinomial proportions</li>
-<li>
-<code><a href="reference/poissonCI.html">poissonCI()</a></code> — confidence intervals for Poisson rates</li>
-<li>
-<code><a href="reference/quantileCI.html">quantileCI()</a></code> — confidence intervals for quantiles</li>
-<li>
-<code><a href="reference/varCI.html">varCI()</a></code> — confidence intervals for variances</li>
-</ul>
+<p><code><a href="reference/binomCI.html">binomCI()</a></code> · <code><a href="reference/binomDiffCI.html">binomDiffCI()</a></code> · <code><a href="reference/binomRatioCI.html">binomRatioCI()</a></code> · <code><a href="reference/poissonCI.html">poissonCI()</a></code> · <code><a href="reference/multinomCI.html">multinomCI()</a></code> · <code><a href="reference/meanCI.html">meanCI()</a></code> · <code><a href="reference/meanCIn.html">meanCIn()</a></code> · <code><a href="reference/meanDiffCI.html">meanDiffCI()</a></code> · <code><a href="reference/medianCI.html">medianCI()</a></code> · <code><a href="reference/quantileCI.html">quantileCI()</a></code> · <code><a href="reference/varCI.html">varCI()</a></code> · <code><a href="reference/sumCI.html">sumCI()</a></code> · <code><a href="reference/corCI.html">corCI()</a></code> · <code><a href="reference/fisherZ.html">fisherZ()</a></code> · <code><a href="reference/bootCI.html">bootCI()</a></code></p>
 </div>
 <div class="section level3">
-<h3 id="distributions-and-utilities">Distributions and utilities<a class="anchor" aria-label="anchor" href="#distributions-and-utilities"></a>
+<h3 id="distributions-and-moments">Distributions and moments<a class="anchor" aria-label="anchor" href="#distributions-and-moments"></a>
 </h3>
-<ul>
-<li>
-<code><a href="reference/dpqr-gev.html">dgev()</a></code>, <code><a href="reference/dpqr-gev.html">pgev()</a></code>, <code><a href="reference/dpqr-gev.html">qgev()</a></code>, <code><a href="reference/dpqr-gev.html">rgev()</a></code> — generalized extreme value distribution</li>
-<li>
-<code><a href="reference/dpqr-gpd.html">dgpd()</a></code>, <code><a href="reference/dpqr-gpd.html">pgpd()</a></code>, <code><a href="reference/dpqr-gpd.html">qgpd()</a></code>, <code><a href="reference/dpqr-gpd.html">rgpd()</a></code> — generalized Pareto distribution</li>
-<li>
-<code><a href="reference/dpqr-gumbel.html">dgumbel()</a></code>, <code><a href="reference/dpqr-gumbel.html">pgumbel()</a></code>, <code><a href="reference/dpqr-gumbel.html">qgumbel()</a></code>, <code><a href="reference/dpqr-gumbel.html">rgumbel()</a></code> — Gumbel distribution</li>
-<li>
-<code><a href="reference/dpqr-dirichlet.html">ddirichlet()</a></code>, <code><a href="reference/dpqr-dirichlet.html">pdirichlet()</a></code>, <code><a href="reference/dpqr-dirichlet.html">qdirichlet()</a></code>, <code><a href="reference/dpqr-dirichlet.html">rdirichlet()</a></code> — Dirichlet distribution</li>
-<li>
-<code><a href="reference/dpqr-tri.html">dtri()</a></code> — triangular distribution</li>
-<li>
-<code><a href="reference/dpqr-benford.html">dbenford()</a></code> — Benford distribution</li>
-<li>
-<code><a href="reference/scores.html">scores()</a></code> — score generation helper</li>
-</ul>
+<p><code><a href="reference/dpqr-gev.html">dgev()</a></code>/<code><a href="reference/dpqr-gev.html">pgev()</a></code>/<code><a href="reference/dpqr-gev.html">qgev()</a></code>/<code><a href="reference/dpqr-gev.html">rgev()</a></code> — generalized extreme value · <code><a href="reference/dpqr-gpd.html">dgpd()</a></code>/<code><a href="reference/dpqr-gpd.html">pgpd()</a></code>/<code><a href="reference/dpqr-gpd.html">qgpd()</a></code>/<code><a href="reference/dpqr-gpd.html">rgpd()</a></code> — generalized Pareto · <code><a href="reference/dpqr-gumbel.html">dgumbel()</a></code>/<code><a href="reference/dpqr-gumbel.html">pgumbel()</a></code>/<code><a href="reference/dpqr-gumbel.html">qgumbel()</a></code>/<code><a href="reference/dpqr-gumbel.html">rgumbel()</a></code> — Gumbel · <code><a href="reference/dpqr-gumbelx.html">dgumbelx()</a></code> — reversed Gumbel extremes · <code><a href="reference/dpqr-frechet.html">dfrechet()</a></code> — Fréchet · <code><a href="reference/dpqr-rweibull.html">drweibull()</a></code> — reversed Weibull · <code><a href="reference/dpqr-gompertz.html">dgompertz()</a></code> — Gompertz · <code><a href="reference/dpqr-dirichlet.html">ddirichlet()</a></code>/<code><a href="reference/dpqr-dirichlet.html">rdirichlet()</a></code> — Dirichlet · <code><a href="reference/dpqr-tri.html">dtri()</a></code> — triangular · <code><a href="reference/dpqr-benford.html">dbenford()</a></code> — Benford’s law · <code><a href="reference/dpqr-order.html">dorder()</a></code> — order statistics · <code>mcontinuous</code>/<code>mdiscrete</code>/<code>mextreme</code> — mean/variance for common continuous, discrete, and extreme-value distributions · <code><a href="reference/pAD.html">pAD()</a></code> — null distribution of the Anderson-Darling statistic</p>
+<p>See <code>?distributions-overview</code> for the full family index and conversion table.</p>
+</div>
+<div class="section level3">
+<h3 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a>
+</h3>
+<p><code><a href="reference/scores.html">scores()</a></code> — score transformations (table, rank, ridit, modified ridit) for ordinal contingency tables · <code><a href="reference/sphericityEps.html">sphericityEps()</a></code> — Greenhouse-Geisser and Huynh-Feldt sphericity corrections</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
 </h2>
-<p><code>lumen</code> imports several packages used for statistical computation and infrastructure, including <code>boot</code>, <code>pharos</code>, <code>bedrock</code>, <code>Exact</code>, <code>mvtnorm</code>, <code>stats</code>, <code>withr</code>, and <code>gld</code>. C++ support is provided through <code>Rcpp</code>, <code>RcppParallel</code>, and <code>RcppArmadillo</code>.</p>
+<p><code>lumen</code> imports <code>pharos</code>, <code>bedrock</code>, <code>mvtnorm</code>, <code>stats</code>, <code>boot</code>, and <code>gld</code>. C++ support is provided through <code>Rcpp</code>, <code>RcppParallel</code>, and <code>RcppArmadillo</code>. <code>Exact</code>, <code>goftest</code>, <code>coin</code>, <code>flexsurv</code>, <code>randtests</code>, <code>lmtest</code>, <code>nortest</code>, <code>multcomp</code>, and <code>tseries</code> are used in <code>Suggests</code>, for optional methods and test-suite cross-validation.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -257,7 +231,7 @@
 <div class="section level2">
 <h2 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>
 </h2>
-<p>This package is experimental and versioned as <code>0.0.0.907</code>. Interfaces may still change before a stable release.</p>
+<p>This package is experimental and versioned as <code>0.0.0.924</code>. Interfaces may still change before a stable release.</p>
 </div>
 </div>
   </div>
@@ -307,7 +281,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
