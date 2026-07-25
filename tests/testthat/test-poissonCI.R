@@ -68,3 +68,16 @@ test_that("poissonCI: multiple methods returns data.frame with est/lci/uci", {
   expect_true(all(res[["lci"]] <= res[["est"]]))
   expect_true(all(res[["est"]] <= res[["uci"]]))
 })
+
+
+expect_error(poissonRatioCI(1.5, 100, 6, 120), "non-negative integers")
+expect_error(poissonRatioCI(Inf, 100, 6, 120), "must be finite")
+expect_error(
+  poissonRatioCI(1:2, 100, 1:3, 120),
+  "cannot be recycled"
+)
+
+z <- poissonRatioCI(0, 100, 0, 120)
+expect_true(is.na(z[["est"]]))
+
+

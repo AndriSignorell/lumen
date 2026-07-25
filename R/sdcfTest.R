@@ -18,13 +18,13 @@
 #'
 #' If \code{x} is a list, its elements are taken as the samples to be
 #' compared and hence have to be numeric data vectors. In this case,
-#' \code{g} is ignored and one can simply use \code{sdcfTest(x)}.
+#' \code{g} is ignored and one can simply use \code{dscfTest(x)}.
 #'
 #' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
 #' factor (or vector coercible to a factor) of the same length.
 #'
-#' @name sdcfTest
-#' @aliases sdcfTest sdcfTest.default sdcfTest.formula
+#' @name dscfTest
+#' @aliases dscfTest dscfTest.default dscfTest.formula
 #'
 #' @param x a numeric vector of observations, or a list of numeric
 #'   vectors.
@@ -98,18 +98,18 @@
 #' y <- c(3.8, 2.7, 4.0, 2.4)
 #' z <- c(2.8, 3.4, 3.7, 2.2, 2.0)
 #'
-#' sdcfTest(list(x, y, z))
+#' dscfTest(list(x, y, z))
 #'
 #' x <- c(x, y, z)
 #' g <- factor(rep(1:3, c(5, 4, 5)))
 #'
-#' sdcfTest(x, g)
+#' dscfTest(x, g)
 #'
 #' ## Matrix output
-#' sdcfTest(x, g, output = "matrix")
+#' dscfTest(x, g, output = "matrix")
 #'
 #' ## Formula interface
-#' sdcfTest(Ozone ~ factor(Month), data = airquality)
+#' dscfTest(Ozone ~ factor(Month), data = airquality)
 #'
 #' @family test.posthoc
 #' @concept multiple-comparisons
@@ -117,17 +117,17 @@
 #' @concept hypothesis-testing
 #'
 #' @export
-sdcfTest <- function(x, ...)
-  UseMethod("sdcfTest")
+dscfTest <- function(x, ...)
+  UseMethod("dscfTest")
 
 
 # ======================================================================
 # Formula method
 # ======================================================================
 
-#' @rdname sdcfTest
+#' @rdname dscfTest
 #' @export
-sdcfTest.formula <- function(
+dscfTest.formula <- function(
     formula,
     data,
     subset,
@@ -158,7 +158,7 @@ sdcfTest.formula <- function(
     allowed   = "n-sample-independent"
   )
   
-  out <- sdcfTest(
+  out <- dscfTest(
     x = pf$x,
     g = pf$group,
     ...
@@ -171,9 +171,9 @@ sdcfTest.formula <- function(
 }
 
 
-#' @rdname sdcfTest
+#' @rdname dscfTest
 #' @export
-sdcfTest.default <- function(
+dscfTest.default <- function(
     x,
     g,
     output = c(

@@ -41,6 +41,24 @@ blaker_find_crossing <- function(x, n, alpha, lo, hi, from_left, tol = 1e-10, sa
     .Call(`_lumen_blaker_find_crossing`, x, n, alpha, lo, hi, from_left, tol, safe_steps)
 }
 
+#' @keywords internal
+#' @noRd
+.bmCore <- function(rx, ry) {
+    .Call(`_lumen_bmCore`, rx, ry)
+}
+
+#' @keywords internal
+#' @noRd
+.bmPermExact <- function(rSorted, n1, tObs) {
+    .Call(`_lumen_bmPermExact`, rSorted, n1, tObs)
+}
+
+#' @keywords internal
+#' @noRd
+.bmPermMC <- function(rSorted, n1, tObs, nPerm) {
+    .Call(`_lumen_bmPermMC`, rSorted, n1, tObs, nPerm)
+}
+
 dgompertz_cpp <- function(x, shape, rate, log) {
     .Call(`_lumen_dgompertz_cpp`, x, shape, rate, log)
 }

@@ -100,7 +100,9 @@ Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}}
+\code{\link[=multinomCI]{multinomCI()}},
+\code{\link[=poissonDiffCI]{poissonDiffCI()}},
+\code{\link[=poissonRatioCI]{poissonRatioCI()}}
 }
 \concept{ci.proportion}
 \concept{confidence-interval}

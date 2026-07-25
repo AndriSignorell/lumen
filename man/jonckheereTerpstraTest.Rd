@@ -144,6 +144,7 @@ Methods}, 2nd ed., New York: Wiley.
 
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=coxStuartTest]{coxStuartTest()}},
 \code{\link[=pageTest]{pageTest()}}
 }
 \concept{k-sample}

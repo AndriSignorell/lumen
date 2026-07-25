@@ -104,6 +104,7 @@ Wiley & Sons.
 \href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
 
 Other test.trend:
+\code{\link[=coxStuartTest]{coxStuartTest()}},
 \code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
 \code{\link[=pageTest]{pageTest()}}
 }

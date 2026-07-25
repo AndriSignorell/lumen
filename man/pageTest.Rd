@@ -162,6 +162,7 @@ against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
 
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},
+\code{\link[=coxStuartTest]{coxStuartTest()}},
 \code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}}
 }
 \concept{nonparametric}

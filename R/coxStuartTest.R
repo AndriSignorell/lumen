@@ -1,0 +1,128 @@
+
+#' Cox-Stuart Trend Test
+#'
+#' Tests a sequence of observations for a monotone trend by pairing each
+#' observation in the first half of the series with the corresponding
+#' observation in the second half and applying a sign test to the differences.
+#'
+#' @details
+#' The series \eqn{x_1, \ldots, x_N} is split in the middle; with an odd
+#' \eqn{N} the central observation is discarded. Writing
+#' \eqn{m = \lfloor N/2 \rfloor}, each of the first \eqn{m} remaining
+#' observations is paired with the one \eqn{m} places later in the reduced
+#' series, that is with \eqn{x_{i+m}} for even \eqn{N} and with
+#' \eqn{x_{i+m+1}} in the original indexing for odd \eqn{N}. The statistic
+#' \eqn{S} counts how many of the \eqn{m} paired differences are positive.
+#' Pairs that are exactly tied carry no information about direction and are
+#' dropped.
+#'
+#' Every observation enters at most one pair, so under independence and a
+#' continuous common distribution the signs are independent Bernoulli variables
+#' with probability one half. The p-value from
+#' \code{\link[stats]{binom.test}} is then exact at any series length, however
+#' short. That exactness rests on the independence assumption: with serially
+#' dependent observations the signs need not be independent and the nominal
+#' level is no longer guaranteed.
+#'
+#' The test is a special case of \code{\link{signTest}} and inherits both its
+#' robustness and its low power: only the sign of each paired difference is
+#' used, and half the observations enter only as partners. It detects a
+#' monotone drift, not curvature or oscillation: a series that rises and then
+#' falls back can easily produce a p-value near one.
+#'
+#' Unlike the other members of \code{test.trend}, which need a grouping factor
+#' or a contingency table, this test takes a bare series and therefore has no
+#' formula interface. Missing values are removed before the series is split, so
+#' the pairing refers to the observed values, not to their original positions.
+#'
+#' @param x a numeric vector of observations in sequence order
+#' @param alternative a character string specifying the alternative hypothesis,
+#'   one of \code{"two.sided"} (default), \code{"increasing"} or
+#'   \code{"decreasing"}
+#'
+#' @return An object of class \code{"htest"} with components
+#'   \item{statistic}{the number of positive paired differences, with names
+#'     attribute \code{"S"}}
+#'   \item{parameter}{the number of untied pairs entering the test}
+#'   \item{p.value}{the p-value}
+#'   \item{estimate}{the proportion of increasing pairs}
+#'   \item{alternative}{a character string describing the alternative hypothesis}
+#'   \item{method}{the character string \code{"Cox-Stuart trend test"}}
+#'   \item{data.name}{a character string giving the name of the data}
+#'
+#' @references
+#' Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
+#' dispersion. \emph{Biometrika}, \bold{42}(1/2), 80-95.
+#'
+#' @seealso \code{\link{signTest}}, \code{\link{jonckheereTerpstraTest}},
+#'   \code{\link{mantelTrendTest}}, \code{\link{bartelsRankTest}},
+#'   \code{\link{runsTest}}
+#'
+#' @family test.trend
+#' @concept trend
+#'
+#' @examples
+#' ## a strictly increasing series
+#' coxStuartTest(1:12)
+#' ## [1] S = 6, n = 6, p-value = 0.03125
+#'
+#' coxStuartTest(1:12, alternative = "increasing")$p.value
+#' ## [1] 0.015625
+#'
+#' ## no trend
+#' set.seed(1)
+#' coxStuartTest(rnorm(50))$p.value
+#'
+#' @export
+coxStuartTest <- function(x, alternative = c("two.sided", "increasing", "decreasing")) {
+
+  alternative <- match.arg(alternative)
+
+  dname <- deparse1(substitute(x))
+
+  if(!is.numeric(x))
+    stop("'x' must be a numeric vector")
+
+  # Inf would silently produce NaN differences rather than a sign
+  if(any(is.infinite(x)))
+    stop("'x' must not contain infinite values")
+
+  x <- as.numeric(x[!is.na(x)])
+  if(any(!is.finite(x)))
+    stop("'x' must not contain infinite values")
+  n <- length(x)
+
+  if(n < 4L)
+    stop("'x' must contain at least 4 non-missing observations")
+
+  # with an odd number of observations the central one has no partner
+  if(n %% 2L == 1L)
+    x <- x[-((n + 1L) %/% 2L)]
+
+  m <- length(x) %/% 2L
+  d <- x[(m + 1L):(2L * m)] - x[seq_len(m)]
+  d <- d[d != 0]
+
+  nPair <- length(d)
+  if(nPair == 0L)
+    stop("all paired differences are zero, the series carries no directional information")
+
+  s <- sum(d > 0)
+
+  pval <- stats::binom.test(s, nPair, p = 0.5,
+                            alternative = switch(alternative,
+                                                 two.sided  = "two.sided",
+                                                 increasing = "greater",
+                                                 decreasing = "less"))$p.value
+
+  res <- list(statistic = c(S = s),
+              parameter = c(n = nPair),
+              p.value = pval,
+              estimate = c("proportion of increasing pairs" = s / nPair),
+              alternative = alternative,
+              method = "Cox-Stuart trend test",
+              data.name = dname)
+
+  class(res) <- "htest"
+  res
+}

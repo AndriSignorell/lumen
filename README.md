@@ -141,7 +141,7 @@ variant, is available via `?lumen` and the
 
 `postHoc()` (Tukey HSD, Bonferroni, LSD, Scheffé, Newman-Keuls, Duncan) ·
 `scheffeTest()` · `conoverTest()` · `dunnTest()` · `dunnettTest()` ·
-`nemenyiTest()` · `steelTest()` · `sdcfTest()` · `vanWaerdenTest()` ·
+`nemenyiTest()` · `steelTest()` · `dscfTest()` · `vanWaerdenTest()` ·
 `jonckheereTerpstraTest()` · `pageTest()`
 
 ### Power analysis

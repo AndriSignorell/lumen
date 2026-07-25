@@ -134,11 +134,12 @@ Dunn, O. J. (1964) Multiple comparisons using rank sums.
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
 \code{\link[=dunnettTest]{dunnettTest()}},
+\code{\link[=gamesHowellTest]{gamesHowellTest()}},
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=sdcfTest]{sdcfTest()}},
+\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{k-sample}

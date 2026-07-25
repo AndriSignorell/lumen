@@ -203,10 +203,13 @@ plotBar(VADeaths/1e3,  box=FALSE, bg="lightyellow", main="VADeaths",
 
 
 
-Hmisc', 'coin', 'BSDA
-
-
 x <- c(24, 61, 59, 98, 73, 68, 91, 94, 79, 63, 82, 89)
 g <- ordered(rep(1:3, c(3, 4, 5)))
  
 res <- jonckheereTerpstraTest(x, g, method = "exact", alternative="increasing")
+
+
+
+
+
+

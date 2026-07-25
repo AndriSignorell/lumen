@@ -113,7 +113,9 @@ Edition ed.). Wiley. pp. 396--406.
 where the test is implemented in a more general context.
 
 Other test.location:
+\code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
 \code{\link[=yuenTTest]{yuenTTest()}},

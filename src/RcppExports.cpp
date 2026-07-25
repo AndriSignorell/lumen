@@ -141,6 +141,45 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// bmCore
+NumericVector bmCore(NumericVector rx, NumericVector ry);
+RcppExport SEXP _lumen_bmCore(SEXP rxSEXP, SEXP rySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type rx(rxSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ry(rySEXP);
+    rcpp_result_gen = Rcpp::wrap(bmCore(rx, ry));
+    return rcpp_result_gen;
+END_RCPP
+}
+// bmPermExact
+NumericVector bmPermExact(NumericVector rSorted, int n1, double tObs);
+RcppExport SEXP _lumen_bmPermExact(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type rSorted(rSortedSEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< double >::type tObs(tObsSEXP);
+    rcpp_result_gen = Rcpp::wrap(bmPermExact(rSorted, n1, tObs));
+    return rcpp_result_gen;
+END_RCPP
+}
+// bmPermMC
+NumericVector bmPermMC(NumericVector rSorted, int n1, double tObs, int nPerm);
+RcppExport SEXP _lumen_bmPermMC(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP, SEXP nPermSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type rSorted(rSortedSEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< double >::type tObs(tObsSEXP);
+    Rcpp::traits::input_parameter< int >::type nPerm(nPermSEXP);
+    rcpp_result_gen = Rcpp::wrap(bmPermMC(rSorted, n1, tObs, nPerm));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dgompertz_cpp
 Rcpp::NumericVector dgompertz_cpp(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
 RcppExport SEXP _lumen_dgompertz_cpp(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
@@ -308,6 +347,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
     {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
     {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},
+    {"_lumen_bmCore", (DL_FUNC) &_lumen_bmCore, 2},
+    {"_lumen_bmPermExact", (DL_FUNC) &_lumen_bmPermExact, 3},
+    {"_lumen_bmPermMC", (DL_FUNC) &_lumen_bmPermMC, 4},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},

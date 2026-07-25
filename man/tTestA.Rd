@@ -118,7 +118,9 @@ t.test(x, y, paired = TRUE)
 \code{\link{t.test}}
 
 Other test.location:
+\code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}},

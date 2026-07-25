@@ -100,6 +100,8 @@ version 1.0-9. \url{https://cran.r-project.org/package=ICSNP}
 }
 \seealso{
 Other test.location:
+\code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
+\code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
 \code{\link[=vanWaerdenTest]{vanWaerdenTest()}},

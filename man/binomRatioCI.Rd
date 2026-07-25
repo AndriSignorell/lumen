@@ -178,7 +178,9 @@ Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=multinomCI]{multinomCI()}},
-\code{\link[=poissonCI]{poissonCI()}}
+\code{\link[=poissonCI]{poissonCI()}},
+\code{\link[=poissonDiffCI]{poissonDiffCI()}},
+\code{\link[=poissonRatioCI]{poissonRatioCI()}}
 }
 \concept{binary-outcome}
 \concept{ci.proportion}

@@ -128,7 +128,9 @@ vieweg
 \code{\link{t.test}}, \code{\link{print.htest}}
 
 Other test.location:
+\code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
 \code{\link[=tTestA]{tTestA()}},
 \code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
