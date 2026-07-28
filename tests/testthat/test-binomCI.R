@@ -244,6 +244,31 @@ for (bad.level in c(0, 1, -0.5, 1.5)) {
   
 }
 
+
+
+# --- regression test ------------------------------------------------
+
+test_that("blaker limits are nested in clopper-pearson for all scales", {
+  
+  for (nn in c(19, 43, 263, 1e4, 1e5)) {
+    for (xx in unique(round(c(1, 3, 0.1, 0.5, 0.9) * c(1, 1, nn, nn, nn)))) {
+      
+      cp <- binomCI(xx, nn, method = "clopper-pearson")
+      bl <- binomCI(xx, nn, method = "blaker")
+      
+      expect_gte(bl[["lci"]], cp[["lci"]])
+      expect_lte(bl[["uci"]], cp[["uci"]])
+      expect_lte(bl[["lci"]], xx / nn)
+      expect_gte(bl[["uci"]], xx / nn)
+    }
+  }
+  
+  # the case that used to return lci = 1, uci = 0
+  expect_equal(unname(binomCI(50000, 100000, method = "blaker")[c("lci", "uci")]),
+               c(0.4968999707, 0.5031000293), tolerance = 1e-8)
+})
+
+
 # ===============================================================
 # stress test
 set.seed(123)

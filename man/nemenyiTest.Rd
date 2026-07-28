@@ -106,13 +106,13 @@ Hollander, M., Wolfe, D. A. and Chicken, E. (2014).
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=dunnTest]{dunnTest()}},
 \code{\link[=dunnettTest]{dunnettTest()}},
 \code{\link[=gamesHowellTest]{gamesHowellTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{nonparametric}

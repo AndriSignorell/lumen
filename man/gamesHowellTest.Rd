@@ -108,13 +108,13 @@ Educational Statistics}, \bold{1}(2), 113-125.
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=dunnTest]{dunnTest()}},
 \code{\link[=dunnettTest]{dunnettTest()}},
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{multiple-comparison}

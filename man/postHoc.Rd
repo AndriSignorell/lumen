@@ -139,13 +139,13 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd",
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=dunnTest]{dunnTest()}},
 \code{\link[=dunnettTest]{dunnettTest()}},
 \code{\link[=gamesHowellTest]{gamesHowellTest()}},
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{post-hoc}

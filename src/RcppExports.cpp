@@ -78,19 +78,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// acceptBin
-double acceptBin(int x, int n, double p);
-RcppExport SEXP _lumen_acceptBin(SEXP xSEXP, SEXP nSEXP, SEXP pSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< double >::type p(pSEXP);
-    rcpp_result_gen = Rcpp::wrap(acceptBin(x, n, p));
-    return rcpp_result_gen;
-END_RCPP
-}
 // binomdiffciMee
 double binomdiffciMee(int x1, int n1, int x2, int n2, double alpha, bool lower);
 RcppExport SEXP _lumen_binomdiffciMee(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
@@ -343,7 +330,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_ADprobApproxInf", (DL_FUNC) &_lumen_ADprobApproxInf, 1},
     {"_lumen_ADprobN", (DL_FUNC) &_lumen_ADprobN, 2},
     {"_lumen_ADtestR", (DL_FUNC) &_lumen_ADtestR, 1},
-    {"_lumen_acceptBin", (DL_FUNC) &_lumen_acceptBin, 3},
     {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
     {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
     {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},

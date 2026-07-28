@@ -121,13 +121,13 @@ Statistical Association}, \bold{50}, 1096--1121.
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=dunnTest]{dunnTest()}},
 \code{\link[=gamesHowellTest]{gamesHowellTest()}},
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
-\code{\link[=dscfTest]{dscfTest()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{k-sample}

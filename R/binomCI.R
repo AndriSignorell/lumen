@@ -628,26 +628,30 @@ binomCI <- function(x, n,
 
 
 
+#' @keywords internal
 .binomCI.blaker <- function(x, n, alpha) {
+  
+  # Blaker's limits are always contained in the Clopper-Pearson limits
+  # and separated by p.hat. [cp.lo, p.hat] and [p.hat, cp.up] are
+  # therefore guaranteed brackets: the acceptability function is < alpha
+  # at the outer end and = 1 at p.hat.
+  
+  p.hat <- x / n
   
   lci <- 0
   uci <- 1
   
-  if (x != 0) {
-    lo  <- qbeta(alpha / 2, x, n - x + 1)
-    lci <- blaker_find_crossing(x, n, alpha, lo, 1,  TRUE)
-  }
+  if (x != 0)
+    lci <- blaker_find_crossing(x, n, alpha,
+                                qbeta(alpha / 2, x, n - x + 1), p.hat, TRUE)
   
-  if (x != n) {
-    up  <- qbeta(1 - alpha / 2, x + 1, n - x)
-    uci <- blaker_find_crossing(x, n, alpha, 0,  up, FALSE)
-  }
+  if (x != n)
+    uci <- blaker_find_crossing(x, n, alpha,
+                                p.hat, qbeta(1 - alpha / 2, x + 1, n - x), FALSE)
   
   c(lci = lci, uci = uci)
   
 }
-
-
 
 
 

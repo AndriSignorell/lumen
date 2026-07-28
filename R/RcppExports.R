@@ -25,10 +25,6 @@ ADtestR <- function(x) {
     .Call(`_lumen_ADtestR`, x)
 }
 
-acceptBin <- function(x, n, p) {
-    .Call(`_lumen_acceptBin`, x, n, p)
-}
-
 binomdiffciMee <- function(x1, n1, x2, n2, alpha, lower) {
     .Call(`_lumen_binomdiffciMee`, x1, n1, x2, n2, alpha, lower)
 }
@@ -37,23 +33,20 @@ binomdiffciMN <- function(x1, n1, x2, n2, z, lower) {
     .Call(`_lumen_binomdiffciMN`, x1, n1, x2, n2, z, lower)
 }
 
-blaker_find_crossing <- function(x, n, alpha, lo, hi, from_left, tol = 1e-10, safe_steps = 50L) {
+blaker_find_crossing <- function(x, n, alpha, lo, hi, from_left, tol = 1e-12, safe_steps = 2000L) {
     .Call(`_lumen_blaker_find_crossing`, x, n, alpha, lo, hi, from_left, tol, safe_steps)
 }
 
-#' @keywords internal
 #' @noRd
 .bmCore <- function(rx, ry) {
     .Call(`_lumen_bmCore`, rx, ry)
 }
 
-#' @keywords internal
 #' @noRd
 .bmPermExact <- function(rSorted, n1, tObs) {
     .Call(`_lumen_bmPermExact`, rSorted, n1, tObs)
 }
 
-#' @keywords internal
 #' @noRd
 .bmPermMC <- function(rSorted, n1, tObs, nPerm) {
     .Call(`_lumen_bmPermMC`, rSorted, n1, tObs, nPerm)
