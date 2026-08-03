@@ -2,7 +2,7 @@
 % Please edit documentation in R/adTest.R
 \name{andersonDarlingTest}
 \alias{andersonDarlingTest}
-\title{Anderson-Darling Test of Goodness-of-Fit}
+\title{Anderson-Darling Test  for Assessing Distributional Fit, Especially in the Tails}
 \usage{
 andersonDarlingTest(x, null = "punif", ..., estimated = FALSE, nullname)
 }

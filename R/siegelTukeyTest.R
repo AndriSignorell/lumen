@@ -1,5 +1,5 @@
 
-#' Siegel-Tukey Test for Equality in Variability
+#' Siegel-Tukey Test for Comparing Dispersion Between Two Independent Groups
 #'
 #' A nonparametric test for differences in scale (variability) between two
 #' independent groups. Ranks are assigned by alternating between the extremes

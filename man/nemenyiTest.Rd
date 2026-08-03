@@ -4,7 +4,7 @@
 \alias{nemenyiTest}
 \alias{nemenyiTest.default}
 \alias{nemenyiTest.formula}
-\title{Nemenyi Test of Multiple Comparisons}
+\title{Nemenyi Test for Nonparametric All-Pairs Rank Comparisons}
 \usage{
 nemenyiTest(x, ...)
 

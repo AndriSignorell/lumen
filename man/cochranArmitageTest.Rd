@@ -2,7 +2,7 @@
 % Please edit documentation in R/cochranArmitageTest.R
 \name{cochranArmitageTest}
 \alias{cochranArmitageTest}
-\title{Cochran-Armitage Test for Trend}
+\title{Cochran-Armitage Test for Detecting Trends in Proportions Across Ordered Groups}
 \usage{
 cochranArmitageTest(
   x,

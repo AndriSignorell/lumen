@@ -1,5 +1,5 @@
 
-#' Breusch-Godfrey Test
+#' Breusch-Godfrey Test for Detecting Higher-Order Serial Correlation in Regression Residuals
 #'
 #' A test for autocorrelation in the residuals of regression models,
 #' generalizing the Durbin-Watson test to handle higher-order

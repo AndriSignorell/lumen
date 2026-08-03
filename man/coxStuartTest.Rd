@@ -2,7 +2,7 @@
 % Please edit documentation in R/coxStuartTest.R
 \name{coxStuartTest}
 \alias{coxStuartTest}
-\title{Cox-Stuart Trend Test}
+\title{Cox-Stuart Trend Test for Detecting Monotonic Trends in Ordered Data}
 \usage{
 coxStuartTest(x, alternative = c("two.sided", "increasing", "decreasing"))
 }

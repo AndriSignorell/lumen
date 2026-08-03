@@ -1,5 +1,5 @@
 
-#' Power Calculations for ChiSquared Tests
+#' Power Calculations for Power and Sample-Size Calculations for Chi-Square Tests
 #' 
 #' Compute power of test or determine parameters to obtain target power (same
 #' as \code{\link{power.anova.test}}).

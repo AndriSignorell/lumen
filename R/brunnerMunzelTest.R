@@ -8,7 +8,7 @@
 .bmMaxForcedExact <- 1e9
 
 
-#' Brunner-Munzel Test
+#' Brunner-Munzel Test for Comparing Stochastic Dominance Between Two Independent Samples
 #'
 #' Tests the nonparametric Behrens-Fisher hypothesis that a randomly drawn
 #' observation from one sample is as likely to be smaller as it is to be larger

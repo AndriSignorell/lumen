@@ -2,7 +2,7 @@
 % Please edit documentation in R/shapiroFranciaTest.R
 \name{shapiroFranciaTest}
 \alias{shapiroFranciaTest}
-\title{Shapiro-Francia test for normality}
+\title{Shapiro-Francia Test for Assessing Normality From Normal Scores}
 \usage{
 shapiroFranciaTest(x)
 }

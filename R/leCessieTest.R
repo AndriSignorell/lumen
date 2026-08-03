@@ -1,5 +1,5 @@
 
-#' le Cessie-van Houwelingen-Copas-Hosmer Global Goodness of Fit Test
+#' Le Cessie-Van Houwelingen-Copas-Hosmer Global Goodness of Fit Test for Assessing Global Logistic Regression Fit
 #'
 #' Computes the le Cessie-van Houwelingen-Copas-Hosmer unweighted sum of
 #' squares test for global goodness of fit of a logistic regression model.

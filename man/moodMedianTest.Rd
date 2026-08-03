@@ -4,7 +4,7 @@
 \alias{moodMedianTest}
 \alias{moodMedianTest.default}
 \alias{moodMedianTest.formula}
-\title{Mood's Median Test}
+\title{Mood's Median Test for Comparing Medians Across Independent Groups}
 \usage{
 moodMedianTest(x, ...)
 

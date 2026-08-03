@@ -2,7 +2,7 @@
 % Please edit documentation in R/lillieTest.R
 \name{lillieTest}
 \alias{lillieTest}
-\title{Lilliefors (Kolmogorov-Smirnov) Test for Normality}
+\title{Lilliefors (Kolmogorov-Smirnov) Test for Assessing Normality With Estimated Parameters}
 \usage{
 lillieTest(x)
 }

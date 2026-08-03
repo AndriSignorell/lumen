@@ -1,5 +1,5 @@
 
-#' Breslow-Day Test for Homogeneity of the Odds Ratios
+#' Breslow-Day Test  for Comparing Odds Ratios Across Strata
 #'
 #' A test for homogeneity of odds ratios across several 2x2 contingency
 #' tables (strata), commonly used to verify whether a confounding effect

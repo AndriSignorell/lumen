@@ -19,7 +19,7 @@ Gastwirth (2008)."><meta property="og:image" content="/logo.png"><!-- mathjax --
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -155,14 +155,14 @@ homoscedasticity and serial independence of regression residuals.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">jarqueBeraTest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>                   <span class="co"># robust version (default)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera Test (Chi-square approximation)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera test (chi-squared approximation)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.086899, df = 2, p-value = 0.9575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.086947, df = 2, p-value = 0.9575</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">jarqueBeraTest</span><span class="op">(</span><span class="va">x</span>, robust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>   <span class="co"># classical Jarque-Bera test</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Jarque-Bera Test (Chi-square approximation)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Jarque-Bera test (chi-squared approximation)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.087201, df = 2, p-value = 0.9573</span>
@@ -171,19 +171,19 @@ homoscedasticity and serial independence of regression residuals.
 <span class="r-in"><span><span class="co"># Monte Carlo p-value</span></span></span>
 <span class="r-in"><span><span class="fu">jarqueBeraTest</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"mc"</span>, R <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera Test (Monte Carlo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera test (Monte Carlo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.086899, R = 5000, p-value = 0.886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.086947, R = 5000, p-value = 0.9508</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># heavy-tailed alternative</span></span></span>
 <span class="r-in"><span><span class="fu">jarqueBeraTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">rt</a></span><span class="op">(</span><span class="fl">100</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera Test (Chi-square approximation)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Robust Jarque-Bera test (chi-squared approximation)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  rt(100, df = 2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 2426.6, df = 2, p-value &lt; 2.2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 9299.2, df = 2, p-value &lt; 2.2e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

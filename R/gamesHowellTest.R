@@ -1,5 +1,5 @@
 
-#' Games-Howell Post-Hoc Test
+#' Games-Howell Post-Hoc Test for Pairwise Mean Comparisons Under Unequal Variances
 #'
 #' Performs all pairwise comparisons between group means without assuming equal
 #' variances, using a separate Welch-type standard error and Satterthwaite

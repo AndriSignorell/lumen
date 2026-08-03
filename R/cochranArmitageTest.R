@@ -1,5 +1,5 @@
 
-#' Cochran-Armitage Test for Trend
+#' Cochran-Armitage Test for Detecting Trends in Proportions Across Ordered Groups
 #'
 #' A test for linear trend in proportions across ordered categories in
 #' \eqn{2 \times k}{2xk} contingency tables, typically used in

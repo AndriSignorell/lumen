@@ -2,7 +2,7 @@
 % Please edit documentation in R/breslowDayTest.R
 \name{breslowDayTest}
 \alias{breslowDayTest}
-\title{Breslow-Day Test for Homogeneity of the Odds Ratios}
+\title{Breslow-Day Test  for Comparing Odds Ratios Across Strata}
 \usage{
 breslowDayTest(x, OR = NULL, correct = FALSE)
 }

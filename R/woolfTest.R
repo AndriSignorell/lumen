@@ -1,5 +1,5 @@
 
-#' Woolf Test For Homogeneity in 2x2xk Tables
+#' Woolf Test for Comparing Odds Ratios Across Stratified 2×2 Tables
 #' 
 #' A test for homogeneity of odds ratios across several 2×2 contingency 
 #' tables, similar to the Breslow-Day test but based on a different 

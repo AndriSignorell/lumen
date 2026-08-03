@@ -18,7 +18,7 @@ classical chi-square, Bonett, or bootstrap methods."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="meanCI.html">meanCI</a></code>, <code><a href="medianCI.html">medianCI</a></code>,
-<code><a href="varTest.html">varTest</a></code>, <code><a href="https://rdrr.io/pkg/DescToolsX/man/varX.html" class="external-link">varX</a></code></p>
+<code><a href="varTest.html">varTest</a></code>, <code>DescToolsX::varX</code></p>
 <p>Other test.variance:
 <code><a href="leveneTest.html">leveneTest()</a></code>,
 <code><a href="mosesTest.html">mosesTest()</a></code>,
@@ -141,21 +141,21 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      var      lci      uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      est      lci      uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36.32410 23.34653 64.20343 </span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      var      lci      uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      est      lci      uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36.32410 20.47258 77.88527 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14.816</span>, <span class="fl">14.863</span>, <span class="fl">14.814</span>, <span class="fl">14.998</span>, <span class="fl">14.965</span>, <span class="fl">14.824</span>, <span class="fl">14.884</span>, <span class="fl">14.838</span>, <span class="fl">14.916</span>,</span></span>
 <span class="r-in"><span>       <span class="fl">15.021</span>, <span class="fl">14.874</span>, <span class="fl">14.856</span>, <span class="fl">14.860</span>, <span class="fl">14.772</span>, <span class="fl">14.980</span>, <span class="fl">14.919</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         var         lci         uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         est         lci         uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.005285333 0.003171734 0.010918691 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># and for the standard deviation</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        var        lci        uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci        uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.07270030 0.05631815 0.10449254 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -170,24 +170,24 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15.83</span>, <span class="fl">16.01</span>, <span class="fl">16.24</span>, <span class="fl">16.42</span>, <span class="fl">15.33</span>, <span class="fl">15.44</span>, <span class="fl">16.88</span>, <span class="fl">16.31</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu">varCI</span><span class="op">(</span><span class="va">p</span>, method<span class="op">=</span><span class="st">"bonett"</span>, conf.level<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       var       lci       uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5167965 0.3592151 0.9359420 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu">varCI</span><span class="op">(</span><span class="va">p</span>, method<span class="op">=</span><span class="st">"bonett"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       var       lci       uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5167965 0.3263123 1.0840670 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu">varCI</span><span class="op">(</span><span class="va">p</span>, method<span class="op">=</span><span class="st">"bonett"</span>, conf.level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       var       lci       uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5167965 0.2607127 1.5108922 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># some bootstrap intervals</span></span></span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         var         lci         uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         est         lci         uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.005285333 0.002935139 0.008293970 </span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"perc"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         var         lci         uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         est         lci         uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.005285333 0.002081296 0.007595129 </span>
 <span class="r-in"><span><span class="fu">varCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         var         lci         uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         est         lci         uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.005285333 0.003153558 0.009063481 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/jarqueBeraTest.R
 \name{jarqueBeraTest}
 \alias{jarqueBeraTest}
-\title{Jarque-Bera Test}
+\title{(Robust) Jarque-Bera Test for Assessing Normality From Skewness and Kurtosis}
 \usage{
 jarqueBeraTest(x, robust = TRUE, method = c("chisq", "mc"), R = 1000)
 }

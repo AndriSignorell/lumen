@@ -2,7 +2,7 @@
 % Please edit documentation in R/cramerVonMisesTest.R
 \name{cramerVonMisesTest}
 \alias{cramerVonMisesTest}
-\title{Cramer-von Mises Test for Normality}
+\title{Cramer-Von Mises Test for Assessing Deviations From Normality}
 \usage{
 cramerVonMisesTest(x)
 }

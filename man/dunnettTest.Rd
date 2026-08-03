@@ -4,7 +4,7 @@
 \alias{dunnettTest}
 \alias{dunnettTest.default}
 \alias{dunnettTest.formula}
-\title{Dunnett's Test for Comparing Treatments With a Control}
+\title{Dunnett's Test for Comparing Several Treatments With a Common Control}
 \usage{
 dunnettTest(x, ...)
 

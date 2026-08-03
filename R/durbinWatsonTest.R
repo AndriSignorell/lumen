@@ -1,5 +1,5 @@
 
-#' Durbin-Watson Test
+#' Durbin-Watson Test for Detecting First-Order Autocorrelation in Regression Residuals
 #'
 #' Tests for first-order autocorrelation in the residuals of a linear
 #' regression model, based on the ratio of successive squared residual

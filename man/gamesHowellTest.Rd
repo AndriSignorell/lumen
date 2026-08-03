@@ -5,7 +5,7 @@
 \alias{gamesHowellTest.default}
 \alias{gamesHowellTest.formula}
 \alias{gamesHowellTest.aov}
-\title{Games-Howell Post-Hoc Test}
+\title{Games-Howell Post-Hoc Test for Pairwise Mean Comparisons Under Unequal Variances}
 \usage{
 gamesHowellTest(x, ...)
 

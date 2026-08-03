@@ -33,7 +33,7 @@ devtools::build_manual(pkg = "C:/temp/bedrock")
 
 pkgdown::build_site()
 pkgdown::build_reference_index()
-
+pkgdown::build_favicons(overwrite=TRUE)
 
 
 devtools::document()

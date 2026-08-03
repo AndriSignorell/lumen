@@ -6,7 +6,7 @@
 \alias{durbinWatsonTest.lm}
 \alias{durbinWatsonTest.numeric}
 \alias{durbinWatsonTest.default}
-\title{Durbin-Watson Test}
+\title{Durbin-Watson Test for Detecting First-Order Autocorrelation in Regression Residuals}
 \usage{
 durbinWatsonTest(x, ...)
 

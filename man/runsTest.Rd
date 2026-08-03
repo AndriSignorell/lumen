@@ -4,7 +4,7 @@
 \alias{runsTest}
 \alias{runsTest.formula}
 \alias{runsTest.default}
-\title{Runs Test for Randomness}
+\title{Runs Test for Detecting Non-Random Order in Sequences}
 \usage{
 runsTest(x, ...)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bpTest.R
 \name{bpTest}
 \alias{bpTest}
-\title{Breusch-Pagan Test for Heteroscedasticity}
+\title{Breusch-Pagan Test  for Detecting Heteroscedasticity in Regression Models}
 \usage{
 bpTest(fit)
 }

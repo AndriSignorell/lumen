@@ -2,7 +2,7 @@
 % Please edit documentation in R/kpssTest.R
 \name{kpssTest}
 \alias{kpssTest}
-\title{Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity}
+\title{Kwiatkowski-Phillips-Schmidt-Shin Test for Assessing Level or Trend Stationarity}
 \usage{
 kpssTest(
   y,

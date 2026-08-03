@@ -1,5 +1,5 @@
 
-#' Conover's Test of Multiple Comparisons
+#' Conover's Test for Pairwise Rank Comparisons After a Kruskal–Wallis Test
 #'
 #' A nonparametric post hoc test for multiple pairwise comparisons
 #' following a significant Kruskal-Wallis test, based on rank data.

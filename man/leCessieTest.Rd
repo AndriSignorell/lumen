@@ -5,7 +5,7 @@
 \alias{leCessieTest.default}
 \alias{leCessieTest.glm}
 \alias{print.LeCessieTest}
-\title{le Cessie-van Houwelingen-Copas-Hosmer Global Goodness of Fit Test}
+\title{Le Cessie-Van Houwelingen-Copas-Hosmer Global Goodness of Fit Test for Assessing Global Logistic Regression Fit}
 \usage{
 leCessieTest(x, ...)
 

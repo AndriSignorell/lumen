@@ -18,7 +18,7 @@ squares test for global goodness of fit of a logistic regression model."><meta p
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -176,7 +176,13 @@ comparison of goodness-of-fit tests for the logistic regression model.
 <span class="r-in"><span><span class="co"># glm method: design matrix, fitted values and outcomes are extracted</span></span></span>
 <span class="r-in"><span><span class="co"># from the model, including the intercept column</span></span></span>
 <span class="r-in"><span><span class="fu">leCessieTest</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in leCessieTest(model):</span> 'fit' and 'obs' must be numeric vectors.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   le Cessie-van Houwelingen-Copas-Hosmer global goodness of fit test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  obs ~ x1 + x2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = -0.8651 , p-value = 0.387 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sum of squared errors: 12 (expected: 12.01 )</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># equivalent call with explicit arguments (note: full design matrix!)</span></span></span>
 <span class="r-in"><span><span class="fu">leCessieTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, <span class="va">obs</span>, <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span></span>

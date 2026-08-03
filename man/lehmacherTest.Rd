@@ -3,7 +3,7 @@
 \name{lehmacherTest}
 \alias{lehmacherTest}
 \alias{print.MHTest}
-\title{Lehmacher's Test for Marginal Homogeneity}
+\title{Lehmacher's Test for Locating Asymmetry in Paired Multicategory Data}
 \usage{
 lehmacherTest(x, y = NULL, p.adjust.method = "hochberg")
 

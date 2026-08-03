@@ -1,5 +1,5 @@
 
-#' Mood's Median Test
+#' Mood's Median Test for Comparing Medians Across Independent Groups
 #'
 #' Tests whether two or more independent samples come from populations with the
 #' same median. All observations are dichotomised at the pooled median and the

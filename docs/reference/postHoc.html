@@ -20,7 +20,7 @@ the family-wise error rate."><meta property="og:image" content="/logo.png"><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -175,12 +175,13 @@ the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="extern
 <code><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test</a></code>, <code><a href="scheffeTest.html">scheffeTest</a></code></p>
 <p>Other test.posthoc:
 <code><a href="conoverTest.html">conoverTest()</a></code>,
+<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="dunnTest.html">dunnTest()</a></code>,
 <code><a href="dunnettTest.html">dunnettTest()</a></code>,
+<code><a href="gamesHowellTest.html">gamesHowellTest()</a></code>,
 <code><a href="nemenyiTest.html">nemenyiTest()</a></code>,
 <code><a href="plot.PostHocTest.html">plot.PostHocTest()</a></code>,
 <code><a href="scheffeTest.html">scheffeTest()</a></code>,
-<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="steelTest.html">steelTest()</a></code></p></div>
     </div>
 
@@ -195,7 +196,7 @@ the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = breaks ~ tension, data = warpbreaks)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff    lwr.ci    upr.ci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           diff       lci       uci    pval signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -17.95042 -2.049581   0.015    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -22.67264 -6.771803 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -12.67264  3.228197   0.239       </span>
@@ -211,7 +212,7 @@ the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = breaks ~ tension, data = warpbreaks)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff    lwr.ci     upr.ci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           diff       lci        uci  pval signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -19.55982 -0.4401756 0.038    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -24.28205 -5.1623978 0.001    ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -14.28205  4.8376022 0.463       </span>
@@ -227,7 +228,7 @@ the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = breaks ~ tension, data = warpbreaks)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff    lwr.ci      upr.ci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           diff       lci         uci  pval signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -19.98534 -0.01465926 0.050    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -24.70756 -4.73688148 0.002    ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -14.70756  5.26311852 0.496       </span>
@@ -258,7 +259,7 @@ the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   L     M    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> M 0.038 &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> M 0.038 -    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H 0.001 0.463</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pearsonTest.R
 \name{pearsonTest}
 \alias{pearsonTest}
-\title{Pearson chi-square test for normality}
+\title{Pearson Chi-Square Test for Assessing Normality From Grouped Frequencies}
 \usage{
 pearsonTest(x, nClasses = ceiling(2 * (n^(2/5))), adjust = TRUE)
 }

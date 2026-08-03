@@ -1,5 +1,5 @@
 
-#' z-Test for Known Population Standard Deviation
+#' Z-Test for Testing Means With Known Population Standard Deviations
 #' 
 #' A parametric test for the mean of a normal distribution when the population 
 #' variance is known, or for comparing two means with known variances, based 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gTest.R
 \name{gTest}
 \alias{gTest}
-\title{G-Test for Count Data}
+\title{G-Test for Likelihood-Ratio Testing of Count Data}
 \usage{
 gTest(
   x,

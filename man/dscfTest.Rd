@@ -4,7 +4,7 @@
 \alias{dscfTest}
 \alias{dscfTest.default}
 \alias{dscfTest.formula}
-\title{Dwass-Steel-Critchlow-Fligner All-Pairs Test}
+\title{Dwass-Steel-Critchlow-Fligner Test for Nonparametric All-Pairs Group Comparisons}
 \usage{
 dscfTest(x, ...)
 

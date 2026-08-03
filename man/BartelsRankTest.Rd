@@ -2,7 +2,7 @@
 % Please edit documentation in R/bartelsRankTest.R
 \name{bartelsRankTest}
 \alias{bartelsRankTest}
-\title{Bartels Rank Test of Randomness}
+\title{Bartels Rank Test of Randomness for Detecting Non-Random Order in Continuous Sequences}
 \usage{
 bartelsRankTest(
   x,

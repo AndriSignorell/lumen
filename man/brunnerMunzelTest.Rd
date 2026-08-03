@@ -4,7 +4,7 @@
 \alias{brunnerMunzelTest}
 \alias{brunnerMunzelTest.default}
 \alias{brunnerMunzelTest.formula}
-\title{Brunner-Munzel Test}
+\title{Brunner-Munzel Test for Comparing Stochastic Dominance Between Two Independent Samples}
 \usage{
 brunnerMunzelTest(x, ...)
 

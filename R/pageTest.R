@@ -1,5 +1,5 @@
 
-#' Exact Page Test for Ordered Alternatives
+#' (Exact) Page Test for Detecting Ordered Treatment Effects in Blocked Designs
 #'
 #' A nonparametric test for ordered alternatives in a two-way layout with
 #' one observation per cell, assessing whether a monotonic trend exists

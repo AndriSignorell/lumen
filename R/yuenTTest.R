@@ -1,5 +1,5 @@
 
-#' Yuen t-Test for Trimmed Means
+#' Yuen T-Test for Robust Comparison of Trimmed Means
 #'
 #' Robust one-, two-, and paired-sample t-tests based on trimmed means
 #' and winsorized variances.

@@ -1,5 +1,5 @@
 
-#' Lilliefors (Kolmogorov-Smirnov) Test for Normality
+#' Lilliefors (Kolmogorov-Smirnov) Test for Assessing Normality With Estimated Parameters
 #'
 #' A goodness-of-fit test for normality based on the Kolmogorov-Smirnov
 #' statistic, adapted for the case where the population mean and variance

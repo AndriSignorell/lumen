@@ -1,5 +1,5 @@
 
-#' Jarque-Bera Test
+#' (Robust) Jarque-Bera Test for Assessing Normality From Skewness and Kurtosis
 #'
 #' A goodness-of-fit test for normality based on sample skewness and
 #' kurtosis, in its classical form or the robust modification of Gel and

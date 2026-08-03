@@ -1,5 +1,5 @@
 
-#' Jonckheere-Terpstra Test for Ordered Alternatives
+#' Jonckheere-Terpstra Test for Detecting Ordered Differences Across Independent Groups
 #'
 #' A nonparametric test for monotonic trends across ordered independent
 #' groups, assessing whether observations tend to increase (or decrease)

@@ -1,5 +1,5 @@
 
-#' Variance Test (One- and Two-Sample) with Classic and LD Methods
+#' Variance Test for Testing One Variance or Comparing Two Variances
 #'
 #' Performs a one-sample or two-sample test for variance, analogous to
 #' \code{\link[stats]{t.test}}, with support for classical and likelihood-based

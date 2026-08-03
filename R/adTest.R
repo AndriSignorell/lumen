@@ -1,5 +1,5 @@
 
-#' Anderson-Darling Test of Goodness-of-Fit
+#' Anderson-Darling Test  for Assessing Distributional Fit, Especially in the Tails
 #'
 #' A goodness-of-fit test assessing whether a sample follows a specified
 #' distribution. Compared to the Kolmogorov-Smirnov test, it places greater

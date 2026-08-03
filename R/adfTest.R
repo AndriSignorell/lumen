@@ -1,5 +1,5 @@
 
-#' Augmented Dickey-Fuller Unit Root Test
+#' Augmented Dickey-Fuller Unit Root Test for Detecting Unit Roots in Time Series
 #'
 #' Performs the augmented Dickey-Fuller test for a unit root in a time
 #' series, testing the null hypothesis of nonstationarity against the

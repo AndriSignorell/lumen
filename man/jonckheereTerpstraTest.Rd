@@ -4,7 +4,7 @@
 \alias{jonckheereTerpstraTest}
 \alias{jonckheereTerpstraTest.default}
 \alias{jonckheereTerpstraTest.formula}
-\title{Jonckheere-Terpstra Test for Ordered Alternatives}
+\title{Jonckheere-Terpstra Test for Detecting Ordered Differences Across Independent Groups}
 \usage{
 jonckheereTerpstraTest(x, ...)
 

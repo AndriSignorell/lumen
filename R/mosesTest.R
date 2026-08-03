@@ -1,5 +1,5 @@
 
-#' Moses Test of Extreme Reactions
+#' Moses Test of Extreme Reactions for Comparing Extreme-Value Behaviour Between Two Groups
 #'
 #' A nonparametric test comparing the spread (range) of two independent
 #' groups, assessing whether the control group shows greater variability

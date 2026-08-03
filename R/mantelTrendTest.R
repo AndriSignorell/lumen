@@ -1,5 +1,5 @@
 
-#' Mantel Linear-by-Linear Association Test
+#' Mantel Linear-by-Linear Association Test for Detecting Linear Association Between Ordinal Variables
 #'
 #' A chi-squared test for linear association between two ordinal variables
 #' in a two-way contingency table, using row and column scores.

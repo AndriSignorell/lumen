@@ -2,7 +2,7 @@
 % Please edit documentation in R/tTestA.R
 \name{tTestA}
 \alias{tTestA}
-\title{Student's t-Test Based on Sample Statistics}
+\title{Student's T-Test Based on Sample Statistics for Performing T-Tests From Summary Statistics}
 \usage{
 tTestA(
   mx,

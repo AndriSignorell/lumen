@@ -1,5 +1,5 @@
 
-#' Sign Test
+#' Sign Test for Testing a Median or Paired Median Difference
 #' 
 #' A nonparametric test for the median of a single sample or the median 
 #' difference of paired samples, based solely on the signs of deviations 

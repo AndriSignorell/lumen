@@ -2,7 +2,7 @@
 % Please edit documentation in R/signTest.R
 \name{signTest}
 \alias{signTest}
-\title{Sign Test}
+\title{Sign Test for Testing a Median or Paired Median Difference}
 \usage{
 signTest(
   x,

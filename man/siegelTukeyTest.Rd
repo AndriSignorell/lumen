@@ -4,7 +4,7 @@
 \alias{siegelTukeyTest}
 \alias{siegelTukeyTest.default}
 \alias{siegelTukeyTest.formula}
-\title{Siegel-Tukey Test for Equality in Variability}
+\title{Siegel-Tukey Test for Comparing Dispersion Between Two Independent Groups}
 \usage{
 siegelTukeyTest(x, ...)
 

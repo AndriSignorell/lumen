@@ -5,7 +5,7 @@
 \alias{mosesTest.default}
 \alias{mosesTest.formula}
 \alias{print.mosesTestResult}
-\title{Moses Test of Extreme Reactions}
+\title{Moses Test of Extreme Reactions for Comparing Extreme-Value Behaviour Between Two Groups}
 \usage{
 mosesTest(x, ...)
 

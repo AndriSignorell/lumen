@@ -18,7 +18,7 @@ information instead of data as in t.test()."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -183,7 +183,9 @@ two means) an error is generated.</p>
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></code></p>
 <p>Other test.location:
+<code><a href="brunnerMunzelTest.html">brunnerMunzelTest()</a></code>,
 <code><a href="hotellingsT2Test.html">hotellingsT2Test()</a></code>,
+<code><a href="moodMedianTest.html">moodMedianTest()</a></code>,
 <code><a href="signTest.html">signTest()</a></code>,
 <code><a href="vanWaerdenTest.html">vanWaerdenTest()</a></code>,
 <code><a href="yuenTTest.html">yuenTTest()</a></code>,
@@ -203,7 +205,7 @@ two means) an error is generated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Welch Two Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x and y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  mx and my</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t = -1.8608, df = 17.776, p-value = 0.07939</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
@@ -236,7 +238,7 @@ two means) an error is generated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	One Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  mean(x - y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t = -4.0621, df = 9, p-value = 0.002833</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true mean is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>

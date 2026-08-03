@@ -4,7 +4,7 @@
 \alias{yuenTTest}
 \alias{yuenTTest.default}
 \alias{yuenTTest.formula}
-\title{Yuen t-Test for Trimmed Means}
+\title{Yuen T-Test for Robust Comparison of Trimmed Means}
 \usage{
 yuenTTest(x, ...)
 

@@ -1,5 +1,5 @@
 
-#' Fast Correlation Test for a Matrix
+#' Fast Correlation Test  for Testing Pairwise Correlations in a Matrix
 #'
 #' Compute correlation coefficients, p-values, and pairwise sample sizes
 #' for all variable pairs in a numeric matrix.

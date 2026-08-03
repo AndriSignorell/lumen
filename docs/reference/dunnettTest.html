@@ -19,7 +19,7 @@ error rate."><meta property="og:image" content="/logo.png"><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -155,12 +155,13 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <code><a href="https://rdrr.io/pkg/mvtnorm/man/qmvt.html" class="external-link">qmvt</a></code></p>
 <p>Other test.posthoc:
 <code><a href="conoverTest.html">conoverTest()</a></code>,
+<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="dunnTest.html">dunnTest()</a></code>,
+<code><a href="gamesHowellTest.html">gamesHowellTest()</a></code>,
 <code><a href="nemenyiTest.html">nemenyiTest()</a></code>,
 <code><a href="plot.PostHocTest.html">plot.PostHocTest()</a></code>,
 <code><a href="postHoc.html">postHoc</a></code>,
 <code><a href="scheffeTest.html">scheffeTest()</a></code>,
-<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="steelTest.html">steelTest()</a></code></p></div>
     </div>
 
@@ -180,9 +181,9 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       diff     lwr.ci    upr.ci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2-1  0.385 -0.6901497 1.4601497 0.583       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3-1 -0.020 -1.0336608 0.9936608 0.998       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       diff        lci       uci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2-1  0.385 -0.6898153 1.4598153 0.583       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3-1 -0.020 -1.0333456 0.9933456 0.998       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -201,12 +202,12 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Normal subjects`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            diff     lwr.ci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects  0.385 -0.6901497</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 -0.020 -1.0336608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             upr.ci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects 1.4601497 0.583       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 0.9936608 0.998       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            diff        lci</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects  0.385 -0.6898153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 -0.020 -1.0333456</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                uci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects 1.4598153 0.583       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 0.9933456 0.998       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -221,11 +222,11 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff    lwr.ci   upr.ci    pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43792 34.09604   0.965       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.22870 55.77130 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.07486 56.61745 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9-5  7.832891 -11.90719 27.57297   0.735       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43036 34.08848   0.965       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.23412 55.76588 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.08027 56.61204 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-5  7.832891 -11.90191 27.56770   0.735       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -239,11 +240,11 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     90% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            diff    lwr.ci     upr.ci    pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -54.26925 -18.423062 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -55.50965  -5.524537   0.030    *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -18.76925  17.076938   1.000       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9-8 -28.5132626 -45.96667 -11.059853   0.002    ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -54.26325 -18.429061 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -55.50129  -5.532901   0.030    *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -18.76325  17.070939   1.000       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-8 -28.5132626 -45.96083 -11.065695   0.002    ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -257,18 +258,18 @@ Statistical Association</em>, <b>50</b>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff    lwr.ci   upr.ci    pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43792 34.09604   0.965       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.22870 55.77130 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.07486 56.61745 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9-5  7.832891 -11.90719 27.57297   0.735       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43036 34.08848   0.965       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.23412 55.76588 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.08027 56.61204 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-5  7.832891 -11.90191 27.56770   0.735       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            diff    lwr.ci     upr.ci    pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -56.61745 -16.074855 &lt; 0.001    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -58.78407  -2.250119   0.030    *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -21.11745  19.425145   1.000       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9-8 -28.5132626 -48.25334  -8.773182   0.002    ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -56.61204 -16.080272 &lt; 0.001    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -58.77652  -2.257672   0.030    *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -21.11204  19.419728   1.000       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-8 -28.5132626 -48.24807  -8.778457   0.002    ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>

@@ -1,5 +1,5 @@
 
-#' Student's t-Test Based on Sample Statistics
+#' Student's T-Test Based on Sample Statistics for Performing T-Tests From Summary Statistics
 #' 
 #' Performs one and two sample t-tests based on user supplied summary
 #' information instead of data as in \code{t.test()}.

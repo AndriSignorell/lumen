@@ -2,7 +2,7 @@
 % Please edit documentation in R/breuschGodfreyTest.R
 \name{breuschGodfreyTest}
 \alias{breuschGodfreyTest}
-\title{Breusch-Godfrey Test}
+\title{Breusch-Godfrey Test for Detecting Higher-Order Serial Correlation in Regression Residuals}
 \usage{
 breuschGodfreyTest(
   formula,

@@ -1,5 +1,5 @@
 
-#' Dwass-Steel-Critchlow-Fligner All-Pairs Test
+#' Dwass-Steel-Critchlow-Fligner Test for Nonparametric All-Pairs Group Comparisons
 #'
 #' Performs the Dwass-Steel-Critchlow-Fligner (DSCF) all-pairs
 #' multiple-comparison procedure for independent samples.

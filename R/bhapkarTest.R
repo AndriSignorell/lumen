@@ -1,5 +1,5 @@
 
-#' Bhapkar Marginal Homogeneity Test
+#' Bhapkar Marginal Homogeneity Test for Comparing Paired Marginal Distributions Across Multiple Categories
 #'
 #' An asymptotic chi-squared test for marginal homogeneity in square
 #' contingency tables for dependent samples, similar to the Stuart-Maxwell

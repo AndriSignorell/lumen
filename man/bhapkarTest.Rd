@@ -2,7 +2,7 @@
 % Please edit documentation in R/bhapkarTest.R
 \name{bhapkarTest}
 \alias{bhapkarTest}
-\title{Bhapkar Marginal Homogeneity Test}
+\title{Bhapkar Marginal Homogeneity Test for Comparing Paired Marginal Distributions Across Multiple Categories}
 \usage{
 bhapkarTest(x, y = NULL)
 }

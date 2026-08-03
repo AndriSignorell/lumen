@@ -1,5 +1,5 @@
 
-#' Steel Test for Comparing Several Treatments With a Control
+#' Steel Test for Nonparametric Comparisons With a Common Control
 #'
 #' A nonparametric multiple-comparison procedure for comparing several
 #' treatment groups with a single control group based on Wilcoxon

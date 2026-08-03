@@ -1,5 +1,5 @@
 
-#' Kwiatkowski-Phillips-Schmidt-Shin Test for Stationarity
+#' Kwiatkowski-Phillips-Schmidt-Shin Test for Assessing Level or Trend Stationarity
 #'
 #' A test for stationarity in time series, complementary to unit root tests
 #' such as the ADF test: it tests the null hypothesis of stationarity

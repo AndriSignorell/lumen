@@ -18,7 +18,7 @@ robust to departures from normality than Bartlett's test."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ is the default here.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
-    <p>Based on <code>car::leveneTest()</code> by John Fox, with contributions by
+    <p>Based on <code><a href="https://rdrr.io/pkg/car/man/leveneTest.html" class="external-link">car::leveneTest()</a></code> by John Fox, with contributions by
 Derek Ogle and Brian Ripley, adapted to conform to package standards.</p>
     </div>
     <div id="references">
@@ -179,21 +179,21 @@ for a parametric alternative</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Levene's Test for Homogeneity of Variance (center = median)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  res$x and res$group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x ~ grp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F = 1.7865, num df = 1, denom df = 38, p-value = 0.1893</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">grp</span>, data <span class="op">=</span> <span class="va">serum</span>, center <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Levene's Test for Homogeneity of Variance (center = mean)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  res$x and res$group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x ~ grp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F = 1.7879, num df = 1, denom df = 38, p-value = 0.1891</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">grp</span>, data <span class="op">=</span> <span class="va">serum</span>, center <span class="op">=</span> <span class="va">mean</span>, trim <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Levene's Test for Homogeneity of Variance (center = mean(trim=0.1))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  res$x and res$group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x ~ grp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F = 1.7854, num df = 1, denom df = 38, p-value = 0.1894</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -210,15 +210,15 @@ for a parametric alternative</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Levene's Test for Homogeneity of Variance (center = median)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  res$x and res$group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> F = 3.5582, num df = 4, denom df = 111, p-value = 0.009034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  Ozone ~ factor(Month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> F = 3.9558, num df = 4, denom df = 111, p-value = 0.004863</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Levene's Test for Homogeneity of Variance (center = median)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  res$x and res$group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  count ~ spray</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F = 3.8214, num df = 5, denom df = 66, p-value = 0.004223</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Compare this to fligner.test() and bartlett.test()</span></span></span>

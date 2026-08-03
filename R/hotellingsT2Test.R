@@ -1,4 +1,5 @@
-#' Hotelling's T2 Test
+
+#' Hotelling's T2 Test for Comparing Multivariate Mean Vectors
 #'
 #' The classical test for the location of a multivariate population (one-sample)
 #' or for the difference between the mean vectors of two multivariate populations
@@ -291,4 +292,5 @@ hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
   list(statistic = stat, pValue = pval, df1 = df1, df2 = df2,
        estimate = est)
 }
+
 

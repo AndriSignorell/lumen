@@ -1,5 +1,5 @@
 
-#' Levene's Test for Homogeneity of Variance
+#' Levene's Test for Comparing Variances Across Groups
 #'
 #' A test for homogeneity of variances across two or more groups, more
 #' robust to departures from normality than Bartlett's test.

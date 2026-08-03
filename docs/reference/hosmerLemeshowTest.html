@@ -19,7 +19,7 @@ probabilities across grouped subsets of the data."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -191,10 +191,18 @@ Logistic Regression</em>, 3rd ed., New York: Wiley.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># glm method: probabilities and outcomes are extracted from the model</span></span></span>
 <span class="r-in"><span><span class="fu">hosmerLemeshowTest</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in hosmerLemeshowTest(model):</span> 'fit' and 'obs' must be numeric vectors.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some expected counts are less than 5; the chi-squared approximation may be unreliable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Hosmer-Lemeshow C statistic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  obs ~ x1 + x2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 4.85 , df = 8 , p-value = 0.7735 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups: 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># equivalent call with explicit vectors</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">hosmerLemeshowTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, <span class="va">obs</span>, type <span class="op">=</span> <span class="st">"C"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some expected counts are less than 5; the chi-squared approximation may be unreliable</span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Hosmer-Lemeshow C statistic </span>

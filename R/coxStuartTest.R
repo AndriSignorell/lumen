@@ -1,5 +1,5 @@
 
-#' Cox-Stuart Trend Test
+#' Cox-Stuart Trend Test for Detecting Monotonic Trends in Ordered Data
 #'
 #' Tests a sequence of observations for a monotone trend by pairing each
 #' observation in the first half of the series with the corresponding

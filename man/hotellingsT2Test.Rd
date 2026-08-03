@@ -4,7 +4,7 @@
 \alias{hotellingsT2Test}
 \alias{hotellingsT2Test.default}
 \alias{hotellingsT2Test.formula}
-\title{Hotelling's T2 Test}
+\title{Hotelling's T2 Test for Comparing Multivariate Mean Vectors}
 \usage{
 hotellingsT2Test(x, ...)
 

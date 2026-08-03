@@ -2,7 +2,7 @@
 % Please edit documentation in R/corTest.R
 \name{corTest}
 \alias{corTest}
-\title{Fast Correlation Test for a Matrix}
+\title{Fast Correlation Test  for Testing Pairwise Correlations in a Matrix}
 \usage{
 corTest(
   x,

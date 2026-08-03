@@ -1,5 +1,5 @@
 
-#' Cramer-von Mises Test for Normality
+#' Cramer-Von Mises Test for Assessing Deviations From Normality
 #'
 #' A goodness-of-fit test based on the integrated squared discrepancies
 #' between the empirical and theoretical distribution functions. Similar

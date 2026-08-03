@@ -21,7 +21,7 @@ values, from which confidence intervals can be derived."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -130,13 +130,13 @@ unbounded on one side.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Confidence interval for a single correlation</span></span></span>
 <span class="r-in"><span><span class="fu">corCI</span><span class="op">(</span><span class="fl">0.5</span>, n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cor       lci       uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5000000 0.1704314 0.7289586 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare multiple correlations</span></span></span>
 <span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.9</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">corCI</span>, n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cor         lci       uci</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est         lci       uci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.0 -0.36026922 0.3602692</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 0.1 -0.26999636 0.4442638</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.2 -0.17271392 0.5226130</span>

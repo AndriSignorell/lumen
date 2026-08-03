@@ -2,7 +2,7 @@
 % Please edit documentation in R/stuartMaxwellTest.R
 \name{stuartMaxwellTest}
 \alias{stuartMaxwellTest}
-\title{Stuart-Maxwell Marginal Homogeneity Test}
+\title{Stuart-Maxwell Test for Testing Marginal Homogeneity in Paired Multicategory Data}
 \usage{
 stuartMaxwellTest(x, y = NULL)
 }

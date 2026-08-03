@@ -1,5 +1,5 @@
 
-#' Breusch-Pagan Test for Heteroscedasticity
+#' Breusch-Pagan Test  for Detecting Heteroscedasticity in Regression Models
 #'
 #' Tests the null hypothesis of homoscedasticity (constant error variance)
 #' against heteroscedasticity using the Koenker variant of the Breusch-Pagan

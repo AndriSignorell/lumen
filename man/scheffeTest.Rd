@@ -5,7 +5,7 @@
 \alias{scheffeTest.default}
 \alias{scheffeTest.aov}
 \alias{scheffeTest.formula}
-\title{Scheffé Test for Pairwise and Otherwise Comparisons}
+\title{Scheffé Test for Testing Arbitrary Contrasts Following Anova}
 \usage{
 scheffeTest(x, ...)
 

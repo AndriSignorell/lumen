@@ -4,7 +4,7 @@
 \alias{leveneTest}
 \alias{leveneTest.formula}
 \alias{leveneTest.default}
-\title{Levene's Test for Homogeneity of Variance}
+\title{Levene's Test for Comparing Variances Across Groups}
 \usage{
 leveneTest(x, ...)
 

@@ -1,5 +1,5 @@
 
-#' Bartels Rank Test of Randomness
+#' Bartels Rank Test of Randomness for Detecting Non-Random Order in Continuous Sequences
 #'
 #' A nonparametric test for randomness of a sequence (so it tests whether
 #' data is sampled randomly from an underlying population), based on the

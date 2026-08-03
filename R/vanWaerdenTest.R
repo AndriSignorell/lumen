@@ -1,5 +1,5 @@
 
-#' van der Waerden Test
+#' Van Der Waerden Test for Comparing Group Locations Using Normal Scores
 #' 
 #' A nonparametric k-sample test based on normal scores (van der Waerden 
 #' scores), serving as an alternative to the one-way ANOVA. It is more 

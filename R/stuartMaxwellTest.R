@@ -1,5 +1,5 @@
 
-#' Stuart-Maxwell Marginal Homogeneity Test 
+#' Stuart-Maxwell Test for Testing Marginal Homogeneity in Paired Multicategory Data
 #' 
 #' A nonparametric test for marginal homogeneity in square contingency tables 
 #' for dependent samples, generalizing the McNemar test to more than two 

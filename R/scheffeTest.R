@@ -1,5 +1,5 @@
 
-#' Scheffé Test for Pairwise and Otherwise Comparisons 
+#' Scheffé Test for Testing Arbitrary Contrasts Following Anova 
 #' 
 #' A parametric post hoc test for all possible pairwise and complex 
 #' comparisons following a significant ANOVA, controlling the 

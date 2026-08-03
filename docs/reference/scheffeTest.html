@@ -19,7 +19,7 @@ familywise error rate conservatively for any number of contrasts."><meta propert
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -165,12 +165,13 @@ Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test</a></code>, <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code></p>
 <p>Other test.posthoc:
 <code><a href="conoverTest.html">conoverTest()</a></code>,
+<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="dunnTest.html">dunnTest()</a></code>,
 <code><a href="dunnettTest.html">dunnettTest()</a></code>,
+<code><a href="gamesHowellTest.html">gamesHowellTest()</a></code>,
 <code><a href="nemenyiTest.html">nemenyiTest()</a></code>,
 <code><a href="plot.PostHocTest.html">plot.PostHocTest()</a></code>,
 <code><a href="postHoc.html">postHoc</a></code>,
-<code><a href="dscfTest.html">dscfTest()</a></code>,
 <code><a href="steelTest.html">steelTest()</a></code></p></div>
     </div>
 
@@ -186,14 +187,14 @@ Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wool</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff    lwr.ci   upr.ci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B-A -5.777778 -14.92513 3.369576 0.353       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci       uci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B-A -5.777778 -12.12841 0.5728505 0.074    .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff    lwr.ci    upr.ci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -21.20317  1.203174 0.097    .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -25.92540 -3.519048 0.005    ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -15.92540  6.480952 0.687       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           diff       lci        uci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -19.76977 -0.2302286 0.044    *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -24.49199 -4.9524508 0.002    ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -14.49199  5.0475492 0.481       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -206,10 +207,10 @@ Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff    lwr.ci    upr.ci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -21.20317  1.203174 0.097    .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -25.92540 -3.519048 0.005    ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -15.92540  6.480952 0.687       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           diff       lci        uci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> M-L -10.000000 -19.76977 -0.2302286 0.044    *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H-L -14.722222 -24.49199 -4.9524508 0.002    ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H-M  -4.722222 -14.49199  5.0475492 0.481       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -232,7 +233,7 @@ Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = y ~ group)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff    lwr.ci   upr.ci  pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci  pval signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1-2,3  7.2500 -6.417446 20.91745 0.637       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4-5,6 14.0625  0.395054 27.72995 0.040    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -249,10 +250,10 @@ Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1     2     3     4     5    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.927 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.531 0.977 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.848 0.273 0.054 &lt;NA&gt;  &lt;NA&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.940 1.000 0.970 0.296 &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.927 -     -     -     -    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.531 0.977 -     -     -    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.848 0.273 0.054 -     -    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.940 1.000 0.970 0.296 -    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.400 0.934 1.000 0.031 0.920</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

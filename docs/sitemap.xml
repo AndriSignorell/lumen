@@ -14,12 +14,14 @@
 <url><loc>/reference/bpTest.html</loc></url>
 <url><loc>/reference/breslowDayTest.html</loc></url>
 <url><loc>/reference/breuschGodfreyTest.html</loc></url>
+<url><loc>/reference/brunnerMunzelTest.html</loc></url>
 <url><loc>/reference/cochranArmitageTest.html</loc></url>
 <url><loc>/reference/cochranQTest.html</loc></url>
 <url><loc>/reference/conoverTest.html</loc></url>
 <url><loc>/reference/cont.moments.html</loc></url>
 <url><loc>/reference/corCI.html</loc></url>
 <url><loc>/reference/corTest.html</loc></url>
+<url><loc>/reference/coxStuartTest.html</loc></url>
 <url><loc>/reference/cramerVonMisesTest.html</loc></url>
 <url><loc>/reference/disc.moments.html</loc></url>
 <url><loc>/reference/distributions-overview.html</loc></url>
@@ -37,12 +39,14 @@
 <url><loc>/reference/dpqr-RevGumbel.html</loc></url>
 <url><loc>/reference/dpqr-rweibull.html</loc></url>
 <url><loc>/reference/dpqr-tri.html</loc></url>
+<url><loc>/reference/dscfTest.html</loc></url>
 <url><loc>/reference/dunnettTest.html</loc></url>
 <url><loc>/reference/dunnTest.html</loc></url>
 <url><loc>/reference/durbinWatsonTest.html</loc></url>
 <url><loc>/reference/extreme-value-moments.html</loc></url>
 <url><loc>/reference/fisherZ.html</loc></url>
 <url><loc>/reference/Formulas.html</loc></url>
+<url><loc>/reference/gamesHowellTest.html</loc></url>
 <url><loc>/reference/gTest.html</loc></url>
 <url><loc>/reference/hosmerLemeshowTest.html</loc></url>
 <url><loc>/reference/hotelling-t2-test.html</loc></url>
@@ -62,6 +66,7 @@
 <url><loc>/reference/meanCIn.html</loc></url>
 <url><loc>/reference/meanDiffCI.html</loc></url>
 <url><loc>/reference/medianCI.html</loc></url>
+<url><loc>/reference/moodMedianTest.html</loc></url>
 <url><loc>/reference/mosesTest.html</loc></url>
 <url><loc>/reference/multinomCI.html</loc></url>
 <url><loc>/reference/nemenyiTest.html</loc></url>
@@ -70,6 +75,8 @@
 <url><loc>/reference/pearsonTest.html</loc></url>
 <url><loc>/reference/plot.PostHocTest.html</loc></url>
 <url><loc>/reference/poissonCI.html</loc></url>
+<url><loc>/reference/poissonDiffCI.html</loc></url>
+<url><loc>/reference/poissonRatioCI.html</loc></url>
 <url><loc>/reference/postHoc.html</loc></url>
 <url><loc>/reference/powerChisqTest.html</loc></url>
 <url><loc>/reference/print.rankTest.html</loc></url>
@@ -78,7 +85,7 @@
 <url><loc>/reference/runsTest.html</loc></url>
 <url><loc>/reference/scheffeTest.html</loc></url>
 <url><loc>/reference/scores.html</loc></url>
-<url><loc>/reference/dscfTest.html</loc></url>
+<url><loc>/reference/sdcfTest.html</loc></url>
 <url><loc>/reference/shapiroFranciaTest.html</loc></url>
 <url><loc>/reference/siegelTukeyTest.html</loc></url>
 <url><loc>/reference/signTest.html</loc></url>

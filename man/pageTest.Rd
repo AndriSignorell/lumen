@@ -4,7 +4,7 @@
 \alias{pageTest}
 \alias{pageTest.default}
 \alias{pageTest.formula}
-\title{Exact Page Test for Ordered Alternatives}
+\title{(Exact) Page Test for Detecting Ordered Treatment Effects in Blocked Designs}
 \usage{
 pageTest(y, ...)
 

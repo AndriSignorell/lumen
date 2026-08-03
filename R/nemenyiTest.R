@@ -1,5 +1,5 @@
 
-#' Nemenyi Test of Multiple Comparisons
+#' Nemenyi Test for Nonparametric All-Pairs Rank Comparisons
 #'
 #' A nonparametric post hoc test for multiple pairwise comparisons following
 #' a significant Kruskal-Wallis test, based on differences in mean ranks.

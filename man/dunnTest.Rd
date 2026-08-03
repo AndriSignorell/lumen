@@ -4,7 +4,7 @@
 \alias{dunnTest}
 \alias{dunnTest.default}
 \alias{dunnTest.formula}
-\title{Dunn's Test of Multiple Comparisons}
+\title{Dunn's Test for Pairwise Rank Comparisons After a Kruskal–Wallis Test}
 \usage{
 dunnTest(x, ...)
 

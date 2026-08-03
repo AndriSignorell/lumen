@@ -4,7 +4,7 @@
 \alias{cochranQTest}
 \alias{cochranQTest.default}
 \alias{cochranQTest.formula}
-\title{Cochran's Q Test}
+\title{Cochran's Q Test for Comparing Matched Binary Responses Across Multiple Conditions}
 \usage{
 cochranQTest(y, ...)
 

@@ -20,7 +20,7 @@ for small sample sizes or extreme proportions."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.925</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
       </span>
     </div>
 
@@ -226,7 +226,9 @@ Interval estimation for the difference between independent proportions.
 <code><a href="binomCI.html">binomCI()</a></code>,
 <code><a href="binomRatioCI.html">binomRatioCI()</a></code>,
 <code><a href="multinomCI.html">multinomCI()</a></code>,
-<code><a href="poissonCI.html">poissonCI()</a></code></p></div>
+<code><a href="poissonCI.html">poissonCI()</a></code>,
+<code><a href="poissonDiffCI.html">poissonDiffCI()</a></code>,
+<code><a href="poissonRatioCI.html">poissonRatioCI()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -251,15 +253,15 @@ Interval estimation for the difference between independent proportions.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.0540 0.3400 56.0000 70.0000 48.0000 80.0000     0.9500 two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 0.0494 0.3506 56.0000 70.0000 48.0000 80.0000     0.9500 two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 wald                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 wald-cc               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agresti-caffo         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 newcombe-score        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 newcombe-score-cc     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 miettinen-nurminen    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   wald</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                wald-cc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          agresti-caffo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         newcombe-score</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      newcombe-score-cc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     miettinen-nurminen</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 mee-farrington-manning</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 brown-li-jeffreys     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 hauck-anderson        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      brown-li-jeffreys</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         hauck-anderson</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">9</span>; <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">10</span>; <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fl">3</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">yci</span> <span class="op">&lt;-</span> <span class="fu">binomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, method<span class="op">=</span><span class="va">meths</span><span class="op">)</span></span></span>
@@ -275,15 +277,15 @@ Interval estimation for the difference between independent proportions.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.1869 0.9040 9.0000 10.0000 3.0000 10.0000     0.9500 two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 0.1922 1.0000 9.0000 10.0000 3.0000 10.0000     0.9500 two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 wald                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 wald-cc               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agresti-caffo         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 newcombe-score        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 newcombe-score-cc     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 miettinen-nurminen    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   wald</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                wald-cc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          agresti-caffo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         newcombe-score</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      newcombe-score-cc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     miettinen-nurminen</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 mee-farrington-manning</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 brown-li-jeffreys     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 hauck-anderson        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      brown-li-jeffreys</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         hauck-anderson</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span></span></span>
 <span class="r-in"><span><span class="fu">bedrock</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bedrock/man/setNamesX.html" class="external-link">setNamesX</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span></span>

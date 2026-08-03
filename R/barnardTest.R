@@ -1,5 +1,5 @@
 
-#' Barnard's Unconditional Test
+#' Barnard's Unconditional Test for Comparing Two Independent Proportions in a 2×2 Table
 #'
 #' An exact unconditional test for \eqn{2 \times 2}{2x2} contingency
 #' tables, offering a more powerful alternative to Fisher's exact test

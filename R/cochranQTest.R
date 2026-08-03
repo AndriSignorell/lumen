@@ -1,5 +1,5 @@
 
-#' Cochran's Q Test
+#' Cochran's Q Test for Comparing Matched Binary Responses Across Multiple Conditions
 #'
 #' A nonparametric test for dependent samples with dichotomous data,
 #' assessing whether proportions differ across multiple conditions or

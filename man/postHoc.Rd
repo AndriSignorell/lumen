@@ -9,7 +9,7 @@
 \alias{print.postHocTest}
 \alias{plot.postHocTest}
 \alias{print.PostHocTest}
-\title{Post Hoc Tests for ANOVA}
+\title{Post Hoc Tests for Multiple Comparisons Following Anova}
 \usage{
 postHocTest(x, ...)
 

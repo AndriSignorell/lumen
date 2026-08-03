@@ -2,7 +2,7 @@
 % Please edit documentation in R/woolfTest.R
 \name{woolfTest}
 \alias{woolfTest}
-\title{Woolf Test For Homogeneity in 2x2xk Tables}
+\title{Woolf Test for Comparing Odds Ratios Across Stratified 2×2 Tables}
 \usage{
 woolfTest(x)
 }

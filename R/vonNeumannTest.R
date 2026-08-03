@@ -1,5 +1,5 @@
 
-#' Von Neumann's Successive Difference Test
+#' Von Neumann's Successive Difference Test for Detecting Serial Dependence in Continuous Sequences
 #'
 #' A test for randomness or autocorrelation in a sequence, based on the mean
 #' square successive difference relative to the sample variance, closely

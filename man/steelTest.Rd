@@ -4,7 +4,7 @@
 \alias{steelTest}
 \alias{steelTest.default}
 \alias{steelTest.formula}
-\title{Steel Test for Comparing Several Treatments With a Control}
+\title{Steel Test for Nonparametric Comparisons With a Common Control}
 \usage{
 steelTest(x, ...)
 

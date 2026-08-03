@@ -1,5 +1,5 @@
 
-#' Lehmacher's Test for Marginal Homogeneity
+#' Lehmacher's Test for Locating Asymmetry in Paired Multicategory Data
 #'
 #' A nonparametric test for marginal homogeneity in square contingency
 #' tables for dependent samples, based on a normal approximation of the

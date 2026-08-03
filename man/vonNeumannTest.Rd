@@ -2,7 +2,7 @@
 % Please edit documentation in R/vonNeumannTest.R
 \name{vonNeumannTest}
 \alias{vonNeumannTest}
-\title{Von Neumann's Successive Difference Test}
+\title{Von Neumann's Successive Difference Test for Detecting Serial Dependence in Continuous Sequences}
 \usage{
 vonNeumannTest(
   x,

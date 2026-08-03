@@ -2,7 +2,7 @@
 % Please edit documentation in R/adfTest.R
 \name{adfTest}
 \alias{adfTest}
-\title{Augmented Dickey-Fuller Unit Root Test}
+\title{Augmented Dickey-Fuller Unit Root Test for Detecting Unit Roots in Time Series}
 \usage{
 adfTest(
   y,

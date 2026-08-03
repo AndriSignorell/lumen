@@ -4,7 +4,7 @@
 \alias{varTest}
 \alias{varTest.default}
 \alias{varTest.formula}
-\title{Variance Test (One- and Two-Sample) with Classic and LD Methods}
+\title{Variance Test for Testing One Variance or Comparing Two Variances}
 \usage{
 varTest(x, ...)
 

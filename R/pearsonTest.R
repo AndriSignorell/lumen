@@ -1,5 +1,5 @@
 
-#' Pearson chi-square test for normality
+#' Pearson Chi-Square Test for Assessing Normality From Grouped Frequencies
 #' 
 #' Performs the Pearson chi-square test for the composite hypothesis of
 #' normality, see e.g. Thode (2002, Sec. 5.2).

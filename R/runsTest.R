@@ -1,5 +1,5 @@
 
-#' Runs Test for Randomness
+#' Runs Test for Detecting Non-Random Order in Sequences
 #'
 #' A nonparametric test for randomness of a sequence, based on the number
 #' of runs (consecutive sequences of identical values or values above/below

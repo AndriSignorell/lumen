@@ -1,4 +1,5 @@
-#' Dunnett's Test for Comparing Treatments With a Control
+
+#' Dunnett's Test for Comparing Several Treatments With a Common Control
 #'
 #' Performs Dunnett's parametric post hoc test for comparing multiple
 #' treatment groups with a control group while controlling the familywise
@@ -259,3 +260,5 @@ dunnettTest.default <- function(x,
 
   out
 }
+
+

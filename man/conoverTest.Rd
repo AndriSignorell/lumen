@@ -4,7 +4,7 @@
 \alias{conoverTest}
 \alias{conoverTest.default}
 \alias{conoverTest.formula}
-\title{Conover's Test of Multiple Comparisons}
+\title{Conover's Test for Pairwise Rank Comparisons After a Kruskal–Wallis Test}
 \usage{
 conoverTest(x, ...)
 

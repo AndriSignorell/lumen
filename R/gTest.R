@@ -1,5 +1,5 @@
 
-#' G-Test for Count Data
+#' G-Test for Likelihood-Ratio Testing of Count Data
 #'
 #' A goodness-of-fit or test of independence based on the log-likelihood
 #' ratio (G-statistic), serving as an asymptotically equivalent alternative

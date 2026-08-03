@@ -2,7 +2,7 @@
 % Please edit documentation in R/mantelTrendTest.R
 \name{mantelTrendTest}
 \alias{mantelTrendTest}
-\title{Mantel Linear-by-Linear Association Test}
+\title{Mantel Linear-by-Linear Association Test for Detecting Linear Association Between Ordinal Variables}
 \usage{
 mantelTrendTest(
   x,

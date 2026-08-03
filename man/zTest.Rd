@@ -4,7 +4,7 @@
 \alias{zTest}
 \alias{zTest.default}
 \alias{zTest.formula}
-\title{z-Test for Known Population Standard Deviation}
+\title{Z-Test for Testing Means With Known Population Standard Deviations}
 \usage{
 zTest(x, ...)
 

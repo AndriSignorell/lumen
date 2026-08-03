@@ -1,6 +1,5 @@
 
-
-#' Shapiro-Francia test for normality
+#' Shapiro-Francia Test for Assessing Normality From Normal Scores
 #' 
 #' A goodness-of-fit test for normality based on the correlation between 
 #' the ordered sample values and the corresponding expected normal order 

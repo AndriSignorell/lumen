@@ -2,7 +2,7 @@
 % Please edit documentation in R/barnardTest.R
 \name{barnardTest}
 \alias{barnardTest}
-\title{Barnard's Unconditional Test}
+\title{Barnard's Unconditional Test for Comparing Two Independent Proportions in a 2×2 Table}
 \usage{
 barnardTest(
   x,

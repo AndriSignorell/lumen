@@ -5,7 +5,7 @@
 \alias{hosmerLemeshowTest.glm}
 \alias{hosmerLemeshowTest.default}
 \alias{print.HosmerLemeshowTest}
-\title{Hosmer-Lemeshow Goodness of Fit Test}
+\title{Hosmer-Lemeshow Goodness of Fit Test for Assessing Logistic Regression Calibration}
 \usage{
 hosmerLemeshowTest(x, ...)
 

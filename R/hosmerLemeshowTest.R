@@ -1,5 +1,5 @@
 
-#' Hosmer-Lemeshow Goodness of Fit Test
+#' Hosmer-Lemeshow Goodness of Fit Test for Assessing Logistic Regression Calibration
 #'
 #' Computes the Hosmer-Lemeshow C or H goodness-of-fit test for a logistic
 #' regression model, assessing whether observed event rates match predicted

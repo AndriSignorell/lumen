@@ -2,7 +2,7 @@
 % Please edit documentation in R/powerChisqTest.R
 \name{powerChisqTest}
 \alias{powerChisqTest}
-\title{Power Calculations for ChiSquared Tests}
+\title{Power Calculations for Power and Sample-Size Calculations for Chi-Square Tests}
 \usage{
 powerChisqTest(
   n = NULL,

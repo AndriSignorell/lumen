@@ -4,7 +4,7 @@
 \alias{vanWaerdenTest}
 \alias{vanWaerdenTest.default}
 \alias{vanWaerdenTest.formula}
-\title{van der Waerden Test}
+\title{Van Der Waerden Test for Comparing Group Locations Using Normal Scores}
 \usage{
 vanWaerdenTest(x, ...)
 

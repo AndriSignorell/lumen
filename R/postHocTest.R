@@ -1,5 +1,5 @@
 
-#' Post Hoc Tests for ANOVA
+#' Post Hoc Tests for Multiple Comparisons Following Anova
 #'
 #' Provides a unified interface for several parametric post hoc tests
 #' following a significant ANOVA. The function computes pairwise
