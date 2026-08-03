@@ -27,7 +27,7 @@ double druns_nom_log(int r, int n1, int n2) {
 
 
 // [[Rcpp::export]]
-double pruns_rcpp(int r, int n1, int n2, std::string alternative = "two.sided") {
+double pruns_cpp(int r, int n1, int n2, std::string alternative = "two.sided") {
   
   int n = n1 + n2;
   

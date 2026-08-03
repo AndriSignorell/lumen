@@ -94,7 +94,7 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 }
 \seealso{
 \code{\link{meanCI}}, \code{\link{medianCI}},
-\code{\link{varTest}}, \code{\link[DescToolsX]{varX}}
+\code{\link{varTest}}, \code{DescToolsX::varX}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

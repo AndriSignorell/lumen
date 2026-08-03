@@ -11,76 +11,76 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// ADstat
-double ADstat(NumericVector x);
-RcppExport SEXP _lumen_ADstat(SEXP xSEXP) {
+// ad_stat_cpp
+double ad_stat_cpp(NumericVector x);
+RcppExport SEXP _lumen_ad_stat_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADstat(x));
+    rcpp_result_gen = Rcpp::wrap(ad_stat_cpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// ADtest
-double ADtest(NumericVector x);
-RcppExport SEXP _lumen_ADtest(SEXP xSEXP) {
+// ad_test_cpp
+double ad_test_cpp(NumericVector x);
+RcppExport SEXP _lumen_ad_test_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADtest(x));
+    rcpp_result_gen = Rcpp::wrap(ad_test_cpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// ADprobExactInf
-NumericVector ADprobExactInf(NumericVector a);
-RcppExport SEXP _lumen_ADprobExactInf(SEXP aSEXP) {
+// ad_prob_exact_inf_cpp
+NumericVector ad_prob_exact_inf_cpp(NumericVector a);
+RcppExport SEXP _lumen_ad_prob_exact_inf_cpp(SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADprobExactInf(a));
+    rcpp_result_gen = Rcpp::wrap(ad_prob_exact_inf_cpp(a));
     return rcpp_result_gen;
 END_RCPP
 }
-// ADprobApproxInf
-NumericVector ADprobApproxInf(NumericVector a);
-RcppExport SEXP _lumen_ADprobApproxInf(SEXP aSEXP) {
+// ad_prob_approx_inf_cpp
+NumericVector ad_prob_approx_inf_cpp(NumericVector a);
+RcppExport SEXP _lumen_ad_prob_approx_inf_cpp(SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADprobApproxInf(a));
+    rcpp_result_gen = Rcpp::wrap(ad_prob_approx_inf_cpp(a));
     return rcpp_result_gen;
 END_RCPP
 }
-// ADprobN
-NumericVector ADprobN(NumericVector a, int n);
-RcppExport SEXP _lumen_ADprobN(SEXP aSEXP, SEXP nSEXP) {
+// ad_prob_n_cpp
+NumericVector ad_prob_n_cpp(NumericVector a, int n);
+RcppExport SEXP _lumen_ad_prob_n_cpp(SEXP aSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADprobN(a, n));
+    rcpp_result_gen = Rcpp::wrap(ad_prob_n_cpp(a, n));
     return rcpp_result_gen;
 END_RCPP
 }
-// ADtestR
-Rcpp::List ADtestR(const Rcpp::NumericVector& x);
-RcppExport SEXP _lumen_ADtestR(SEXP xSEXP) {
+// ad_test_r_cpp
+Rcpp::List ad_test_r_cpp(const Rcpp::NumericVector& x);
+RcppExport SEXP _lumen_ad_test_r_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(ADtestR(x));
+    rcpp_result_gen = Rcpp::wrap(ad_test_r_cpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// binomdiffciMee
-double binomdiffciMee(int x1, int n1, int x2, int n2, double alpha, bool lower);
-RcppExport SEXP _lumen_binomdiffciMee(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
+// binom_diff_ci_mee_cpp
+double binom_diff_ci_mee_cpp(int x1, int n1, int x2, int n2, double alpha, bool lower);
+RcppExport SEXP _lumen_binom_diff_ci_mee_cpp(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -90,13 +90,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
-    rcpp_result_gen = Rcpp::wrap(binomdiffciMee(x1, n1, x2, n2, alpha, lower));
+    rcpp_result_gen = Rcpp::wrap(binom_diff_ci_mee_cpp(x1, n1, x2, n2, alpha, lower));
     return rcpp_result_gen;
 END_RCPP
 }
-// binomdiffciMN
-double binomdiffciMN(int x1, int n1, int x2, int n2, double z, bool lower);
-RcppExport SEXP _lumen_binomdiffciMN(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP zSEXP, SEXP lowerSEXP) {
+// binom_diff_ci_mn_cpp
+double binom_diff_ci_mn_cpp(int x1, int n1, int x2, int n2, double z, bool lower);
+RcppExport SEXP _lumen_binom_diff_ci_mn_cpp(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP zSEXP, SEXP lowerSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -106,13 +106,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
     Rcpp::traits::input_parameter< double >::type z(zSEXP);
     Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
-    rcpp_result_gen = Rcpp::wrap(binomdiffciMN(x1, n1, x2, n2, z, lower));
+    rcpp_result_gen = Rcpp::wrap(binom_diff_ci_mn_cpp(x1, n1, x2, n2, z, lower));
     return rcpp_result_gen;
 END_RCPP
 }
-// blaker_find_crossing
-double blaker_find_crossing(int x, int n, double alpha, double lo, double hi, bool from_left, double tol, int safe_steps);
-RcppExport SEXP _lumen_blaker_find_crossing(SEXP xSEXP, SEXP nSEXP, SEXP alphaSEXP, SEXP loSEXP, SEXP hiSEXP, SEXP from_leftSEXP, SEXP tolSEXP, SEXP safe_stepsSEXP) {
+// blaker_find_crossing_cpp
+double blaker_find_crossing_cpp(int x, int n, double alpha, double lo, double hi, bool from_left, double tol, int safe_steps);
+RcppExport SEXP _lumen_blaker_find_crossing_cpp(SEXP xSEXP, SEXP nSEXP, SEXP alphaSEXP, SEXP loSEXP, SEXP hiSEXP, SEXP from_leftSEXP, SEXP tolSEXP, SEXP safe_stepsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -124,38 +124,38 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type from_left(from_leftSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< int >::type safe_steps(safe_stepsSEXP);
-    rcpp_result_gen = Rcpp::wrap(blaker_find_crossing(x, n, alpha, lo, hi, from_left, tol, safe_steps));
+    rcpp_result_gen = Rcpp::wrap(blaker_find_crossing_cpp(x, n, alpha, lo, hi, from_left, tol, safe_steps));
     return rcpp_result_gen;
 END_RCPP
 }
-// bmCore
-NumericVector bmCore(NumericVector rx, NumericVector ry);
-RcppExport SEXP _lumen_bmCore(SEXP rxSEXP, SEXP rySEXP) {
+// bm_core_cpp
+NumericVector bm_core_cpp(NumericVector rx, NumericVector ry);
+RcppExport SEXP _lumen_bm_core_cpp(SEXP rxSEXP, SEXP rySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type rx(rxSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type ry(rySEXP);
-    rcpp_result_gen = Rcpp::wrap(bmCore(rx, ry));
+    rcpp_result_gen = Rcpp::wrap(bm_core_cpp(rx, ry));
     return rcpp_result_gen;
 END_RCPP
 }
-// bmPermExact
-NumericVector bmPermExact(NumericVector rSorted, int n1, double tObs);
-RcppExport SEXP _lumen_bmPermExact(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP) {
+// bm_perm_exact_cpp
+NumericVector bm_perm_exact_cpp(NumericVector rSorted, int n1, double tObs);
+RcppExport SEXP _lumen_bm_perm_exact_cpp(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type rSorted(rSortedSEXP);
     Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
     Rcpp::traits::input_parameter< double >::type tObs(tObsSEXP);
-    rcpp_result_gen = Rcpp::wrap(bmPermExact(rSorted, n1, tObs));
+    rcpp_result_gen = Rcpp::wrap(bm_perm_exact_cpp(rSorted, n1, tObs));
     return rcpp_result_gen;
 END_RCPP
 }
-// bmPermMC
-NumericVector bmPermMC(NumericVector rSorted, int n1, double tObs, int nPerm);
-RcppExport SEXP _lumen_bmPermMC(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP, SEXP nPermSEXP) {
+// bm_perm_mc_cpp
+NumericVector bm_perm_mc_cpp(NumericVector rSorted, int n1, double tObs, int nPerm);
+RcppExport SEXP _lumen_bm_perm_mc_cpp(SEXP rSortedSEXP, SEXP n1SEXP, SEXP tObsSEXP, SEXP nPermSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -163,7 +163,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
     Rcpp::traits::input_parameter< double >::type tObs(tObsSEXP);
     Rcpp::traits::input_parameter< int >::type nPerm(nPermSEXP);
-    rcpp_result_gen = Rcpp::wrap(bmPermMC(rSorted, n1, tObs, nPerm));
+    rcpp_result_gen = Rcpp::wrap(bm_perm_mc_cpp(rSorted, n1, tObs, nPerm));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -194,14 +194,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// check_gompertz
-Rcpp::LogicalVector check_gompertz(const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate);
-RcppExport SEXP _lumen_check_gompertz(SEXP shapeSEXP, SEXP rateSEXP) {
+// check_gompertz_cpp
+Rcpp::LogicalVector check_gompertz_cpp(const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate);
+RcppExport SEXP _lumen_check_gompertz_cpp(SEXP shapeSEXP, SEXP rateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type shape(shapeSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type rate(rateSEXP);
-    rcpp_result_gen = Rcpp::wrap(check_gompertz(shape, rate));
+    rcpp_result_gen = Rcpp::wrap(check_gompertz_cpp(shape, rate));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -281,9 +281,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// pan
-double pan(NumericVector A, int M, double C, int N);
-RcppExport SEXP _lumen_pan(SEXP ASEXP, SEXP MSEXP, SEXP CSEXP, SEXP NSEXP) {
+// pan_cpp
+double pan_cpp(NumericVector A, int M, double C, int N);
+RcppExport SEXP _lumen_pan_cpp(SEXP ASEXP, SEXP MSEXP, SEXP CSEXP, SEXP NSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -291,7 +291,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type M(MSEXP);
     Rcpp::traits::input_parameter< double >::type C(CSEXP);
     Rcpp::traits::input_parameter< int >::type N(NSEXP);
-    rcpp_result_gen = Rcpp::wrap(pan(A, M, C, N));
+    rcpp_result_gen = Rcpp::wrap(pan_cpp(A, M, C, N));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -308,9 +308,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// pruns_rcpp
-double pruns_rcpp(int r, int n1, int n2, std::string alternative);
-RcppExport SEXP _lumen_pruns_rcpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
+// pruns_cpp
+double pruns_cpp(int r, int n1, int n2, std::string alternative);
+RcppExport SEXP _lumen_pruns_cpp(SEXP rSEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP alternativeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -318,35 +318,35 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
     Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
     Rcpp::traits::input_parameter< std::string >::type alternative(alternativeSEXP);
-    rcpp_result_gen = Rcpp::wrap(pruns_rcpp(r, n1, n2, alternative));
+    rcpp_result_gen = Rcpp::wrap(pruns_cpp(r, n1, n2, alternative));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_lumen_ADstat", (DL_FUNC) &_lumen_ADstat, 1},
-    {"_lumen_ADtest", (DL_FUNC) &_lumen_ADtest, 1},
-    {"_lumen_ADprobExactInf", (DL_FUNC) &_lumen_ADprobExactInf, 1},
-    {"_lumen_ADprobApproxInf", (DL_FUNC) &_lumen_ADprobApproxInf, 1},
-    {"_lumen_ADprobN", (DL_FUNC) &_lumen_ADprobN, 2},
-    {"_lumen_ADtestR", (DL_FUNC) &_lumen_ADtestR, 1},
-    {"_lumen_binomdiffciMee", (DL_FUNC) &_lumen_binomdiffciMee, 6},
-    {"_lumen_binomdiffciMN", (DL_FUNC) &_lumen_binomdiffciMN, 6},
-    {"_lumen_blaker_find_crossing", (DL_FUNC) &_lumen_blaker_find_crossing, 8},
-    {"_lumen_bmCore", (DL_FUNC) &_lumen_bmCore, 2},
-    {"_lumen_bmPermExact", (DL_FUNC) &_lumen_bmPermExact, 3},
-    {"_lumen_bmPermMC", (DL_FUNC) &_lumen_bmPermMC, 4},
+    {"_lumen_ad_stat_cpp", (DL_FUNC) &_lumen_ad_stat_cpp, 1},
+    {"_lumen_ad_test_cpp", (DL_FUNC) &_lumen_ad_test_cpp, 1},
+    {"_lumen_ad_prob_exact_inf_cpp", (DL_FUNC) &_lumen_ad_prob_exact_inf_cpp, 1},
+    {"_lumen_ad_prob_approx_inf_cpp", (DL_FUNC) &_lumen_ad_prob_approx_inf_cpp, 1},
+    {"_lumen_ad_prob_n_cpp", (DL_FUNC) &_lumen_ad_prob_n_cpp, 2},
+    {"_lumen_ad_test_r_cpp", (DL_FUNC) &_lumen_ad_test_r_cpp, 1},
+    {"_lumen_binom_diff_ci_mee_cpp", (DL_FUNC) &_lumen_binom_diff_ci_mee_cpp, 6},
+    {"_lumen_binom_diff_ci_mn_cpp", (DL_FUNC) &_lumen_binom_diff_ci_mn_cpp, 6},
+    {"_lumen_blaker_find_crossing_cpp", (DL_FUNC) &_lumen_blaker_find_crossing_cpp, 8},
+    {"_lumen_bm_core_cpp", (DL_FUNC) &_lumen_bm_core_cpp, 2},
+    {"_lumen_bm_perm_exact_cpp", (DL_FUNC) &_lumen_bm_perm_exact_cpp, 3},
+    {"_lumen_bm_perm_mc_cpp", (DL_FUNC) &_lumen_bm_perm_mc_cpp, 4},
     {"_lumen_dgompertz_cpp", (DL_FUNC) &_lumen_dgompertz_cpp, 4},
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
-    {"_lumen_check_gompertz", (DL_FUNC) &_lumen_check_gompertz, 2},
+    {"_lumen_check_gompertz_cpp", (DL_FUNC) &_lumen_check_gompertz_cpp, 2},
     {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 1},
     {"_lumen_mad_boot_cpp", (DL_FUNC) &_lumen_mad_boot_cpp, 6},
     {"_lumen_mad_diff_boot_cpp", (DL_FUNC) &_lumen_mad_diff_boot_cpp, 7},
     {"_lumen_mad_ratio_boot_cpp", (DL_FUNC) &_lumen_mad_ratio_boot_cpp, 7},
     {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 5},
-    {"_lumen_pan", (DL_FUNC) &_lumen_pan, 4},
+    {"_lumen_pan_cpp", (DL_FUNC) &_lumen_pan_cpp, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
-    {"_lumen_pruns_rcpp", (DL_FUNC) &_lumen_pruns_rcpp, 4},
+    {"_lumen_pruns_cpp", (DL_FUNC) &_lumen_pruns_cpp, 4},
     {NULL, NULL, 0}
 };
 

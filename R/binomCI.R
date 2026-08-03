@@ -642,11 +642,11 @@ binomCI <- function(x, n,
   uci <- 1
   
   if (x != 0)
-    lci <- blaker_find_crossing(x, n, alpha,
+    lci <- blaker_find_crossing_cpp(x, n, alpha,
                                 qbeta(alpha / 2, x, n - x + 1), p.hat, TRUE)
   
   if (x != n)
-    uci <- blaker_find_crossing(x, n, alpha,
+    uci <- blaker_find_crossing_cpp(x, n, alpha,
                                 p.hat, qbeta(1 - alpha / 2, x + 1, n - x), FALSE)
   
   c(lci = lci, uci = uci)

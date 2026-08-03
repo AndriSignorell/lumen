@@ -167,6 +167,8 @@ private:
 } // namespace gompertz
 } // unnamed namespace
 
+
+
 // ---------------- exported functions ----------------
 
 // [[Rcpp::export(rng=false)]]
@@ -193,6 +195,7 @@ dgompertz_cpp(const Rcpp::NumericVector& x,
   
 }
 
+
 // [[Rcpp::export(rng=false)]]
 Rcpp::NumericVector
 pgompertz_cpp(const Rcpp::NumericVector& q,
@@ -213,9 +216,11 @@ pgompertz_cpp(const Rcpp::NumericVector& q,
   );
 }
 
+
+
 // [[Rcpp::export(name="check.gompertz", rng=false)]]
 Rcpp::LogicalVector
-check_gompertz(const Rcpp::NumericVector& shape,
+check_gompertz_cpp(const Rcpp::NumericVector& shape,
                const Rcpp::NumericVector& rate) {
   
   if (shape.size() == 0 && rate.size() == 0) {

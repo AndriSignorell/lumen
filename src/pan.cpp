@@ -3,8 +3,9 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+
 // [[Rcpp::export]]
-double pan(NumericVector A, int M, double C, int N) {
+double pan_cpp(NumericVector A, int M, double C, int N) {
   
   const double ZERO = 0.0;
   const double ONE  = 1.0;

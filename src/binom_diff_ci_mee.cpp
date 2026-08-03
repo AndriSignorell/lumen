@@ -77,7 +77,7 @@ double binomdiffci_mee_pval(int x1, int n1,
 // ============================================================
   
 // [[Rcpp::export]]
-double binomdiffciMee(int x1, int n1,
+double binom_diff_ci_mee_cpp(int x1, int n1,
                       int x2, int n2,
                       double alpha,
                       bool lower) {

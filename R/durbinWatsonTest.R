@@ -285,13 +285,14 @@ durbinWatsonTest.default <- function(x, ...) {
   ev <- ev[ev > tol]
 
   # pan() returns P(DW <= x), see the Rcpp implementation
-  pdw <- function(x) pan(c(x, ev), length(ev), 0, iterations)
+  pdw <- function(x) pan_cpp(c(x, ev), length(ev), 0, iterations)
 
   switch(alternative,
          "two.sided" = 2 * min(pdw(dw), 1 - pdw(dw)),
          "less"      = 1 - pdw(dw),
          "greater"   = pdw(dw))
 }
+
 
 
 .dwPvalueApprox <- function(dw, X, XtX_inv, n, k, alternative) {

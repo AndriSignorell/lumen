@@ -158,7 +158,7 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
 
 simpleADtest <- function(U) {
   # internal: call the Marsaglia C++ code (expects sorted values)
-  z <- ADtestR(sort(U))
+  z <- ad_test_r_cpp(sort(U))
   list(statistic = z$adstat, pvalue = z$pvalue, statname = "An")
 }
 

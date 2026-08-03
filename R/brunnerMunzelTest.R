@@ -218,7 +218,7 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
   nPerm <- as.integer(nPerm)
 
   r <- rank(c(x, y))
-  core <- .bmCore(r[seq_len(n1)], r[n1 + seq_len(n2)])
+  core <- bm_core_cpp(r[seq_len(n1)], r[n1 + seq_len(n2)])
   phat <- core[["phat"]]
   se <- core[["se"]]
   df <- core[["df"]]
@@ -264,12 +264,12 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
                             "distribution instead"), nSplit))
       if(nSplit > .bmMaxExact)
         message(gettextf("enumerating %.0f splits, this may take a while", nSplit))
-      cnt <- .bmPermExact(sort(r), n1, statistic)
+      cnt <- bm_perm_exact_cpp(sort(r), n1, statistic)
       pval <- cnt[[alternative]] / cnt[["n"]]
       mstr <- gettextf("Brunner-Munzel test (exact studentized permutation, %.0f splits)",
                        cnt[["n"]])
     } else {
-      cnt <- .bmPermMC(sort(r), n1, statistic, nPerm)
+      cnt <- bm_perm_mc_cpp(sort(r), n1, statistic, nPerm)
       pval <- (1 + cnt[[alternative]]) / (1 + cnt[["n"]])
       mstr <- gettextf("Brunner-Munzel test (studentized permutation, %.0f resamples)",
                        cnt[["n"]])

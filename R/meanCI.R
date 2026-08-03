@@ -48,7 +48,7 @@
 #'   \item{\code{uci}}{upper confidence interval bound}
 #' }
 #'
-#' @seealso \code{\link[DescToolsX]{meanX}}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
+#' @seealso \code{DescToolsX::meanX}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
 #' \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
 #'
 #' @references Wilcox, R. R., Keselman H. J. (2003) Modern robust data analysis

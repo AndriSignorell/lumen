@@ -107,7 +107,7 @@ Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis
 testing} Elsevier Academic Press
 }
 \seealso{
-\code{\link[DescToolsX]{meanX}}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
+\code{DescToolsX::meanX}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
 \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
 
 Other ci.location:

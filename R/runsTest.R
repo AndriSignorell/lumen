@@ -321,7 +321,7 @@ runsTest.default <- function(x,
 .pruns <- function(r, n1, n2,
                    alternative = c("two.sided", "less", "greater")) {
   alternative <- match.arg(alternative)
-  pruns_rcpp(r, n1, n2, alternative)
+  pruns_cpp(r, n1, n2, alternative)
 }
 
 

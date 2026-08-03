@@ -85,8 +85,8 @@ static inline void gather(const double* rs, const char* in, int N,
 // ------------------------------------------------------------------ core ---
 
 //' @noRd
-// [[Rcpp::export(.bmCore)]]
-NumericVector bmCore(NumericVector rx, NumericVector ry) {
+// [[Rcpp::export]]
+NumericVector bm_core_cpp(NumericVector rx, NumericVector ry) {
   const int n1 = rx.size(), n2 = ry.size();
   std::vector<double> sx(rx.begin(), rx.end()), sy(ry.begin(), ry.end());
   std::sort(sx.begin(), sx.end());
@@ -115,11 +115,14 @@ NumericVector bmCore(NumericVector rx, NumericVector ry) {
     _["se"] = se, _["v1"] = v1, _["v2"] = v2);
 }
 
+
+
 // ----------------------------------------------------------- permutation ---
 
 //' @noRd
-// [[Rcpp::export(.bmPermExact)]]
-NumericVector bmPermExact(NumericVector rSorted, int n1, double tObs) {
+// [[Rcpp::export]]
+NumericVector bm_perm_exact_cpp(NumericVector rSorted, int n1, double tObs) {
+  
   const int N = rSorted.size(), n2 = N - n1;
   const double* rs = rSorted.begin();
   // tObs is infinite under complete separation; a relative tolerance would
@@ -154,13 +157,18 @@ NumericVector bmPermExact(NumericVector rSorted, int n1, double tObs) {
     for (int j = i + 1; j < n1; ++j) idx[j] = idx[j - 1] + 1;
     for (int j = 0; j < n1; ++j) in[idx[j]] = 1;
   }
+  
   return NumericVector::create(_["less"] = cLess, _["greater"] = cGreater,
                                _["two.sided"] = cAbs, _["n"] = total);
+  
 }
 
+
+
 //' @noRd
-// [[Rcpp::export(.bmPermMC)]]
-NumericVector bmPermMC(NumericVector rSorted, int n1, double tObs, int nPerm) {
+// [[Rcpp::export]]
+NumericVector bm_perm_mc_cpp(NumericVector rSorted, int n1, double tObs, int nPerm) {
+  
   const int N = rSorted.size(), n2 = N - n1;
   const double* rs = rSorted.begin();
   // tObs is infinite under complete separation; a relative tolerance would
@@ -192,6 +200,10 @@ NumericVector bmPermMC(NumericVector rSorted, int n1, double tObs, int nPerm) {
 
     if ((b & 0xFFFF) == 0xFFFF) Rcpp::checkUserInterrupt();
   }
+  
   return NumericVector::create(_["less"] = cLess, _["greater"] = cGreater,
                                _["two.sided"] = cAbs, _["n"] = (double) nPerm);
+  
 }
+
+

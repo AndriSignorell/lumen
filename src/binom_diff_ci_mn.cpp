@@ -43,12 +43,14 @@ double binomdiffci_mn_score(double p1, int n1,
   return diff * diff / var;
 }
 
+
+
 // ------------------------------------------------------------
 // CI boundary (lower or upper) (Miettinen–Nurminen)
 // ------------------------------------------------------------
 
 // [[Rcpp::export]]
-double binomdiffciMN(int x1, int n1,
+double binom_diff_ci_mn_cpp(int x1, int n1,
                       int x2, int n2,
                       double z,
                       bool lower) {

@@ -43,7 +43,7 @@ inline double accept_bin(int x, int n, double p) {
 // for degenerate brackets, never the working path.
 
 // [[Rcpp::export]]
-double blaker_find_crossing(
+double blaker_find_crossing_cpp(
     int    x,
     int    n,
     double alpha,

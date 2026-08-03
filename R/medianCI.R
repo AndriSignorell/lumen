@@ -64,7 +64,7 @@
 #' 
 #' 
 #' @seealso \code{\link{wilcox.test}}, 
-#' \code{\link{median}}, \code{\link[DescToolsX]{hodgesLehmann}}
+#' \code{\link{median}}, \code{DescToolsX::hodgesLehmann}
 #' 
 #' @family ci.location
 #' @concept confidence-intervals

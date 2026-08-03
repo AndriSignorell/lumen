@@ -6,9 +6,7 @@ using namespace Rcpp;
 
 /* 
  AnDarl.c
- 
  $Revision: 1.2 $  $Date: 2018/03/29 08:07:08 $
- 
  Original C code by G. and J. Marsaglia
  
  R interface by Adrian Baddeley
@@ -170,7 +168,7 @@ double ADinf(double z) {
 ============================================================ */
   
   // [[Rcpp::export]]
-double ADstat(NumericVector x) {
+double ad_stat_cpp(NumericVector x) {
   int n = x.size();
   double z = 0.0;
   
@@ -182,15 +180,15 @@ double ADstat(NumericVector x) {
 }
 
 // [[Rcpp::export]]
-double ADtest(NumericVector x) {
+double ad_test_cpp(NumericVector x) {
   int n = x.size();
-  double a = ADstat(x);
+  double a = ad_stat_cpp(x);
   double p = AD(n, a);
   return 1.0 - p;
 }
 
 // [[Rcpp::export]]
-NumericVector ADprobExactInf(NumericVector a) {
+NumericVector ad_prob_exact_inf_cpp(NumericVector a) {
   int m = a.size();
   NumericVector prob(m);
   for (int i = 0; i < m; i++) prob[i] = ADinf(a[i]);
@@ -198,7 +196,7 @@ NumericVector ADprobExactInf(NumericVector a) {
 }
 
 // [[Rcpp::export]]
-NumericVector ADprobApproxInf(NumericVector a) {
+NumericVector ad_prob_approx_inf_cpp(NumericVector a) {
   int m = a.size();
   NumericVector prob(m);
   for (int i = 0; i < m; i++) prob[i] = adinf(a[i]);
@@ -206,7 +204,7 @@ NumericVector ADprobApproxInf(NumericVector a) {
 }
 
 // [[Rcpp::export]]
-NumericVector ADprobN(NumericVector a, int n) {
+NumericVector ad_prob_n_cpp(NumericVector a, int n) {
   int m = a.size();
   NumericVector prob(m);
   for (int i = 0; i < m; i++) prob[i] = AD(n, a[i]);
@@ -215,11 +213,11 @@ NumericVector ADprobN(NumericVector a, int n) {
 
   
 // [[Rcpp::export]]
-Rcpp::List ADtestR(const Rcpp::NumericVector& x) {
+Rcpp::List ad_test_r_cpp(const Rcpp::NumericVector& x) {
   const int n = x.size();
   
-  double a = ADstat(x);      // Teststatistik
-  double p = AD(n, a);       // Verteilungsfunktion
+  double a = ad_stat_cpp(x);      // test statistic
+  double p = AD(n, a);           // distribution function
   
   return Rcpp::List::create(
     Rcpp::Named("adstat") = a,

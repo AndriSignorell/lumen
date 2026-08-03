@@ -34,7 +34,7 @@ test_that("pan: called as in durbinWatsonTest gives value in [0,1]", {
   MA  <- (diag(n_) - X_ %*% chol2inv(qr.R(qr(X_))) %*% t(X_)) %*% A_
   ev  <- Re(eigen(MA, only.values = TRUE)$values)
   ev  <- ev[ev > 1e-10]
-  p   <- pan(c(dw, ev), length(ev), 0, 15)
+  p   <- pan_cpp(c(dw, ev), length(ev), 0, 15)
   expect_gte(p, 0)
   expect_lte(p, 1)
 })

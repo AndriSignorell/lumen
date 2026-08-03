@@ -323,7 +323,12 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
   } else {
     
     for (nm in names(xx)) {
-      xx[[nm]][] <- fm(xx[[nm]], fmt = "p", na.form = "-")
+      # naForm, not na.form: the latter is the argument of format.pval(),
+      # from which this branch was ported (see the commented line above).
+      # fm() has no na.form, so it landed in '...' and aborted the print
+      # method - only in this branch, which no example but the last one
+      # reaches.
+      xx[[nm]][] <- fm(xx[[nm]], fmt = "p", naForm = "-")
     }
     
     print(xx, digits = digits, quote = FALSE, ...)

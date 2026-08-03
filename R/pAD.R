@@ -72,13 +72,13 @@ pAD <- function(q, n=Inf, lower.tail=TRUE, fast=TRUE) {
   
   if(nok > 0) {
     if(is.finite(n)) {
-      p[ok] <- ADprobN(q[ok], n)
+      p[ok] <- ad_prob_n_cpp(q[ok], n)
     } else if(fast) {
       ## fast version adinf()
-      p[ok] <- ADprobApproxInf(q[ok])
+      p[ok] <- ad_prob_approx_inf_cpp(q[ok])
     } else {
       ## slow, accurate version ADinf()
-      p[ok] <- ADprobExactInf(q[ok])
+      p[ok] <- ad_prob_exact_inf_cpp(q[ok])
     }
   }
   

@@ -91,7 +91,7 @@
 #'   intervals for median absolute deviations. \emph{arXiv:1910.00229}
 #'   \verb{[math.ST]}.
 #'
-#' @seealso \code{\link{mad}}, \code{\link[DescToolsX]{madX}}
+#' @seealso \code{\link{mad}}, \code{DescToolsX::madX}
 #'
 #' @examples
 #' set.seed(1)

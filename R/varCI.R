@@ -31,7 +31,7 @@
 #' }
 #' 
 #' @seealso \code{\link{meanCI}}, \code{\link{medianCI}},
-#' \code{\link{varTest}}, \code{\link[DescToolsX]{varX}} 
+#' \code{\link{varTest}}, \code{DescToolsX::varX} 
 #' 
 #' @references Bonett (2006) Approximate Confidence Interval for Standard
 #' Deviation of Nonnormal Distributions, \emph{Computational Statistics and

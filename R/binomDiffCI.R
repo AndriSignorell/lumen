@@ -513,8 +513,8 @@ binomDiffCI <- function(x1, n1, x2, n2,
   z <- qchisq(1-alpha, 1)
   
   return( c(
-    lci = binomdiffciMN(x1, n1, x2, n2, z, TRUE),
-    uci = binomdiffciMN(x1, n1, x2, n2, z, FALSE)
+    lci = binom_diff_ci_mn_cpp(x1, n1, x2, n2, z, TRUE),
+    uci = binom_diff_ci_mn_cpp(x1, n1, x2, n2, z, FALSE)
   ))
   
 }
@@ -524,8 +524,8 @@ binomDiffCI <- function(x1, n1, x2, n2,
   #  "mee"  Mee, also called Farrington-Mannig
   
   return( c(
-    lci = binomdiffciMee(x1, n1, x2, n2, alpha, TRUE),
-    uci = binomdiffciMee(x1, n1, x2, n2, alpha, FALSE)
+    lci = binom_diff_ci_mee_cpp(x1, n1, x2, n2, alpha, TRUE),
+    uci = binom_diff_ci_mee_cpp(x1, n1, x2, n2, alpha, FALSE)
   ))
   
 }
