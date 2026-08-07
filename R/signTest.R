@@ -7,7 +7,7 @@
 #' 
 #' Performs one- and two-sample sign tests on vectors of data.
 #' 
-#' There is no formula interface: unlike \code{\link{wilcox.test}}'s
+#' There is no formula interface: unlike [wilcox.test()]'s
 #' \code{paired} argument, a one-sample or paired-samples design has no
 #' natural mapping to \code{response ~ group} formula semantics (the
 #' pairing order is not expressible that way), so none is offered here.
@@ -53,7 +53,7 @@
 #' \item{conf.int}{ a confidence interval for the median.} \item{estimate}{ the
 #' sample median.}
 #' 
-#' @seealso \code{\link{t.test}}, \code{\link{wilcox.test}},
+#' @seealso [t.test()], [wilcox.test()],
 #' \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}
 #' in the package \pkg{BSDA} (reporting approximative confidence intervals).
 #' 

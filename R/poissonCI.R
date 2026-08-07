@@ -1,81 +1,84 @@
 
 
-#' Poisson Confidence Interval 
-#' 
-#' Computes the confidence intervals of a poisson distributed variable's
-#' lambda. Several methods are implemented, see details.
-#' 
-#' The Wald interval uses the asymptotic normality of the test statistic.
-#' 
-#' Byar's method is quite a good approximation. Rothman and Boice (1979)
-#' mention that these limits were first proposed by Byar (unpublished).
-#' 
-#' @param x number of events.
-#' @param n time base for event count.
-#' @param conf.level confidence level, defaults to 0.95.
-#' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. You can specify just the initial letter. \code{"left"} would
-#' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
-#' @param method character string specifing which method to use; can be one out
-#' of \code{"wald"}, \code{"score"}, \code{"exact"} or \code{"byar"}.  Method
-#' can be abbreviated. See details. Defaults to \code{"score"}.
-#' 
-#' @return A named numeric vector with elements:
+#' Confidence Interval for a Poisson Rate
+#'
+#' Estimates a Poisson event rate and calculates an exact or approximate
+#' confidence interval.
+#'
+#' @param x non-negative integer event count or vector of counts
+#' @param n positive exposure associated with `x`, such as observation time,
+#'   person-time, or population at risk; may be a vector and defaults to 1
+#' @param conf.level numeric confidence level between 0 and 1; defaults to 0.95
+#' @param sides type of confidence interval: `"two.sided"`, `"left"`, or
+#'   `"right"`; may be abbreviated
+#' @param method method used to calculate the confidence interval: `"exact"`,
+#'   `"score"`, `"wald"`, or `"byar"`; may be abbreviated and may contain
+#'   several methods; defaults to `"exact"`
+#'
+#' @return If all arguments identify a single result, a named numeric vector
+#'   with elements:
+#'   \describe{
+#'     \item{`est`}{estimated event rate}
+#'     \item{`lci`}{lower confidence bound}
+#'     \item{`uci`}{upper confidence bound}
+#'   }
+#'   Otherwise, a `data.frame` containing these three columns and the recycled
+#'   argument values that identify each result.
+#'
+#' @details
+#' The function assumes
+#' \deqn{X \sim \mathrm{Poisson}(n\lambda),}
+#' where `x` is the observed event count, `n` is the exposure, and
+#' \eqn{\lambda} is the event rate. The point estimate is
+#' \eqn{\hat{\lambda} = x/n}.
+#'
+#' The available confidence-interval methods are:
 #' \describe{
-#'   \item{\code{est}}{point estimate.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`"exact"`}{the exact Poisson interval calculated by
+#'     [stats::poisson.test()], equivalent to the Garwood interval}
+#'   \item{`"score"`}{the interval obtained by inverting the Poisson score
+#'     test}
+#'   \item{`"wald"`}{the normal-approximation interval centred at
+#'     \eqn{\hat{\lambda}}}
+#'   \item{`"byar"`}{Byar's cube-root normal approximation}
 #' }
-#' 
-#' @references Agresti, A. and Coull, B.A. (1998) Approximate is better than
-#' "exact" for interval estimation of binomial proportions. \emph{American
-#' Statistician}, \bold{52}, pp. 119-126.
-#' 
-#' Rothman KJ, Boice JD, Jr. (1979) Epidemiologic Analysis with a Programmable
-#' Calculator (NIH Publication 79-1649). Washington DC: US Government Printing
-#' Office.
-#' 
-#' Garwood, F. (1936) Fiducial Limits for the Poisson distribution.
-#' \emph{Biometrika} 28:437-442.
-#' 
-#' \url{https://www.ine.pt/revstat/pdf/rs120203.pdf}
-#'  
-#' @seealso \code{\link{poisson.test}}
-#' 
+#'
+#' The lower bound is restricted to the parameter space \eqn{[0, \infty)}.
+#' For `sides = "left"`, the function returns a lower one-sided confidence
+#' bound and sets `uci` to `Inf`. This corresponds to the alternative
+#' `"greater"` in a hypothesis test. For `sides = "right"`, it returns an
+#' upper one-sided confidence bound and sets `lci` to 0.
+#'
+#' Compatible vector lengths are recycled. Supplying several methods therefore
+#' provides the corresponding intervals in a single `data.frame`.
+#'
+#' @references
+#' Garwood, F. (1936). Fiducial limits for the Poisson distribution.
+#' \emph{Biometrika}, \bold{28}, 437--442.
+#'
+#' Rothman, K. J. and Boice, J. D. Jr. (1979). \emph{Epidemiologic Analysis
+#' with a Programmable Calculator}. NIH Publication No. 79-1649. Washington,
+#' DC: US Government Printing Office.
+#'
+#' @seealso [stats::poisson.test()]
+#'
 #' @examples
-#' # the horse kick example
+#' # Deaths from horse kicks in 280 Prussian army corps-years
 #' count <- 0:4
-#' deaths <- c(144, 91, 32, 11, 2)
-#' 
-#' n <- sum(deaths)
-#' x <- sum(count * deaths)
-#' 
-#' lambda <- x/n
-#' 
-#' poissonCI(x=x, n=n, method = c("exact","score", "wald", "byar"))
-#' 
-#' exp <- dpois(0:4, lambda) * n
-#' 
-#' barplot(rbind(deaths, exp * n/sum(exp)), names=0:4, beside=TRUE,
-#'   col=c("deeppink4", "skyblue3"), main = "Deaths from Horse Kicks", 
-#'   xlab = "count")
-#' legend("topright", legend=c("observed","expected"), 
-#'   fill=c("deeppink4", "skyblue3"), bg="white")
-#' 
-#' 
-#' # SMR, Welsh Nickel workers
-#' poissonCI(x=137, n=24.19893)
-#' 
-#' # Source: https://www.stata.com/manuals/rci.pdf, example 4
-#' # (using raw data)
-#' petri <- c(1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 3, 0, 1, 2, 
-#'            3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 
-#'            3, 0, 1, 2, 3, 4, 3, 0)
-#' 
-#' poissonCI(sum(petri), length(petri))
-#' 
-#' @family ci.proportion
+#' corpsYears <- c(144, 91, 32, 11, 2)
+#'
+#' x <- sum(count * corpsYears)
+#' n <- sum(corpsYears)
+#'
+#' poissonCI(x, n)
+#' poissonCI(x, n, method = c("exact", "score", "wald", "byar"))
+#'
+#' # A 95% lower confidence bound for the event rate
+#' poissonCI(x, n, sides = "left")
+#'
+#' # SMR for Welsh nickel workers
+#' poissonCI(x = 137, n = 24.19893)
+#'
 #' @concept confidence-interval
 #'
 #' @export

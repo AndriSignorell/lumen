@@ -68,8 +68,6 @@
 #' average error models when the regressors include lagged dependent
 #' variables. \emph{Econometrica}, 46, 1293-1301.
 #'
-#' @seealso \code{\link{durbinWatsonTest}}
-#'
 #' @examples
 #' ## Generate a stationary and an AR(1) series
 #' set.seed(1)

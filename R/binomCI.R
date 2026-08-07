@@ -94,15 +94,6 @@
 #' \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 #' within the valid parameter space.
 #'
-#' \strong{Which interval should be used?}\cr
-#' The Wald interval is known to have poor coverage properties,
-#' particularly for small sample sizes or proportions near 0 or 1.
-#' In contrast, the Clopper-Pearson interval is conservative and
-#' often unnecessarily wide. Brown et al. (2001) recommend the
-#' Wilson or Jeffreys intervals for small sample sizes, and
-#' the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
-#' as providing more reliable coverage than most alternatives.
-#'
 #' For the methods \code{"wilson"}, \code{"wilson-cc"},
 #' \code{"wilson-mod"}, \code{"agresti-coull"},
 #' \code{"witting"}, and \code{"arcsine"},
@@ -110,6 +101,15 @@
 #' by setting \code{stdEst = FALSE}. These estimators are typically
 #' slightly shrunk toward 0.5 compared to the usual estimator \eqn{x/n}.
 #' See the cited literature for further details.
+#' 
+#' @section \strong{Which interval should be used?}:
+#' The Wald interval is known to have poor coverage properties,
+#' particularly for small sample sizes or proportions near 0 or 1.
+#' In contrast, the Clopper-Pearson interval is conservative and
+#' often unnecessarily wide. Brown et al. (2001) recommend the
+#' Wilson or Jeffreys intervals for small sample sizes, and
+#' the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
+#' as providing more reliable coverage than most alternatives.
 #' 
 #' @param x number of successes.
 #' @param n number of trials.

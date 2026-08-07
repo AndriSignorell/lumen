@@ -93,7 +93,7 @@
 #' \emph{Journal of Nonparametric Statistics}, \strong{35}, 541--563.
 #'
 #' @seealso
-#' \code{\link{wilcox.test}}
+#' [wilcox.test()]
 #'
 #' @examples
 #' ## Hollander & Wolfe example

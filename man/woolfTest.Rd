@@ -52,7 +52,7 @@ Woolf, B. 1955: On estimating the relation between blood group
 and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
 }
 \seealso{
-\code{\link{mantelhaen.test}}, \code{\link{breslowDayTest}}
+\code{\link[=mantelhaen.test]{mantelhaen.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

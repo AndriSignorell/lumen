@@ -140,6 +140,8 @@ Cochran, W.G. (1950) The Comparison of Percentages in Matched
 Samples. \emph{Biometrika}, 37 (3/4): 256-266.
 }
 \seealso{
+\code{\link[=friedman.test]{friedman.test()}}
+
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
 \code{\link[=bhapkarTest]{bhapkarTest()}},

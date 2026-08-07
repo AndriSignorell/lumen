@@ -100,6 +100,8 @@
 #'   p.adjust.method = "fdr"
 #' )
 #'
+#' @seealso [friedman.test()]
+#'
 #' @family test.categorical
 #' @concept k-sample
 #' @concept nonparametric

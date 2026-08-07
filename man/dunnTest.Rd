@@ -128,7 +128,7 @@ Dunn, O. J. (1964) Multiple comparisons using rank sums.
 \emph{Technometrics}, 6 (3), 241-252.
 }
 \seealso{
-\code{\link{kruskal.test}}, \code{\link{wilcox.test}},
+\code{\link[=kruskal.test]{kruskal.test()}}, \code{\link[=wilcox.test]{wilcox.test()}},
 \code{\link{p.adjust}}
 
 Other test.posthoc:

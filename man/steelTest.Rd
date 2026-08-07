@@ -141,7 +141,7 @@ Improved tie correction methods for Steel-type rank tests.
 \emph{Journal of Nonparametric Statistics}, \strong{35}, 541--563.
 }
 \seealso{
-\code{\link{wilcox.test}}
+\code{\link[=wilcox.test]{wilcox.test()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

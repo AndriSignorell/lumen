@@ -111,10 +111,7 @@
 #'     \item{\code{data.name}}{Character string describing the data.}
 #'   }
 #'
-#' @seealso
-#' \code{\link{wilcox.test}},
-#' \code{\link{ks.test}},
-#' \code{\link{ansari.test}}
+#' @seealso [wilcox.test()], [ks.test()], [ansari.test()]
 #'
 #' @references
 #' Moses, L.E. (1952).

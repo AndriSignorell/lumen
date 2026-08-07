@@ -48,8 +48,7 @@
 #'   \item{\code{uci}}{upper confidence interval bound}
 #' }
 #'
-#' @seealso \code{DescToolsX::meanX}, \code{\link{t.test}}, \code{\link{meanDiffCI}},
-#' \code{\link{medianCI}}, \code{\link{varCI}}, \code{\link{meanCIn}}
+#' @seealso \code{DescToolsX::meanX()}, [t.test()], [varCI()]
 #'
 #' @references Wilcox, R. R., Keselman H. J. (2003) Modern robust data analysis
 #' methods: measures of central tendency \emph{Psychol Methods}, 8(3):254-74

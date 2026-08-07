@@ -82,13 +82,13 @@ Thode Jr., H.C. (2002) \emph{Testing for Normality}, New York: Marcel
 Dekker.
 }
 \seealso{
-\code{\link{shapiro.test}}, \code{\link{andersonDarlingTest}},
-\code{\link{cramerVonMisesTest}}
+\code{\link[=shapiro.test]{shapiro.test()}}
 
 Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

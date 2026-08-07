@@ -185,8 +185,7 @@ non-parametric Behrens-Fisher problem. \emph{Computational Statistics and
 Data Analysis}, \bold{51}(10), 5192-5204.
 }
 \seealso{
-\code{\link{yuenTTest}}, \code{\link[stats]{wilcox.test}},
-\code{\link{vanWaerdenTest}}
+\code{\link[=wilcox.test]{wilcox.test()}}
 
 Other test.location:
 \code{\link[=hotellingsT2Test]{hotellingsT2Test()}},

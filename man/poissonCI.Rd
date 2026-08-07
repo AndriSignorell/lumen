@@ -2,7 +2,7 @@
 % Please edit documentation in R/poissonCI.R
 \name{poissonCI}
 \alias{poissonCI}
-\title{Poisson Confidence Interval}
+\title{Confidence Interval for a Poisson Rate}
 \usage{
 poissonCI(
   x,
@@ -13,96 +13,89 @@ poissonCI(
 )
 }
 \arguments{
-\item{x}{number of events.}
+\item{x}{non-negative integer event count or vector of counts}
 
-\item{n}{time base for event count.}
+\item{n}{positive exposure associated with \code{x}, such as observation time,
+person-time, or population at risk; may be a vector and defaults to 1}
 
-\item{conf.level}{confidence level, defaults to 0.95.}
+\item{conf.level}{numeric confidence level between 0 and 1; defaults to 0.95}
 
-\item{sides}{a character string specifying the side of the confidence
-interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-\code{"right"}. You can specify just the initial letter. \code{"left"} would
-be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+\item{sides}{type of confidence interval: \code{"two.sided"}, \code{"left"}, or
+\code{"right"}; may be abbreviated}
 
-\item{method}{character string specifing which method to use; can be one out
-of \code{"wald"}, \code{"score"}, \code{"exact"} or \code{"byar"}.  Method
-can be abbreviated. See details. Defaults to \code{"score"}.}
+\item{method}{method used to calculate the confidence interval: \code{"exact"},
+\code{"score"}, \code{"wald"}, or \code{"byar"}; may be abbreviated and may contain
+several methods; defaults to \code{"exact"}}
 }
 \value{
-A named numeric vector with elements:
+If all arguments identify a single result, a named numeric vector
+with elements:
 \describe{
-\item{\code{est}}{point estimate.}
-\item{\code{lci}}{lower confidence interval bound.}
-\item{\code{uci}}{upper confidence interval bound.}
+\item{\code{est}}{estimated event rate}
+\item{\code{lci}}{lower confidence bound}
+\item{\code{uci}}{upper confidence bound}
 }
+Otherwise, a \code{data.frame} containing these three columns and the recycled
+argument values that identify each result.
 }
 \description{
-Computes the confidence intervals of a poisson distributed variable's
-lambda. Several methods are implemented, see details.
+Estimates a Poisson event rate and calculates an exact or approximate
+confidence interval.
 }
 \details{
-The Wald interval uses the asymptotic normality of the test statistic.
+The function assumes
+\deqn{X \sim \mathrm{Poisson}(n\lambda),}
+where \code{x} is the observed event count, \code{n} is the exposure, and
+\eqn{\lambda} is the event rate. The point estimate is
+\eqn{\hat{\lambda} = x/n}.
 
-Byar's method is quite a good approximation. Rothman and Boice (1979)
-mention that these limits were first proposed by Byar (unpublished).
+The available confidence-interval methods are:
+\describe{
+\item{\code{"exact"}}{the exact Poisson interval calculated by
+\code{\link[stats:poisson.test]{stats::poisson.test()}}, equivalent to the Garwood interval}
+\item{\code{"score"}}{the interval obtained by inverting the Poisson score
+test}
+\item{\code{"wald"}}{the normal-approximation interval centred at
+\eqn{\hat{\lambda}}}
+\item{\code{"byar"}}{Byar's cube-root normal approximation}
+}
+
+The lower bound is restricted to the parameter space \eqn{[0, \infty)}.
+For \code{sides = "left"}, the function returns a lower one-sided confidence
+bound and sets \code{uci} to \code{Inf}. This corresponds to the alternative
+\code{"greater"} in a hypothesis test. For \code{sides = "right"}, it returns an
+upper one-sided confidence bound and sets \code{lci} to 0.
+
+Compatible vector lengths are recycled. Supplying several methods therefore
+provides the corresponding intervals in a single \code{data.frame}.
 }
 \examples{
-# the horse kick example
+# Deaths from horse kicks in 280 Prussian army corps-years
 count <- 0:4
-deaths <- c(144, 91, 32, 11, 2)
+corpsYears <- c(144, 91, 32, 11, 2)
 
-n <- sum(deaths)
-x <- sum(count * deaths)
+x <- sum(count * corpsYears)
+n <- sum(corpsYears)
 
-lambda <- x/n
+poissonCI(x, n)
+poissonCI(x, n, method = c("exact", "score", "wald", "byar"))
 
-poissonCI(x=x, n=n, method = c("exact","score", "wald", "byar"))
+# A 95\% lower confidence bound for the event rate
+poissonCI(x, n, sides = "left")
 
-exp <- dpois(0:4, lambda) * n
-
-barplot(rbind(deaths, exp * n/sum(exp)), names=0:4, beside=TRUE,
-  col=c("deeppink4", "skyblue3"), main = "Deaths from Horse Kicks", 
-  xlab = "count")
-legend("topright", legend=c("observed","expected"), 
-  fill=c("deeppink4", "skyblue3"), bg="white")
-
-
-# SMR, Welsh Nickel workers
-poissonCI(x=137, n=24.19893)
-
-# Source: https://www.stata.com/manuals/rci.pdf, example 4
-# (using raw data)
-petri <- c(1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 3, 0, 1, 2, 
-           3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 
-           3, 0, 1, 2, 3, 4, 3, 0)
-
-poissonCI(sum(petri), length(petri))
+# SMR for Welsh nickel workers
+poissonCI(x = 137, n = 24.19893)
 
 }
 \references{
-Agresti, A. and Coull, B.A. (1998) Approximate is better than
-"exact" for interval estimation of binomial proportions. \emph{American
-Statistician}, \bold{52}, pp. 119-126.
+Garwood, F. (1936). Fiducial limits for the Poisson distribution.
+\emph{Biometrika}, \bold{28}, 437--442.
 
-Rothman KJ, Boice JD, Jr. (1979) Epidemiologic Analysis with a Programmable
-Calculator (NIH Publication 79-1649). Washington DC: US Government Printing
-Office.
-
-Garwood, F. (1936) Fiducial Limits for the Poisson distribution.
-\emph{Biometrika} 28:437-442.
-
-\url{https://www.ine.pt/revstat/pdf/rs120203.pdf}
+Rothman, K. J. and Boice, J. D. Jr. (1979). \emph{Epidemiologic Analysis
+with a Programmable Calculator}. NIH Publication No. 79-1649. Washington,
+DC: US Government Printing Office.
 }
 \seealso{
-\code{\link{poisson.test}}
-
-Other ci.proportion:
-\code{\link[=binomCI]{binomCI()}},
-\code{\link[=binomDiffCI]{binomDiffCI()}},
-\code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}},
-\code{\link[=poissonDiffCI]{poissonDiffCI()}},
-\code{\link[=poissonRatioCI]{poissonRatioCI()}}
+\code{\link[stats:poisson.test]{stats::poisson.test()}}
 }
-\concept{ci.proportion}
 \concept{confidence-interval}

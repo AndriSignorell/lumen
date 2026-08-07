@@ -94,10 +94,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
 86 ff.
 }
 \seealso{
-\code{\link{bhapkarTest}} for a more powerful alternative to the
-Stuart-Maxwell test
-
-\code{\link{mcnemar.test}}, \code{\link{chisq.test}},
+\code{\link[=mcnemar.test]{mcnemar.test()}}, \code{\link[=chisq.test]{chisq.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

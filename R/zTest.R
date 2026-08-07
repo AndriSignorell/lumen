@@ -63,7 +63,7 @@
 #' string indicating what type of test was performed.} \item{data.name}{a
 #' character string giving the name(s) of the data.}
 #' 
-#' @seealso \code{\link{t.test}}, \code{\link{print.htest}}
+#' @seealso [t.test()], \code{\link{print.htest}}
 #' @references Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
 #' vieweg
 #' 

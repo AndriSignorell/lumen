@@ -111,8 +111,6 @@ successive difference to the variance. \emph{Annals of Mathematical
 Statistics} \bold{12}, 367-395.
 }
 \seealso{
-\code{\link{vonNeumannTest}}, \code{\link{runsTest}}
-
 Other test.timeseries:
 \code{\link[=adfTest]{adfTest()}},
 \code{\link[=kpssTest]{kpssTest()}},

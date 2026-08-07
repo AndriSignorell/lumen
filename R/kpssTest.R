@@ -57,8 +57,6 @@
 #' alternative of a unit root: How sure are we that economic time series
 #' have a unit root? \emph{Journal of Econometrics}, \bold{54}, 159--178.
 #'
-#' @seealso \code{\link{adfTest}}
-#'
 #' @examples
 #' # trend-stationary series: null hypothesis is not rejected
 #' set.seed(1)

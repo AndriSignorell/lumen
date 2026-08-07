@@ -209,10 +209,7 @@ Interval estimation for the difference between independent proportions.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}},
-\code{\link[=poissonCI]{poissonCI()}},
-\code{\link[=poissonDiffCI]{poissonDiffCI()}},
-\code{\link[=poissonRatioCI]{poissonRatioCI()}}
+\code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{binary-outcome}
 \concept{categorical data}

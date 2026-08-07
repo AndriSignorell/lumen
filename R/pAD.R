@@ -52,7 +52,7 @@
 #'   qAD(0.5, n=5)
 #'   qAD(0.5)
 #' 
-#' @seealso \code{\link{andersonDarlingTest}}, [distributions-overview]
+#' @seealso [andersonDarlingTest()], [distributions-overview]
 #' @concept normality-test  
 #' @concept distribution-function
 #'

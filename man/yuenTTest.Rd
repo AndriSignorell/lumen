@@ -92,7 +92,7 @@ The two-sample trimmed t for unequal population variances.
 \emph{Biometrika}, 61, 165--170.
 }
 \seealso{
-\code{\link{t.test}}
+\code{\link[=t.test]{t.test()}}
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},

@@ -27,7 +27,7 @@
 #' previously published as \code{woolf_test()} in the
 #' \pkg{vcd} package, adapted to conform to package standards.
 #' 
-#' @seealso \code{\link{mantelhaen.test}}, \code{\link{breslowDayTest}}
+#' @seealso [mantelhaen.test()]
 #' 
 #' @references Woolf, B. 1955: On estimating the relation between blood group
 #' and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.

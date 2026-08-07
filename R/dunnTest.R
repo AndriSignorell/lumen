@@ -66,7 +66,7 @@
 #'   }
 #' }
 #'
-#' @seealso \code{\link{kruskal.test}}, \code{\link{wilcox.test}},
+#' @seealso [kruskal.test()], [wilcox.test()],
 #' \code{\link{p.adjust}}
 #'
 #' @references

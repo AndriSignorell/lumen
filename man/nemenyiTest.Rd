@@ -63,7 +63,7 @@ the family-wise error rate through the studentized range distribution
 (Tukey-type approximation) or an asymptotic chi-squared approximation.
 
 Nemenyi's test is commonly used as a post hoc procedure after a significant
-\code{\link{kruskal.test}} when all pairwise comparisons between groups are
+\code{\link[=kruskal.test]{kruskal.test()}} when all pairwise comparisons between groups are
 of interest. Unlike \code{\link{dunnTest}} and
 \code{\link{conoverTest}}, no additional p-value adjustment is applied,
 since multiplicity control is built into the test statistic.
@@ -102,7 +102,7 @@ Hollander, M., Wolfe, D. A. and Chicken, E. (2014).
 3rd ed. Wiley.
 }
 \seealso{
-\code{\link{kruskal.test}}
+\code{\link[=kruskal.test]{kruskal.test()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

@@ -60,59 +60,80 @@
 }
 
 
-#' Confidence Intervals for the Difference of Two Poisson Rates
+#' Confidence Interval for the Difference Between Two Poisson Rates
 #'
-#' Computes a confidence interval for the difference \eqn{x_1/n_1 - x_2/n_2} of
-#' two independent Poisson rates.
+#' Estimates the difference between two independent Poisson event rates and
+#' calculates a confidence interval.
+#'
+#' @param x1 non-negative integer event count or vector of counts for the first
+#'   sample
+#' @param n1 positive exposure associated with `x1`, such as observation time,
+#'   person-time, or population at risk; may be a vector and defaults to 1
+#' @param x2 non-negative integer event count or vector of counts for the second
+#'   sample
+#' @param n2 positive exposure associated with `x2`; may be a vector and
+#'   defaults to 1
+#' @param conf.level numeric confidence level between 0 and 1; defaults to 0.95
+#' @param sides type of confidence interval: `"two.sided"`, `"left"`, or
+#'   `"right"`; may be abbreviated
+#' @param method method used to calculate the confidence interval: `"mover"`
+#'   or `"wald"`; may be abbreviated and defaults to `"mover"`
+#'
+#' @return If the arguments identify a single result, a named numeric vector
+#'   with elements:
+#'   \describe{
+#'     \item{`est`}{estimated rate difference}
+#'     \item{`lci`}{lower confidence bound}
+#'     \item{`uci`}{upper confidence bound}
+#'   }
+#'   Otherwise, a `data.frame` containing these three columns followed by the
+#'   recycled values of `x1`, `n1`, `x2`, `n2`, and `conf.level`.
 #'
 #' @details
-#' \code{"mover"} (default) applies the method of variance estimates recovery of
-#' Zou and Donner (2008): exact Garwood limits are obtained for each rate
-#' separately and recombined, which keeps the interval close to nominal coverage
-#' even for small counts. \code{"wald"} uses the asymptotic normal
-#' approximation and degenerates to zero width when both counts are zero.
+#' The function assumes two independent counts
+#' \deqn{X_i \sim \mathrm{Poisson}(n_i\lambda_i), \quad i = 1, 2.}
+#' The parameter of interest is the rate difference
+#' \eqn{\Delta = \lambda_1 - \lambda_2}, estimated by
+#' \eqn{\hat{\Delta} = x_1/n_1 - x_2/n_2}.
 #'
-#' Arguments are recycled to a common length. \code{sides} names the side
-#' carrying the finite limit: \code{"left"} yields \eqn{[lci, \infty)} and
-#' \code{"right"} yields \eqn{(-\infty, uci]}, with the full error probability
-#' placed on that one side.
+#' The available confidence-interval methods are:
+#' \describe{
+#'   \item{`"mover"`}{the method of variance estimates recovery (MOVER),
+#'     which combines separate exact Garwood limits for the two rates}
+#'   \item{`"wald"`}{the normal-approximation interval based on the standard
+#'     error \eqn{\sqrt{x_1/n_1^2 + x_2/n_2^2}}}
+#' }
+#' The Wald interval has zero width when both counts are zero.
 #'
-#' @param x1 number of events in the first sample
-#' @param n1 time base for the first event count
-#' @param x2 number of events in the second sample
-#' @param n2 time base for the second event count
-#' @param conf.level confidence level, defaults to 0.95
-#' @param sides a character string specifying the side of the confidence
-#'   interval, one of \code{"two.sided"} (default), \code{"left"} or
-#'   \code{"right"}
-#' @param method character string specifying the method, either \code{"mover"}
-#'   (default) or \code{"wald"}
+#' For `sides = "left"`, the function returns a lower one-sided confidence
+#' bound and sets `uci` to `Inf`. For `sides = "right"`, it returns an upper
+#' one-sided confidence bound and sets `lci` to `-Inf`.
 #'
-#' @return If recycling yields a single case, a named numeric vector with
-#'   elements \code{est}, \code{lci} and \code{uci}. Otherwise a data frame with
-#'   one row per case, whose first three columns are \code{est}, \code{lci} and
-#'   \code{uci} and whose remaining columns contain the recycled argument
-#'   values.
+#' The numeric arguments are recycled to a common length only when their
+#' lengths are compatible whole multiples. Incompatible lengths produce an
+#' error. `sides` and `method` must each identify a single choice.
 #'
 #' @references
-#' Zou, G. Y., Donner, A. (2008) Construction of confidence limits about effect
-#' measures: a general approach. \emph{Statistics in Medicine}, \bold{27}(10),
-#' 1693-1702.
+#' Zou, G. Y. and Donner, A. (2008). Construction of confidence limits about
+#' effect measures: a general approach. \emph{Statistics in Medicine},
+#' \bold{27}(10), 1693--1702.
 #'
-#' @seealso \code{\link{poissonCI}}, \code{\link{poissonRatioCI}},
-#'   \code{\link{binomDiffCI}}
+#' @seealso [poissonCI()], [poissonRatioCI()], [binomDiffCI()]
 #'
-#' @family ci.proportion
+#' @concept confidence-interval
 #' @concept rate
 #'
 #' @examples
-#' ## 15 events in 100 person-years against 6 events in 120 person-years
+#' # 15 events in 100 person-years compared with
+#' # 6 events in 120 person-years
 #' poissonDiffCI(15, 100, 6, 120)
-#' ## [1] est 0.10000000 lci 0.01155263 uci 0.20241565
 #'
 #' poissonDiffCI(15, 100, 6, 120, method = "wald")
 #'
-#' ## recycling returns one row per case
+#' # A 95% lower confidence bound for the rate difference
+#' poissonDiffCI(15, 100, 6, 120, sides = "left")
+#'
+#' # Recycling returns one row per comparison
 #' poissonDiffCI(x1 = c(15, 20), n1 = 100, x2 = 6, n2 = 120)
 #'
 #' @export
@@ -150,68 +171,95 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 }
 
 
-#' Confidence Intervals for the Ratio of Two Poisson Rates
+#' Confidence Interval for the Ratio of Two Poisson Rates
 #'
-#' Computes a confidence interval for the ratio \eqn{(x_1/n_1) / (x_2/n_2)} of
-#' two independent Poisson rates.
+#' Estimates the ratio of two independent Poisson event rates and calculates a
+#' confidence interval.
+#'
+#' @param x1 non-negative integer event count or vector of counts for the first
+#'   sample
+#' @param n1 positive exposure associated with `x1`, such as observation time,
+#'   person-time, or population at risk; may be a vector and defaults to 1
+#' @param x2 non-negative integer event count or vector of counts for the second
+#'   sample
+#' @param n2 positive exposure associated with `x2`; may be a vector and
+#'   defaults to 1
+#' @param conf.level numeric confidence level between 0 and 1; defaults to 0.95
+#' @param sides type of confidence interval: `"two.sided"`, `"left"`, or
+#'   `"right"`; may be abbreviated
+#' @param method method used to calculate the confidence interval: `"exact"`,
+#'   `"midp"`, or `"wald-log"`; may be abbreviated and defaults to `"exact"`
+#'
+#' @return If the arguments identify a single result, a named numeric vector
+#'   with elements:
+#'   \describe{
+#'     \item{`est`}{estimated rate ratio}
+#'     \item{`lci`}{lower confidence bound}
+#'     \item{`uci`}{upper confidence bound}
+#'   }
+#'   Otherwise, a `data.frame` containing these three columns followed by the
+#'   recycled values of `x1`, `n1`, `x2`, `n2`, and `conf.level`.
 #'
 #' @details
-#' \code{"exact"} (default) conditions on the total count: given
-#' \eqn{x_1 + x_2}, the count \eqn{x_1} is binomial with success probability
-#' \eqn{n_1\theta/(n_1\theta + n_2)}, so a Clopper-Pearson interval for that
-#' probability maps directly to one for the rate ratio \eqn{\theta}. This is the
-#' construction underlying \code{\link[stats]{poisson.test}} for two samples.
-#' \code{"midp"} replaces the Clopper-Pearson limits by their mid-p
-#' counterparts, which are shorter and closer to nominal coverage at the cost of
-#' exactness. \code{"wald-log"} is the asymptotic interval symmetric on the log
-#' scale and is undefined when either count is zero, in which case
-#' \eqn{(0, \infty)} is returned.
+#' The function assumes two independent counts
+#' \deqn{X_i \sim \mathrm{Poisson}(n_i\lambda_i), \quad i = 1, 2.}
+#' The parameter of interest is the rate ratio
+#' \eqn{\theta = \lambda_1/\lambda_2}, estimated by
+#' \eqn{\hat{\theta} = (x_1/n_1)/(x_2/n_2)}.
 #'
-#' Arguments are recycled to a common length. \code{sides} names the side
-#' carrying the finite limit, and since the ratio is bounded below by zero the
-#' open end of a one-sided interval is reported as \code{0} or \code{Inf}
-#' rather than as \eqn{\pm\infty}.
+#' The available confidence-interval methods are:
+#' \describe{
+#'   \item{`"exact"`}{the exact conditional interval obtained by conditioning
+#'     on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
+#'     resulting binomial probability; this is the construction used by
+#'     [stats::poisson.test()] for two samples}
+#'   \item{`"midp"`}{the corresponding conditional mid-p interval, which is
+#'     generally shorter but does not guarantee conservative coverage}
+#'   \item{`"wald-log"`}{the asymptotic Wald interval, symmetric on the
+#'     logarithmic scale}
+#' }
 #'
-#' @param x1 number of events in the first sample
-#' @param n1 time base for the first event count
-#' @param x2 number of events in the second sample
-#' @param n2 time base for the second event count
-#' @param conf.level confidence level, defaults to 0.95
-#' @param sides a character string specifying the side of the confidence
-#'   interval, one of \code{"two.sided"} (default), \code{"left"} or
-#'   \code{"right"}
-#' @param method character string specifying the method, one of \code{"exact"}
-#'   (default), \code{"midp"} or \code{"wald-log"}
+#' For `sides = "left"`, the function returns a lower one-sided confidence
+#' bound and sets `uci` to `Inf`. For `sides = "right"`, it returns an upper
+#' one-sided confidence bound and sets `lci` to 0, the lower limit of the
+#' parameter space.
 #'
-#' @return If recycling yields a single case, a named numeric vector with
-#'   elements \code{est}, \code{lci} and \code{uci}. Otherwise a data frame with
-#'   one row per case, whose first three columns are \code{est}, \code{lci} and
-#'   \code{uci} and whose remaining columns contain the recycled argument
-#'   values.
+#' The log-Wald interval cannot be calculated when either count is zero and is
+#' then returned as `[0, Inf]`. If both counts are zero, the rate ratio and its
+#' point estimate are undefined; the function returns `NA` for `est` and
+#' `[0, Inf]` for the confidence interval for every method. If only `x2` is
+#' zero, the point estimate is `Inf`.
+#'
+#' The numeric arguments are recycled to a common length only when their
+#' lengths are compatible whole multiples. Incompatible lengths produce an
+#' error. `sides` and `method` must each identify a single choice.
 #'
 #' @references
-#' Sahai, H., Khurshid, A. (1993) Confidence intervals for the ratio of two
-#' Poisson means. \emph{The Mathematical Scientist}, \bold{18}, 43-50.
+#' Sahai, H. and Khurshid, A. (1993). Confidence intervals for the ratio of two
+#' Poisson means. \emph{The Mathematical Scientist}, \bold{18}, 43--50.
 #'
-#' Graham, P. L., Mengersen, K., Morton, A. P. (2003) Confidence limits for the
-#' ratio of two rates based on likelihood scores. \emph{Statistics in Medicine},
-#' \bold{22}(12), 2071-2083.
+#' Graham, P. L., Mengersen, K. and Morton, A. P. (2003). Confidence limits for
+#' the ratio of two rates based on likelihood scores. \emph{Statistics in
+#' Medicine}, \bold{22}(12), 2071--2083.
 #'
-#' @seealso \code{\link{poissonCI}}, \code{\link{poissonDiffCI}},
-#'   \code{\link{binomRatioCI}}, \code{\link[stats]{poisson.test}}
+#' @seealso [poissonCI()], [poissonDiffCI()], [binomRatioCI()],
+#'   [stats::poisson.test()]
 #'
-#' @family ci.proportion
+#' @concept confidence-interval
 #' @concept rate
 #'
 #' @examples
-#' ## 15 events in 100 person-years against 6 events in 120 person-years
+#' # 15 events in 100 person-years compared with
+#' # 6 events in 120 person-years
 #' poissonRatioCI(15, 100, 6, 120)
-#' ## [1] est 3.000000 lci 1.099947 uci 9.437411
 #'
-#' ## agrees with the two-sample conditional test in stats
+#' # The exact interval agrees with the two-sample conditional test in stats
 #' poisson.test(c(15, 6), c(100, 120))$conf.int
 #'
 #' poissonRatioCI(15, 100, 6, 120, method = "midp")
+#'
+#' # Zero counts are handled explicitly
+#' poissonRatioCI(0, 100, 6, 120)
 #'
 #' @export
 poissonRatioCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,

@@ -41,8 +41,7 @@
 #' @return
 #' An object of class \code{"htest"}.
 #'
-#' @seealso
-#' \code{\link{t.test}}
+#' @seealso [t.test()]
 #'
 #' @references
 #' Wilcox, R. R. (2005).

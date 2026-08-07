@@ -16,7 +16,7 @@
 #' \eqn{R[i], i = 1, 2, ..., n}, divided by \eqn{1 + n} transformed to a normal
 #' score by applying the inverse of the normal distribution function, i.e.,
 #' \eqn{\Phi^(-1)(R[i]/(1 + n))}. The ranks of data are obtained by ordering
-#' the observations from all groups (the same way as \code{\link{kruskal.test}}
+#' the observations from all groups (the same way as [kruskal.test()]
 #' does it).
 #' 
 #' If \code{x} is a list, its elements are taken as the samples to be compared,

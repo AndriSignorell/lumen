@@ -222,94 +222,104 @@ export(vonNeumannTest)
 export(woolfTest)
 export(yuenTTest)
 export(zTest)
-importFrom(bedrock,allDuplicated)
-importFrom(bedrock,asBinary)
-importFrom(bedrock,isNumeric)
-importFrom(bedrock,logitInv)
-importFrom(bedrock,pairApply)
-importFrom(bedrock,recycle)
-importFrom(bedrock,removeAttr)
-importFrom(bedrock,resolveContingency)
-importFrom(bedrock,resolveFormula)
-importFrom(bedrock,resolveGroups)
-importFrom(bedrock,setNamesX)
-importFrom(bedrock,unirootAll)
-importFrom(bedrock,winsorize)
-importFrom(graphics,abline)
-importFrom(graphics,title)
-importFrom(pharos,fm)
-importFrom(pharos,plotDot)
-importFrom(stats,AIC)
-importFrom(stats,anova)
-importFrom(stats,aov)
-importFrom(stats,approx)
-importFrom(stats,binom.test)
-importFrom(stats,chisq.test)
-importFrom(stats,coef)
-importFrom(stats,complete.cases)
-importFrom(stats,convolve)
-importFrom(stats,cor)
-importFrom(stats,cov)
-importFrom(stats,dbinom)
-importFrom(stats,dchisq)
-importFrom(stats,df)
-importFrom(stats,embed)
-importFrom(stats,filter)
-importFrom(stats,fitted)
-importFrom(stats,formula)
-importFrom(stats,friedman.test)
-importFrom(stats,integrate)
-importFrom(stats,lm)
-importFrom(stats,lm.fit)
-importFrom(stats,lm.wfit)
-importFrom(stats,mad)
-importFrom(stats,mantelhaen.test)
-importFrom(stats,median)
-importFrom(stats,model.frame)
-importFrom(stats,model.matrix)
-importFrom(stats,model.response)
-importFrom(stats,model.tables)
-importFrom(stats,na.action)
-importFrom(stats,na.omit)
-importFrom(stats,na.pass)
-importFrom(stats,p.adjust)
-importFrom(stats,p.adjust.methods)
-importFrom(stats,pbeta)
-importFrom(stats,pbinom)
-importFrom(stats,pchisq)
-importFrom(stats,pf)
-importFrom(stats,pnorm)
-importFrom(stats,poisson.test)
-importFrom(stats,ppoints)
-importFrom(stats,ppois)
-importFrom(stats,pt)
-importFrom(stats,ptukey)
-importFrom(stats,pwilcox)
-importFrom(stats,qbeta)
-importFrom(stats,qbinom)
-importFrom(stats,qchisq)
-importFrom(stats,qexp)
-importFrom(stats,qf)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,qtukey)
-importFrom(stats,quantile)
-importFrom(stats,rbeta)
-importFrom(stats,residuals)
-importFrom(stats,rexp)
-importFrom(stats,rgamma)
-importFrom(stats,rnorm)
-importFrom(stats,runif)
-importFrom(stats,sd)
-importFrom(stats,setNames)
-importFrom(stats,symnum)
-importFrom(stats,t.test)
-importFrom(stats,terms)
-importFrom(stats,uniroot)
-importFrom(stats,var)
-importFrom(stats,var.test)
-importFrom(stats,weighted.mean)
-importFrom(stats,weights)
-importFrom(stats,wilcox.test)
-importFrom(stats,xtabs)
+importFrom(Rcpp,evalCpp)
+importFrom(RcppParallel,RcppParallelLibs)
+importFrom(bedrock,
+  allDuplicated,
+  asBinary,
+  isNumeric,
+  logitInv,
+  pairApply,
+  recycle,
+  removeAttr,
+  resolveContingency,
+  resolveFormula,
+  resolveGroups,
+  setNamesX,
+  unirootAll,
+  winsorize
+)
+importFrom(graphics,
+  abline,
+  title
+)
+importFrom(pharos,
+  fm,
+  plotDot
+)
+importFrom(stats,
+  AIC,
+  anova,
+  aov,
+  approx,
+  binom.test,
+  chisq.test,
+  coef,
+  complete.cases,
+  convolve,
+  cor,
+  cov,
+  dbinom,
+  dchisq,
+  df,
+  embed,
+  filter,
+  fitted,
+  formula,
+  friedman.test,
+  integrate,
+  lm,
+  lm.fit,
+  lm.wfit,
+  mad,
+  mantelhaen.test,
+  median,
+  model.frame,
+  model.matrix,
+  model.response,
+  model.tables,
+  na.action,
+  na.omit,
+  na.pass,
+  p.adjust,
+  p.adjust.methods,
+  pbeta,
+  pbinom,
+  pchisq,
+  pf,
+  pnorm,
+  poisson.test,
+  ppoints,
+  ppois,
+  pt,
+  ptukey,
+  pwilcox,
+  qbeta,
+  qbinom,
+  qchisq,
+  qexp,
+  qf,
+  qnorm,
+  qt,
+  qtukey,
+  quantile,
+  rbeta,
+  residuals,
+  rexp,
+  rgamma,
+  rnorm,
+  runif,
+  sd,
+  setNames,
+  symnum,
+  t.test,
+  terms,
+  uniroot,
+  var,
+  var.test,
+  weighted.mean,
+  weights,
+  wilcox.test,
+  xtabs
+)
 useDynLib(lumen, .registration = TRUE)

@@ -66,8 +66,7 @@
 #'     symmetric matrix of adjusted p-values.
 #'   }
 #'
-#' @seealso \code{\link{kruskal.test}}, \code{\link{wilcox.test}},
-#' \code{\link{p.adjust}}
+#' @seealso [kruskal.test()], [wilcox.test()], [p.adjust()]
 #'
 #' @references
 #' Conover, W. J. and Iman, R. L. (1979) On multiple-comparisons procedures.

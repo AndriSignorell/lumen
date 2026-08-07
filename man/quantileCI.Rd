@@ -78,8 +78,7 @@ quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 
 }
 \seealso{
-\code{DescToolsX::quantileX}, \code{\link{quantile}},
-\code{\link{medianCI}}
+\code{DescToolsX::quantileX}, \code{\link[=quantile]{quantile()}},
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},

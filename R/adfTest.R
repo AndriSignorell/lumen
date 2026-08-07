@@ -48,7 +48,7 @@
 #'   \item{\code{parameter}}{the number of lagged differences included in the
 #'     test regression (after lag selection, if requested).}
 #'   \item{\code{p.value}}{the interpolated p-value of the tau statistic.}
-#'   \item{\code{critical.values}}{a matrix with the 1\%, 5\% and 10\% critical
+#'   \item{\code{critical.values}}{a matrix with the 1%, 5% and 10% critical
 #'     values of all reported statistics, interpolated for the effective
 #'     sample size (not shown on screen).}
 #'   \item{\code{alternative}}{a character string describing the alternative

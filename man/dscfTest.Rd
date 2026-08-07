@@ -128,7 +128,7 @@ variance.
 \strong{20}, 127--139.
 }
 \seealso{
-\code{\link{kruskal.test}}
+\code{\link[=kruskal.test]{kruskal.test()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

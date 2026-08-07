@@ -61,7 +61,7 @@
 #' comparison of goodness-of-fit tests for the logistic regression model.
 #' \emph{Statistics in Medicine}, 16, 965-980.
 #'
-#' @seealso \code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
+#' @seealso [glm()]
 #'
 #' @examples
 #' set.seed(111)

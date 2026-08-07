@@ -102,9 +102,7 @@ with unequal n's and/or variances: a Monte Carlo study. \emph{Journal of
 Educational Statistics}, \bold{1}(2), 113-125.
 }
 \seealso{
-\code{\link{postHoc}}, \code{\link{scheffeTest}},
-\code{\link{dunnettTest}}, \code{\link[stats]{TukeyHSD}},
-\code{\link{yuenTTest}}
+\code{\link[=TukeyHSD]{TukeyHSD()}}, \link{yuenTTest}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

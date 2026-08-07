@@ -97,6 +97,7 @@ Other test.normality:
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

@@ -76,9 +76,7 @@ homogeneity of square contingency tables. \emph{Biometrical Journal},
 22 (8), 795-798.
 }
 \seealso{
-\code{\link{stuartMaxwellTest}}, \code{\link{bhapkarTest}} for
-related tests of marginal homogeneity; \code{\link{mcnemar.test}} for
-the 2x2 case
+\code{\link[=mcnemar.test]{mcnemar.test()}} for the 2x2 case
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

@@ -67,9 +67,7 @@
 #' with unequal n's and/or variances: a Monte Carlo study. \emph{Journal of
 #' Educational Statistics}, \bold{1}(2), 113-125.
 #'
-#' @seealso \code{\link{postHoc}}, \code{\link{scheffeTest}},
-#'   \code{\link{dunnettTest}}, \code{\link[stats]{TukeyHSD}},
-#'   \code{\link{yuenTTest}}
+#' @seealso [TukeyHSD()], [yuenTTest]
 #'
 #' @family test.posthoc
 #' @concept multiple-comparison

@@ -80,8 +80,6 @@ Randomness. \emph{Journal of the American Statistical Association},
 \bold{77}(377), 40--46.
 }
 \seealso{
-\code{\link{bartelsRankTest}}
-
 Other test.timeseries:
 \code{\link[=adfTest]{adfTest()}},
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},

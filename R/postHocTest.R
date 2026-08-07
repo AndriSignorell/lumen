@@ -342,6 +342,8 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 
 
 
+#' Plot Routine for Posthoc Tests Results
+#' 
 #' The plot method visualizes pairwise comparisons from a \code{PostHocTest} object 
 #' using dot plots.
 #' Each component of \code{x} is plotted separately, showing estimated differences
@@ -361,8 +363,7 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 #' @return
 #' Invisibly returns \code{NULL}.
 #'
-#' @seealso
-#' \code{\link[pharos]{plotDot}}
+#' @seealso [pharos::plotDot()]
 #'
 #' @method plot PostHocTest
 #' @family test.posthoc

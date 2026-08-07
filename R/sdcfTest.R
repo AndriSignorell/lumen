@@ -90,7 +90,7 @@
 #' \strong{20}, 127--139.
 #'
 #' @seealso
-#' \code{\link{kruskal.test}}
+#' [kruskal.test()]
 #'
 #' @examples
 #' ## Hollander & Wolfe style example

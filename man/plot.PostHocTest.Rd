@@ -2,10 +2,7 @@
 % Please edit documentation in R/postHocTest.R
 \name{plot.PostHocTest}
 \alias{plot.PostHocTest}
-\title{The plot method visualizes pairwise comparisons from a \code{PostHocTest} object
-using dot plots.
-Each component of \code{x} is plotted separately, showing estimated differences
-along with confidence intervals. A vertical reference line at zero is added.}
+\title{Plot Routine for Posthoc Tests Results}
 \usage{
 \method{plot}{PostHocTest}(x, ...)
 }
@@ -31,7 +28,7 @@ differences in means and their confidence intervals. The confidence level
 is taken from the \code{"conf.level"} attribute of \code{x}.
 }
 \seealso{
-\code{\link[pharos]{plotDot}}
+\code{\link[pharos:plotDot]{pharos::plotDot()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

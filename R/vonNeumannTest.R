@@ -46,8 +46,6 @@
 #' \item{data.name}{a character string giving the name of the data.}
 #' \item{vn}{the value of the VN statistic (not printed).}
 #'
-#' @seealso \code{\link{bartelsRankTest}}
-#'
 #' @references
 #' von Neumann, J. (1941) Distribution of the ratio of the mean square
 #' successive difference to the variance. \emph{Annals of Mathematical

@@ -2,7 +2,7 @@
 % Please edit documentation in R/poissonDiffCI.R
 \name{poissonDiffCI}
 \alias{poissonDiffCI}
-\title{Confidence Intervals for the Difference of Two Poisson Rates}
+\title{Confidence Interval for the Difference Between Two Poisson Rates}
 \usage{
 poissonDiffCI(
   x1,
@@ -15,73 +15,86 @@ poissonDiffCI(
 )
 }
 \arguments{
-\item{x1}{number of events in the first sample}
+\item{x1}{non-negative integer event count or vector of counts for the first
+sample}
 
-\item{n1}{time base for the first event count}
+\item{n1}{positive exposure associated with \code{x1}, such as observation time,
+person-time, or population at risk; may be a vector and defaults to 1}
 
-\item{x2}{number of events in the second sample}
+\item{x2}{non-negative integer event count or vector of counts for the second
+sample}
 
-\item{n2}{time base for the second event count}
+\item{n2}{positive exposure associated with \code{x2}; may be a vector and
+defaults to 1}
 
-\item{conf.level}{confidence level, defaults to 0.95}
+\item{conf.level}{numeric confidence level between 0 and 1; defaults to 0.95}
 
-\item{sides}{a character string specifying the side of the confidence
-interval, one of \code{"two.sided"} (default), \code{"left"} or
-\code{"right"}}
+\item{sides}{type of confidence interval: \code{"two.sided"}, \code{"left"}, or
+\code{"right"}; may be abbreviated}
 
-\item{method}{character string specifying the method, either \code{"mover"}
-(default) or \code{"wald"}}
+\item{method}{method used to calculate the confidence interval: \code{"mover"}
+or \code{"wald"}; may be abbreviated and defaults to \code{"mover"}}
 }
 \value{
-If recycling yields a single case, a named numeric vector with
-elements \code{est}, \code{lci} and \code{uci}. Otherwise a data frame with
-one row per case, whose first three columns are \code{est}, \code{lci} and
-\code{uci} and whose remaining columns contain the recycled argument
-values.
+If the arguments identify a single result, a named numeric vector
+with elements:
+\describe{
+\item{\code{est}}{estimated rate difference}
+\item{\code{lci}}{lower confidence bound}
+\item{\code{uci}}{upper confidence bound}
+}
+Otherwise, a \code{data.frame} containing these three columns followed by the
+recycled values of \code{x1}, \code{n1}, \code{x2}, \code{n2}, and \code{conf.level}.
 }
 \description{
-Computes a confidence interval for the difference \eqn{x_1/n_1 - x_2/n_2} of
-two independent Poisson rates.
+Estimates the difference between two independent Poisson event rates and
+calculates a confidence interval.
 }
 \details{
-\code{"mover"} (default) applies the method of variance estimates recovery of
-Zou and Donner (2008): exact Garwood limits are obtained for each rate
-separately and recombined, which keeps the interval close to nominal coverage
-even for small counts. \code{"wald"} uses the asymptotic normal
-approximation and degenerates to zero width when both counts are zero.
+The function assumes two independent counts
+\deqn{X_i \sim \mathrm{Poisson}(n_i\lambda_i), \quad i = 1, 2.}
+The parameter of interest is the rate difference
+\eqn{\Delta = \lambda_1 - \lambda_2}, estimated by
+\eqn{\hat{\Delta} = x_1/n_1 - x_2/n_2}.
 
-Arguments are recycled to a common length. \code{sides} names the side
-carrying the finite limit: \code{"left"} yields \eqn{[lci, \infty)} and
-\code{"right"} yields \eqn{(-\infty, uci]}, with the full error probability
-placed on that one side.
+The available confidence-interval methods are:
+\describe{
+\item{\code{"mover"}}{the method of variance estimates recovery (MOVER),
+which combines separate exact Garwood limits for the two rates}
+\item{\code{"wald"}}{the normal-approximation interval based on the standard
+error \eqn{\sqrt{x_1/n_1^2 + x_2/n_2^2}}}
+}
+The Wald interval has zero width when both counts are zero.
+
+For \code{sides = "left"}, the function returns a lower one-sided confidence
+bound and sets \code{uci} to \code{Inf}. For \code{sides = "right"}, it returns an upper
+one-sided confidence bound and sets \code{lci} to \code{-Inf}.
+
+The numeric arguments are recycled to a common length only when their
+lengths are compatible whole multiples. Incompatible lengths produce an
+error. \code{sides} and \code{method} must each identify a single choice.
 }
 \examples{
-## 15 events in 100 person-years against 6 events in 120 person-years
+# 15 events in 100 person-years compared with
+# 6 events in 120 person-years
 poissonDiffCI(15, 100, 6, 120)
-## [1] est 0.10000000 lci 0.01155263 uci 0.20241565
 
 poissonDiffCI(15, 100, 6, 120, method = "wald")
 
-## recycling returns one row per case
+# A 95\% lower confidence bound for the rate difference
+poissonDiffCI(15, 100, 6, 120, sides = "left")
+
+# Recycling returns one row per comparison
 poissonDiffCI(x1 = c(15, 20), n1 = 100, x2 = 6, n2 = 120)
 
 }
 \references{
-Zou, G. Y., Donner, A. (2008) Construction of confidence limits about effect
-measures: a general approach. \emph{Statistics in Medicine}, \bold{27}(10),
-1693-1702.
+Zou, G. Y. and Donner, A. (2008). Construction of confidence limits about
+effect measures: a general approach. \emph{Statistics in Medicine},
+\bold{27}(10), 1693--1702.
 }
 \seealso{
-\code{\link{poissonCI}}, \code{\link{poissonRatioCI}},
-\code{\link{binomDiffCI}}
-
-Other ci.proportion:
-\code{\link[=binomCI]{binomCI()}},
-\code{\link[=binomDiffCI]{binomDiffCI()}},
-\code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}},
-\code{\link[=poissonCI]{poissonCI()}},
-\code{\link[=poissonRatioCI]{poissonRatioCI()}}
+\code{\link[=poissonCI]{poissonCI()}}, \code{\link[=poissonRatioCI]{poissonRatioCI()}}, \code{\link[=binomDiffCI]{binomDiffCI()}}
 }
-\concept{ci.proportion}
+\concept{confidence-interval}
 \concept{rate}

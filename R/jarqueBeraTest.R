@@ -56,8 +56,7 @@
 #' homoscedasticity and serial independence of regression residuals.
 #' \emph{Economics Letters}, 6, 255-259.
 #'
-#' @seealso \code{\link{andersonDarlingTest}},
-#' \code{\link{cramerVonMisesTest}}, \code{\link{shapiro.test}}
+#' @seealso [shapiro.test()]
 #'
 #' @examples
 #' set.seed(1)

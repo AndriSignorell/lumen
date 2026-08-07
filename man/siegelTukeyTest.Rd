@@ -171,7 +171,7 @@ Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 \code{\link{ansari.test}}, \code{\link{mood.test}},
-\code{\link{wilcox.test}}
+\code{\link[=wilcox.test]{wilcox.test()}}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

@@ -128,8 +128,7 @@ Conover, W. J. (1999) \emph{Practical Nonparametric Statistics}, 3rd ed.,
 Hoboken, NJ: Wiley.
 }
 \seealso{
-\code{\link{kruskal.test}}, \code{\link{wilcox.test}},
-\code{\link{p.adjust}}
+\code{\link[=kruskal.test]{kruskal.test()}}, \code{\link[=wilcox.test]{wilcox.test()}}, \code{\link[=p.adjust]{p.adjust()}}
 
 Other test.posthoc:
 \code{\link[=dscfTest]{dscfTest()}},

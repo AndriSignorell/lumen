@@ -58,7 +58,7 @@
 #' was performed.} \item{data.name}{a character string giving the name(s) of
 #' the data.}
 #' 
-#' @seealso \code{\link{t.test}}
+#' @seealso [t.test()]
 #' 
 #' @examples
 #' 

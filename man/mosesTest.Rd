@@ -174,9 +174,7 @@ A two-sample test.
 \doi{10.1007/BF02288735}
 }
 \seealso{
-\code{\link{wilcox.test}},
-\code{\link{ks.test}},
-\code{\link{ansari.test}}
+\code{\link[=wilcox.test]{wilcox.test()}}, \code{\link[=ks.test]{ks.test()}}, \code{\link[=ansari.test]{ansari.test()}}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

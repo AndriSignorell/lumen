@@ -98,7 +98,7 @@ comparison of goodness-of-fit tests for the logistic regression model.
 \emph{Statistics in Medicine}, 16, 965-980.
 }
 \seealso{
-\code{\link{hosmerLemeshowTest}}, \code{\link{glm}}
+\code{\link[=glm]{glm()}}
 
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},

@@ -82,8 +82,7 @@
 #' Conover, W. J. (1999) \emph{Practical Nonparametric Statistics}, 3rd edition.
 #' Wiley, New York, pp. 218-223.
 #'
-#' @seealso \code{\link{signTest}}, \code{\link{brunnerMunzelTest}},
-#'   \code{\link{vanWaerdenTest}}, \code{\link[stats]{mood.test}}
+#' @seealso [mood.test()]
 #'
 #' @family test.location
 #' @concept median

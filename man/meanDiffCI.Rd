@@ -62,7 +62,7 @@ the classical way or with the bootstrap approach.
 }
 \details{
 This function collects code from two sources. The classical confidence
-interval is calculated by means of \code{\link{t.test}}. The bootstrap
+interval is calculated by means of \code{\link[=t.test]{t.test()}}. The bootstrap
 intervals are strongly based on the example in \code{\link[boot]{boot}}.
 
 The bootstrap type \code{"stud"} (studentized) is not supported: the
@@ -92,8 +92,7 @@ with(mtcars, with(split(mpg, am),
 
 }
 \seealso{
-\code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
-\code{\link[boot]{boot.ci}}
+\code{\link[=varCI]{varCI()}}, \code{\link[boot:boot.ci]{boot::boot.ci()}}
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},

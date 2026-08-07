@@ -15,7 +15,6 @@
 #' @seealso \code{\link{dunnTest}}, \code{\link{conoverTest}},
 #'   \code{\link{nemenyiTest}}
 #'
-
 #' @export
 print.rankTest <- function(
     x,

@@ -52,7 +52,7 @@ from the hypothesized median.
 \details{
 Performs one- and two-sample sign tests on vectors of data.
 
-There is no formula interface: unlike \code{\link{wilcox.test}}'s
+There is no formula interface: unlike \code{\link[=wilcox.test]{wilcox.test()}}'s
 \code{paired} argument, a one-sample or paired-samples design has no
 natural mapping to \code{response ~ group} formula semantics (the
 pairing order is not expressible that way), so none is offered here.
@@ -112,7 +112,7 @@ Conover, W. J. (1980): \emph{Practical Nonparametric Statistics, 2nd ed}.
 Wiley, New York.
 }
 \seealso{
-\code{\link{t.test}}, \code{\link{wilcox.test}},
+\code{\link[=t.test]{t.test()}}, \code{\link[=wilcox.test]{wilcox.test()}},
 \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}
 in the package \pkg{BSDA} (reporting approximative confidence intervals).
 

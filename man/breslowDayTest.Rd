@@ -39,7 +39,7 @@ all \eqn{k} strata have the same OR. If \code{OR} is not given, the
 Mantel-Haenszel estimate is used.
 
 For the Breslow-Day test to be valid, the sample size should be
-relatively large in each stratum, and at least 80\\% of the expected cell
+relatively large in each stratum, and at least 80\% of the expected cell
 counts should be greater than 5. Note that this is a stricter sample
 size requirement than the requirement for the Cochran-Mantel-Haenszel
 test for tables, in that each stratum sample size (not just the overall

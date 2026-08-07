@@ -140,7 +140,7 @@ Hollander, M. and Wolfe, D. A. (1999) \emph{Nonparametric Statistical
 Methods}, 2nd ed., New York: Wiley.
 }
 \seealso{
-\code{\link{kruskal.test}}, \code{\link{cochranArmitageTest}}
+\code{\link[=kruskal.test]{kruskal.test()}}
 
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},

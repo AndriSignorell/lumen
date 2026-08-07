@@ -64,8 +64,7 @@
 #' Thode Jr., H.C. (2002) \emph{Testing for Normality}, New York: Marcel
 #' Dekker.
 #'
-#' @seealso \code{\link{shapiro.test}}, \code{\link{andersonDarlingTest}},
-#' \code{\link{cramerVonMisesTest}}
+#' @seealso [shapiro.test()]
 #'
 #' @examples
 #' set.seed(1)

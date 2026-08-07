@@ -84,13 +84,13 @@ homoscedasticity and serial independence of regression residuals.
 \emph{Economics Letters}, 6, 255-259.
 }
 \seealso{
-\code{\link{andersonDarlingTest}},
-\code{\link{cramerVonMisesTest}}, \code{\link{shapiro.test}}
+\code{\link[=shapiro.test]{shapiro.test()}}
 
 Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=lillieTest]{lillieTest()}},
+\code{\link[=pearsonTest]{pearsonTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

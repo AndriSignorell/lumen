@@ -133,8 +133,7 @@
 #' non-parametric Behrens-Fisher problem. \emph{Computational Statistics and
 #' Data Analysis}, \bold{51}(10), 5192-5204.
 #'
-#' @seealso \code{\link{yuenTTest}}, \code{\link[stats]{wilcox.test}},
-#'   \code{\link{vanWaerdenTest}}
+#' @seealso [wilcox.test()]
 #'
 #' @family test.location
 #' @concept rank-statistic

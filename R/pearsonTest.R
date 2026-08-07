@@ -56,14 +56,14 @@
 #' 
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #' 
-#' @seealso \code{\link{shapiro.test}} for performing the Shapiro-Wilk test
-#' for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
+#' @seealso [shapiro.test()] for performing the Shapiro-Wilk test
+#' for normality
 #' 
 #' @examples
 #' 
 #' pearsonTest(rnorm(100, mean = 5, sd = 3))
 #' pearsonTest(runif(100, min = 2, max = 4))
-#' #' @family test.normality
+#' @family test.normality
 #' @concept normality-test
 #' @concept goodness-of-fit
 #'

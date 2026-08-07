@@ -5,7 +5,7 @@
 #' the classical way or with the bootstrap approach.
 #' 
 #' This function collects code from two sources. The classical confidence
-#' interval is calculated by means of \code{\link{t.test}}. The bootstrap
+#' interval is calculated by means of [t.test()]. The bootstrap
 #' intervals are strongly based on the example in \code{\link[boot]{boot}}.
 #'
 #' The bootstrap type \code{"stud"} (studentized) is not supported: the
@@ -42,8 +42,7 @@
 #'   \item{\code{uci}}{upper confidence interval bound}
 #' }
 #'
-#' @seealso \code{\link{meanCI}}, \code{\link{varCI}}, \code{\link{medianCI}},
-#' \code{\link[boot]{boot.ci}}
+#' @seealso [varCI()], [boot::boot.ci()]
 #'
 #' @examples
 #' 

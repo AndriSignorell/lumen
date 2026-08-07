@@ -40,9 +40,7 @@
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{a character string giving the name of the data.}
 #'
-#' @seealso \code{\link{stuartMaxwellTest}}, \code{\link{bhapkarTest}} for
-#' related tests of marginal homogeneity; \code{\link{mcnemar.test}} for
-#' the 2x2 case
+#' @seealso [mcnemar.test()] for the 2x2 case
 #'
 #' @references Lehmacher, W. (1980) Simultaneous sign tests for marginal
 #' homogeneity of square contingency tables. \emph{Biometrical Journal},

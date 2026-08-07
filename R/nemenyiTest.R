@@ -10,7 +10,7 @@
 #' (Tukey-type approximation) or an asymptotic chi-squared approximation.
 #'
 #' Nemenyi's test is commonly used as a post hoc procedure after a significant
-#' \code{\link{kruskal.test}} when all pairwise comparisons between groups are
+#' [kruskal.test()] when all pairwise comparisons between groups are
 #' of interest. Unlike \code{\link{dunnTest}} and
 #' \code{\link{conoverTest}}, no additional p-value adjustment is applied,
 #' since multiplicity control is built into the test statistic.
@@ -50,7 +50,7 @@
 #' \code{method}, \code{output}, \code{main}, and \code{data.name}.
 #'
 #' @seealso
-#' \code{\link{kruskal.test}}
+#' [kruskal.test()]
 #'
 #' @references
 #' Nemenyi, P. B. (1963).

@@ -46,8 +46,7 @@
 #' Marginal Distributions. \emph{SAS Global Forum 2008: Statistics and Data
 #' Analysis}, Paper 382-208.
 #'
-#' @seealso \code{\link{stuartMaxwellTest}}, \code{\link{mcnemar.test}},
-#' \code{\link{chisq.test}}
+#' @seealso [mcnemar.test],[chisq.test]
 #'
 #' @examples
 #' # Source: https://john-uebersax.com/stat/mcnemar.htm#bhapkar

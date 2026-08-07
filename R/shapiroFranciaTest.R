@@ -38,8 +38,8 @@
 #' 
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #' 
-#' @seealso \code{\link{shapiro.test}} for performing the Shapiro-Wilk test
-#' for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
+#' @seealso [shapiro.test()] for performing the Shapiro-Wilk test
+#' for normality
 #'
 #' @examples
 #' 

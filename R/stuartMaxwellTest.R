@@ -80,10 +80,7 @@
 #' stuartMaxwellTest(mc)
 #' 
 #' 
-#' @seealso \code{\link{bhapkarTest}} for a more powerful alternative to the
-#' Stuart-Maxwell test
-#' 
-#' \code{\link{mcnemar.test}}, \code{\link{chisq.test}},
+#' @seealso [mcnemar.test()], [chisq.test()]
 #' 
 #' @family test.categorical  
 #' @concept categorical-test  

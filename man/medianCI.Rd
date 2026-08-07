@@ -81,7 +81,7 @@ medianCI(x, method="boot", sides="right")
 
 }
 \seealso{
-\code{\link{wilcox.test}},
+\code{\link[=wilcox.test]{wilcox.test()}},
 \code{\link{median}}, \code{DescToolsX::hodgesLehmann}
 
 Other ci.location:

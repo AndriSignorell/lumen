@@ -167,7 +167,7 @@ Kraemer, W. and Sonnberger, H. (1986) \emph{The Linear Regression Model
 under Test}. Heidelberg: Physica.
 }
 \seealso{
-\code{\link{breuschGodfreyTest}}, \code{\link{lm}}
+\code{\link[=lm]{lm()}}
 
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},

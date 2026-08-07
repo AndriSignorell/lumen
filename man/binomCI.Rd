@@ -175,15 +175,6 @@ Some methods may produce limits outside the admissible range
 \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 within the valid parameter space.
 
-\strong{Which interval should be used?}\cr
-The Wald interval is known to have poor coverage properties,
-particularly for small sample sizes or proportions near 0 or 1.
-In contrast, the Clopper-Pearson interval is conservative and
-often unnecessarily wide. Brown et al. (2001) recommend the
-Wilson or Jeffreys intervals for small sample sizes, and
-the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
-as providing more reliable coverage than most alternatives.
-
 For the methods \code{"wilson"}, \code{"wilson-cc"},
 \code{"wilson-mod"}, \code{"agresti-coull"},
 \code{"witting"}, and \code{"arcsine"},
@@ -202,6 +193,17 @@ accurate estimate of the population proportion is available,
 it can be used to obtain a smaller required sample size for the same
 level of precision.
 }
+\section{\strong{Which interval should be used?}}{
+
+The Wald interval is known to have poor coverage properties,
+particularly for small sample sizes or proportions near 0 or 1.
+In contrast, the Clopper-Pearson interval is conservative and
+often unnecessarily wide. Brown et al. (2001) recommend the
+Wilson or Jeffreys intervals for small sample sizes, and
+the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
+as providing more reliable coverage than most alternatives.
+}
+
 \section{Contributors}{
 
 The function is based on earlier work by Matthias Kohl in package \pkg{SLmisc},
@@ -288,10 +290,7 @@ de confiance pour une proportion binomiale.
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[=multinomCI]{multinomCI()}},
-\code{\link[=poissonCI]{poissonCI()}},
-\code{\link[=poissonDiffCI]{poissonDiffCI()}},
-\code{\link[=poissonRatioCI]{poissonRatioCI()}}
+\code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{ci.proportion}
 \concept{confidence-interval}

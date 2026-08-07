@@ -115,7 +115,7 @@ t.test(x, y, paired = TRUE)
 
 }
 \seealso{
-\code{\link{t.test}}
+\code{\link[=t.test]{t.test()}}
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},

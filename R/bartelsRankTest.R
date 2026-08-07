@@ -65,8 +65,6 @@
 #' successive difference to the variance. \emph{Annals of Mathematical
 #' Statistics} \bold{12}, 367-395.
 #'
-#' @seealso \code{\link{vonNeumannTest}}, \code{\link{runsTest}}
-#'
 #' @examples
 #' ## Example 5.1 in Gibbons and Chakraborti (2003), p.98.
 #' ## Annual data on total number of tourists to the United States

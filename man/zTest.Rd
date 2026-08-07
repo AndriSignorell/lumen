@@ -125,7 +125,7 @@ Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
 vieweg
 }
 \seealso{
-\code{\link{t.test}}, \code{\link{print.htest}}
+\code{\link[=t.test]{t.test()}}, \code{\link{print.htest}}
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},

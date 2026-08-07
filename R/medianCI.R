@@ -63,7 +63,7 @@
 #' medianCI(x, method="boot", sides="right")
 #' 
 #' 
-#' @seealso \code{\link{wilcox.test}}, 
+#' @seealso [wilcox.test()], 
 #' \code{\link{median}}, \code{DescToolsX::hodgesLehmann}
 #' 
 #' @family ci.location

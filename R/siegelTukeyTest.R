@@ -140,7 +140,7 @@
 #' 
 #' @rdname siegelTukeyTest
 #' @seealso \code{\link{ansari.test}}, \code{\link{mood.test}},
-#'   \code{\link{wilcox.test}}
+#'   [wilcox.test()]
 #'
 #' @family test.variance
 #' @concept variance-test

@@ -48,36 +48,36 @@
 }
 
 
-## ============================================================
-## Argument handling utilities (centralized, reusable)
-## ============================================================
-
-#' @keywords internal
-.extractBootArgs <- function(dots) {
-  
-  # NOTE: default type = "bca" here does not match what several CI
-  # functions' own documentation states (e.g. meanCI/meanDiffCI/
-  # quantileCI's docs say the default is "basic"). One of the two needs
-  # to be reconciled -- either update this default to "basic", or update
-  # those functions' @param \dots docs to say "bca".
-  bedrock::extractArgs(
-    dots,
-    defaults = list(
-      type     = "bca",
-      R        = 999,
-      parallel = "no",
-      ncpus    = getOption("boot.ncpus", 1L)
-    ),
-    validate = function(x) {
-      
-      if (!is.numeric(x$R) || length(x$R) != 1 || x$R <= 0)
-        stop("R must be a positive integer")
-      
-      if (!is.numeric(x$ncpus) || x$ncpus < 1)
-        stop("ncpus must be >= 1")
-      
-      if (!x$parallel %in% c("no", "multicore", "snow"))
-        stop("parallel must be 'no', 'multicore', or 'snow'")
-    }
-  )
-}
+#' ## ============================================================
+#' ## Argument handling utilities (centralized, reusable)
+#' ## ============================================================
+#' 
+#' #' @keywords internal
+#' .extractBootArgs <- function(dots) {
+#'   
+#'   # NOTE: default type = "bca" here does not match what several CI
+#'   # functions' own documentation states (e.g. meanCI/meanDiffCI/
+#'   # quantileCI's docs say the default is "basic"). One of the two needs
+#'   # to be reconciled -- either update this default to "basic", or update
+#'   # those functions' @param \dots docs to say "bca".
+#'   bedrock::extractArgs(
+#'     dots,
+#'     defaults = list(
+#'       type     = "bca",
+#'       R        = 999,
+#'       parallel = "no",
+#'       ncpus    = getOption("boot.ncpus", 1L)
+#'     ),
+#'     validate = function(x) {
+#'       
+#'       if (!is.numeric(x$R) || length(x$R) != 1 || x$R <= 0)
+#'         stop("R must be a positive integer")
+#'       
+#'       if (!is.numeric(x$ncpus) || x$ncpus < 1)
+#'         stop("ncpus must be >= 1")
+#'       
+#'       if (!x$parallel %in% c("no", "multicore", "snow"))
+#'         stop("parallel must be 'no', 'multicore', or 'snow'")
+#'     }
+#'   )
+#' }

@@ -67,7 +67,6 @@ Based on code by Juergen Gross, adapted to conform to package standards.
 
 pearsonTest(rnorm(100, mean = 5, sd = 3))
 pearsonTest(runif(100, min = 2, max = 4))
-#' @family test.normality
 }
 \references{
 Moore, D.S. (1986): Tests of the chi-squared type. In:
@@ -77,8 +76,16 @@ Marcel Dekker, New York.
 Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 }
 \seealso{
-\code{\link{shapiro.test}} for performing the Shapiro-Wilk test
-for normality, \code{\link{andersonDarlingTest}}, \code{\link{lillieTest}}
+\code{\link[=shapiro.test]{shapiro.test()}} for performing the Shapiro-Wilk test
+for normality
+
+Other test.normality:
+\code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
+\code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
+\code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
+\code{\link[=lillieTest]{lillieTest()}},
+\code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}
 \concept{normality-test}
+\concept{test.normality}
