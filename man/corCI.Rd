@@ -4,12 +4,7 @@
 \alias{corCI}
 \title{Confidence Interval for a Pearson Correlation}
 \usage{
-corCI(
-  rho,
-  n,
-  conf.level = 0.95,
-  alternative = c("two.sided", "less", "greater")
-)
+corCI(rho, n, conf.level = 0.95, sides = c("two.sided", "left", "right"))
 }
 \arguments{
 \item{rho}{numeric; Pearson correlation coefficient. Must be a single
@@ -18,13 +13,14 @@ value in the interval \eqn{[-1, 1]}.}
 \item{n}{integer; sample size used to estimate the correlation.
 Must be at least 3.}
 
-\item{conf.level}{numeric; confidence level for the interval.
-Must be a single value in the open interval \eqn{(0, 1)}.
-Default is \code{0.95}.}
+\item{conf.level}{confidence level of the interval, a single number in
+\eqn{(0, 1)}. Defaults to \code{0.95}; unlike the estimators in this
+package it cannot be \code{NA}, since the interval is all this function
+computes.}
 
-\item{alternative}{character string specifying the alternative hypothesis.
-Must be one of \code{"two.sided"} (default), \code{"less"}, or
-\code{"greater"}. Partial matching is allowed.}
+\item{sides}{character string specifying the sidedness of the confidence
+interval (one of \code{"two.sided"} (default), \code{"left"} or
+\code{"right"}). See \code{DescToolsX::ConfidenceIntervals}.}
 }
 \value{
 A named numeric vector with elements:
@@ -49,16 +45,35 @@ transformed values are approximately normally distributed with standard
 error \eqn{1 / \sqrt{n - 3}}. Confidence intervals are computed on the
 transformed scale and then back-transformed.
 
-For \code{alternative = "two.sided"}, a symmetric interval on the
-\eqn{z}-scale is used. For one-sided alternatives, the interval is
-unbounded on one side.
+A correlation lies in \eqn{[-1, 1]}, so the open side of a one-sided
+interval is reported at that boundary rather than at \eqn{\pm\infty}.
+
+The transformation has nothing to say in two situations, and both are
+answered with \code{NA} bounds and a warning rather than with an interval
+that only looks informative: at \eqn{|\rho| = 1}, where \eqn{z} is
+infinite and the interval would collapse onto the estimate and thereby
+rule out every other value, and at \eqn{n = 3}, where the standard error
+\eqn{1/\sqrt{n-3}} is infinite and the interval would be the whole range.
 }
 \note{
 Based on code by William Revelle, adapted to conform to package standards.
 }
+\section{Argument name}{
+
+This function used to take \code{alternative} with the values
+\code{"less"} and \code{"greater"}. It now takes \code{sides}, like every
+other interval function in the package, and \code{sides} names the side
+carrying the \emph{finite} bound - so \code{"left"} is the former
+\code{"greater"} and \code{"right"} the former \code{"less"}. The values
+produced are unchanged.
+}
+
 \examples{
 # Confidence interval for a single correlation
 corCI(0.5, n = 30)
+
+# one-sided: "left" carries the finite lower bound
+corCI(0.5, n = 30, sides = "left")
 
 # Compare multiple correlations
 r <- seq(0, 0.9, by = 0.1)

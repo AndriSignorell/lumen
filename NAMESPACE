@@ -226,7 +226,9 @@ importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
 importFrom(bedrock,
   allDuplicated,
+  applySides,
   asBinary,
+  checkConfLevel,
   isNumeric,
   logitInv,
   pairApply,

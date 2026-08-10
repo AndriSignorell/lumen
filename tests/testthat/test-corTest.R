@@ -123,3 +123,23 @@ test_that("corTest: p-value is NA for insufficient pairwise observations", {
 
   expect_true(is.na(res$pValue[1, 2]))
 })
+
+
+test_that("the interval narrows with n and widens with the level", {
+  
+  width <- function(...) diff(unname(corCI(...)[c("lci", "uci")]))
+  
+  expect_lt(width(0.5, n = 300), width(0.5, n = 30))
+  expect_gt(width(0.5, n = 50, conf.level = 0.99),
+            width(0.5, n = 50, conf.level = 0.95))
+})
+
+
+test_that("rho = 0 gives a symmetric interval", {
+  
+  # Fisher's z is odd around zero, so the back-transformed bounds must
+  # mirror each other exactly
+  res <- corCI(0, n = 50)
+  expect_equal(unname(res[["lci"]]), -unname(res[["uci"]]))
+})
+

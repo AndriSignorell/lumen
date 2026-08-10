@@ -7,7 +7,7 @@
 
 syncCheck <- function(lumen      = "../lumen/src",
                       desctoolsx = "../DescToolsX/src",
-                      files      = c("boot_framework.h", "bca_helpers.h")) {
+                      files      = c("boot_framework.h", "bca_helpers.h", "extractBootArgs.R")) {
 
   paths <- file.path(rep(c(lumen, desctoolsx), each = length(files)), files)
   miss  <- paths[!file.exists(paths)]
