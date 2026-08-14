@@ -111,6 +111,8 @@ postHocTest.aov <- function (x, which = NULL,
   
   method <- match.arg(method)
   
+  .stopIfCovariates(x)
+  
   FUN_MAP <- list(
     bonferroni = .bonferroni,
     lsd = .lsd,

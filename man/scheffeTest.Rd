@@ -123,6 +123,7 @@ Other test.posthoc:
 \code{\link[=nemenyiTest]{nemenyiTest()}},
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
+\code{\link[=signifDiff]{signifDiff()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{parametric}

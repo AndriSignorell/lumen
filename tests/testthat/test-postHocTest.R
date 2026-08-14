@@ -49,3 +49,11 @@ test_that("postHocTest: A vs C significant (large difference)", {
   ac_p  <- pvals[grep("A-C|C-A", names(pvals))]
   expect_lt(min(ac_p), 0.05)
 })
+
+test_that("postHocTest stops on covariates", {
+  fit <- aov(temperature ~ driver + delivery_min, data = bedrock::Pizza)
+  expect_error(postHocTest(fit), "covariate")
+  expect_error(postHocTest(fit, which = "driver"), "covariate")
+})
+
+

@@ -101,6 +101,8 @@ scheffeTest.formula <- function (formula, data, subset, na.action, ...) {
 #' @export
 scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ...){
   
+  .stopIfCovariates(x)
+
   mm <- model.tables(x, "means")
   if (is.null(mm$n))
     stop("no factors in the fitted model")

@@ -1,6 +1,6 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
-Version: 0.0.0.934  
+Version: 0.0.0.935  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 

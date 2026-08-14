@@ -139,6 +139,7 @@ Other test.posthoc:
 \code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
 \code{\link{postHoc}},
 \code{\link[=scheffeTest]{scheffeTest()}},
+\code{\link[=signifDiff]{signifDiff()}},
 \code{\link[=steelTest]{steelTest()}}
 }
 \concept{k-sample}

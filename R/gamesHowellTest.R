@@ -193,7 +193,10 @@ gamesHowellTest.formula <- function(formula, data, subset, na.action = na.pass, 
 #' @rdname gamesHowellTest
 #' @export
 gamesHowellTest.aov <- function(x, conf.level = 0.95, ...) {
-
+  
+  .stopIfCovariates(x)
+  # check: no Welch-type procedure is available for ancova
+  
   # Counting factors would silently accept an ANCOVA and drop the covariate, so
   # the model terms themselves are checked instead.
   tl <- attr(stats::terms(x), "term.labels")
