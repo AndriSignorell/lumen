@@ -144,11 +144,9 @@ distributions; [`ansari.test`](https://rdrr.io/r/stats/ansari.test.html)
 and [`mood.test`](https://rdrr.io/r/stats/mood.test.html) for two rank
 based (nonparametric) two-sample tests for difference in scale.
 
-Other test.variance:
-[`leveneTest()`](https://andrisignorell.github.io/lumen/reference/leveneTest.md),
-[`mosesTest()`](https://andrisignorell.github.io/lumen/reference/mosesTest.md),
-[`siegelTukeyTest()`](https://andrisignorell.github.io/lumen/reference/siegelTukeyTest.md),
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md)
+Other test.variance: [`leveneTest()`](leveneTest.md),
+[`mosesTest()`](mosesTest.md),
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md)
 
 ## Examples
 

@@ -84,8 +84,8 @@ Jenkinson, A. F. (1955) The frequency distribution of the annual maximum
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md);
-`evd::fgev()` for fitting the GEV to data
+[distributions-overview](distributions-overview.md); `evd::fgev()` for
+fitting the GEV to data
 
 ## Examples
 

@@ -96,15 +96,12 @@ distribution. *Journal of Statistical Software* **9** (2), 1–5.
 
 ## See also
 
-[`pAD`](https://andrisignorell.github.io/lumen/reference/pAD.md) for the
-null distribution of the test statistic
+[`pAD`](pAD.md) for the null distribution of the test statistic
 
-Other test.normality:
-[`cramerVonMisesTest()`](https://andrisignorell.github.io/lumen/reference/cramerVonMisesTest.md),
-[`jarqueBeraTest()`](https://andrisignorell.github.io/lumen/reference/jarqueBeraTest.md),
-[`lillieTest()`](https://andrisignorell.github.io/lumen/reference/lillieTest.md),
-[`pearsonTest()`](https://andrisignorell.github.io/lumen/reference/pearsonTest.md),
-[`shapiroFranciaTest()`](https://andrisignorell.github.io/lumen/reference/shapiroFranciaTest.md)
+Other test.normality: [`cramerVonMisesTest()`](cramerVonMisesTest.md),
+[`jarqueBeraTest()`](jarqueBeraTest.md),
+[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples
 

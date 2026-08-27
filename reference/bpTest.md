@@ -56,11 +56,10 @@ heteroscedasticity. *Journal of Econometrics*, 17, 107–112.
 
 [`lm`](https://rdrr.io/r/stats/lm.html)
 
-Other test.regression:
-[`breuschGodfreyTest()`](https://andrisignorell.github.io/lumen/reference/breuschGodfreyTest.md),
-[`durbinWatsonTest()`](https://andrisignorell.github.io/lumen/reference/durbinWatsonTest.md),
-[`hosmerLemeshowTest()`](https://andrisignorell.github.io/lumen/reference/hosmerLemeshowTest.md),
-[`leCessieTest()`](https://andrisignorell.github.io/lumen/reference/leCessieTest.md)
+Other test.regression: [`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`durbinWatsonTest()`](durbinWatsonTest.md),
+[`hosmerLemeshowTest()`](hosmerLemeshowTest.md),
+[`leCessieTest()`](leCessieTest.md)
 
 ## Examples
 

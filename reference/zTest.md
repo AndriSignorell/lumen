@@ -157,14 +157,11 @@ Stahel, W. (2002) *Statistische Datenanalyse, 4th ed*, vieweg
 [`t.test()`](https://rdrr.io/r/stats/t.test.html),
 [`print.htest`](https://rdrr.io/r/stats/print.power.htest.html)
 
-Other test.location:
-[`brunnerMunzelTest()`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md),
-[`hotellingsT2Test()`](https://andrisignorell.github.io/lumen/reference/hotellingsT2Test.md),
-[`moodMedianTest()`](https://andrisignorell.github.io/lumen/reference/moodMedianTest.md),
-[`signTest()`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`vanWaerdenTest()`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md)
+Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
+[`hotellingsT2Test()`](hotellingsT2Test.md),
+[`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
+[`tTestA()`](tTestA.md), [`vanWaerdenTest()`](vanWaerdenTest.md),
+[`yuenTTest()`](yuenTTest.md)
 
 ## Examples
 

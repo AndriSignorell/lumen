@@ -65,23 +65,19 @@ Print and plot methods are available for class `"PostHocTest"`.
 
 ## Details
 
-Tukey's HSD,
-[`scheffeTest`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md)
-and the parametric methods in
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md)
-all rely on a single pooled error variance. When the group variances
-differ, that pooled estimate is wrong for every pair that does not
-happen to match it, and the procedure loses its nominal level -
-liberally when the larger variance sits in the smaller group,
-conservatively in the opposite case. Games and Howell (1976) replace the
-pooled term by the pairwise Welch standard error, which makes this the
-post-hoc counterpart of the Welch t test and of
+Tukey's HSD, [`scheffeTest`](scheffeTest.md) and the parametric methods
+in [`postHoc`](postHoc.md) all rely on a single pooled error variance.
+When the group variances differ, that pooled estimate is wrong for every
+pair that does not happen to match it, and the procedure loses its
+nominal level - liberally when the larger variance sits in the smaller
+group, conservatively in the opposite case. Games and Howell (1976)
+replace the pooled term by the pairwise Welch standard error, which
+makes this the post-hoc counterpart of the Welch t test and of
 [`oneway.test`](https://rdrr.io/r/stats/oneway.test.html).
-[`yuenTTest`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md)
-addresses heteroscedasticity and non-normality with trimmed means and
-separate Winsorized variance estimates, but provides no all-pairs
-multiple-comparison procedure, so it is not the two-sample form of this
-procedure.
+[`yuenTTest`](yuenTTest.md) addresses heteroscedasticity and
+non-normality with trimmed means and separate Winsorized variance
+estimates, but provides no all-pairs multiple-comparison procedure, so
+it is not the two-sample form of this procedure.
 
 For groups \\i\\ and \\j\\ the statistic is \$\$q = \frac{\|\bar{x}\_j -
 \bar{x}\_i\|}{\sqrt{(s_i^2/n_i + s_j^2/n_j)/2}},\$\$ referred to the
@@ -116,19 +112,14 @@ procedures with unequal n's and/or variances: a Monte Carlo study.
 ## See also
 
 [`TukeyHSD()`](https://rdrr.io/r/stats/TukeyHSD.html),
-[yuenTTest](https://andrisignorell.github.io/lumen/reference/yuenTTest.md)
+[yuenTTest](yuenTTest.md)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`dunnettTest()`](dunnettTest.md), [`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md),
+[`steelTest()`](steelTest.md)
 
 ## Examples
 

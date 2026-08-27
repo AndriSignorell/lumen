@@ -83,16 +83,12 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 
 ## See also
 
-[`meanCI`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`medianCI`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`varTest`](https://andrisignorell.github.io/lumen/reference/varTest.md),
-`DescToolsX::varX`
+[`meanCI`](meanCI.md), [`medianCI`](medianCI.md),
+[`varTest`](varTest.md), `DescToolsX::varX`
 
-Other test.variance:
-[`leveneTest()`](https://andrisignorell.github.io/lumen/reference/leveneTest.md),
-[`mosesTest()`](https://andrisignorell.github.io/lumen/reference/mosesTest.md),
-[`siegelTukeyTest()`](https://andrisignorell.github.io/lumen/reference/siegelTukeyTest.md),
-[`varTest()`](https://andrisignorell.github.io/lumen/reference/varTest.md)
+Other test.variance: [`leveneTest()`](leveneTest.md),
+[`mosesTest()`](mosesTest.md),
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varTest()`](varTest.md)
 
 ## Examples
 

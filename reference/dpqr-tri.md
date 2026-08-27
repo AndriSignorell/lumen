@@ -131,7 +131,7 @@ Sons, New York.
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md);
+[distributions-overview](distributions-overview.md);
 [Uniform](https://rdrr.io/r/stats/Uniform.html)
 
 ## Examples

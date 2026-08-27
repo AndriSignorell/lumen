@@ -98,5 +98,5 @@ Epidemiological Tables*. Stata Press.
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md);
+[distributions-overview](distributions-overview.md);
 [`dexp`](https://rdrr.io/r/stats/Exponential.html)

@@ -116,8 +116,7 @@ Not to be confused with
 two-sample test for a difference in *scale*. The median test described
 here has no base R implementation.
 
-The procedure is the k-sample counterpart of
-[`signTest`](https://andrisignorell.github.io/lumen/reference/signTest.md)
+The procedure is the k-sample counterpart of [`signTest`](signTest.md)
 and shares its robustness and its modest power: only the position of
 each observation relative to the pooled median enters the statistic, so
 all information about distance is discarded. Its asymptotic relative
@@ -125,15 +124,14 @@ efficiency against the F test under normality is \\2/\pi\\.
 
 That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
-[`brunnerMunzelTest`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md)
-tests the relative effect \\P(X \< Y) + \frac{1}{2}P(X = Y) =
-\frac{1}{2}\\ and
-[`vanWaerdenTest`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md)
-tests equality of the distributions against normal-score location
-alternatives. Neither is a test of equal medians, so they are not
-drop-in replacements. Use the median test when the median is genuinely
-the quantity of interest, or when only the side of a threshold is
-trustworthy, as with coarsely recorded or thresholded data.
+[`brunnerMunzelTest`](brunnerMunzelTest.md) tests the relative effect
+\\P(X \< Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}\\ and
+[`vanWaerdenTest`](vanWaerdenTest.md) tests equality of the
+distributions against normal-score location alternatives. Neither is a
+test of equal medians, so they are not drop-in replacements. Use the
+median test when the median is genuinely the quantity of interest, or
+when only the side of a threshold is trustworthy, as with coarsely
+recorded or thresholded data.
 
 **Observations equal to the pooled median.** With an even total sample
 size the pooled median usually falls between two observations and the
@@ -168,14 +166,11 @@ Wiley, New York, pp. 218-223.
 
 [`mood.test()`](https://rdrr.io/r/stats/mood.test.html)
 
-Other test.location:
-[`brunnerMunzelTest()`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md),
-[`hotellingsT2Test()`](https://andrisignorell.github.io/lumen/reference/hotellingsT2Test.md),
-[`signTest()`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`vanWaerdenTest()`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md),
-[`zTest()`](https://andrisignorell.github.io/lumen/reference/zTest.md)
+Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
+[`hotellingsT2Test()`](hotellingsT2Test.md),
+[`signTest()`](signTest.md), [`tTestA()`](tTestA.md),
+[`vanWaerdenTest()`](vanWaerdenTest.md), [`yuenTTest()`](yuenTTest.md),
+[`zTest()`](zTest.md)
 
 ## Examples
 

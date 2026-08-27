@@ -69,12 +69,10 @@ Imperial College Press.
 
 ## See also
 
-[`dgumbel`](https://andrisignorell.github.io/lumen/reference/dpqr-gumbel.md),
-[`dfrechet`](https://andrisignorell.github.io/lumen/reference/dpqr-frechet.md),
-[`drweibull`](https://andrisignorell.github.io/lumen/reference/dpqr-rweibull.md),
-[`dgev`](https://andrisignorell.github.io/lumen/reference/dpqr-gev.md),
-[`dgpd`](https://andrisignorell.github.io/lumen/reference/dpqr-gpd.md),
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[`dgumbel`](dpqr-gumbel.md), [`dfrechet`](dpqr-frechet.md),
+[`drweibull`](dpqr-rweibull.md), [`dgev`](dpqr-gev.md),
+[`dgpd`](dpqr-gpd.md),
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

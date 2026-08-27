@@ -99,15 +99,12 @@ per-replicate variance estimate, so requesting it raises an error.
 
 ## See also
 
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md),
+[`varCI()`](varCI.md),
 [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html)
 
-Other ci.location:
-[`meanCI()`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`meanCIn()`](https://andrisignorell.github.io/lumen/reference/meanCIn.md),
-[`medianCI()`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`quantileCI()`](https://andrisignorell.github.io/lumen/reference/quantileCI.md),
-[`sumCI()`](https://andrisignorell.github.io/lumen/reference/sumCI.md)
+Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
+[`medianCI()`](medianCI.md), [`quantileCI()`](quantileCI.md),
+[`sumCI()`](sumCI.md)
 
 ## Examples
 

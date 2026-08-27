@@ -169,11 +169,9 @@ Sciences*, McGraw-Hill Kogakusha, Tokyo.
 
 [`rle`](https://rdrr.io/r/base/rle.html)
 
-Other test.timeseries:
-[`adfTest()`](https://andrisignorell.github.io/lumen/reference/adfTest.md),
-[`bartelsRankTest()`](https://andrisignorell.github.io/lumen/reference/BartelsRankTest.md),
-[`kpssTest()`](https://andrisignorell.github.io/lumen/reference/kpssTest.md),
-[`vonNeumannTest()`](https://andrisignorell.github.io/lumen/reference/vonNeumannTest.md)
+Other test.timeseries: [`adfTest()`](adfTest.md),
+[`bartelsRankTest()`](BartelsRankTest.md), [`kpssTest()`](kpssTest.md),
+[`vonNeumannTest()`](vonNeumannTest.md)
 
 ## Examples
 

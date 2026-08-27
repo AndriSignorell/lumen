@@ -57,9 +57,9 @@ standards.
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md);
-the [`Weibull`](https://rdrr.io/r/stats/Weibull.html) distribution
-functions in R's stats package.
+[distributions-overview](distributions-overview.md); the
+[`Weibull`](https://rdrr.io/r/stats/Weibull.html) distribution functions
+in R's stats package.
 
 ## Examples
 

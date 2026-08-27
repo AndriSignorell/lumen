@@ -258,10 +258,8 @@ confiance pour une proportion binomiale.
 
 [`binom.test`](https://rdrr.io/r/stats/binom.test.html), `binconf`
 
-Other ci.proportion:
-[`binomDiffCI()`](https://andrisignorell.github.io/lumen/reference/binomDiffCI.md),
-[`binomRatioCI()`](https://andrisignorell.github.io/lumen/reference/binomRatioCI.md),
-[`multinomCI()`](https://andrisignorell.github.io/lumen/reference/multinomCI.md)
+Other ci.proportion: [`binomDiffCI()`](binomDiffCI.md),
+[`binomRatioCI()`](binomRatioCI.md), [`multinomCI()`](multinomCI.md)
 
 ## Examples
 

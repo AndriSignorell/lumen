@@ -95,7 +95,7 @@ oscillation.
 Missing values are silently removed.
 
 Bartels test is a rank version of von Neumann's test, see
-[`vonNeumannTest`](https://andrisignorell.github.io/lumen/reference/vonNeumannTest.md).
+[`vonNeumannTest`](vonNeumannTest.md).
 
 ## Note
 
@@ -117,11 +117,9 @@ Statistics* **12**, 367-395.
 
 ## See also
 
-Other test.timeseries:
-[`adfTest()`](https://andrisignorell.github.io/lumen/reference/adfTest.md),
-[`kpssTest()`](https://andrisignorell.github.io/lumen/reference/kpssTest.md),
-[`runsTest()`](https://andrisignorell.github.io/lumen/reference/runsTest.md),
-[`vonNeumannTest()`](https://andrisignorell.github.io/lumen/reference/vonNeumannTest.md)
+Other test.timeseries: [`adfTest()`](adfTest.md),
+[`kpssTest()`](kpssTest.md), [`runsTest()`](runsTest.md),
+[`vonNeumannTest()`](vonNeumannTest.md)
 
 ## Examples
 

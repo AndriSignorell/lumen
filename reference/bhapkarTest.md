@@ -52,8 +52,7 @@ A list with class `"htest"` containing the following components:
 Bhapkar's test (Bhapkar, 1966) is used to assess marginal homogeneity in
 square contingency tables. It is based on the asymptotic normality of
 marginal proportions and is closely related to the generalized McNemar
-test, as implemented in
-[`stuartMaxwellTest`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md).
+test, as implemented in [`stuartMaxwellTest`](stuartMaxwellTest.md).
 
 The two tests differ only in the estimation of the variance-covariance
 matrix of the marginal proportions and are asymptotically equivalent
@@ -83,15 +82,13 @@ Analysis*, Paper 382-208.
 
 [mcnemar.test](https://rdrr.io/r/stats/mcnemar.test.html),[chisq.test](https://rdrr.io/r/stats/chisq.test.html)
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`cochranQTest()`](https://andrisignorell.github.io/lumen/reference/cochranQTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`lehmacherTest()`](https://andrisignorell.github.io/lumen/reference/lehmacherTest.md),
-[`mantelTrendTest()`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`stuartMaxwellTest()`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md),
-[`woolfTest()`](https://andrisignorell.github.io/lumen/reference/woolfTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`breslowDayTest()`](breslowDayTest.md),
+[`cochranQTest()`](cochranQTest.md), [`gTest()`](gTest.md),
+[`lehmacherTest()`](lehmacherTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md),
+[`stuartMaxwellTest()`](stuartMaxwellTest.md),
+[`woolfTest()`](woolfTest.md)
 
 ## Examples
 

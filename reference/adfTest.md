@@ -124,13 +124,11 @@ University Press.
 
 ## See also
 
-[`kpssTest`](https://andrisignorell.github.io/lumen/reference/kpssTest.md)
+[`kpssTest`](kpssTest.md)
 
-Other test.timeseries:
-[`bartelsRankTest()`](https://andrisignorell.github.io/lumen/reference/BartelsRankTest.md),
-[`kpssTest()`](https://andrisignorell.github.io/lumen/reference/kpssTest.md),
-[`runsTest()`](https://andrisignorell.github.io/lumen/reference/runsTest.md),
-[`vonNeumannTest()`](https://andrisignorell.github.io/lumen/reference/vonNeumannTest.md)
+Other test.timeseries: [`bartelsRankTest()`](BartelsRankTest.md),
+[`kpssTest()`](kpssTest.md), [`runsTest()`](runsTest.md),
+[`vonNeumannTest()`](vonNeumannTest.md)
 
 ## Examples
 

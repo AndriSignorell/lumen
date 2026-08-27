@@ -130,19 +130,16 @@ in [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html).
 [`TukeyHSD`](https://rdrr.io/r/stats/TukeyHSD.html),
 [`aov`](https://rdrr.io/r/stats/aov.html),
 [`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html),
-[`scheffeTest`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md)
+[`scheffeTest`](scheffeTest.md)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`dunnettTest()`](dunnettTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md),
+[`steelTest()`](steelTest.md)
 
 ## Examples
 

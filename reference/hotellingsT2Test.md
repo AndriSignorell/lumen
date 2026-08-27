@@ -133,14 +133,10 @@ Tools for Multivariate Nonparametrics*. R package version 1.0-9.
 
 ## See also
 
-Other test.location:
-[`brunnerMunzelTest()`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md),
-[`moodMedianTest()`](https://andrisignorell.github.io/lumen/reference/moodMedianTest.md),
-[`signTest()`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`vanWaerdenTest()`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md),
-[`zTest()`](https://andrisignorell.github.io/lumen/reference/zTest.md)
+Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
+[`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
+[`tTestA()`](tTestA.md), [`vanWaerdenTest()`](vanWaerdenTest.md),
+[`yuenTTest()`](yuenTTest.md), [`zTest()`](zTest.md)
 
 ## Examples
 

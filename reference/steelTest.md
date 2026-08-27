@@ -141,17 +141,13 @@ rank tests. *Journal of Nonparametric Statistics*, **35**, 541–563.
 
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`dunnettTest()`](dunnettTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md)
 
 ## Examples
 

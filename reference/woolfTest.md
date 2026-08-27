@@ -70,15 +70,13 @@ disease. *Ann. Human Genet.* (London) **19**, 251-253.
 
 [`mantelhaen.test()`](https://rdrr.io/r/stats/mantelhaen.test.html)
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`bhapkarTest()`](https://andrisignorell.github.io/lumen/reference/bhapkarTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`cochranQTest()`](https://andrisignorell.github.io/lumen/reference/cochranQTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`lehmacherTest()`](https://andrisignorell.github.io/lumen/reference/lehmacherTest.md),
-[`mantelTrendTest()`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`stuartMaxwellTest()`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`bhapkarTest()`](bhapkarTest.md),
+[`breslowDayTest()`](breslowDayTest.md),
+[`cochranQTest()`](cochranQTest.md), [`gTest()`](gTest.md),
+[`lehmacherTest()`](lehmacherTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md),
+[`stuartMaxwellTest()`](stuartMaxwellTest.md)
 
 ## Examples
 

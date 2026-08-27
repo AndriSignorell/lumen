@@ -106,15 +106,11 @@ testing* Elsevier Academic Press
 ## See also
 
 `DescToolsX::meanX()`,
-[`t.test()`](https://rdrr.io/r/stats/t.test.html),
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md)
+[`t.test()`](https://rdrr.io/r/stats/t.test.html), [`varCI()`](varCI.md)
 
-Other ci.location:
-[`meanCIn()`](https://andrisignorell.github.io/lumen/reference/meanCIn.md),
-[`meanDiffCI()`](https://andrisignorell.github.io/lumen/reference/meanDiffCI.md),
-[`medianCI()`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`quantileCI()`](https://andrisignorell.github.io/lumen/reference/quantileCI.md),
-[`sumCI()`](https://andrisignorell.github.io/lumen/reference/sumCI.md)
+Other ci.location: [`meanCIn()`](meanCIn.md),
+[`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
+[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
 
 ## Examples
 

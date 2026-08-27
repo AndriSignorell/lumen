@@ -73,13 +73,11 @@ any series length, however short. That exactness rests on the
 independence assumption: with serially dependent observations the signs
 need not be independent and the nominal level is no longer guaranteed.
 
-The test is a special case of
-[`signTest`](https://andrisignorell.github.io/lumen/reference/signTest.md)
-and inherits both its robustness and its low power: only the sign of
-each paired difference is used, and half the observations enter only as
-partners. It detects a monotone drift, not curvature or oscillation: a
-series that rises and then falls back can easily produce a p-value near
-one.
+The test is a special case of [`signTest`](signTest.md) and inherits
+both its robustness and its low power: only the sign of each paired
+difference is used, and half the observations enter only as partners. It
+detects a monotone drift, not curvature or oscillation: a series that
+rises and then falls back can easily produce a p-value near one.
 
 Unlike the other members of `test.trend`, which need a grouping factor
 or a contingency table, this test takes a bare series and therefore has
@@ -94,16 +92,14 @@ location and dispersion. *Biometrika*, **42**(1/2), 80-95.
 
 ## See also
 
-[`signTest`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`jonckheereTerpstraTest`](https://andrisignorell.github.io/lumen/reference/jonckheereTerpstraTest.md),
-[`mantelTrendTest`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`bartelsRankTest`](https://andrisignorell.github.io/lumen/reference/BartelsRankTest.md),
-[`runsTest`](https://andrisignorell.github.io/lumen/reference/runsTest.md)
+[`signTest`](signTest.md),
+[`jonckheereTerpstraTest`](jonckheereTerpstraTest.md),
+[`mantelTrendTest`](mantelTrendTest.md),
+[`bartelsRankTest`](BartelsRankTest.md), [`runsTest`](runsTest.md)
 
-Other test.trend:
-[`cochranArmitageTest()`](https://andrisignorell.github.io/lumen/reference/cochranArmitageTest.md),
-[`jonckheereTerpstraTest()`](https://andrisignorell.github.io/lumen/reference/jonckheereTerpstraTest.md),
-[`pageTest()`](https://andrisignorell.github.io/lumen/reference/pageTest.md)
+Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),
+[`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md),
+[`pageTest()`](pageTest.md)
 
 ## Examples
 

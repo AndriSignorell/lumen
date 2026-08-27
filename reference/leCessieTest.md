@@ -118,11 +118,10 @@ comparison of goodness-of-fit tests for the logistic regression model.
 
 [`glm()`](https://rdrr.io/r/stats/glm.html)
 
-Other test.regression:
-[`bpTest()`](https://andrisignorell.github.io/lumen/reference/bpTest.md),
-[`breuschGodfreyTest()`](https://andrisignorell.github.io/lumen/reference/breuschGodfreyTest.md),
-[`durbinWatsonTest()`](https://andrisignorell.github.io/lumen/reference/durbinWatsonTest.md),
-[`hosmerLemeshowTest()`](https://andrisignorell.github.io/lumen/reference/hosmerLemeshowTest.md)
+Other test.regression: [`bpTest()`](bpTest.md),
+[`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`durbinWatsonTest()`](durbinWatsonTest.md),
+[`hosmerLemeshowTest()`](hosmerLemeshowTest.md)
 
 ## Examples
 

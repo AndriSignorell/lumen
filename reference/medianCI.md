@@ -67,9 +67,8 @@ A named numeric vector with elements:
 ## Details
 
 The `"exact"` method is the way SAS is said to calculate the confidence
-interval. This is also implemented in
-[`signTest`](https://andrisignorell.github.io/lumen/reference/signTest.md).
-The boot confidence interval type is calculated by means of
+interval. This is also implemented in [`signTest`](signTest.md). The
+boot confidence interval type is calculated by means of
 [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html) with default type
 `"perc"`.  
 Use [`sapply`](https://rdrr.io/r/base/lapply.html),
@@ -82,12 +81,9 @@ intervals from a data.frame or from a matrix.
 [`median`](https://rdrr.io/r/stats/median.html),
 `DescToolsX::hodgesLehmann`
 
-Other ci.location:
-[`meanCI()`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`meanCIn()`](https://andrisignorell.github.io/lumen/reference/meanCIn.md),
-[`meanDiffCI()`](https://andrisignorell.github.io/lumen/reference/meanDiffCI.md),
-[`quantileCI()`](https://andrisignorell.github.io/lumen/reference/quantileCI.md),
-[`sumCI()`](https://andrisignorell.github.io/lumen/reference/sumCI.md)
+Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
+[`meanDiffCI()`](meanDiffCI.md), [`quantileCI()`](quantileCI.md),
+[`sumCI()`](sumCI.md)
 
 ## Examples
 

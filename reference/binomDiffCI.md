@@ -177,10 +177,8 @@ independent proportions. *Statistics in Medicine*, 17, 873-890.
 [`binom.test`](https://rdrr.io/r/stats/binom.test.html),
 [`prop.test`](https://rdrr.io/r/stats/prop.test.html)
 
-Other ci.proportion:
-[`binomCI()`](https://andrisignorell.github.io/lumen/reference/binomCI.md),
-[`binomRatioCI()`](https://andrisignorell.github.io/lumen/reference/binomRatioCI.md),
-[`multinomCI()`](https://andrisignorell.github.io/lumen/reference/multinomCI.md)
+Other ci.proportion: [`binomCI()`](binomCI.md),
+[`binomRatioCI()`](binomRatioCI.md), [`multinomCI()`](multinomCI.md)
 
 ## Examples
 

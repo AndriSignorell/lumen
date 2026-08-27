@@ -1,10 +1,8 @@
 # Print Method for rankTest Objects
 
 Prints pairwise comparison results produced by
-[`dunnTest`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`conoverTest`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-or
-[`nemenyiTest`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md).
+[`dunnTest`](dunnTest.md), [`conoverTest`](conoverTest.md), or
+[`nemenyiTest`](nemenyiTest.md).
 
 ## Usage
 
@@ -37,6 +35,5 @@ print(x, digits = getOption("digits", 3), ...)
 
 ## See also
 
-[`dunnTest`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`conoverTest`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`nemenyiTest`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md)
+[`dunnTest`](dunnTest.md), [`conoverTest`](conoverTest.md),
+[`nemenyiTest`](nemenyiTest.md)

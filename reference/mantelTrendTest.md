@@ -81,11 +81,11 @@ levels stored as label strings that parse as numbers), those values are
 used as the default scores; otherwise the default is `1:nrow(x)` resp.
 `1:ncol(x)`, i.e. the categories are assumed equally spaced. This
 mirrors the scoring convention used by
-[`cochranArmitageTest`](https://andrisignorell.github.io/lumen/reference/cochranArmitageTest.md).
-The choice of scores affects the result: any monotone scores are
-permitted; non-monotone scores (neither strictly increasing nor strictly
-decreasing) produce a warning, since \\r\\ would then no longer reflect
-a consistent ordinal trend.
+[`cochranArmitageTest`](cochranArmitageTest.md). The choice of scores
+affects the result: any monotone scores are permitted; non-monotone
+scores (neither strictly increasing nor strictly decreasing) produce a
+warning, since \\r\\ would then no longer reflect a consistent ordinal
+trend.
 
 ## References
 
@@ -102,18 +102,16 @@ Statistical Association*, 58, 690-700.
 the stratified Cochran-Mantel-Haenszel test,
 [`chisq.test`](https://rdrr.io/r/stats/chisq.test.html) for the general
 chi-squared test of independence,
-[`cochranArmitageTest`](https://andrisignorell.github.io/lumen/reference/cochranArmitageTest.md)
-for a related trend test with a binary response
+[`cochranArmitageTest`](cochranArmitageTest.md) for a related trend test
+with a binary response
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`bhapkarTest()`](https://andrisignorell.github.io/lumen/reference/bhapkarTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`cochranQTest()`](https://andrisignorell.github.io/lumen/reference/cochranQTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`lehmacherTest()`](https://andrisignorell.github.io/lumen/reference/lehmacherTest.md),
-[`stuartMaxwellTest()`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md),
-[`woolfTest()`](https://andrisignorell.github.io/lumen/reference/woolfTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`bhapkarTest()`](bhapkarTest.md),
+[`breslowDayTest()`](breslowDayTest.md),
+[`cochranQTest()`](cochranQTest.md), [`gTest()`](gTest.md),
+[`lehmacherTest()`](lehmacherTest.md),
+[`stuartMaxwellTest()`](stuartMaxwellTest.md),
+[`woolfTest()`](woolfTest.md)
 
 ## Examples
 

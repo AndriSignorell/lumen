@@ -91,8 +91,7 @@ the number of complete cases.
 [`cor`](https://rdrr.io/r/stats/cor.html),
 [`cor.test`](https://rdrr.io/r/stats/cor.test.html)
 
-Other test.correlation:
-[`fisherZ()`](https://andrisignorell.github.io/lumen/reference/fisherZ.md)
+Other test.correlation: [`fisherZ()`](fisherZ.md)
 
 ## Examples
 

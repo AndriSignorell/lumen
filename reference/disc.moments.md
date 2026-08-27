@@ -89,7 +89,7 @@ Univariate Distributions*, Vol. 2. Wiley.
 [`Geometric`](https://rdrr.io/r/stats/Geometric.html),
 [`NegBinomial`](https://rdrr.io/r/stats/NegBinomial.html),
 [`Hypergeometric`](https://rdrr.io/r/stats/Hypergeometric.html),
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

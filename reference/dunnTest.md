@@ -128,17 +128,13 @@ Dunn, O. J. (1964) Multiple comparisons using rank sums.
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html),
 [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnettTest()`](dunnettTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md),
+[`steelTest()`](steelTest.md)
 
 ## Examples
 

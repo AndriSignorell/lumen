@@ -119,10 +119,8 @@ inference, *J.Am. Stat. Assoc.* 22 (1927) 209-212.
 
 ## See also
 
-Other ci.proportion:
-[`binomCI()`](https://andrisignorell.github.io/lumen/reference/binomCI.md),
-[`binomDiffCI()`](https://andrisignorell.github.io/lumen/reference/binomDiffCI.md),
-[`binomRatioCI()`](https://andrisignorell.github.io/lumen/reference/binomRatioCI.md)
+Other ci.proportion: [`binomCI()`](binomCI.md),
+[`binomDiffCI()`](binomDiffCI.md), [`binomRatioCI()`](binomRatioCI.md)
 
 ## Examples
 

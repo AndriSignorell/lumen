@@ -125,9 +125,8 @@ Medicine*, **22**(12), 2071–2083.
 
 ## See also
 
-[`poissonCI()`](https://andrisignorell.github.io/lumen/reference/poissonCI.md),
-[`poissonDiffCI()`](https://andrisignorell.github.io/lumen/reference/poissonDiffCI.md),
-[`binomRatioCI()`](https://andrisignorell.github.io/lumen/reference/binomRatioCI.md),
+[`poissonCI()`](poissonCI.md), [`poissonDiffCI()`](poissonDiffCI.md),
+[`binomRatioCI()`](binomRatioCI.md),
 [`stats::poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
 
 ## Examples

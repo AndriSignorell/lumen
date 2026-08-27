@@ -91,12 +91,11 @@ Thode Jr., H.C. (2002) *Testing for Normality*, New York: Marcel Dekker.
 
 [`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html)
 
-Other test.normality:
-[`andersonDarlingTest()`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
-[`cramerVonMisesTest()`](https://andrisignorell.github.io/lumen/reference/cramerVonMisesTest.md),
-[`jarqueBeraTest()`](https://andrisignorell.github.io/lumen/reference/jarqueBeraTest.md),
-[`pearsonTest()`](https://andrisignorell.github.io/lumen/reference/pearsonTest.md),
-[`shapiroFranciaTest()`](https://andrisignorell.github.io/lumen/reference/shapiroFranciaTest.md)
+Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
+[`cramerVonMisesTest()`](cramerVonMisesTest.md),
+[`jarqueBeraTest()`](jarqueBeraTest.md),
+[`pearsonTest()`](pearsonTest.md),
+[`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples
 

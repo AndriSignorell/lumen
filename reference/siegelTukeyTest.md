@@ -177,11 +177,9 @@ Statistical Procedures*, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 [`mood.test`](https://rdrr.io/r/stats/mood.test.html),
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
-Other test.variance:
-[`leveneTest()`](https://andrisignorell.github.io/lumen/reference/leveneTest.md),
-[`mosesTest()`](https://andrisignorell.github.io/lumen/reference/mosesTest.md),
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md),
-[`varTest()`](https://andrisignorell.github.io/lumen/reference/varTest.md)
+Other test.variance: [`leveneTest()`](leveneTest.md),
+[`mosesTest()`](mosesTest.md), [`varCI()`](varCI.md),
+[`varTest()`](varTest.md)
 
 ## Examples
 

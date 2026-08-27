@@ -119,13 +119,13 @@ Source:
 [`DESCRIPTION`](https://github.com/AndriSignorell/lumen/blob/main/DESCRIPTION)
 
 Signorell A (2026). *lumen: Statistical Tests, Confidence Intervals, and
-Distributions for DescToolsX*. R package version 0.0.0.939,
+Distributions for DescToolsX*. R package version 0.0.0.941,
 <https://andrisignorell.github.io/lumen/>.
 
     @Manual{,
       title = {lumen: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX},
       author = {Andri Signorell},
       year = {2026},
-      note = {R package version 0.0.0.939},
+      note = {R package version 0.0.0.941},
       url = {https://andrisignorell.github.io/lumen/},
     }

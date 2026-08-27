@@ -98,12 +98,10 @@ homoscedasticity and serial independence of regression residuals.
 
 [`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html)
 
-Other test.normality:
-[`andersonDarlingTest()`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
-[`cramerVonMisesTest()`](https://andrisignorell.github.io/lumen/reference/cramerVonMisesTest.md),
-[`lillieTest()`](https://andrisignorell.github.io/lumen/reference/lillieTest.md),
-[`pearsonTest()`](https://andrisignorell.github.io/lumen/reference/pearsonTest.md),
-[`shapiroFranciaTest()`](https://andrisignorell.github.io/lumen/reference/shapiroFranciaTest.md)
+Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
+[`cramerVonMisesTest()`](cramerVonMisesTest.md),
+[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples
 

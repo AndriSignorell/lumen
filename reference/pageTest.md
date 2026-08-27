@@ -134,10 +134,9 @@ against trend. *Biometrie und Informatik in Medizin und Biologie 20*,
 
 [`friedman.test`](https://rdrr.io/r/stats/friedman.test.html)
 
-Other test.trend:
-[`cochranArmitageTest()`](https://andrisignorell.github.io/lumen/reference/cochranArmitageTest.md),
-[`coxStuartTest()`](https://andrisignorell.github.io/lumen/reference/coxStuartTest.md),
-[`jonckheereTerpstraTest()`](https://andrisignorell.github.io/lumen/reference/jonckheereTerpstraTest.md)
+Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),
+[`coxStuartTest()`](coxStuartTest.md),
+[`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md)
 
 ## Examples
 

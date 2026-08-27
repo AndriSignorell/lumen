@@ -118,14 +118,11 @@ Edition ed.). Wiley. pp. 396–406.
 [`normal_test`](https://rdrr.io/pkg/coin/man/LocationTests.html) in
 package coin, where the test is implemented in a more general context.
 
-Other test.location:
-[`brunnerMunzelTest()`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md),
-[`hotellingsT2Test()`](https://andrisignorell.github.io/lumen/reference/hotellingsT2Test.md),
-[`moodMedianTest()`](https://andrisignorell.github.io/lumen/reference/moodMedianTest.md),
-[`signTest()`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md),
-[`zTest()`](https://andrisignorell.github.io/lumen/reference/zTest.md)
+Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
+[`hotellingsT2Test()`](hotellingsT2Test.md),
+[`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
+[`tTestA()`](tTestA.md), [`yuenTTest()`](yuenTTest.md),
+[`zTest()`](zTest.md)
 
 ## Examples
 

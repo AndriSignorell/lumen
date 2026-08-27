@@ -88,12 +88,9 @@ The boot confidence interval type is calculated by means of
 `DescToolsX::quantileX`,
 [`quantile()`](https://rdrr.io/r/stats/quantile.html),
 
-Other ci.location:
-[`meanCI()`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`meanCIn()`](https://andrisignorell.github.io/lumen/reference/meanCIn.md),
-[`meanDiffCI()`](https://andrisignorell.github.io/lumen/reference/meanDiffCI.md),
-[`medianCI()`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`sumCI()`](https://andrisignorell.github.io/lumen/reference/sumCI.md)
+Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
+[`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
+[`sumCI()`](sumCI.md)
 
 ## Examples
 

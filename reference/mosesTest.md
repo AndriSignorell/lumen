@@ -179,11 +179,9 @@ Moses, L.E. (1952). A two-sample test. *Psychometrika*, **17**, 239–247.
 [`ks.test()`](https://rdrr.io/r/stats/ks.test.html),
 [`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html)
 
-Other test.variance:
-[`leveneTest()`](https://andrisignorell.github.io/lumen/reference/leveneTest.md),
-[`siegelTukeyTest()`](https://andrisignorell.github.io/lumen/reference/siegelTukeyTest.md),
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md),
-[`varTest()`](https://andrisignorell.github.io/lumen/reference/varTest.md)
+Other test.variance: [`leveneTest()`](leveneTest.md),
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md),
+[`varTest()`](varTest.md)
 
 ## Examples
 

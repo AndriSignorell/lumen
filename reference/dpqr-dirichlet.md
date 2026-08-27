@@ -56,7 +56,7 @@ x_i \ge 0\$\$
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

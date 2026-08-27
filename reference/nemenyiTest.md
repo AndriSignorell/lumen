@@ -89,11 +89,9 @@ Nemenyi's test is commonly used as a post hoc procedure after a
 significant
 [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) when all
 pairwise comparisons between groups are of interest. Unlike
-[`dunnTest`](https://andrisignorell.github.io/lumen/reference/dunnTest.md)
-and
-[`conoverTest`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-no additional p-value adjustment is applied, since multiplicity control
-is built into the test statistic.
+[`dunnTest`](dunnTest.md) and [`conoverTest`](conoverTest.md), no
+additional p-value adjustment is applied, since multiplicity control is
+built into the test statistic.
 
 If `x` is a list, its elements are taken as the samples to be compared,
 and hence have to be numeric data vectors. In this case, `g` is ignored
@@ -114,17 +112,13 @@ Statistical Methods*. 3rd ed. Wiley.
 
 [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`dunnettTest()`](dunnettTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md),
+[`steelTest()`](steelTest.md)
 
 ## Examples
 

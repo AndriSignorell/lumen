@@ -100,15 +100,12 @@ ff.
 [`mcnemar.test()`](https://rdrr.io/r/stats/mcnemar.test.html),
 [`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html)
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`bhapkarTest()`](https://andrisignorell.github.io/lumen/reference/bhapkarTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`cochranQTest()`](https://andrisignorell.github.io/lumen/reference/cochranQTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`lehmacherTest()`](https://andrisignorell.github.io/lumen/reference/lehmacherTest.md),
-[`mantelTrendTest()`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`woolfTest()`](https://andrisignorell.github.io/lumen/reference/woolfTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`bhapkarTest()`](bhapkarTest.md),
+[`breslowDayTest()`](breslowDayTest.md),
+[`cochranQTest()`](cochranQTest.md), [`gTest()`](gTest.md),
+[`lehmacherTest()`](lehmacherTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md), [`woolfTest()`](woolfTest.md)
 
 ## Examples
 

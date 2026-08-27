@@ -60,14 +60,11 @@ might be interested in exact results.
 
 ## See also
 
-[`binomCIn()`](https://andrisignorell.github.io/lumen/reference/binomCI.md)
+[`binomCIn()`](binomCI.md)
 
-Other ci.location:
-[`meanCI()`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`meanDiffCI()`](https://andrisignorell.github.io/lumen/reference/meanDiffCI.md),
-[`medianCI()`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`quantileCI()`](https://andrisignorell.github.io/lumen/reference/quantileCI.md),
-[`sumCI()`](https://andrisignorell.github.io/lumen/reference/sumCI.md)
+Other ci.location: [`meanCI()`](meanCI.md),
+[`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
+[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
 
 ## Examples
 

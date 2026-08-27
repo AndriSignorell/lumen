@@ -110,9 +110,8 @@ about effect measures: a general approach. *Statistics in Medicine*,
 
 ## See also
 
-[`poissonCI()`](https://andrisignorell.github.io/lumen/reference/poissonCI.md),
-[`poissonRatioCI()`](https://andrisignorell.github.io/lumen/reference/poissonRatioCI.md),
-[`binomDiffCI()`](https://andrisignorell.github.io/lumen/reference/binomDiffCI.md)
+[`poissonCI()`](poissonCI.md), [`poissonRatioCI()`](poissonRatioCI.md),
+[`binomDiffCI()`](binomDiffCI.md)
 
 ## Examples
 

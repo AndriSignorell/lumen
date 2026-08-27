@@ -95,11 +95,9 @@ Randomness. *Journal of the American Statistical Association*,
 
 ## See also
 
-Other test.timeseries:
-[`adfTest()`](https://andrisignorell.github.io/lumen/reference/adfTest.md),
-[`bartelsRankTest()`](https://andrisignorell.github.io/lumen/reference/BartelsRankTest.md),
-[`kpssTest()`](https://andrisignorell.github.io/lumen/reference/kpssTest.md),
-[`runsTest()`](https://andrisignorell.github.io/lumen/reference/runsTest.md)
+Other test.timeseries: [`adfTest()`](adfTest.md),
+[`bartelsRankTest()`](BartelsRankTest.md), [`kpssTest()`](kpssTest.md),
+[`runsTest()`](runsTest.md)
 
 ## Examples
 

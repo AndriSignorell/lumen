@@ -98,7 +98,7 @@ in Natural Numbers. *American Journal of Mathematics*, **4**, 39–40.
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

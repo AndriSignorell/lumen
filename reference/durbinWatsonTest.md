@@ -181,11 +181,10 @@ Test*. Heidelberg: Physica.
 
 [`lm()`](https://rdrr.io/r/stats/lm.html)
 
-Other test.regression:
-[`bpTest()`](https://andrisignorell.github.io/lumen/reference/bpTest.md),
-[`breuschGodfreyTest()`](https://andrisignorell.github.io/lumen/reference/breuschGodfreyTest.md),
-[`hosmerLemeshowTest()`](https://andrisignorell.github.io/lumen/reference/hosmerLemeshowTest.md),
-[`leCessieTest()`](https://andrisignorell.github.io/lumen/reference/leCessieTest.md)
+Other test.regression: [`bpTest()`](bpTest.md),
+[`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`hosmerLemeshowTest()`](hosmerLemeshowTest.md),
+[`leCessieTest()`](leCessieTest.md)
 
 ## Examples
 

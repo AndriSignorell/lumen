@@ -103,22 +103,18 @@ Association*, **50**, 1096–1121.
 
 ## See also
 
-[`print.PostHocTest`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`plot.PostHocTest`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
+[`print.PostHocTest`](postHoc.md),
+[`plot.PostHocTest`](plot.PostHocTest.md),
 [`pmvt`](https://rdrr.io/pkg/mvtnorm/man/pmvt.html),
 [`qmvt`](https://rdrr.io/pkg/mvtnorm/man/qmvt.html)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`signifDiff()`](https://andrisignorell.github.io/lumen/reference/signifDiff.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`signifDiff()`](signifDiff.md),
+[`steelTest()`](steelTest.md)
 
 ## Examples
 

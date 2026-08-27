@@ -138,10 +138,8 @@ Methods*, 2nd ed., New York: Wiley.
 
 [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html)
 
-Other test.trend:
-[`cochranArmitageTest()`](https://andrisignorell.github.io/lumen/reference/cochranArmitageTest.md),
-[`coxStuartTest()`](https://andrisignorell.github.io/lumen/reference/coxStuartTest.md),
-[`pageTest()`](https://andrisignorell.github.io/lumen/reference/pageTest.md)
+Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),
+[`coxStuartTest()`](coxStuartTest.md), [`pageTest()`](pageTest.md)
 
 ## Examples
 

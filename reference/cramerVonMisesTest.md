@@ -71,16 +71,14 @@ Thode Jr., H.C. (2002) *Testing for Normality*. New York: Marcel Dekker.
 
 [`shapiro.test`](https://rdrr.io/r/stats/shapiro.test.html) for
 performing the Shapiro-Wilk test for normality,
-[`andersonDarlingTest`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
+[`andersonDarlingTest`](andersonDarlingTest.md),
 [`pharos::plotQQ()`](https://andrisignorell.github.io/pharos/reference/plotQQ.html)
 for producing extended normal quantile-quantile plots
 
-Other test.normality:
-[`andersonDarlingTest()`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
-[`jarqueBeraTest()`](https://andrisignorell.github.io/lumen/reference/jarqueBeraTest.md),
-[`lillieTest()`](https://andrisignorell.github.io/lumen/reference/lillieTest.md),
-[`pearsonTest()`](https://andrisignorell.github.io/lumen/reference/pearsonTest.md),
-[`shapiroFranciaTest()`](https://andrisignorell.github.io/lumen/reference/shapiroFranciaTest.md)
+Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
+[`jarqueBeraTest()`](jarqueBeraTest.md),
+[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples
 

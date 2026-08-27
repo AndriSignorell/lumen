@@ -101,15 +101,13 @@ square contingency tables. *Biometrical Journal*, 22 (8), 795-798.
 [`mcnemar.test()`](https://rdrr.io/r/stats/mcnemar.test.html) for the
 2x2 case
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`bhapkarTest()`](https://andrisignorell.github.io/lumen/reference/bhapkarTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`cochranQTest()`](https://andrisignorell.github.io/lumen/reference/cochranQTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`mantelTrendTest()`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`stuartMaxwellTest()`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md),
-[`woolfTest()`](https://andrisignorell.github.io/lumen/reference/woolfTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`bhapkarTest()`](bhapkarTest.md),
+[`breslowDayTest()`](breslowDayTest.md),
+[`cochranQTest()`](cochranQTest.md), [`gTest()`](gTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md),
+[`stuartMaxwellTest()`](stuartMaxwellTest.md),
+[`woolfTest()`](woolfTest.md)
 
 ## Examples
 

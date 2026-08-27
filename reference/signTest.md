@@ -126,18 +126,15 @@ Wiley, New York.
 
 [`t.test()`](https://rdrr.io/r/stats/t.test.html),
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html),
-[`zTest`](https://andrisignorell.github.io/lumen/reference/zTest.md),
+[`zTest`](zTest.md),
 [`binom.test`](https://rdrr.io/r/stats/binom.test.html), `SIGN.test` in
 the package BSDA (reporting approximative confidence intervals).
 
-Other test.location:
-[`brunnerMunzelTest()`](https://andrisignorell.github.io/lumen/reference/brunnerMunzelTest.md),
-[`hotellingsT2Test()`](https://andrisignorell.github.io/lumen/reference/hotellingsT2Test.md),
-[`moodMedianTest()`](https://andrisignorell.github.io/lumen/reference/moodMedianTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`vanWaerdenTest()`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md),
-[`zTest()`](https://andrisignorell.github.io/lumen/reference/zTest.md)
+Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
+[`hotellingsT2Test()`](hotellingsT2Test.md),
+[`moodMedianTest()`](moodMedianTest.md), [`tTestA()`](tTestA.md),
+[`vanWaerdenTest()`](vanWaerdenTest.md), [`yuenTTest()`](yuenTTest.md),
+[`zTest()`](zTest.md)
 
 ## Examples
 

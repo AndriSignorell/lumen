@@ -40,10 +40,9 @@ print(x, legend = TRUE, ...)
 - x:
 
   an object of class `PostHocTest` as returned by
-  [`postHocTest`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-  or of class `pairwise.htest` as returned by
-  [`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html) and
-  friends
+  [`postHocTest`](postHoc.md), or of class `pairwise.htest` as returned
+  by [`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html)
+  and friends
 
 - ...:
 
@@ -101,20 +100,16 @@ significant difference.
 
 ## See also
 
-[`postHocTest`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
+[`postHocTest`](postHoc.md),
 [`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html)
 
-Other test.posthoc:
-[`conoverTest()`](https://andrisignorell.github.io/lumen/reference/conoverTest.md),
-[`dscfTest()`](https://andrisignorell.github.io/lumen/reference/dscfTest.md),
-[`dunnTest()`](https://andrisignorell.github.io/lumen/reference/dunnTest.md),
-[`dunnettTest()`](https://andrisignorell.github.io/lumen/reference/dunnettTest.md),
-[`gamesHowellTest()`](https://andrisignorell.github.io/lumen/reference/gamesHowellTest.md),
-[`nemenyiTest()`](https://andrisignorell.github.io/lumen/reference/nemenyiTest.md),
-[`plot.PostHocTest()`](https://andrisignorell.github.io/lumen/reference/plot.PostHocTest.md),
-[`postHoc`](https://andrisignorell.github.io/lumen/reference/postHoc.md),
-[`scheffeTest()`](https://andrisignorell.github.io/lumen/reference/scheffeTest.md),
-[`steelTest()`](https://andrisignorell.github.io/lumen/reference/steelTest.md)
+Other test.posthoc: [`conoverTest()`](conoverTest.md),
+[`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
+[`dunnettTest()`](dunnettTest.md),
+[`gamesHowellTest()`](gamesHowellTest.md),
+[`nemenyiTest()`](nemenyiTest.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md), [`postHoc`](postHoc.md),
+[`scheffeTest()`](scheffeTest.md), [`steelTest()`](steelTest.md)
 
 ## Examples
 

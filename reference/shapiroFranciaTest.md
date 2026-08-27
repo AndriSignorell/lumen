@@ -73,12 +73,10 @@ Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 [`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html) for
 performing the Shapiro-Wilk test for normality
 
-Other test.normality:
-[`andersonDarlingTest()`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
-[`cramerVonMisesTest()`](https://andrisignorell.github.io/lumen/reference/cramerVonMisesTest.md),
-[`jarqueBeraTest()`](https://andrisignorell.github.io/lumen/reference/jarqueBeraTest.md),
-[`lillieTest()`](https://andrisignorell.github.io/lumen/reference/lillieTest.md),
-[`pearsonTest()`](https://andrisignorell.github.io/lumen/reference/pearsonTest.md)
+Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
+[`cramerVonMisesTest()`](cramerVonMisesTest.md),
+[`jarqueBeraTest()`](jarqueBeraTest.md),
+[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md)
 
 ## Examples
 

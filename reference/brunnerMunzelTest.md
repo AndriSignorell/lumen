@@ -149,8 +149,8 @@ is wrong and the test does not keep its level. Brunner and Munzel (2000)
 studentize the rank statistic with a separate variance estimate per
 group and refer it to a t distribution with Satterthwaite degrees of
 freedom, which is the rank analogue of the Welch correction.
-[`yuenTTest`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md)
-plays the same role among the parametric location tests.
+[`yuenTTest`](yuenTTest.md) plays the same role among the parametric
+location tests.
 
 **Direction of `alternative`.** The alternative is stated in terms of
 \\p\\, not in terms of `x` against `y`. `"greater"` therefore means \\p
@@ -224,14 +224,10 @@ Data Analysis*, **51**(10), 5192-5204.
 
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
-Other test.location:
-[`hotellingsT2Test()`](https://andrisignorell.github.io/lumen/reference/hotellingsT2Test.md),
-[`moodMedianTest()`](https://andrisignorell.github.io/lumen/reference/moodMedianTest.md),
-[`signTest()`](https://andrisignorell.github.io/lumen/reference/signTest.md),
-[`tTestA()`](https://andrisignorell.github.io/lumen/reference/tTestA.md),
-[`vanWaerdenTest()`](https://andrisignorell.github.io/lumen/reference/vanWaerdenTest.md),
-[`yuenTTest()`](https://andrisignorell.github.io/lumen/reference/yuenTTest.md),
-[`zTest()`](https://andrisignorell.github.io/lumen/reference/zTest.md)
+Other test.location: [`hotellingsT2Test()`](hotellingsT2Test.md),
+[`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
+[`tTestA()`](tTestA.md), [`vanWaerdenTest()`](vanWaerdenTest.md),
+[`yuenTTest()`](yuenTTest.md), [`zTest()`](zTest.md)
 
 ## Examples
 

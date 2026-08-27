@@ -94,10 +94,9 @@ Agresti, A. (2002) *Categorical Data Analysis*. John Wiley & Sons.
 PROC FREQ
 documentation](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm)
 
-Other test.trend:
-[`coxStuartTest()`](https://andrisignorell.github.io/lumen/reference/coxStuartTest.md),
-[`jonckheereTerpstraTest()`](https://andrisignorell.github.io/lumen/reference/jonckheereTerpstraTest.md),
-[`pageTest()`](https://andrisignorell.github.io/lumen/reference/pageTest.md)
+Other test.trend: [`coxStuartTest()`](coxStuartTest.md),
+[`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md),
+[`pageTest()`](pageTest.md)
 
 ## Examples
 

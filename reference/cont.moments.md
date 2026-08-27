@@ -113,7 +113,7 @@ Univariate Distributions*, Vol. 2. Wiley.
 [`dchisq`](https://rdrr.io/r/stats/Chisquare.html),
 [`dt`](https://rdrr.io/r/stats/TDist.html),
 [`df`](https://rdrr.io/r/stats/Fdist.html),
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

@@ -75,8 +75,8 @@ statistics. *Annals of Statistics*, **3**, 119–131.
 
 ## See also
 
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md);
-`evd::fpot()` for fitting peaks-over-threshold models
+[distributions-overview](distributions-overview.md); `evd::fpot()` for
+fitting peaks-over-threshold models
 
 ## Examples
 

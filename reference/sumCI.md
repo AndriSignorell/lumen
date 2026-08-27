@@ -40,14 +40,11 @@ A named numeric vector with elements:
 
 ## See also
 
-[`binomCI`](https://andrisignorell.github.io/lumen/reference/binomCI.md)
+[`binomCI`](binomCI.md)
 
-Other ci.location:
-[`meanCI()`](https://andrisignorell.github.io/lumen/reference/meanCI.md),
-[`meanCIn()`](https://andrisignorell.github.io/lumen/reference/meanCIn.md),
-[`meanDiffCI()`](https://andrisignorell.github.io/lumen/reference/meanDiffCI.md),
-[`medianCI()`](https://andrisignorell.github.io/lumen/reference/medianCI.md),
-[`quantileCI()`](https://andrisignorell.github.io/lumen/reference/quantileCI.md)
+Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
+[`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
+[`quantileCI()`](quantileCI.md)
 
 ## Examples
 

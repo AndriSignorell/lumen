@@ -105,11 +105,9 @@ rank-based (nonparametric) k-sample test for homogeneity of variances,
 [`bartlett.test`](https://rdrr.io/r/stats/bartlett.test.html) for a
 parametric alternative
 
-Other test.variance:
-[`mosesTest()`](https://andrisignorell.github.io/lumen/reference/mosesTest.md),
-[`siegelTukeyTest()`](https://andrisignorell.github.io/lumen/reference/siegelTukeyTest.md),
-[`varCI()`](https://andrisignorell.github.io/lumen/reference/varCI.md),
-[`varTest()`](https://andrisignorell.github.io/lumen/reference/varTest.md)
+Other test.variance: [`mosesTest()`](mosesTest.md),
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md),
+[`varTest()`](varTest.md)
 
 ## Examples
 

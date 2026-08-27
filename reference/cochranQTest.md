@@ -151,15 +151,13 @@ Cochran, W.G. (1950) The Comparison of Percentages in Matched Samples.
 
 [`friedman.test()`](https://rdrr.io/r/stats/friedman.test.html)
 
-Other test.categorical:
-[`barnardTest()`](https://andrisignorell.github.io/lumen/reference/barnardTest.md),
-[`bhapkarTest()`](https://andrisignorell.github.io/lumen/reference/bhapkarTest.md),
-[`breslowDayTest()`](https://andrisignorell.github.io/lumen/reference/breslowDayTest.md),
-[`gTest()`](https://andrisignorell.github.io/lumen/reference/gTest.md),
-[`lehmacherTest()`](https://andrisignorell.github.io/lumen/reference/lehmacherTest.md),
-[`mantelTrendTest()`](https://andrisignorell.github.io/lumen/reference/mantelTrendTest.md),
-[`stuartMaxwellTest()`](https://andrisignorell.github.io/lumen/reference/stuartMaxwellTest.md),
-[`woolfTest()`](https://andrisignorell.github.io/lumen/reference/woolfTest.md)
+Other test.categorical: [`barnardTest()`](barnardTest.md),
+[`bhapkarTest()`](bhapkarTest.md),
+[`breslowDayTest()`](breslowDayTest.md), [`gTest()`](gTest.md),
+[`lehmacherTest()`](lehmacherTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md),
+[`stuartMaxwellTest()`](stuartMaxwellTest.md),
+[`woolfTest()`](woolfTest.md)
 
 ## Examples
 

@@ -74,8 +74,8 @@ Distribution. *Journal of Statistical Software* **9** (2), 1–5. February
 
 ## See also
 
-[`andersonDarlingTest()`](https://andrisignorell.github.io/lumen/reference/andersonDarlingTest.md),
-[distributions-overview](https://andrisignorell.github.io/lumen/reference/distributions-overview.md)
+[`andersonDarlingTest()`](andersonDarlingTest.md),
+[distributions-overview](distributions-overview.md)
 
 ## Examples
 

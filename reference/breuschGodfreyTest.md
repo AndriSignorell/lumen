@@ -124,11 +124,10 @@ variables. *Econometrica*, 46, 1293-1301.
 
 ## See also
 
-Other test.regression:
-[`bpTest()`](https://andrisignorell.github.io/lumen/reference/bpTest.md),
-[`durbinWatsonTest()`](https://andrisignorell.github.io/lumen/reference/durbinWatsonTest.md),
-[`hosmerLemeshowTest()`](https://andrisignorell.github.io/lumen/reference/hosmerLemeshowTest.md),
-[`leCessieTest()`](https://andrisignorell.github.io/lumen/reference/leCessieTest.md)
+Other test.regression: [`bpTest()`](bpTest.md),
+[`durbinWatsonTest()`](durbinWatsonTest.md),
+[`hosmerLemeshowTest()`](hosmerLemeshowTest.md),
+[`leCessieTest()`](leCessieTest.md)
 
 ## Examples
 
