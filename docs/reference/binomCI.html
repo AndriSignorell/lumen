@@ -22,7 +22,7 @@ corresponding sample size."><meta property="og:image" content="/logo.png"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.935</span>
       </span>
     </div>
 
@@ -228,14 +228,6 @@ to methods like Wilson or exact intervals.</p>
 <p>Some methods may produce limits outside the admissible range
 \([0, 1]\). In such cases, the bounds are truncated to remain
 within the valid parameter space.</p>
-<p><strong>Which interval should be used?</strong><br>
-The Wald interval is known to have poor coverage properties,
-particularly for small sample sizes or proportions near 0 or 1.
-In contrast, the Clopper-Pearson interval is conservative and
-often unnecessarily wide. Brown et al. (2001) recommend the
-Wilson or Jeffreys intervals for small sample sizes, and
-the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
-as providing more reliable coverage than most alternatives.</p>
 <p>For the methods <code>"wilson"</code>, <code>"wilson-cc"</code>,
 <code>"wilson-mod"</code>, <code>"agresti-coull"</code>,
 <code>"witting"</code>, and <code>"arcsine"</code>,
@@ -252,6 +244,18 @@ and therefore yields the largest required sample size. If a more
 accurate estimate of the population proportion is available,
 it can be used to obtain a smaller required sample size for the same
 level of precision.</p>
+    </div>
+    <div id="which-interval-should-be-used-">
+    <h2><strong>Which interval should be used?</strong></h2>
+
+
+<p>The Wald interval is known to have poor coverage properties,
+particularly for small sample sizes or proportions near 0 or 1.
+In contrast, the Clopper-Pearson interval is conservative and
+often unnecessarily wide. Brown et al. (2001) recommend the
+Wilson or Jeffreys intervals for small sample sizes, and
+the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
+as providing more reliable coverage than most alternatives.</p>
     </div>
     <div id="contributors">
     <h2>Contributors</h2>
@@ -293,10 +297,7 @@ de confiance pour une proportion binomiale.</p>
 <p>Other ci.proportion:
 <code><a href="binomDiffCI.html">binomDiffCI()</a></code>,
 <code><a href="binomRatioCI.html">binomRatioCI()</a></code>,
-<code><a href="multinomCI.html">multinomCI()</a></code>,
-<code><a href="poissonCI.html">poissonCI()</a></code>,
-<code><a href="poissonDiffCI.html">poissonDiffCI()</a></code>,
-<code><a href="poissonRatioCI.html">poissonRatioCI()</a></code></p></div>
+<code><a href="multinomCI.html">multinomCI()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -397,7 +398,7 @@ de confiance pour une proportion binomiale.</p>
 <span class="r-in"><span><span class="co"># example Table I in Newcombe (1998)</span></span></span>
 <span class="r-in"><span><span class="va">meths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"wald-cc"</span>, <span class="st">"wilson"</span>, <span class="st">"wilson-cc"</span>,</span></span>
 <span class="r-in"><span>           <span class="st">"clopper-pearson"</span>,<span class="st">"mid-p"</span>, <span class="st">"lik"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bedrock</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bedrock/man/setNamesX.html" class="external-link">setNamesX</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">bedrock</span><span class="fu">::</span><span class="fu"><a href="https://andrisignorell.github.io/bedrock/reference/setNamesX.html" class="external-link">setNamesX</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">binomCI</span><span class="op">(</span><span class="fl">81</span>, <span class="fl">263</span>, m<span class="op">=</span><span class="va">meths</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lci"</span>,<span class="st">"uci"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>    <span class="fu">binomCI</span><span class="op">(</span><span class="fl">15</span>, <span class="fl">148</span>, m<span class="op">=</span><span class="va">meths</span><span class="op">)</span><span class="op">[</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lci"</span>,<span class="st">"uci"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>    <span class="fu">binomCI</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, m<span class="op">=</span><span class="va">meths</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lci"</span>,<span class="st">"uci"</span><span class="op">)</span><span class="op">]</span>,</span></span>

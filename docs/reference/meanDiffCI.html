@@ -18,7 +18,7 @@ the classical way or with the bootstrap approach."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.935</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ the boot function.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>This function collects code from two sources. The classical confidence
-interval is calculated by means of <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></code>. The bootstrap
+interval is calculated by means of <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code>. The bootstrap
 intervals are strongly based on the example in <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code>.</p>
 <p>The bootstrap type <code>"stud"</code> (studentized) is not supported: the
 statistic functions used here return only the point estimate, not a
@@ -142,8 +142,7 @@ per-replicate variance estimate, so requesting it raises an error.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="meanCI.html">meanCI</a></code>, <code><a href="varCI.html">varCI</a></code>, <code><a href="medianCI.html">medianCI</a></code>,
-<code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code></p>
+    <div class="dont-index"><p><code><a href="varCI.html">varCI()</a></code>, <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code></p>
 <p>Other ci.location:
 <code><a href="meanCI.html">meanCI()</a></code>,
 <code><a href="meanCIn.html">meanCIn()</a></code>,
@@ -168,18 +167,18 @@ per-replicate variance estimate, so requesting it raises an error.</p>
 <span class="r-in"><span><span class="co"># the different types of bootstrap confints</span></span></span>
 <span class="r-in"><span><span class="fu">meanDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   meandiff        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.848997  -3.677161 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.852192  -3.676966 </span>
 <span class="r-in"><span><span class="fu">meanDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"basic"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   meandiff        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.811336  -3.654656 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.595951  -3.658704 </span>
 <span class="r-in"><span><span class="co"># type="stud" is not supported (see Details) and raises an error:</span></span></span>
 <span class="r-in"><span><span class="co"># meanDiffCI(x, y, method="boot", type="stud", na.rm=TRUE)</span></span></span>
 <span class="r-in"><span><span class="fu">meanDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"perc"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   meandiff        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.763968  -3.499190 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -11.010121  -3.540486 </span>
 <span class="r-in"><span><span class="fu">meanDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   meandiff        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.965252  -3.549301 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -7.244939 -10.929270  -3.724819 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for long form variables</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">am</span><span class="op">)</span>, </span></span>

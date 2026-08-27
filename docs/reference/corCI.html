@@ -21,7 +21,7 @@ values, from which confidence intervals can be derived."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.935</span>
       </span>
     </div>
 
@@ -58,12 +58,7 @@ values, from which confidence intervals can be derived.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">corCI</span><span class="op">(</span></span>
-<span>  <span class="va">rho</span>,</span>
-<span>  <span class="va">n</span>,</span>
-<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">corCI</span><span class="op">(</span><span class="va">rho</span>, <span class="va">n</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,15 +76,16 @@ Must be at least 3.</p></dd>
 
 
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
-<dd><p>numeric; confidence level for the interval.
-Must be a single value in the open interval \((0, 1)\).
-Default is <code>0.95</code>.</p></dd>
+<dd><p>confidence level of the interval, a single number in
+\((0, 1)\). Defaults to <code>0.95</code>; unlike the estimators in this
+package it cannot be <code>NA</code>, since the interval is all this function
+computes.</p></dd>
 
 
-<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
-<dd><p>character string specifying the alternative hypothesis.
-Must be one of <code>"two.sided"</code> (default), <code>"less"</code>, or
-<code>"greater"</code>. Partial matching is allowed.</p></dd>
+<dt id="arg-sides">sides<a class="anchor" aria-label="anchor" href="#arg-sides"></a></dt>
+<dd><p>character string specifying the sidedness of the confidence
+interval (one of <code>"two.sided"</code> (default), <code>"left"</code> or
+<code>"right"</code>). See <code><a href="https://rdrr.io/pkg/DescToolsX/man/ConfidenceIntervals.html" class="external-link">DescToolsX::ConfidenceIntervals</a></code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -113,13 +109,29 @@ which stabilizes the variance of the correlation coefficient. The
 transformed values are approximately normally distributed with standard
 error \(1 / \sqrt{n - 3}\). Confidence intervals are computed on the
 transformed scale and then back-transformed.</p>
-<p>For <code>alternative = "two.sided"</code>, a symmetric interval on the
-\(z\)-scale is used. For one-sided alternatives, the interval is
-unbounded on one side.</p>
+<p>A correlation lies in \([-1, 1]\), so the open side of a one-sided
+interval is reported at that boundary rather than at \(\pm\infty\).</p>
+<p>The transformation has nothing to say in two situations, and both are
+answered with <code>NA</code> bounds and a warning rather than with an interval
+that only looks informative: at \(|\rho| = 1\), where \(z\) is
+infinite and the interval would collapse onto the estimate and thereby
+rule out every other value, and at \(n = 3\), where the standard error
+\(1/\sqrt{n-3}\) is infinite and the interval would be the whole range.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
     <p>Based on code by William Revelle, adapted to conform to package standards.</p>
+    </div>
+    <div id="argument-name">
+    <h2>Argument name</h2>
+
+
+<p>This function used to take <code>alternative</code> with the values
+<code>"less"</code> and <code>"greater"</code>. It now takes <code>sides</code>, like every
+other interval function in the package, and <code>sides</code> names the side
+carrying the <em>finite</em> bound - so <code>"left"</code> is the former
+<code>"greater"</code> and <code>"right"</code> the former <code>"less"</code>. The values
+produced are unchanged.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -132,6 +144,11 @@ unbounded on one side.</p>
 <span class="r-in"><span><span class="fu">corCI</span><span class="op">(</span><span class="fl">0.5</span>, n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5000000 0.1704314 0.7289586 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># one-sided: "left" carries the finite lower bound</span></span></span>
+<span class="r-in"><span><span class="fu">corCI</span><span class="op">(</span><span class="fl">0.5</span>, n <span class="op">=</span> <span class="fl">30</span>, sides <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.5000000 0.2286399 1.0000000 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare multiple correlations</span></span></span>
 <span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.9</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>

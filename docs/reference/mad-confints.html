@@ -21,7 +21,7 @@ lambda distribution (GLD), and a parallel bootstrap interval."><meta property="o
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lumen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.930</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.935</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/mad.html" class="external-link">mad</a></code>, <code>DescToolsX::madX</code></p></div>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/mad.html" class="external-link">mad</a></code>, <code><a href="https://rdrr.io/pkg/DescToolsX/man/madX.html" class="external-link">DescToolsX::madX</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -219,7 +219,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.7427919       Inf </span>
 <span class="r-in"><span><span class="fu">madCI</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"bca"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.6976132 1.2298903 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.6922272 1.2100449 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># two-sample difference</span></span></span>
 <span class="r-in"><span><span class="fu">madDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
@@ -227,7 +227,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.372101 -1.267849 </span>
 <span class="r-in"><span><span class="fu">madDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"perc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.282041 -1.179965 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.328010 -1.104668 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># two-sample squared ratio</span></span></span>
 <span class="r-in"><span><span class="fu">madRatioCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
@@ -235,7 +235,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.06247871 0.20727434 </span>
 <span class="r-in"><span><span class="fu">madRatioCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"bca"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.05306261 0.23672634 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.05335922 0.25521800 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

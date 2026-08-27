@@ -37,6 +37,14 @@ pkgdown::build_reference_index()
 pkgdown::build_favicons(overwrite=TRUE)
 
 
+
+pkgdown::build_home()
+pkgdown::build_site()
+usethis::use_pkgdown_github_pages()
+
+
+
+
 devtools::document()
 devtools::load_all()
 devtools::check()
