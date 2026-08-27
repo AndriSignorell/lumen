@@ -1,6 +1,6 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
-Version: 0.0.0.939  
+Version: 0.0.0.941  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -61,11 +61,17 @@ Authors@R: c(
   person("Anthropic Claude", role = c("ctb"),
     comment = "AI-assisted code and documentation review; all suggestions reviewed by the maintainer")
  )
-Description: Extends 'DescToolsX' with a coherent collection of classical,
-    robust, nonparametric, and specialized hypothesis tests, confidence
-    intervals, and probability distributions. Consistent interfaces and
-    carefully documented implementations make advanced statistical methods
-    readily accessible in everyday R workflows.
+Description: Supplies the inferential layer of the DescToolsX ecosystem:
+    classical, robust, nonparametric and specialised hypothesis tests,
+    confidence intervals for the common estimands, and a set of
+    probability distributions not available in base R. Tests return
+    ordinary "htest" objects and intervals follow one argument
+    convention throughout, so methods from very different literatures
+    can be combined without translating between interfaces. Coverage
+    ranges from location, scale and proportion problems through
+    categorical association, goodness of fit, time series and post-hoc
+    multiple comparisons. The package can be used on its own; it does
+    not require the higher level packages of the suite.
 Depends: R (>= 4.2.0)
 License: GPL (>= 2)
 Encoding: UTF-8

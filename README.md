@@ -1,209 +1,140 @@
-# lumen
+# 📦 lumen <img src="man/figures/logo.png" align="right" height="139" alt="lumen logo" />
 
-`lumen` provides hypothesis tests, confidence intervals, and selected statistical
-distributions used across the DescToolsX ecosystem. It is designed as a focused
-statistical companion package: methodologically transparent, API-consistent, and
-suitable for use in applied statistical workflows.
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/lumen)](https://CRAN.R-project.org/package=lumen)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+<!-- badges: end -->
 
-Every function ships with a documented reference — a textbook formula, an original
-paper, or a well-established R implementation it was checked against — rather than
-a bare implementation.
+**Title:** Statistical Tests, Confidence Intervals, and Distributions\
+**License:** GPL (≥ 2)
 
-The package is currently under active development.
+## 🧩 Overview
 
-## Installation
+`lumen` is the inferential layer of the **DescToolsX ecosystem**. It
+provides classical, robust, nonparametric and specialised hypothesis
+tests, confidence intervals for the common estimands, and a set of
+probability distributions that base R does not carry.
 
-You can install the development version from GitHub:
+Tests return ordinary `"htest"` objects and intervals follow one
+argument convention throughout, so procedures from very different
+literatures can be combined without translating between interfaces.
 
-```r
-# install.packages("remotes")
+The package is self-contained and does not require the higher-level
+packages of the suite.
+
+📖 **Documentation:** <https://andrisignorell.github.io/lumen/>
+
+## ⚙️ Installation
+
+``` r
+install.packages("lumen")
+```
+
+Or the development version from GitHub:
+
+``` r
 remotes::install_github("AndriSignorell/lumen")
 ```
 
-The package requires R >= 4.2.0.
+## 📚 Core Features
 
-## Scope
+### 🔹 Location Tests
 
-`lumen` collects statistical procedures that are commonly useful in exploratory
-analysis, inference, and methodological comparison:
+-   `tTestA()`, `zTest()`, `yuenTTest()`, `signTest()`
+-   `brunnerMunzelTest()`, `siegelTukeyTest()`, `mosesTest()`
+-   `moodMedianTest()`, `vanWaerdenTest()`, `dscfTest()`
 
-- hypothesis tests for goodness-of-fit, normality, stationarity, randomness,
-  contingency tables, marginal homogeneity, and nonparametric group comparisons
-- post-hoc procedures and multiple-comparison methods, both parametric
-  (Dunnett, Scheffé, Tukey via `postHoc()`) and nonparametric (Conover, Dunn,
-  Nemenyi, Steel, DSCF)
-- confidence intervals for proportions, differences and ratios of proportions,
-  means, medians, variances, sums, correlations, and quantiles, each with
-  classical, robust, and bootstrap variants where applicable
-- selected probability distributions, including extreme-value (GEV, GPD,
-  Gumbel, Fréchet, reversed Weibull), Dirichlet, Gompertz, triangular,
-  Benford, and order-statistic distributions, plus their mean/variance
-  companions
-- generic bootstrap confidence interval and power-analysis helpers
+### 🔹 Categorical Data
 
-## Examples
+-   `barnardTest()`, `gTest()`, `cochranArmitageTest()`,
+    `cochranQTest()`
+-   `breslowDayTest()`, `woolfTest()`, `mantelTrendTest()`
+-   `bhapkarTest()`, `stuartMaxwellTest()`, `lehmacherTest()`
 
-### Binomial confidence intervals
+### 🔹 Goodness of Fit and Normality
 
-```r
+-   `andersonDarlingTest()`, `cramerVonMisesTest()`, `lillieTest()`
+-   `shapiroFranciaTest()`, `jarqueBeraTest()`, `pearsonTest()`
+-   `hosmerLemeshowTest()`, `leCessieTest()` — for logistic models
+
+### 🔹 Multiple Comparisons and Post-hoc
+
+-   `postHoc()`, `plot.PostHocTest()`
+-   `dunnTest()`, `dunnettTest()`, `conoverTest()`, `nemenyiTest()`
+-   `gamesHowellTest()`, `scheffeTest()`, `steelTest()`
+
+### 🔹 Trend, Randomness and Time Series
+
+-   `adfTest()`, `kpssTest()`, `runsTest()`, `vonNeumannTest()`
+-   `bartelsRankTest()`, `coxStuartTest()`, `jonckheereTerpstraTest()`
+-   `pageTest()`, `durbinWatsonTest()`, `breuschGodfreyTest()`,
+    `bpTest()`
+
+### 🔹 Confidence Intervals
+
+-   Proportions: `binomCI()`, `binomDiffCI()`, `binomRatioCI()`,
+    `multinomCI()`
+-   Counts and rates: `poissonCI()`, `poissonDiffCI()`,
+    `poissonRatioCI()`
+-   Location and scale: `meanCI()`, `meanDiffCI()`, `medianCI()`,
+    `quantileCI()`, `varCI()`, `sumCI()`
+-   Correlation: `corCI()`, `fisherZ()`
+-   General: `bootCI()` for arbitrary statistics
+
+### 🔹 Distributions
+
+`dpqr` families for the Benford, Dirichlet, extreme value, Fréchet, GEV,
+GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull
+and triangular distributions, plus `cont.moments()`, `disc.moments()`
+and `extreme-value-moments()`.
+
+### 🔹 Power and Sample Size
+
+-   `meanCIn()`, `powerChisqTest()`, `sphericityEps()`, `scores()`
+
+## 🚀 Design Principles
+
+-   **Consistent** — lowerCamelCase API, uniform argument names and
+    ordering across the whole DescToolsX suite
+-   **Standard output** — tests return `"htest"` objects and print like
+    the ones in base R
+-   **Fast** — bootstrap and permutation routines implemented in C++ via
+    Rcpp, RcppArmadillo and RcppParallel
+-   **Documented** — references to the original literature on every
+    procedure
+
+## 🧪 Example
+
+``` r
 library(lumen)
 
-binomCI(x = 37, n = 43, method = "wilson")
-binomCI(x = 42, n = 43, method = "clopper-pearson")
-```
+# a confidence interval for a proportion, several methods
+binomCI(37, 100, method = "wilson")
 
-### Goodness-of-fit testing
+# nonparametric alternative to the t test
+brunnerMunzelTest(extra ~ group, data = sleep)
 
-```r
-x <- rnorm(50)
-andersonDarlingTest(x, null = "pnorm", mean = mean(x), sd = sd(x), estimated = TRUE)
-```
-
-### Nonparametric tests
-
-```r
-x <- c(1.1, 1.4, 1.6, 2.0, 2.2)
-y <- c(1.0, 1.2, 1.3, 1.7, 1.9)
-
-siegelTukeyTest(x, y)
-```
-
-### Contingency-table tests
-
-```r
-tab <- matrix(c(8, 14, 1, 3), nrow = 2)
-barnardTest(tab)
-```
-
-### Post hoc comparisons after ANOVA
-
-```r
+# post-hoc comparisons after an ANOVA
 fit <- aov(breaks ~ tension, data = warpbreaks)
 postHoc(fit, method = "hsd")
+
+# goodness of fit
+andersonDarlingTest(rnorm(100), null = "pnorm")
 ```
 
-### Bootstrap confidence intervals
+## 🧱 The Suite
 
-```r
-set.seed(1984)
-bootCI(mtcars$mpg, FUN = mean, na.rm = TRUE, bci.method = "basic")
-```
+`lumen` builds on `bedrock` (base utilities) and `pharos` (graphics).
+`DescToolsX` (descriptive statistics), `alloy` (modelling), `pons`
+(MS-Office) and `swissValet` (RStudio addins) complete the family.
 
-## Design principles
+## 🙏 Acknowledgements
 
-`lumen` follows the broader DescToolsX design philosophy:
+Parts of the code and documentation were reviewed with the help of large
+language models (OpenAI Codex, Anthropic Claude). Every suggestion was
+assessed, edited and verified by the maintainer, who remains solely
+responsible for the content of this package.
 
-- predictable lowerCamelCase function names, with `.default`/`.formula`/`.glm`
-  S3 methods offered wherever a formula or model-object interface makes sense
-- explicit argument validation with informative error messages
-- transparent method choices — where a test or interval admits more than one
-  established computation (e.g. exact vs. asymptotic, classical vs. bootstrap),
-  the alternatives are exposed as an explicit `method`/`type` argument rather
-  than hidden behind a single default
-- clean separation between user-facing interfaces and computational engines,
-  with performance-critical algorithms (exact permutation and rank
-  distributions, Wellek's exact Page test tables, run-length distributions)
-  implemented in C++ via Rcpp/RcppParallel/RcppArmadillo
-- compatibility with familiar base R idioms: most hypothesis tests return
-  `htest`-compatible objects usable with `print()`, `$statistic`, `$p.value`,
-  and friends
+## 📜 License
 
-## Function reference
-
-The sections below group the most commonly used functions by purpose. The full
-alphabetical reference, including internal helpers and every distribution
-variant, is available via `?lumen` and the
-[pkgdown site](https://andrisignorell.github.io/lumen/reference/index.html).
-
-### Goodness-of-fit and normality
-
-`andersonDarlingTest()` · `cramerVonMisesTest()` · `jarqueBeraTest()` ·
-`lillieTest()` · `pearsonTest()` · `shapiroFranciaTest()`
-
-### Time series: stationarity, autocorrelation, randomness
-
-`adfTest()` · `kpssTest()` · `durbinWatsonTest()` · `breuschGodfreyTest()` ·
-`bpTest()` · `bartelsRankTest()` · `runsTest()` · `vonNeumannTest()`
-
-### Categorical and contingency-table tests
-
-`barnardTest()` · `bhapkarTest()` · `breslowDayTest()` · `stuartMaxwellTest()` ·
-`woolfTest()` · `cochranArmitageTest()` · `cochranQTest()` · `gTest()` ·
-`lehmacherTest()` · `mantelTrendTest()` · `hosmerLemeshowTest()` ·
-`leCessieTest()`
-
-### Location and scale tests
-
-`hotellingsT2Test()` · `signTest()` · `tTestA()` · `yuenTTest()` · `zTest()` ·
-`varTest()` · `leveneTest()` · `siegelTukeyTest()`
-
-### Post hoc and multiple comparisons
-
-`postHoc()` (Tukey HSD, Bonferroni, LSD, Scheffé, Newman-Keuls, Duncan) ·
-`scheffeTest()` · `conoverTest()` · `dunnTest()` · `dunnettTest()` ·
-`nemenyiTest()` · `steelTest()` · `dscfTest()` · `vanWaerdenTest()` ·
-`jonckheereTerpstraTest()` · `pageTest()`
-
-### Power analysis
-
-`powerChisqTest()`
-
-### Confidence intervals
-
-`binomCI()` · `binomDiffCI()` · `binomRatioCI()` · `poissonCI()` ·
-`multinomCI()` · `meanCI()` · `meanCIn()` · `meanDiffCI()` · `medianCI()` ·
-`quantileCI()` · `varCI()` · `sumCI()` · `corCI()` · `fisherZ()` ·
-`bootCI()`
-
-### Distributions and moments
-
-`dgev()`/`pgev()`/`qgev()`/`rgev()` — generalized extreme value ·
-`dgpd()`/`pgpd()`/`qgpd()`/`rgpd()` — generalized Pareto ·
-`dgumbel()`/`pgumbel()`/`qgumbel()`/`rgumbel()` — Gumbel ·
-`dgumbelx()` — reversed Gumbel extremes ·
-`dfrechet()` — Fréchet · `drweibull()` — reversed Weibull ·
-`dgompertz()` — Gompertz · `ddirichlet()`/`rdirichlet()` — Dirichlet ·
-`dtri()` — triangular · `dbenford()` — Benford's law ·
-`dorder()` — order statistics ·
-`mcontinuous`/`mdiscrete`/`mextreme` — mean/variance for common continuous,
-discrete, and extreme-value distributions ·
-`pAD()` — null distribution of the Anderson-Darling statistic
-
-See `?distributions-overview` for the full family index and conversion table.
-
-### Utilities
-
-`scores()` — score transformations (table, rank, ridit, modified ridit) for
-ordinal contingency tables · `sphericityEps()` — Greenhouse-Geisser and
-Huynh-Feldt sphericity corrections
-
-## Dependencies
-
-`lumen` imports `pharos`, `bedrock`, `mvtnorm`, `stats`, `boot`, and `gld`.
-C++ support is provided through `Rcpp`, `RcppParallel`, and `RcppArmadillo`.
-`Exact`, `goftest`, `coin`, `flexsurv`, `randtests`, `lmtest`, `nortest`,
-`multcomp`, and `tseries` are used in `Suggests`, for optional methods and
-test-suite cross-validation.
-
-## Documentation
-
-The development documentation is available at:
-
-<https://andrisignorell.github.io/lumen/>
-
-The source repository is available at:
-
-<https://github.com/AndriSignorell/lumen/>
-
-Issues and feature requests can be submitted at:
-
-<https://github.com/AndriSignorell/lumen/issues>
-
-## License
-
-`lumen` is released under GPL (>= 2).
-
-## Status
-
-This package is experimental and versioned as `0.0.0.924`. Interfaces may
-still change before a stable release.
+GPL (≥ 2)
