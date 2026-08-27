@@ -1,6 +1,6 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
-Version: 0.0.0.937  
+Version: 0.0.0.938  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -75,7 +75,7 @@ Imports: pharos, bedrock, mvtnorm, stats, boot, gld, Rcpp, RcppParallel
 Suggests: testthat (>= 3.0.0), Exact, goftest, coin, flexsurv, 
   randtests, lmtest, nortest, multcomp, tseries
 Remotes:  
-    AndriSignorell/bedrock AndriSignorell/pharos
+    AndriSignorell/bedrock, AndriSignorell/pharos
 Config/testthat/edition: 3
 URL: https://andrisignorell.github.io/lumen/,
             https://github.com/AndriSignorell/lumen/
