@@ -1,12 +1,12 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
-Version: 0.0.0.938  
+Version: 0.0.0.939  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
          role = c("aut", "cre"),
          comment = c(ORCID = "0000-0003-4311-1969")),
-  person("R-Core",                                        role = c("ctb")),
+  person("R Core Team"                                  , role = c("ctb")),
   person("Ken"                  , "Aho",                  role = c("ctb")),
   person("Chandima N. P. G."    , "Arachchige",           role = c("ctb")),
   person("Adrian"               , "Baddeley",             role = c("ctb")),

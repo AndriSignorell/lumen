@@ -1,0 +1,208 @@
+home:
+  title: lumen
+  description: Statistical tests, confidence intervals, and distributions for DescToolsX
+
+destination: docs
+
+development:
+  mode: auto
+
+template:
+  default_assets: true
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left:  [version, home, reference, news]
+    right: [github]
+  components:
+    version:
+      icon: fa-book
+      menu:
+      - text: "Documentation for version of package:"
+      - text: Released
+        href: https://andrisignorell.github.io/lumen/
+      - text: In-development
+        href: https://andrisignorell.github.io/lumen/dev/
+
+# About package ==============================================================
+reference:
+- title: Package Overview & Interfaces
+  desc: >
+    Package overview and common formula-interface conventions.
+  contents:
+  - lumen-package
+  - Formulas
+
+- title: Confidence Intervals for Location
+  desc: >
+    Confidence intervals and sample-size calculations for means, medians, and quantiles.
+  contents:
+  # ci.general -- General bootstrap interface
+  - bootCI
+  # ci.location -- Location parameters and contrasts
+  - meanCI
+  - meanCIn
+  - meanDiffCI
+  - medianCI
+  - quantileCI
+  - sumCI
+
+- title: Confidence Intervals for Proportions, Rates & Dispersion
+  desc: >
+    Confidence intervals for categorical outcomes, rates, correlations, and scale parameters.
+  contents:
+  # ci.proportion -- Binomial and multinomial proportions
+  - binomCI
+  - binomDiffCI
+  - binomRatioCI
+  - multinomCI
+  # ci.rate -- Poisson rates
+  - poissonCI
+  - poissonDiffCI
+  - poissonRatioCI
+  # ci.correlation -- Correlation
+  - corCI
+  # ci.variance -- Dispersion and variance
+  - mad-confints
+  - varCI
+
+- title: Location & Correlation Tests
+  desc: >
+    Parametric, nonparametric, robust, multivariate, and correlation tests.
+  contents:
+  # test.location -- Location and stochastic-order comparisons
+  - brunnerMunzelTest
+  - hotellingsT2Test
+  - moodMedianTest
+  - signTest
+  - tTestA
+  - vanWaerdenTest
+  - yuenTTest
+  - zTest
+  # test.correlation -- Correlation tests
+  - corTest
+
+- title: Categorical Data Tests
+  desc: >
+    Tests for proportions, contingency tables, marginal homogeneity, and ordinal trends.
+  contents:
+  # test.categorical -- Independent and paired categorical data
+  - barnardTest
+  - bhapkarTest
+  - breslowDayTest
+  - cochranArmitageTest
+  - cochranQTest
+  - gTest
+  - lehmacherTest
+  - mantelTrendTest
+  - stuartMaxwellTest
+  - woolfTest
+
+- title: Variance & Dispersion Tests
+  desc: >
+    Parametric, robust, and rank-based comparisons of variability.
+  contents:
+  # test.variance -- Variance and dispersion
+  - leveneTest
+  - mosesTest
+  - siegelTukeyTest
+  - varTest
+
+- title: Normality & Goodness-of-Fit Tests
+  desc: >
+    Tests for normality and distributional goodness of fit.
+  contents:
+  # test.normality -- Normality and distributional fit
+  - andersonDarlingTest
+  - cramerVonMisesTest
+  - jarqueBeraTest
+  - lillieTest
+  - pearsonTest
+  - shapiroFranciaTest
+
+- title: Trend, Randomness & Time Series Tests
+  desc: >
+    Tests for stationarity, trends, serial dependence, and randomness.
+  contents:
+  # test.timeseries -- Stationarity and serial dependence
+  - adfTest
+  - bartelsRankTest
+  - kpssTest
+  - runsTest
+  - vonNeumannTest
+  # test.trend -- Ordered alternatives and monotonic trends
+  - coxStuartTest
+  - jonckheereTerpstraTest
+  - pageTest
+
+- title: Regression Diagnostics
+  desc: >
+    Tests for heteroscedasticity, autocorrelation, calibration, and model fit.
+  contents:
+  # test.regression -- Linear and logistic regression diagnostics
+  - bpTest
+  - breuschGodfreyTest
+  - durbinWatsonTest
+  - hosmerLemeshowTest
+  - leCessieTest
+
+- title: Multiple Comparisons & Post-Hoc Tests
+  desc: >
+    Parametric and nonparametric multiple-comparison procedures and result helpers.
+  contents:
+  # test.posthoc -- Multiple-comparison procedures
+  - conoverTest
+  - dscfTest
+  - dunnettTest
+  - dunnTest
+  - gamesHowellTest
+  - nemenyiTest
+  - postHoc
+  - scheffeTest
+  - steelTest
+  # posthoc.results -- Display and interpretation helpers
+  - plot.PostHocTest
+  - print.rankTest
+  - signifDiff
+
+- title: Probability Distributions
+  desc: >
+    Distribution functions, moments, order statistics, and random compositions.
+  contents:
+  # distributions.overview -- Entry point and moments
+  - distributions-overview
+  - cont.moments
+  - disc.moments
+  - extreme-value-moments
+  # distributions.general -- General and multivariate distributions
+  - dpqr-benford
+  - dpqr-dirichlet
+  - dpqr-gompertz
+  - dpqr-tri
+  # distributions.extreme -- Extreme-value distributions
+  - dpqr-extreme
+  - dpqr-frechet
+  - dpqr-gev
+  - dpqr-gpd
+  - dpqr-gumbel
+  - dpqr-gumbelx
+  - dpqr-RevGumbel
+  - dpqr-rweibull
+  # distributions.order -- Order statistics and test-statistic distributions
+  - dpqr-order
+  - pAD
+  # distributions.random -- Random compositions
+  - rsum1
+
+- title: Statistical Utilities & Power
+  desc: >
+    Transformations, scoring, repeated-measures corrections, and power calculations.
+  contents:
+  # statistical.transforms -- Transformations and scores
+  - fisherZ
+  - scores
+  # statistical.design -- Power and repeated-measures corrections
+  - powerChisqTest
+  - sphericityEps
