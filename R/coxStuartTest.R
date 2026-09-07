@@ -19,7 +19,7 @@
 #' Every observation enters at most one pair, so under independence and a
 #' continuous common distribution the signs are independent Bernoulli variables
 #' with probability one half. The p-value from
-#' [stats::binom.test()] is then exact at any series length, however
+#' [binom.test()] is then exact at any series length, however
 #' short. That exactness rests on the independence assumption: with serially
 #' dependent observations the signs need not be independent and the nominal
 #' level is no longer guaranteed.

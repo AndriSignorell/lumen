@@ -54,7 +54,9 @@
 #'
 #' **Logit**:
 #' Obtained by constructing a Wald-type interval on the log-odds scale
-#' and transforming back to the probability scale.
+#' and transforming back to the probability scale. The transform is not
+#' defined for \eqn{x = 0} and \eqn{x = n}, where the Clopper-Pearson
+#' limits are reported instead.
 #'
 #' **Witting**:
 #' A randomized procedure (Witting, 1985) providing uniformly optimal
@@ -111,20 +113,25 @@
 #' the Agresti-Coull, Wilson, or Jeffreys intervals for larger samples,
 #' as providing more reliable coverage than most alternatives.
 #' 
-#' @param x number of successes.
-#' @param n number of trials.
-#' @param conf.level confidence level, defaults to 0.95.
+#' @param x number of successes, an integer between 0 and `n`.
+#' @param n number of trials, a positive integer.
+#' @param conf.level confidence level, defaults to 0.95. With `NA` only the
+#' point estimate is returned.
 #' @param sides a character string specifying the side of the confidence
 #' interval, must be one of `"two.sided"` (default), `"left"` or
-#' `"right"`. You can specify just the initial letter. `"left"`
-#' would be analogue to a hypothesis of `"greater"` in a `t.test`.
+#' `"right"`. You can specify just the initial letter. `sides` names the
+#' side carrying the finite bound: `"left"` reports the lower limit and
+#' opens the upper one to 1, `"right"` reports the upper limit and opens
+#' the lower one to 0. A one-sided bound at level `conf.level` is the
+#' corresponding end of the two-sided interval at level
+#' `2 * conf.level - 1`, and therefore requires `conf.level > 0.5`.
 #' @param method character string specifying which method to use; this can be
 #' one out of: `"wald"`, `"wald-cc"`,`"wilson"` (default), 
 #' `"wilson-cc"`,
 #' `"agresti-coull"`, `"jeffreys"`, `"wilson-mod"`,
 #' `"jeffreys-mod"`, `"clopper-pearson"`, `"arcsine"`,
 #' `"logit"`, `"witting"`, `"pratt"`, `"mid-p"`,
-#' `"likelihood"` and `"blaker"`.  All the methods can be
+#' `"likelihood"`, `"blaker"` and `"khouadji"`.  All the methods can be
 #' asked by `".all"`. Abbreviation of method is 
 #' accepted. See details.
 #' 
@@ -145,6 +152,10 @@
 #' If recycling yields multiple cases, a data frame with one row per case is
 #' returned. Its first three columns are `est`, `lci`, and `uci`;
 #' the remaining columns contain the recycled argument values.
+#'
+#' With `conf.level = NA` no interval is computed: the point estimate is
+#' returned as an unnamed scalar, or as the single column `est` of the
+#' data frame.
 #' 
 #' @section Contributors:
 #' The function is based on earlier work by Matthias Kohl in package \pkg{SLmisc},
@@ -157,14 +168,24 @@
 #' Andri Signorell. 
 #' 
 #'    
-#' @references Agresti A. and Coull B.A. (1998) Approximate is better than
+#' @references 
+#' Agresti A. and Coull B.A. (1998) Approximate is better than
 #' "exact" for interval estimation of binomial proportions.  *American
 #' Statistician*, **52**, pp. 119-126.
+#' 
+#' Blaker, H. (2000) Confidence curves and improved exact confidence intervals
+#' for discrete distributions, *Canadian Journal of Statistics* 28 (4),
+#' 783-798
 #' 
 #' Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
 #' binomial proportion *Statistical Science*, **16**(2), pp. 101-133.
 #' 
-#' Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
+#' Khouadji, A. (1999) Sur une méthode d’approximation des intervalles 
+#' de confiance pour une proportion binomiale.
+#' 
+#' Newcombe, R. G. (1998) Two-sided confidence intervals for the single
+#' proportion: comparison of seven methods, *Statistics in Medicine*,
+#' 17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
 #' 
 #' Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
 #' common, related tail probabilities *Journal of the American
@@ -173,18 +194,9 @@
 #' Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
 #' testing*. Elsevier Academic Press
 #' 
-#' Newcombe, R. G. (1998) Two-sided confidence intervals for the single
-#' proportion: comparison of seven methods, *Statistics in Medicine*,
-#' 17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
+#' Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
 #' 
-#' Blaker, H. (2000) Confidence curves and improved exact confidence intervals
-#' for discrete distributions, *Canadian Journal of Statistics* 28 (4),
-#' 783-798
-#' 
-#' A. Khouadji (1999) Sur une méthode d’approximation des intervalles 
-#' de confiance pour une proportion binomiale.
-#' 
-#' @seealso [stats::binom.test()], [Hmisc::binconf()]
+#' @seealso [binom.test()], `Hmisc::binconf()`
 #'  
 #' @examples
 #' 
@@ -221,12 +233,7 @@
 #' # return all implemented methods
 #' binomCI(4, 19, conf.level =0.95, 
 #'         method = c(".all"))[, c("est","lci","uci","method")]
-#' 
-
-
-
-#' @rdname binomCI
-
+#'
 #' @family ci.proportion  
 #' @concept confidence-interval  
 #' @concept proportion
@@ -246,9 +253,9 @@ binomCI <- function(x, n,
                     stdEst=TRUE) {
   
   
-  if (conf.level <= 0 || conf.level >= 1)
-    stop("conf.level must be between 0 and 1 (exclusive).")
-  
+  # conf.level is validated in the engine, where it arrives as a single
+  # recycled value; 'sides' is resolved here because applySides() expects
+  # a matched value
   sides <- match.arg(sides)
   
   if (missing(method)) {
@@ -272,8 +279,11 @@ binomCI <- function(x, n,
   if(length(res) == 1)
     out <- res[[1]]
   else{
-    out <- as.data.frame(attr(res, "recycle"))
-    out <- data.frame(do.call(rbind, res), out)
+    ci <- do.call(rbind, res)
+    # with conf.level = NA the engine returns the bare point estimate
+    if(is.null(colnames(ci)))
+      colnames(ci) <- "est"
+    out <- data.frame(ci, as.data.frame(attr(res, "recycle")))
   }
 
   return(out)
@@ -286,30 +296,34 @@ binomCI <- function(x, n,
 #' @keywords internal
 .binomCI_engine <- function(x, n, conf.level, sides, method, stdEst){
   
-  alpha <- 1 - conf.level
-  if (sides != "two.sided")
-    alpha <- alpha / 2
+  checkCount(n, min = 1)
+  checkCount(x, min = 0)
 
-  CI <- switch( method
-                , "wald" =              { .binomCI.wald(x, n, alpha) }
-                , "wald-cc" =           { .binomCI.wald(x, n, alpha, corr=TRUE) }
-                , "jeffreys" =          { .binomCI.jeffreys(x, n, alpha) }
-                , "jeffreys-mod" =      { .binomCI.jeffreys_mod(x, n, alpha) }
-                , "clopper-pearson" =   { .binomCI.clopper_pearson(x, n, alpha) }
-                , "arcsine" =           { .binomCI.arcsine(x, n, alpha) }
-                , "logit" =             { .binomCI.logit(x, n, alpha) }
-                , "witting" =           { .binomCI.witting(x, n, alpha) }
-                , "agresti-coull" =     { .binomCI.agresti_coull(x, n, alpha) }
-                , "pratt" =             { .binomCI.pratt(x, n, alpha) }
-                , "wilson" =            { .binomCI.wilson(x, n, alpha) }
-                , "wilson-cc" =         { .binomCI.wilson_cc(x, n, alpha) }
-                , "wilson-mod" =        { .binomCI.wilson_mod(x, n, alpha) }
-                , "mid-p" =             { .binomCI.midp(x, n, alpha) }
-                , "blaker" =            { .binomCI.blaker(x, n, alpha) }
-                , "likelihood" =        { .binomCI.lik(x, n, alpha) }
-                , "khouadji" =          { .binomCI.khouadji(x, n, alpha) }
-                , stop(gettextf("Unknown method '%s'.", method))
-  )
+  if (x > n)
+    stop(gettextf("'x' must not be larger than 'n', got x = %g and n = %g",
+                  x, n), call. = FALSE, domain = NA)
+
+  checkConfLevel(conf.level)
+
+  if (sides != "two.sided" && !is.na(conf.level) && conf.level <= 0.5)
+    stop(gettextf(
+      "a one-sided interval needs 'conf.level' above 0.5, not %g",
+      conf.level), domain = NA)
+
+  if (is.na(conf.level)) {
+
+    # the method specific estimators are functions of the level, so there
+    # is nothing to hand back for them without one
+    if (!stdEst)
+      stop("'stdEst = FALSE' needs a confidence level, the method ",
+           "specific point estimates depend on it", call. = FALSE)
+
+    return(unname(x / n))
+  }
+
+  alpha <- .sidesAlpha(conf.level, sides)
+
+  CI <- .binomCI_bounds(x, n, alpha, method)
   
   # this is the default estimator used by the most (but not all) methods
   est <- x/n
@@ -324,17 +338,48 @@ binomCI <- function(x, n,
       est <- attr(CI, "p.tilde")
   }
   
-  # dot not return ci bounds outside [0,1]
-  ci <- c( est = est, 
-           lci = max(0, CI["lci"]), 
-           uci = min(1, CI["uci"]) )
+  # read the bounds by name, never by position (design_rules 5.6)
+  if(!all(c("lci", "uci") %in% names(CI)))
+    stop(gettextf("method '%s' did not return an 'lci'/'uci' vector",
+                  method), call. = FALSE)
   
-  if(sides=="left")
-    ci[3] <- 1
-  else if(sides=="right")
-    ci[2] <- 0
+  # clamping to the parameter range and opening the free side happen in one
+  # place for the whole suite (design_rules 8.1.4)
+  ci <- c(est = unname(est),
+          applySides(c(CI[["lci"]], CI[["uci"]]), sides, lo = 0, hi = 1))
   
   return(ci)
+
+}
+
+
+
+#' @keywords internal
+# the naked interval: no validation, no clamping and no point estimate. 'x'
+# may be non-integer here, so that binomCIn() can invert the width
+# continuously. Method specific attributes (p.tilde) are passed through.
+.binomCI_bounds <- function(x, n, alpha, method) {
+
+  switch( method
+          , "wald" =              { .binomCI.wald(x, n, alpha) }
+          , "wald-cc" =           { .binomCI.wald(x, n, alpha, corr=TRUE) }
+          , "jeffreys" =          { .binomCI.jeffreys(x, n, alpha) }
+          , "jeffreys-mod" =      { .binomCI.jeffreys_mod(x, n, alpha) }
+          , "clopper-pearson" =   { .binomCI.clopper_pearson(x, n, alpha) }
+          , "arcsine" =           { .binomCI.arcsine(x, n, alpha) }
+          , "logit" =             { .binomCI.logit(x, n, alpha) }
+          , "witting" =           { .binomCI.witting(x, n, alpha) }
+          , "agresti-coull" =     { .binomCI.agresti_coull(x, n, alpha) }
+          , "pratt" =             { .binomCI.pratt(x, n, alpha) }
+          , "wilson" =            { .binomCI.wilson(x, n, alpha) }
+          , "wilson-cc" =         { .binomCI.wilson_cc(x, n, alpha) }
+          , "wilson-mod" =        { .binomCI.wilson_mod(x, n, alpha) }
+          , "mid-p" =             { .binomCI.midp(x, n, alpha) }
+          , "blaker" =            { .binomCI.blaker(x, n, alpha) }
+          , "likelihood" =        { .binomCI.lik(x, n, alpha) }
+          , "khouadji" =          { .binomCI.khouadji(x, n, alpha) }
+          , stop(gettextf("Unknown method '%s'.", method))
+  )
 
 }
 
@@ -514,6 +559,14 @@ binomCI <- function(x, n,
 #' @keywords internal
 .binomCI.logit <- function(x, n, alpha){
   
+  # The logit transform is undefined at the boundaries: the log-odds are
+  # infinite and the variance estimate n/(x(n-x)) has a zero denominator,
+  # which leaves one limit as NaN. The interval degenerates to a one-sided
+  # bound there, and its value is the Clopper-Pearson one - qbeta reduces to
+  # 1 - (alpha/2)^(1/n) at x = 0 and to (alpha/2)^(1/n) at x = n.
+  if(x == 0 || x == n)
+    return(.binomCI.clopper_pearson(x, n, alpha))
+  
   setNamesX(
     
     logitInv(log(x/(n-x)) - 
@@ -677,25 +730,24 @@ binomCI <- function(x, n,
     return(res - bound)
   }
   
+  # Both blocks assign only where the deviance actually crosses the bound
+  # within the search interval; where it does not, the limit stays at the
+  # boundary of the parameter space it was initialised to. The upper block
+  # used to nest the lower one inside its TRUE branch, which made the value
+  # of an 'lci' assignment the value of 'uci'.
   if(x != 0 && tol < p.hat) {
-    lci <- if(BinDev(tol, x, p.hat, n, -z, tol) <= 0) {
-      uniroot(f = BinDev, 
-              interval = c(tol, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat), 
-              bound = -z, x = x, mu = p.hat, wt = n)$root }
+    if(BinDev(tol, x, p.hat, n, -z, tol) <= 0)
+      lci <- uniroot(f = BinDev,
+                     interval = c(tol, if(p.hat == 1) 1 - tol else p.hat),
+                     bound = -z, x = x, mu = p.hat, wt = n)$root
   }
   
   if(x != n && p.hat < (1-tol)) {
-    uci <- if(BinDev(y = 1 - tol, x = x, mu = ifelse(p.hat > 1 - tol, tol, p.hat), 
-                     wt = n, bound = z, tol = tol) < 0) {
-      
-      lci <- if(BinDev(tol, x, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat, n, -z, tol) <= 0) {
-        uniroot(f = BinDev, interval = c(tol, p.hat),
-                bound = -z, x = x, mu = p.hat, wt = n)$root  }
-      
-    } else {
-      
-      uniroot(f = BinDev, interval = c(if(p.hat > 1 - tol) tol else p.hat, 1 - tol),
-              bound = z, x = x, mu = p.hat, wt = n)$root     }
+    if(BinDev(y = 1 - tol, x = x, mu = p.hat,
+              wt = n, bound = z, tol = tol) >= 0)
+      uci <- uniroot(f = BinDev,
+                     interval = c(p.hat, 1 - tol),
+                     bound = z, x = x, mu = p.hat, wt = n)$root
   }
   
   return(c(lci = lci, uci = uci))

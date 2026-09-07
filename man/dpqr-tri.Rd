@@ -134,7 +134,7 @@ Univariate Distributions, Volume 2}.  Second Edition. John Wiley and Sons,
 New York.
 }
 \seealso{
-\link{distributions-overview}; \link[stats:Uniform]{Uniform}
+\link{distributions-overview}; \link{Uniform}
 }
 \concept{distribution-function}
 \concept{sampling}

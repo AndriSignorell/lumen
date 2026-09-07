@@ -108,7 +108,7 @@ Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (Third
 Edition ed.). Wiley. pp. 396--406.
 }
 \seealso{
-\code{\link[coin:normal_test]{coin::normal_test()}} in package \pkg{coin},
+\code{coin::normal_test()} in package \pkg{coin},
 where the test is implemented in a more general context.
 
 Other test.location:

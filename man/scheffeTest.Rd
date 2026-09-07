@@ -50,7 +50,7 @@ gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
 \item{data}{an optional matrix or data frame (or similar; see
-\code{\link[stats:model.frame]{stats::model.frame()}}) containing the variables in the
+\code{\link[=model.frame]{model.frame()}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 

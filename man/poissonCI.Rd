@@ -52,7 +52,7 @@ where \code{x} is the observed event count, \code{n} is the exposure, and
 The available confidence-interval methods are:
 \describe{
 \item{\code{"exact"}}{the exact Poisson interval calculated by
-\code{\link[stats:poisson.test]{stats::poisson.test()}}, equivalent to the Garwood interval}
+\code{\link[=poisson.test]{poisson.test()}}, equivalent to the Garwood interval}
 \item{\code{"score"}}{the interval obtained by inverting the Poisson score
 test}
 \item{\code{"wald"}}{the normal-approximation interval centred at
@@ -96,6 +96,6 @@ with a Programmable Calculator}. NIH Publication No. 79-1649. Washington,
 DC: US Government Printing Office.
 }
 \seealso{
-\code{\link[stats:poisson.test]{stats::poisson.test()}}
+\code{\link[=poisson.test]{poisson.test()}}
 }
 \concept{confidence-interval}

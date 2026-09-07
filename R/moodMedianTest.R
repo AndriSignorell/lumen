@@ -6,7 +6,7 @@
 #' resulting 2 x k table is tested for independence.
 #'
 #' @details
-#' Not to be confused with [stats::mood.test()], which is Mood's
+#' Not to be confused with [mood.test()], which is Mood's
 #' two-sample test for a difference in *scale*. The median test described
 #' here has no base R implementation.
 #'
@@ -42,7 +42,7 @@
 #' `method = "exact"` replaces the chi-squared approximation by Fisher's
 #' exact test on the same table and is advisable when expected counts are small;
 #' no test statistic is reported in that case. The continuity correction applies
-#' only to a 2 x 2 table, as in [stats::chisq.test()].
+#' only to a 2 x 2 table, as in [chisq.test()].
 #'
 #' Missing values are removed casewise.
 #'
@@ -206,6 +206,6 @@ moodMedianTest.formula <- function(formula, data, subset, na.action = na.pass, .
                                    "n-sample-independent"))
 
   res <- moodMedianTest.default(x = mf$x, g = mf$group, ...)
-  res$data.name <- mf$data.name
+  res$data.name <- mf$dataName
   res
 }

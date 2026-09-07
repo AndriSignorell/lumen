@@ -32,18 +32,24 @@
 #'     exists.}
 #' }
 #'
-#' @name durbinWatsonTest
 #' @param x a symbolic description of the model to be tested (a
 #' `formula`), a fitted `"lm"` object, or a numeric vector of
 #' residuals.
 #' @param data an optional data frame containing the variables in the
-#' model. Only used for the `formula` method. By default the variables
-#' are taken from the environment which `durbinWatsonTest` is called
-#' from.
-#' @param orderBy either a vector `z` or a formula with a single
-#' explanatory variable like `~ z`. The observations in the model are
-#' ordered by the size of `z`. If set to `NULL` (the default) the
-#' observations are assumed to be ordered (e.g., a time series).
+#' model. By default the variables are taken from the environment which
+#' `durbinWatsonTest` is called from. For the `lm` and `numeric` methods it
+#' is used for `orderBy` only, as the model frame is already fixed there.
+#' @param orderBy either a vector `z` or a one-sided formula like `~ z`. The
+#' observations in the model are ordered by the size of `z`; a formula with
+#' several terms is used as successive ordering keys. If set to `NULL` (the
+#' default) the observations are assumed to be ordered (e.g., a time
+#' series). `z` may be given at the length of the original data: rows
+#' dropped by `subset` or by `na.action` are then dropped from `z` as well.
+#' Missing values in `z` are ordered last.
+#' @param subset an optional expression indicating which observations to
+#' use. Only used for the `formula` method.
+#' @param na.action a function specifying how missing values are handled.
+#' Defaults to [na.omit()]. Only used for the `formula` method.
 #' @param alternative a character string specifying the alternative
 #' hypothesis, must be one of `"greater"` (default),
 #' `"two.sided"` or `"less"`.
@@ -91,7 +97,7 @@
 #' Kraemer, W. and Sonnberger, H. (1986) *The Linear Regression Model
 #' under Test*. Heidelberg: Physica.
 #'
-#' @seealso [lm()]
+#' @seealso [lm()], [breuschGodfreyTest()]
 #'
 #' @examples
 #' ## formula method
@@ -104,6 +110,11 @@
 #' ## autocorrelated errors (rho = 0.9)
 #' err2 <- stats::filter(err1, 0.9, method = "recursive")
 #' durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err2, x = x))
+#'
+#' ## subset and an ordering variable given at the length of the data
+#' d <- data.frame(y = 1 + x + as.vector(err2), x = x, tt = sample(100),
+#'                 grp = rep(c("A", "B"), each = 50))
+#' durbinWatsonTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
 #'
 #' ## lm method
 #' fit <- lm(y ~ x, data = data.frame(y = 1 + x + err1, x = x))
@@ -129,59 +140,84 @@ durbinWatsonTest.formula <- function(x, data = list(), orderBy = NULL,
                                      alternative = c("greater", "two.sided",
                                                      "less"),
                                      iterations = 15, exact = NULL,
-                                     tol = 1e-10, ...) {
-  mf <- model.frame(x, data = data)
-  y  <- model.response(mf)
-  X  <- model.matrix(attr(mf, "terms"), mf)
+                                     tol = 1e-10,
+                                     subset, na.action = na.omit, ...) {
 
-  .dwOrder(X = X, y = y, orderBy = orderBy, data = data,
-           dname = deparse1(substitute(x)),
-           alternative = alternative, iterations = iterations,
-           exact = exact, tol = tol)
+  subsetExpr <- if (missing(subset)) NULL else substitute(subset)
+
+  r <- resolveFormula(x, data = data, subset = subsetExpr,
+                      na.action = na.action, allowed = "regression")
+
+  # the model matrix must be built from the terms: the columns of a model
+  # frame are named after the deparsed expressions ("log(x)"), so the
+  # formula itself cannot be re-evaluated against it
+  .dwCompute(X = model.matrix(r$terms, r$mf), y = r$response,
+             orderBy = orderBy, data = data, rows = r$rows,
+             dname = r$dataName,
+             alternative = alternative, iterations = iterations,
+             exact = exact, tol = tol)
 }
 
 
 #' @rdname durbinWatsonTest
 #' @export
-durbinWatsonTest.lm <- function(x, orderBy = NULL,
+durbinWatsonTest.lm <- function(x, data = list(), orderBy = NULL,
                                 alternative = c("greater", "two.sided",
                                                 "less"),
                                 iterations = 15, exact = NULL,
                                 tol = 1e-10, ...) {
+
   if (!is.null(w <- weights(x)))
-    if (!isTRUE(all.equal(as.vector(w), rep(1L, length(w)))))
-      stop("weighted regressions are not supported")
+    if (!isTRUE(all.equal(as.vector(w), rep(1, length(w)))))
+      stop("weighted regressions are not supported", call. = FALSE)
 
-  X <- if (is.matrix(x$x)) x$x else model.matrix(terms(x), model.frame(x))
-  y <- if (is.vector(x$y)) x$y else model.response(model.frame(x))
+  # [[exact = TRUE]] rather than $: partial matching would resolve $x to the
+  # xlevels component of an "lm" object
+  xComp <- x[["x", exact = TRUE]]
+  yComp <- x[["y", exact = TRUE]]
 
-  .dwOrder(X = X, y = y, orderBy = orderBy, data = list(),
-           dname = deparse1(formula(x)),   # the formula, not the object name
-           alternative = alternative, iterations = iterations,
-           exact = exact, tol = tol)
+  X <- if (is.matrix(xComp)) xComp
+       else model.matrix(terms(x), model.frame(x))
+  y <- if (is.vector(yComp)) yComp
+       else model.response(model.frame(x))
+
+  .dwCompute(X = X, y = y,
+             orderBy = orderBy, data = data,
+             rows = .rowsFromNames(rownames(X), data),
+             dname = deparse1(formula(x)),   # the formula, not the object name
+             alternative = alternative, iterations = iterations,
+             exact = exact, tol = tol)
 }
 
 
 #' @rdname durbinWatsonTest
 #' @export
-durbinWatsonTest.numeric <- function(x, orderBy = NULL,
+durbinWatsonTest.numeric <- function(x, data = list(), orderBy = NULL,
                                      alternative = c("greater", "two.sided",
                                                      "less"),
                                      iterations = 15, exact = NULL,
                                      tol = 1e-10, ...) {
-  X <- matrix(1, nrow = length(x), ncol = 1)
 
-  .dwOrder(X = X, y = x, orderBy = orderBy, data = list(),
-           dname = deparse1(substitute(x)),
-           alternative = alternative, iterations = iterations,
-           exact = exact, tol = tol)
+  # the implicit class of a double matrix contains "numeric", so this method
+  # is also reached with a matrix, where length() would build a design of the
+  # wrong size
+  if (!is.vector(x) || !is.numeric(x))
+    stop("'x' must be a numeric vector of residuals", call. = FALSE)
+
+  .dwCompute(X = matrix(1, nrow = length(x), ncol = 1L), y = x,
+             orderBy = orderBy, data = data,
+             rows = .rowsFromNames(names(x), data),
+             dname = deparse1(substitute(x)),
+             alternative = alternative, iterations = iterations,
+             exact = exact, tol = tol)
 }
 
 
 #' @rdname durbinWatsonTest
 #' @export
 durbinWatsonTest.default <- function(x, ...) {
-  stop("no applicable method for objects of class ", sQuote(class(x)[1]))
+  stop(gettextf("no applicable method for objects of class %s",
+                sQuote(class(x)[1L])), call. = FALSE)
 }
 
 
@@ -189,48 +225,62 @@ durbinWatsonTest.default <- function(x, ...) {
 # == internal helper functions ============================================
 
 
-.dwOrder <- function(X, y, orderBy, data, dname,
-                     alternative, iterations, exact, tol) {
-
-  if (!is.null(orderBy)) {
-    # accept both a formula ~ z and a plain vector z
-    if (inherits(orderBy, "formula")) {
-      mm <- model.matrix(orderBy, data = data)
-      z  <- as.vector(mm[, ncol(mm)])
-    } else {
-      z <- orderBy
-    }
-    X <- as.matrix(X[order(z), ])
-    y <- y[order(z)]
-  }
-
-  .dwCompute(X = X, y = y, dname = dname, alternative = alternative,
-             iterations = iterations, exact = exact, tol = tol)
-}
-
-
-.dwCompute <- function(X, y, dname,
+.dwCompute <- function(X, y, orderBy, data, rows, dname,
                        alternative = c("greater", "two.sided", "less"),
                        iterations = 15, exact = NULL, tol = 1e-10) {
 
+  # ── Validate ──────────────────────────────────────────────────────────────
+  # one place for all three methods, before any work is done
   alternative <- match.arg(alternative)
+
+  iterations <- suppressWarnings(as.integer(iterations))
+  if (length(iterations) != 1L || is.na(iterations) || iterations < 1L)
+    stop("'iterations' must be a single positive integer", call. = FALSE)
+
+  if (length(tol) != 1L || !is.numeric(tol) || is.na(tol) || tol < 0)
+    stop("'tol' must be a single non-negative number", call. = FALSE)
+
+  if (!is.null(exact) &&
+      (length(exact) != 1L || !is.logical(exact) || is.na(exact)))
+    stop("'exact' must be a single logical value or NULL", call. = FALSE)
+
+  if (NCOL(y) != 1L)
+    stop("the response must be a single vector", call. = FALSE)
+
+  y <- as.vector(y)
+
+  # ── Reorder ───────────────────────────────────────────────────────────────
+  ord <- .orderIndex(orderBy, nrow(X), data = data, rows = rows)
+
+  if (!is.null(ord)) {
+    X <- X[ord, , drop = FALSE]
+    y <- y[ord]
+  }
+
+  # ── Statistic ─────────────────────────────────────────────────────────────
   n <- nrow(X)
   k <- ncol(X)
-  if (is.null(exact)) exact <- (n < 100)
 
-  fit     <- lm.fit(X, y)
+  # below that the residuals are identically zero and the statistic is 0/0
+  if (n < 3L || n <= k)
+    stop(gettextf("at least %d observations are needed to compute the statistic",
+                  max(3L, k + 1L)), call. = FALSE)
+
+  if (is.null(exact))
+    exact <- (n < 100L)
+
+  fit <- lm.fit(X, y)
+
+  if (fit$rank < k)
+    stop("the design matrix is rank deficient", call. = FALSE)
+
   res     <- fit$residuals
   dw      <- sum(diff(res)^2) / sum(res^2)
   XtX_inv <- chol2inv(qr.R(fit$qr))
 
-  pval <- if (n < 3) {
-    warning("not enough observations for computing a p value, set to 1")
-    1
-  } else {
-    .dwPvalue(dw = dw, X = X, XtX_inv = XtX_inv, n = n, k = k,
-              alternative = alternative, iterations = iterations,
-              exact = exact, tol = tol)
-  }
+  pval <- .dwPvalue(dw = dw, X = X, XtX_inv = XtX_inv, n = n, k = k,
+                    alternative = alternative, iterations = iterations,
+                    exact = exact, tol = tol)
 
   ALTERNATIVE <- switch(alternative,
                         "two.sided" = "true autocorrelation is not 0",
@@ -251,10 +301,13 @@ durbinWatsonTest.default <- function(x, ...) {
                       alternative, iterations, exact, tol) {
 
   if (exact) {
-    pval <- .dwPvalueExact(dw = dw, X = X, XtX_inv = XtX_inv, n = n, k = k,
+    pval <- .dwPvalueExact(dw = dw, X = X, XtX_inv = XtX_inv, n = n,
                            alternative = alternative,
                            iterations = iterations, tol = tol)
-    if (is.na(pval) || pval > 1 || pval < 0) {
+
+    # a failing pan() may return nothing at all, not just something outside
+    # the unit interval
+    if (length(pval) != 1L || is.na(pval) || pval > 1 || pval < 0) {
       warning("exact p value cannot be computed (not in [0,1]), ",
               "approximate p value will be used")
       exact <- FALSE
@@ -269,28 +322,30 @@ durbinWatsonTest.default <- function(x, ...) {
 }
 
 
-.dwPvalueExact <- function(dw, X, XtX_inv, n, k,
-                           alternative, iterations, tol) {
+.dwPvalueExact <- function(dw, X, XtX_inv, n, alternative, iterations, tol) {
 
-  A <- diag(c(1, rep(2, n - 2), 1))
-  A[abs(row(A) - col(A)) == 1] <- -1
-  MA <- (diag(n) - X %*% XtX_inv %*% t(X)) %*% A
+  # A is the second difference matrix, M = I - X (X'X)^-1 X' the residual
+  # maker. The non-zero eigenvalues of MA are those of the symmetric MAM,
+  # which is what the null distribution of DW is built from, so the
+  # eigenvalues come out real by construction and need no cleaning up.
+  A   <- diag(c(1, rep(2, n - 2), 1))
+  idx <- cbind(seq_len(n - 1L), 2:n)
+  A[idx] <- A[idx[, 2:1]] <- -1
 
-  ev_all <- eigen(MA, only.values = TRUE)$values
+  # M %*% A %*% M without ever forming M: O(n^2 k) instead of O(n^3)
+  MA  <- A - X %*% (XtX_inv %*% crossprod(X, A))
+  MAM <- MA - tcrossprod(MA %*% X %*% XtX_inv, X)
 
-  if (any(abs(Im(ev_all)) > tol))
-    warning("imaginary parts of eigenvalues discarded")
-
-  ev <- Re(ev_all)
+  ev <- eigen(MAM, symmetric = TRUE, only.values = TRUE)$values
   ev <- ev[ev > tol]
 
   # pan() returns P(DW <= x), see the Rcpp implementation
-  pdw <- function(x) pan_cpp(c(x, ev), length(ev), 0, iterations)
+  p <- pan_cpp(c(dw, ev), length(ev), 0, iterations)
 
   switch(alternative,
-         "two.sided" = 2 * min(pdw(dw), 1 - pdw(dw)),
-         "less"      = 1 - pdw(dw),
-         "greater"   = pdw(dw))
+         "two.sided" = 2 * min(p, 1 - p),
+         "less"      = 1 - p,
+         "greater"   = p)
 }
 
 
@@ -313,6 +368,12 @@ durbinWatsonTest.default <- function(x, ...) {
     sum(diag(XAXQ %*% XAXQ))
   dmean <- P / (n - k)
   dvar  <- 2 / ((n - k) * (n - k + 2)) * (Q - P * dmean)
+
+  if (!is.finite(dvar) || dvar <= 0) {
+    warning("the variance of the statistic is not positive, ",
+            "approximate p value set to 1")
+    return(1)
+  }
 
   switch(alternative,
          "two.sided" = 2 * pnorm(abs(dw - dmean), sd = sqrt(dvar),

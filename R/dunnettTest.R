@@ -136,7 +136,7 @@ dunnettTest.formula <- function(formula,
 
   rval <- dunnettTest(x = pf$x, g = pf$group, ...)
 
-  attr(rval, "data.name") <- pf$data.name
+  attr(rval, "data.name") <- pf$dataName
 
   rval
 }
@@ -166,12 +166,12 @@ dunnettTest.default <- function(x,
   N <- DG$n
   k <- DG$k
 
-  gn <- DG$group.names
+  gn <- DG$groupNames
 
-  ni <- as.numeric(DG$group.sizes)
+  ni <- as.numeric(DG$groupSizes)
   names(ni) <- gn
 
-  DNAME <- DG$data.name
+  DNAME <- DG$dataName
 
   if (is.null(control))
     control <- gn[1]

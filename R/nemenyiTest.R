@@ -117,7 +117,7 @@ nemenyiTest.formula <- function(formula, data, subset, na.action, ...) {
     ...
   )
   
-  y$data.name <- pf$data.name
+  y$data.name <- pf$dataName
   
   y
   
@@ -143,9 +143,9 @@ nemenyiTest.default <- function(
   g <- gd$groups
   
   N   <- gd$n
-  nms <- gd$group.names
+  nms <- gd$groupNames
   # coerce to plain numeric vector to avoid table dimname artefacts in outer()
-  n   <- as.numeric(gd$group.sizes)
+  n   <- as.numeric(gd$groupSizes)
   names(n) <- nms
   
   rnk  <- rank(x)
@@ -234,7 +234,7 @@ nemenyiTest.default <- function(
   )
   attr(out, "method")    <- "none"
   attr(out, "output")    <- output
-  attr(out, "data.name") <- gd$data.name
+  attr(out, "data.name") <- gd$dataName
   
   out
   

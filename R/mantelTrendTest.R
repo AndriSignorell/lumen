@@ -15,7 +15,7 @@
 #' This test is sometimes called the Mantel-Haenszel chi-squared test for
 #' trend, but it is *not* the stratified Cochran-Mantel-Haenszel test
 #' for \eqn{2 \times 2 \times k}{2 x 2 x k} tables (see
-#' [stats::mantelhaen.test()] for that). It is a score test for
+#' [mantelhaen.test()] for that). It is a score test for
 #' ordinal association, also known as the linear-by-linear association
 #' test.
 #'
@@ -47,7 +47,7 @@
 #' \item{method}{a character string describing the test}
 #' \item{data.name}{a character string giving the name of the data}
 #'
-#' @seealso [stats::mantelhaen.test()] for the stratified
+#' @seealso [mantelhaen.test()] for the stratified
 #' Cochran-Mantel-Haenszel test, [chisq.test()] for the general
 #' chi-squared test of independence, [cochranArmitageTest()] for
 #' a related trend test with a binary response

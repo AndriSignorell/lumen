@@ -10,31 +10,47 @@ breuschGodfreyTest(
   order = 1,
   orderBy = NULL,
   type = c("chisq", "f"),
+  subset,
+  na.action = na.omit,
   fill = 0
 )
 }
 \arguments{
 \item{formula}{a symbolic description for the model to be tested (or a
-fitted \code{"lm"} object).}
+fitted \code{"lm"} object, in which case the model frame is taken from the fit
+and \code{subset} and \code{na.action} are ignored).}
 
 \item{data}{an optional data frame containing the variables in the
 model. By default the variables are taken from the environment which
-\code{breuschGodfreyTest} is called from.}
+\code{breuschGodfreyTest} is called from. For a fitted \code{"lm"} object it is used
+for \code{orderBy} only, as the model itself carries its own model frame.}
 
 \item{order}{integer, the maximal order of serial correlation to be
-tested.}
+tested. Must be smaller than the residual degrees of freedom of the
+auxiliary regression.}
 
 \item{orderBy}{either a vector \code{z} or a formula with a single
 explanatory variable like \code{~ z}. The observations in the model are
-ordered by the size of \code{z}. If set to \code{NULL} (the default) the
-observations are assumed to be ordered (e.g., a time series).}
+ordered by the size of \code{z}; a formula with several terms is used as
+successive ordering keys. If set to \code{NULL} (the default) the observations
+are assumed to be ordered (e.g., a time series). \code{z} may be given at the
+length of the original data: rows dropped by \code{subset} or by \code{na.action}
+are then dropped from \code{z} as well. Missing values in \code{z} are ordered
+last.}
 
 \item{type}{the type of test statistic to be returned, either
 \code{"chisq"} (default) for the chi-squared test statistic or
 \code{"f"} for the F test statistic. Case-insensitive.}
 
-\item{fill}{starting values for the lagged residuals in the auxiliary
-regression. By default \code{0} but can also be set to \code{NA}.}
+\item{subset}{an optional expression indicating which observations to use.}
+
+\item{na.action}{a function specifying how missing values are handled.
+Defaults to \code{\link[=na.omit]{na.omit()}}: the auxiliary regression is fitted by
+\code{\link[=lm.fit]{lm.fit()}} and cannot carry missing values.}
+
+\item{fill}{a single value used as starting value for the lagged residuals
+in the auxiliary regression. By default \code{0} but can also be set to \code{NA},
+in which case the leading incomplete rows are dropped.}
 }
 \value{
 A list with class \code{"breuschGodfreyTest"} inheriting from
@@ -49,6 +65,8 @@ data.}
 \item{\code{coefficients}}{coefficient estimates from the auxiliary
 regression.}
 \item{\code{vcov}}{the corresponding covariance matrix estimate.}
+\item{\code{df.residual}}{the residual degrees of freedom of the auxiliary
+regression, for both types of test statistic.}
 }
 \description{
 A test for autocorrelation in the residuals of regression models,
@@ -79,6 +97,13 @@ standard errors and t-statistics in this regression.)
 Based on code by David Mitchell and Achim Zeileis previously published
 as \code{bgtest()} in the \pkg{lmtest} package, adapted to conform to
 package standards.
+
+Unlike \code{bgtest()}, the residual degrees of freedom of the auxiliary
+regression are reported for both types of test statistic. They are a
+property of that regression and not of the statistic derived from it,
+whereas \code{bgtest()} hands back \code{NULL} for the chi-squared version.
+\code{coeftest()} therefore refers the coefficients to a \eqn{t} distribution
+in either case, where \code{bgtest()} switches to the normal one.
 }
 \examples{
 ## Generate a stationary and an AR(1) series
@@ -99,6 +124,23 @@ durbinWatsonTest(y1 ~ x)
 y2 <- stats::filter(y1, 0.5, method = "recursive")
 breuschGodfreyTest(y2 ~ x)
 
+## finite sample F version, and dropping the leading lags instead of
+## filling them with zeros
+breuschGodfreyTest(y2 ~ x, order = 4, type = "f")
+breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
+
+## transformed terms and an explicit ordering variable
+d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+                grp = rep(c("A", "B"), each = 50))
+breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
+
+## subset and orderBy combined: tt is given at the length of d and is
+## reduced to the rows the model frame kept
+breuschGodfreyTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
+
+## the test can also be applied to a fitted model
+breuschGodfreyTest(lm(y1 ~ x))
+
 }
 \references{
 Breusch, T. S. (1978) Testing for autocorrelation in dynamic linear
@@ -109,6 +151,8 @@ average error models when the regressors include lagged dependent
 variables. \emph{Econometrica}, 46, 1293-1301.
 }
 \seealso{
+\code{\link[=durbinWatsonTest]{durbinWatsonTest()}}
+
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},

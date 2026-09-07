@@ -101,7 +101,7 @@ of \eqn{p}, not in terms of \code{x} against \code{y}. \code{"greater"}
 therefore means \eqn{p > p_0}, that is, \code{y} tends to produce the larger
 values. This follows the published definition of the statistic and the
 reported estimate, but it is the reverse of \code{\link[stats:t.test]{stats::t.test()}} and
-\code{\link[stats:wilcox.test]{stats::wilcox.test()}}, where \code{"greater"} refers to \code{x}.
+\code{\link[=wilcox.test]{wilcox.test()}}, where \code{"greater"} refers to \code{x}.
 
 \strong{Choice of \code{method}.} The t approximation is liberal in small
 samples; below roughly ten observations per group the studentized permutation

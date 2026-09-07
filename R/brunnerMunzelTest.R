@@ -37,7 +37,7 @@
 #' therefore means \eqn{p > p_0}, that is, `y` tends to produce the larger
 #' values. This follows the published definition of the statistic and the
 #' reported estimate, but it is the reverse of [stats::t.test()] and
-#' [stats::wilcox.test()], where `"greater"` refers to `x`.
+#' [wilcox.test()], where `"greater"` refers to `x`.
 #'
 #' **Choice of `method`.** The t approximation is liberal in small
 #' samples; below roughly ten observations per group the studentized permutation
@@ -337,6 +337,8 @@ brunnerMunzelTest.formula <- function(formula, data, subset, na.action = na.pass
   grp <- split(mf$x, mf$group)
 
   res <- brunnerMunzelTest.default(x = grp[[1L]], y = grp[[2L]], ...)
-  res$data.name <- mf$data.name
+  # resolveFormula() names its components in camelCase, the htest slot keeps
+  # the dot: a mismatch here assigns NULL and silently drops the slot
+  res$data.name <- mf$dataName
   res
 }

@@ -54,9 +54,9 @@
 #' Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 #' *Continuous Univariate Distributions*, Vol. 2. Wiley.
 #' 
-#' @seealso [stats::Binomial()], [stats::Poisson()],
-#'   [stats::Geometric()], [stats::NegBinomial()],
-#'   [stats::Hypergeometric()], [distributions-overview]
+#' @seealso [Binomial()], [Poisson()],
+#'   [Geometric()], [NegBinomial()],
+#'   [Hypergeometric()], [distributions-overview]
 #'
 #' @concept distribution-summary
 #' @concept moment

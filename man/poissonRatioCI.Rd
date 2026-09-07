@@ -62,7 +62,7 @@ The available confidence-interval methods are:
 \item{\code{"exact"}}{the exact conditional interval obtained by conditioning
 on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
 resulting binomial probability; this is the construction used by
-\code{\link[stats:poisson.test]{stats::poisson.test()}} for two samples}
+\code{\link[=poisson.test]{poisson.test()}} for two samples}
 \item{\code{"midp"}}{the corresponding conditional mid-p interval, which is
 generally shorter but does not guarantee conservative coverage}
 \item{\code{"wald-log"}}{the asymptotic Wald interval, symmetric on the
@@ -108,7 +108,7 @@ Medicine}, \strong{22}(12), 2071--2083.
 }
 \seealso{
 \code{\link[=poissonCI]{poissonCI()}}, \code{\link[=poissonDiffCI]{poissonDiffCI()}}, \code{\link[=binomRatioCI]{binomRatioCI()}},
-\code{\link[stats:poisson.test]{stats::poisson.test()}}
+\code{\link[=poisson.test]{poisson.test()}}
 }
 \concept{confidence-interval}
 \concept{rate}

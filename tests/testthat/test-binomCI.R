@@ -178,9 +178,14 @@ for (m in methods_bci_onesided) {
   # right: lci = 0
   stopifnot(res.right["lci"] == 0)
   
-  # one-sided wider on the open side
-  stopifnot(res.left["lci"]  <= res.two["lci"])
-  stopifnot(res.right["uci"] >= res.two["uci"])
+  # the one-sided bound is tighter on the closed side: it is the two-sided
+  # bound at level 2 * conf.level - 1, the other side is opened up.
+  # witting is randomized (x + runif(1)) and each call draws its own value,
+  # so its limits are not comparable across the three calls
+  if (m != "witting") {
+    stopifnot(res.left["lci"]  >= res.two["lci"])
+    stopifnot(res.right["uci"] <= res.two["uci"])
+  }
   
 }
 

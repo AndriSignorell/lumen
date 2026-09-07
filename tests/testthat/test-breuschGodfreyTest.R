@@ -97,11 +97,22 @@ test_that("breuschGodfreyTest: vcov and df.residual methods work (coeftest)", {
 
   res <- breuschGodfreyTest(y1 ~ x, order = 2)
   expect_equal(vcov(res), res$vcov)
-  expect_equal(df.residual(res), NULL)   # chisq: single df
+
+  # the residual df of the auxiliary regression do not depend on which
+  # statistic was requested: n - k - order = 100 - 2 - 2
+  expect_identical(df.residual(res), res$df.residual)
+  expect_equal(df.residual(res), 96)
 
   res_f <- breuschGodfreyTest(y1 ~ x, order = 2, type = "f")
   expect_equal(df.residual(res_f), unname(res_f$parameter["df2"]))
+  expect_identical(df.residual(res), df.residual(res_f))
 
   ct <- lmtest::coeftest(res)
   expect_equal(nrow(ct), length(res$coefficients))
+
+  # deliberate deviation from lmtest: bgtest() hands back NULL for the
+  # chi-squared version, which sends coeftest() to the normal distribution
+  expect_equal(colnames(ct)[4L], "Pr(>|t|)")
+  expect_equal(colnames(lmtest::coeftest(lmtest::bgtest(y1 ~ x, order = 2)))[4L],
+               "Pr(>|z|)")
 })

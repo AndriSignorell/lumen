@@ -18,11 +18,14 @@ durbinWatsonTest(x, ...)
   iterations = 15,
   exact = NULL,
   tol = 0.0000000001,
+  subset,
+  na.action = na.omit,
   ...
 )
 
 \method{durbinWatsonTest}{lm}(
   x,
+  data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
@@ -33,6 +36,7 @@ durbinWatsonTest(x, ...)
 
 \method{durbinWatsonTest}{numeric}(
   x,
+  data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
@@ -51,14 +55,17 @@ residuals.}
 \item{\dots}{further arguments passed to or from other methods.}
 
 \item{data}{an optional data frame containing the variables in the
-model. Only used for the \code{formula} method. By default the variables
-are taken from the environment which \code{durbinWatsonTest} is called
-from.}
+model. By default the variables are taken from the environment which
+\code{durbinWatsonTest} is called from. For the \code{lm} and \code{numeric} methods it
+is used for \code{orderBy} only, as the model frame is already fixed there.}
 
-\item{orderBy}{either a vector \code{z} or a formula with a single
-explanatory variable like \code{~ z}. The observations in the model are
-ordered by the size of \code{z}. If set to \code{NULL} (the default) the
-observations are assumed to be ordered (e.g., a time series).}
+\item{orderBy}{either a vector \code{z} or a one-sided formula like \code{~ z}. The
+observations in the model are ordered by the size of \code{z}; a formula with
+several terms is used as successive ordering keys. If set to \code{NULL} (the
+default) the observations are assumed to be ordered (e.g., a time
+series). \code{z} may be given at the length of the original data: rows
+dropped by \code{subset} or by \code{na.action} are then dropped from \code{z} as well.
+Missing values in \code{z} are ordered last.}
 
 \item{alternative}{a character string specifying the alternative
 hypothesis, must be one of \code{"greater"} (default),
@@ -74,6 +81,12 @@ otherwise.}
 
 \item{tol}{numeric tolerance. Eigenvalues smaller than \code{tol} are
 treated as zero.}
+
+\item{subset}{an optional expression indicating which observations to
+use. Only used for the \code{formula} method.}
+
+\item{na.action}{a function specifying how missing values are handled.
+Defaults to \code{\link[=na.omit]{na.omit()}}. Only used for the \code{formula} method.}
 }
 \value{
 An object of class \code{"htest"} containing the following
@@ -136,6 +149,11 @@ durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err1, x = x))
 err2 <- stats::filter(err1, 0.9, method = "recursive")
 durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err2, x = x))
 
+## subset and an ordering variable given at the length of the data
+d <- data.frame(y = 1 + x + as.vector(err2), x = x, tt = sample(100),
+                grp = rep(c("A", "B"), each = 50))
+durbinWatsonTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
+
 ## lm method
 fit <- lm(y ~ x, data = data.frame(y = 1 + x + err1, x = x))
 durbinWatsonTest(fit)
@@ -167,7 +185,7 @@ Kraemer, W. and Sonnberger, H. (1986) \emph{The Linear Regression Model
 under Test}. Heidelberg: Physica.
 }
 \seealso{
-\code{\link[=lm]{lm()}}
+\code{\link[=lm]{lm()}}, \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}}
 
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},

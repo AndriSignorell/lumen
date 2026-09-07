@@ -41,19 +41,19 @@
 #'
 #' | **Distribution** | **d-p-q-r** | **Moments** |
 #' |---|---|---|
-#' | Beta | [stats::Beta] | [mbeta()] |
-#' | Binomial | [stats::Binomial] | [mbinom()] |
-#' | Chi-squared | [stats::Chisquare] | [mchisq()] |
-#' | Exponential | [stats::Exponential] | [mexp()] |
-#' | F | [stats::FDist] | [mf()] |
-#' | Gamma | [stats::GammaDist] | [mgamma()] |
-#' | Geometric | [stats::Geometric] | [mgeom()] |
-#' | Hypergeometric | [stats::Hypergeometric] \verb{  } | [mhyper()] |
-#' | Log-normal | [stats::Lognormal] | [mlnorm()] |
-#' | Negative binomial \verb{  }| [stats::NegBinomial] | [mnbinom()] |
-#' | Normal | [stats::Normal] | [mnorm()] |
-#' | Poisson | [stats::Poisson] | [mpois()] |
-#' | Student's t | [stats::TDist] | [mt()] |
+#' | Beta | [Beta] | [mbeta()] |
+#' | Binomial | [Binomial] | [mbinom()] |
+#' | Chi-squared | [Chisquare] | [mchisq()] |
+#' | Exponential | [Exponential] | [mexp()] |
+#' | F | [FDist] | [mf()] |
+#' | Gamma | [GammaDist] | [mgamma()] |
+#' | Geometric | [Geometric] | [mgeom()] |
+#' | Hypergeometric | [Hypergeometric] \verb{  } | [mhyper()] |
+#' | Log-normal | [Lognormal] | [mlnorm()] |
+#' | Negative binomial \verb{  }| [NegBinomial] | [mnbinom()] |
+#' | Normal | [Normal] | [mnorm()] |
+#' | Poisson | [Poisson] | [mpois()] |
+#' | Student's t | [TDist] | [mt()] |
 #'
 #' @section Standalone:
 #' [rsum1()] generates a Dirichlet-distributed sample (which sums to 1
@@ -67,5 +67,5 @@
 #' own (no `d`/`r` counterparts).
 #'
 #' @name distributions-overview
-#' @seealso [stats::Distributions]
+#' @seealso [Distributions]
 NULL

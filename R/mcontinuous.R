@@ -60,10 +60,10 @@
 #'
 #' 
 #'
-#' @seealso [stats::dnorm()], [stats::dexp()],
-#'   [stats::dgamma()], [stats::dlnorm()],
-#'   [stats::dbeta()], [stats::dchisq()],
-#'   [stats::dt()], [stats::df()], [distributions-overview]
+#' @seealso [dnorm()], [dexp()],
+#'   [dgamma()], [dlnorm()],
+#'   [dbeta()], [dchisq()],
+#'   [dt()], [df()], [distributions-overview]
 #'
 #' @references
 #' Casella, G. and Berger, R. L. (2002) *Statistical Inference*.

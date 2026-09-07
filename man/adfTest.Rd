@@ -102,8 +102,6 @@ Hamilton, J. D. (1994) \emph{Time Series Analysis}, Princeton:
 Princeton University Press.
 }
 \seealso{
-\code{\link[=kpssTest]{kpssTest()}}
-
 Other test.timeseries:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},
 \code{\link[=kpssTest]{kpssTest()}},

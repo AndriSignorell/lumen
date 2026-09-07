@@ -24,24 +24,35 @@
 #' (Note, however, that standard theory does not always apply to the
 #' standard errors and t-statistics in this regression.)
 #'
-#' @name breuschGodfreyTest
 #' @param formula a symbolic description for the model to be tested (or a
-#' fitted `"lm"` object).
+#' fitted `"lm"` object, in which case the model frame is taken from the fit
+#' and `subset` and `na.action` are ignored).
+#' @param data an optional data frame containing the variables in the
+#' model. By default the variables are taken from the environment which
+#' `breuschGodfreyTest` is called from. For a fitted `"lm"` object it is used
+#' for `orderBy` only, as the model itself carries its own model frame.
 #' @param order integer, the maximal order of serial correlation to be
-#' tested.
+#' tested. Must be smaller than the residual degrees of freedom of the
+#' auxiliary regression.
 #' @param orderBy either a vector `z` or a formula with a single
 #' explanatory variable like `~ z`. The observations in the model are
-#' ordered by the size of `z`. If set to `NULL` (the default) the
-#' observations are assumed to be ordered (e.g., a time series).
+#' ordered by the size of `z`; a formula with several terms is used as
+#' successive ordering keys. If set to `NULL` (the default) the observations
+#' are assumed to be ordered (e.g., a time series). `z` may be given at the
+#' length of the original data: rows dropped by `subset` or by `na.action`
+#' are then dropped from `z` as well. Missing values in `z` are ordered
+#' last.
 #' @param type the type of test statistic to be returned, either
 #' `"chisq"` (default) for the chi-squared test statistic or
 #' `"f"` for the F test statistic. Case-insensitive.
-#' @param data an optional data frame containing the variables in the
-#' model. By default the variables are taken from the environment which
-#' `breuschGodfreyTest` is called from.
-#' @param fill starting values for the lagged residuals in the auxiliary
-#' regression. By default `0` but can also be set to `NA`.
-#' 
+#' @param subset an optional expression indicating which observations to use.
+#' @param na.action a function specifying how missing values are handled.
+#' Defaults to [na.omit()]: the auxiliary regression is fitted by
+#' [lm.fit()] and cannot carry missing values.
+#' @param fill a single value used as starting value for the lagged residuals
+#' in the auxiliary regression. By default `0` but can also be set to `NA`,
+#' in which case the leading incomplete rows are dropped.
+#'
 #' @return A list with class `"breuschGodfreyTest"` inheriting from
 #' `"htest"` containing the following components:
 #'   \item{`statistic`}{the value of the test statistic.}
@@ -54,11 +65,20 @@
 #'   \item{`coefficients`}{coefficient estimates from the auxiliary
 #'     regression.}
 #'   \item{`vcov`}{the corresponding covariance matrix estimate.}
+#'   \item{`df.residual`}{the residual degrees of freedom of the auxiliary
+#'     regression, for both types of test statistic.}
 #'
 #' @note
 #' Based on code by David Mitchell and Achim Zeileis previously published
 #' as `bgtest()` in the \pkg{lmtest} package, adapted to conform to
 #' package standards.
+#'
+#' Unlike `bgtest()`, the residual degrees of freedom of the auxiliary
+#' regression are reported for both types of test statistic. They are a
+#' property of that regression and not of the statistic derived from it,
+#' whereas `bgtest()` hands back `NULL` for the chi-squared version.
+#' `coeftest()` therefore refers the coefficients to a \eqn{t} distribution
+#' in either case, where `bgtest()` switches to the normal one.
 #'
 #' @references
 #' Breusch, T. S. (1978) Testing for autocorrelation in dynamic linear
@@ -87,6 +107,25 @@
 #' y2 <- stats::filter(y1, 0.5, method = "recursive")
 #' breuschGodfreyTest(y2 ~ x)
 #'
+#' ## finite sample F version, and dropping the leading lags instead of
+#' ## filling them with zeros
+#' breuschGodfreyTest(y2 ~ x, order = 4, type = "f")
+#' breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
+#'
+#' ## transformed terms and an explicit ordering variable
+#' d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+#'                 grp = rep(c("A", "B"), each = 50))
+#' breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
+#'
+#' ## subset and orderBy combined: tt is given at the length of d and is
+#' ## reduced to the rows the model frame kept
+#' breuschGodfreyTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
+#'
+#' ## the test can also be applied to a fitted model
+#' breuschGodfreyTest(lm(y1 ~ x))
+#'
+#' @seealso [durbinWatsonTest()]
+#'
 #' @family test.regression
 #' @concept regression-diagnostics
 #' @concept autocorrelation
@@ -94,90 +133,133 @@
 #' @export
 breuschGodfreyTest <- function(formula, data = list(), order = 1,
                                orderBy = NULL, type = c("chisq", "f"),
-                               fill = 0) {
+                               subset, na.action = na.omit, fill = 0) {
 
+  # ── Validate ──────────────────────────────────────────────────────────────
   type <- match.arg(tolower(type), c("chisq", "f"))
 
-  dname <- deparse1(substitute(formula))
+  nLags <- suppressWarnings(as.integer(order))
+  if (length(nLags) != 1L || is.na(nLags) || nLags < 1L)
+    stop("'order' must be a single positive integer", call. = FALSE)
 
-  if (!inherits(formula, "formula")) {
-    X <- if (is.matrix(formula$x))
-      formula$x
-    else model.matrix(terms(formula), model.frame(formula))
-    y <- if (is.vector(formula$y))
-      formula$y
-    else model.response(model.frame(formula))
+  if (length(fill) != 1L || !(is.numeric(fill) || is.na(fill)))
+    stop("'fill' must be a single numeric value or NA", call. = FALSE)
+
+  # ── Response and design matrix ────────────────────────────────────────────
+  if (inherits(formula, "formula")) {
+
+    subsetExpr <- if (missing(subset)) NULL else substitute(subset)
+
+    r <- resolveFormula(formula, data = data, subset = subsetExpr,
+                        na.action = na.action, allowed = "regression")
+
+    y <- r$response
+    # the model matrix must be built from the terms: the columns of a model
+    # frame are named after the deparsed expressions ("log(x)"), so the
+    # formula itself cannot be re-evaluated against it
+    X     <- model.matrix(r$terms, r$mf)
+    rows  <- r$rows
+    dname <- r$dataName
+
   } else {
-    mf <- model.frame(formula, data = data)
-    y <- model.response(mf)
-    X <- model.matrix(formula, data = data)
+
+    dname <- deparse1(substitute(formula))
+    # [[exact = TRUE]] rather than $: partial matching would resolve $x to
+    # the xlevels component of an "lm" object
+    xComp <- formula[["x", exact = TRUE]]
+    yComp <- formula[["y", exact = TRUE]]
+
+    X <- if (is.matrix(xComp)) xComp
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if (is.vector(yComp)) yComp
+         else model.response(model.frame(formula))
+
+    # the counterpart of resolveFormula()'s 'rows' for a fitted model
+    rows <- .rowsFromNames(rownames(X), data)
   }
 
-  if (!is.null(orderBy)) {
-    if (inherits(orderBy, "formula")) {
-      z <- model.matrix(orderBy, data = data)
-      z <- as.vector(z[, ncol(z)])
-    } else {
-      z <- orderBy
-    }
-    X <- as.matrix(X[order(z), ])
-    y <- y[order(z)]
+  if (NCOL(y) != 1L)
+    stop("the response must be a single vector", call. = FALSE)
+
+  y <- as.vector(y)
+
+  if (is.null(colnames(X)))
+    colnames(X) <- paste0("x", seq_len(ncol(X)))
+
+  # ── Reorder ───────────────────────────────────────────────────────────────
+  ord <- .orderIndex(orderBy, nrow(X), data = data, rows = rows)
+
+  if (!is.null(ord)) {
+    X <- X[ord, , drop = FALSE]
+    y <- y[ord]
   }
 
-  order <- as.integer(order)
-  if (length(order) != 1L || is.na(order) || order < 1L)
-    stop("'order' must be a positive integer")
-
+  # ── Auxiliary regression ──────────────────────────────────────────────────
   n <- nrow(X)
   k <- ncol(X)
-  order <- 1:order
-  m <- length(order)
-  resi <- lm.fit(X, y)$residuals
 
-  Z <- sapply(order, function(x)
-    c(rep(fill, length.out = x), resi[1:(n - x)]))
-  if (any(na <- !complete.cases(Z))) {
-    X <- X[!na, , drop = FALSE]
-    Z <- Z[!na, , drop = FALSE]
-    y <- y[!na]
-    resi <- resi[!na]
-    n <- nrow(X)
+  if (nLags >= n)
+    stop("'order' must be smaller than the number of observations",
+         call. = FALSE)
+
+  resi <- lm.fit(X, y)$residuals
+  lags <- seq_len(nLags)
+
+  Z <- vapply(lags, function(i) c(rep(fill, i), resi[seq_len(n - i)]),
+              numeric(n))
+
+  if (any(incomplete <- !complete.cases(Z))) {
+    X    <- X[!incomplete, , drop = FALSE]
+    Z    <- Z[!incomplete, , drop = FALSE]
+    resi <- resi[!incomplete]
+    n    <- nrow(X)
   }
+
+  if (n - k - nLags < 1L)
+    stop(gettextf("not enough observations to test up to order %d", nLags),
+         call. = FALSE)
+
   auxfit <- lm.fit(cbind(X, Z), resi)
+
+  if (auxfit$rank < k + nLags)
+    stop("the auxiliary regression is rank deficient", call. = FALSE)
 
   cf <- auxfit$coefficients
   vc <- chol2inv(auxfit$qr$qr) *
     sum(auxfit$residuals^2) / auxfit$df.residual
   names(cf) <- colnames(vc) <- rownames(vc) <-
-    c(colnames(X), paste("lag(resid)", order, sep = "_"))
+    c(colnames(X), paste("lag(resid)", lags, sep = "_"))
 
+  # ── Statistic ─────────────────────────────────────────────────────────────
   switch(type,
 
          "chisq" = {
-           bg <- n * sum(auxfit$fitted.values^2) / sum(resi^2)
-           p.val <- pchisq(bg, m, lower.tail = FALSE)
-           df <- m
-           names(df) <- "df"
+           bg    <- n * sum(auxfit$fitted.values^2) / sum(resi^2)
+           df    <- c(df = nLags)
+           p.val <- unname(pchisq(bg, nLags, lower.tail = FALSE))
          },
 
          "f" = {
-           uresi <- auxfit$residuals
-           bg <- ((sum(resi^2) - sum(uresi^2)) / m) /
-             (sum(uresi^2) / (n - k - m))
-           df <- c(m, n - k - m)
-           names(df) <- c("df1", "df2")
-           p.val <- pf(bg, df1 = df[1], df2 = df[2], lower.tail = FALSE)
+           ssrU  <- sum(auxfit$residuals^2)
+           bg    <- ((sum(resi^2) - ssrU) / nLags) / (ssrU / auxfit$df.residual)
+           df    <- c(df1 = nLags, df2 = auxfit$df.residual)
+           p.val <- unname(pf(bg, df1 = df[1L], df2 = df[2L],
+                              lower.tail = FALSE))
          })
 
   names(bg) <- "LM test"
-  res <- list(statistic = bg,
-              parameter = df,
-              method = paste("Breusch-Godfrey test for serial",
-                             "correlation of order up to", max(order)),
-              p.value = p.val,
-              data.name = dname,
+
+  method <- gettextf(
+    "Breusch-Godfrey test for serial correlation of order up to %d", nLags)
+
+  res <- list(statistic   = bg,
+              parameter   = df,
+              method      = method,
+              p.value     = p.val,
+              data.name   = dname,
               coefficients = cf,
-              vcov = vc)
+              vcov        = vc,
+              df.residual = auxfit$df.residual)
 
   class(res) <- c("breuschGodfreyTest", "htest")
   res
@@ -191,4 +273,4 @@ vcov.breuschGodfreyTest <- function(object, ...)
 
 #' @export
 df.residual.breuschGodfreyTest <- function(object, ...)
-  if (length(df <- object$parameter) > 1L) unname(df[2L]) else NULL
+  object$df.residual

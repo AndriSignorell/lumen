@@ -54,7 +54,7 @@
 #' sample median.}
 #' 
 #' @seealso [t.test()], [wilcox.test()],
-#' [zTest()], [binom.test()], [BSDA::SIGN.test()]
+#' [zTest()], [binom.test()], `BSDA::SIGN.test()`
 #' in the package \pkg{BSDA} (reporting approximative confidence intervals).
 #' 
 #' @references Gibbons, J.D. and Chakraborti, S. (1992): *Nonparametric

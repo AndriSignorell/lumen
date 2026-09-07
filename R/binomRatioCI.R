@@ -225,10 +225,7 @@ binomRatioCI <- function(
   if((x1 > n1) || (x2 > n2))
     stop("x cannot be larger than n.")
   
-  alpha <- 1 - conf.level
-  
-  if (sides != "two.sided")
-    alpha <- alpha / 2
+  alpha <- .sidesAlpha(conf.level, sides)
   
   CI <- switch( method,
     
@@ -250,16 +247,10 @@ binomRatioCI <- function(
   if(x1 > 0 && x2 == 0)
     est <- Inf
   
-  ci <- c(
-    est = unname(est),
-    lci = unname(CI["lci"]),
-    uci = unname(CI["uci"])
-  )
-  
-  if(sides == "left")
-    ci["uci"] <- Inf
-  else if(sides == "right")
-    ci["lci"] <- 0
+  # clamping to the parameter range and opening the free side happen in one
+  # place for the whole suite (design_rules 8.1.4)
+  ci <- c(est = unname(est),
+          applySides(c(CI[["lci"]], CI[["uci"]]), sides, lo = 0, hi = Inf))
   
   return(ci)
   

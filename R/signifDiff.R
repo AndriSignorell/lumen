@@ -15,7 +15,7 @@
 #'
 #' @param x an object of class `PostHocTest` as returned by
 #'   [postHocTest()], or of class `pairwise.htest` as returned
-#'   by [stats::pairwise.t.test()] and friends
+#'   by [pairwise.t.test()] and friends
 #' @param alpha the significance level; defaults to `1 - conf.level` of
 #'   the object, or to 0.05 where no confidence level is stored
 #' @param direction logical; if `TRUE`, a sign is appended to every
@@ -55,7 +55,7 @@
 #'
 #' signifDiff(pairwise.t.test(warpbreaks$breaks, warpbreaks$tension))
 #'
-#' @seealso [postHocTest()], [stats::pairwise.t.test()]
+#' @seealso [postHocTest()], [pairwise.t.test()]
 #'
 #' @family test.posthoc
 #' @concept multiple-comparisons

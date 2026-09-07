@@ -147,7 +147,7 @@ jonckheereTerpstraTest.formula <- function(formula,
 
   y <- jonckheereTerpstraTest(x = pf$x, g = pf$group, ...)
 
-  y$data.name <- pf$data.name
+  y$data.name <- pf$dataName
 
   y
 }
@@ -176,7 +176,7 @@ jonckheereTerpstraTest.default <- function(
   n <- DG$n
   k <- DG$k
 
-  DNAME <- DG$data.name
+  DNAME <- DG$dataName
 
   # order by group so that observations form contiguous blocks
   ord <- order(g)

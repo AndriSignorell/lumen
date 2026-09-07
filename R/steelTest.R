@@ -164,7 +164,7 @@ steelTest.formula <- function(
     ...
   )
   
-  out$data.name <- pf$data.name
+  out$data.name <- pf$dataName
   
   out
 }
@@ -197,7 +197,7 @@ steelTest.default <- function(
   x <- DG$x
   g <- DG$groups
   
-  gn <- DG$group.names
+  gn <- DG$groupNames
   
   if (is.null(control))
     control <- gn[1L]
@@ -448,7 +448,7 @@ steelTest.default <- function(
   attr(out, "method")      <- "Steel"
   attr(out, "alternative") <- alternative
   attr(out, "output")      <- output
-  attr(out, "data.name")   <- DG$data.name
+  attr(out, "data.name")   <- DG$dataName
   
   out
 }

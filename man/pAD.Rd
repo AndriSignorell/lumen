@@ -35,7 +35,7 @@ Anderson-Darling test statistic.
 \code{pAD} uses the algorithms and C code described in Marsaglia and
 Marsaglia (2004).
 
-\code{qAD} uses \code{\link[stats:uniroot]{stats::uniroot()}} to find the quantiles.
+\code{qAD} uses \code{\link[=uniroot]{uniroot()}} to find the quantiles.
 
 The argument \code{fast} applies only when \code{n=Inf} and determines
 whether the asymptotic distribution is approximated using the faster

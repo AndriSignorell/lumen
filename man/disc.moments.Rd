@@ -96,9 +96,9 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \emph{Continuous Univariate Distributions}, Vol. 2. Wiley.
 }
 \seealso{
-\code{\link[stats:Binomial]{stats::Binomial()}}, \code{\link[stats:Poisson]{stats::Poisson()}},
-\code{\link[stats:Geometric]{stats::Geometric()}}, \code{\link[stats:NegBinomial]{stats::NegBinomial()}},
-\code{\link[stats:Hypergeometric]{stats::Hypergeometric()}}, \link{distributions-overview}
+\code{\link[=Binomial]{Binomial()}}, \code{\link[=Poisson]{Poisson()}},
+\code{\link[=Geometric]{Geometric()}}, \code{\link[=NegBinomial]{NegBinomial()}},
+\code{\link[=Hypergeometric]{Hypergeometric()}}, \link{distributions-overview}
 }
 \concept{distribution-summary}
 \concept{moment}

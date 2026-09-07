@@ -291,9 +291,7 @@ binomDiffCI <- function(x1, n1, x2, n2,
   
   
     
-  alpha <- 1 - conf.level
-  if (sides != "two.sided")
-    alpha <- alpha / 2
+  alpha <- .sidesAlpha(conf.level, sides)
   
   CI <- switch(method,
                "wald" =                    { .bdci.wald(x1, n1, x2, n2, alpha, correct=FALSE) },
@@ -317,15 +315,11 @@ binomDiffCI <- function(x1, n1, x2, n2,
   p2.hat <- x2/n2
   est <- p1.hat - p2.hat
 
-  # dot not return ci bounds outside [0,1]
-  ci <- c( est = est, 
-           lci = max(-1, CI["lci"]), 
-           uci = min(1, CI["uci"]) )
-  
-  if(sides=="left")
-    ci[3] <- 1
-  else if(sides=="right")
-    ci[2] <- -1
+  # clamping to the parameter range and opening the free side happen in one
+  # place for the whole suite (design_rules 8.1.4). A difference of
+  # proportions lives in [-1, 1]
+  ci <- c(est = unname(est),
+          applySides(c(CI[["lci"]], CI[["uci"]]), sides, lo = -1, hi = 1))
   
   return(ci)
   

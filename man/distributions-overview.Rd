@@ -46,19 +46,19 @@ general-purpose \code{q} slot -- use \code{\link[=qRevGumbel]{qRevGumbel()}} for
 For these, \code{d}-\code{p}-\code{q}-\code{r} already exist in
 \pkg{stats} -- lumen only adds the moments function.\tabular{lll}{
    \strong{Distribution} \tab \strong{d-p-q-r} \tab \strong{Moments} \cr
-   Beta \tab \link[stats:Beta]{stats::Beta} \tab \code{\link[=mbeta]{mbeta()}} \cr
-   Binomial \tab \link[stats:Binomial]{stats::Binomial} \tab \code{\link[=mbinom]{mbinom()}} \cr
-   Chi-squared \tab \link[stats:Chisquare]{stats::Chisquare} \tab \code{\link[=mchisq]{mchisq()}} \cr
-   Exponential \tab \link[stats:Exponential]{stats::Exponential} \tab \code{\link[=mexp]{mexp()}} \cr
-   F \tab \link[stats:FDist]{stats::FDist} \tab \code{\link[=mf]{mf()}} \cr
-   Gamma \tab \link[stats:GammaDist]{stats::GammaDist} \tab \code{\link[=mgamma]{mgamma()}} \cr
-   Geometric \tab \link[stats:Geometric]{stats::Geometric} \tab \code{\link[=mgeom]{mgeom()}} \cr
-   Hypergeometric \tab \link[stats:Hypergeometric]{stats::Hypergeometric} \verb{  } \tab \code{\link[=mhyper]{mhyper()}} \cr
-   Log-normal \tab \link[stats:Lognormal]{stats::Lognormal} \tab \code{\link[=mlnorm]{mlnorm()}} \cr
-   Negative binomial \verb{  } \tab \link[stats:NegBinomial]{stats::NegBinomial} \tab \code{\link[=mnbinom]{mnbinom()}} \cr
-   Normal \tab \link[stats:Normal]{stats::Normal} \tab \code{\link[=mnorm]{mnorm()}} \cr
-   Poisson \tab \link[stats:Poisson]{stats::Poisson} \tab \code{\link[=mpois]{mpois()}} \cr
-   Student's t \tab \link[stats:TDist]{stats::TDist} \tab \code{\link[=mt]{mt()}} \cr
+   Beta \tab \link{Beta} \tab \code{\link[=mbeta]{mbeta()}} \cr
+   Binomial \tab \link{Binomial} \tab \code{\link[=mbinom]{mbinom()}} \cr
+   Chi-squared \tab \link{Chisquare} \tab \code{\link[=mchisq]{mchisq()}} \cr
+   Exponential \tab \link{Exponential} \tab \code{\link[=mexp]{mexp()}} \cr
+   F \tab \link{FDist} \tab \code{\link[=mf]{mf()}} \cr
+   Gamma \tab \link{GammaDist} \tab \code{\link[=mgamma]{mgamma()}} \cr
+   Geometric \tab \link{Geometric} \tab \code{\link[=mgeom]{mgeom()}} \cr
+   Hypergeometric \tab \link{Hypergeometric} \verb{  } \tab \code{\link[=mhyper]{mhyper()}} \cr
+   Log-normal \tab \link{Lognormal} \tab \code{\link[=mlnorm]{mlnorm()}} \cr
+   Negative binomial \verb{  } \tab \link{NegBinomial} \tab \code{\link[=mnbinom]{mnbinom()}} \cr
+   Normal \tab \link{Normal} \tab \code{\link[=mnorm]{mnorm()}} \cr
+   Poisson \tab \link{Poisson} \tab \code{\link[=mpois]{mpois()}} \cr
+   Student's t \tab \link{TDist} \tab \code{\link[=mt]{mt()}} \cr
 }
 }
 
@@ -76,5 +76,5 @@ own (no \code{d}/\code{r} counterparts).
 }
 
 \seealso{
-\link[stats:Distributions]{stats::Distributions}
+\link{Distributions}
 }

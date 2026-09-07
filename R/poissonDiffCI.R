@@ -212,7 +212,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #'   \item{`"exact"`}{the exact conditional interval obtained by conditioning
 #'     on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
 #'     resulting binomial probability; this is the construction used by
-#'     [stats::poisson.test()] for two samples}
+#'     [poisson.test()] for two samples}
 #'   \item{`"midp"`}{the corresponding conditional mid-p interval, which is
 #'     generally shorter but does not guarantee conservative coverage}
 #'   \item{`"wald-log"`}{the asymptotic Wald interval, symmetric on the
@@ -243,7 +243,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #' Medicine*, **22**(12), 2071--2083.
 #'
 #' @seealso [poissonCI()], [poissonDiffCI()], [binomRatioCI()],
-#'   [stats::poisson.test()]
+#'   [poisson.test()]
 #'
 #' @concept confidence-interval
 #' @concept rate

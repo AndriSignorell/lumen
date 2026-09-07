@@ -10,7 +10,7 @@
 #'   or explanatory variables.
 #'
 #' @param data an optional matrix or data frame (or similar; see
-#'   [stats::model.frame()]) containing the variables in the
+#'   [model.frame()]) containing the variables in the
 #'   formula. By default the variables are taken from
 #'   `environment(formula)`.
 #'
@@ -22,7 +22,7 @@
 #'   `getOption("na.action")`.
 #'
 #' @details
-#' Formula interfaces are evaluated using [stats::model.frame()],
+#' Formula interfaces are evaluated using [model.frame()],
 #' following standard R conventions.
 #' The left-hand side of the formula must contain the response variable.
 #' The right-hand side typically specifies a grouping or explanatory variable.
@@ -31,9 +31,9 @@
 #'
 #' See also:
 #' \itemize{
-#'   \item [stats::formula()]
-#'   \item [stats::model.frame()]
-#'   \item [stats::terms()]
+#'   \item [formula()]
+#'   \item [model.frame()]
+#'   \item [terms()]
 #' }
 #'
 #' @keywords internal

@@ -35,7 +35,7 @@
 #' The available confidence-interval methods are:
 #' \describe{
 #'   \item{`"exact"`}{the exact Poisson interval calculated by
-#'     [stats::poisson.test()], equivalent to the Garwood interval}
+#'     [poisson.test()], equivalent to the Garwood interval}
 #'   \item{`"score"`}{the interval obtained by inverting the Poisson score
 #'     test}
 #'   \item{`"wald"`}{the normal-approximation interval centred at
@@ -60,7 +60,7 @@
 #' with a Programmable Calculator*. NIH Publication No. 79-1649. Washington,
 #' DC: US Government Printing Office.
 #'
-#' @seealso [stats::poisson.test()]
+#' @seealso [poisson.test()]
 #'
 #' @examples
 #' # Deaths from horse kicks in 280 Prussian army corps-years

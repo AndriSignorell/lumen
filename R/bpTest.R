@@ -8,7 +8,7 @@
 #' distributed as \eqn{\chi^2} with \eqn{k} degrees of freedom, where
 #' \eqn{k} is the number of predictors.
 #'
-#' @param fit a fitted [stats::lm()] object.
+#' @param fit a fitted [lm()] object.
 #'
 #' @return An object of class `"htest"` with the following components:
 #'     \item{`statistic`}{the BP test statistic.}
@@ -24,7 +24,7 @@
 #'   Koenker, R. (1981). A note on studentizing a test for heteroscedasticity.
 #'   *Journal of Econometrics*, 17, 107--112.
 #'
-#' @seealso [stats::lm()]
+#' @seealso [lm()]
 #'
 #' @examples
 #' fit <- lm(Sepal.Length ~ Sepal.Width, data = iris)

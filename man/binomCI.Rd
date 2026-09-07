@@ -21,21 +21,26 @@ binomCIn(
   width,
   interval = c(1, 100000),
   conf.level = 0.95,
-  sides = "two.sided",
+  sides = c("two.sided", "left", "right"),
   method = "wilson"
 )
 }
 \arguments{
-\item{x}{number of successes.}
+\item{x}{number of successes, an integer between 0 and \code{n}.}
 
-\item{n}{number of trials.}
+\item{n}{number of trials, a positive integer.}
 
-\item{conf.level}{confidence level, defaults to 0.95.}
+\item{conf.level}{confidence level, defaults to 0.95. With \code{NA} only the
+point estimate is returned.}
 
 \item{sides}{a character string specifying the side of the confidence
 interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-\code{"right"}. You can specify just the initial letter. \code{"left"}
-would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+\code{"right"}. You can specify just the initial letter. \code{sides} names the
+side carrying the finite bound: \code{"left"} reports the lower limit and
+opens the upper one to 1, \code{"right"} reports the upper limit and opens
+the lower one to 0. A one-sided bound at level \code{conf.level} is the
+corresponding end of the two-sided interval at level
+\code{2 * conf.level - 1}, and therefore requires \code{conf.level > 0.5}.}
 
 \item{method}{character string specifying which method to use; this can be
 one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default),
@@ -43,7 +48,7 @@ one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default),
 \code{"agresti-coull"}, \code{"jeffreys"}, \code{"wilson-mod"},
 \code{"jeffreys-mod"}, \code{"clopper-pearson"}, \code{"arcsine"},
 \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"mid-p"},
-\code{"likelihood"} and \code{"blaker"}.  All the methods can be
+\code{"likelihood"}, \code{"blaker"} and \code{"khouadji"}.  All the methods can be
 asked by \code{".all"}. Abbreviation of method is
 accepted. See details.}
 
@@ -72,6 +77,10 @@ if \code{stdEst = TRUE}, otherwise the method-specific estimate.}
 If recycling yields multiple cases, a data frame with one row per case is
 returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
 the remaining columns contain the recycled argument values.
+
+With \code{conf.level = NA} no interval is computed: the point estimate is
+returned as an unnamed scalar, or as the single column \code{est} of the
+data frame.
 
 \code{binomCIn} returns a single numeric value giving the required sample size.
 }
@@ -135,7 +144,9 @@ the binomial distribution.
 
 \strong{Logit}:
 Obtained by constructing a Wald-type interval on the log-odds scale
-and transforming back to the probability scale.
+and transforming back to the probability scale. The transform is not
+defined for \eqn{x = 0} and \eqn{x = n}, where the Clopper-Pearson
+limits are reported instead.
 
 \strong{Witting}:
 A randomized procedure (Witting, 1985) providing uniformly optimal
@@ -192,6 +203,16 @@ and therefore yields the largest required sample size. If a more
 accurate estimate of the population proportion is available,
 it can be used to obtain a smaller required sample size for the same
 level of precision.
+
+The root search evaluates the interval at \eqn{x = p \cdot n} for
+continuous \eqn{n}, so only those methods can be inverted whose limits
+are smooth functions of the count. The methods \code{"mid-p"}, \code{"blaker"},
+\code{"witting"} and \code{"likelihood"} are defined through the discrete binomial
+distribution (and \code{"witting"} is randomized on top of that); they are
+rejected with an error instead of returning a silently meaningless root.
+
+The returned sample size is not rounded, round it up to get a feasible
+number of observations.
 }
 \section{\strong{Which interval should be used?}}{
 
@@ -255,16 +276,28 @@ binomCI(4, 19, conf.level =0.95,
 
 binomCIn(p=0.1, width=0.05, method="pratt")
 
+# round up to get the number of observations to plan for
+ceiling(binomCIn(width=0.1))
+
 }
 \references{
 Agresti A. and Coull B.A. (1998) Approximate is better than
 "exact" for interval estimation of binomial proportions.  \emph{American
 Statistician}, \strong{52}, pp. 119-126.
 
+Blaker, H. (2000) Confidence curves and improved exact confidence intervals
+for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
+783-798
+
 Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
 binomial proportion \emph{Statistical Science}, \strong{16}(2), pp. 101-133.
 
-Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
+Khouadji, A. (1999) Sur une méthode d’approximation des intervalles
+de confiance pour une proportion binomiale.
+
+Newcombe, R. G. (1998) Two-sided confidence intervals for the single
+proportion: comparison of seven methods, \emph{Statistics in Medicine},
+17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
 
 Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
 common, related tail probabilities \emph{Journal of the American
@@ -273,19 +306,10 @@ Statistical Association}, 63, 1457- 1483.
 Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis
 testing}. Elsevier Academic Press
 
-Newcombe, R. G. (1998) Two-sided confidence intervals for the single
-proportion: comparison of seven methods, \emph{Statistics in Medicine},
-17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
-
-Blaker, H. (2000) Confidence curves and improved exact confidence intervals
-for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
-783-798
-
-A. Khouadji (1999) Sur une méthode d’approximation des intervalles
-de confiance pour une proportion binomiale.
+Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
 }
 \seealso{
-\code{\link[stats:binom.test]{stats::binom.test()}}, \code{\link[Hmisc:binconf]{Hmisc::binconf()}}
+\code{\link[=binom.test]{binom.test()}}, \code{Hmisc::binconf()}
 
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},

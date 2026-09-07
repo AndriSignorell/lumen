@@ -1,157 +1,160 @@
+library(testthat)
+library(lumen)
 
 # ===============================================================
 # medianCI TESTS
 # ===============================================================
 
-# ===============================================================
-# helper
+# helper: the structural invariants every result has to satisfy.
+# Expectations raised inside a helper are counted by testthat, so this
+# stays a function rather than being inlined everywhere.
 .check_medianCI <- function(res) {
-  
-  stopifnot(is.numeric(res))
-  stopifnot(all(c("median", "lci", "uci") %in% names(res)))
-  stopifnot(is.na(res["lci"]) || res["lci"] <= res["median"] ||
-              is.infinite(res["lci"]))
-  stopifnot(is.na(res["uci"]) || res["uci"] >= res["median"] ||
-              is.infinite(res["uci"]))
-  stopifnot(is.na(res["lci"]) || is.na(res["uci"]) ||
-              res["lci"] <= res["uci"])
-  
+
+  expect_true(is.numeric(res))
+  expect_true(all(c("median", "lci", "uci") %in% names(res)))
+
+  expect_true(is.na(res[["lci"]]) || is.infinite(res[["lci"]]) ||
+                res[["lci"]] <= res[["median"]])
+  expect_true(is.na(res[["uci"]]) || is.infinite(res[["uci"]]) ||
+                res[["uci"]] >= res[["median"]])
+  expect_true(is.na(res[["lci"]]) || is.na(res[["uci"]]) ||
+                res[["lci"]] <= res[["uci"]])
+
   invisible(TRUE)
-  
 }
 
-# ===============================================================
-# reference data
 set.seed(448)
-x.na  <- c(rnorm(100), NA)
-x     <- x.na[!is.na(x.na)]
+x.na <- c(rnorm(100), NA)
+x    <- x.na[!is.na(x.na)]
 
-# ===============================================================
-# basic functionality: exact method
-res.ex <- medianCI(x, method = "exact")
-cat("\nExact method:\n")
-print(res.ex)
-.check_medianCI(res.ex)
 
-# point estimate equals median
-stopifnot(abs(res.ex["median"] - median(x)) < 1e-10)
+test_that("medianCI: the exact method has the documented structure", {
 
-# reported conf.level is attached as attribute
-stopifnot(!is.null(attr(res.ex, "conf.level")))
-stopifnot(attr(res.ex, "conf.level") >= 0.90)
-stopifnot(attr(res.ex, "conf.level") <= 1.00)
+  res <- medianCI(x, method = "exact")
 
-# ===============================================================
-# basic functionality: boot method
-set.seed(1)
-res.boot <- medianCI(x, method = "boot")
-cat("\nBoot method:\n")
-print(res.boot)
-.check_medianCI(res.boot)
+  .check_medianCI(res)
+  expect_equal(unname(res[["median"]]), median(x), tolerance = 1e-10)
 
-# boot estimate close to exact
-stopifnot(abs(res.boot["median"] - median(x)) < 1e-10)
-stopifnot(abs(res.boot["lci"] - res.ex["lci"]) < 0.15)
-stopifnot(abs(res.boot["uci"] - res.ex["uci"]) < 0.15)
+  # the achieved level is attached as an attribute
+  expect_false(is.null(attr(res, "conf.level")))
+  expect_gte(attr(res, "conf.level"), 0.90)
+  expect_lte(attr(res, "conf.level"), 1.00)
+})
 
-# ===============================================================
-# na.rm = TRUE removes NAs
-res.narm <- medianCI(x.na, na.rm = TRUE)
-stopifnot(abs(res.narm["median"] - median(x)) < 1e-10)
-stopifnot(abs(res.narm["lci"] - res.ex["lci"]) < 1e-10)
 
-# ===============================================================
-# conf.level effect: wider interval at higher level
-res.95 <- medianCI(x, conf.level = 0.95, method = "exact")
-res.99 <- medianCI(x, conf.level = 0.99, method = "exact")
+test_that("medianCI: the boot method stays close to the exact one", {
 
-cat("\n95% vs 99%:\n")
-print(res.95)
-print(res.99)
+  res.ex <- medianCI(x, method = "exact")
 
-# exact CI uses order statistics so conf.level is discrete –
-# reported level can be equal when the same order statistic is selected
-stopifnot(res.99["lci"] <= res.95["lci"] ||
-            attr(res.99, "conf.level") == attr(res.95, "conf.level"))
-stopifnot(res.99["uci"] >= res.95["uci"] ||
-            attr(res.99, "conf.level") == attr(res.95, "conf.level"))
-
-# ===============================================================
-# one-sided: left -> uci = Inf
-res.left <- medianCI(x, sides = "left")
-cat("\nLeft-sided:\n")
-print(res.left)
-stopifnot(is.infinite(res.left["uci"]))
-stopifnot(is.finite(res.left["lci"]))
-
-# one-sided: right -> lci = -Inf
-res.right <- medianCI(x, sides = "right")
-cat("\nRight-sided:\n")
-print(res.right)
-stopifnot(is.infinite(res.right["lci"]))   # -Inf
-stopifnot(is.finite(res.right["uci"]))
-
-# ===============================================================
-# small sample: n < 6 falls back to (-Inf, Inf)
-res.small <- medianCI(x = c(1, 2, 3), conf.level = 0.95, method = "exact")
-cat("\nSmall sample (n=3):\n")
-print(res.small)
-# conf.level should be 1 and bounds infinite
-stopifnot(is.infinite(res.small["lci"]) || is.infinite(res.small["uci"]) ||
-            attr(res.small, "conf.level") == 1)
-
-# ===============================================================
-# symmetric data: CI should be symmetric around median
-x.sym <- -5:5   # median = 0
-res.sym <- medianCI(x.sym, method = "exact")
-cat("\nSymmetric data:\n")
-print(res.sym)
-stopifnot(abs(res.sym["median"]) < 1e-10)
-stopifnot(abs(res.sym["lci"] + res.sym["uci"]) < 1e-10)
-
-# ===============================================================
-# all identical values: CI collapses to point
-res.const <- medianCI(x = rep(5, 20), method = "exact")
-cat("\nConstant data:\n")
-print(res.const)
-stopifnot(abs(res.const["median"] - 5) < 1e-10)
-stopifnot(res.const["lci"] == 5)
-stopifnot(res.const["uci"] == 5)
-
-# ===============================================================
-# boot: different types work without error
-set.seed(42)
-for (btype in c("norm", "basic", "perc", "bca")) {
-  res.bt <- medianCI(x, method = "boot", type = btype)
-  cat("Boot type", btype, ":", res.bt, "\n")
-  stopifnot(is.numeric(res.bt))
-  stopifnot(length(res.bt) == 3)
-}
-
-# ===============================================================
-# boot: unsupported type returns NA with warning
-res.stud <- withCallingHandlers(
-  medianCI(x, method = "boot", type = "stud"),
-  warning = function(w) invokeRestart("muffleWarning")
-)
-stopifnot(anyNA(res.stud[c("lci", "uci")]))
-
-# ===============================================================
-# result names are always correct
-for (m in c("exact", "boot")) {
   set.seed(1)
-  res <- medianCI(x, method = m)
-  stopifnot(identical(names(res), c("median", "lci", "uci")))
-}
+  res.boot <- medianCI(x, method = "boot")
 
-# ===============================================================
-# n = 1: degenerate case
-res.n1 <- medianCI(x = 42, method = "exact")
-cat("\nn=1:\n")
-print(res.n1)
-stopifnot(res.n1["median"] == 42)
+  .check_medianCI(res.boot)
+  expect_equal(unname(res.boot[["median"]]), median(x), tolerance = 1e-10)
+  expect_lt(abs(res.boot[["lci"]] - res.ex[["lci"]]), 0.15)
+  expect_lt(abs(res.boot[["uci"]] - res.ex[["uci"]]), 0.15)
+})
 
-cat("\n====================================\n")
-cat("ALL medianCI TESTS PASSED\n")
-cat("====================================\n")
 
+test_that("medianCI: na.rm = TRUE removes the missing values", {
+
+  res.ex   <- medianCI(x, method = "exact")
+  res.narm <- medianCI(x.na, na.rm = TRUE)
+
+  expect_equal(unname(res.narm[["median"]]), median(x), tolerance = 1e-10)
+  expect_equal(unname(res.narm[["lci"]]), unname(res.ex[["lci"]]),
+               tolerance = 1e-10)
+})
+
+
+test_that("medianCI: a higher conf.level gives a wider interval", {
+
+  res.95 <- medianCI(x, conf.level = 0.95, method = "exact")
+  res.99 <- medianCI(x, conf.level = 0.99, method = "exact")
+
+  # the exact interval is built from order statistics, so the achieved
+  # level is discrete: both levels can land on the same pair of statistics
+  same.level <- attr(res.99, "conf.level") == attr(res.95, "conf.level")
+
+  expect_true(res.99[["lci"]] <= res.95[["lci"]] || same.level)
+  expect_true(res.99[["uci"]] >= res.95[["uci"]] || same.level)
+})
+
+
+test_that("medianCI: one-sided intervals open the free side", {
+
+  res.left  <- medianCI(x, sides = "left")
+  res.right <- medianCI(x, sides = "right")
+
+  expect_true(is.infinite(res.left[["uci"]]))
+  expect_true(is.finite(res.left[["lci"]]))
+
+  expect_true(is.infinite(res.right[["lci"]]))
+  expect_true(is.finite(res.right[["uci"]]))
+})
+
+
+test_that("medianCI: fewer than six observations cannot be bounded", {
+
+  res <- medianCI(x = c(1, 2, 3), conf.level = 0.95, method = "exact")
+
+  expect_true(is.infinite(res[["lci"]]) || is.infinite(res[["uci"]]) ||
+                attr(res, "conf.level") == 1)
+})
+
+
+test_that("medianCI: symmetric data give a symmetric interval", {
+
+  res <- medianCI(-5:5, method = "exact")
+
+  expect_equal(unname(res[["median"]]), 0, tolerance = 1e-10)
+  expect_equal(unname(res[["lci"]]), -unname(res[["uci"]]), tolerance = 1e-10)
+})
+
+
+test_that("medianCI: constant data collapse the interval to a point", {
+
+  res <- medianCI(x = rep(5, 20), method = "exact")
+
+  expect_equal(unname(res[["median"]]), 5, tolerance = 1e-10)
+  expect_equal(unname(res[["lci"]]), 5)
+  expect_equal(unname(res[["uci"]]), 5)
+})
+
+
+test_that("medianCI: every supported boot type returns a triple", {
+
+  set.seed(42)
+
+  for (btype in c("norm", "basic", "perc", "bca")) {
+
+    res <- medianCI(x, method = "boot", type = btype)
+
+    expect_true(is.numeric(res), info = btype)
+    expect_length(res, 3L)
+  }
+})
+
+
+test_that("medianCI: an unsupported boot type warns and returns NA limits", {
+
+  expect_warning(res <- medianCI(x, method = "boot", type = "stud"))
+  expect_true(anyNA(res[c("lci", "uci")]))
+})
+
+
+test_that("medianCI: the result names never change", {
+
+  for (m in c("exact", "boot")) {
+    set.seed(1)
+    expect_identical(names(medianCI(x, method = m)),
+                     c("median", "lci", "uci"))
+  }
+})
+
+
+test_that("medianCI: a single observation is its own median", {
+
+  res <- medianCI(x = 42, method = "exact")
+  expect_equal(unname(res[["median"]]), 42)
+})

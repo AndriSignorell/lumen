@@ -2,7 +2,7 @@
 #' Variance Test for Testing One Variance or Comparing Two Variances
 #'
 #' Performs a one-sample or two-sample test for variance, analogous to
-#' [stats::t.test()], with support for classical and likelihood-based
+#' [t.test()], with support for classical and likelihood-based
 #' lowest-density (LD) two-sided p-values.
 #'
 #' @param x a numeric vector of data values, or a formula.

@@ -137,7 +137,7 @@ conoverTest.formula <- function(formula,
 
   y <- conoverTest(x = pf$x, g = pf$group, ...)
 
-  attr(y, "data.name") <- pf$data.name
+  attr(y, "data.name") <- pf$dataName
 
   y
 }
@@ -170,9 +170,9 @@ conoverTest.default <- function(x,
   N <- dat$n
   k <- dat$k
   # coerce to plain numeric vector to avoid table dimname artefacts in outer()
-  n <- as.numeric(dat$group.sizes)
-  names(n) <- dat$group.names
-  nms <- dat$group.names
+  n <- as.numeric(dat$groupSizes)
+  names(n) <- dat$groupNames
+  nms <- dat$groupNames
 
   rnk  <- rank(x)
   mrnk <- tapply(rnk, g, mean)
@@ -276,7 +276,7 @@ conoverTest.default <- function(x,
   )
   attr(out, "method")    <- method
   attr(out, "output")    <- output
-  attr(out, "data.name") <- dat$data.name
+  attr(out, "data.name") <- dat$dataName
 
   out
 }

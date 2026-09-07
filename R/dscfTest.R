@@ -165,7 +165,7 @@ dscfTest.formula <- function(
   )
   
   # consistent with dunnTest / conoverTest pattern
-  out$data.name <- pf$data.name
+  out$data.name <- pf$dataName
   
   out
 }
@@ -191,7 +191,7 @@ dscfTest.default <- function(
   x  <- DG$x
   g  <- DG$groups
   
-  gn <- DG$group.names
+  gn <- DG$groupNames
   k  <- DG$k
   
   comb  <- utils::combn(seq_len(k), 2L)
@@ -300,7 +300,7 @@ dscfTest.default <- function(
   attr(out, "main")      <- "Steel-Dwass-Critchlow-Fligner all-pairs test"
   attr(out, "method")    <- "Dwass-Steel-Critchlow-Fligner"
   attr(out, "output")    <- output
-  attr(out, "data.name") <- DG$data.name
+  attr(out, "data.name") <- DG$dataName
   
   out
 }

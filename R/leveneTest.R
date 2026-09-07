@@ -118,7 +118,7 @@ leveneTest.formula <- function(formula, data, subset,
                           .centerName = deparse1(substitute(center)),
                           ...)
 
-  y$data.name <- res$data.name
+  y$data.name <- res$dataName
 
   y
 }

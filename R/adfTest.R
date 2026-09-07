@@ -74,8 +74,6 @@
 #' Hamilton, J. D. (1994) *Time Series Analysis*, Princeton:
 #' Princeton University Press.
 #'
-#' @seealso [kpssTest()]
-#'
 #' @examples
 #' adfTest(AirPassengers, lags = 3, type = "trend")
 #'

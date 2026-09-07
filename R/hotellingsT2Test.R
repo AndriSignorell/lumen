@@ -127,7 +127,7 @@ hotellingsT2Test.formula <- function(formula,
   dimnames(y) <- list(NULL, colnames(rf$mf[[1L]]))
 
   res           <- hotellingsT2Test.default(x = x, y = y, ...)
-  res$data.name <- rf$data.name
+  res$data.name <- rf$dataName
   res
 }
 

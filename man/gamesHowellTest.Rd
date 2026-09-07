@@ -57,7 +57,7 @@ does not happen to match it, and the procedure loses its nominal level -
 liberally when the larger variance sits in the smaller group, conservatively
 in the opposite case. Games and Howell (1976) replace the pooled term by the
 pairwise Welch standard error, which makes this the post-hoc counterpart of
-the Welch t test and of \code{\link[stats:oneway.test]{stats::oneway.test()}}.
+the Welch t test and of \code{\link[=oneway.test]{oneway.test()}}.
 \code{\link[=yuenTTest]{yuenTTest()}} addresses heteroscedasticity and non-normality with
 trimmed means and separate Winsorized variance estimates, but provides no
 all-pairs multiple-comparison procedure, so it is not the two-sample form of

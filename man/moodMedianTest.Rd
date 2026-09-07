@@ -65,7 +65,7 @@ same median. All observations are dichotomised at the pooled median and the
 resulting 2 x k table is tested for independence.
 }
 \details{
-Not to be confused with \code{\link[stats:mood.test]{stats::mood.test()}}, which is Mood's
+Not to be confused with \code{\link[=mood.test]{mood.test()}}, which is Mood's
 two-sample test for a difference in \emph{scale}. The median test described
 here has no base R implementation.
 
@@ -101,7 +101,7 @@ observations rather than removing them.
 \code{method = "exact"} replaces the chi-squared approximation by Fisher's
 exact test on the same table and is advisable when expected counts are small;
 no test statistic is reported in that case. The continuity correction applies
-only to a 2 x 2 table, as in \code{\link[stats:chisq.test]{stats::chisq.test()}}.
+only to a 2 x 2 table, as in \code{\link[=chisq.test]{chisq.test()}}.
 
 Missing values are removed casewise.
 }

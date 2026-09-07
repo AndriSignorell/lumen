@@ -125,10 +125,10 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \emph{Continuous Univariate Distributions}, Vol. 2. Wiley.
 }
 \seealso{
-\code{\link[stats:dnorm]{stats::dnorm()}}, \code{\link[stats:dexp]{stats::dexp()}},
-\code{\link[stats:dgamma]{stats::dgamma()}}, \code{\link[stats:dlnorm]{stats::dlnorm()}},
-\code{\link[stats:dbeta]{stats::dbeta()}}, \code{\link[stats:dchisq]{stats::dchisq()}},
-\code{\link[stats:dt]{stats::dt()}}, \code{\link[stats:df]{stats::df()}}, \link{distributions-overview}
+\code{\link[=dnorm]{dnorm()}}, \code{\link[=dexp]{dexp()}},
+\code{\link[=dgamma]{dgamma()}}, \code{\link[=dlnorm]{dlnorm()}},
+\code{\link[=dbeta]{dbeta()}}, \code{\link[=dchisq]{dchisq()}},
+\code{\link[=dt]{dt()}}, \code{\link[=df]{df()}}, \link{distributions-overview}
 }
 \concept{distribution-summary}
 \concept{moment}

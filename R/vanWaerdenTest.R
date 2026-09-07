@@ -55,7 +55,7 @@
 #' scores test"`.} \item{data.name}{a character string giving the names of the
 #' data.}
 #' 
-#' @seealso [coin::normal_test()] in package \pkg{coin},
+#' @seealso `coin::normal_test()` in package \pkg{coin},
 #' where the test is implemented in a more general context.
 #' 
 #' @references Conover, W. J., Iman, R. L. (1979). On multiple-comparisons
@@ -121,7 +121,7 @@ vanWaerdenTest.formula <- function(formula, data, subset, na.action, ...) {
     ...
   )
   
-  y$data.name <- pf$data.name
+  y$data.name <- pf$dataName
   
   y
   
@@ -145,7 +145,7 @@ vanWaerdenTest.default <- function(x, g, ...) {
   z <- qnorm(r / (n + 1))
   
   statistic <- (n - 1) / sum(z^2) * sum(
-    tapply(z, g, sum)^2 / gd$group.sizes )
+    tapply(z, g, sum)^2 / gd$groupSizes )
   
   parameter <- as.numeric(k - 1L)
   p.value   <- pchisq(statistic, parameter, lower.tail = FALSE)
@@ -159,7 +159,7 @@ vanWaerdenTest.default <- function(x, g, ...) {
       parameter = parameter,
       p.value   = p.value,
       method    = "Van-der-Waerden normal scores test",
-      data.name = gd$data.name
+      data.name = gd$dataName
     ),
     class = "htest"
   )

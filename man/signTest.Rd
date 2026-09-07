@@ -113,7 +113,7 @@ Wiley, New York.
 }
 \seealso{
 \code{\link[=t.test]{t.test()}}, \code{\link[=wilcox.test]{wilcox.test()}},
-\code{\link[=zTest]{zTest()}}, \code{\link[=binom.test]{binom.test()}}, \code{\link[BSDA:SIGN.test]{BSDA::SIGN.test()}}
+\code{\link[=zTest]{zTest()}}, \code{\link[=binom.test]{binom.test()}}, \code{BSDA::SIGN.test()}
 in the package \pkg{BSDA} (reporting approximative confidence intervals).
 
 Other test.location:

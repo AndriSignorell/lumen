@@ -9,7 +9,7 @@
 #' `pAD` uses the algorithms and C code described in Marsaglia and
 #' Marsaglia (2004).
 #' 
-#' `qAD` uses [stats::uniroot()] to find the quantiles.
+#' `qAD` uses [uniroot()] to find the quantiles.
 #' 
 #' The argument `fast` applies only when `n=Inf` and determines
 #' whether the asymptotic distribution is approximated using the faster

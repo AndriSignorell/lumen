@@ -46,7 +46,7 @@ with one degree of freedom.
 This test is sometimes called the Mantel-Haenszel chi-squared test for
 trend, but it is \emph{not} the stratified Cochran-Mantel-Haenszel test
 for \eqn{2 \times 2 \times k}{2 x 2 x k} tables (see
-\code{\link[stats:mantelhaen.test]{stats::mantelhaen.test()}} for that). It is a score test for
+\code{\link[=mantelhaen.test]{mantelhaen.test()}} for that). It is a score test for
 ordinal association, also known as the linear-by-linear association
 test.
 
@@ -88,7 +88,7 @@ extensions of the Mantel-Haenszel procedure. \emph{Journal of the
 American Statistical Association}, 58, 690-700.
 }
 \seealso{
-\code{\link[stats:mantelhaen.test]{stats::mantelhaen.test()}} for the stratified
+\code{\link[=mantelhaen.test]{mantelhaen.test()}} for the stratified
 Cochran-Mantel-Haenszel test, \code{\link[=chisq.test]{chisq.test()}} for the general
 chi-squared test of independence, \code{\link[=cochranArmitageTest]{cochranArmitageTest()}} for
 a related trend test with a binary response

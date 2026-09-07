@@ -71,7 +71,7 @@
 #' Based on code by Steven P. Millard previously published in
 #' the \pkg{EnvStats} package, adapted to conform to package standards.
 #' 
-#' @seealso [distributions-overview]; [Uniform][stats::Uniform]
+#' @seealso [distributions-overview]; [Uniform][Uniform]
 #' 
 #' @references Forbes, C., M. Evans, N. Hastings, and B. Peacock. (2011).
 #' Statistical Distributions.  Fourth Edition. John Wiley and Sons, Hoboken,
