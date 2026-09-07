@@ -33,8 +33,8 @@ signifDiff(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{PostHocTest} as returned by
-\code{\link{postHocTest}}, or of class \code{pairwise.htest} as returned
-by \code{\link[stats]{pairwise.t.test}} and friends}
+\code{\link[=postHocTest]{postHocTest()}}, or of class \code{pairwise.htest} as returned
+by \code{\link[stats:pairwise.t.test]{stats::pairwise.t.test()}} and friends}
 
 \item{\dots}{further arguments, not used so far}
 
@@ -100,7 +100,7 @@ signifDiff(pairwise.t.test(warpbreaks$breaks, warpbreaks$tension))
 
 }
 \seealso{
-\code{\link{postHocTest}}, \code{\link[stats]{pairwise.t.test}}
+\code{\link[=postHocTest]{postHocTest()}}, \code{\link[stats:pairwise.t.test]{stats::pairwise.t.test()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

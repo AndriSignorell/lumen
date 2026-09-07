@@ -126,7 +126,7 @@ Williams, D. A. (1976) Improved likelihood ratio tests for complete
 contingency tables. \emph{Biometrika}, 63, 33-37.
 }
 \seealso{
-\code{\link{chisq.test}}
+\code{\link[=chisq.test]{chisq.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

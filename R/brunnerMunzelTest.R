@@ -17,8 +17,8 @@
 #'
 #' The estimated quantity is the relative effect
 #' \deqn{p = P(X < Y) + \tfrac{1}{2} P(X = Y),}
-#' the probability that a random draw from \code{y} exceeds a random draw from
-#' \code{x}, ties counted half. It is identical to the Mann-Whitney statistic
+#' the probability that a random draw from `y` exceeds a random draw from
+#' `x`, ties counted half. It is identical to the Mann-Whitney statistic
 #' scaled to \eqn{[0, 1]}, i.e. \eqn{U / (n_1 n_2)}, and is often reported as
 #' the common language effect size.
 #'
@@ -29,17 +29,17 @@
 #' and the test does not keep its level. Brunner and Munzel (2000) studentize
 #' the rank statistic with a separate variance estimate per group and refer it
 #' to a t distribution with Satterthwaite degrees of freedom, which is the rank
-#' analogue of the Welch correction. \code{\link{yuenTTest}} plays the same role
+#' analogue of the Welch correction. [yuenTTest()] plays the same role
 #' among the parametric location tests.
 #'
-#' \strong{Direction of \code{alternative}.} The alternative is stated in terms
-#' of \eqn{p}, not in terms of \code{x} against \code{y}. \code{"greater"}
-#' therefore means \eqn{p > p_0}, that is, \code{y} tends to produce the larger
+#' **Direction of `alternative`.** The alternative is stated in terms
+#' of \eqn{p}, not in terms of `x` against `y`. `"greater"`
+#' therefore means \eqn{p > p_0}, that is, `y` tends to produce the larger
 #' values. This follows the published definition of the statistic and the
-#' reported estimate, but it is the reverse of \code{\link[stats]{t.test}} and
-#' \code{\link[stats]{wilcox.test}}, where \code{"greater"} refers to \code{x}.
+#' reported estimate, but it is the reverse of [stats::t.test()] and
+#' [stats::wilcox.test()], where `"greater"` refers to `x`.
 #'
-#' \strong{Choice of \code{method}.} The t approximation is liberal in small
+#' **Choice of `method`.** The t approximation is liberal in small
 #' samples; below roughly ten observations per group the studentized permutation
 #' test of Neubert and Brunner (2007) should be preferred. Permuting the
 #' studentized statistic rather than the raw rank statistic is what keeps the
@@ -47,10 +47,10 @@
 #' is not an ordinary permutation test on ranks. It targets \eqn{H_0: p = 1/2}:
 #' it is exact in finite samples under exchangeability of the group labels, and
 #' remains asymptotically valid under the weaker nonparametric Behrens-Fisher
-#' null \eqn{p = 1/2} alone. Note that \code{exact = TRUE} means exact
+#' null \eqn{p = 1/2} alone. Note that `exact = TRUE` means exact
 #' enumeration of the permutation distribution, which is not the same as a
 #' finite-sample exact test under the general null. Only \eqn{p_0 = 1/2} is
-#' implemented; other values of \code{p0} require an approximate method.
+#' implemented; other values of `p0` require an approximate method.
 #'
 #' The two-sided permutation p-value is the proportion of splits with
 #' \eqn{|T^*| \ge |T|}, which is the convention used by the \pkg{brunnermunzel}
@@ -59,29 +59,29 @@
 #' tail, because the permutation distribution need not be symmetric when the
 #' group sizes differ or ties are present.
 #'
-#' With \code{exact = NULL} all \eqn{\binom{n_1 + n_2}{n_1}} splits are
-#' enumerated when there are at most \code{1e6} of them, and \code{nPerm}
+#' With `exact = NULL` all \eqn{\binom{n_1 + n_2}{n_1}} splits are
+#' enumerated when there are at most `1e6` of them, and `nPerm`
 #' Monte-Carlo resamples are drawn otherwise. Monte-Carlo p-values use the
 #' \eqn{(1 + k) / (1 + B)} correction and are therefore never zero.
 #'
-#' \strong{Confidence interval.} The interval is the studentized Wald interval
-#' for \eqn{p} and is reported for every \code{method}, including the
+#' **Confidence interval.** The interval is the studentized Wald interval
+#' for \eqn{p} and is reported for every `method`, including the
 #' permutation methods, which supply a p-value but no interval of their own. It
-#' is clipped to \eqn{[0, 1]}, and for a one-sided \code{alternative} the open
+#' is clipped to \eqn{[0, 1]}, and for a one-sided `alternative` the open
 #' end is reported at the range limit rather than as \eqn{\pm\infty}.
 #'
-#' \strong{Non-overlapping samples.} If every observation in one sample is
+#' **Non-overlapping samples.** If every observation in one sample is
 #' smaller than every observation in the other, both variance components are
 #' zero and neither approximation is defined. The permutation test is used
 #' instead, with a warning. For tie-free data small enough to enumerate, this
 #' returns the smallest attainable two-sided p-value,
 #' \eqn{2 / \binom{n_1 + n_2}{n_1}}; with ties the two mirrored fully separated
 #' splits need not both exist, so the attainable minimum can be smaller. No Wald
-#' interval exists in that case and \code{conf.int} is \code{NA}: a zero
+#' interval exists in that case and `conf.int` is `NA`: a zero
 #' standard error reflects an empty variance estimate, not certainty about
 #' \eqn{p}.
 #'
-#' The formula method accepts \code{lhs ~ rhs} with exactly two groups on the
+#' The formula method accepts `lhs ~ rhs` with exactly two groups on the
 #' right-hand side; more than two levels are rejected by
 #' [bedrock::resolveFormula].
 #'
@@ -89,32 +89,32 @@
 #'
 #' @param x a numeric vector or ordered factor
 #' @param y a numeric vector or ordered factor
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} is
-#'   numeric and \code{rhs} a factor with two levels
-#' @param p0 the value of \eqn{p} under the null hypothesis; must be \code{0.5}
-#'   for \code{method = "permutation"}
+#' @param formula a formula of the form `lhs ~ rhs` where `lhs` is
+#'   numeric and `rhs` a factor with two levels
+#' @param p0 the value of \eqn{p} under the null hypothesis; must be `0.5`
+#'   for `method = "permutation"`
 #' @param alternative a character string specifying the alternative hypothesis
-#'   for \eqn{p}, one of \code{"two.sided"} (default), \code{"less"} or
-#'   \code{"greater"}
+#'   for \eqn{p}, one of `"two.sided"` (default), `"less"` or
+#'   `"greater"`
 #' @param conf.level confidence level of the interval
-#' @param method the inference method, one of \code{"t"} (default, Satterthwaite
-#'   t approximation), \code{"permutation"} (studentized permutation test) or
-#'   \code{"normal"} (asymptotic normal approximation)
+#' @param method the inference method, one of `"t"` (default, Satterthwaite
+#'   t approximation), `"permutation"` (studentized permutation test) or
+#'   `"normal"` (asymptotic normal approximation)
 #' @param exact logical, whether to enumerate all splits instead of sampling
-#'   them; \code{NULL} (default) decides by the number of splits. Ignored unless
-#'   \code{method = "permutation"}
+#'   them; `NULL` (default) decides by the number of splits. Ignored unless
+#'   `method = "permutation"`
 #' @param nPerm number of Monte-Carlo resamples used when the permutation
 #'   distribution is not enumerated
 #' @param data an optional data frame containing the model variables
 #' @param subset an optional vector specifying a subset of observations
 #' @param na.action a function indicating what should happen when the data
-#'   contain \code{NA}s
+#'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
 #'
-#' @return An object of class \code{"htest"} with components
+#' @return An object of class `"htest"` with components
 #'   \item{statistic}{the studentized Brunner-Munzel statistic}
-#'   \item{parameter}{the Satterthwaite degrees of freedom, \code{NULL} for
-#'     \code{method = "permutation"}}
+#'   \item{parameter}{the Satterthwaite degrees of freedom, `NULL` for
+#'     `method = "permutation"`}
 #'   \item{p.value}{the p-value}
 #'   \item{conf.int}{confidence interval for \eqn{p}}
 #'   \item{estimate}{the estimated relative effect \eqn{\hat{p}}}
@@ -126,12 +126,12 @@
 #'
 #' @references
 #' Brunner, E., Munzel, U. (2000). The nonparametric Behrens-Fisher problem:
-#' asymptotic theory and a small-sample approximation. \emph{Biometrical
-#' Journal}, \bold{42}(1), 17-25.
+#' asymptotic theory and a small-sample approximation. *Biometrical
+#' Journal*, **42**(1), 17-25.
 #'
 #' Neubert, K., Brunner, E. (2007). A studentized permutation test for the
-#' non-parametric Behrens-Fisher problem. \emph{Computational Statistics and
-#' Data Analysis}, \bold{51}(10), 5192-5204.
+#' non-parametric Behrens-Fisher problem. *Computational Statistics and
+#' Data Analysis*, **51**(10), 5192-5204.
 #'
 #' @seealso [wilcox.test()]
 #'

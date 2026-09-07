@@ -17,16 +17,16 @@
 #' apart from block effects, the probability of a "success" (coded as 1)
 #' is the same in all groups.
 #'
-#' If \code{y} is a matrix, groups and blocks are inferred from the columns
-#' and rows, respectively. Missing values in \code{y} lead to the removal
+#' If `y` is a matrix, groups and blocks are inferred from the columns
+#' and rows, respectively. Missing values in `y` lead to the removal
 #' of the corresponding blocks (for both methods). Missing values are not
-#' allowed in \code{groups} or \code{blocks}. If all blocks give identical
+#' allowed in `groups` or `blocks`. If all blocks give identical
 #' responses, the statistic is 0 by convention and the p-value 1.
 #'
-#' With \code{method = "asymptotic"} the test statistic is referred to its
-#' approximate chi-squared distribution. With \code{method = "approximate"}
+#' With `method = "asymptotic"` the test statistic is referred to its
+#' approximate chi-squared distribution. With `method = "approximate"`
 #' a Monte Carlo permutation p-value is obtained via
-#' \code{coin::symmetry_test()}, whose quadratic-form statistic coincides
+#' `coin::symmetry_test()`, whose quadratic-form statistic coincides
 #' with Cochran's Q for this design.
 #'
 #' Cochran's Q test is closely related to the Friedman test, but is
@@ -38,40 +38,40 @@
 #' @param y either a numeric vector of data values, or a matrix with the
 #' blocks in the rows and the groups in the columns.
 #' @param method a character string specifying how the p-value is computed,
-#' one of \code{"asymptotic"} (default, chi-squared approximation) or
-#' \code{"approximate"} (Monte Carlo permutation via the \pkg{coin}
+#' one of `"asymptotic"` (default, chi-squared approximation) or
+#' `"approximate"` (Monte Carlo permutation via the \pkg{coin}
 #' package).
 #' @param nresample the number of Monte Carlo replicates used for
-#' \code{method = "approximate"} (default is \code{1e4}).
+#' `method = "approximate"` (default is `1e4`).
 #' @param groups a vector giving the group for the corresponding elements
-#' of \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#' of `y` if this is a vector; ignored if `y` is a matrix. If not
 #' a factor object, it is coerced to one.
 #' @param blocks a vector giving the block for the corresponding elements
-#' of \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#' of `y` if this is a vector; ignored if `y` is a matrix. If not
 #' a factor object, it is coerced to one.
-#' @param formula a formula of the form \code{y ~ groups | blocks}.
+#' @param formula a formula of the form `y ~ groups | blocks`.
 #' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula. By
-#' default the variables are taken from \code{environment(formula)}.
+#' [model.frame()]) containing the variables in the formula. By
+#' default the variables are taken from `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to
 #' be used.
 #' @param na.action a function which indicates what should happen when the
-#' data contain \code{NA}s. Defaults to \code{getOption("na.action")}.
+#' data contain `NA`s. Defaults to `getOption("na.action")`.
 #' @param \dots further arguments to be passed to or from methods.
 #' 
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of Cochran's chi-squared statistic.}
-#'   \item{\code{parameter}}{the degrees of freedom of the approximate
+#'   \item{`statistic`}{the value of Cochran's chi-squared statistic.}
+#'   \item{`parameter`}{the degrees of freedom of the approximate
 #'     chi-squared distribution of the test statistic (asymptotic method
 #'     only).}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{method}}{a character string indicating the test performed and
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`method`}{a character string indicating the test performed and
 #'     the method used to compute the p-value.}
-#'   \item{\code{data.name}}{a character string giving the names of the data.}
+#'   \item{`data.name`}{a character string giving the names of the data.}
 #'
 #' @references Cochran, W.G. (1950) The Comparison of Percentages in Matched
-#' Samples. \emph{Biometrika}, 37 (3/4): 256-266.
+#' Samples. *Biometrika*, 37 (3/4): 256-266.
 #'
 #' @examples
 #' # example in:

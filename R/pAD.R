@@ -2,19 +2,19 @@
 
 #' Null Distribution of Anderson-Darling Test Statistic
 #' 
-#' \code{pAD} computes the cumulative distribution function, and \code{qAD}
+#' `pAD` computes the cumulative distribution function, and `qAD`
 #' computes the quantile function, of the null distribution of the
 #' Anderson-Darling test statistic.
 #' 
-#' \code{pAD} uses the algorithms and C code described in Marsaglia and
+#' `pAD` uses the algorithms and C code described in Marsaglia and
 #' Marsaglia (2004).
 #' 
-#' \code{qAD} uses \code{\link[stats]{uniroot}} to find the quantiles.
+#' `qAD` uses [stats::uniroot()] to find the quantiles.
 #' 
-#' The argument \code{fast} applies only when \code{n=Inf} and determines
+#' The argument `fast` applies only when `n=Inf` and determines
 #' whether the asymptotic distribution is approximated using the faster
-#' algorithm \code{adinf} (accurate to 4-5 places) or the slower algorithm
-#' \code{ADinf} (accurate to 11 places) described in Marsaglia and Marsaglia
+#' algorithm `adinf` (accurate to 4-5 places) or the slower algorithm
+#' `ADinf` (accurate to 11 places) described in Marsaglia and Marsaglia
 #' (2004).
 #' 
 #' @name pAD
@@ -23,25 +23,25 @@
 #' probability is required).
 #' @param p Numeric vector of probabilities.
 #' @param n Integer. Sample size for the Anderson-Darling test.
-#' @param lower.tail Logical. If \code{TRUE} (the default), probabilities are
+#' @param lower.tail Logical. If `TRUE` (the default), probabilities are
 #' \eqn{P(X \le q)}{P(X <= q)}, and otherwise they are \eqn{P(X > q)}.
 #' @param fast Logical value indicating whether to use a fast algorithm or a
-#' slower, more accurate algorithm, in the case \code{n=Inf}.
-#' @return A numeric vector of the same length as \code{p} or \code{q}.
+#' slower, more accurate algorithm, in the case `n=Inf`.
+#' @return A numeric vector of the same length as `p` or `q`.
 #' 
 #' @note Original C code by G. and J. Marsaglia.  \R interface by Adrian
 #' Baddeley, adapted to conform to package standards.
 #' 
 #' @references Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 #' certain 'goodness-of-fit' criteria based on stochastic processes.
-#' \emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
+#' *Annals of Mathematical Statistics* **23**, 193--212.
 #' 
 #' Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-#' \emph{Journal of the American Statistical Association} \bold{49}, 765--769.
+#' *Journal of the American Statistical Association* **49**, 765--769.
 #' 
 #' Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-#' Distribution.  \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
-#' February 2004.  \url{http://www.jstatsoft.org/v09/i02}
+#' Distribution.  *Journal of Statistical Software* **9** (2), 1--5.
+#' February 2004.  <http://www.jstatsoft.org/v09/i02>
 #'  
 #' @examples
 #' 

@@ -2,24 +2,24 @@
 #' Power Calculations for Power and Sample-Size Calculations for Chi-Square Tests
 #' 
 #' Compute power of test or determine parameters to obtain target power (same
-#' as \code{\link{power.anova.test}}).
+#' as [power.anova.test()]).
 #' 
-#' Exactly one of the parameters \code{effectSize}, \code{n}, \code{power} or
-#' \code{sig.level} must be passed as NULL, and this parameter is determined
-#' from the others. Note that the last one has non-NULL default, so \code{NULL}
-#' must be explicitly passed, if you want to compute it. \code{df} must
+#' Exactly one of the parameters `effectSize`, `n`, `power` or
+#' `sig.level` must be passed as NULL, and this parameter is determined
+#' from the others. Note that the last one has non-NULL default, so `NULL`
+#' must be explicitly passed, if you want to compute it. `df` must
 #' always be supplied; it cannot be solved for.
 #' 
 #' @param n total number of observations.
 #' @param effectSize effect size.
 #' @param df degrees of freedom of the chi-squared distribution, e.g.
-#' \code{(rows-1)*(cols-1)} for a test of independence. Must always be
+#' `(rows-1)*(cols-1)` for a test of independence. Must always be
 #' supplied.
 #' @param sig.level significance level (Type I error probability).
 #' @param power target power (1 minus Type II error probability).
 #' @return Object of class "power.htest", a list of the arguments (including
 #' the computed one) augmented with 'method' and 'note' elements.
-#' @note \code{\link{uniroot}} is used to solve power equation for unknowns, so
+#' @note [uniroot()] is used to solve power equation for unknowns, so
 #' you may see errors from it, notably about inability to bracket the root when
 #' invalid arguments are given.
 #' 
@@ -27,9 +27,9 @@
 #' Based on code by Stephane Champely, and Peter Dalgaard, adapted to conform 
 #' to package standards. 
 #' 
-#' @seealso \code{\link{power.t.test}}
-#' @references Cohen, J. (1988) \emph{Statistical power analysis for the
-#' behavioral sciences (2nd ed.)} Hillsdale, NJ: Lawrence Erlbaum.
+#' @seealso [power.t.test()]
+#' @references Cohen, J. (1988) *Statistical power analysis for the
+#' behavioral sciences (2nd ed.)* Hillsdale, NJ: Lawrence Erlbaum.
 #' 
 #' @examples
 #' 

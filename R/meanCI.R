@@ -8,53 +8,53 @@
 #' The confidence intervals for the trimmed means use winsorized variances as
 #' described in the references.
 #'
-#' The bootstrap type \code{"stud"} (studentized) requires a variance
+#' The bootstrap type `"stud"` (studentized) requires a variance
 #' estimate to be returned alongside the point estimate on every bootstrap
 #' replicate; this is supported for both the trimmed and untrimmed mean.
 #'
 #' @param x a (non-empty) numeric vector of data values.
 #' @param conf.level confidence level of the interval.
 #' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. \code{"left"} would be analogue to a hypothesis of
-#' \code{"greater"} in a \code{t.test}. You can specify just the initial
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"`. `"left"` would be analogue to a hypothesis of
+#' `"greater"` in a `t.test`. You can specify just the initial
 #' letter.
 #' @param method A vector of character strings representing the type of
 #' intervals required. The value should be any subset of the values
-#' \code{"classic"}, \code{"boot"}.  See \code{\link[boot]{boot.ci}}.
+#' `"classic"`, `"boot"`.  See [boot::boot.ci()].
 #' @param sd the standard deviation of x. If provided it's interpreted as sd of
 #' the population and the normal quantiles will be used for constructing the
-#' confidence intervals. If left to \code{NULL} (default) the sample
-#' \code{sd(x)} will be calculated and used in combination with the
+#' confidence intervals. If left to `NULL` (default) the sample
+#' `sd(x)` will be calculated and used in combination with the
 #' t-distribution.
 #' @param trim the fraction (0 to 0.5) of observations to be trimmed from each
-#' end of \code{x} before the mean is computed. Values of \code{trim} outside
+#' end of `x` before the mean is computed. Values of `trim` outside
 #' that range are taken as the nearest endpoint.
-#' @param na.rm a logical value indicating whether \code{NA} values should be
+#' @param na.rm a logical value indicating whether `NA` values should be
 #' stripped before the computation proceeds. Defaults to FALSE.
 #'
-#' @param ... further arguments are passed to the \code{\link[boot]{boot}} function.
-#' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
-#' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
-#' of bootstrap replicates \code{R}. If not defined those will be set to their
-#' defaults, being \code{"basic"} for \code{type}, option
-#' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
-#' \code{parallel} and \code{999} for \code{R}.
+#' @param ... further arguments are passed to the [boot::boot()] function.
+#' Supported arguments are `type` (`"norm"`, `"basic"`,
+#' `"stud"`, `"perc"`, `"bca"`), `parallel` and the number
+#' of bootstrap replicates `R`. If not defined those will be set to their
+#' defaults, being `"basic"` for `type`, option
+#' `"boot.parallel"` (and if that is not set, `"no"`) for
+#' `parallel` and `999` for `R`.
 #'
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate}
-#'   \item{\code{lci}}{lower confidence interval bound}
-#'   \item{\code{uci}}{upper confidence interval bound}
+#'   \item{`est`}{point estimate}
+#'   \item{`lci`}{lower confidence interval bound}
+#'   \item{`uci`}{upper confidence interval bound}
 #' }
 #'
-#' @seealso \code{DescToolsX::meanX()}, [t.test()], [varCI()]
+#' @seealso `DescToolsX::meanX()`, [t.test()], [varCI()]
 #'
 #' @references Wilcox, R. R., Keselman H. J. (2003) Modern robust data analysis
-#' methods: measures of central tendency \emph{Psychol Methods}, 8(3):254-74
+#' methods: measures of central tendency *Psychol Methods*, 8(3):254-74
 #'
-#' Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis
-#' testing} Elsevier Academic Press
+#' Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
+#' testing* Elsevier Academic Press
 #'
 #' @examples
 #'

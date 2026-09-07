@@ -16,34 +16,34 @@
 #' category and referred to a chi-squared distribution with 1 degree of
 #' freedom; the resulting p-values are adjusted for multiple comparisons.
 #'
-#' If \code{x} is a matrix, it is taken as a two-dimensional contingency
+#' If `x` is a matrix, it is taken as a two-dimensional contingency
 #' table, and hence its entries should be nonnegative integers. Otherwise,
-#' both \code{x} and \code{y} must be vectors or factors of the same
+#' both `x` and `y` must be vectors or factors of the same
 #' length. Incomplete cases are removed, vectors are coerced into factors,
 #' and the contingency table is computed from these.
 #'
 #' @name lehmacherTest
 #' @param x either a two-dimensional square contingency table in matrix
 #' form, or a factor object.
-#' @param y a factor object; ignored if \code{x} is a matrix.
+#' @param y a factor object; ignored if `x` is a matrix.
 #' @param p.adjust.method the method used to adjust the per-category
-#' p-values for multiple comparisons, passed to \code{\link{p.adjust}}.
-#' Default is \code{"hochberg"}, as recommended by Lehmacher (1980).
-#' @return A list with class \code{c("MHTest", "htest")} containing the
+#' p-values for multiple comparisons, passed to [p.adjust()].
+#' Default is `"hochberg"`, as recommended by Lehmacher (1980).
+#' @return A list with class `c("MHTest", "htest")` containing the
 #' following components:
 #' \item{statistic}{a vector with the value of the test statistic for each
 #' category.}
 #' \item{parameter}{the degrees of freedom, which is always 1.}
 #' \item{p.value}{a vector with the p-values of the individual tests.}
 #' \item{p.value.corr}{a vector with the adjusted p-values of the
-#' individual tests (see \code{p.adjust.method}).}
+#' individual tests (see `p.adjust.method`).}
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{a character string giving the name of the data.}
 #'
 #' @seealso [mcnemar.test()] for the 2x2 case
 #'
 #' @references Lehmacher, W. (1980) Simultaneous sign tests for marginal
-#' homogeneity of square contingency tables. \emph{Biometrical Journal},
+#' homogeneity of square contingency tables. *Biometrical Journal*,
 #' 22 (8), 795-798.
 #'
 #' @examples
@@ -105,7 +105,7 @@ lehmacherTest <- function(x, y = NULL, p.adjust.method = "hochberg") {
 
 
 #' @param digits a non-null value for digits specifies the minimum number
-#' of significant digits to be printed. See \code{\link{print.default}}.
+#' of significant digits to be printed. See [print.default()].
 #' @param \dots further arguments to be passed to or from other methods,
 #' ignored in this function.
 #'

@@ -6,8 +6,8 @@
 #' (two-sample).  It is the multivariate generalisation of Student's t-test.
 #'
 #' @details
-#' When \code{test = "f"} the test statistic follows an exact F-distribution
-#' under the assumption of multivariate normality.  When \code{test = "chi"} a
+#' When `test = "f"` the test statistic follows an exact F-distribution
+#' under the assumption of multivariate normality.  When `test = "chi"` a
 #' chi-squared approximation is used; it relies on large-sample asymptotic
 #' theory and is less sensitive to departures from multivariate normality than
 #' the F-test, but remains only asymptotically correct.
@@ -15,39 +15,39 @@
 #' In the two-sample case both populations are assumed to share the same
 #' covariance matrix; a pooled within-group estimate is used.
 #'
-#' The formula interface (\code{cbind(v1, v2) ~ g}) is available for the
+#' The formula interface (`cbind(v1, v2) ~ g`) is available for the
 #' two-sample case only.
 #'
 #' @param x       a numeric matrix or data frame (observations in rows,
 #'   variables in columns).
 #' @param y       an optional numeric matrix or data frame for the two-sample
-#'   test.  If \code{NULL} (default) a one-sample test is performed.
+#'   test.  If `NULL` (default) a one-sample test is performed.
 #' @param mu      a numeric vector of length \eqn{p} giving the hypothesised
-#'   mean (one-sample) or mean difference (two-sample).  \code{NULL} is
+#'   mean (one-sample) or mean difference (two-sample).  `NULL` is
 #'   interpreted as the zero vector.
 #' @param test    a character string selecting the reference distribution:
-#'   \code{"f"} (exact F-distribution, default) or \code{"chi"}
+#'   `"f"` (exact F-distribution, default) or `"chi"`
 #'   (chi-squared approximation).
-#' @param formula a formula of the form \code{cbind(v1, v2, ...) ~ g} where
-#'   the left-hand side is a numeric matrix of response variables and \code{g}
+#' @param formula a formula of the form `cbind(v1, v2, ...) ~ g` where
+#'   the left-hand side is a numeric matrix of response variables and `g`
 #'   is a factor with exactly two levels.
 #' @param data    an optional data frame (or similar, see
-#'   \code{\link{model.frame}}) containing the variables in \code{formula}.
-#'   Defaults to the environment of \code{formula}.
+#'   [model.frame()]) containing the variables in `formula`.
+#'   Defaults to the environment of `formula`.
 #' @param subset  an optional vector specifying a subset of observations.
 #' @param na.action a function indicating what should happen when the data
-#'   contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
+#'   contain `NA`s.  Defaults to `getOption("na.action")`.
 #' @param \dots  further arguments passed to or from methods.
 #'
-#' @return An object of class \code{"htest"} containing:
+#' @return An object of class `"htest"` containing:
 #'   \item{statistic}{the value of the T2-statistic (scaled to follow an F- or
-#'     chi-squared distribution depending on \code{test}).}
+#'     chi-squared distribution depending on `test`).}
 #'   \item{parameter}{degrees of freedom of the reference distribution.}
 #'   \item{p.value}{the p-value of the test.}
 #'   \item{estimate}{the sample mean vector (one-sample) or the difference
 #'     of the sample mean vectors (two-sample).}
 #'   \item{null.value}{the hypothesised mean or mean difference.}
-#'   \item{alternative}{always \code{"two.sided"}.}
+#'   \item{alternative}{always `"two.sided"`.}
 #'   \item{method}{a character string describing the test variant performed.}
 #'   \item{data.name}{a character string giving the name(s) of the input
 #'     data.}
@@ -56,12 +56,12 @@
 #' Based on code by Klaus Nordhausen, adapted to conform to package standards.
 #'
 #' @references
-#' Anderson, T. W. (2003). \emph{An Introduction to Multivariate Statistical
-#'   Analysis} (3rd ed.). Wiley.
+#' Anderson, T. W. (2003). *An Introduction to Multivariate Statistical
+#'   Analysis* (3rd ed.). Wiley.
 #'
 #' Nordhausen, K., Sirkia, S., Oja, H., & Tyler, D. E. (2012).
-#'   \emph{ICSNP: Tools for Multivariate Nonparametrics}. R package
-#'   version 1.0-9. \url{https://cran.r-project.org/package=ICSNP}
+#'   *ICSNP: Tools for Multivariate Nonparametrics*. R package
+#'   version 1.0-9. <https://cran.r-project.org/package=ICSNP>
 #'
 #' @examples
 #' math.teach <- data.frame(

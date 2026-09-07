@@ -7,20 +7,20 @@
 #'
 #' Performs the KPSS test (Kwiatkowski et al., 1992), where the null
 #' hypothesis is stationarity. The test types specify as deterministic
-#' component either a constant (\code{"mu"}, null hypothesis of level
-#' stationarity) or a constant with linear trend (\code{"tau"}, null
+#' component either a constant (`"mu"`, null hypothesis of level
+#' stationarity) or a constant with linear trend (`"tau"`, null
 #' hypothesis of trend stationarity).
 #'
-#' \code{lags = "short"} sets the number of lags used for the long-run
+#' `lags = "short"` sets the number of lags used for the long-run
 #' variance estimation to \eqn{4 (n/100)^{1/4}}{4*(n/100)^(1/4)}, whereas
-#' \code{lags = "long"} sets it to \eqn{12 (n/100)^{1/4}}{12*(n/100)^(1/4)}
-#' (each truncated to an integer). With \code{lags = "nil"} no error
+#' `lags = "long"` sets it to \eqn{12 (n/100)^{1/4}}{12*(n/100)^(1/4)}
+#' (each truncated to an integer). With `lags = "nil"` no error
 #' correction is made. Alternatively, an explicit number of lags can be
-#' given via \code{useLag}, which then takes precedence.
+#' given via `useLag`, which then takes precedence.
 #'
 #' The p-value is obtained by linear interpolation in the asymptotic
 #' critical values of Kwiatkowski et al. (1992, Table 1), following the
-#' approach of \code{tseries::kpss.test()}. If the statistic falls outside
+#' approach of `tseries::kpss.test()`. If the statistic falls outside
 #' the range of the table, the p-value is reported as the respective
 #' boundary (0.01 or 0.10) and a warning is issued.
 #'
@@ -28,15 +28,15 @@
 #'
 #' @param y numeric vector or univariate time series to be tested for
 #' stationarity.
-#' @param type the deterministic part of the model, one of \code{"mu"}
-#' (default, constant) or \code{"tau"} (constant plus linear trend).
+#' @param type the deterministic part of the model, one of `"mu"`
+#' (default, constant) or `"tau"` (constant plus linear trend).
 #' @param lags the rule for the number of lags used for the error term
-#' correction, one of \code{"short"} (default), \code{"long"} or
-#' \code{"nil"}. See the Details. Ignored if \code{useLag} is given.
+#' correction, one of `"short"` (default), `"long"` or
+#' `"nil"`. See the Details. Ignored if `useLag` is given.
 #' @param useLag an optional integer explicitly specifying the number of
-#' lags, overriding \code{lags}.
+#' lags, overriding `lags`.
 #'
-#' @return An object of class \code{"htest"} containing the following
+#' @return An object of class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the value of the KPSS test statistic.}
 #' \item{parameter}{the number of lags used for the error term correction.}
@@ -55,7 +55,7 @@
 #' @references Kwiatkowski, D., Phillips, P. C. B., Schmidt, P. and
 #' Shin, Y. (1992) Testing the null hypothesis of stationarity against the
 #' alternative of a unit root: How sure are we that economic time series
-#' have a unit root? \emph{Journal of Econometrics}, \bold{54}, 159--178.
+#' have a unit root? *Journal of Econometrics*, **54**, 159--178.
 #'
 #' @examples
 #' # trend-stationary series: null hypothesis is not rejected

@@ -31,7 +31,7 @@ be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 \item{method}{a vector of character strings representing the type of
 intervals required. The value should be any subset of the values
 \code{"classic"}, \code{"boot"}. Bootstrap type can be provided by the dots.
-See \code{\link[boot]{boot.ci}}.}
+See \code{\link[boot:boot.ci]{boot::boot.ci()}}.}
 
 \item{paired}{a logical indicating whether you want confidence intervals for
 a paired design. Defaults to \code{FALSE}.}
@@ -40,7 +40,7 @@ a paired design. Defaults to \code{FALSE}.}
 variances as being equal. Default is \code{FALSE}. If \code{TRUE} then the
 pooled variance is used to estimate the variance otherwise the Welch (or
 Satterthwaite) approximation to the degrees of freedom is used. Passed on to
-\code{\link{t.test}()}.}
+\code{\link[=t.test]{t.test()}}.}
 
 \item{na.rm}{logical. Should missing values be removed? Defaults to
 \code{FALSE}.}
@@ -63,7 +63,7 @@ the classical way or with the bootstrap approach.
 \details{
 This function collects code from two sources. The classical confidence
 interval is calculated by means of \code{\link[=t.test]{t.test()}}. The bootstrap
-intervals are strongly based on the example in \code{\link[boot]{boot}}.
+intervals are strongly based on the example in \code{\link[boot:boot]{boot::boot()}}.
 
 The bootstrap type \code{"stud"} (studentized) is not supported: the
 statistic functions used here return only the point estimate, not a

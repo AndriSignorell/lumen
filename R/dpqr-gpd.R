@@ -11,8 +11,8 @@
 #' scale and shape parameters.
 #' 
 #' The generalized Pareto distribution function (Pickands, 1975) with
-#' parameters \eqn{\code{loc} = a}, \eqn{\code{scale} = b} and
-#' \eqn{\code{shape} = s} is \deqn{G(z) = 1 - \{1+s(z-a)/b\}^{-1/s}}{ G(z) = 1
+#' parameters \eqn{`loc` = a}, \eqn{`scale` = b} and
+#' \eqn{`shape` = s} is \deqn{G(z) = 1 - \{1+s(z-a)/b\}^{-1/s}}{ G(z) = 1
 #' - {1+s(z-a)/b}^(-1/s)} for \eqn{1+s(z-a)/b > 0} and \eqn{z > a}, where
 #' \eqn{b > 0}.  If \eqn{s = 0} the distribution is defined by continuity.
 #' 
@@ -22,23 +22,23 @@
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters; the
-#' \code{shape} argument cannot be a vector (must have length one).
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' `shape` argument cannot be a vector (must have length one).
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
-#' @return \code{dgpd()} gives the density function, \code{pgpd()} gives the
-#' distribution function, \code{qgpd()} gives the quantile function, and
-#' \code{rgpd()} generates random deviates.
+#' @return `dgpd()` gives the density function, `pgpd()` gives the
+#' distribution function, `qgpd()` gives the quantile function, and
+#' `rgpd()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in
 #' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @seealso [distributions-overview]; \code{evd::fpot()} for fitting
+#' @seealso [distributions-overview]; `evd::fpot()` for fitting
 #' peaks-over-threshold models
 #' 
 #' @references Pickands, J. (1975) Statistical inference using extreme order
-#' statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
+#' statistics.  *Annals of Statistics*, **3**, 119--131.
 #' 
 #' @concept distribution-function
 #' @concept extreme-value

@@ -24,9 +24,9 @@
 #' character string giving the name(s) of the data.}
 #' @note The Shapiro-Francia test is known to perform well, see also the
 #' comments by Royston (1993). The expected ordered quantiles from the standard
-#' normal distribution are approximated by \code{qnorm(ppoints(x, a = 3/8))},
-#' being slightly different from the approximation \code{qnorm(ppoints(x, a =
-#' 1/2))} used for the normal quantile-quantile plot by \code{\link{qqnorm}}
+#' normal distribution are approximated by `qnorm(ppoints(x, a = 3/8))`,
+#' being slightly different from the approximation `qnorm(ppoints(x, a =
+#' 1/2))` used for the normal quantile-quantile plot by [qqnorm()]
 #' for sample sizes greater than 10.
 #' 
 #' @note

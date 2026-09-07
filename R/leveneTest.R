@@ -18,51 +18,51 @@
 #' @aliases leveneTest leveneTest.formula leveneTest.default
 #'
 #' @param x a numeric vector of data values (default method), or a
-#' \code{formula} (formula method).
-#' @param g factor defining the groups; ignored if \code{x} is a list.
+#' `formula` (formula method).
+#' @param g factor defining the groups; ignored if `x` is a list.
 #' @param center the name of a function to compute the center of each
-#' group; \code{mean} gives the original Levene's test, the default,
-#' \code{median}, provides the more robust Brown-Forsythe test.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs}
-#' gives the data values and \code{rhs} the corresponding groups.
+#' group; `mean` gives the original Levene's test, the default,
+#' `median`, provides the more robust Brown-Forsythe test.
+#' @param formula a formula of the form `lhs ~ rhs` where `lhs`
+#' gives the data values and `rhs` the corresponding groups.
 #' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}. By default the variables are taken from
-#' \code{environment(formula)}.
+#' [model.frame()]) containing the variables in the formula
+#' `formula`. By default the variables are taken from
+#' `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to
 #' be used.
 #' @param na.action a function which indicates what should happen when the
-#' data contain \code{NA}s. Defaults to \code{getOption("na.action")}.
+#' data contain `NA`s. Defaults to `getOption("na.action")`.
 #' @param .centerName internal, not intended to be set by the user. Used
-#' to pass the deparsed name of the \code{center} function through the
-#' method dispatch chain (from \code{leveneTest.formula} to
-#' \code{leveneTest.default}), since \code{substitute(center)} would
-#' otherwise only resolve to the literal symbol \code{"center"} rather
-#' than the original expression (e.g. \code{mean} or \code{median})
+#' to pass the deparsed name of the `center` function through the
+#' method dispatch chain (from `leveneTest.formula` to
+#' `leveneTest.default`), since `substitute(center)` would
+#' otherwise only resolve to the literal symbol `"center"` rather
+#' than the original expression (e.g. `mean` or `median`)
 #' supplied by the caller.
-#' @param \dots arguments to be passed down, e.g. \code{data} for the
+#' @param \dots arguments to be passed down, e.g. `data` for the
 #' formula method; can also be used to pass arguments to the function
-#' given by \code{center} (e.g. \code{trim = 0.1} for a trimmed mean when
-#' \code{center = mean}).
+#' given by `center` (e.g. `trim = 0.1` for a trimmed mean when
+#' `center = mean`).
 #'
-#' @return An object of class \code{"htest"} representing the result of
+#' @return An object of class `"htest"` representing the result of
 #' the hypothesis test.
 #'
 #' @note
-#' Based on \code{car::leveneTest()} by John Fox, with contributions by
+#' Based on `car::leveneTest()` by John Fox, with contributions by
 #' Derek Ogle and Brian Ripley, adapted to conform to package standards.
 #'
 #' @references
-#' Fox, J. and Weisberg, S. (2019) \emph{An R Companion to Applied
-#' Regression}, 3rd ed., Thousand Oaks, CA: Sage.
+#' Fox, J. and Weisberg, S. (2019) *An R Companion to Applied
+#' Regression*, 3rd ed., Thousand Oaks, CA: Sage.
 #'
 #' Levene, H. (1960) Robust tests for equality of variances. In: Olkin,
-#' I. et al., eds.: \emph{Contributions to Probability and Statistics:
-#' Essays in Honor of Harold Hotelling}, Stanford University Press,
+#' I. et al., eds.: *Contributions to Probability and Statistics:
+#' Essays in Honor of Harold Hotelling*, Stanford University Press,
 #' pp. 278-292.
 #'
-#' @seealso \code{\link{fligner.test}} for a rank-based (nonparametric)
-#' k-sample test for homogeneity of variances, \code{\link{bartlett.test}}
+#' @seealso [fligner.test()] for a rank-based (nonparametric)
+#' k-sample test for homogeneity of variances, [bartlett.test()]
 #' for a parametric alternative
 #'
 #' @examples

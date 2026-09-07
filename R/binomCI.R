@@ -1,71 +1,71 @@
 
 #' Confidence Intervals for Binomial Proportions
 #' 
-#' \code{binomCI()} computes confidence intervals for binomial proportions
+#' `binomCI()` computes confidence intervals for binomial proportions
 #' using a wide range of commonly proposed methods.
 #'
 #' All arguments are vectorized and recycled according to standard R rules.
 #'
-#' \strong{Wald}:
+#' **Wald**:
 #' Obtained by inverting the acceptance region of the large-sample normal
 #' (Wald) test.
 #'
-#' \strong{Wald with continuity correction}:
+#' **Wald with continuity correction**:
 #' A continuity-corrected version of the Wald interval, obtained by adding
 #' 1/(2n) to the standard Wald limits.
 #'
-#' \strong{Wilson} (default):
+#' **Wilson** (default):
 #' Introduced by Wilson (1927), this interval is obtained by inverting the
 #' central limit theorem approximation to the family of equal-tail tests of
 #' \eqn{p = p_0}. It is recommended by Agresti and Coull (1998) and
-#' Brown et al. (2001). The same interval is returned as \code{conf.int}
-#' by \code{\link{prop.test}} with \code{correct = FALSE}.
+#' Brown et al. (2001). The same interval is returned as `conf.int`
+#' by [prop.test()] with `correct = FALSE`.
 #'
-#' \strong{Wilson with continuity correction}:
+#' **Wilson with continuity correction**:
 #' A continuity-corrected modification of the Wilson interval. This
-#' corresponds to \code{\link{prop.test}} with \code{correct = TRUE}.
+#' corresponds to [prop.test()] with `correct = TRUE`.
 #'
-#' \strong{Modified Wilson}:
+#' **Modified Wilson**:
 #' An adjustment of the Wilson interval for extreme counts
 #' (i.e., \eqn{x} close to 0 or \eqn{n}), as proposed by Brown et al. (2001).
 #'
-#' \strong{Agresti-Coull}:
+#' **Agresti-Coull**:
 #' A simplified modification of the Wilson interval (Agresti and Coull, 1998).
 #' These intervals are never shorter than the Wilson intervals
 #' (Brown et al., 2001). The internally used adjusted estimator
 #' \eqn{\tilde{p}} is returned as an attribute.
 #'
-#' \strong{Jeffreys}:
+#' **Jeffreys**:
 #' The equal-tailed Bayesian interval based on the Jeffreys prior,
 #' as described in Brown et al. (2001).
 #'
-#' \strong{Modified Jeffreys}:
+#' **Modified Jeffreys**:
 #' A modification of the Jeffreys interval for boundary cases
 #' (e.g., \eqn{x = 0}, \eqn{x = n}, or near-boundary values),
 #' following Brown et al. (2001).
 #'
-#' \strong{Clopper-Pearson}:
+#' **Clopper-Pearson**:
 #' The so-called exact interval, based on quantiles of the
 #' corresponding beta distribution.
 #'
-#' \strong{Arcsine}:
+#' **Arcsine**:
 #' Based on the variance-stabilizing arcsine transformation for
 #' the binomial distribution.
 #'
-#' \strong{Logit}:
+#' **Logit**:
 #' Obtained by constructing a Wald-type interval on the log-odds scale
 #' and transforming back to the probability scale.
 #'
-#' \strong{Witting}:
+#' **Witting**:
 #' A randomized procedure (Witting, 1985) providing uniformly optimal
 #' lower and upper confidence bounds for binomial proportions.
 #' Repeated calls may yield slightly different results unless the
 #' random number generator seed is fixed.
 #'
-#' \strong{Pratt}:
+#' **Pratt**:
 #' Based on a highly accurate normal approximation (Pratt, 1968).
 #'
-#' \strong{Mid-p}:
+#' **Mid-p**:
 #' Designed to reduce the conservatism of the Clopper-Pearson interval.
 #' The lower bound \eqn{p_l} solves
 #' \deqn{\frac{1}{2} f(x; n, p_l) + (1 - F(x; n, p_l)) = \frac{\alpha}{2}}
@@ -75,14 +75,14 @@
 #' cumulative distribution functions. For \eqn{x = 0} the lower bound
 #' is set to 0; for \eqn{x = n} the upper bound is set to 1.
 #'
-#' \strong{Likelihood-based}:
+#' **Likelihood-based**:
 #' Confidence intervals obtained by profiling the binomial deviance
 #' in the neighbourhood of the maximum likelihood estimator.
 #'
-#' \strong{Blaker}:
+#' **Blaker**:
 #' An exact interval based on the method proposed by Blaker (2000).
 #'
-#' \strong{Khouadji}:
+#' **Khouadji**:
 #' A transformation-based approximation for binomial confidence intervals. 
 #' It applies a variance-stabilizing transformation to the sample 
 #' proportion, constructs a normal-based interval, and back-transforms 
@@ -94,15 +94,15 @@
 #' \eqn{[0, 1]}. In such cases, the bounds are truncated to remain
 #' within the valid parameter space.
 #'
-#' For the methods \code{"wilson"}, \code{"wilson-cc"},
-#' \code{"wilson-mod"}, \code{"agresti-coull"},
-#' \code{"witting"}, and \code{"arcsine"},
+#' For the methods `"wilson"`, `"wilson-cc"`,
+#' `"wilson-mod"`, `"agresti-coull"`,
+#' `"witting"`, and `"arcsine"`,
 #' the internally used adjusted point estimator can be returned
-#' by setting \code{stdEst = FALSE}. These estimators are typically
+#' by setting `stdEst = FALSE`. These estimators are typically
 #' slightly shrunk toward 0.5 compared to the usual estimator \eqn{x/n}.
 #' See the cited literature for further details.
 #' 
-#' @section \strong{Which interval should be used?}:
+#' @section **Which interval should be used?**:
 #' The Wald interval is known to have poor coverage properties,
 #' particularly for small sample sizes or proportions near 0 or 1.
 #' In contrast, the Clopper-Pearson interval is conservative and
@@ -115,35 +115,35 @@
 #' @param n number of trials.
 #' @param conf.level confidence level, defaults to 0.95.
 #' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. You can specify just the initial letter. \code{"left"}
-#' would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"`. You can specify just the initial letter. `"left"`
+#' would be analogue to a hypothesis of `"greater"` in a `t.test`.
 #' @param method character string specifying which method to use; this can be
-#' one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default), 
-#' \code{"wilson-cc"},
-#' \code{"agresti-coull"}, \code{"jeffreys"}, \code{"wilson-mod"},
-#' \code{"jeffreys-mod"}, \code{"clopper-pearson"}, \code{"arcsine"},
-#' \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"mid-p"},
-#' \code{"likelihood"} and \code{"blaker"}.  All the methods can be
-#' asked by \code{".all"}. Abbreviation of method is 
+#' one out of: `"wald"`, `"wald-cc"`,`"wilson"` (default), 
+#' `"wilson-cc"`,
+#' `"agresti-coull"`, `"jeffreys"`, `"wilson-mod"`,
+#' `"jeffreys-mod"`, `"clopper-pearson"`, `"arcsine"`,
+#' `"logit"`, `"witting"`, `"pratt"`, `"mid-p"`,
+#' `"likelihood"` and `"blaker"`.  All the methods can be
+#' asked by `".all"`. Abbreviation of method is 
 #' accepted. See details.
 #' 
 #' @param stdEst logical, specifying if the standard point estimator for the
-#' proportion value \code{x/n} should be returned (\code{TRUE}, default) or
+#' proportion value `x/n` should be returned (`TRUE`, default) or
 #' the method-specific internally used alternative point estimate
-#' (\code{FALSE}).
+#' (`FALSE`).
 #' 
 #' @return If recycling yields a single case, a named numeric vector with
 #' elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate of the binomial proportion; \code{x/n}
-#'     if \code{stdEst = TRUE}, otherwise the method-specific estimate.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{point estimate of the binomial proportion; `x/n`
+#'     if `stdEst = TRUE`, otherwise the method-specific estimate.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #'
 #' If recycling yields multiple cases, a data frame with one row per case is
-#' returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+#' returned. Its first three columns are `est`, `lci`, and `uci`;
 #' the remaining columns contain the recycled argument values.
 #' 
 #' @section Contributors:
@@ -158,33 +158,33 @@
 #' 
 #'    
 #' @references Agresti A. and Coull B.A. (1998) Approximate is better than
-#' "exact" for interval estimation of binomial proportions.  \emph{American
-#' Statistician}, \bold{52}, pp. 119-126.
+#' "exact" for interval estimation of binomial proportions.  *American
+#' Statistician*, **52**, pp. 119-126.
 #' 
 #' Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
-#' binomial proportion \emph{Statistical Science}, \bold{16}(2), pp. 101-133.
+#' binomial proportion *Statistical Science*, **16**(2), pp. 101-133.
 #' 
-#' Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
+#' Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
 #' 
 #' Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
-#' common, related tail probabilities \emph{Journal of the American
-#' Statistical Association}, 63, 1457- 1483.
+#' common, related tail probabilities *Journal of the American
+#' Statistical Association*, 63, 1457- 1483.
 #' 
-#' Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis
-#' testing}. Elsevier Academic Press
+#' Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
+#' testing*. Elsevier Academic Press
 #' 
 #' Newcombe, R. G. (1998) Two-sided confidence intervals for the single
-#' proportion: comparison of seven methods, \emph{Statistics in Medicine},
+#' proportion: comparison of seven methods, *Statistics in Medicine*,
 #' 17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
 #' 
 #' Blaker, H. (2000) Confidence curves and improved exact confidence intervals
-#' for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
+#' for discrete distributions, *Canadian Journal of Statistics* 28 (4),
 #' 783-798
 #' 
 #' A. Khouadji (1999) Sur une méthode d’approximation des intervalles 
 #' de confiance pour une proportion binomiale.
 #' 
-#' @seealso \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
+#' @seealso [stats::binom.test()], [Hmisc::binconf()]
 #'  
 #' @examples
 #' 

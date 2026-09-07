@@ -40,7 +40,7 @@ handled.}
 
 \item{method}{the method used to adjust the p-values for multiple
 comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
-Passed directly to \code{\link{p.adjust}}.}
+Passed directly to \code{\link[=p.adjust]{p.adjust()}}.}
 
 \item{alternative}{a character string specifying the alternative
 hypothesis, must be one of \code{"two.sided"} (default), \code{"less"}

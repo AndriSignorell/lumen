@@ -6,38 +6,38 @@
 #' sometimes need to have a nonparameteric alternative. This function offers
 #' one. 
 #' 
-#' The \code{"exact"} method corresponds to the way the confidence interval for
+#' The `"exact"` method corresponds to the way the confidence interval for
 #' the median is calculated in SAS. \cr The boot confidence interval type is
-#' calculated by means of \code{\link[boot]{boot.ci}} with default type
-#' \code{"basic"}. 
+#' calculated by means of [boot::boot.ci()] with default type
+#' `"basic"`. 
 #' 
 #' @param x a (non-empty) numeric vector of data values.
 #' @param conf.level confidence level of the interval.
 #' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"} (abbreviations allowed). \cr\code{"left"} would be analogue
-#' to a \code{"greater"} hypothesis in a \code{t.test}.
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"` (abbreviations allowed). \cr`"left"` would be analogue
+#' to a `"greater"` hypothesis in a `t.test`.
 #' @param method defining the type of interval that should be calculated (one
-#' out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See
+#' out of `"exact"`, `"boot"`). Default is `"exact"`. See
 #' Details.
 #' @param probs numeric vector of probabilities with values in \emph{\verb{[0,1]}}.
-#' Values up to \code{2e-14} outside that range are accepted and moved to the
+#' Values up to `2e-14` outside that range are accepted and moved to the
 #' nearby endpoint.
 #' @param na.rm logical. Should missing values be removed? Defaults to
-#' \code{FALSE}.
+#' `FALSE`.
 #' @param \dots bootstrap arguments can be provided by the dots argument. See
-#' \code{\link[boot]{boot.ci}} for details.
+#' [boot::boot.ci()] for details.
 #' 
-#' @return A numeric matrix with one row per element of \code{probs} and
+#' @return A numeric matrix with one row per element of `probs` and
 #' columns:
 #' \describe{
-#'   \item{\code{est}}{estimated quantile.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{estimated quantile.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #' 
-#' For the \code{"exact"} method, the attribute
-#' \code{conf.level} reports the achieved coverage (which may differ from the
+#' For the `"exact"` method, the attribute
+#' `conf.level` reports the achieved coverage (which may differ from the
 #' requested level).
 #'  
 #' @examples
@@ -53,7 +53,7 @@
 #' quantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 #'
 #'
-#' @seealso \code{DescToolsX::quantileX}, [quantile()],
+#' @seealso `DescToolsX::quantileX`, [quantile()],
 #' 
 #' @family ci.location  
 #' @concept confidence-interval  

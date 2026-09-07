@@ -93,8 +93,8 @@ Kotz, S. and Nadarajah, S. (2000) \emph{Extreme Value Distributions}.
 Imperial College Press.
 }
 \seealso{
-\code{\link{dgumbel}}, \code{\link{dfrechet}},
-\code{\link{drweibull}}, \code{\link{dgev}}, \code{\link{dgpd}},
+\code{\link[=dgumbel]{dgumbel()}}, \code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=drweibull]{drweibull()}}, \code{\link[=dgev]{dgev()}}, \code{\link[=dgpd]{dgpd()}},
 \link{distributions-overview}
 }
 \concept{distribution-summary}

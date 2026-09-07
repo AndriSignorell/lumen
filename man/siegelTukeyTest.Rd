@@ -52,7 +52,7 @@ shifted to equal the median of \code{y} before ranking, to prevent median
 differences from inflating the test statistic. Default is \code{FALSE}.}
 
 \item{exact}{logical; if \code{TRUE}, an exact p-value is computed via
-\code{\link{pwilcox}}. Exact computation is not possible in the presence
+\code{\link[=pwilcox]{pwilcox()}}. Exact computation is not possible in the presence
 of ties; a warning is issued and the normal approximation is used instead.
 If \code{NA} (default), exact computation is used when both samples have
 fewer than 50 observations and there are no ties.}
@@ -94,12 +94,12 @@ median observation is dropped before ranking (it is taken from the larger
 group when group sizes differ).
 
 Ties receive average ranks. The p-value is computed exactly (via
-\code{\link{pwilcox}}) when there are no ties and both samples are smaller
+\code{\link[=pwilcox]{pwilcox()}}) when there are no ties and both samples are smaller
 than 50 observations; otherwise a normal approximation with tie-corrected
 variance is used. This behaviour can be overridden with \code{exact}.
 
 \strong{Note:} The Siegel-Tukey test has relatively low power compared to
-alternatives such as \code{\link{ansari.test}} or \code{\link{mood.test}},
+alternatives such as \code{\link[=ansari.test]{ansari.test()}} or \code{\link[=mood.test]{mood.test()}},
 and may indicate significance due to median differences rather than scale
 differences when \code{adjustMedian = FALSE}.
 }
@@ -164,13 +164,13 @@ siegelTukeyTest(x2, y2, adjustMedian = TRUE)
 \references{
 Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
 for relative spread in unpaired samples. \emph{Journal of the American
-Statistical Association}, \bold{55}(291), 429--445.
+Statistical Association}, \strong{55}(291), 429--445.
 
 Sheskin, D. J. (2004): \emph{Handbook of Parametric and Nonparametric
 Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-\code{\link{ansari.test}}, \code{\link{mood.test}},
+\code{\link[=ansari.test]{ansari.test()}}, \code{\link[=mood.test]{mood.test()}},
 \code{\link[=wilcox.test]{wilcox.test()}}
 
 Other test.variance:

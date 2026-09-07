@@ -67,7 +67,7 @@ their parameters.
 }
 \details{
 \tabular{lll}{
-\strong{Distribution \verb{    } } \tab \strong{Mean \verb{               }} \tab \strong{Variance   } \cr
+\strong{Distribution \verb{    } } \tab \strong{Mean \verb{               }} \tab **Variance   ** \cr
 Normal \tab
 \eqn{\mu} \tab
 \eqn{\sigma^2} \cr
@@ -125,10 +125,10 @@ Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
 \emph{Continuous Univariate Distributions}, Vol. 2. Wiley.
 }
 \seealso{
-\code{\link[stats]{dnorm}}, \code{\link[stats]{dexp}},
-\code{\link[stats]{dgamma}}, \code{\link[stats]{dlnorm}},
-\code{\link[stats]{dbeta}}, \code{\link[stats]{dchisq}},
-\code{\link[stats]{dt}}, \code{\link[stats]{df}}, \link{distributions-overview}
+\code{\link[stats:dnorm]{stats::dnorm()}}, \code{\link[stats:dexp]{stats::dexp()}},
+\code{\link[stats:dgamma]{stats::dgamma()}}, \code{\link[stats:dlnorm]{stats::dlnorm()}},
+\code{\link[stats:dbeta]{stats::dbeta()}}, \code{\link[stats:dchisq]{stats::dchisq()}},
+\code{\link[stats:dt]{stats::dt()}}, \code{\link[stats:df]{stats::df()}}, \link{distributions-overview}
 }
 \concept{distribution-summary}
 \concept{moment}

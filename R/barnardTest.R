@@ -24,9 +24,9 @@
 #' but this is a very uncommon design. (See Calhoun (2019) for more
 #' details.)
 #'
-#' If \code{x} is a matrix, it is taken as a two-dimensional contingency
+#' If `x` is a matrix, it is taken as a two-dimensional contingency
 #' table, and hence its entries should be nonnegative integers.  Otherwise,
-#' both \code{x} and \code{y} must be vectors of the same length.
+#' both `x` and `y` must be vectors of the same length.
 #' Incomplete cases are removed, the vectors are coerced into factor
 #' objects, and the contingency table is computed from these.
 #'
@@ -51,10 +51,10 @@
 #' p-value of the test is the maximum p-value calculated over all \eqn{p}
 #' between 0 and 1.
 #'
-#' If \code{useStoredCSM} is set to \code{TRUE} a companion data package
+#' If `useStoredCSM` is set to `TRUE` a companion data package
 #' called \pkg{ExactData} must be installed from GitHub.
 #'
-#' The author states: \emph{"The CSM test is computationally intensive due
+#' The author states: *"The CSM test is computationally intensive due
 #' to iteratively maximizing the p-value calculation to order the tables.
 #' The CSM ordering matrix has been stored for all possible sample sizes
 #' less than or equal to 100 (i.e., max(n1,n2)<=100). Thus, using the
@@ -65,66 +65,66 @@
 #' correctly calculated at the expense of significantly greater computation
 #' time. The stored ordering matrix is not used in the calculation of
 #' confidence intervals or non-inferiority tests, so CSM can still be very
-#' computationally intensive."}
+#' computationally intensive."*
 #'
 #' @param x a numeric vector or a two-dimensional contingency table in
-#' matrix form. \code{x} and \code{y} can also both be factors.
-#' @param y a factor object; ignored if \code{x} is a matrix.
+#' matrix form. `x` and `y` can also both be factors.
+#' @param y a factor object; ignored if `x` is a matrix.
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"two.sided"} (default),
-#' \code{"greater"} or \code{"less"}. You can specify just the initial
+#' hypothesis, must be one of `"two.sided"` (default),
+#' `"greater"` or `"less"`. You can specify just the initial
 #' letter.
 #' @param method the method for finding the more extreme tables, one of
-#' \code{"csm"} (default), \code{"z-pooled"}, \code{"z-unpooled"},
-#' \code{"boschloo"} or \code{"santner-snell"}. The CSM test cannot be
+#' `"csm"` (default), `"z-pooled"`, `"z-unpooled"`,
+#' `"boschloo"` or `"santner-snell"`. The CSM test cannot be
 #' calculated for multinomial models and is computationally the most
-#' demanding method (see the Details and the \code{useStoredCSM} argument).
-#' @param fixed indicates which margin is fixed: \code{1} for rows
-#' (default), \code{2} for columns, or \code{NA} for none of both
+#' demanding method (see the Details and the `useStoredCSM` argument).
+#' @param fixed indicates which margin is fixed: `1` for rows
+#' (default), `2` for columns, or `NA` for none of both
 #' (multinomial model).
 #' @param useStoredCSM logical, use a stored ordering matrix for the CSM
-#' test to greatly reduce the computation time (default is \code{FALSE}).
-#' @param \dots further arguments passed on to \code{Exact::exact.test()},
-#' e.g. \code{npNumbers} or \code{conf.int}.
+#' test to greatly reduce the computation time (default is `FALSE`).
+#' @param \dots further arguments passed on to `Exact::exact.test()`,
+#' e.g. `npNumbers` or `conf.int`.
 #' 
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of the test statistic used to order the
+#'   \item{`statistic`}{the value of the test statistic used to order the
 #'     tables.}
-#'   \item{\code{parameter}}{the sizes of the two samples.}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{estimate}}{the observed difference in proportions.}
-#'   \item{\code{null.value}}{the difference in proportions under the null
+#'   \item{`parameter`}{the sizes of the two samples.}
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`estimate`}{the observed difference in proportions.}
+#'   \item{`null.value`}{the difference in proportions under the null
 #'     hypothesis.}
-#'   \item{\code{alternative}}{a character string describing the alternative
+#'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
-#'   \item{\code{np}}{the value of the nuisance parameter that maximizes the
+#'   \item{`np`}{the value of the nuisance parameter that maximizes the
 #'     p-value.}
-#'   \item{\code{np.range}}{the range of nuisance parameters considered.}
-#'   \item{\code{model}, \code{method}}{character strings describing the
+#'   \item{`np.range`}{the range of nuisance parameters considered.}
+#'   \item{`model`, `method`}{character strings describing the
 #'     sampling model and the method used to order the tables.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
 #'
 #' @note
-#' \code{barnardTest()} is an interface to \code{Exact::exact.test()} by
+#' `barnardTest()` is an interface to `Exact::exact.test()` by
 #' Peter Calhoun; the \pkg{Exact} package (available on CRAN) must be
 #' installed.
 #'
-#' @seealso \code{\link{fisher.test}}
+#' @seealso [fisher.test()]
 #'
 #' @references Barnard, G.A. (1945) A new test for 2x2 tables.
-#' \emph{Nature}, 156:177.
+#' *Nature*, 156:177.
 #'
 #' Barnard, G.A. (1947) Significance tests for 2x2 tables.
-#' \emph{Biometrika}, 34:123-138.
+#' *Biometrika*, 34:123-138.
 #'
 #' Suissa, S. and Shuster, J. J. (1985) Exact unconditional sample sizes for
-#' the 2x2 binomial trial, \emph{Journal of the Royal Statistical Society},
+#' the 2x2 binomial trial, *Journal of the Royal Statistical Society*,
 #' Ser. A, 148, 317-327.
 #'
 #' Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two
-#' independent binomial proportions. \emph{Communications in
-#' Statistics-Simulation and Computation}, 38(1):78-91.
+#' independent binomial proportions. *Communications in
+#' Statistics-Simulation and Computation*, 38(1):78-91.
 #'
 #' Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional
 #' exact tests for comparing two binomials. Cytel Software Corporation,

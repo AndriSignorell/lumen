@@ -172,7 +172,7 @@ The distribution of Levin's measure of attributable risk.
 \emph{Biometrika}, 62(2), 371-374.
 }
 \seealso{
-\code{\link{binom.test}}, \code{\link{prop.test}}
+\code{\link[=binom.test]{binom.test()}}, \code{\link[=prop.test]{prop.test()}}
 
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},

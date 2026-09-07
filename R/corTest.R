@@ -5,9 +5,9 @@
 #' for all variable pairs in a numeric matrix.
 #'
 #' Pearson, Spearman, and Kendall correlations are supported via the
-#' \code{method} argument passed to \code{\link{cor}}.
+#' `method` argument passed to [cor()].
 #'
-#' Compared to repeatedly calling \code{\link{cor.test}}, this
+#' Compared to repeatedly calling [cor.test()], this
 #' implementation is fully vectorised and substantially faster for matrices
 #' with many variables.
 #'
@@ -16,38 +16,38 @@
 #' \deqn{t = r \sqrt{\frac{n - 2}{1 - r^2}}}{t = r * sqrt((n-2)/(1-r^2))}
 #' with \eqn{n - 2} degrees of freedom. This is exact for the Pearson
 #' coefficient under normality and an approximation for the Spearman
-#' coefficient (as used by \code{cor.test} for larger samples). For the
+#' coefficient (as used by `cor.test` for larger samples). For the
 #' Kendall coefficient the normal approximation
 #' \deqn{z = \frac{3 \tau \sqrt{n (n-1)}}{\sqrt{2 (2 n + 5)}}}{z = 3*tau*sqrt(n(n-1)) / sqrt(2(2n+5))}
 #' is used; note that no correction for ties is applied here. Cells with
 #' fewer than 3 (Pearson/Spearman) resp. 2 (Kendall) pairwise observations
-#' get an \code{NA} p-value.
+#' get an `NA` p-value.
 #'
-#' If \code{use} requests pairwise handling of missing values (the
-#' default), the sample sizes in \code{n} are the pairwise counts;
+#' If `use` requests pairwise handling of missing values (the
+#' default), the sample sizes in `n` are the pairwise counts;
 #' otherwise all pairs share the number of complete cases.
 #'
 #' @param x a numeric matrix or data frame.
 #' @param method a character string specifying the correlation method, one
-#' of \code{"pearson"} (default), \code{"spearman"} or \code{"kendall"}.
-#' Passed to \code{\link{cor}}.
+#' of `"pearson"` (default), `"spearman"` or `"kendall"`.
+#' Passed to [cor()].
 #' @param use a character string giving a method for computing correlations
-#' in the presence of missing values, passed to \code{\link{cor}}. Default
-#' is \code{"pairwise.complete.obs"}.
+#' in the presence of missing values, passed to [cor()]. Default
+#' is `"pairwise.complete.obs"`.
 #' @param triangle a character string specifying which part of the matrices
-#' should be returned, one of \code{"full"} (default), \code{"upper"} or
-#' \code{"lower"}. The other triangle is set to \code{NA}.
+#' should be returned, one of `"full"` (default), `"upper"` or
+#' `"lower"`. The other triangle is set to `NA`.
 #' @param maxPValue optional upper limit for reported correlations.
-#' Correlations with p-values larger than \code{maxPValue} are replaced
-#' with \code{NA}.
+#' Correlations with p-values larger than `maxPValue` are replaced
+#' with `NA`.
 #' 
 #' @return A list with three matrices:
-#'   \item{\code{cor}}{the correlation matrix.}
-#'   \item{\code{pValue}}{the matrix of two-sided p-values (\code{NA} on the
+#'   \item{`cor`}{the correlation matrix.}
+#'   \item{`pValue`}{the matrix of two-sided p-values (`NA` on the
 #'     diagonal).}
-#'   \item{\code{n}}{the matrix of sample sizes used per pair.}
+#'   \item{`n`}{the matrix of sample sizes used per pair.}
 #'
-#' @seealso \code{\link{cor}}, \code{\link{cor.test}}
+#' @seealso [cor()], [cor.test()]
 #'
 #' @examples
 #' set.seed(1)

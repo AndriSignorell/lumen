@@ -6,9 +6,9 @@
 #' 
 #' This function collects code from two sources. The classical confidence
 #' interval is calculated by means of [t.test()]. The bootstrap
-#' intervals are strongly based on the example in \code{\link[boot]{boot}}.
+#' intervals are strongly based on the example in [boot::boot()].
 #'
-#' The bootstrap type \code{"stud"} (studentized) is not supported: the
+#' The bootstrap type `"stud"` (studentized) is not supported: the
 #' statistic functions used here return only the point estimate, not a
 #' per-replicate variance estimate, so requesting it raises an error.
 #' 
@@ -16,30 +16,30 @@
 #' @param y a (non-empty) numeric vector of data values.
 #' @param conf.level confidence level of the interval.
 #' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. You can specify just the initial letter. \code{"left"} would
-#' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"`. You can specify just the initial letter. `"left"` would
+#' be analogue to a hypothesis of `"greater"` in a `t.test`.
 #' @param method a vector of character strings representing the type of
 #' intervals required. The value should be any subset of the values
-#' \code{"classic"}, \code{"boot"}. Bootstrap type can be provided by the dots.
-#' See \code{\link[boot]{boot.ci}}.
+#' `"classic"`, `"boot"`. Bootstrap type can be provided by the dots.
+#' See [boot::boot.ci()].
 #' @param paired a logical indicating whether you want confidence intervals for
-#' a paired design. Defaults to \code{FALSE}.
+#' a paired design. Defaults to `FALSE`.
 #' @param var.equal a logical variable indicating whether to treat the two
-#' variances as being equal. Default is \code{FALSE}. If \code{TRUE} then the
+#' variances as being equal. Default is `FALSE`. If `TRUE` then the
 #' pooled variance is used to estimate the variance otherwise the Welch (or
 #' Satterthwaite) approximation to the degrees of freedom is used. Passed on to
-#' \code{\link{t.test}()}.
+#' [t.test()].
 #' @param na.rm logical. Should missing values be removed? Defaults to
-#' \code{FALSE}.
+#' `FALSE`.
 #' @param \dots further arguments, can be used to provide further arguments to
 #' the boot function.
 #'
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{\code{meandiff}}{point estimate, the difference: mean(x) - mean(y)}
-#'   \item{\code{lci}}{lower confidence interval bound}
-#'   \item{\code{uci}}{upper confidence interval bound}
+#'   \item{`meandiff`}{point estimate, the difference: mean(x) - mean(y)}
+#'   \item{`lci`}{lower confidence interval bound}
+#'   \item{`uci`}{upper confidence interval bound}
 #' }
 #'
 #' @seealso [varCI()], [boot::boot.ci()]

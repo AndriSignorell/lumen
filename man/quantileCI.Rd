@@ -36,7 +36,7 @@ nearby endpoint.}
 \code{FALSE}.}
 
 \item{\dots}{bootstrap arguments can be provided by the dots argument. See
-\code{\link[boot]{boot.ci}} for details.}
+\code{\link[boot:boot.ci]{boot::boot.ci()}} for details.}
 }
 \value{
 A numeric matrix with one row per element of \code{probs} and
@@ -60,7 +60,7 @@ one.
 \details{
 The \code{"exact"} method corresponds to the way the confidence interval for
 the median is calculated in SAS. \cr The boot confidence interval type is
-calculated by means of \code{\link[boot]{boot.ci}} with default type
+calculated by means of \code{\link[boot:boot.ci]{boot::boot.ci()}} with default type
 \code{"basic"}.
 }
 \examples{

@@ -19,44 +19,44 @@
 #' Every observation enters at most one pair, so under independence and a
 #' continuous common distribution the signs are independent Bernoulli variables
 #' with probability one half. The p-value from
-#' \code{\link[stats]{binom.test}} is then exact at any series length, however
+#' [stats::binom.test()] is then exact at any series length, however
 #' short. That exactness rests on the independence assumption: with serially
 #' dependent observations the signs need not be independent and the nominal
 #' level is no longer guaranteed.
 #'
-#' The test is a special case of \code{\link{signTest}} and inherits both its
+#' The test is a special case of [signTest()] and inherits both its
 #' robustness and its low power: only the sign of each paired difference is
 #' used, and half the observations enter only as partners. It detects a
 #' monotone drift, not curvature or oscillation: a series that rises and then
 #' falls back can easily produce a p-value near one.
 #'
-#' Unlike the other members of \code{test.trend}, which need a grouping factor
+#' Unlike the other members of `test.trend`, which need a grouping factor
 #' or a contingency table, this test takes a bare series and therefore has no
 #' formula interface. Missing values are removed before the series is split, so
 #' the pairing refers to the observed values, not to their original positions.
 #'
 #' @param x a numeric vector of observations in sequence order
 #' @param alternative a character string specifying the alternative hypothesis,
-#'   one of \code{"two.sided"} (default), \code{"increasing"} or
-#'   \code{"decreasing"}
+#'   one of `"two.sided"` (default), `"increasing"` or
+#'   `"decreasing"`
 #'
-#' @return An object of class \code{"htest"} with components
+#' @return An object of class `"htest"` with components
 #'   \item{statistic}{the number of positive paired differences, with names
-#'     attribute \code{"S"}}
+#'     attribute `"S"`}
 #'   \item{parameter}{the number of untied pairs entering the test}
 #'   \item{p.value}{the p-value}
 #'   \item{estimate}{the proportion of increasing pairs}
 #'   \item{alternative}{a character string describing the alternative hypothesis}
-#'   \item{method}{the character string \code{"Cox-Stuart trend test"}}
+#'   \item{method}{the character string `"Cox-Stuart trend test"`}
 #'   \item{data.name}{a character string giving the name of the data}
 #'
 #' @references
 #' Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
-#' dispersion. \emph{Biometrika}, \bold{42}(1/2), 80-95.
+#' dispersion. *Biometrika*, **42**(1/2), 80-95.
 #'
-#' @seealso \code{\link{signTest}}, \code{\link{jonckheereTerpstraTest}},
-#'   \code{\link{mantelTrendTest}}, \code{\link{bartelsRankTest}},
-#'   \code{\link{runsTest}}
+#' @seealso [signTest()], [jonckheereTerpstraTest()],
+#'   [mantelTrendTest()], [bartelsRankTest()],
+#'   [runsTest()]
 #'
 #' @family test.trend
 #' @concept trend

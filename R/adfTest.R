@@ -6,21 +6,21 @@
 #' alternative of (trend-)stationarity. It extends the simple Dickey-Fuller
 #' test by including lagged difference terms to account for autocorrelation.
 #'
-#' If \code{type} is set to \code{"none"} neither an intercept nor a trend
-#' is included in the test regression, \code{"drift"} adds an intercept and
-#' \code{"trend"} adds both an intercept and a linear trend.
+#' If `type` is set to `"none"` neither an intercept nor a trend
+#' is included in the test regression, `"drift"` adds an intercept and
+#' `"trend"` adds both an intercept and a linear trend.
 #'
 #' The reported test statistic is the t statistic of the lagged level
-#' (\code{tau1}, \code{tau2} or \code{tau3}, depending on \code{type}).
-#' For \code{type = "drift"} and \code{type = "trend"} the F statistics
-#' \code{phi1} resp. \code{phi2} and \code{phi3} of Dickey and Fuller (1981),
+#' (`tau1`, `tau2` or `tau3`, depending on `type`).
+#' For `type = "drift"` and `type = "trend"` the F statistics
+#' `phi1` resp. `phi2` and `phi3` of Dickey and Fuller (1981),
 #' testing joint hypotheses on the deterministic terms, are reported as
 #' additional statistics; their critical values are contained in the
-#' \code{critical.values} component of the result.
+#' `critical.values` component of the result.
 #'
 #' The p-value refers to the tau statistic and is obtained by linear
 #' interpolation in the finite sample quantiles given by Fuller (1976),
-#' following the approach of \code{tseries::adf.test()}. If the statistic
+#' following the approach of `tseries::adf.test()`. If the statistic
 #' falls outside the range of the table, the p-value is reported as the
 #' respective boundary (0.01 or 0.99) and a warning is issued. The critical
 #' values are taken from Hamilton (1994) and Dickey and Fuller (1981).
@@ -30,51 +30,51 @@
 #' @param y numeric vector or univariate time series to be tested for a
 #' unit root.
 #' @param type the deterministic part of the test regression, one of
-#' \code{"none"} (default), \code{"drift"} or \code{"trend"}.
+#' `"none"` (default), `"drift"` or `"trend"`.
 #' @param lags the number of lagged difference terms to be included. If
-#' \code{selectLags} is not \code{"fixed"}, this is the maximum number of
+#' `selectLags` is not `"fixed"`, this is the maximum number of
 #' lags considered in the lag selection.
-#' @param selectLags the lag selection method, one of \code{"fixed"}
-#' (default, use \code{lags} as given), \code{"aic"} or \code{"bic"}
-#' (choose the lag order up to \code{lags} that minimizes the respective
-#' information criterion). Case-insensitive, so \code{"AIC"} and
-#' \code{"BIC"} are accepted as well.
+#' @param selectLags the lag selection method, one of `"fixed"`
+#' (default, use `lags` as given), `"aic"` or `"bic"`
+#' (choose the lag order up to `lags` that minimizes the respective
+#' information criterion). Case-insensitive, so `"AIC"` and
+#' `"BIC"` are accepted as well.
 #' 
-#' @return An object of class \code{"htest"} containing the following
+#' @return An object of class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the tau statistic, followed by the phi
-#'     statistic(s) if \code{type} is \code{"drift"} or \code{"trend"}. The
+#'   \item{`statistic`}{the tau statistic, followed by the phi
+#'     statistic(s) if `type` is `"drift"` or `"trend"`. The
 #'     p-value refers to the tau statistic.}
-#'   \item{\code{parameter}}{the number of lagged differences included in the
+#'   \item{`parameter`}{the number of lagged differences included in the
 #'     test regression (after lag selection, if requested).}
-#'   \item{\code{p.value}}{the interpolated p-value of the tau statistic.}
-#'   \item{\code{critical.values}}{a matrix with the 1%, 5% and 10% critical
+#'   \item{`p.value`}{the interpolated p-value of the tau statistic.}
+#'   \item{`critical.values`}{a matrix with the 1%, 5% and 10% critical
 #'     values of all reported statistics, interpolated for the effective
 #'     sample size (not shown on screen).}
-#'   \item{\code{alternative}}{a character string describing the alternative
+#'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
-#'   \item{\code{method}}{a character string indicating the test performed.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
 #'
 #' @note
 #' Based on code by Bernhard Pfaff previously published in the \pkg{urca}
 #' package, adapted to conform to package standards.
 #'
 #' @references Dickey, D. A. and Fuller, W. A. (1979) Distribution of the
-#' estimators for autoregressive time series with a unit root, \emph{Journal
-#' of the American Statistical Association}, \bold{74}, 427--431.
+#' estimators for autoregressive time series with a unit root, *Journal
+#' of the American Statistical Association*, **74**, 427--431.
 #'
 #' Dickey, D. A. and Fuller, W. A. (1981) Likelihood ratio statistics for
-#' autoregressive time series with a unit root, \emph{Econometrica},
-#' \bold{49}, 1057--1072.
+#' autoregressive time series with a unit root, *Econometrica*,
+#' **49**, 1057--1072.
 #'
-#' Fuller, W. A. (1976) \emph{Introduction to Statistical Time Series},
+#' Fuller, W. A. (1976) *Introduction to Statistical Time Series*,
 #' New York: Wiley.
 #'
-#' Hamilton, J. D. (1994) \emph{Time Series Analysis}, Princeton:
+#' Hamilton, J. D. (1994) *Time Series Analysis*, Princeton:
 #' Princeton University Press.
 #'
-#' @seealso \code{\link{kpssTest}}
+#' @seealso [kpssTest()]
 #'
 #' @examples
 #' adfTest(AirPassengers, lags = 3, type = "trend")

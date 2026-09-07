@@ -1,17 +1,17 @@
 
 #' Apply a scalar function with strict recycling
 #'
-#' Internal helper that applies a non-vectorised function \code{FUN}
+#' Internal helper that applies a non-vectorised function `FUN`
 #' elementwise to recycled arguments. All arguments are first recycled
-#' using \code{.recycle()}, then \code{FUN} is evaluated for each
+#' using `.recycle()`, then `FUN` is evaluated for each
 #' observation.
 #'
 #' If all return values are length 1, the result is simplified to an
 #' atomic vector. Otherwise, a list is returned.
 #'
 #' @param FUN a function to be applied elementwise.
-#' @param ... arguments passed to \code{FUN}. These are recycled to a
-#'   common length using \code{.recycle()}.
+#' @param ... arguments passed to `FUN`. These are recycled to a
+#'   common length using `.recycle()`.
 #'
 #' @return A vector (if scalar results) or a list.
 #'

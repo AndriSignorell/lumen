@@ -50,15 +50,15 @@ degrees of freedom for every pair and referring the result to the
 studentized range distribution.
 }
 \details{
-Tukey's HSD, \code{\link{scheffeTest}} and the parametric methods in
-\code{\link{postHoc}} all rely on a single pooled error variance. When the
+Tukey's HSD, \code{\link[=scheffeTest]{scheffeTest()}} and the parametric methods in
+\code{\link[=postHoc]{postHoc()}} all rely on a single pooled error variance. When the
 group variances differ, that pooled estimate is wrong for every pair that
 does not happen to match it, and the procedure loses its nominal level -
 liberally when the larger variance sits in the smaller group, conservatively
 in the opposite case. Games and Howell (1976) replace the pooled term by the
 pairwise Welch standard error, which makes this the post-hoc counterpart of
-the Welch t test and of \code{\link[stats]{oneway.test}}.
-\code{\link{yuenTTest}} addresses heteroscedasticity and non-normality with
+the Welch t test and of \code{\link[stats:oneway.test]{stats::oneway.test()}}.
+\code{\link[=yuenTTest]{yuenTTest()}} addresses heteroscedasticity and non-normality with
 trimmed means and separate Winsorized variance estimates, but provides no
 all-pairs multiple-comparison procedure, so it is not the two-sample form of
 this procedure.
@@ -99,7 +99,7 @@ TukeyHSD(aov(breaks ~ tension, data = warpbreaks))
 \references{
 Games, P. A., Howell, J. F. (1976) Pairwise multiple comparison procedures
 with unequal n's and/or variances: a Monte Carlo study. \emph{Journal of
-Educational Statistics}, \bold{1}(2), 113-125.
+Educational Statistics}, \strong{1}(2), 113-125.
 }
 \seealso{
 \code{\link[=TukeyHSD]{TukeyHSD()}}, \link{yuenTTest}

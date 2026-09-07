@@ -75,22 +75,22 @@ andersonDarlingTest(x, "pnorm", mean=mean(x), sd=sd(x), estimated=TRUE)
 \references{
 Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 certain 'goodness-of-fit' criteria based on stochastic processes.
-\emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
+\emph{Annals of Mathematical Statistics} \strong{23}, 193--212.
 
 Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-\emph{Journal of the American Statistical Association} \bold{49},
+\emph{Journal of the American Statistical Association} \strong{49},
 765--769.
 
 Braun, H. (1980) A simple method for testing goodness-of-fit in the
 presence of nuisance parameters. \emph{Journal of the Royal Statistical
-Society, Series B} \bold{42}, 53--63.
+Society, Series B} \strong{42}, 53--63.
 
 Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-distribution. \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
+distribution. \emph{Journal of Statistical Software} \strong{9} (2), 1--5.
 \doi{10.18637/jss.v009.i02}
 }
 \seealso{
-\code{\link{pAD}} for the null distribution of the test
+\code{\link[=pAD]{pAD()}} for the null distribution of the test
 statistic
 
 Other test.normality:

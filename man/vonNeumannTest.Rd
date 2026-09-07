@@ -70,14 +70,14 @@ vonNeumannTest(cumsum(rnorm(30)), alternative = "less")
 \references{
 von Neumann, J. (1941) Distribution of the ratio of the mean square
 successive difference to the variance. \emph{Annals of Mathematical
-Statistics} \bold{12}, 367--395.
+Statistics} \strong{12}, 367--395.
 
 Young, L. C. (1941) On randomness in ordered sequences.
-\emph{Annals of Mathematical Statistics} \bold{12}, 293--300.
+\emph{Annals of Mathematical Statistics} \strong{12}, 293--300.
 
 Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test for
 Randomness. \emph{Journal of the American Statistical Association},
-\bold{77}(377), 40--46.
+\strong{77}(377), 40--46.
 }
 \seealso{
 Other test.timeseries:

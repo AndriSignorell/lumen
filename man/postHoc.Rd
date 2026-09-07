@@ -50,7 +50,7 @@ the intervals should be calculated. Defaults to all the terms.}
 \code{"scheffe"}, \code{"newmankeuls"}, \code{"duncan"}, defining the
 method for the pairwise comparisons (may be abbreviated).\cr For the
 post hoc test of tables the methods of
-\code{\link{p.adjust}} can be supplied. See the detail there.}
+\code{\link[=p.adjust]{p.adjust()}} can be supplied. See the detail there.}
 
 \item{conf.level}{a numeric value between zero and one giving the
 family-wise confidence level to use.  If this is set to NA, just a matrix
@@ -112,7 +112,7 @@ Scheffé is appropriate for more complex contrasts.
 \strong{Tables} \cr
 For tables pairwise chi-square tests can be performed,
 either without correction or with correction for multiple testing following
-the logic in \code{\link{p.adjust}}.
+the logic in \code{\link[=p.adjust]{p.adjust()}}.
 }
 \examples{
 
@@ -134,8 +134,8 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd",
 
 }
 \seealso{
-\code{\link{TukeyHSD}}, \code{\link{aov}},
-\code{\link{pairwise.t.test}}, \code{\link{scheffeTest}}
+\code{\link[=TukeyHSD]{TukeyHSD()}}, \code{\link[=aov]{aov()}},
+\code{\link[=pairwise.t.test]{pairwise.t.test()}}, \code{\link[=scheffeTest]{scheffeTest()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

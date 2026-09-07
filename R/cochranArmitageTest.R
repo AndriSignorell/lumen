@@ -19,43 +19,43 @@
 #' dimnames if these are numeric, and are sequential integers otherwise.
 #'
 #' The alternatives refer to the trend in the proportion of the
-#' \emph{first} response column: \code{"increasing"} tests whether this
-#' proportion increases with the ordered levels, \code{"decreasing"} tests
+#' *first* response column: `"increasing"` tests whether this
+#' proportion increases with the ordered levels, `"decreasing"` tests
 #' the reverse.
 #'
 #' @param x a \eqn{k \times 2}{kx2} or \eqn{2 \times k}{2xk} frequency
 #' table or matrix with nonnegative counts.
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"two.sided"} (default),
-#' \code{"increasing"} or \code{"decreasing"}. You can specify just the
+#' hypothesis, must be one of `"two.sided"` (default),
+#' `"increasing"` or `"decreasing"`. You can specify just the
 #' initial letter. See the Details for the direction convention.
 #'
-#' @return A list of class \code{"htest"}, containing the following
+#' @return A list of class `"htest"`, containing the following
 #' components:
-#'   \item{\code{statistic}}{the z-statistic of the test.}
-#'   \item{\code{parameter}}{the number of levels of the ordered variable
-#'     (named \code{dim}).}
-#'   \item{\code{p.value}}{the p-value for the test.}
-#'   \item{\code{alternative}}{a character string describing the alternative
+#'   \item{`statistic`}{the z-statistic of the test.}
+#'   \item{`parameter`}{the number of levels of the ordered variable
+#'     (named `dim`).}
+#'   \item{`p.value`}{the p-value for the test.}
+#'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
-#'   \item{\code{method}}{the character string "Cochran-Armitage test for
+#'   \item{`method`}{the character string "Cochran-Armitage test for
 #'     trend".}
-#'   \item{\code{data.name}}{a character string giving the names of the data.}
+#'   \item{`data.name`}{a character string giving the names of the data.}
 #'
 #' @note
 #' Based on code by Eric Lecoutre, adapted to conform to package standards.
 #'
-#' \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
+#' <https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html>
 #'
 #' Results are consistent with SAS PROC FREQ. They may differ slightly from
-#' \pkg{coin}'s \code{independence_test(..., teststat = "scalar")}, which
+#' \pkg{coin}'s `independence_test(..., teststat = "scalar")`, which
 #' uses a different variance formula.
 #'
 #' @seealso
-#' \code{\link{prop.trend.test}},
-#' \href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
+#' [prop.trend.test()],
+#' [SAS PROC FREQ documentation](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm)
 #'
-#' @references Agresti, A. (2002) \emph{Categorical Data Analysis}. John
+#' @references Agresti, A. (2002) *Categorical Data Analysis*. John
 #' Wiley & Sons.
 #'
 #' @examples

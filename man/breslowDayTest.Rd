@@ -116,7 +116,7 @@ Study. \emph{Journal of the American Statistical Association}, 91,
 14-26.
 }
 \seealso{
-\code{\link{mantelhaen.test}}
+\code{\link[=mantelhaen.test]{mantelhaen.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

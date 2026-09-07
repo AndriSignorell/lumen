@@ -6,26 +6,26 @@
 #' weight on discrepancies in the tails of the distribution.
 #'
 #' This command performs the Anderson-Darling test of goodness-of-fit to the
-#' distribution specified by the argument \code{null}. It is assumed that the
-#' values in \code{x} are independent and identically distributed random
+#' distribution specified by the argument `null`. It is assumed that the
+#' values in `x` are independent and identically distributed random
 #' values, with some cumulative distribution function \eqn{F}.  The null
 #' hypothesis is that \eqn{F} is the function specified by the argument
-#' \code{null}, while the alternative hypothesis is that \eqn{F} is some other
+#' `null`, while the alternative hypothesis is that \eqn{F} is some other
 #' function.
 #'
 #' By default, the test assumes that all the parameters of the null
-#' distribution are known in advance (a \emph{simple} null hypothesis).  This
+#' distribution are known in advance (a *simple* null hypothesis).  This
 #' test does not account for the effect of estimating the parameters.
 #'
 #' If the parameters of the distribution were estimated (that is, if they were
-#' calculated from the same data \code{x}), then this should be indicated by
-#' setting the argument \code{estimated=TRUE}.  The test will then use the
+#' calculated from the same data `x`), then this should be indicated by
+#' setting the argument `estimated=TRUE`.  The test will then use the
 #' method of Braun (1980) to adjust for the effect of parameter estimation.
 #'
 #' Note that Braun's method involves randomly dividing the data into
 #' \eqn{m \approx \sqrt{n}}{m ~ sqrt(n)} groups, so the \eqn{p}-value is not
 #' exactly the same if the test is repeated.  This technique is expected to
-#' work well when the number of observations in \code{x} is large. If there
+#' work well when the number of observations in `x` is large. If there
 #' are too few observations for the adjustment (\eqn{n \le 4}{n <= 4}), the
 #' unadjusted test is performed and a warning is issued.
 #'
@@ -37,13 +37,13 @@
 #' distribution.
 #' @param \dots additional arguments for the cumulative distribution function.
 #' @param estimated logical value indicating whether the parameters of the
-#' distribution were estimated using the data \code{x} (composite null
+#' distribution were estimated using the data `x` (composite null
 #' hypothesis), or were fixed in advance (simple null hypothesis, the
 #' default).
 #' @param nullname optional character string describing the null
-#' distribution. By default the name is derived from \code{null}, e.g.
-#' \code{"uniform distribution"} for the default \code{null="punif"}.
-#' @return An object of class \code{"htest"} representing the result of the
+#' distribution. By default the name is derived from `null`, e.g.
+#' `"uniform distribution"` for the default `null="punif"`.
+#' @return An object of class `"htest"` representing the result of the
 #' hypothesis test.
 #'
 #' @note
@@ -54,21 +54,21 @@
 #'
 #' @references Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 #' certain 'goodness-of-fit' criteria based on stochastic processes.
-#' \emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
+#' *Annals of Mathematical Statistics* **23**, 193--212.
 #'
 #' Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-#' \emph{Journal of the American Statistical Association} \bold{49},
+#' *Journal of the American Statistical Association* **49**,
 #' 765--769.
 #'
 #' Braun, H. (1980) A simple method for testing goodness-of-fit in the
-#' presence of nuisance parameters. \emph{Journal of the Royal Statistical
-#' Society, Series B} \bold{42}, 53--63.
+#' presence of nuisance parameters. *Journal of the Royal Statistical
+#' Society, Series B* **42**, 53--63.
 #'
 #' Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-#' distribution. \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
+#' distribution. *Journal of Statistical Software* **9** (2), 1--5.
 #' \doi{10.18637/jss.v009.i02}
 #'
-#' @seealso \code{\link{pAD}} for the null distribution of the test
+#' @seealso [pAD()] for the null distribution of the test
 #' statistic
 #'
 #' @examples

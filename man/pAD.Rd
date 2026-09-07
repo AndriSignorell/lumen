@@ -35,7 +35,7 @@ Anderson-Darling test statistic.
 \code{pAD} uses the algorithms and C code described in Marsaglia and
 Marsaglia (2004).
 
-\code{qAD} uses \code{\link[stats]{uniroot}} to find the quantiles.
+\code{qAD} uses \code{\link[stats:uniroot]{stats::uniroot()}} to find the quantiles.
 
 The argument \code{fast} applies only when \code{n=Inf} and determines
 whether the asymptotic distribution is approximated using the faster
@@ -60,13 +60,13 @@ Baddeley, adapted to conform to package standards.
 \references{
 Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 certain 'goodness-of-fit' criteria based on stochastic processes.
-\emph{Annals of Mathematical Statistics} \bold{23}, 193--212.
+\emph{Annals of Mathematical Statistics} \strong{23}, 193--212.
 
 Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-\emph{Journal of the American Statistical Association} \bold{49}, 765--769.
+\emph{Journal of the American Statistical Association} \strong{49}, 765--769.
 
 Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-Distribution.  \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
+Distribution.  \emph{Journal of Statistical Software} \strong{9} (2), 1--5.
 February 2004.  \url{http://www.jstatsoft.org/v09/i02}
 }
 \seealso{

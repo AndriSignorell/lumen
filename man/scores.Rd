@@ -53,7 +53,7 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
 }
 \seealso{
-\code{\link{cochranArmitageTest}}, \code{\link{cor}}
+\code{\link[=cochranArmitageTest]{cochranArmitageTest()}}, \code{\link[=cor]{cor()}}
 }
 \concept{ordinal}
 \concept{scores}

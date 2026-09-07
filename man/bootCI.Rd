@@ -28,7 +28,7 @@ when a bivariate statistic is used.}
 \item{bci.method}{a vector of character strings representing the type of
 intervals required. The value should be any subset of the values
 \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"},
-as it is passed on as \code{method} to \code{\link[boot]{boot.ci}}.}
+as it is passed on as \code{method} to \code{\link[boot:boot.ci]{boot::boot.ci()}}.}
 
 \item{conf.level}{confidence level of the interval.}
 

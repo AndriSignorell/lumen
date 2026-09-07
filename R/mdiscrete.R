@@ -5,7 +5,7 @@
 #'
 #' @details
 #' \tabular{lll}{
-#'   \strong{Distribution\verb{       } } \tab \strong{Mean\verb{                 } } \tab \strong{Variance} \cr
+#'   \strong{Distribution\verb{       } } \tab \strong{Mean\verb{                 } } \tab **Variance** \cr
 #'   Binomial \tab
 #'     \eqn{np} \tab
 #'     \eqn{np(1-p)} \cr
@@ -26,11 +26,11 @@
 #'     \eqn{\sum_d d^2\log_{10}\left(1 + \frac{1}{d}\right) - \mu^2} \cr
 #' }
 #'
-#' For the binomial distribution, \eqn{n} = \code{size}; for the negative
-#' binomial distribution, \eqn{r} = \code{size}; and for the hypergeometric
+#' For the binomial distribution, \eqn{n} = `size`; for the negative
+#' binomial distribution, \eqn{r} = `size`; and for the hypergeometric
 #' distribution, \eqn{N = m + n}. For Benford's distribution, the sum runs
-#' over \eqn{d \in \{1,\ldots,9\}} for \code{ndigits = 1} and
-#' \eqn{d \in \{10,\ldots,99\}} for \code{ndigits = 2}. As there is no
+#' over \eqn{d \in \{1,\ldots,9\}} for `ndigits = 1` and
+#' \eqn{d \in \{10,\ldots,99\}} for `ndigits = 2`. As there is no
 #' closed-form solution, the moments are computed numerically.
 #' 
 #' @param size number of trials (binomial, negative binomial).
@@ -41,22 +41,22 @@
 #' @param n number of black balls in the urn (hypergeometric).
 #' @param k number of balls drawn (hypergeometric).
 #' @param ndigits number of leading digits for Benford's distribution,
-#'   either \code{1} (default, support \{1,...,9\}) or \code{2}
+#'   either `1` (default, support \{1,...,9\}) or `2`
 #'   (support \{10,...,99\}).
 #'
-#' @return A named numeric vector with elements \code{mean} and 
-#'   \code{variance}.
+#' @return A named numeric vector with elements `mean` and 
+#'   `variance`.
 #'
 #' @references
 #' Forbes, C., Evans, M., Hastings, N. and Peacock, B. (2011)
-#' \emph{Statistical Distributions}. Fourth Edition. Wiley.
+#' *Statistical Distributions*. Fourth Edition. Wiley.
 #'
 #' Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
-#' \emph{Continuous Univariate Distributions}, Vol. 2. Wiley.
+#' *Continuous Univariate Distributions*, Vol. 2. Wiley.
 #' 
-#' @seealso \code{\link[stats]{Binomial}}, \code{\link[stats]{Poisson}},
-#'   \code{\link[stats]{Geometric}}, \code{\link[stats]{NegBinomial}},
-#'   \code{\link[stats]{Hypergeometric}}, [distributions-overview]
+#' @seealso [stats::Binomial()], [stats::Poisson()],
+#'   [stats::Geometric()], [stats::NegBinomial()],
+#'   [stats::Hypergeometric()], [distributions-overview]
 #'
 #' @concept distribution-summary
 #' @concept moment

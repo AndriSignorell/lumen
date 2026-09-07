@@ -14,40 +14,40 @@
 #' asymptotically standard normal, where
 #' \eqn{\sigma^2=\frac{4(n-2)(5n^2-2n-9)}{5n(n+1)(n-1)^2}}{\sigma^2=[4(n-2)(5n^2-2n-9)]/[5n(n+1)(n-1)^2]}.
 #'
-#' By using the alternative "\code{trend}" the null hypothesis of randomness
-#' is tested against a trend. By using the alternative "\code{oscillation}"
+#' By using the alternative "`trend`" the null hypothesis of randomness
+#' is tested against a trend. By using the alternative "`oscillation`"
 #' the null hypothesis of randomness is tested against a systematic
 #' oscillation.
 #'
 #' Missing values are silently removed.
 #'
 #' Bartels test is a rank version of von Neumann's test, see
-#' \code{\link{vonNeumannTest}}.
+#' [vonNeumannTest()].
 #'
 #' @param x a numeric vector containing the observations.
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of "\code{two.sided}" (default), "\code{trend}"
-#' or "\code{oscillation}".
+#' hypothesis, must be one of "`two.sided`" (default), "`trend`"
+#' or "`oscillation`".
 #' @param method a character string specifying the method used to compute
-#' the p-value, must be one of \code{"auto"} (default), \code{"normal"} or
-#' \code{"beta"}. With \code{"auto"} the beta approximation is used for
+#' the p-value, must be one of `"auto"` (default), `"normal"` or
+#' `"beta"`. With `"auto"` the beta approximation is used for
 #' sample sizes up to 100 and the normal approximation otherwise.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of the normalized test statistic.}
-#'   \item{\code{parameter}, \code{n}}{the sample size, after the removal of
+#'   \item{`statistic`}{the value of the normalized test statistic.}
+#'   \item{`parameter`, `n`}{the sample size, after the removal of
 #'     missing values.}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{alternative}}{a character string describing the alternative
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
-#'   \item{\code{method}}{a character string indicating the test performed.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
-#'   \item{\code{rvn}}{the value of the RVN statistic (not shown on screen).}
-#'   \item{\code{nm}}{the value of the NM statistic, the numerator of RVN (not
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
+#'   \item{`rvn`}{the value of the RVN statistic (not shown on screen).}
+#'   \item{`nm`}{the value of the NM statistic, the numerator of RVN (not
 #'     shown on screen).}
-#'   \item{\code{mu}}{the mean value of the RVN statistic (not shown on
+#'   \item{`mu`}{the mean value of the RVN statistic (not shown on
 #'     screen).}
-#'   \item{\code{var}}{the variance of the RVN statistic (not shown on
+#'   \item{`var`}{the variance of the RVN statistic (not shown on
 #'     screen).}
 #'
 #' @note
@@ -55,15 +55,15 @@
 #' \pkg{randtests} package, adapted to conform to package standards.
 #'
 #' @references Bartels, R. (1982) The Rank Version of von Neumann's Ratio
-#' Test for Randomness, \emph{Journal of the American Statistical
-#' Association}, \bold{77} (377), 40-46.
+#' Test for Randomness, *Journal of the American Statistical
+#' Association*, **77** (377), 40-46.
 #'
-#' Gibbons, J.D. and Chakraborti, S. (2003) \emph{Nonparametric Statistical
-#' Inference}, 4th ed., New York: Marcel Dekker (pp. 97-98).
+#' Gibbons, J.D. and Chakraborti, S. (2003) *Nonparametric Statistical
+#' Inference*, 4th ed., New York: Marcel Dekker (pp. 97-98).
 #'
 #' von Neumann, J. (1941) Distribution of the ratio of the mean square
-#' successive difference to the variance. \emph{Annals of Mathematical
-#' Statistics} \bold{12}, 367-395.
+#' successive difference to the variance. *Annals of Mathematical
+#' Statistics* **12**, 367-395.
 #'
 #' @examples
 #' ## Example 5.1 in Gibbons and Chakraborti (2003), p.98.

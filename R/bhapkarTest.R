@@ -9,7 +9,7 @@
 #' Bhapkar's test (Bhapkar, 1966) is used to assess marginal homogeneity
 #' in square contingency tables. It is based on the asymptotic normality
 #' of marginal proportions and is closely related to the generalized
-#' McNemar test, as implemented in \code{\link{stuartMaxwellTest}}.
+#' McNemar test, as implemented in [stuartMaxwellTest()].
 #'
 #' The two tests differ only in the estimation of the variance-covariance
 #' matrix of the marginal proportions and are asymptotically equivalent
@@ -19,32 +19,32 @@
 #'
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in
 #' matrix form, or a factor.
-#' @param y a factor with the same levels as \code{x}; ignored if \code{x}
+#' @param y a factor with the same levels as `x`; ignored if `x`
 #' is a matrix.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of the chi-squared test statistic.}
-#'   \item{\code{parameter}}{the degrees of freedom of the approximate
+#'   \item{`statistic`}{the value of the chi-squared test statistic.}
+#'   \item{`parameter`}{the degrees of freedom of the approximate
 #'     chi-squared distribution of the test statistic.}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{method}}{a character string indicating the test performed.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
 #'
 #' @references Bhapkar V.P. (1966) A note on the equivalence of two test
-#' criteria for hypotheses in categorical data. \emph{Journal of the
-#' American Statistical Association}, 61: 228-235.
+#' criteria for hypotheses in categorical data. *Journal of the
+#' American Statistical Association*, 61: 228-235.
 #'
 #' Ireland C.T., Ku H.H., and Kullback S. (1969) Symmetry and marginal
-#' homogeneity of an r x r contingency table. \emph{Journal of the American
-#' Statistical Association}, 64: 1323-1341.
+#' homogeneity of an r x r contingency table. *Journal of the American
+#' Statistical Association*, 64: 1323-1341.
 #'
 #' Keefe T.J. (1982) On the relationship between two tests for homogeneity
 #' of the marginal distributions in a two-way classification.
-#' \emph{Biometrika}, 69: 683-684.
+#' *Biometrika*, 69: 683-684.
 #'
 #' Sun X., Yang Z. (2008) Generalized McNemar's Test for Homogeneity of the
-#' Marginal Distributions. \emph{SAS Global Forum 2008: Statistics and Data
-#' Analysis}, Paper 382-208.
+#' Marginal Distributions. *SAS Global Forum 2008: Statistics and Data
+#' Analysis*, Paper 382-208.
 #'
 #' @seealso [mcnemar.test],[chisq.test]
 #'

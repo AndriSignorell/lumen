@@ -81,7 +81,7 @@ t(sapply(r, corCI, n = 30))
 
 }
 \seealso{
-\code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
+\code{\link[=fisherZ]{fisherZ()}}, \code{\link[=fisherZInv]{fisherZInv()}}, \code{\link[=cor.test]{cor.test()}}
 }
 \concept{ci.correlation}
 \concept{confidence-interval}

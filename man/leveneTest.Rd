@@ -25,7 +25,7 @@ given by \code{center} (e.g. \code{trim = 0.1} for a trimmed mean when
 gives the data values and \code{rhs} the corresponding groups.}
 
 \item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
+\code{\link[=model.frame]{model.frame()}}) containing the variables in the formula
 \code{formula}. By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -107,8 +107,8 @@ Essays in Honor of Harold Hotelling}, Stanford University Press,
 pp. 278-292.
 }
 \seealso{
-\code{\link{fligner.test}} for a rank-based (nonparametric)
-k-sample test for homogeneity of variances, \code{\link{bartlett.test}}
+\code{\link[=fligner.test]{fligner.test()}} for a rank-based (nonparametric)
+k-sample test for homogeneity of variances, \code{\link[=bartlett.test]{bartlett.test()}}
 for a parametric alternative
 
 Other test.variance:

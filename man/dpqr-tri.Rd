@@ -58,7 +58,7 @@ the triangular distribution with parameters \code{min}, \code{max}, and
 \code{mode}.
 
 Let \eqn{X} be a triangular random variable with parameters
-\code{min=}\eqn{a}, \code{max=}\eqn{b}, and \code{mode=}\eqn{c}.
+\verb{min=}\eqn{a}, \verb{max=}\eqn{b}, and \verb{mode=}\eqn{c}.
 
 \emph{Probability Density and Cumulative Distribution Function} \cr The
 density function of \eqn{X} is given by: \tabular{lll}{ \eqn{f(x; a, b, c)
@@ -86,10 +86,10 @@ deviate from a uniform \eqn{[0, 1]} distribution.
 
 The triangular distribution is so named because of the shape of its
 probability density function. The average of two independent identically
-distributed uniform random variables with parameters \code{min=}\eqn{\alpha}
-and \code{max=}\eqn{\beta} has a triangular distribution with parameters
-\code{min=}\eqn{\alpha}, \code{max=}\eqn{\beta}, and
-\code{mode=}\eqn{(\beta-\alpha)/2}.
+distributed uniform random variables with parameters \verb{min=}\eqn{\alpha}
+and \verb{max=}\eqn{\beta} has a triangular distribution with parameters
+\verb{min=}\eqn{\alpha}, \verb{max=}\eqn{\beta}, and
+\verb{mode=}\eqn{(\beta-\alpha)/2}.
 }
 \note{
 Based on code by Steven P. Millard previously published in

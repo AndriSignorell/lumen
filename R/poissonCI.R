@@ -54,10 +54,10 @@
 #'
 #' @references
 #' Garwood, F. (1936). Fiducial limits for the Poisson distribution.
-#' \emph{Biometrika}, \bold{28}, 437--442.
+#' *Biometrika*, **28**, 437--442.
 #'
-#' Rothman, K. J. and Boice, J. D. Jr. (1979). \emph{Epidemiologic Analysis
-#' with a Programmable Calculator}. NIH Publication No. 79-1649. Washington,
+#' Rothman, K. J. and Boice, J. D. Jr. (1979). *Epidemiologic Analysis
+#' with a Programmable Calculator*. NIH Publication No. 79-1649. Washington,
 #' DC: US Government Printing Office.
 #'
 #' @seealso [stats::poisson.test()]

@@ -87,7 +87,7 @@ kpssTest(AirPassengers, type = "tau", lags = "short")
 Kwiatkowski, D., Phillips, P. C. B., Schmidt, P. and
 Shin, Y. (1992) Testing the null hypothesis of stationarity against the
 alternative of a unit root: How sure are we that economic time series
-have a unit root? \emph{Journal of Econometrics}, \bold{54}, 159--178.
+have a unit root? \emph{Journal of Econometrics}, \strong{54}, 159--178.
 }
 \seealso{
 Other test.timeseries:

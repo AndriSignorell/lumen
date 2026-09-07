@@ -14,57 +14,57 @@
 #' \frac{x_1}{n_1} - \frac{x_2}{n_2}.
 #' }
 #'
-#' \strong{Wald}:
+#' **Wald**:
 #' The traditional large-sample normal approximation interval based on the
 #' asymptotic distribution of \eqn{\hat{\delta}}.
 #'
-#' \strong{Wald with continuity correction}:
+#' **Wald with continuity correction**:
 #' A continuity-corrected version of the Wald interval. The correction
 #' term \eqn{(1/n_1 + 1/n_2)/2} is added or subtracted from the test statistic
 #' depending on its sign.
 #'
-#' \strong{Agresti-Caffo}:
+#' **Agresti-Caffo**:
 #' A simple adjustment of the Wald interval (Agresti and Caffo, 2000) obtained
 #' by adding one success and one failure to each group. This approach performs
 #' well in many practical situations.
 #'
-#' \strong{Newcombe score}:
+#' **Newcombe score**:
 #' Based on inverting the Wilson score interval for each proportion and
 #' combining them to obtain an interval for the difference (Newcombe, 1998).
 #'
-#' \strong{Newcombe score with continuity correction}:
+#' **Newcombe score with continuity correction**:
 #' A continuity-corrected variant of the Newcombe score method.
 #'
-#' \strong{Miettinen-Nurminen}:
+#' **Miettinen-Nurminen**:
 #' Based on restricted maximum likelihood estimation obtained by solving a
 #' cubic equation (Miettinen and Nurminen, 1985). Often recommended for small
 #' to moderate sample sizes.
 #'
-#' \strong{Mee-Farrington-Manning}:
+#' **Mee-Farrington-Manning**:
 #' Uses the same maximum likelihood estimators as the
 #' Miettinen-Nurminen method but applies a different correction factor
 #' (Mee, 1984; Farrington and Manning, 1990).
 #'
-#' \strong{Brown-Li-Jeffreys}:
+#' **Brown-Li-Jeffreys**:
 #' A method proposed by Brown and Li (2005).
 #'
-#' \strong{Hauck-Anderson}:
+#' **Hauck-Anderson**:
 #' A large-sample method described by Hauck and Anderson (1986).
 #'
-#' \strong{Beal}:
+#' **Beal**:
 #' An asymptotic method intended for use with small samples (Beal, 1987).
 #'
-#' \strong{Haldane}:
+#' **Haldane**:
 #' Described in Newcombe (1998), based on adding 0.5 to all cells.
 #'
-#' \strong{Jeffreys-Perks}:
+#' **Jeffreys-Perks**:
 #' Also described in Newcombe (1998), based on Bayesian-type adjustments.
 #'
 #' Some methods may produce limits outside the admissible parameter space
 #' \eqn{[-1, 1]}. In such cases, interval bounds are truncated to remain within
 #' the valid range.
 #'
-#' \strong{Which interval should be used?}\cr
+#' **Which interval should be used?**\cr
 #' The choice of method remains an active topic of discussion. The Wald
 #' interval is known to perform poorly in many practical situations.
 #' Reviews such as Fagerland et al. (2011) provide comparative evaluations and
@@ -78,34 +78,34 @@
 #' @param n2 number of trials in the second group.
 #' @param conf.level confidence level, default is 0.95.
 #' @param sides a character string specifying the type of confidence interval:
-#'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
+#'   `"two.sided"` (default), `"left"`, or `"right"`.
 #'   Partial matching is allowed.
 #' @param method one of:
-#'   \code{"miettinen-nurminen"},
-#'   \code{"newcombe-score"},
-#'   \code{"newcombe-score-cc"},
-#'   \code{"mee-farrington-manning"},
-#'   \code{"agresti-caffo"},
-#'   \code{"wald"},
-#'   \code{"wald-cc"},
-#'   \code{"exact"},
-#'   \code{"brown-li-jeffreys"},
-#'   \code{"hauck-anderson"},
-#'   \code{"beal"},
-#'   \code{"haldane"},
-#'   \code{"jeffreys-perks"}.
+#'   `"miettinen-nurminen"`,
+#'   `"newcombe-score"`,
+#'   `"newcombe-score-cc"`,
+#'   `"mee-farrington-manning"`,
+#'   `"agresti-caffo"`,
+#'   `"wald"`,
+#'   `"wald-cc"`,
+#'   `"exact"`,
+#'   `"brown-li-jeffreys"`,
+#'   `"hauck-anderson"`,
+#'   `"beal"`,
+#'   `"haldane"`,
+#'   `"jeffreys-perks"`.
 #'
 #' @return If recycling yields a single case, a named numeric vector with
 #' elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate of the difference in binomial
-#'     proportions, \code{x1/n1 - x2/n2}.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{point estimate of the difference in binomial
+#'     proportions, `x1/n1 - x2/n2`.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #'
 #' If recycling yields multiple cases, a data frame with one row per case is
-#' returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+#' returned. Its first three columns are `est`, `lci`, and `uci`;
 #' the remaining columns contain the recycled argument values.
 #' 
 #'
@@ -113,43 +113,43 @@
 #' Agresti A, Caffo B (2000).
 #' Simple and effective confidence intervals for proportions and difference of
 #' proportions result from adding two successes and two failures.
-#' \emph{The American Statistician}, 54(4), 280-288.
+#' *The American Statistician*, 54(4), 280-288.
 #'
 #' Beal SL (1987).
 #' Asymptotic confidence intervals for the difference between two binomial
 #' parameters for use with small samples.
-#' \emph{Biometrics}, 43, 941-950.
+#' *Biometrics*, 43, 941-950.
 #'
 #' Brown L, Li X (2005).
 #' Confidence intervals for two sample binomial distribution.
-#' \emph{Journal of Statistical Planning and Inference}, 130(1), 359-375.
+#' *Journal of Statistical Planning and Inference*, 130(1), 359-375.
 #'
 #' Fagerland MW, Lydersen S, Laake P (2011).
 #' Recommended confidence intervals for two independent binomial proportions.
-#' \emph{Statistical Methods in Medical Research}.
+#' *Statistical Methods in Medical Research*.
 #'
 #' Farrington CP, Manning G (1990).
 #' Test statistics and sample size formulae for comparative binomial trials.
-#' \emph{Statistics in Medicine}, 9, 1447-1454.
+#' *Statistics in Medicine*, 9, 1447-1454.
 #'
 #' Hauck WW, Anderson S (1986).
 #' A comparison of large-sample confidence interval methods for the difference
 #' of two binomial probabilities.
-#' \emph{The American Statistician}, 40(4), 318-322.
+#' *The American Statistician*, 40(4), 318-322.
 #'
 #' Mee RW (1984).
 #' Confidence bounds for the difference between two probabilities.
-#' \emph{Biometrics}, 40, 1175-1176.
+#' *Biometrics*, 40, 1175-1176.
 #'
 #' Miettinen OS, Nurminen M (1985).
 #' Comparative analysis of two rates.
-#' \emph{Statistics in Medicine}, 4, 213-226.
+#' *Statistics in Medicine*, 4, 213-226.
 #'
 #' Newcombe RG (1998).
 #' Interval estimation for the difference between independent proportions.
-#' \emph{Statistics in Medicine}, 17, 873-890.
+#' *Statistics in Medicine*, 17, 873-890.
 #'
-#' @seealso \code{\link{binom.test}}, \code{\link{prop.test}}
+#' @seealso [binom.test()], [prop.test()]
 #'
 #' @family topic.categoricalData
 #' @concept categorical data

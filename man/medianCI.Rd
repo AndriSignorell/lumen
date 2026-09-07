@@ -30,7 +30,7 @@ Details.}
 \item{na.rm}{logical. Should missing values be removed? Defaults to
 \code{FALSE}.}
 
-\item{\dots}{the dots are passed on to \code{\link[boot]{boot.ci}}. In particular,
+\item{\dots}{the dots are passed on to \code{\link[boot:boot.ci]{boot::boot.ci()}}. In particular,
 the type of bootstrap confidence interval can be defined via this. The
 defaults are \code{R=999} and \code{type="perc"}.}
 }
@@ -47,10 +47,10 @@ Calculate the confidence interval for the median.
 }
 \details{
 The \code{"exact"} method is the way SAS is said to calculate the confidence
-interval. This is also implemented in \code{\link{signTest}}. The boot
-confidence interval type is calculated by means of \code{\link[boot]{boot.ci}}
-with default type \code{"perc"}.\cr Use \code{\link{sapply}},
-resp.\code{\link{apply}}, to get the confidence intervals from a data.frame
+interval. This is also implemented in \code{\link[=signTest]{signTest()}}. The boot
+confidence interval type is calculated by means of \code{\link[boot:boot.ci]{boot::boot.ci()}}
+with default type \code{"perc"}.\cr Use \code{\link[=sapply]{sapply()}},
+resp.\code{\link[=apply]{apply()}}, to get the confidence intervals from a data.frame
 or from a matrix.
 }
 \examples{
@@ -82,7 +82,7 @@ medianCI(x, method="boot", sides="right")
 }
 \seealso{
 \code{\link[=wilcox.test]{wilcox.test()}},
-\code{\link{median}}, \code{DescToolsX::hodgesLehmann}
+\code{\link[=median]{median()}}, \code{DescToolsX::hodgesLehmann}
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},

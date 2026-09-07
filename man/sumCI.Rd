@@ -35,7 +35,7 @@ sumCI(x)
 \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
 }
 \seealso{
-\code{\link{binomCI}}
+\code{\link[=binomCI]{binomCI()}}
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},

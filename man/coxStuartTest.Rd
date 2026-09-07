@@ -43,12 +43,12 @@ dropped.
 Every observation enters at most one pair, so under independence and a
 continuous common distribution the signs are independent Bernoulli variables
 with probability one half. The p-value from
-\code{\link[stats]{binom.test}} is then exact at any series length, however
+\code{\link[stats:binom.test]{stats::binom.test()}} is then exact at any series length, however
 short. That exactness rests on the independence assumption: with serially
 dependent observations the signs need not be independent and the nominal
 level is no longer guaranteed.
 
-The test is a special case of \code{\link{signTest}} and inherits both its
+The test is a special case of \code{\link[=signTest]{signTest()}} and inherits both its
 robustness and its low power: only the sign of each paired difference is
 used, and half the observations enter only as partners. It detects a
 monotone drift, not curvature or oscillation: a series that rises and then
@@ -74,12 +74,12 @@ coxStuartTest(rnorm(50))$p.value
 }
 \references{
 Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
-dispersion. \emph{Biometrika}, \bold{42}(1/2), 80-95.
+dispersion. \emph{Biometrika}, \strong{42}(1/2), 80-95.
 }
 \seealso{
-\code{\link{signTest}}, \code{\link{jonckheereTerpstraTest}},
-\code{\link{mantelTrendTest}}, \code{\link{bartelsRankTest}},
-\code{\link{runsTest}}
+\code{\link[=signTest]{signTest()}}, \code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
+\code{\link[=mantelTrendTest]{mantelTrendTest()}}, \code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=runsTest]{runsTest()}}
 
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},

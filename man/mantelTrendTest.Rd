@@ -46,7 +46,7 @@ with one degree of freedom.
 This test is sometimes called the Mantel-Haenszel chi-squared test for
 trend, but it is \emph{not} the stratified Cochran-Mantel-Haenszel test
 for \eqn{2 \times 2 \times k}{2 x 2 x k} tables (see
-\code{\link[stats]{mantelhaen.test}} for that). It is a score test for
+\code{\link[stats:mantelhaen.test]{stats::mantelhaen.test()}} for that). It is a score test for
 ordinal association, also known as the linear-by-linear association
 test.
 
@@ -56,7 +56,7 @@ dose levels stored as label strings that parse as numbers), those
 values are used as the default scores; otherwise the default is
 \code{1:nrow(x)} resp. \code{1:ncol(x)}, i.e. the categories are
 assumed equally spaced. This mirrors the scoring convention used by
-\code{\link{cochranArmitageTest}}. The choice of scores affects the
+\code{\link[=cochranArmitageTest]{cochranArmitageTest()}}. The choice of scores affects the
 result: any monotone scores are permitted; non-monotone scores
 (neither strictly increasing nor strictly decreasing) produce a
 warning, since \eqn{r} would then no longer reflect a consistent
@@ -88,9 +88,9 @@ extensions of the Mantel-Haenszel procedure. \emph{Journal of the
 American Statistical Association}, 58, 690-700.
 }
 \seealso{
-\code{\link[stats]{mantelhaen.test}} for the stratified
-Cochran-Mantel-Haenszel test, \code{\link{chisq.test}} for the general
-chi-squared test of independence, \code{\link{cochranArmitageTest}} for
+\code{\link[stats:mantelhaen.test]{stats::mantelhaen.test()}} for the stratified
+Cochran-Mantel-Haenszel test, \code{\link[=chisq.test]{chisq.test()}} for the general
+chi-squared test of independence, \code{\link[=cochranArmitageTest]{cochranArmitageTest()}} for
 a related trend test with a binary response
 
 Other test.categorical:

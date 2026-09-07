@@ -8,13 +8,13 @@
 #' Performs a Page test for ordered alternatives using an exact algorithm by
 #' Stefan Wellek (1989) with unreplicated blocked data.
 #'
-#' \code{pageTest} can be used for analyzing unreplicated complete block
-#' designs (i.e., there is exactly one observation in \code{y} for each
-#' combination of levels of \code{groups} and \code{blocks}) where the
+#' `pageTest` can be used for analyzing unreplicated complete block
+#' designs (i.e., there is exactly one observation in `y` for each
+#' combination of levels of `groups` and `blocks`) where the
 #' normality assumption may be violated.
 #'
-#' The null hypothesis is that apart from an effect of \code{blocks}, the
-#' location parameter of \code{y} is the same in each of the \code{groups}.
+#' The null hypothesis is that apart from an effect of `blocks`, the
+#' location parameter of `y` is the same in each of the `groups`.
 #'
 #' The alternative hypothesis is that the location parameter increases
 #' monotonically across groups:
@@ -22,15 +22,15 @@
 #' (where at least one inequality is strict).
 #'
 #' If the decreasing direction is of interest, reverse the order of the
-#' groups before calling \code{pageTest}.
+#' groups before calling `pageTest`.
 #'
 #' The Page test for ordered alternatives is slightly more powerful than the
 #' Friedman analysis of variance by ranks.
 #'
-#' If \code{y} is a matrix, \code{groups} and \code{blocks} are obtained
-#' from the column and row indices, respectively. \code{NA}'s are not
-#' allowed in \code{groups} or \code{blocks}; if \code{y} contains
-#' \code{NA}'s, the corresponding blocks are removed.
+#' If `y` is a matrix, `groups` and `blocks` are obtained
+#' from the column and row indices, respectively. `NA`'s are not
+#' allowed in `groups` or `blocks`; if `y` contains
+#' `NA`'s, the corresponding blocks are removed.
 #'
 #' For \eqn{k \le 15} (number of groups), exact p-values are computed from
 #' the pre-tabulated null distribution of Wellek (1989). For \eqn{k > 15},
@@ -41,27 +41,27 @@
 #'
 #' @param y either a numeric vector of data values, or a data matrix.
 #' @param groups a vector giving the group for the corresponding elements of
-#'   \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#'   `y` if this is a vector; ignored if `y` is a matrix. If not
 #'   a factor object, it is coerced to one.
 #' @param blocks a vector giving the block for the corresponding elements of
-#'   \code{y} if this is a vector; ignored if \code{y} is a matrix. If not
+#'   `y` if this is a vector; ignored if `y` is a matrix. If not
 #'   a factor object, it is coerced to one.
-#' @param formula a formula of the form \code{y ~ groups | blocks}.
+#' @param formula a formula of the form `y ~ groups | blocks`.
 #' @param data an optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset an optional vector specifying a subset of observations to
 #'   be used.
 #' @param na.action a function which indicates what should happen when the
-#'   data contain \code{NA}s. Defaults to \code{getOption("na.action")}.
+#'   data contain `NA`s. Defaults to `getOption("na.action")`.
 #' @param \dots further arguments to be passed to or from methods.
 #'
-#' @return A list with class \code{"htest"} containing:
+#' @return A list with class `"htest"` containing:
 #' \item{statistic}{the L-statistic with names attribute \dQuote{L}.}
 #' \item{p.value}{the p-value of the test.}
-#' \item{parameter}{named vector with \code{k} (groups) and \code{n}
+#' \item{parameter}{named vector with `k` (groups) and `n`
 #'   (blocks).}
-#' \item{method}{the character string \code{"Page test for ordered
-#'   alternatives"} with \code{"(exact)"} or \code{"(asymptotic)"}
+#' \item{method}{the character string `"Page test for ordered
+#'   alternatives"` with `"(exact)"` or `"(asymptotic)"`
 #'   appended.}
 #' \item{data.name}{a character string giving the names of the data.}
 #'
@@ -70,18 +70,18 @@
 #' (1989), valid for \eqn{k = 3, \ldots, 15} groups and any number of
 #' blocks.
 #'
-#' @seealso \code{\link{friedman.test}}
+#' @seealso [friedman.test()]
 #'
 #' @references
 #' Page, E. (1963): Ordered hypotheses for multiple treatments: A
-#' significance test for linear ranks. \emph{Journal of the American
-#' Statistical Association}, 58, 216--230.
+#' significance test for linear ranks. *Journal of the American
+#' Statistical Association*, 58, 216--230.
 #'
-#' Siegel, S. & Castellan, N. J. Jr. (1988): \emph{Nonparametric statistics
-#' for the behavioral sciences}. Boston, MA: McGraw-Hill.
+#' Siegel, S. & Castellan, N. J. Jr. (1988): *Nonparametric statistics
+#' for the behavioral sciences*. Boston, MA: McGraw-Hill.
 #'
 #' Wellek, S. (1989): Computing exact p-values in Page's nonparametric test
-#' against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
+#' against trend. *Biometrie und Informatik in Medizin und Biologie 20*,
 #' 163--170.
 #'
 #' @examples

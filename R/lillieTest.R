@@ -32,7 +32,7 @@
 #'
 #' @param x a numeric vector of data values, the number of which must be
 #' at least 5.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the value of the Lilliefors (Kolmogorov-Smirnov)
 #' statistic.}
@@ -44,8 +44,8 @@
 #' The Lilliefors (Kolmogorov-Smirnov) test is the most well-known EDF
 #' omnibus test for normality. Compared to the Anderson-Darling test and
 #' the Cramer-von Mises test it is known to perform worse. Although the
-#' test statistic obtained from \code{lillieTest(x)} is the same as that
-#' obtained from \code{ks.test(x, "pnorm", mean(x), sd(x))}, it is not
+#' test statistic obtained from `lillieTest(x)` is the same as that
+#' obtained from `ks.test(x, "pnorm", mean(x), sd(x))`, it is not
 #' correct to use the p-value from the latter for the composite hypothesis
 #' of normality (mean and variance unknown), since the distribution of the
 #' test statistic is different when the parameters are estimated.
@@ -55,13 +55,13 @@
 #'
 #' @references Dallal, G.E. and Wilkinson, L. (1986) An analytic
 #' approximation to the distribution of Lilliefors' test for normality.
-#' \emph{The American Statistician}, 40, 294-296.
+#' *The American Statistician*, 40, 294-296.
 #'
 #' Stephens, M.A. (1974) EDF statistics for goodness of fit and some
-#' comparisons. \emph{Journal of the American Statistical Association},
+#' comparisons. *Journal of the American Statistical Association*,
 #' 69, 730-737.
 #'
-#' Thode Jr., H.C. (2002) \emph{Testing for Normality}, New York: Marcel
+#' Thode Jr., H.C. (2002) *Testing for Normality*, New York: Marcel
 #' Dekker.
 #'
 #' @seealso [shapiro.test()]

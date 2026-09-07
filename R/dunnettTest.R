@@ -5,19 +5,19 @@
 #' treatment groups with a control group while controlling the familywise
 #' error rate.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be
-#' compared and must therefore be numeric vectors. In this case, \code{g}
-#' is ignored. The test can be performed with \code{dunnettTest(x)} or,
+#' If `x` is a list, its elements are taken as the samples to be
+#' compared and must therefore be numeric vectors. In this case, `g`
+#' is ignored. The test can be performed with `dunnettTest(x)` or,
 #' if the samples are stored in separate objects, with
-#' \code{dunnettTest(list(x, ...))}.
+#' `dunnettTest(list(x, ...))`.
 #'
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a vector or
+#' Otherwise, `x` must be a numeric vector and `g` a vector or
 #' factor of the same length that identifies the group of each observation.
 #'
 #' The adjusted p-values and simultaneous confidence intervals are
 #' two-sided. The confidence limits use the equicoordinate quantile of
-#' \eqn{\max_j |T_j|} (\code{tail = "both.tails"} in
-#' \code{mvtnorm::qmvt()}), in accordance with the adjusted p-values
+#' \eqn{\max_j |T_j|} (`tail = "both.tails"` in
+#' `mvtnorm::qmvt()`), in accordance with the adjusted p-values
 #' \eqn{1 - P(\max_j |T_j| \le |t_i|)}. Multivariate t probabilities are
 #' evaluated by randomized quasi-Monte Carlo integration using
 #' \pkg{mvtnorm}. A fixed seed ensures that repeated calls produce identical
@@ -28,43 +28,43 @@
 #' 
 #' @param x a numeric vector of data values or a list of numeric vectors.
 #' @param g a vector or factor identifying the group of each element of
-#'   \code{x}; ignored if \code{x} is a list.
+#'   `x`; ignored if `x` is a list.
 #' @param control a character vector identifying one or more control levels.
 #'   Each specified control is compared separately with all remaining groups.
 #'   Defaults to the first group.
 #' @param conf.level the confidence level for the simultaneous confidence
-#'   intervals. Defaults to \code{0.95}.
-#' @param formula a formula of the form \code{lhs ~ rhs}, where \code{lhs}
-#'   contains the data values and \code{rhs} defines the corresponding groups.
+#'   intervals. Defaults to `0.95`.
+#' @param formula a formula of the form `lhs ~ rhs`, where `lhs`
+#'   contains the data values and `rhs` defines the corresponding groups.
 #' @param data an optional matrix or data frame (or a similar object; see
-#'   \code{\link{model.frame}}) containing the variables in \code{formula}.
-#'   By default, the variables are taken from \code{environment(formula)}.
+#'   [model.frame()]) containing the variables in `formula`.
+#'   By default, the variables are taken from `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to
 #'   be used.
 #' @param na.action a function indicating how missing values should be
-#'   handled. Defaults to \code{getOption("na.action")}.
+#'   handled. Defaults to `getOption("na.action")`.
 #' @param \dots further arguments passed to or from methods.
 #' 
-#' @return An object of class \code{"PostHocTest"}: a list containing one
-#'   matrix for each control level. Each matrix has columns \code{diff} for
-#'   the observed mean difference (treatment minus control), \code{lci}
-#'   and \code{uci} for the simultaneous confidence limits, and
-#'   \code{pval} for the multiplicity-adjusted p-value.
+#' @return An object of class `"PostHocTest"`: a list containing one
+#'   matrix for each control level. Each matrix has columns `diff` for
+#'   the observed mean difference (treatment minus control), `lci`
+#'   and `uci` for the simultaneous confidence limits, and
+#'   `pval` for the multiplicity-adjusted p-value.
 #'
-#' Print and plot methods are available for class \code{"PostHocTest"}.
+#' Print and plot methods are available for class `"PostHocTest"`.
 #' The plot method supplies its own axis labels and title and therefore does
-#' not accept \code{xlab}, \code{ylab}, or \code{main}.
+#' not accept `xlab`, `ylab`, or `main`.
 #'
 #' @seealso
-#' \code{\link{print.PostHocTest}},
-#' \code{\link{plot.PostHocTest}},
-#' \code{\link[mvtnorm]{pmvt}},
-#' \code{\link[mvtnorm]{qmvt}}
+#' [print.PostHocTest()],
+#' [plot.PostHocTest()],
+#' [mvtnorm::pmvt()],
+#' [mvtnorm::qmvt()]
 #'
 #' @references
 #' Dunnett, C. W. (1955). A multiple comparison procedure for comparing
-#' several treatments with a control. \emph{Journal of the American
-#' Statistical Association}, \bold{50}, 1096--1121.
+#' several treatments with a control. *Journal of the American
+#' Statistical Association*, **50**, 1096--1121.
 #'
 #' @examples
 #' ## Hollander and Wolfe (1973, p. 116)

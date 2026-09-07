@@ -8,13 +8,13 @@
 #' @param scale scale parameter.
 #' @param shape,rate vector of shape and rate parameters.
 #'
-#' @return A named numeric vector with elements \code{mean} and
-#'   \code{variance}. Returns \code{NA} where moments do not exist.
+#' @return A named numeric vector with elements `mean` and
+#'   `variance`. Returns `NA` where moments do not exist.
 #'
 #' @details
 #' \tabular{lll}{
-#'   \strong{Distribution} \tab \strong{Mean} 
-#'   \tab \strong{Variance} \cr
+#'   **Distribution** \tab **Mean** 
+#'   \tab **Variance** \cr
 #'   Gumbel \tab
 #'     \eqn{a + b\gamma} \tab
 #'     \eqn{\frac{\pi^2}{6}b^2} \cr
@@ -38,26 +38,26 @@
 #'     numerical integration for \eqn{\alpha > 0} \tab dito \cr
 #'     \tab  \eqn{1/\beta}  for \eqn{\alpha = 0}; 
 #'     \tab \eqn{1/\beta^2} for \eqn{\alpha = 0}; \cr
-#'     \tab \code{NA} for \eqn{\alpha < 0} \tab dito \cr
+#'     \tab `NA` for \eqn{\alpha < 0} \tab dito \cr
 #' }
 #'
-#' For the first five distributions, \eqn{a} = \code{loc},
-#' \eqn{b} = \code{scale}, and \eqn{s} = \code{shape}. For the GEV with
+#' For the first five distributions, \eqn{a} = `loc`,
+#' \eqn{b} = `scale`, and \eqn{s} = `shape`. For the GEV with
 #' \eqn{s = 0}, the Gumbel moments apply. Furthermore,
 #' \eqn{\gamma \approx 0.5772} is the Euler-Mascheroni constant. For the
-#' Gompertz distribution, \eqn{\alpha} = \code{shape} and
-#' \eqn{\beta} = \code{rate}; moments for \eqn{\alpha > 0} are computed
+#' Gompertz distribution, \eqn{\alpha} = `shape` and
+#' \eqn{\beta} = `rate`; moments for \eqn{\alpha > 0} are computed
 #' numerically by integration.
 #' 
-#' @seealso \code{\link{dgumbel}}, \code{\link{dfrechet}},
-#'   \code{\link{drweibull}}, \code{\link{dgev}}, \code{\link{dgpd}},
+#' @seealso [dgumbel()], [dfrechet()],
+#'   [drweibull()], [dgev()], [dgpd()],
 #'   [distributions-overview]
 #'
 #' @references
-#' Coles, S. (2001) \emph{An Introduction to Statistical Modeling of
-#' Extreme Values}. Springer.
+#' Coles, S. (2001) *An Introduction to Statistical Modeling of
+#' Extreme Values*. Springer.
 #'
-#' Kotz, S. and Nadarajah, S. (2000) \emph{Extreme Value Distributions}.
+#' Kotz, S. and Nadarajah, S. (2000) *Extreme Value Distributions*.
 #' Imperial College Press.
 #'
 #' @concept distribution-summary

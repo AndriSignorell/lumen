@@ -19,12 +19,12 @@
 #' @param max upper limit of the triangular distribution.
 #' @param mode mode of the triangular distribution.
 #'
-#' @return A named numeric vector with elements \code{mean} and
-#'   \code{variance}. Returns \code{NA} where moments do not exist.
+#' @return A named numeric vector with elements `mean` and
+#'   `variance`. Returns `NA` where moments do not exist.
 #'
 #' @details
 #' \tabular{lll}{
-#'   \strong{Distribution \verb{    } } \tab \strong{Mean \verb{               }} \tab \strong{Variance   } \cr
+#'   \strong{Distribution \verb{    } } \tab \strong{Mean \verb{               }} \tab **Variance   ** \cr
 #'   Normal \tab
 #'     \eqn{\mu} \tab
 #'     \eqn{\sigma^2} \cr
@@ -55,25 +55,25 @@
 #'   Triangular \tab
 #'     \eqn{\frac{a + b + c}{3}} \tab
 #'     \eqn{\frac{a^2 + b^2 + c^2 - ab - ac - bc}{18}} \cr
-#'  \tab   where \eqn{a} = \code{min}, \eqn{b} = \code{max} and \eqn{c} = \code{mode}\cr
+#'  \tab   where \eqn{a} = `min`, \eqn{b} = `max` and \eqn{c} = `mode`\cr
 #' }
 #'
 #' 
 #'
-#' @seealso \code{\link[stats]{dnorm}}, \code{\link[stats]{dexp}},
-#'   \code{\link[stats]{dgamma}}, \code{\link[stats]{dlnorm}},
-#'   \code{\link[stats]{dbeta}}, \code{\link[stats]{dchisq}},
-#'   \code{\link[stats]{dt}}, \code{\link[stats]{df}}, [distributions-overview]
+#' @seealso [stats::dnorm()], [stats::dexp()],
+#'   [stats::dgamma()], [stats::dlnorm()],
+#'   [stats::dbeta()], [stats::dchisq()],
+#'   [stats::dt()], [stats::df()], [distributions-overview]
 #'
 #' @references
-#' Casella, G. and Berger, R. L. (2002) \emph{Statistical Inference}.
+#' Casella, G. and Berger, R. L. (2002) *Statistical Inference*.
 #' Duxbury.
 #'
 #' Johnson, N. L., Kotz, S. and Balakrishnan, N. (1994)
-#' \emph{Continuous Univariate Distributions}, Vol. 1. Wiley.
+#' *Continuous Univariate Distributions*, Vol. 1. Wiley.
 #'
 #' Johnson, N. L., Kotz, S. and Balakrishnan, N. (1995)
-#' \emph{Continuous Univariate Distributions}, Vol. 2. Wiley.
+#' *Continuous Univariate Distributions*, Vol. 2. Wiley.
 #'
 #' @concept distribution-summary
 #' @concept moment

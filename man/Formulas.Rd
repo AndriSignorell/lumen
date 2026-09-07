@@ -9,7 +9,7 @@ gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
 \item{data}{an optional matrix or data frame (or similar; see
-\code{\link[stats]{model.frame}}) containing the variables in the
+\code{\link[stats:model.frame]{stats::model.frame()}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -24,7 +24,7 @@ the data contain \code{NA}s. Defaults to
 Common formula-based interface shared by multiple functions.
 }
 \details{
-Formula interfaces are evaluated using \code{\link[stats]{model.frame}},
+Formula interfaces are evaluated using \code{\link[stats:model.frame]{stats::model.frame()}},
 following standard R conventions.
 The left-hand side of the formula must contain the response variable.
 The right-hand side typically specifies a grouping or explanatory variable.
@@ -33,9 +33,9 @@ variable are supported.
 
 See also:
 \itemize{
-\item \code{\link[stats]{formula}}
-\item \code{\link[stats]{model.frame}}
-\item \code{\link[stats]{terms}}
+\item \code{\link[stats:formula]{stats::formula()}}
+\item \code{\link[stats:model.frame]{stats::model.frame()}}
+\item \code{\link[stats:terms]{stats::terms()}}
 }
 }
 \concept{API}

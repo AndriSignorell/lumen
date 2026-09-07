@@ -62,7 +62,7 @@ generation for the reverse (sometimes called negative) Weibull distribution with
 location, scale and shape parameters.
 
 The reverse Weibull distribution function with parameters
-\eqn{\code{loc} = a}, \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is
+\eqn{`loc` = a}, \eqn{`scale` = b} and \eqn{`shape` = s} is
 \deqn{G(z) = \exp\left\{-\left[-\left(\frac{z-a}{b}\right)\right]^s\right\}}{G(z) = exp(-(-(z-a)/b)^s)}
 for \eqn{z < a} and one otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 

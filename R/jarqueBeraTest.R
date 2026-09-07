@@ -14,10 +14,10 @@
 #' (2008), the skewness component with \eqn{C_1 = 6} as in the classical
 #' test.
 #'
-#' With \code{method = "chisq"} the statistic is referred to its asymptotic
+#' With `method = "chisq"` the statistic is referred to its asymptotic
 #' chi-squared distribution with 2 degrees of freedom. With
-#' \code{method = "mc"} the p-value is estimated by Monte Carlo simulation
-#' from \code{R} samples of the same size drawn from the standard normal
+#' `method = "mc"` the p-value is estimated by Monte Carlo simulation
+#' from `R` samples of the same size drawn from the standard normal
 #' distribution, using the finite-sample correction
 #' \eqn{(m + 1)/(R + 1)}, where \eqn{m} is the number of simulated
 #' statistics at least as large as the observed one.
@@ -25,19 +25,19 @@
 #' Missing values are silently removed.
 #'
 #' @param x a numeric vector of data values.
-#' @param robust logical, if \code{TRUE} (default) the robust test of Gel
+#' @param robust logical, if `TRUE` (default) the robust test of Gel
 #' and Gastwirth (2008) is performed, otherwise the classical Jarque-Bera
 #' test.
 #' @param method a character string specifying how the p-value is computed,
-#' one of \code{"chisq"} (default, asymptotic chi-squared approximation) or
-#' \code{"mc"} (Monte Carlo simulation).
+#' one of `"chisq"` (default, asymptotic chi-squared approximation) or
+#' `"mc"` (Monte Carlo simulation).
 #' @param R the number of Monte Carlo replicates used for
-#' \code{method = "mc"} (default is \code{1000}).
-#' @return A list with class \code{"htest"} containing the following
+#' `method = "mc"` (default is `1000`).
+#' @return A list with class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the value of the test statistic.}
-#' \item{parameter}{the degrees of freedom (\code{method = "chisq"}), or
-#' the number of Monte Carlo replicates (\code{method = "mc"}).}
+#' \item{parameter}{the degrees of freedom (`method = "chisq"`), or
+#' the number of Monte Carlo replicates (`method = "mc"`).}
 #' \item{p.value}{the p-value of the test.}
 #' \item{method}{a character string indicating the test performed and how
 #' the p-value was computed.}
@@ -45,16 +45,16 @@
 #'
 #' @note
 #' Based on code by W. Wallace Hui, Yulia R. Gel, Joseph L. Gastwirth and
-#' Weiwen Miao previously published as \code{rjb.test()} in the
+#' Weiwen Miao previously published as `rjb.test()` in the
 #' \pkg{lawstat} package, adapted to conform to package standards.
 #'
 #' @references
 #' Gel, Y. R. and Gastwirth, J. L. (2008) A robust modification of the
-#' Jarque-Bera test of normality. \emph{Economics Letters}, 99, 30-32.
+#' Jarque-Bera test of normality. *Economics Letters*, 99, 30-32.
 #'
 #' Jarque, C. and Bera, A. (1980) Efficient tests for normality,
 #' homoscedasticity and serial independence of regression residuals.
-#' \emph{Economics Letters}, 6, 255-259.
+#' *Economics Letters*, 6, 255-259.
 #'
 #' @seealso [shapiro.test()]
 #'

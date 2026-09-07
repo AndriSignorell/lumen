@@ -23,27 +23,27 @@
 #'
 #' @param x a numeric vector of data values, the number of which must be
 #' at least 8.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of the Cramer-von Mises statistic.}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{method}}{a character string indicating the test performed.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
+#'   \item{`statistic`}{the value of the Cramer-von Mises statistic.}
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
 #'
 #' @note
 #' Based on code by Juergen Gross previously published in the
 #' \pkg{nortest} package, adapted to conform to package standards.
 #'
 #' @references Stephens, M.A. (1986) Tests based on EDF statistics. In:
-#' D'Agostino, R.B. and Stephens, M.A., eds.: \emph{Goodness-of-Fit
-#' Techniques}. New York: Marcel Dekker.
+#' D'Agostino, R.B. and Stephens, M.A., eds.: *Goodness-of-Fit
+#' Techniques*. New York: Marcel Dekker.
 #'
-#' Thode Jr., H.C. (2002) \emph{Testing for Normality}. New York: Marcel
+#' Thode Jr., H.C. (2002) *Testing for Normality*. New York: Marcel
 #' Dekker.
 #'
-#' @seealso \code{\link{shapiro.test}} for performing the Shapiro-Wilk test
-#' for normality, \code{\link{andersonDarlingTest}},
-#' \code{pharos::plotQQ()} for producing extended normal quantile-quantile
+#' @seealso [shapiro.test()] for performing the Shapiro-Wilk test
+#' for normality, [andersonDarlingTest()],
+#' `pharos::plotQQ()` for producing extended normal quantile-quantile
 #' plots
 #'
 #' @examples

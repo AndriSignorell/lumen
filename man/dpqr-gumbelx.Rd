@@ -79,7 +79,7 @@ pgumbelx(qgumbelx(p, interval = c(0,10), 0, 0.5, 1, 2), 0, 0.5, 1, 2)
 
 }
 \seealso{
-\link{distributions-overview}; \code{\link{uniroot}}, which
+\link{distributions-overview}; \code{\link[=uniroot]{uniroot()}}, which
 \code{qgumbelx()} uses for root finding
 }
 \concept{distribution-function}

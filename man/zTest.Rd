@@ -32,7 +32,7 @@ the data values and \code{rhs} a factor with two levels giving the
 corresponding groups.}
 
 \item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
+\code{\link[=model.frame]{model.frame()}}) containing the variables in the formula
 \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -102,22 +102,22 @@ x <- rnorm(25, 100, 5)
 zTest(x, mu=99, sd_pop=5)
 
 # the classic interface
-with(sleep, zTest(extra[group == 1], extra[group == 2], sd_pop=2))
+with(sleep, zTest(extra[group==1], extra[group==2], sd_pop=2))
 
 # the formula interface
-zTest(extra ~ group, data = sleep, sd_pop=2)
+zTest(extra ~ group, data=sleep, sd_pop=2)
 
 
 # Stahel (2002), pp. 186, 196
 
-d.tyres <- data.frame(A=c(44.5,55,52.5,50.2,45.3,46.1,52.1,50.5,50.6,49.2),
+Tyres <- data.frame(A=c(44.5,55,52.5,50.2,45.3,46.1,52.1,50.5,50.6,49.2),
                       B=c(44.9,54.8,55.6,55.2,55.6,47.7,53,49.1,52.3,50.7))
-with(d.tyres, zTest(A, B, sd_pop=3, paired=TRUE))
+with(Tyres, zTest(A, B, sd_pop=3, paired=TRUE))
 
 
-d.oxen <- data.frame(ext=c(2.7,2.7,1.1,3.0,1.9,3.0,3.8,3.8,0.3,1.9,1.9),
-                     int=c(6.5,5.4,8.1,3.5,0.5,3.8,6.8,4.9,9.5,6.2,4.1))
-with(d.oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
+Oxen <- data.frame(ext=c(2.7,2.7,1.1,3.0,1.9,3.0,3.8,3.8,0.3,1.9,1.9),
+                   int=c(6.5,5.4,8.1,3.5,0.5,3.8,6.8,4.9,9.5,6.2,4.1))
+with(Oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
 
 }
 \references{
@@ -125,7 +125,7 @@ Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
 vieweg
 }
 \seealso{
-\code{\link[=t.test]{t.test()}}, \code{\link{print.htest}}
+\code{\link[=t.test]{t.test()}}, \code{\link[=print.htest]{print.htest()}}
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},

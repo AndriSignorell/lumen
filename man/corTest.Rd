@@ -17,10 +17,10 @@ corTest(
 
 \item{method}{a character string specifying the correlation method, one
 of \code{"pearson"} (default), \code{"spearman"} or \code{"kendall"}.
-Passed to \code{\link{cor}}.}
+Passed to \code{\link[=cor]{cor()}}.}
 
 \item{use}{a character string giving a method for computing correlations
-in the presence of missing values, passed to \code{\link{cor}}. Default
+in the presence of missing values, passed to \code{\link[=cor]{cor()}}. Default
 is \code{"pairwise.complete.obs"}.}
 
 \item{triangle}{a character string specifying which part of the matrices
@@ -44,9 +44,9 @@ for all variable pairs in a numeric matrix.
 }
 \details{
 Pearson, Spearman, and Kendall correlations are supported via the
-\code{method} argument passed to \code{\link{cor}}.
+\code{method} argument passed to \code{\link[=cor]{cor()}}.
 
-Compared to repeatedly calling \code{\link{cor.test}}, this
+Compared to repeatedly calling \code{\link[=cor.test]{cor.test()}}, this
 implementation is fully vectorised and substantially faster for matrices
 with many variables.
 
@@ -81,7 +81,7 @@ res2 <- corTest(
 
 }
 \seealso{
-\code{\link{cor}}, \code{\link{cor.test}}
+\code{\link[=cor]{cor()}}, \code{\link[=cor.test]{cor.test()}}
 
 Other test.correlation:
 \code{\link[=fisherZ]{fisherZ()}}

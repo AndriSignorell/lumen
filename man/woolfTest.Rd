@@ -49,7 +49,7 @@ woolfTest(migraine)
 }
 \references{
 Woolf, B. 1955: On estimating the relation between blood group
-and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
+and disease. \emph{Ann. Human Genet.} (London) \strong{19}, 251-253.
 }
 \seealso{
 \code{\link[=mantelhaen.test]{mantelhaen.test()}}

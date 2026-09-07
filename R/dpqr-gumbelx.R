@@ -22,20 +22,20 @@
 #' @param loc1,scale1,loc2,scale2 location and scale parameters of the two
 #' Gumbel distributions. The second location parameter must be greater than or
 #' equal to the first location parameter.
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, \verb{P[X > x]}.
 #' @param \dots other arguments passed to uniroot.
-#' @return \code{dgumbelx()} gives the density function, \code{pgumbelx()}
-#' gives the distribution function, \code{qgumbelx()} gives the quantile
-#' function, and \code{rgumbelx()} generates random deviates.
+#' @return `dgumbelx()` gives the density function, `pgumbelx()`
+#' gives the distribution function, `qgumbelx()` gives the quantile
+#' function, and `rgumbelx()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in
 #' the \pkg{evd} package, adapted to conform to package standards.
 #' 
-#' @seealso [distributions-overview]; \code{\link{uniroot}}, which
-#' \code{qgumbelx()} uses for root finding
+#' @seealso [distributions-overview]; [uniroot()], which
+#' `qgumbelx()` uses for root finding
 #' 
 #' @concept distribution-function
 #' @concept extreme-value

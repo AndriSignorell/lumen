@@ -21,7 +21,7 @@ dunnettTest(x, ...)
 contains the data values and \code{rhs} defines the corresponding groups.}
 
 \item{data}{an optional matrix or data frame (or a similar object; see
-\code{\link{model.frame}}) containing the variables in \code{formula}.
+\code{\link[=model.frame]{model.frame()}}) containing the variables in \code{formula}.
 By default, the variables are taken from \code{environment(formula)}.}
 
 \item{subset}{an optional vector specifying a subset of observations to
@@ -111,13 +111,13 @@ dunnettTest(Ozone ~ factor(Month), data = airquality,
 \references{
 Dunnett, C. W. (1955). A multiple comparison procedure for comparing
 several treatments with a control. \emph{Journal of the American
-Statistical Association}, \bold{50}, 1096--1121.
+Statistical Association}, \strong{50}, 1096--1121.
 }
 \seealso{
-\code{\link{print.PostHocTest}},
-\code{\link{plot.PostHocTest}},
-\code{\link[mvtnorm]{pmvt}},
-\code{\link[mvtnorm]{qmvt}}
+\code{\link[=print.PostHocTest]{print.PostHocTest()}},
+\code{\link[=plot.PostHocTest]{plot.PostHocTest()}},
+\code{\link[mvtnorm:pmvt]{mvtnorm::pmvt()}},
+\code{\link[mvtnorm:qmvt]{mvtnorm::qmvt()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

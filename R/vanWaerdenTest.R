@@ -8,8 +8,8 @@
 #' 
 #' Performs a van der Waerden normal scores test.
 #' 
-#' \code{vanWaerdenTest} performs a van der Waerden test of the null that the
-#' location parameters of the distribution of \code{x} are the same in each
+#' `vanWaerdenTest` performs a van der Waerden test of the null that the
+#' location parameters of the distribution of `x` are the same in each
 #' group (sample). The alternative is that they differ in at least one.
 #' 
 #' The van der Waerden rank scores are defined as the ranks of data, i.e.,
@@ -19,49 +19,49 @@
 #' the observations from all groups (the same way as [kruskal.test()]
 #' does it).
 #' 
-#' If \code{x} is a list, its elements are taken as the samples to be compared,
-#' and hence have to be numeric data vectors.  In this case, \code{g} is
-#' ignored, and one can simply use \code{vanWaerdenTest(x)} to perform the
+#' If `x` is a list, its elements are taken as the samples to be compared,
+#' and hence have to be numeric data vectors.  In this case, `g` is
+#' ignored, and one can simply use `vanWaerdenTest(x)` to perform the
 #' test.  If the samples are not yet contained in a list, use
-#' \code{vanWaerdenTest(list(x, ...))}.
+#' `vanWaerdenTest(list(x, ...))`.
 #' 
-#' Otherwise, \code{x} must be a numeric data vector, and \code{g} must be a
-#' vector or factor object of the same length as \code{x} giving the group for
-#' the corresponding elements of \code{x}.
+#' Otherwise, `x` must be a numeric data vector, and `g` must be a
+#' vector or factor object of the same length as `x` giving the group for
+#' the corresponding elements of `x`.
 #' 
 #' @name vanWaerdenTest
 #' @aliases vanWaerdenTest vanWaerdenTest.default vanWaerdenTest.formula
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
 #' Non-numeric elements of a list will be coerced, with a warning.
 #' @param g a vector or factor object giving the group for the corresponding
-#' elements of \code{x}.  Ignored with a warning if \code{x} is a list.
-#' @param formula a formula of the form \code{response ~ group} where
-#' \code{response} gives the data values and \code{group} a vector or factor of
+#' elements of `x`.  Ignored with a warning if `x` is a list.
+#' @param formula a formula of the form `response ~ group` where
+#' `response` gives the data values and `group` a vector or factor of
 #' the corresponding groups.
 #' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
+#' [model.frame()]) containing the variables in the formula
+#' `formula`.  By default the variables are taken from
+#' `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to be
 #' used.
 #' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s.  Defaults to \code{getOption("na.action")}.
+#' contain `NA`s.  Defaults to `getOption("na.action")`.
 #' @param \dots further arguments to be passed to or from methods.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components: \item{statistic}{the van der Waerden statistic.}
 #' \item{parameter}{the degrees of freedom of the approximate chi-squared
 #' distribution of the test statistic.} \item{p.value}{the p-value of the
-#' test.} \item{method}{the character string \code{"Van-der-Waerden normal
-#' scores test"}.} \item{data.name}{a character string giving the names of the
+#' test.} \item{method}{the character string `"Van-der-Waerden normal
+#' scores test"`.} \item{data.name}{a character string giving the names of the
 #' data.}
 #' 
-#' @seealso \code{\link[coin]{normal_test}} in package \pkg{coin},
+#' @seealso [coin::normal_test()] in package \pkg{coin},
 #' where the test is implemented in a more general context.
 #' 
 #' @references Conover, W. J., Iman, R. L. (1979). On multiple-comparisons
 #' procedures, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 #' 
-#' Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (Third
+#' Conover, W. J. (1999). *Practical Nonparametric Statistics* (Third
 #' Edition ed.). Wiley. pp. 396--406.
 #' 
 #' @examples

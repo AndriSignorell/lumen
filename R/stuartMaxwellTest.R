@@ -6,16 +6,16 @@
 #' categories.
 #' 
 #' This function computes the marginal homogeneity test for a \eqn{k \times
-#' k}{k x k} matrix of assignments of objects to \code{k} categories or two
-#' vectors \code{x}, \code{y} of category scores for \code{n} data objects by
+#' k}{k x k} matrix of assignments of objects to `k` categories or two
+#' vectors `x`, `y` of category scores for `n` data objects by
 #' two raters. The statistic is distributed as \eqn{\chi^2}{chi-square} with
-#' \code{k-1} degrees of freedom. \cr It can be viewed as an extension of the
+#' `k-1` degrees of freedom. \cr It can be viewed as an extension of the
 #' McNemar test to \eqn{k \times k}{k x k} table.  
 #' 
 #' The null is that the probabilities of being classified into cells \verb{[i, j]} 
 #' and \verb{[j, i]} are the same.
 #' 
-#' If \code{x} is a matrix, it is taken as a two-dimensional contingency table,
+#' If `x` is a matrix, it is taken as a two-dimensional contingency table,
 #' and hence its entries should be nonnegative integers. Otherwise, both x and
 #' y must be vectors or factors of the same length and with the same levels.
 #' \cr Incomplete cases are removed, vectors are coerced into factors, and the
@@ -24,25 +24,25 @@
 #' If there is perfect agreement for any category k, that category must be
 #' omitted in order to invert matrix S.
 #' 
-#' If for any category \code{k}, all frequencies in row \code{k} and column
-#' \code{k} are 0, except possibly for the main diagonal element (e.g., for
-#' perfect agreement for category \code{k}, in such cases also the
+#' If for any category `k`, all frequencies in row `k` and column
+#' `k` are 0, except possibly for the main diagonal element (e.g., for
+#' perfect agreement for category `k`, in such cases also the
 #' corresponding row and column marginal frequencies would be equal), then the
 #' category is not included in the test and should be ignored, say the
 #' Stuart-Maxwell test is performed with respect to the remaining categories
-#' only. The degree of freedom \code{df} in this case can still be considered
-#' \code{k - 1}, where \code{k} is the number of original categories; this
+#' only. The degree of freedom `df` in this case can still be considered
+#' `k - 1`, where `k` is the number of original categories; this
 #' treats omitted categories as if they were included but contributed 0 to the
 #' value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
 #' have equal row and column marginals. (See:
-#' \url{https://www.john-uebersax.com/stat/mcnemar.htm#stuart})
+#' <https://www.john-uebersax.com/stat/mcnemar.htm#stuart>)
 #' 
 #' @name stuartMaxwellTest
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in matrix
 #' form, or a factor. 
 #' @param y a factor with the same levels as x; ignored if x is a matrix. 
 #' 
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components: \item{statistic}{the value of the test statistic.}
 #' \item{parameter}{the degrees of freedom.} \item{p.value}{the p-value of the
 #' test.} \item{method}{a character string indicating what type of test was
@@ -51,12 +51,12 @@
 #' @note Based on code from Jim Lemon, adapted to conform to package standards.
 #' 
 #' @references Stuart, A (1955) A test for homogeneity of the marginal
-#' distributions in a two-way classification. \emph{Biometrika}, 42, 412-416.
+#' distributions in a two-way classification. *Biometrika*, 42, 412-416.
 #' 
 #' Maxwell, A.E. (1970) Comparing the classification of subjects by two
-#' independent judges. \emph{British Journal of Psychiatry}, 116, 651-655.
+#' independent judges. *British Journal of Psychiatry*, 116, 651-655.
 #' 
-#' Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
+#' Agresti, A. (2002) *Categorical Data Analysis*. John Wiley & Sons, pp
 #' 86 ff.
 #' 
 #' @examples

@@ -19,24 +19,24 @@
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param dFun,pFun,qFun density, distribution and quantile function
-#' of the specified distribution. The density function must have a \code{log}
+#' of the specified distribution. The density function must have a `log`
 #' argument (a simple wrapper can always be constructed to achieve this).
 #' @param \dots parameters of the specified distribution.
 #' @param distn a character string, optionally given as an alternative to
-#' \code{dFun}, \code{pFun} and \code{qFun} such that the density,
+#' `dFun`, `pFun` and `qFun` such that the density,
 #' distribution and quantile functions are formed upon the addition of the
-#' prefixes \code{d}, \code{p} and \code{q} respectively.
+#' prefixes `d`, `p` and `q` respectively.
 #' @param mlen the number of independent variables.
-#' @param largest logical; if \code{TRUE} (default) use maxima, otherwise
+#' @param largest logical; if `TRUE` (default) use maxima, otherwise
 #' minima.
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default) probabilities are 
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default) probabilities are 
 #' \verb{P[X <= x]}, otherwise P\verb{[X > x]}.
 #' 
-#' @return \code{dextreme()} gives the density function, \code{pextreme()}
-#' gives the distribution function and \code{qextreme()} gives the quantile
-#' function of the maximum/minimum of \code{mlen} independent variables from a
-#' specified distribution. \code{rextreme()} generates random deviates.
+#' @return `dextreme()` gives the density function, `pextreme()`
+#' gives the distribution function and `qextreme()` gives the quantile
+#' function of the maximum/minimum of `mlen` independent variables from a
+#' specified distribution. `rextreme()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in

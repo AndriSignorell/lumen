@@ -5,7 +5,7 @@
 #' ratio (G-statistic), serving as an asymptotically equivalent alternative
 #' to the chi-squared test.
 #'
-#' \code{gTest} performs log-likelihood ratio contingency table tests and
+#' `gTest` performs log-likelihood ratio contingency table tests and
 #' goodness-of-fit tests.
 #'
 #' The G-test is also called "Likelihood Ratio Test" and is asymptotically
@@ -13,16 +13,16 @@
 #' analyzing 2x2 tables. It is used in logistic regression and loglinear
 #' modeling which involves contingency tables.
 #'
-#' If \code{x} is a matrix with one row or column, or if \code{x} is a
-#' vector and \code{y} is not given, then a \emph{goodness-of-fit test} is
-#' performed (\code{x} is treated as a one-dimensional contingency table).
-#' The entries of \code{x} must be non-negative integers. In this case, the
+#' If `x` is a matrix with one row or column, or if `x` is a
+#' vector and `y` is not given, then a *goodness-of-fit test* is
+#' performed (`x` is treated as a one-dimensional contingency table).
+#' The entries of `x` must be non-negative integers. In this case, the
 #' hypothesis tested is whether the population probabilities equal those in
-#' \code{p}, or are all equal if \code{p} is not given.
+#' `p`, or are all equal if `p` is not given.
 #'
-#' If \code{x} is a matrix with at least two rows and columns, it is taken
-#' as a two-dimensional contingency table: the entries of \code{x} must be
-#' non-negative integers. Otherwise, \code{x} and \code{y} must be vectors
+#' If `x` is a matrix with at least two rows and columns, it is taken
+#' as a two-dimensional contingency table: the entries of `x` must be
+#' non-negative integers. Otherwise, `x` and `y` must be vectors
 #' or factors of the same length; cases with missing values are removed,
 #' the objects are coerced to factors, and the contingency table is
 #' computed from these. Then the G-test is performed on the null hypothesis
@@ -34,19 +34,19 @@
 #' correction is only defined for 2x2 tables (independence) resp. two data
 #' values (goodness-of-fit).
 #'
-#' @param x a numeric vector or matrix. \code{x} and \code{y} can also both
+#' @param x a numeric vector or matrix. `x` and `y` can also both
 #' be factors.
-#' @param y a numeric vector; ignored if \code{x} is a matrix. If \code{x}
-#' is a factor, \code{y} should be a factor of the same length.
-#' @param correct the correction to be applied, one of \code{"none"}
-#' (default), \code{"williams"} or \code{"yates"}. See the Details.
-#' @param p a vector of probabilities of the same length as \code{x}
-#' (goodness-of-fit test only). An error is given if any entry of \code{p}
+#' @param y a numeric vector; ignored if `x` is a matrix. If `x`
+#' is a factor, `y` should be a factor of the same length.
+#' @param correct the correction to be applied, one of `"none"`
+#' (default), `"williams"` or `"yates"`. See the Details.
+#' @param p a vector of probabilities of the same length as `x`
+#' (goodness-of-fit test only). An error is given if any entry of `p`
 #' is negative.
-#' @param rescaleP logical; if \code{TRUE} then \code{p} is rescaled (if
-#' necessary) to sum to 1. If \code{rescaleP} is \code{FALSE}, and \code{p}
+#' @param rescaleP logical; if `TRUE` then `p` is rescaled (if
+#' necessary) to sum to 1. If `rescaleP` is `FALSE`, and `p`
 #' does not sum to 1, an error is given.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the value of the G test statistic.}
 #' \item{parameter}{the degrees of freedom of the approximate chi-squared
@@ -60,17 +60,17 @@
 #'
 #' @note Based on code by Pete Hurd, adapted to conform to package standards.
 #'
-#' @seealso \code{\link{chisq.test}}
+#' @seealso [chisq.test()]
 #'
-#' @references Agresti, A. (2007) \emph{An Introduction to Categorical Data
-#' Analysis}, 2nd ed., New York: John Wiley & Sons. Page 38.
+#' @references Agresti, A. (2007) *An Introduction to Categorical Data
+#' Analysis*, 2nd ed., New York: John Wiley & Sons. Page 38.
 #'
-#' Sokal, R. R. and Rohlf, F. J. (2012) \emph{Biometry: The Principles and
-#' Practice of Statistics in Biological Research}, 4th ed., New York:
+#' Sokal, R. R. and Rohlf, F. J. (2012) *Biometry: The Principles and
+#' Practice of Statistics in Biological Research*, 4th ed., New York:
 #' W. H. Freeman and Co.
 #'
 #' Williams, D. A. (1976) Improved likelihood ratio tests for complete
-#' contingency tables. \emph{Biometrika}, 63, 33-37.
+#' contingency tables. *Biometrika*, 63, 33-37.
 #'
 #' @examples
 #' ## From Agresti (2007), p. 39

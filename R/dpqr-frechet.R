@@ -11,8 +11,8 @@
 #' generation for the Frechet distribution with location, scale and shape
 #' parameters.
 #' 
-#' The Frechet distribution function with parameters \eqn{\code{loc} = a},
-#' \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is 
+#' The Frechet distribution function with parameters \eqn{`loc` = a},
+#' \eqn{`scale` = b} and \eqn{`shape` = s} is 
 #' \deqn{G(z) = \exp\left\{-\left(\frac{z-a}{b}\right)^{-s}\right\}}
 #' for \eqn{z > a} and zero otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 #' 
@@ -24,13 +24,13 @@
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
 #' vectors).
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' 
-#' @return \code{dfrechet()} gives the density function, \code{pfrechet()}
-#' gives the distribution function, \code{qfrechet()} gives the quantile
-#' function, and \code{rfrechet()} generates random deviates.
+#' @return `dfrechet()` gives the density function, `pfrechet()`
+#' gives the distribution function, `qfrechet()` gives the quantile
+#' function, and `rfrechet()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in

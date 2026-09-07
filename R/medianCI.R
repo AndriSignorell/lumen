@@ -3,11 +3,11 @@
 #' 
 #' Calculate the confidence interval for the median.
 #' 
-#' The \code{"exact"} method is the way SAS is said to calculate the confidence
-#' interval. This is also implemented in \code{\link{signTest}}. The boot
-#' confidence interval type is calculated by means of \code{\link[boot]{boot.ci}}
-#' with default type \code{"perc"}.\cr Use \code{\link{sapply}},
-#' resp.\code{\link{apply}}, to get the confidence intervals from a data.frame
+#' The `"exact"` method is the way SAS is said to calculate the confidence
+#' interval. This is also implemented in [signTest()]. The boot
+#' confidence interval type is calculated by means of [boot::boot.ci()]
+#' with default type `"perc"`.\cr Use [sapply()],
+#' resp.[apply()], to get the confidence intervals from a data.frame
 #' or from a matrix.
 #' 
 #' @param x a (non-empty) numeric vector of data values.
@@ -15,26 +15,26 @@
 #' @param conf.level confidence level of the interval
 #' 
 #' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. You can specify just the initial letter. \code{"left"} would
-#' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"`. You can specify just the initial letter. `"left"` would
+#' be analogue to a hypothesis of `"greater"` in a `t.test`.
 #' 
 #' @param na.rm logical. Should missing values be removed? Defaults to
-#' \code{FALSE}.
+#' `FALSE`.
 #' 
 #' @param method defining the type of interval that should be calculated (one
-#' out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See
+#' out of `"exact"`, `"boot"`). Default is `"exact"`. See
 #' Details.
 #' 
-#' @param \dots the dots are passed on to \code{\link[boot]{boot.ci}}. In particular,
+#' @param \dots the dots are passed on to [boot::boot.ci()]. In particular,
 #' the type of bootstrap confidence interval can be defined via this. The
-#' defaults are \code{R=999} and \code{type="perc"}.
+#' defaults are `R=999` and `type="perc"`.
 #' 
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate}
-#'   \item{\code{lci}}{lower confidence interval bound}
-#'   \item{\code{uci}}{upper confidence interval bound}
+#'   \item{`est`}{point estimate}
+#'   \item{`lci`}{lower confidence interval bound}
+#'   \item{`uci`}{upper confidence interval bound}
 #' }
 #' 
 #' @examples
@@ -64,7 +64,7 @@
 #' 
 #' 
 #' @seealso [wilcox.test()], 
-#' \code{\link{median}}, \code{DescToolsX::hodgesLehmann}
+#' [median()], `DescToolsX::hodgesLehmann`
 #' 
 #' @family ci.location
 #' @concept confidence-intervals

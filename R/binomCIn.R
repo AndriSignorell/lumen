@@ -1,12 +1,12 @@
 
 #' Sample Size for a Desired Width of a Binomial Confidence Interval
 #'
-#' \code{binomCIn()} computes the required sample size to obtain a binomial
-#' confidence interval of a specified width, as calculated by \code{binomCI()}.
-#' The function uses \code{\link{uniroot}()} to numerically solve for the
+#' `binomCIn()` computes the required sample size to obtain a binomial
+#' confidence interval of a specified width, as calculated by `binomCI()`.
+#' The function uses [uniroot()] to numerically solve for the
 #' corresponding sample size.
 #'
-#' \strong{Required Samplesize} (by \code{binomCIn()}): \cr
+#' **Required Samplesize** (by `binomCIn()`): \cr
 #' The required sample size for a given confidence interval width depends
 #' on the assumed population proportion. Since this proportion is often
 #' unknown at the planning stage of a study, a conservative approach is to
@@ -16,12 +16,12 @@
 #' it can be used to obtain a smaller required sample size for the same
 #' level of precision.
 #'  
-#' @param p probability for success, defaults to \code{0.5} as worst case.
+#' @param p probability for success, defaults to `0.5` as worst case.
 #' @param width the width of the confidence interval.
 #' @param interval a vector containing the end-points of the interval to be
-#' searched for the root. The defaults are set to \code{c(1, 100000)}.
+#' searched for the root. The defaults are set to `c(1, 100000)`.
 #'
-#' @return \code{binomCIn} returns a single numeric value giving the required sample size.
+#' @return `binomCIn` returns a single numeric value giving the required sample size.
 #' 
 #' @examples
 #' 

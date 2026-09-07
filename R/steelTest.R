@@ -17,11 +17,11 @@
 #' asymptotic multivariate normal distribution of the standardized
 #' statistics.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be
+#' If `x` is a list, its elements are taken as the samples to be
 #' compared and hence have to be numeric data vectors. In this case,
-#' \code{g} is ignored and one can simply use \code{steelTest(x)}.
+#' `g` is ignored and one can simply use `steelTest(x)`.
 #'
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
+#' Otherwise, `x` must be a numeric vector and `g` a grouping
 #' factor (or vector coercible to a factor) of the same length.
 #'
 #' @name steelTest
@@ -29,32 +29,32 @@
 #'
 #' @param x a numeric vector of observations, or a list of numeric
 #'   vectors.
-#' @param g a grouping factor corresponding to \code{x}. Ignored if
-#'   \code{x} is a list.
+#' @param g a grouping factor corresponding to `x`. Ignored if
+#'   `x` is a list.
 #' @param control the level of the control group against which all
 #'   treatment groups are compared. Defaults to the first group.
 #' @param alternative character string specifying the alternative
-#'   hypothesis. One of \code{"two.sided"}, \code{"greater"} or
-#'   \code{"less"}.
+#'   hypothesis. One of `"two.sided"`, `"greater"` or
+#'   `"less"`.
 #' @param output character string specifying the output format. One of
-#'   \code{"list"} (default) or \code{"matrix"}.
+#'   `"list"` (default) or `"matrix"`.
 #' @param alpha the significance level used to compile the groups flagged
 #'   as significantly different in the label attribute of the p-value
-#'   matrix (default is \code{0.05})
-#' @param formula a formula of the form \code{response ~ group}.
+#'   matrix (default is `0.05`)
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset an optional expression specifying a subset of
 #'   observations to be used.
 #' @param na.action a function specifying how missing values should be
 #'   handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{"rankTest"} containing:
+#' @return An object of class `"rankTest"` containing:
 #'   \item{res}{
-#'     comparison results. For \code{output="list"} a matrix with
-#'     columns \code{W}, \code{z} and \code{pval}; for
-#'     \code{output="matrix"} a many-to-one matrix of adjusted
+#'     comparison results. For `output="list"` a matrix with
+#'     columns `W`, `z` and `pval`; for
+#'     `output="matrix"` a many-to-one matrix of adjusted
 #'     p-values.
 #'   }
 #'   \item{pmat}{
@@ -68,8 +68,8 @@
 #'   }
 #'
 #' Additional information is stored in attributes:
-#' \code{method}, \code{alternative}, \code{output},
-#' \code{main}, and \code{data.name}.
+#' `method`, `alternative`, `output`,
+#' `main`, and `data.name`.
 #'
 #' @details
 #' Steel's test is the nonparametric analogue of Dunnett's test.
@@ -86,11 +86,11 @@
 #'
 #' Steel, R. G. D. (1959).
 #' A multiple comparison rank sum test: Treatments versus control.
-#' \emph{Biometrics}, \strong{15}, 560--572.
+#' *Biometrics*, **15**, 560--572.
 #'
 #' Scholz, F. W. (2023).
 #' Improved tie correction methods for Steel-type rank tests.
-#' \emph{Journal of Nonparametric Statistics}, \strong{35}, 541--563.
+#' *Journal of Nonparametric Statistics*, **35**, 541--563.
 #'
 #' @seealso
 #' [wilcox.test()]

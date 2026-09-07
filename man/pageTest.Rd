@@ -42,8 +42,7 @@ A list with class \code{"htest"} containing:
 \item{p.value}{the p-value of the test.}
 \item{parameter}{named vector with \code{k} (groups) and \code{n}
 (blocks).}
-\item{method}{the character string \code{"Page test for ordered
-  alternatives"} with \code{"(exact)"} or \code{"(asymptotic)"}
+\item{method}{the character string \code{"Page test for ordered alternatives"} with \code{"(exact)"} or \code{"(asymptotic)"}
 appended.}
 \item{data.name}{a character string giving the names of the data.}
 }
@@ -158,7 +157,7 @@ against trend. \emph{Biometrie und Informatik in Medizin und Biologie 20},
 163--170.
 }
 \seealso{
-\code{\link{friedman.test}}
+\code{\link[=friedman.test]{friedman.test()}}
 
 Other test.trend:
 \code{\link[=cochranArmitageTest]{cochranArmitageTest()}},

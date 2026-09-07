@@ -2,21 +2,21 @@
 #' Variance Test for Testing One Variance or Comparing Two Variances
 #'
 #' Performs a one-sample or two-sample test for variance, analogous to
-#' \code{\link[stats]{t.test}}, with support for classical and likelihood-based
+#' [stats::t.test()], with support for classical and likelihood-based
 #' lowest-density (LD) two-sided p-values.
 #'
 #' @param x a numeric vector of data values, or a formula.
 #' @param y an optional second numeric vector. If provided, a two-sample variance
 #' test is performed.
 #' @param sigma2_0 a numeric value specifying the null hypothesis variance for
-#' the one-sample test. Required if \code{y} is \code{NULL}.
+#' the one-sample test. Required if `y` is `NULL`.
 #' @param alternative character string specifying the alternative hypothesis.
-#' Must be one of \code{"two.sided"}, \code{"less"}, or \code{"greater"}.
+#' Must be one of `"two.sided"`, `"less"`, or `"greater"`.
 #' @param type character string specifying the test type:
 #' \itemize{
-#'   \item \code{"classic"}: uses the conventional two-sided p-value
+#'   \item `"classic"`: uses the conventional two-sided p-value
 #'   \eqn{2 \cdot \min(P(T \le t), P(T \ge t))}.
-#'   \item \code{"ld"}: uses a likelihood-based lowest-density (LD) definition,
+#'   \item `"ld"`: uses a likelihood-based lowest-density (LD) definition,
 #'   i.e. the probability of observing values with density less than or equal
 #'   to the observed density under the null distribution.
 #' }
@@ -25,8 +25,8 @@
 #' @name varTest
 #' @details
 #' The null hypothesis is that the ratio of the variances of the populations
-#' from which \code{x} and \code{y} were drawn, or in the data to which the
-#' linear models \code{x} and \code{y} were fitted, is equal to \code{ratio}.
+#' from which `x` and `y` were drawn, or in the data to which the
+#' linear models `x` and `y` were fitted, is equal to `ratio`.
 #' 
 #' For the one-sample test, the test statistic follows a chi-squared distribution:
 #' \deqn{X^2 = (n - 1) S^2 / \sigma_0^2}
@@ -42,7 +42,7 @@
 #' 
 #' @inheritParams Formulas
 #' 
-#' @return An object of class \code{"htest"} with components:
+#' @return An object of class `"htest"` with components:
 #' \item{statistic}{the test statistic.}
 #' \item{parameter}{degrees of freedom.}
 #' \item{p.value}{the p-value of the test.}
@@ -52,9 +52,9 @@
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{description of the data.}
 #'
-#' @seealso \code{\link{var.test}}, \code{\link{bartlett.test}} for testing
+#' @seealso [var.test()], [bartlett.test()] for testing
 #' homogeneity of variances in more than two samples from normal distributions;
-#' \code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
+#' [ansari.test()] and [mood.test()] for two rank based
 #' (nonparametric) two-sample tests for difference in scale.
 #' 
 #' @examples

@@ -21,15 +21,15 @@
 #'
 #' @return A numeric vector as follows:
 #' \describe{
-#'   \item{\code{fisherZ}}{Fisher \eqn{z}-transformed values.}
-#'   \item{\code{fisherZInv}}{correlation coefficients.}
+#'   \item{`fisherZ`}{Fisher \eqn{z}-transformed values.}
+#'   \item{`fisherZInv`}{correlation coefficients.}
 #' }
 #'
 #' @details
 #' Fisher's \eqn{z}-transformation is commonly used to construct confidence
 #' intervals and perform hypothesis tests for correlation coefficients.
 #'
-#' @seealso \code{\link{corCI}}, \code{\link{cor.test}}
+#' @seealso [corCI()], [cor.test()]
 #'
 #' @examples
 #' # Forward and inverse transformation

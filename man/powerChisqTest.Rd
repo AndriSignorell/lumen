@@ -31,7 +31,7 @@ the computed one) augmented with 'method' and 'note' elements.
 }
 \description{
 Compute power of test or determine parameters to obtain target power (same
-as \code{\link{power.anova.test}}).
+as \code{\link[=power.anova.test]{power.anova.test()}}).
 }
 \details{
 Exactly one of the parameters \code{effectSize}, \code{n}, \code{power} or
@@ -41,7 +41,7 @@ must be explicitly passed, if you want to compute it. \code{df} must
 always be supplied; it cannot be solved for.
 }
 \note{
-\code{\link{uniroot}} is used to solve power equation for unknowns, so
+\code{\link[=uniroot]{uniroot()}} is used to solve power equation for unknowns, so
 you may see errors from it, notably about inability to bracket the root when
 invalid arguments are given.
 
@@ -65,7 +65,7 @@ Cohen, J. (1988) \emph{Statistical power analysis for the
 behavioral sciences (2nd ed.)} Hillsdale, NJ: Lawrence Erlbaum.
 }
 \seealso{
-\code{\link{power.t.test}}
+\code{\link[=power.t.test]{power.t.test()}}
 }
 \concept{chi-square-based}
 \concept{power}

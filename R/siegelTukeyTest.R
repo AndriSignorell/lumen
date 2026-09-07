@@ -8,11 +8,11 @@
 #'
 #' @description
 #' The Siegel-Tukey test examines the null hypothesis that the variability
-#' (scale) of \code{x} and \code{y} is equal. Rejection indicates that the
+#' (scale) of `x` and `y` is equal. Rejection indicates that the
 #' two groups differ in spread. The test is distribution-free and does not
 #' assume normality, but it does assume equal medians under the null hypothesis
 #' of equal scale. If the medians differ, the test may detect that difference
-#' rather than a difference in scale; use \code{adjustMedian = TRUE} to
+#' rather than a difference in scale; use `adjustMedian = TRUE` to
 #' remove median differences before testing.
 #'
 #' Ranks are assigned to the combined sorted sample in the pattern
@@ -22,53 +22,53 @@
 #' group when group sizes differ).
 #'
 #' Ties receive average ranks. The p-value is computed exactly (via
-#' \code{\link{pwilcox}}) when there are no ties and both samples are smaller
+#' [pwilcox()]) when there are no ties and both samples are smaller
 #' than 50 observations; otherwise a normal approximation with tie-corrected
-#' variance is used. This behaviour can be overridden with \code{exact}.
+#' variance is used. This behaviour can be overridden with `exact`.
 #'
-#' \strong{Note:} The Siegel-Tukey test has relatively low power compared to
-#' alternatives such as \code{\link{ansari.test}} or \code{\link{mood.test}},
+#' **Note:** The Siegel-Tukey test has relatively low power compared to
+#' alternatives such as [ansari.test()] or [mood.test()],
 #' and may indicate significance due to median differences rather than scale
-#' differences when \code{adjustMedian = FALSE}.
+#' differences when `adjustMedian = FALSE`.
 #'
 #' @name siegelTukeyTest
 #' @aliases siegelTukeyTest siegelTukeyTest.default siegelTukeyTest.formula
 #'
 #' @param x,y numeric vectors of data values.
-#' @param adjustMedian logical; if \code{TRUE}, the median of \code{x} is
-#'   shifted to equal the median of \code{y} before ranking, to prevent median
-#'   differences from inflating the test statistic. Default is \code{FALSE}.
+#' @param adjustMedian logical; if `TRUE`, the median of `x` is
+#'   shifted to equal the median of `y` before ranking, to prevent median
+#'   differences from inflating the test statistic. Default is `FALSE`.
 #' @param alternative a character string specifying the alternative hypothesis:
-#'   \code{"two.sided"} (default), \code{"greater"}, or \code{"less"}.
+#'   `"two.sided"` (default), `"greater"`, or `"less"`.
 #'   Partial matching is allowed.
 #' @param mu a single number specifying the location parameter under the null
-#'   hypothesis. Default is \code{0}.
-#' @param exact logical; if \code{TRUE}, an exact p-value is computed via
-#'   \code{\link{pwilcox}}. Exact computation is not possible in the presence
+#'   hypothesis. Default is `0`.
+#' @param exact logical; if `TRUE`, an exact p-value is computed via
+#'   [pwilcox()]. Exact computation is not possible in the presence
 #'   of ties; a warning is issued and the normal approximation is used instead.
-#'   If \code{NA} (default), exact computation is used when both samples have
+#'   If `NA` (default), exact computation is used when both samples have
 #'   fewer than 50 observations and there are no ties.
-#' @param correct logical; if \code{TRUE} (default), a continuity correction
-#'   is applied in the normal approximation. Ignored when \code{exact = TRUE}
+#' @param correct logical; if `TRUE` (default), a continuity correction
+#'   is applied in the normal approximation. Ignored when `exact = TRUE`
 #'   or when ties are present (continuity correction is not appropriate with
 #'   tie-corrected variance).
-#' @param formula a formula of the form \code{response ~ group}, where
-#'   \code{response} is a numeric vector and \code{group} a factor or vector
+#' @param formula a formula of the form `response ~ group`, where
+#'   `response` is a numeric vector and `group` a factor or vector
 #'   with exactly two levels.
 #' @param data an optional data frame (or matrix, coerced to data frame)
-#'   containing the variables in \code{formula}. If not supplied, variables
-#'   are taken from \code{environment(formula)}.
+#'   containing the variables in `formula`. If not supplied, variables
+#'   are taken from `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to use.
-#' @param na.action a function indicating how to handle \code{NA}s in the
-#'   formula interface. Defaults to \code{na.pass}; \code{NA}s in \code{x} or
-#'   \code{y} are silently dropped in the default method.
+#' @param na.action a function indicating how to handle `NA`s in the
+#'   formula interface. Defaults to `na.pass`; `NA`s in `x` or
+#'   `y` are silently dropped in the default method.
 #' @param \dots further arguments passed to or from methods.
 #'
-#' @return An object of class \code{"htest"} with the following components:
+#' @return An object of class `"htest"` with the following components:
 #'   \item{statistic}{the Wilcoxon rank-sum statistic \eqn{W} computed
 #'     on the Siegel-Tukey ranks.}
 #'   \item{p.value}{the p-value of the test.}
-#'   \item{null.value}{the location parameter \code{mu} under the null
+#'   \item{null.value}{the location parameter `mu` under the null
 #'     hypothesis.}
 #'   \item{alternative}{a character string describing the alternative
 #'     hypothesis.}
@@ -81,15 +81,15 @@
 #'
 #' @references
 #' Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
-#' for relative spread in unpaired samples. \emph{Journal of the American
-#' Statistical Association}, \bold{55}(291), 429--445.
+#' for relative spread in unpaired samples. *Journal of the American
+#' Statistical Association*, **55**(291), 429--445.
 #'
-#' Sheskin, D. J. (2004): \emph{Handbook of Parametric and Nonparametric
-#' Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
+#' Sheskin, D. J. (2004): *Handbook of Parametric and Nonparametric
+#' Statistical Procedures*, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @note
 #' Originally based on a blog post by Tal Galili:\cr
-#' \url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
+#' <https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/>
 #'
 #' @examples
 #' # Duller, S. 183
@@ -139,7 +139,7 @@
 #' # p ~ 0.1143
 #' 
 #' @rdname siegelTukeyTest
-#' @seealso \code{\link{ansari.test}}, \code{\link{mood.test}},
+#' @seealso [ansari.test()], [mood.test()],
 #'   [wilcox.test()]
 #'
 #' @family test.variance

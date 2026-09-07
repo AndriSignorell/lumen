@@ -40,7 +40,7 @@ handled.}
 
 \item{method}{the method used to adjust the p-values for multiple
 comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
-Passed directly to \code{\link{p.adjust}}.}
+Passed directly to \code{\link[=p.adjust]{p.adjust()}}.}
 
 \item{alternative}{a character string specifying the alternative
 hypothesis, must be one of \code{"two.sided"} (default), \code{"less"}
@@ -129,7 +129,7 @@ Dunn, O. J. (1964) Multiple comparisons using rank sums.
 }
 \seealso{
 \code{\link[=kruskal.test]{kruskal.test()}}, \code{\link[=wilcox.test]{wilcox.test()}},
-\code{\link{p.adjust}}
+\code{\link[=p.adjust]{p.adjust()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

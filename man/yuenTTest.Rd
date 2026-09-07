@@ -47,7 +47,7 @@ or \code{"greater"}.}
 \item{conf.level}{confidence level for the confidence interval.}
 
 \item{trim}{fraction of observations trimmed from each tail.
-Must satisfy \code{0 <= trim < 0.5}.}
+Must satisfy \verb{0 <= trim < 0.5}.}
 }
 \value{
 An object of class \code{"htest"}.

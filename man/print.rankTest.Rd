@@ -10,20 +10,20 @@
 \item{x}{an object of class \code{"rankTest"}.}
 
 \item{digits}{number of significant digits used for printing numeric values.
-Passed to \code{\link{print.data.frame}}. Defaults to
+Passed to \code{\link[=print.data.frame]{print.data.frame()}}. Defaults to
 \code{getOption("digits", 3)}.}
 
-\item{\dots}{further arguments passed to \code{\link{print.data.frame}} or
-\code{\link{print.default}}.}
+\item{\dots}{further arguments passed to \code{\link[=print.data.frame]{print.data.frame()}} or
+\code{\link[=print.default]{print.default()}}.}
 }
 \value{
 \code{x}, invisibly.
 }
 \description{
-Prints pairwise comparison results produced by \code{\link{dunnTest}},
-\code{\link{conoverTest}}, or \code{\link{nemenyiTest}}.
+Prints pairwise comparison results produced by \code{\link[=dunnTest]{dunnTest()}},
+\code{\link[=conoverTest]{conoverTest()}}, or \code{\link[=nemenyiTest]{nemenyiTest()}}.
 }
 \seealso{
-\code{\link{dunnTest}}, \code{\link{conoverTest}},
-\code{\link{nemenyiTest}}
+\code{\link[=dunnTest]{dunnTest()}}, \code{\link[=conoverTest]{conoverTest()}},
+\code{\link[=nemenyiTest]{nemenyiTest()}}
 }

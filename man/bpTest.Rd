@@ -7,7 +7,7 @@
 bpTest(fit)
 }
 \arguments{
-\item{fit}{a fitted \code{\link[stats]{lm}} object.}
+\item{fit}{a fitted \code{\link[stats:lm]{stats::lm()}} object.}
 }
 \value{
 An object of class \code{"htest"} with the following components:
@@ -38,7 +38,7 @@ Koenker, R. (1981). A note on studentizing a test for heteroscedasticity.
 \emph{Journal of Econometrics}, 17, 107--112.
 }
 \seealso{
-\code{\link[stats]{lm}}
+\code{\link[stats:lm]{stats::lm()}}
 
 Other test.regression:
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},

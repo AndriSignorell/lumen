@@ -16,7 +16,7 @@ leCessieTest(x, ...)
 \method{print}{LeCessieTest}(x, digits = 4, ...)
 }
 \arguments{
-\item{x}{a fitted binomial \code{\link{glm}} object (\code{glm} method),
+\item{x}{a fitted binomial \code{\link[=glm]{glm()}} object (\code{glm} method),
 or a numeric vector of fitted probabilities, each in \eqn{[0, 1]},
 without missing values (default method).}
 

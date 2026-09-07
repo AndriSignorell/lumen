@@ -100,10 +100,10 @@ points(xx, dbenford(xx), col = "red")
 }
 \references{
 Benford, F. (1938) The Law of Anomalous Numbers. \emph{Proceedings of the
-American Philosophical Society}, \bold{78}, 551--572.
+American Philosophical Society}, \strong{78}, 551--572.
 
 Newcomb, S. (1881) Note on the Frequency of Use of the Different Digits in
-Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
+Natural Numbers. \emph{American Journal of Mathematics}, \strong{4}, 39--40.
 }
 \seealso{
 \link{distributions-overview}

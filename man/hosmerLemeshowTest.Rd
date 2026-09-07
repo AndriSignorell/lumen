@@ -18,7 +18,7 @@ hosmerLemeshowTest(x, ...)
 \arguments{
 \item{x}{either a numeric vector of fitted probabilities, each in
 \eqn{[0, 1]} and without missing values, or a fitted binomial
-\code{\link{glm}} object, from which fitted probabilities and observed
+\code{\link[=glm]{glm()}} object, from which fitted probabilities and observed
 outcomes are extracted.}
 
 \item{\dots}{further arguments passed to methods.}
@@ -101,13 +101,13 @@ print(res, details = TRUE)
 \references{
 Lemeshow, S. and Hosmer, D. W. (1982) A review of goodness of fit
 statistics for use in the development of logistic regression models.
-\emph{American Journal of Epidemiology}, \bold{115}(1), 92--106.
+\emph{American Journal of Epidemiology}, \strong{115}(1), 92--106.
 
 Hosmer, D. W., Lemeshow, S. and Sturdivant, R. X. (2013) \emph{Applied
 Logistic Regression}, 3rd ed., New York: Wiley.
 }
 \seealso{
-\code{\link{glm}}
+\code{\link[=glm]{glm()}}
 
 Other test.regression:
 \code{\link[=bpTest]{bpTest()}},

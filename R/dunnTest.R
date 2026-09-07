@@ -5,7 +5,7 @@
 #' following a significant Kruskal-Wallis test, based on rank sums with
 #' adjustment for multiple testing.
 #'
-#' \code{dunnTest} performs the post hoc pairwise multiple-comparison
+#' `dunnTest` performs the post hoc pairwise multiple-comparison
 #' procedure appropriate after rejection of the Kruskal-Wallis null
 #' hypothesis. In contrast to performing separate Wilcoxon rank-sum tests,
 #' Dunn's procedure preserves the pooled ranking and variance estimate
@@ -13,68 +13,68 @@
 #' procedure following a significant Kruskal-Wallis test, i.e. typically
 #' for three or more groups.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be
-#' compared and must be numeric vectors. In this case \code{g} is ignored.
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
+#' If `x` is a list, its elements are taken as the samples to be
+#' compared and must be numeric vectors. In this case `g` is ignored.
+#' Otherwise, `x` must be a numeric vector and `g` a grouping
 #' variable of the same length.
 #'
-#' Each pairwise comparison is labeled \code{"B-A"}, where \code{A} precedes
-#' \code{B} in the ordering of the group levels, and reports the mean rank
+#' Each pairwise comparison is labeled `"B-A"`, where `A` precedes
+#' `B` in the ordering of the group levels, and reports the mean rank
 #' difference \eqn{\bar{R}_B - \bar{R}_A}. For one-sided alternatives,
-#' \code{"greater"} tests whether \code{B} tends to have larger observations
-#' than \code{A} (upper tail), and \code{"less"} tests the reverse (lower
+#' `"greater"` tests whether `B` tends to have larger observations
+#' than `A` (upper tail), and `"less"` tests the reverse (lower
 #' tail).
 #'
 #' @name dunnTest
 #' @aliases dunnTest dunnTest.default dunnTest.formula
 #'
 #' @param x a numeric vector of observations or a list of numeric vectors.
-#' @param g a grouping variable corresponding to \code{x}; ignored when
-#' \code{x} is a list.
+#' @param g a grouping variable corresponding to `x`; ignored when
+#' `x` is a list.
 #' @param method the method used to adjust the p-values for multiple
-#' comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
-#' Passed directly to \code{\link{p.adjust}}.
+#' comparisons, one of `p.adjust.methods` (default is `"holm"`).
+#' Passed directly to [p.adjust()].
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"two.sided"} (default), \code{"less"}
-#' or \code{"greater"}. See the Details for the direction convention.
+#' hypothesis, must be one of `"two.sided"` (default), `"less"`
+#' or `"greater"`. See the Details for the direction convention.
 #' @param output the output format:
 #'   \itemize{
-#'     \item \code{"list"} pairwise comparison table.
-#'     \item \code{"matrix"} lower-triangular matrix of adjusted p-values.
+#'     \item `"list"` pairwise comparison table.
+#'     \item `"matrix"` lower-triangular matrix of adjusted p-values.
 #'   }
 #' @param alpha the significance level used to compile the groups flagged
 #' as significantly different in the label attribute of the p-value matrix
-#' (default is \code{0.05}).
-#' @param formula a formula of the form \code{response ~ group}.
+#' (default is `0.05`).
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#' \code{formula}.
+#' `formula`.
 #' @param subset an optional expression specifying a subset of observations.
 #' @param na.action a function indicating how missing values should be
 #' handled.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
-#' An object of class \code{"rankTest"} containing:
+#' An object of class `"rankTest"` containing:
 #' \describe{
-#'   \item{\code{res}}{
-#'     pairwise comparison results. Depending on \code{output},
+#'   \item{`res`}{
+#'     pairwise comparison results. Depending on `output`,
 #'     either a table of mean-rank differences and adjusted p-values
 #'     or a lower-triangular p-value matrix.
 #'   }
-#'   \item{\code{pmat}}{
+#'   \item{`pmat`}{
 #'     symmetric matrix of adjusted p-values.
 #'   }
 #' }
 #'
 #' @seealso [kruskal.test()], [wilcox.test()],
-#' \code{\link{p.adjust}}
+#' [p.adjust()]
 #'
 #' @references
-#' Dunn, O. J. (1961) Multiple comparisons among means. \emph{Journal of
-#' the American Statistical Association}, 56 (293), 52-64.
+#' Dunn, O. J. (1961) Multiple comparisons among means. *Journal of
+#' the American Statistical Association*, 56 (293), 52-64.
 #'
 #' Dunn, O. J. (1964) Multiple comparisons using rank sums.
-#' \emph{Technometrics}, 6 (3), 241-252.
+#' *Technometrics*, 6 (3), 241-252.
 #'
 #' @examples
 #' ## Hollander & Wolfe (1973), p. 116

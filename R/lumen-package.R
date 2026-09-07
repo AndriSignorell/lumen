@@ -14,83 +14,83 @@
 #'
 #' The package implements a wide range of statistical tests:
 #'
-#' \strong{Goodness-of-Fit Tests}
+#' **Goodness-of-Fit Tests**
 #' \itemize{
-#'   \item \code{andersonDarlingTest}, \code{cramerVonMisesTest}
-#'   \item \code{lillieTest}, \code{jarqueBeraTest}, \code{shapiroFranciaTest}
-#'   \item \code{pearsonTest}
+#'   \item `andersonDarlingTest`, `cramerVonMisesTest`
+#'   \item `lillieTest`, `jarqueBeraTest`, `shapiroFranciaTest`
+#'   \item `pearsonTest`
 #' }
 #'
-#' \strong{Nonparametric Tests}
+#' **Nonparametric Tests**
 #' \itemize{
-#'   \item \code{signTest}, \code{jonckheereTerpstraTest}, \code{pageTest}
-#'   \item \code{mosesTest}, \code{siegelTukeyTest}, \code{vanWaerdenTest}
+#'   \item `signTest`, `jonckheereTerpstraTest`, `pageTest`
+#'   \item `mosesTest`, `siegelTukeyTest`, `vanWaerdenTest`
 #' }
 #'
-#' \strong{Post-hoc Procedures}
+#' **Post-hoc Procedures**
 #' \itemize{
-#'   \item \code{dunnTest}, \code{conoverTest}, \code{nemenyiTest}
-#'   \item \code{scheffeTest}, \code{postHoc}
+#'   \item `dunnTest`, `conoverTest`, `nemenyiTest`
+#'   \item `scheffeTest`, `postHoc`
 #' }
 #'
-#' \strong{Parametric Tests}
+#' **Parametric Tests**
 #' \itemize{
-#'   \item \code{tTestA}, \code{yuenTTest}, \code{zTest}, \code{varTest}
-#'   \item \code{hotellingsT2Test}, \code{leveneTest}
+#'   \item `tTestA`, `yuenTTest`, `zTest`, `varTest`
+#'   \item `hotellingsT2Test`, `leveneTest`
 #' }
 #'
-#' \strong{Contingency Table Tests}
+#' **Contingency Table Tests**
 #' \itemize{
-#'   \item \code{barnardTest}, \code{bhapkarTest}, \code{breslowDayTest}
-#'   \item \code{cochranArmitageTest}, \code{cochranQTest}
-#'   \item \code{mantelTrendTest}, \code{woolfTest}, \code{stuartMaxwellTest}
+#'   \item `barnardTest`, `bhapkarTest`, `breslowDayTest`
+#'   \item `cochranArmitageTest`, `cochranQTest`
+#'   \item `mantelTrendTest`, `woolfTest`, `stuartMaxwellTest`
 #' }
 #'
-#' \strong{Time Series Tests}
+#' **Time Series Tests**
 #' \itemize{
-#'   \item \code{adfTest}, \code{kpssTest}
-#'   \item \code{durbinWatsonTest}, \code{breuschGodfreyTest}
+#'   \item `adfTest`, `kpssTest`
+#'   \item `durbinWatsonTest`, `breuschGodfreyTest`
 #' }
 #'
-#' \strong{Randomness and Independence Tests}
+#' **Randomness and Independence Tests**
 #' \itemize{
-#'   \item \code{runsTest}, \code{BartelsRankTest}, \code{vonNeumannTest}
+#'   \item `runsTest`, `BartelsRankTest`, `vonNeumannTest`
 #' }
 #'
 #' @section Probability Distributions:
 #'
-#' The package provides density (\code{d*}), distribution (\code{p*}),
-#' quantile (\code{q*}) and random generation (\code{r*}) functions for
+#' The package provides density (`d*`), distribution (`p*`),
+#' quantile (`q*`) and random generation (`r*`) functions for
 #' a range of distributions, following the standard R conventions.
 #'
-#' \strong{Extreme Value Distributions}
+#' **Extreme Value Distributions**
 #' \itemize{
-#'   \item Generalized Extreme Value: \code{dgev}, \code{pgev}, \code{qgev}, \code{rgev}
-#'   \item Generalized Pareto: \code{dgpd}, \code{pgpd}, \code{qgpd}, \code{rgpd}
-#'   \item Gumbel and extended Gumbel: \code{dgumbel}, \code{dgumbelx}, ...
-#'   \item Frechet and reverse Weibull: \code{dfrechet}, \code{drweibull}, ...
-#'   \item Maxima/minima distributions: \code{dextreme}, \code{pextreme}, ...
+#'   \item Generalized Extreme Value: `dgev`, `pgev`, `qgev`, `rgev`
+#'   \item Generalized Pareto: `dgpd`, `pgpd`, `qgpd`, `rgpd`
+#'   \item Gumbel and extended Gumbel: `dgumbel`, `dgumbelx`, ...
+#'   \item Frechet and reverse Weibull: `dfrechet`, `drweibull`, ...
+#'   \item Maxima/minima distributions: `dextreme`, `pextreme`, ...
 #' }
 #'
-#' \strong{Special Distributions}
+#' **Special Distributions**
 #' \itemize{
-#'   \item Benford distribution: \code{dbenford}, \code{pbenford}, \code{qbenford}, \code{rbenford}
-#'   \item Order and triangular distributions: \code{dorder}, \code{dtri}, ...
+#'   \item Benford distribution: `dbenford`, `pbenford`, `qbenford`, `rbenford`
+#'   \item Order and triangular distributions: `dorder`, `dtri`, ...
 #' }
 #'
 #' @section Utilities:
 #'
 #' \itemize{
-#'   \item \code{scores} – Score generation for ordinal contingency tables
-#'   \item \code{corTest} – Fast correlation testing for matrices
+#'   \item `scores` – Score generation for ordinal contingency tables
+#'   \item `corTest` – Fast correlation testing for matrices
 #' }
 #'
 #' @section Design Principles:
 #'
 #' \itemize{
 #'   \item Unified interface across hypothesis tests and distributions
-#'   \item Standard \code{d/p/q/r} naming for distributions
-#'   \item Clear classification via \code{@family} and \code{@concept}
+#'   \item Standard `d/p/q/r` naming for distributions
+#'   \item Clear classification via `@family` and `@concept`
 #'   \item Separation of statistical procedures and data transformation utilities
 #' }
 #'

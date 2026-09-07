@@ -23,7 +23,7 @@ scheffeTest(x, ...)
 \method{scheffeTest}{aov}(x, which = NULL, contrasts = NULL, conf.level = 0.95, ...)
 }
 \arguments{
-\item{x}{either a fitted model object, usually an \code{\link{aov}} fit,
+\item{x}{either a fitted model object, usually an \code{\link[=aov]{aov()}} fit,
 when g is left to \code{NULL} or a response variable to be evalutated by g
 (which mustn't be \code{NULL} then).}
 
@@ -50,7 +50,7 @@ gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
 \item{data}{an optional matrix or data frame (or similar; see
-\code{\link[stats]{model.frame}}) containing the variables in the
+\code{\link[stats:model.frame]{stats::model.frame()}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -112,7 +112,7 @@ Steel R.G.D., Torrie J.H., Dickey, D.A. (1997) \emph{Principles and
 Procedures of Statistics, A Biometrical Approach}. McGraw-Hill
 }
 \seealso{
-\code{\link{pairwise.t.test}}, \code{\link{TukeyHSD}}
+\code{\link[=pairwise.t.test]{pairwise.t.test()}}, \code{\link[=TukeyHSD]{TukeyHSD()}}
 
 Other test.posthoc:
 \code{\link[=conoverTest]{conoverTest()}},

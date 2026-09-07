@@ -30,16 +30,16 @@
 #'
 #' @param x a numeric vector containing the observations.
 #' @param alternative a character string specifying the alternative hypothesis,
-#'   must be one of \code{"two.sided"} (default), \code{"greater"} or
-#'   \code{"less"}.
-#' @param unbiased logical. If \code{TRUE} (default), applies the
+#'   must be one of `"two.sided"` (default), `"greater"` or
+#'   `"less"`.
+#' @param unbiased logical. If `TRUE` (default), applies the
 #'   finite-sample correction \eqn{n/(n-1)} so that VN is an unbiased
 #'   estimate of the population value.
 #'   
-#' @return A list with class \code{"htest"} containing:
+#' @return A list with class `"htest"` containing:
 #' \item{statistic}{the normalized z-statistic.}
-#' \item{parameter}{named vector with \code{n}, the sample size after
-#'   removal of \code{NA}s.}
+#' \item{parameter}{named vector with `n`, the sample size after
+#'   removal of `NA`s.}
 #' \item{p.value}{the p-value of the test.}
 #' \item{alternative}{a character string describing the alternative
 #'   hypothesis.}
@@ -48,15 +48,15 @@
 #'
 #' @references
 #' von Neumann, J. (1941) Distribution of the ratio of the mean square
-#' successive difference to the variance. \emph{Annals of Mathematical
-#' Statistics} \bold{12}, 367--395.
+#' successive difference to the variance. *Annals of Mathematical
+#' Statistics* **12**, 367--395.
 #'
 #' Young, L. C. (1941) On randomness in ordered sequences.
-#' \emph{Annals of Mathematical Statistics} \bold{12}, 293--300.
+#' *Annals of Mathematical Statistics* **12**, 293--300.
 #'
 #' Bartels, R. (1982) The Rank Version of von Neumann's Ratio Test for
-#' Randomness. \emph{Journal of the American Statistical Association},
-#' \bold{77}(377), 40--46.
+#' Randomness. *Journal of the American Statistical Association*,
+#' **77**(377), 40--46.
 #'
 #' @examples
 #' set.seed(2)

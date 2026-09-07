@@ -30,7 +30,7 @@ evaluate the density or distribution function.}
 \item{p}{numeric vector of probabilities at which to evaluate the quantile
 function.}
 
-\item{n}{number of random variates, i.e., \code{\link{length}} of resulting
+\item{n}{number of random variates, i.e., \code{\link[=length]{length()}} of resulting
 vector of \code{rRevGumbel()}.}
 }
 \value{
@@ -62,7 +62,7 @@ cat("The median is:",  format(med),"\n")
 
 }
 \seealso{
-\link{distributions-overview}; the \code{\link{Weibull}} distribution
+\link{distributions-overview}; the \code{\link[=Weibull]{Weibull()}} distribution
 functions in \R's \pkg{stats} package.
 }
 \concept{distribution-function}

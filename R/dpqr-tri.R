@@ -8,13 +8,13 @@
 #' likely value of a quantity are known.
 #' 
 #' Density, distribution function, quantile function, and random generation for
-#' the triangular distribution with parameters \code{min}, \code{max}, and
-#' \code{mode}.
+#' the triangular distribution with parameters `min`, `max`, and
+#' `mode`.
 #' 
 #' Let \eqn{X} be a triangular random variable with parameters
-#' \code{min=}\eqn{a}, \code{max=}\eqn{b}, and \code{mode=}\eqn{c}.
+#' `min=`\eqn{a}, `max=`\eqn{b}, and `mode=`\eqn{c}.
 #' 
-#' \emph{Probability Density and Cumulative Distribution Function} \cr The
+#' *Probability Density and Cumulative Distribution Function* \cr The
 #' density function of \eqn{X} is given by: \tabular{lll}{ \eqn{f(x; a, b, c)
 #' =} \tab \eqn{\frac{2(x-a)}{(b-a)(c-a)}} \tab for \eqn{a \le x \le c} \cr
 #' \tab \eqn{\frac{2(b-x)}{(b-a)(b-c)}} \tab for \eqn{c \le x \le b} \cr }
@@ -25,44 +25,44 @@
 #' \le x \le c} \cr \tab \eqn{1 - \frac{(b-x)^2}{(b-a)(b-c)}} \tab for \eqn{c
 #' \le x \le b} \cr } where \eqn{a < c < b}.
 #' 
-#' \emph{Quantiles} \cr The \eqn{p^th} quantile of \eqn{X} is given by:
+#' *Quantiles* \cr The \eqn{p^th} quantile of \eqn{X} is given by:
 #' \tabular{lll}{ \eqn{x_p =} \tab \eqn{a + \sqrt{(b-a)(c-a)p}} \tab for \eqn{0
 #' \le p \le F(c)} \cr \tab \eqn{b - \sqrt{(b-a)(b-c)(1-p}} \tab for \eqn{F(c)
 #' \le p \le 1} \cr } where \eqn{0 \le p \le 1}.
 #' 
-#' \emph{Random Numbers} \cr Random numbers are generated using the inverse
+#' *Random Numbers* \cr Random numbers are generated using the inverse
 #' transformation method: \deqn{x = F^{-1}(u)} where \eqn{u} is a random
 #' deviate from a uniform \eqn{[0, 1]} distribution.
 #' 
-#' \emph{Mean and Variance} \cr The mean and variance of \eqn{X} are given by:
+#' *Mean and Variance* \cr The mean and variance of \eqn{X} are given by:
 #' \deqn{E(X) = \frac{a + b + c}{3}} \deqn{Var(X) = \frac{a^2 + b^2 + c^2 - ab
 #' - ac - bc}{18}}
 #' 
 #' The triangular distribution is so named because of the shape of its
 #' probability density function. The average of two independent identically
-#' distributed uniform random variables with parameters \code{min=}\eqn{\alpha}
-#' and \code{max=}\eqn{\beta} has a triangular distribution with parameters
-#' \code{min=}\eqn{\alpha}, \code{max=}\eqn{\beta}, and
-#' \code{mode=}\eqn{(\beta-\alpha)/2}.
+#' distributed uniform random variables with parameters `min=`\eqn{\alpha}
+#' and `max=`\eqn{\beta} has a triangular distribution with parameters
+#' `min=`\eqn{\alpha}, `max=`\eqn{\beta}, and
+#' `mode=`\eqn{(\beta-\alpha)/2}.
 #' 
 #' @name dpqr-tri
 #' @aliases Triangular dtri ptri qtri rtri
 #' 
-#' @param x vector of quantiles.  Missing values (\code{NA}s) are allowed.
-#' @param q vector of quantiles.  Missing values (\code{NA}s) are allowed.
+#' @param x vector of quantiles.  Missing values (`NA`s) are allowed.
+#' @param q vector of quantiles.  Missing values (`NA`s) are allowed.
 #' @param p vector of probabilities between 0 and 1.  Missing values
-#' (\code{NA}s) are allowed.
-#' @param n sample size.  If \code{length(n)} is larger than 1, then
-#' \code{length(n)} random values are returned.
+#' (`NA`s) are allowed.
+#' @param n sample size.  If `length(n)` is larger than 1, then
+#' `length(n)` random values are returned.
 #' @param min vector of minimum values of the distribution of the random
-#' variable.  The default value is \code{min=0}.
+#' variable.  The default value is `min=0`.
 #' @param max vector of maximum values of the random variable.  The default
-#' value is \code{max=1}.
+#' value is `max=1`.
 #' @param mode vector of modes of the random variable.  The default value is
-#' \code{mode=1/2}.
-#' @return \code{dtri()} gives the density, \code{ptri()} gives the
-#' distribution function, \code{qtri()} gives the quantile function, and
-#' \code{rtri()} generates random deviates.
+#' `mode=1/2`.
+#' @return `dtri()` gives the density, `ptri()` gives the
+#' distribution function, `qtri()` gives the quantile function, and
+#' `rtri()` generates random deviates.
 #' 
 #' The triangular distribution is sometimes used as an input distribution in
 #' probability risk assessment.
@@ -71,14 +71,14 @@
 #' Based on code by Steven P. Millard previously published in
 #' the \pkg{EnvStats} package, adapted to conform to package standards.
 #' 
-#' @seealso [distributions-overview]; \link[stats:Uniform]{Uniform}
+#' @seealso [distributions-overview]; [Uniform][stats::Uniform]
 #' 
 #' @references Forbes, C., M. Evans, N. Hastings, and B. Peacock. (2011).
 #' Statistical Distributions.  Fourth Edition. John Wiley and Sons, Hoboken,
 #' NJ.
 #' 
-#' Johnson, N. L., S. Kotz, and N. Balakrishnan. (1995).  \emph{Continuous
-#' Univariate Distributions, Volume 2}.  Second Edition. John Wiley and Sons,
+#' Johnson, N. L., S. Kotz, and N. Balakrishnan. (1995).  *Continuous
+#' Univariate Distributions, Volume 2*.  Second Edition. John Wiley and Sons,
 #' New York.
 #' 
 #' 

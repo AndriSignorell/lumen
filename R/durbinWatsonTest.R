@@ -7,7 +7,7 @@
 #'
 #' The Durbin-Watson test has the null hypothesis that the autocorrelation
 #' of the disturbances is 0. The alternative hypothesis can be specified as
-#' greater than, not equal to, or less than 0 via the \code{alternative}
+#' greater than, not equal to, or less than 0 via the `alternative`
 #' argument.
 #'
 #' Under the assumption of normally distributed disturbances, the null
@@ -21,43 +21,43 @@
 #'
 #' Three methods are dispatched:
 #' \describe{
-#'   \item{\code{formula}}{Fits the model from scratch using \code{data}.}
-#'   \item{\code{lm}}{Extracts design matrix and response from a fitted
-#'     \code{"lm"} object. The \code{data.name} field in the result reflects
+#'   \item{`formula`}{Fits the model from scratch using `data`.}
+#'   \item{`lm`}{Extracts design matrix and response from a fitted
+#'     `"lm"` object. The `data.name` field in the result reflects
 #'     the model formula, not the name of the object.}
-#'   \item{\code{numeric}}{Treats \code{x} as a vector of pre-computed
+#'   \item{`numeric`}{Treats `x` as a vector of pre-computed
 #'     residuals and fits an intercept-only design matrix. Note that this is
-#'     \emph{not} equivalent to testing residuals from a fitted model with
-#'     predictors; use the \code{lm} or \code{formula} method when a model
+#'     *not* equivalent to testing residuals from a fitted model with
+#'     predictors; use the `lm` or `formula` method when a model
 #'     exists.}
 #' }
 #'
 #' @name durbinWatsonTest
 #' @param x a symbolic description of the model to be tested (a
-#' \code{formula}), a fitted \code{"lm"} object, or a numeric vector of
+#' `formula`), a fitted `"lm"` object, or a numeric vector of
 #' residuals.
 #' @param data an optional data frame containing the variables in the
-#' model. Only used for the \code{formula} method. By default the variables
-#' are taken from the environment which \code{durbinWatsonTest} is called
+#' model. Only used for the `formula` method. By default the variables
+#' are taken from the environment which `durbinWatsonTest` is called
 #' from.
-#' @param orderBy either a vector \code{z} or a formula with a single
-#' explanatory variable like \code{~ z}. The observations in the model are
-#' ordered by the size of \code{z}. If set to \code{NULL} (the default) the
+#' @param orderBy either a vector `z` or a formula with a single
+#' explanatory variable like `~ z`. The observations in the model are
+#' ordered by the size of `z`. If set to `NULL` (the default) the
 #' observations are assumed to be ordered (e.g., a time series).
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"greater"} (default),
-#' \code{"two.sided"} or \code{"less"}.
+#' hypothesis, must be one of `"greater"` (default),
+#' `"two.sided"` or `"less"`.
 #' @param iterations an integer specifying the number of iterations used by
 #' the "pan" algorithm when computing the exact p-value.
-#' @param exact logical. If \code{TRUE} the exact p-value is computed via
-#' the "pan" algorithm; if \code{FALSE} a normal approximation is used. The
-#' default is \code{TRUE} for sample sizes below 100 and \code{FALSE}
+#' @param exact logical. If `TRUE` the exact p-value is computed via
+#' the "pan" algorithm; if `FALSE` a normal approximation is used. The
+#' default is `TRUE` for sample sizes below 100 and `FALSE`
 #' otherwise.
-#' @param tol numeric tolerance. Eigenvalues smaller than \code{tol} are
+#' @param tol numeric tolerance. Eigenvalues smaller than `tol` are
 #' treated as zero.
 #' @param \dots further arguments passed to or from other methods.
 #'
-#' @return An object of class \code{"htest"} containing the following
+#' @return An object of class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the Durbin-Watson test statistic.}
 #' \item{p.value}{the p-value of the test.}
@@ -74,22 +74,22 @@
 #'
 #' @references
 #' Durbin, J. and Watson, G. S. (1950) Testing for serial correlation in
-#' least squares regression I. \emph{Biometrika}, 37, 409-428.
+#' least squares regression I. *Biometrika*, 37, 409-428.
 #'
 #' Durbin, J. and Watson, G. S. (1951) Testing for serial correlation in
-#' least squares regression II. \emph{Biometrika}, 38, 159-178.
+#' least squares regression II. *Biometrika*, 38, 159-178.
 #'
 #' Durbin, J. and Watson, G. S. (1971) Testing for serial correlation in
-#' least squares regression III. \emph{Biometrika}, 58, 1-19.
+#' least squares regression III. *Biometrika*, 58, 1-19.
 #'
 #' Farebrother, R. W. (1980) Pan's procedure for the tail probabilities of
-#' the Durbin-Watson statistic. \emph{Applied Statistics}, 29, 224-227.
+#' the Durbin-Watson statistic. *Applied Statistics*, 29, 224-227.
 #'
 #' Farebrother, R. W. (1984) AS R53: A remark on algorithms AS 106, AS 153
-#' and AS 155. \emph{Applied Statistics}, 33, 366-369.
+#' and AS 155. *Applied Statistics*, 33, 366-369.
 #'
-#' Kraemer, W. and Sonnberger, H. (1986) \emph{The Linear Regression Model
-#' under Test}. Heidelberg: Physica.
+#' Kraemer, W. and Sonnberger, H. (1986) *The Linear Regression Model
+#' under Test*. Heidelberg: Physica.
 #'
 #' @seealso [lm()]
 #'

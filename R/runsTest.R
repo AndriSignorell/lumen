@@ -5,17 +5,17 @@
 #' of runs (consecutive sequences of identical values or values above/below
 #' a threshold).
 #'
-#' Performs a test whether the elements of \code{x} are serially independent
+#' Performs a test whether the elements of `x` are serially independent
 #' by counting how many runs there are above and below a threshold. If
-#' \code{y} is supplied, a two-sample Wald-Wolfowitz test for the equality
+#' `y` is supplied, a two-sample Wald-Wolfowitz test for the equality
 #' of two distributions is computed.
 #'
-#' \bold{The runs test for randomness} requires a dichotomous sequence. For
-#' a numeric variable \code{x} with more than two distinct values, the
+#' **The runs test for randomness** requires a dichotomous sequence. For
+#' a numeric variable `x` with more than two distinct values, the
 #' sequence is dichotomised by comparing each observation to the median.
 #' Observations exactly equal to the median are removed before the test, as
 #' is standard in the runs test literature. To use a different threshold,
-#' pass a logical vector directly: \code{runsTest(x > mean(x))}.
+#' pass a logical vector directly: `runsTest(x > mean(x))`.
 #'
 #' The normal approximation uses the expected number of runs under the null
 #' \deqn{\mu_r = \frac{2 n_0 n_1}{n_0 + n_1} + 1}
@@ -26,23 +26,23 @@
 #' the number of values below/above the threshold and \eqn{r} is the number
 #' of runs.
 #'
-#' Setting \code{correct = TRUE} applies a continuity correction as SAS (and
+#' Setting `correct = TRUE` applies a continuity correction as SAS (and
 #' SPSS for \eqn{n < 50}) does: \eqn{c = 0.5} if \eqn{r < \mu_r} and
 #' \eqn{c = -0.5} if \eqn{r > \mu_r}.
 #'
 #' The exact p-value is computed from the conditional distribution of the
 #' number of runs given \eqn{n_0} and \eqn{n_1}, implemented in C++.
 #'
-#' \bold{Interpretation of alternatives:}
+#' **Interpretation of alternatives:**
 #' \itemize{
-#'   \item \code{"less"}: fewer runs than expected — indicates clustering
+#'   \item `"less"`: fewer runs than expected — indicates clustering
 #'     or positive serial correlation.
-#'   \item \code{"greater"}: more runs than expected — indicates alternation
+#'   \item `"greater"`: more runs than expected — indicates alternation
 #'     or negative serial correlation.
-#'   \item \code{"two.sided"}: departure in either direction.
+#'   \item `"two.sided"`: departure in either direction.
 #' }
 #'
-#' \bold{The Wald-Wolfowitz test} is a two-sample nonparametric test for the
+#' **The Wald-Wolfowitz test** is a two-sample nonparametric test for the
 #' equality of two continuous distributions against general alternatives.
 #' Exact p-values are not valid in the presence of inter-group ties; a
 #' warning is issued when such ties are detected.
@@ -54,34 +54,34 @@
 #'   vector of data values.
 #' @param y an optional (non-empty) numeric vector of data values for the
 #'   Wald-Wolfowitz two-sample test.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs}
-#'   gives the data values and \code{rhs} the corresponding groups (exactly
+#' @param formula a formula of the form `lhs ~ rhs` where `lhs`
+#'   gives the data values and `rhs` the corresponding groups (exactly
 #'   two groups required).
 #' @param data an optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset an optional vector specifying a subset of observations to
 #'   be used.
 #' @param na.action a function which indicates what should happen when the
-#'   data contain \code{NA}s. Defaults to \code{getOption("na.action")}.
+#'   data contain `NA`s. Defaults to `getOption("na.action")`.
 #' @param alternative a character string specifying the alternative
-#'   hypothesis, must be one of \code{"two.sided"} (default),
-#'   \code{"less"} (fewer runs, clustering) or \code{"greater"} (more
+#'   hypothesis, must be one of `"two.sided"` (default),
+#'   `"less"` (fewer runs, clustering) or `"greater"` (more
 #'   runs, alternation).
 #' @param exact a logical indicating whether an exact p-value should be
 #'   computed. By default exact values are calculated for
 #'   \eqn{n_0 + n_1 \le 30} and the normal approximation otherwise.
 #' @param correct a logical indicating whether to apply a continuity
-#'   correction when computing the test statistic. Default is \code{TRUE}.
-#'   Ignored when \code{exact = TRUE}.
-#' @param na.rm logical. If \code{TRUE} (default), \code{NA}s are removed
+#'   correction when computing the test statistic. Default is `TRUE`.
+#'   Ignored when `exact = TRUE`.
+#' @param na.rm logical. If `TRUE` (default), `NA`s are removed
 #'   before the test.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return A list of class \code{"htest"} containing:
+#' @return A list of class `"htest"` containing:
 #' \item{statistic}{the standardized z-statistic (normal approximation only;
-#'   \code{NULL} for exact tests).}
-#' \item{parameter}{named vector with the number of runs, \code{m}
-#'   (\eqn{n_0}: observations below threshold) and \code{n}
+#'   `NULL` for exact tests).}
+#' \item{parameter}{named vector with the number of runs, `m`
+#'   (\eqn{n_0}: observations below threshold) and `n`
 #'   (\eqn{n_1}: observations above threshold).}
 #' \item{p.value}{the p-value for the test.}
 #' \item{alternative}{a character string describing the alternative
@@ -92,15 +92,15 @@
 #'
 #' @references
 #' Wackerly, D., Mendenhall, W., Scheaffer, R. L. (1986)
-#' \emph{Mathematical Statistics with Applications}, 3rd Ed.,
+#' *Mathematical Statistics with Applications*, 3rd Ed.,
 #' Duxbury Press, CA.
 #'
 #' Wald, A. and Wolfowitz, J. (1940): On a test whether two samples are
-#' from the same population. \emph{Annals of Mathematical Statistics}
-#' \bold{11}, 147--162.
+#' from the same population. *Annals of Mathematical Statistics*
+#' **11**, 147--162.
 #'
-#' Siegel, S. (1956) \emph{Nonparametric Statistics for the Behavioural
-#' Sciences}, McGraw-Hill Kogakusha, Tokyo.
+#' Siegel, S. (1956) *Nonparametric Statistics for the Behavioural
+#' Sciences*, McGraw-Hill Kogakusha, Tokyo.
 #'
 #' @examples
 #' # dichotomous character vector
@@ -121,7 +121,7 @@
 #' B <- c(17,23,13,24,33,21,18,16,32)
 #' runsTest(A, B, exact = TRUE)
 #'
-#' @seealso \code{\link{rle}}
+#' @seealso [rle()]
 #'   
 #' @family test.timeseries
 #' @concept goodness-of-fit  

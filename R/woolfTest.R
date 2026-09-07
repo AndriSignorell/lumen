@@ -13,7 +13,7 @@
 #' 
 #' @param x a \eqn{2 \times 2 \times k}{2 x 2 x k} table, where the last
 #' dimension refers to the strata.
-#' @return A list of class \code{"htest"} containing the following components:
+#' @return A list of class `"htest"` containing the following components:
 #' \item{statistic}{the chi-squared test statistic.} \item{parameter}{degrees
 #' of freedom of the approximate chi-squared distribution of the test
 #' statistic.} \item{p.value}{\eqn{p}-value for the test.} \item{method}{a
@@ -24,13 +24,13 @@
 #' strata.}
 #' 
 #' @note Based on code by David Meyer, Achim Zeileis, Kurt Hornik, Michael Friendly 
-#' previously published as \code{woolf_test()} in the
+#' previously published as `woolf_test()` in the
 #' \pkg{vcd} package, adapted to conform to package standards.
 #' 
 #' @seealso [mantelhaen.test()]
 #' 
 #' @references Woolf, B. 1955: On estimating the relation between blood group
-#' and disease. \emph{Ann. Human Genet.} (London) \bold{19}, 251-253.
+#' and disease. *Ann. Human Genet.* (London) **19**, 251-253.
 #' 
 #' @examples
 #' 

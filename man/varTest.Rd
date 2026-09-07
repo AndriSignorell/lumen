@@ -47,7 +47,7 @@ gives the response values and \code{rhs} the corresponding groups
 or explanatory variables.}
 
 \item{data}{an optional matrix or data frame (or similar; see
-\code{\link[stats]{model.frame}}) containing the variables in the
+\code{\link[stats:model.frame]{stats::model.frame()}}) containing the variables in the
 formula. By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -71,7 +71,7 @@ An object of class \code{"htest"} with components:
 }
 \description{
 Performs a one-sample or two-sample test for variance, analogous to
-\code{\link[stats]{t.test}}, with support for classical and likelihood-based
+\code{\link[stats:t.test]{stats::t.test()}}, with support for classical and likelihood-based
 lowest-density (LD) two-sided p-values.
 }
 \details{
@@ -113,9 +113,9 @@ varTest(value ~ group, data = df)
 
 }
 \seealso{
-\code{\link{var.test}}, \code{\link{bartlett.test}} for testing
+\code{\link[=var.test]{var.test()}}, \code{\link[=bartlett.test]{bartlett.test()}} for testing
 homogeneity of variances in more than two samples from normal distributions;
-\code{\link{ansari.test}} and \code{\link{mood.test}} for two rank based
+\code{\link[=ansari.test]{ansari.test()}} and \code{\link[=mood.test]{mood.test()}} for two rank based
 (nonparametric) two-sample tests for difference in scale.
 
 Other test.variance:

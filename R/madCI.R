@@ -3,24 +3,24 @@
 #'
 #' @description
 #' Confidence intervals for the median absolute deviation (MAD) of a single
-#' sample (\code{madCI}), for the difference of two MADs (\code{madDiffCI}),
-#' and for the squared ratio of two MADs (\code{madRatioCI}).  Two methods
+#' sample (`madCI`), for the difference of two MADs (`madDiffCI`),
+#' and for the squared ratio of two MADs (`madRatioCI`).  Two methods
 #' are available throughout: an asymptotic interval based on the generalized
 #' lambda distribution (GLD), and a parallel bootstrap interval.
 #'
 #' @details
-#' **Classic method** (\code{method = "classic"})
+#' **Classic method** (`method = "classic"`)
 #'
 #' All three functions follow Arachchige & Prendergast (2019) and base the
 #' interval on the asymptotic variance of the MAD, approximated by fitting
-#' a GLD to the data via \code{.asv.mad()}.  The GLD estimation method is
-#' selected with \code{gldMethod}.
+#' a GLD to the data via `.asv.mad()`.  The GLD estimation method is
+#' selected with `gldMethod`.
 #'
-#' For \code{madDiffCI} the asymptotic variances of the two samples are
+#' For `madDiffCI` the asymptotic variances of the two samples are
 #' combined as
 #' \eqn{\widehat{\mathrm{ASV}}(x)/n_x + \widehat{\mathrm{ASV}}(y)/n_y}.
 #'
-#' For \code{madRatioCI} the interval is constructed on the log scale via
+#' For `madRatioCI` the interval is constructed on the log scale via
 #' the delta method and back-transformed to guarantee positivity:
 #' \deqn{
 #'   \exp\!\Bigl(\log\hat\theta \;\pm\; z_{\alpha/2}
@@ -31,55 +31,55 @@
 #' The classic method is fast and accurate for large samples but may
 #' undercover for small or heavy-tailed distributions.
 #'
-#' **Bootstrap method** (\code{method = "boot"})
+#' **Bootstrap method** (`method = "boot"`)
 #'
 #' Data are resampled \eqn{R} times using a parallel Rcpp worker and a
 #' percentile or BCa interval is returned.  For the two-sample functions
 #' the two samples are resampled independently.  Bootstrap arguments are
-#' passed through \code{...} and extracted via \code{.extractBootArgs()}:
+#' passed through `...` and extracted via `.extractBootArgs()`:
 #' \describe{
-#'   \item{\code{R}}{Number of bootstrap replicates (default \code{999}).}
-#'   \item{\code{type}}{CI type: \code{"perc"} or \code{"bca"} (default).}
-#'   \item{\code{parallel}}{Parallelisation: \code{"no"}, \code{"multicore"},
-#'     or \code{"snow"} (default \code{"no"}).}
-#'   \item{\code{ncpus}}{Number of CPUs for parallel bootstrap
-#'     (default \code{getOption("boot.ncpus", 1L)}).}
+#'   \item{`R`}{Number of bootstrap replicates (default `999`).}
+#'   \item{`type`}{CI type: `"perc"` or `"bca"` (default).}
+#'   \item{`parallel`}{Parallelisation: `"no"`, `"multicore"`,
+#'     or `"snow"` (default `"no"`).}
+#'   \item{`ncpus`}{Number of CPUs for parallel bootstrap
+#'     (default `getOption("boot.ncpus", 1L)`).}
 #' }
 #'
 #' @param x        A non-empty numeric vector (first or only sample).
 #' @param y        A non-empty numeric vector (second sample).
-#'   Required for \code{madDiffCI} and \code{madRatioCI}.
+#'   Required for `madDiffCI` and `madRatioCI`.
 #' @param conf.level Confidence level of the interval.  A single numeric
-#'   value in \eqn{(0, 1)}.  Default \code{0.95}.
+#'   value in \eqn{(0, 1)}.  Default `0.95`.
 #' @param sides    A character string specifying the side of the interval:
-#'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
-#'   Partial matching is supported.  \code{"left"} sets \code{uci = Inf};
-#'   \code{"right"} sets \code{lci = -Inf}.
+#'   `"two.sided"` (default), `"left"`, or `"right"`.
+#'   Partial matching is supported.  `"left"` sets `uci = Inf`;
+#'   `"right"` sets `lci = -Inf`.
 #' @param method   A character string selecting the CI method:
-#'   \code{"classic"} (asymptotic GLD-based, default) or \code{"boot"}
+#'   `"classic"` (asymptotic GLD-based, default) or `"boot"`
 #'   (parallel bootstrap).
-#' @param gldMethod A character string passed to \code{.asv.mad()} selecting
-#'   the GLD estimation method.  One of \code{"ML"}, \code{"MPS"},
-#'   \code{"TM"} (default), \code{"SM"}, \code{"TL"}, \code{"Lmom"},
-#'   \code{"DLA"}, or \code{"Mom"}.  See \code{\link[gld]{fit.fkml}()}.
-#'   Used only when \code{method = "classic"}.
+#' @param gldMethod A character string passed to `.asv.mad()` selecting
+#'   the GLD estimation method.  One of `"ML"`, `"MPS"`,
+#'   `"TM"` (default), `"SM"`, `"TL"`, `"Lmom"`,
+#'   `"DLA"`, or `"Mom"`.  See [gld::fit.fkml()].
+#'   Used only when `method = "classic"`.
 #' @param na.rm    Logical.  Should missing values be removed before
-#'   computation?  Default \code{FALSE}.
+#'   computation?  Default `FALSE`.
 #' @param ...      Further arguments passed to the bootstrap engine when
-#'   \code{method = "boot"}: \code{R}, \code{type}, \code{parallel},
-#'   \code{ncpus}.  See Details.
+#'   `method = "boot"`: `R`, `type`, `parallel`,
+#'   `ncpus`.  See Details.
 #'
 #' 
 #' @return A named numeric vector with three elements:
 #' \itemize{
-#'   \item \code{est}: point estimate:\cr
-#'        \verb{  } \eqn{\mathrm{mad}(x)} for \code{madCI}\cr
+#'   \item `est`: point estimate:\cr
+#'        \verb{  } \eqn{\mathrm{mad}(x)} for `madCI`\cr
 #'        \verb{  } \eqn{\mathrm{mad}(x) - \mathrm{mad}(y)}
-#'           for \code{madDiffCI} \cr
+#'           for `madDiffCI` \cr
 #'        \verb{  } \eqn{(\mathrm{mad}(x)/\mathrm{mad}(y))^2}
-#'           for \code{madRatioCI}
-#'   \item \code{lci}: lower confidence bound.
-#'   \item \code{uci}: upper confidence bound.
+#'           for `madRatioCI`
+#'   \item `lci`: lower confidence bound.
+#'   \item `uci`: upper confidence bound.
 #' }
 #'    
 #' @note
@@ -88,10 +88,10 @@
 #'
 #' @references
 #' Arachchige, C. N. P. G., & Prendergast, L. A. (2019). Confidence
-#'   intervals for median absolute deviations. \emph{arXiv:1910.00229}
+#'   intervals for median absolute deviations. *arXiv:1910.00229*
 #'   \verb{[math.ST]}.
 #'
-#' @seealso \code{\link{mad}}, \code{DescToolsX::madX}
+#' @seealso [mad()], `DescToolsX::madX`
 #'
 #' @examples
 #' set.seed(1)

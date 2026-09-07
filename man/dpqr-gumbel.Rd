@@ -46,8 +46,8 @@ value theory.
 Density function, distribution function, quantile function and random
 generation for the Gumbel distribution with location and scale parameters.
 
-The Gumbel distribution function with parameters \eqn{\code{loc} = a} and
-\eqn{\code{scale} = b} is
+The Gumbel distribution function with parameters \eqn{`loc` = a} and
+\eqn{`scale` = b} is
 \deqn{G(z) = \exp\left\{-\exp\left[-\left(\frac{z-a}{b}\right)\right]\right\}}{G(z) = exp(-exp(-(z-a)/b))}
 for all real \eqn{z}, where \eqn{b > 0}.
 }

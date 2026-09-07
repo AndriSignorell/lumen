@@ -19,12 +19,12 @@
 #'
 #' When ties are present or sample sizes are large, permutation p-values
 #' can be computed by permuting group labels under the null hypothesis
-#' (\code{method = "permutation"}); the number of permutations is
-#' controlled by \code{R}, and the reported p-value uses the finite-sample
+#' (`method = "permutation"`); the number of permutations is
+#' controlled by `R`, and the reported p-value uses the finite-sample
 #' correction \eqn{(m + 1)/(R + 1)}. This approach remains valid in the
 #' presence of ties.
 #'
-#' With \code{method = "asymptotic"} (the fallback of \code{"auto"} when
+#' With `method = "asymptotic"` (the fallback of `"auto"` when
 #' exact inference does not apply), a normal approximation with the
 #' tie-corrected variance of Hollander and Wolfe (1999, Eq. 6.19) is used.
 #'
@@ -32,30 +32,30 @@
 #' @aliases jonckheereTerpstraTest jonckheereTerpstraTest.default jonckheereTerpstraTest.formula
 #'
 #' @param x a numeric vector of observations, or a list of numeric vectors.
-#' @param g a grouping variable corresponding to \code{x}, whose (factor)
-#' level order defines the hypothesised ordering; ignored when \code{x} is
+#' @param g a grouping variable corresponding to `x`, whose (factor)
+#' level order defines the hypothesised ordering; ignored when `x` is
 #' a list.
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"two.sided"} (default),
-#' \code{"increasing"} or \code{"decreasing"}.
+#' hypothesis, must be one of `"two.sided"` (default),
+#' `"increasing"` or `"decreasing"`.
 #' @param method a character string specifying the inference method, one of
-#' \code{"auto"} (default), \code{"exact"}, \code{"permutation"} or
-#' \code{"asymptotic"}. \code{"auto"} uses exact inference when possible
+#' `"auto"` (default), `"exact"`, `"permutation"` or
+#' `"asymptotic"`. `"auto"` uses exact inference when possible
 #' (no ties, \eqn{n \le 100}), otherwise the asymptotic approximation.
 #' @param R the number of permutations, required when
-#' \code{method = "permutation"}.
-#' @param formula a formula of the form \code{response ~ group}.
+#' `method = "permutation"`.
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#' \code{formula}.
+#' `formula`.
 #' @param subset an optional expression specifying a subset of observations.
 #' @param na.action a function indicating how missing values should be
 #' handled.
 #' @param \dots further arguments passed to methods.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
 #' \item{statistic}{the value of the Jonckheere-Terpstra statistic.}
-#' \item{parameter}{the number of groups \code{k} and the total sample
-#' size \code{n}.}
+#' \item{parameter}{the number of groups `k` and the total sample
+#' size `n`.}
 #' \item{p.value}{the p-value of the test.}
 #' \item{alternative}{a character string describing the alternative
 #' hypothesis.}
@@ -65,14 +65,14 @@
 #'
 #' @references
 #' Jonckheere, A. R. (1954) A distribution-free k-sample test against
-#' ordered alternatives. \emph{Biometrika}, 41, 133--145.
+#' ordered alternatives. *Biometrika*, 41, 133--145.
 #'
 #' Terpstra, T. J. (1952) The asymptotic normality and consistency of
 #' Kendall's test against trend, when ties are present in one ranking.
-#' \emph{Indagationes Mathematicae}, 14, 327--333.
+#' *Indagationes Mathematicae*, 14, 327--333.
 #'
-#' Hollander, M. and Wolfe, D. A. (1999) \emph{Nonparametric Statistical
-#' Methods}, 2nd ed., New York: Wiley.
+#' Hollander, M. and Wolfe, D. A. (1999) *Nonparametric Statistical
+#' Methods*, 2nd ed., New York: Wiley.
 #'
 #' @seealso [kruskal.test()]
 #'

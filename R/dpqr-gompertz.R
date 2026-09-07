@@ -6,8 +6,8 @@
 #' value. It is parameterized by a shape and a scale parameter, and is 
 #' characterized by an exponentially increasing hazard rate.
 #' 
-#' The Gompertz distribution with \code{shape} parameter \eqn{a} and
-#' \code{rate} parameter \eqn{b}{b} has probability density function
+#' The Gompertz distribution with `shape` parameter \eqn{a} and
+#' `rate` parameter \eqn{b}{b} has probability density function
 #' 
 #' \deqn{f(x | a, b) = be^{ax}\exp(-b/a (e^{ax} - 1))}{f(x | a, b) = b exp(ax)
 #' exp(-b/a (exp(ax) - 1))}
@@ -20,20 +20,20 @@
 #' 
 #' Thus if \eqn{a} is negative, letting \eqn{x} tend to infinity shows that
 #' there is a non-zero probability \eqn{1 - \exp(b/a)}{1 - exp(b/a)} of living
-#' forever.  On these occasions \code{qgompertz()} and \code{rgompertz()} will
-#' return \code{Inf}.
+#' forever.  On these occasions `qgompertz()` and `rgompertz()` will
+#' return `Inf`.
 #' 
-#' \strong{Note:} Some implementations of the Gompertz restrict \eqn{a} to be strictly
+#' **Note:** Some implementations of the Gompertz restrict \eqn{a} to be strictly
 #' positive, which ensures that the probability of survival decreases to zero
 #' as \eqn{x} increases to infinity.  The more flexible implementation given
-#' here is consistent with \code{streg} in Stata.
+#' here is consistent with `streg` in Stata.
 #' 
-#' The functions \code{dgompertz()} and similar available in the package
+#' The functions `dgompertz()` and similar available in the package
 #' \pkg{eha} label the parameters the other way round, so that what is called
-#' the \code{shape} there is called the \code{rate} here, and what is called
-#' \code{1 / scale} there is called the \code{shape} here. The terminology here
-#' is consistent with the exponential \code{\link{dexp}} and Weibull
-#' \code{\link{dweibull}} distributions in R.
+#' the `shape` there is called the `rate` here, and what is called
+#' `1 / scale` there is called the `shape` here. The terminology here
+#' is consistent with the exponential [dexp()] and Weibull
+#' [dweibull()] distributions in R.
 #' 
 #' @name dpqr-gompertz
 #' @aliases Gompertz dgompertz pgompertz qgompertz rgompertz
@@ -44,25 +44,25 @@
 #' @param lower.tail logical; if TRUE (default), probabilities are \eqn{P(X
 #' }{P(X <= x)}\eqn{\le x)}{P(X <= x)}, otherwise, \eqn{P(X > x)}{P(X > x)}.
 #' @param p vector of probabilities.
-#' @param n number of observations. If \code{length(n) > 1}, the length is
+#' @param n number of observations. If `length(n) > 1`, the length is
 #' taken to be the number required.
-#' @return \code{dgompertz()} gives the density, \code{pgompertz()} gives the
-#' distribution function, \code{qgompertz()} gives the quantile function, and
-#' \code{rgompertz()} generates random deviates.
+#' @return `dgompertz()` gives the density, `pgompertz()` gives the
+#' distribution function, `qgompertz()` gives the quantile function, and
+#' `rgompertz()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Christopher Jackson previously published in
 #' the \pkg{flexsurv} package, adapted to conform to package standards.
 #'  
-#' @seealso [distributions-overview]; \code{\link{dexp}}
+#' @seealso [distributions-overview]; [dexp()]
 #' 
 #' @references
 #' Gompertz, B. (1825) On the nature of the function expressive of the law
-#' of human mortality. \emph{Philosophical Transactions of the Royal Society},
-#' \bold{115}, 513--583.
+#' of human mortality. *Philosophical Transactions of the Royal Society*,
+#' **115**, 513--583.
 #'
-#' Stata Press (2007) \emph{Stata Release 10 Manual: Survival Analysis
-#' and Epidemiological Tables}. Stata Press.
+#' Stata Press (2007) *Stata Release 10 Manual: Survival Analysis
+#' and Epidemiological Tables*. Stata Press.
 #'  
 
 #' @rdname dpqr-gompertz

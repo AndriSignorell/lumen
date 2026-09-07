@@ -89,11 +89,11 @@ adfTest(rw, type = "drift")
 \references{
 Dickey, D. A. and Fuller, W. A. (1979) Distribution of the
 estimators for autoregressive time series with a unit root, \emph{Journal
-of the American Statistical Association}, \bold{74}, 427--431.
+of the American Statistical Association}, \strong{74}, 427--431.
 
 Dickey, D. A. and Fuller, W. A. (1981) Likelihood ratio statistics for
 autoregressive time series with a unit root, \emph{Econometrica},
-\bold{49}, 1057--1072.
+\strong{49}, 1057--1072.
 
 Fuller, W. A. (1976) \emph{Introduction to Statistical Time Series},
 New York: Wiley.
@@ -102,7 +102,7 @@ Hamilton, J. D. (1994) \emph{Time Series Analysis}, Princeton:
 Princeton University Press.
 }
 \seealso{
-\code{\link{kpssTest}}
+\code{\link[=kpssTest]{kpssTest()}}
 
 Other test.timeseries:
 \code{\link[=bartelsRankTest]{bartelsRankTest()}},

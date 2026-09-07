@@ -64,8 +64,8 @@ the family-wise error rate through the studentized range distribution
 
 Nemenyi's test is commonly used as a post hoc procedure after a significant
 \code{\link[=kruskal.test]{kruskal.test()}} when all pairwise comparisons between groups are
-of interest. Unlike \code{\link{dunnTest}} and
-\code{\link{conoverTest}}, no additional p-value adjustment is applied,
+of interest. Unlike \code{\link[=dunnTest]{dunnTest()}} and
+\code{\link[=conoverTest]{conoverTest()}}, no additional p-value adjustment is applied,
 since multiplicity control is built into the test statistic.
 
 If \code{x} is a list, its elements are taken as the samples to be compared,

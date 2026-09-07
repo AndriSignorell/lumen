@@ -59,8 +59,8 @@ Thode Jr., H.C. (2002) \emph{Testing for Normality}. New York: Marcel
 Dekker.
 }
 \seealso{
-\code{\link{shapiro.test}} for performing the Shapiro-Wilk test
-for normality, \code{\link{andersonDarlingTest}},
+\code{\link[=shapiro.test]{shapiro.test()}} for performing the Shapiro-Wilk test
+for normality, \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{pharos::plotQQ()} for producing extended normal quantile-quantile
 plots
 

@@ -100,11 +100,11 @@ poissonRatioCI(0, 100, 6, 120)
 }
 \references{
 Sahai, H. and Khurshid, A. (1993). Confidence intervals for the ratio of two
-Poisson means. \emph{The Mathematical Scientist}, \bold{18}, 43--50.
+Poisson means. \emph{The Mathematical Scientist}, \strong{18}, 43--50.
 
 Graham, P. L., Mengersen, K. and Morton, A. P. (2003). Confidence limits for
 the ratio of two rates based on likelihood scores. \emph{Statistics in
-Medicine}, \bold{22}(12), 2071--2083.
+Medicine}, \strong{22}(12), 2071--2083.
 }
 \seealso{
 \code{\link[=poissonCI]{poissonCI()}}, \code{\link[=poissonDiffCI]{poissonDiffCI()}}, \code{\link[=binomRatioCI]{binomRatioCI()}},

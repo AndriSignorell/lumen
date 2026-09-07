@@ -11,7 +11,7 @@
 #' digits. It is commonly applied in fraud detection and data quality 
 #' assessment.
 #' 
-#' Benford's Law (aka \emph{the significant-digit law}) is the empirical
+#' Benford's Law (aka *the significant-digit law*) is the empirical
 #' observation that in many naturally occurring tables of numerical data, the
 #' leading significant (nonzero) digit is not uniformly distributed in
 #' \eqn{\{1,2,\ldots,9\}}{1:9}. Instead, the leading significant digit
@@ -27,8 +27,8 @@
 #' progressively cleaner throughout. In 1938, a General Electric physicist
 #' called F. Benford rediscovered the law on this same observation. Over
 #' several years he collected data from sources as different as
-#' atomic weights, baseball statistics, numerical data from \emph{Reader's
-#' Digest}, and drainage areas of rivers.
+#' atomic weights, baseball statistics, numerical data from *Reader's
+#' Digest*, and drainage areas of rivers.
 #' 
 #' Applications of Benford's Law have been as diverse as fraud detection
 #' in accounting and the design of computers.
@@ -36,33 +36,33 @@
 #' @name dpqr-benford
 #' @aliases Benford benford dbenford pbenford qbenford rbenford
 #' 
-#' @param x,q a vector of quantiles, see \code{nDigits}.
+#' @param x,q a vector of quantiles, see `nDigits`.
 #' 
 #' @param p a vector of probabilities.
 #' @param n number of observations. A single positive integer.  Else if
-#' \code{length(n) > 1} then the length is taken to be the number required.
+#' `length(n) > 1` then the length is taken to be the number required.
 #' 
 #' @param nDigits number of leading digits, either 1 or 2.  If 1 then the
 #' support of the distribution is \{1, ..., 9\}, else \{10, ..., 99\}.
 #' 
-#' @param log logical; if \code{TRUE}, densities are given as \code{log(d)}.
+#' @param log logical; if `TRUE`, densities are given as `log(d)`.
 #' 
-#' @param log.p logical; if \code{TRUE}, probabilities \code{p} are given as
-#' \code{log(p)}.
+#' @param log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)`.
 #' 
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are
+#' @param lower.tail logical; if `TRUE` (default), probabilities are
 #' \eqn{P(X \le x)}, otherwise \eqn{P(X > x)}.
 #' 
-#' @return \code{dbenford()} gives the density, \code{pbenford()} gives the
-#' distribution function, \code{qbenford()} gives the quantile function, and
-#' \code{rbenford()} generates random deviates.
+#' @return `dbenford()` gives the density, `pbenford()` gives the
+#' distribution function, `qbenford()` gives the quantile function, and
+#' `rbenford()` generates random deviates.
 #' 
 #' @references
-#' Benford, F. (1938) The Law of Anomalous Numbers. \emph{Proceedings of the
-#' American Philosophical Society}, \bold{78}, 551--572.
+#' Benford, F. (1938) The Law of Anomalous Numbers. *Proceedings of the
+#' American Philosophical Society*, **78**, 551--572.
 #' 
 #' Newcomb, S. (1881) Note on the Frequency of Use of the Different Digits in
-#' Natural Numbers. \emph{American Journal of Mathematics}, \bold{4}, 39--40.
+#' Natural Numbers. *American Journal of Mathematics*, **4**, 39--40.
 #' 
 #' @note
 #' Based on code by T. W. Yee previously published in

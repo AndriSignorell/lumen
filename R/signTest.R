@@ -8,21 +8,21 @@
 #' Performs one- and two-sample sign tests on vectors of data.
 #' 
 #' There is no formula interface: unlike [wilcox.test()]'s
-#' \code{paired} argument, a one-sample or paired-samples design has no
-#' natural mapping to \code{response ~ group} formula semantics (the
+#' `paired` argument, a one-sample or paired-samples design has no
+#' natural mapping to `response ~ group` formula semantics (the
 #' pairing order is not expressible that way), so none is offered here.
 #' 
-#' \code{signTest} computes a \dQuote{Dependent-samples Sign-Test} if both
-#' \code{x} and \code{y} are provided.  If only \code{x} is provided, the
+#' `signTest` computes a \dQuote{Dependent-samples Sign-Test} if both
+#' `x` and `y` are provided.  If only `x` is provided, the
 #' \dQuote{One-sample Sign-Test} will be computed.
 #' 
 #' For the one-sample sign-test, the null hypothesis is that the median of the
-#' population from which \code{x} is drawn is \code{mu}. For the two-sample
+#' population from which `x` is drawn is `mu`. For the two-sample
 #' dependent case, the null hypothesis is that the median for the differences
-#' of the populations from which \code{x} and \code{y} are drawn is \code{mu}.
+#' of the populations from which `x` and `y` are drawn is `mu`.
 #' The alternative hypothesis indicates the direction of divergence of the
-#' population median for \code{x} from \code{mu} (i.e., \code{"greater"},
-#' \code{"less"}, \code{"two.sided"}.)
+#' population median for `x` from `mu` (i.e., `"greater"`,
+#' `"less"`, `"two.sided"`.)
 #' 
 #' The confidence levels are exact.
 #' 
@@ -33,36 +33,36 @@
 #' values will be omitted.
 #' @param mu a number specifying an optional parameter used to form the null
 #' hypothesis. See Details.
-#' @param alternative a character string, one of \code{"greater"},
-#' \code{"less"}, or \code{"two.sided"}, or the initial letter of each,
+#' @param alternative a character string, one of `"greater"`,
+#' `"less"`, or `"two.sided"`, or the initial letter of each,
 #' indicating the specification of the alternative hypothesis. For one-sample
-#' tests, \code{alternative} refers to the true median of the parent population
+#' tests, `alternative` refers to the true median of the parent population
 #' in relation to the hypothesized value of the median.
 #' @param conf.level confidence level for the returned confidence interval,
 #' restricted to lie between zero and one.
 #' 
-#' @return A list of class \code{htest}, containing the following components:
+#' @return A list of class `htest`, containing the following components:
 #' \item{statistic}{ the S-statistic (the number of positive differences
 #' between the data and the hypothesized median), with names attribute
 #' \dQuote{S}.} \item{parameter}{ the total number of valid differences.}
 #' \item{p.value}{ the p-value for the test.} \item{null.value}{is the value of
 #' the median specified by the null hypothesis. This equals the input argument
-#' \code{mu}. } \item{alternative}{a character string describing the
+#' `mu`. } \item{alternative}{a character string describing the
 #' alternative hypothesis.} \item{method}{ the type of test applied.}
 #' \item{data.name}{a character string giving the names of the data.}
 #' \item{conf.int}{ a confidence interval for the median.} \item{estimate}{ the
 #' sample median.}
 #' 
 #' @seealso [t.test()], [wilcox.test()],
-#' \code{\link{zTest}}, \code{\link{binom.test}}, \code{\link[BSDA]{SIGN.test}}
+#' [zTest()], [binom.test()], [BSDA::SIGN.test()]
 #' in the package \pkg{BSDA} (reporting approximative confidence intervals).
 #' 
-#' @references Gibbons, J.D. and Chakraborti, S. (1992): \emph{Nonparametric
-#' Statistical Inference}. Marcel Dekker Inc., New York.
+#' @references Gibbons, J.D. and Chakraborti, S. (1992): *Nonparametric
+#' Statistical Inference*. Marcel Dekker Inc., New York.
 #' 
-#' Kitchens, L. J. (2003): \emph{Basic Statistics and Data Analysis}. Duxbury.
+#' Kitchens, L. J. (2003): *Basic Statistics and Data Analysis*. Duxbury.
 #' 
-#' Conover, W. J. (1980): \emph{Practical Nonparametric Statistics, 2nd ed}.
+#' Conover, W. J. (1980): *Practical Nonparametric Statistics, 2nd ed*.
 #' Wiley, New York.
 #' 
 #' @concept paired test

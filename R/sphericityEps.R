@@ -10,21 +10,21 @@
 #' @param nGroups number of groups.
 #' @param n number of subjects.
 #' @param method a character string specifying which epsilon to return,
-#'   must be one of \code{"both"} (default), \code{"gg"} for 
-#'   Greenhouse-Geisser, or \code{"hf"} for Huynh-Feldt.
+#'   must be one of `"both"` (default), `"gg"` for 
+#'   Greenhouse-Geisser, or `"hf"` for Huynh-Feldt.
 #'    
 #' @return A numeric value.
 #'
 #' @note
 #' Based on code by Hans Rudolf Roth, adapted to conform to package standards.
 #' 
-#' @seealso \code{\link{aov}} 
+#' @seealso [aov()] 
 #' 
-#' @references Vonesh, E.F., Chinchilli, V.M. (1997) \emph{Linear and Nonlinear
-#' Models for the Analysis of Repeated Measurements} Marcel Dekker, New York,
+#' @references Vonesh, E.F., Chinchilli, V.M. (1997) *Linear and Nonlinear
+#' Models for the Analysis of Repeated Measurements* Marcel Dekker, New York,
 #' p.84-86
 #' 
-#' Crowder, M.J., Hand, D.J. (1990) \emph{Analysis of Repeated Measures}.
+#' Crowder, M.J., Hand, D.J. (1990) *Analysis of Repeated Measures*.
 #' Chapman & Hall, London, p.54-55 
 #' 
 #' @examples

@@ -2,9 +2,9 @@
 #' Resolve method argument including sentinel ".all"
 #'
 #' Internal helper that resolves a character argument against the
-#' formal default choices of the calling function. If \code{method}
-#' equals the sentinel value \code{".all"}, all available choices are
-#' returned. Otherwise \code{match.arg()} is applied.
+#' formal default choices of the calling function. If `method`
+#' equals the sentinel value `".all"`, all available choices are
+#' returned. Otherwise `match.arg()` is applied.
 #'
 #' @param method a character value specifying one or more methods.
 #' @param several.ok logical. Should multiple matches be allowed?

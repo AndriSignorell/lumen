@@ -13,19 +13,19 @@
 #' with one degree of freedom.
 #'
 #' This test is sometimes called the Mantel-Haenszel chi-squared test for
-#' trend, but it is \emph{not} the stratified Cochran-Mantel-Haenszel test
+#' trend, but it is *not* the stratified Cochran-Mantel-Haenszel test
 #' for \eqn{2 \times 2 \times k}{2 x 2 x k} tables (see
-#' \code{\link[stats]{mantelhaen.test}} for that). It is a score test for
+#' [stats::mantelhaen.test()] for that). It is a score test for
 #' ordinal association, also known as the linear-by-linear association
 #' test.
 #'
-#' Both variables should be measured on an ordinal scale. If \code{x} has
-#' numeric row and/or column \code{dimnames} (e.g. income brackets or
+#' Both variables should be measured on an ordinal scale. If `x` has
+#' numeric row and/or column `dimnames` (e.g. income brackets or
 #' dose levels stored as label strings that parse as numbers), those
 #' values are used as the default scores; otherwise the default is
-#' \code{1:nrow(x)} resp. \code{1:ncol(x)}, i.e. the categories are
+#' `1:nrow(x)` resp. `1:ncol(x)`, i.e. the categories are
 #' assumed equally spaced. This mirrors the scoring convention used by
-#' \code{\link{cochranArmitageTest}}. The choice of scores affects the
+#' [cochranArmitageTest()]. The choice of scores affects the
 #' result: any monotone scores are permitted; non-monotone scores
 #' (neither strictly increasing nor strictly decreasing) produce a
 #' warning, since \eqn{r} would then no longer reflect a consistent
@@ -33,13 +33,13 @@
 #'
 #' @param x a numeric matrix of counts (\eqn{r \times c}{r x c})
 #' @param srow numeric vector of row scores; length must equal
-#' \code{nrow(x)}. Defaults to the numeric row \code{dimnames} of
-#' \code{x} if present, otherwise \code{1:nrow(x)}. See the Details.
+#' `nrow(x)`. Defaults to the numeric row `dimnames` of
+#' `x` if present, otherwise `1:nrow(x)`. See the Details.
 #' @param scol numeric vector of column scores; length must equal
-#' \code{ncol(x)}. Defaults to the numeric column \code{dimnames} of
-#' \code{x} if present, otherwise \code{1:ncol(x)}. See the Details.
+#' `ncol(x)`. Defaults to the numeric column `dimnames` of
+#' `x` if present, otherwise `1:ncol(x)`. See the Details.
 #'
-#' @return A list of class \code{"htest"} containing:
+#' @return A list of class `"htest"` containing:
 #' \item{statistic}{the Mantel linear association chi-squared statistic}
 #' \item{parameter}{degrees of freedom (always 1)}
 #' \item{p.value}{the p-value}
@@ -47,18 +47,18 @@
 #' \item{method}{a character string describing the test}
 #' \item{data.name}{a character string giving the name of the data}
 #'
-#' @seealso \code{\link[stats]{mantelhaen.test}} for the stratified
-#' Cochran-Mantel-Haenszel test, \code{\link{chisq.test}} for the general
-#' chi-squared test of independence, \code{\link{cochranArmitageTest}} for
+#' @seealso [stats::mantelhaen.test()] for the stratified
+#' Cochran-Mantel-Haenszel test, [chisq.test()] for the general
+#' chi-squared test of independence, [cochranArmitageTest()] for
 #' a related trend test with a binary response
 #'
 #' @references
-#' Agresti, A. (2002) \emph{Categorical Data Analysis}, John Wiley & Sons,
+#' Agresti, A. (2002) *Categorical Data Analysis*, John Wiley & Sons,
 #' pp. 57, 86.
 #'
 #' Mantel, N. (1963) Chi-square tests with one degree of freedom:
-#' extensions of the Mantel-Haenszel procedure. \emph{Journal of the
-#' American Statistical Association}, 58, 690-700.
+#' extensions of the Mantel-Haenszel procedure. *Journal of the
+#' American Statistical Association*, 58, 690-700.
 #'
 #' @examples
 #' ## Agresti (2002, p. 57) Job Satisfaction

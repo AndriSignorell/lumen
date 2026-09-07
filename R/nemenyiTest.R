@@ -11,54 +11,54 @@
 #'
 #' Nemenyi's test is commonly used as a post hoc procedure after a significant
 #' [kruskal.test()] when all pairwise comparisons between groups are
-#' of interest. Unlike \code{\link{dunnTest}} and
-#' \code{\link{conoverTest}}, no additional p-value adjustment is applied,
+#' of interest. Unlike [dunnTest()] and
+#' [conoverTest()], no additional p-value adjustment is applied,
 #' since multiplicity control is built into the test statistic.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be compared,
-#' and hence have to be numeric data vectors. In this case, \code{g} is
-#' ignored and one can simply use \code{nemenyiTest(x)}.
+#' If `x` is a list, its elements are taken as the samples to be compared,
+#' and hence have to be numeric data vectors. In this case, `g` is
+#' ignored and one can simply use `nemenyiTest(x)`.
 #'
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping factor
+#' Otherwise, `x` must be a numeric vector and `g` a grouping factor
 #' (or vector coercible to a factor) of the same length.
 #'
 #' @name nemenyiTest
 #' @aliases nemenyiTest nemenyiTest.default nemenyiTest.formula
 #'
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
-#' @param g a grouping factor corresponding to \code{x}. Ignored if
-#'   \code{x} is a list.
+#' @param g a grouping factor corresponding to `x`. Ignored if
+#'   `x` is a list.
 #' @param dist character string specifying the reference distribution used for
-#'   the test statistic. One of \code{"tukey"} (default) or \code{"chisq"}.
+#'   the test statistic. One of `"tukey"` (default) or `"chisq"`.
 #' @param output character string specifying the output format. One of
-#'   \code{"list"} (default) or \code{"matrix"}.
-#' @param formula a formula of the form \code{response ~ group}.
+#'   `"list"` (default) or `"matrix"`.
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset an optional expression specifying a subset of observations to
 #'   be used.
 #' @param na.action a function specifying how missing values should be handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{"rankTest"} containing:
+#' @return An object of class `"rankTest"` containing:
 #' \describe{
 #'   \item{res}{pairwise comparison results, either as a list or matrix}
 #'   \item{pmat}{symmetric matrix of adjusted p-values}
 #' }
 #'
 #' Additional information is stored in attributes:
-#' \code{method}, \code{output}, \code{main}, and \code{data.name}.
+#' `method`, `output`, `main`, and `data.name`.
 #'
 #' @seealso
 #' [kruskal.test()]
 #'
 #' @references
 #' Nemenyi, P. B. (1963).
-#' \emph{Distribution-Free Multiple Comparisons}.
+#' *Distribution-Free Multiple Comparisons*.
 #' PhD thesis, Princeton University.
 #'
 #' Hollander, M., Wolfe, D. A. and Chicken, E. (2014).
-#' \emph{Nonparametric Statistical Methods}.
+#' *Nonparametric Statistical Methods*.
 #' 3rd ed. Wiley.
 #'
 #' @examples

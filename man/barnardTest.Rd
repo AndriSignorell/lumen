@@ -174,7 +174,7 @@ Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version
 2.0.
 }
 \seealso{
-\code{\link{fisher.test}}
+\code{\link[=fisher.test]{fisher.test()}}
 
 Other test.categorical:
 \code{\link[=bhapkarTest]{bhapkarTest()}},

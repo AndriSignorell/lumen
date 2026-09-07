@@ -34,7 +34,7 @@ a numeric value
 }
 \description{
 Returns the required sample size to obtain a given width of a confidence
-interval for the sample mean. The function uses \code{\link{uniroot}()} to
+interval for the sample mean. The function uses \code{\link[=uniroot]{uniroot()}} to
 find a numeric solution. The t distribution is used.
 }
 \details{
@@ -50,7 +50,7 @@ meanCIn(ci=c(25, 27), sd=5)
 
 }
 \seealso{
-\code{\link{binomCIn}()}
+\code{\link[=binomCIn]{binomCIn()}}
 
 Other ci.location:
 \code{\link[=meanCI]{meanCI()}},

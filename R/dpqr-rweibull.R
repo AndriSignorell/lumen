@@ -11,11 +11,11 @@
 #' location, scale and shape parameters.
 #' 
 #' The reverse Weibull distribution function with parameters
-#' \eqn{\code{loc} = a}, \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is
+#' \eqn{`loc` = a}, \eqn{`scale` = b} and \eqn{`shape` = s} is
 #' \deqn{G(z) = \exp\left\{-\left[-\left(\frac{z-a}{b}\right)\right]^s\right\}}{G(z) = exp(-(-(z-a)/b)^s)}
 #' for \eqn{z < a} and one otherwise, where \eqn{b > 0} and \eqn{s > 0}.
 #'  
-#' \strong{Note:} Within extreme value theory the reverse Weibull distibution (also
+#' **Note:** Within extreme value theory the reverse Weibull distibution (also
 #' known as the negative Weibull distribution) is often referred to as the
 #' Weibull distribution.  We make a distinction to avoid confusion with the
 #' three-parameter distribution used in survival analysis, which is related by
@@ -29,13 +29,13 @@
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
 #' vectors).
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
-#' @return \code{drweibull()} and \code{dnweibull()} give the density
-#' function, \code{prweibull()} and \code{pnweibull()} give the distribution
-#' function, \code{qrweibull()} and \code{qnweibull()} give the quantile
-#' function, \code{rrweibull()} and \code{rnweibull()} generate random
+#' @return `drweibull()` and `dnweibull()` give the density
+#' function, `prweibull()` and `pnweibull()` give the distribution
+#' function, `qrweibull()` and `qnweibull()` give the quantile
+#' function, `rrweibull()` and `rnweibull()` generate random
 #' deviates.
 #' @seealso [distributions-overview]
 #' 

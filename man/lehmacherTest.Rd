@@ -16,11 +16,11 @@ form, or a factor object.}
 \item{y}{a factor object; ignored if \code{x} is a matrix.}
 
 \item{p.adjust.method}{the method used to adjust the per-category
-p-values for multiple comparisons, passed to \code{\link{p.adjust}}.
+p-values for multiple comparisons, passed to \code{\link[=p.adjust]{p.adjust()}}.
 Default is \code{"hochberg"}, as recommended by Lehmacher (1980).}
 
 \item{digits}{a non-null value for digits specifies the minimum number
-of significant digits to be printed. See \code{\link{print.default}}.}
+of significant digits to be printed. See \code{\link[=print.default]{print.default()}}.}
 
 \item{\dots}{further arguments to be passed to or from other methods,
 ignored in this function.}

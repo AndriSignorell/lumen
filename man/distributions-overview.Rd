@@ -25,9 +25,9 @@ provides d-p-q-r for. A \code{-} marks a combination with no function.
 
 
 Order statistics have no quantile function (\code{qorder()} does not
-exist). \code{\link{qRevGumbelExp}} is a specialized quantile for the
+exist). \code{\link[=qRevGumbelExp]{qRevGumbelExp()}} is a specialized quantile for the
 exponential parametrization of the reverse Gumbel distribution, not a
-general-purpose \code{q} slot -- use \code{\link{qRevGumbel}} for that.
+general-purpose \code{q} slot -- use \code{\link[=qRevGumbel]{qRevGumbel()}} for that.
 }
 
 \section{Other distributions}{
@@ -66,12 +66,12 @@ For these, \code{d}-\code{p}-\code{q}-\code{r} already exist in
 
 \code{\link[=rsum1]{rsum1()}} generates a Dirichlet-distributed sample (which sums to 1
 by construction), related to but not part of the
-\code{\link{ddirichlet}}/\code{\link{pdirichlet}}/\code{\link{qdirichlet}}/\code{\link{rdirichlet}}
+\code{\link[=ddirichlet]{ddirichlet()}}/\code{\link[=pdirichlet]{pdirichlet()}}/\code{\link[=qdirichlet]{qdirichlet()}}/\code{\link[=rdirichlet]{rdirichlet()}}
 suite above.
 
 \code{\link[=pAD]{pAD()}}/\code{\link[=qAD]{qAD()}} are the CDF and quantile function of the Anderson-Darling
 test statistic's null distribution -- supporting functions for
-\code{\link{andersonDarlingTest}}, not a distribution family of their
+\code{\link[=andersonDarlingTest]{andersonDarlingTest()}}, not a distribution family of their
 own (no \code{d}/\code{r} counterparts).
 }
 

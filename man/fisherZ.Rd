@@ -52,7 +52,7 @@ all.equal(r, fisherZInv(fisherZ(r)))
 
 }
 \seealso{
-\code{\link{corCI}}, \code{\link{cor.test}}
+\code{\link[=corCI]{corCI()}}, \code{\link[=cor.test]{cor.test()}}
 
 Other test.correlation:
 \code{\link[=corTest]{corTest()}}

@@ -16,11 +16,11 @@
 #' Dwass-Steel-Critchlow-Fligner procedure and evaluated using the
 #' studentized range distribution.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be
+#' If `x` is a list, its elements are taken as the samples to be
 #' compared and hence have to be numeric data vectors. In this case,
-#' \code{g} is ignored and one can simply use \code{dscfTest(x)}.
+#' `g` is ignored and one can simply use `dscfTest(x)`.
 #'
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
+#' Otherwise, `x` must be a numeric vector and `g` a grouping
 #' factor (or vector coercible to a factor) of the same length.
 #'
 #' @name dscfTest
@@ -28,27 +28,27 @@
 #'
 #' @param x a numeric vector of observations, or a list of numeric
 #'   vectors.
-#' @param g a grouping factor corresponding to \code{x}. Ignored if
-#'   \code{x} is a list.
+#' @param g a grouping factor corresponding to `x`. Ignored if
+#'   `x` is a list.
 #' @param output character string specifying the output format. One of
-#'   \code{"list"} (default) or \code{"matrix"}.
+#'   `"list"` (default) or `"matrix"`.
 #' @param alpha the significance level used to compile the groups flagged
 #'   as significantly different in the label attribute of the p-value
-#'   matrix (default is \code{0.05})
-#' @param formula a formula of the form \code{response ~ group}.
+#'   matrix (default is `0.05`)
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset an optional expression specifying a subset of
 #'   observations to be used.
 #' @param na.action a function specifying how missing values should be
 #'   handled.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{"rankTest"} containing:
+#' @return An object of class `"rankTest"` containing:
 #'   \item{res}{
-#'     comparison results. For \code{output="list"} a matrix with
-#'     columns \code{z} and \code{pval}; for
-#'     \code{output="matrix"} a symmetric matrix of adjusted p-values
+#'     comparison results. For `output="list"` a matrix with
+#'     columns `z` and `pval`; for
+#'     `output="matrix"` a symmetric matrix of adjusted p-values
 #'     with diagonal 1.
 #'   }
 #'   \item{pmat}{
@@ -56,8 +56,8 @@
 #'   }
 #'
 #' Additional information is stored in attributes:
-#' \code{method}, \code{output}, \code{main}, and
-#' \code{data.name}.
+#' `method`, `output`, `main`, and
+#' `data.name`.
 #'
 #' @details
 #' The DSCF procedure performs all pairwise comparisons using
@@ -70,24 +70,24 @@
 #' The implementation reproduces the procedure described by
 #' Dwass (1960), Steel (1960), Critchlow and Fligner (1991), and is
 #' equivalent to the implementation in
-#' \code{PMCMRplus::dscfAllPairsTest()}.
+#' `PMCMRplus::dscfAllPairsTest()`.
 #'
 #' @references
 #'
 #' Dwass, M. (1960).
 #' Some k-sample rank-order tests.
-#' In: \emph{Contributions to Probability and Statistics},
+#' In: *Contributions to Probability and Statistics*,
 #' Stanford University Press, 198--202.
 #'
 #' Steel, R. G. D. (1960).
 #' A rank sum test for comparing all pairs of treatments.
-#' \emph{Technometrics}, \strong{2}, 197--207.
+#' *Technometrics*, **2**, 197--207.
 #'
 #' Critchlow, D. E., & Fligner, M. A. (1991).
 #' On distribution-free multiple comparisons in the one-way analysis of
 #' variance.
-#' \emph{Communications in Statistics - Theory and Methods},
-#' \strong{20}, 127--139.
+#' *Communications in Statistics - Theory and Methods*,
+#' **20**, 127--139.
 #'
 #' @seealso
 #' [kruskal.test()]

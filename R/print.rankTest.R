@@ -1,19 +1,19 @@
 #' Print Method for rankTest Objects
 #'
-#' Prints pairwise comparison results produced by \code{\link{dunnTest}},
-#' \code{\link{conoverTest}}, or \code{\link{nemenyiTest}}.
+#' Prints pairwise comparison results produced by [dunnTest()],
+#' [conoverTest()], or [nemenyiTest()].
 #'
-#' @param x an object of class \code{"rankTest"}.
+#' @param x an object of class `"rankTest"`.
 #' @param digits number of significant digits used for printing numeric values.
-#'   Passed to \code{\link{print.data.frame}}. Defaults to
-#'   \code{getOption("digits", 3)}.
-#' @param \dots further arguments passed to \code{\link{print.data.frame}} or
-#'   \code{\link{print.default}}.
+#'   Passed to [print.data.frame()]. Defaults to
+#'   `getOption("digits", 3)`.
+#' @param \dots further arguments passed to [print.data.frame()] or
+#'   [print.default()].
 #'
-#' @return \code{x}, invisibly.
+#' @return `x`, invisibly.
 #'
-#' @seealso \code{\link{dunnTest}}, \code{\link{conoverTest}},
-#'   \code{\link{nemenyiTest}}
+#' @seealso [dunnTest()], [conoverTest()],
+#'   [nemenyiTest()]
 #'
 #' @export
 print.rankTest <- function(

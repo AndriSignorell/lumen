@@ -81,7 +81,7 @@ using a wide range of commonly proposed methods.
 
 \code{binomCIn()} computes the required sample size to obtain a binomial
 confidence interval of a specified width, as calculated by \code{binomCI()}.
-The function uses \code{\link{uniroot}()} to numerically solve for the
+The function uses \code{\link[=uniroot]{uniroot()}} to numerically solve for the
 corresponding sample size.
 }
 \details{
@@ -100,11 +100,11 @@ Introduced by Wilson (1927), this interval is obtained by inverting the
 central limit theorem approximation to the family of equal-tail tests of
 \eqn{p = p_0}. It is recommended by Agresti and Coull (1998) and
 Brown et al. (2001). The same interval is returned as \code{conf.int}
-by \code{\link{prop.test}} with \code{correct = FALSE}.
+by \code{\link[=prop.test]{prop.test()}} with \code{correct = FALSE}.
 
 \strong{Wilson with continuity correction}:
 A continuity-corrected modification of the Wilson interval. This
-corresponds to \code{\link{prop.test}} with \code{correct = TRUE}.
+corresponds to \code{\link[=prop.test]{prop.test()}} with \code{correct = TRUE}.
 
 \strong{Modified Wilson}:
 An adjustment of the Wilson interval for extreme counts
@@ -259,10 +259,10 @@ binomCIn(p=0.1, width=0.05, method="pratt")
 \references{
 Agresti A. and Coull B.A. (1998) Approximate is better than
 "exact" for interval estimation of binomial proportions.  \emph{American
-Statistician}, \bold{52}, pp. 119-126.
+Statistician}, \strong{52}, pp. 119-126.
 
 Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
-binomial proportion \emph{Statistical Science}, \bold{16}(2), pp. 101-133.
+binomial proportion \emph{Statistical Science}, \strong{16}(2), pp. 101-133.
 
 Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
 
@@ -285,7 +285,7 @@ A. Khouadji (1999) Sur une méthode d’approximation des intervalles
 de confiance pour une proportion binomiale.
 }
 \seealso{
-\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}
+\code{\link[stats:binom.test]{stats::binom.test()}}, \code{\link[Hmisc:binconf]{Hmisc::binconf()}}
 
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},

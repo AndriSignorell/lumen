@@ -8,10 +8,10 @@
 }
 \arguments{
 \item{x}{an object of class \code{"PostHocTest"}, typically returned by
-\code{\link{postHocTest}}.}
+\code{\link[=postHocTest]{postHocTest()}}.}
 
 \item{...}{additional graphical parameters passed to
-\code{\link[pharos]{plotDot}} and base plotting functions.}
+\code{\link[pharos:plotDot]{pharos::plotDot()}} and base plotting functions.}
 }
 \value{
 Invisibly returns \code{NULL}.

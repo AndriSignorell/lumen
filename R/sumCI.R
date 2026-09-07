@@ -11,12 +11,12 @@
 #' 
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate, \code{sum(x)}.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{point estimate, `sum(x)`.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #' 
-#' @references \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
+#' @references <https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval>
 #' 
 #' @examples
 #' x <- do.call(rbind, 
@@ -24,7 +24,7 @@
 #'                     bedrock::Pizza$area, meanCI))
 #' sumCI(x)
 #'
-#' @seealso \code{\link{binomCI}}
+#' @seealso [binomCI()]
 #' 
 #' @family ci.location  
 #' @concept confidence-interval

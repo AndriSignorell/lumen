@@ -2,19 +2,19 @@
 #' Student's T-Test Based on Sample Statistics for Performing T-Tests From Summary Statistics
 #' 
 #' Performs one and two sample t-tests based on user supplied summary
-#' information instead of data as in \code{t.test()}.
+#' information instead of data as in `t.test()`.
 #' 
-#' \code{alternative = "greater"} is the alternative that \code{x} has a larger
-#' mean than \code{y}.
+#' `alternative = "greater"` is the alternative that `x` has a larger
+#' mean than `y`.
 #' 
-#' The option \code{paired} is not supported here, as the variance of the
+#' The option `paired` is not supported here, as the variance of the
 #' differences can't be calculated on the base of the variances of the two
 #' samples. However, for calculating the paired test we can simply supply the
 #' mean and standard deviation of the differences and use the one-sample test
-#' with \code{mu = 0}.
+#' with `mu = 0`.
 #' 
-#' If \code{var.equal} is \code{TRUE} then the pooled estimate of the variance
-#' is used.  By default, if \code{var.equal} is \code{FALSE} then the variance
+#' If `var.equal` is `TRUE` then the pooled estimate of the variance
+#' is used.  By default, if `var.equal` is `FALSE` then the variance
 #' is estimated separately for both groups and the Welch modification to the
 #' degrees of freedom is used.
 #' 
@@ -29,20 +29,20 @@
 #' @param nx a single number representing the sample size of x.
 #' @param ny an optional single number representing the sample size of y.
 #' @param alternative a character string specifying the alternative hypothesis,
-#' must be one of \code{"two.sided"} (default), \code{"greater"} or
-#' \code{"less"}.  You can specify just the initial letter.
+#' must be one of `"two.sided"` (default), `"greater"` or
+#' `"less"`.  You can specify just the initial letter.
 #' @param mu a number indicating the true value of the mean (or difference in
 #' means if you are performing a two sample test).
 #' @param paired logical; paired tests are not supported. Use a one-sample test
 #' on the differences instead.
 #' @param var.equal a logical variable indicating whether to treat the two
-#' variances as being equal. If \code{TRUE} then the pooled variance is used to
+#' variances as being equal. If `TRUE` then the pooled variance is used to
 #' estimate the variance otherwise the Welch (or Satterthwaite) approximation
 #' to the degrees of freedom is used.
 #' @param conf.level confidence level of the interval.
 #' @param \dots further arguments to be passed to or from methods.
 #' 
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components: 
 #' 
 #' \item{statistic}{the value of the t-statistic.}

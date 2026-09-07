@@ -7,15 +7,15 @@
 #' studentized range distribution.
 #'
 #' @details
-#' Tukey's HSD, \code{\link{scheffeTest}} and the parametric methods in
-#' \code{\link{postHoc}} all rely on a single pooled error variance. When the
+#' Tukey's HSD, [scheffeTest()] and the parametric methods in
+#' [postHoc()] all rely on a single pooled error variance. When the
 #' group variances differ, that pooled estimate is wrong for every pair that
 #' does not happen to match it, and the procedure loses its nominal level -
 #' liberally when the larger variance sits in the smaller group, conservatively
 #' in the opposite case. Games and Howell (1976) replace the pooled term by the
 #' pairwise Welch standard error, which makes this the post-hoc counterpart of
-#' the Welch t test and of \code{\link[stats]{oneway.test}}.
-#' \code{\link{yuenTTest}} addresses heteroscedasticity and non-normality with
+#' the Welch t test and of [stats::oneway.test()].
+#' [yuenTTest()] addresses heteroscedasticity and non-normality with
 #' trimmed means and separate Winsorized variance estimates, but provides no
 #' all-pairs multiple-comparison procedure, so it is not the two-sample form of
 #' this procedure.
@@ -40,32 +40,32 @@
 #' range is undefined. The latter is not an exotic case - with only two
 #' observations in each of two groups the Welch degrees of freedom lie in
 #' \eqn{[1, 2]} and reach two only when the two variances are exactly equal.
-#' Affected pairs are reported as \code{NA} with a warning while the remaining
+#' Affected pairs are reported as `NA` with a warning while the remaining
 #' comparisons are kept. Missing values are removed casewise.
 #'
-#' @param x a numeric vector of observations, an \code{aov} object, or a formula
-#'   of the form \code{lhs ~ rhs} with a numeric \code{lhs} and a grouping
-#'   \code{rhs}
-#' @param g a vector or factor giving the group for each element of \code{x}
+#' @param x a numeric vector of observations, an `aov` object, or a formula
+#'   of the form `lhs ~ rhs` with a numeric `lhs` and a grouping
+#'   `rhs`
+#' @param g a vector or factor giving the group for each element of `x`
 #' @param conf.level confidence level of the simultaneous intervals
-#' @param formula a formula of the form \code{lhs ~ rhs}
+#' @param formula a formula of the form `lhs ~ rhs`
 #' @param data an optional data frame containing the model variables
 #' @param subset an optional vector specifying a subset of observations
 #' @param na.action a function indicating what should happen when the data
-#'   contain \code{NA}s
+#'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
 #'
-#' @return An object of class \code{"PostHocTest"}: a list with one matrix,
-#'   named after the grouping variable. The matrix has columns \code{diff} for
-#'   the observed mean difference (second group minus first), \code{lci} and
-#'   \code{uci} for the simultaneous confidence limits, and \code{pval} for the
+#' @return An object of class `"PostHocTest"`: a list with one matrix,
+#'   named after the grouping variable. The matrix has columns `diff` for
+#'   the observed mean difference (second group minus first), `lci` and
+#'   `uci` for the simultaneous confidence limits, and `pval` for the
 #'   simultaneous p-value. Print and plot methods are available for class
-#'   \code{"PostHocTest"}.
+#'   `"PostHocTest"`.
 #'
 #' @references
 #' Games, P. A., Howell, J. F. (1976) Pairwise multiple comparison procedures
-#' with unequal n's and/or variances: a Monte Carlo study. \emph{Journal of
-#' Educational Statistics}, \bold{1}(2), 113-125.
+#' with unequal n's and/or variances: a Monte Carlo study. *Journal of
+#' Educational Statistics*, **1**(2), 113-125.
 #'
 #' @seealso [TukeyHSD()], [yuenTTest]
 #'

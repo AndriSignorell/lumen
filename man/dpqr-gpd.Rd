@@ -48,8 +48,8 @@ generation for the generalized Pareto distribution (GPD) with location,
 scale and shape parameters.
 
 The generalized Pareto distribution function (Pickands, 1975) with
-parameters \eqn{\code{loc} = a}, \eqn{\code{scale} = b} and
-\eqn{\code{shape} = s} is \deqn{G(z) = 1 - \{1+s(z-a)/b\}^{-1/s}}{ G(z) = 1
+parameters \eqn{`loc` = a}, \eqn{`scale` = b} and
+\eqn{`shape` = s} is \deqn{G(z) = 1 - \{1+s(z-a)/b\}^{-1/s}}{ G(z) = 1
 - {1+s(z-a)/b}^(-1/s)} for \eqn{1+s(z-a)/b > 0} and \eqn{z > a}, where
 \eqn{b > 0}.  If \eqn{s = 0} the distribution is defined by continuity.
 }
@@ -70,7 +70,7 @@ pgpd(qgpd(p, 1, 2, 0.8), 1, 2, 0.8)
 }
 \references{
 Pickands, J. (1975) Statistical inference using extreme order
-statistics.  \emph{Annals of Statistics}, \bold{3}, 119--131.
+statistics.  \emph{Annals of Statistics}, \strong{3}, 119--131.
 }
 \seealso{
 \link{distributions-overview}; \code{evd::fpot()} for fitting

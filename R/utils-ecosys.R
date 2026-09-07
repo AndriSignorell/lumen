@@ -10,7 +10,7 @@
 #' Resolves verbosity level using the following priority:
 #' \itemize{
 #'   \item function argument
-#'   \item global option \code{DescTools.verbose}
+#'   \item global option `DescTools.verbose`
 #'   \item default (2)
 #' }
 #'

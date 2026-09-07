@@ -10,8 +10,8 @@
 #' Density function, distribution function, quantile function and random
 #' generation for the Gumbel distribution with location and scale parameters.
 #' 
-#' The Gumbel distribution function with parameters \eqn{\code{loc} = a} and
-#' \eqn{\code{scale} = b} is 
+#' The Gumbel distribution function with parameters \eqn{`loc` = a} and
+#' \eqn{`scale` = b} is 
 #' \deqn{G(z) = \exp\left\{-\exp\left[-\left(\frac{z-a}{b}\right)\right]\right\}}{G(z) = exp(-exp(-(z-a)/b))}
 #' for all real \eqn{z}, where \eqn{b > 0}.
 #'  
@@ -21,12 +21,12 @@
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param loc,scale location and scale parameters (can be given as vectors).
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
-#' @return \code{dgumbel()} gives the density function, \code{pgumbel()} gives
-#' the distribution function, \code{qgumbel()} gives the quantile function,
-#' and \code{rgumbel()} generates random deviates.
+#' @return `dgumbel()` gives the density function, `pgumbel()` gives
+#' the distribution function, `qgumbel()` gives the quantile function,
+#' and `rgumbel()` generates random deviates.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in

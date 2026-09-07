@@ -10,8 +10,8 @@
 #' generation for the generalized extreme value (GEV) distribution with
 #' location, scale and shape parameters.
 #' 
-#' The GEV distribution function with parameters \eqn{\code{loc} = a},
-#' \eqn{\code{scale} = b} and \eqn{\code{shape} = s} is \deqn{G(z) =
+#' The GEV distribution function with parameters \eqn{`loc` = a},
+#' \eqn{`scale` = b} and \eqn{`shape` = s} is \deqn{G(z) =
 #' \exp\left[-\{1+s(z-a)/b\}^{-1/s}\right]}{ G(x) = exp[-{1+s(z-a)/b}^(-1/s)]}
 #' for \eqn{1+s(z-a)/b > 0}, where \eqn{b > 0}.  If \eqn{s = 0} the
 #' distribution is defined by continuity.  If \eqn{1+s(z-a)/b \leq
@@ -29,20 +29,20 @@
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters; the
-#' \code{shape} argument cannot be a vector (must have length one).
-#' @param log logical; if \code{TRUE}, the log density is returned.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are 
+#' `shape` argument cannot be a vector (must have length one).
+#' @param log logical; if `TRUE`, the log density is returned.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
-#' @return \code{dgev()} gives the density function, \code{pgev()} gives the
-#' distribution function, \code{qgev()} gives the quantile function, and
-#' \code{rgev()} generates random deviates.
+#' @return `dgev()` gives the density function, `pgev()` gives the
+#' distribution function, `qgev()` gives the quantile function, and
+#' `rgev()` generates random deviates.
 #' 
-#' @seealso [distributions-overview]; \code{evd::fgev()} for fitting the GEV
+#' @seealso [distributions-overview]; `evd::fgev()` for fitting the GEV
 #' to data
 #' 
 #' @references Jenkinson, A. F. (1955) The frequency distribution of the annual
-#' maximum (or minimum) of meteorological elements.  \emph{Quart. J. R. Met.
-#' Soc.}, \bold{81}, 158--171.
+#' maximum (or minimum) of meteorological elements.  *Quart. J. R. Met.
+#' Soc.*, **81**, 158--171.
 #' 
 #' @note
 #' Based on code by Alec Stephenson previously published in

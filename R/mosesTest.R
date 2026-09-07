@@ -11,7 +11,7 @@
 #' independent groups. Scores from both groups are pooled and converted to
 #' ranks. The test statistic is the span of the control group's ranks
 #' (range + 1). An exact one-tailed probability is computed for the raw
-#' span, then recomputed after trimming \code{h} extreme ranks from each end
+#' span, then recomputed after trimming `h` extreme ranks from each end
 #' of the control group.
 #'
 #' @details
@@ -56,19 +56,19 @@
 #' **Tie handling.**
 #' The exact combinatorial distribution assumes a continuous underlying
 #' distribution (no ties). By default,
-#' \code{ties.method = "first"} is passed to \code{\link{rank}},
+#' `ties.method = "first"` is passed to [rank()],
 #' producing integer-valued ranks that remain compatible with the exact
 #' formula. Tied observations are ordered according to their occurrence in
 #' the pooled sample, matching SPSS behaviour.
 #'
-#' Alternative tie methods such as \code{"average"} may produce fractional
+#' Alternative tie methods such as `"average"` may produce fractional
 #' mid-ranks. In such cases the span is rounded upward via
-#' \code{ceiling()} to retain an integer-valued test statistic, but the
+#' `ceiling()` to retain an integer-valued test statistic, but the
 #' resulting p-values should be regarded as approximate rather than exact.
 #'
 #' **Numerical stability.**
 #' The exact distribution is evaluated entirely in log-space using
-#' \code{\link{lchoose}} and a log-sum-exp transformation, avoiding
+#' [lchoose()] and a log-sum-exp transformation, avoiding
 #' overflow for large sample sizes.
 #'
 #' @name mosesTest
@@ -78,37 +78,37 @@
 #'   Non-finite values are removed.
 #' @param y Numeric vector of observations from the experiment group.
 #'   Non-finite values are removed.
-#' @param formula A formula of the form \code{lhs ~ rhs}, where
-#'   \code{lhs} gives the observations and \code{rhs} the grouping
+#' @param formula A formula of the form `lhs ~ rhs`, where
+#'   `lhs` gives the observations and `rhs` the grouping
 #'   variable with exactly two levels.
 #' @param data Optional data frame containing the variables in
-#'   \code{formula}.
+#'   `formula`.
 #' @param subset Optional vector specifying a subset of observations.
 #' @param na.action Function specifying how missing values are handled.
 #' @param extreme Non-negative integer \eqn{h}. Number of extreme ranks
 #'   trimmed from each end of the control group before recomputing the
-#'   span. If \code{NULL}, defaults to
-#'   \code{max(floor(0.05 * length(x)), 1)}.
-#' @param ties.method Character string passed to \code{\link{rank}}.
-#'   Default \code{"first"} preserves integer-valued ranks and exact
+#'   span. If `NULL`, defaults to
+#'   `max(floor(0.05 * length(x)), 1)`.
+#' @param ties.method Character string passed to [rank()].
+#'   Default `"first"` preserves integer-valued ranks and exact
 #'   combinatorial validity.
 #' @param \dots Further arguments passed to or from methods.
 #'
-#' @return An object of class \code{"mosesTestResult"} inheriting from
-#'   \code{"htest"} with components:
+#' @return An object of class `"mosesTestResult"` inheriting from
+#'   `"htest"` with components:
 #'   \describe{
-#'     \item{\code{statistic}}{Named vector containing
-#'       \code{sRaw} and \code{sTrimmed}.}
-#'     \item{\code{p.value}}{Named vector containing
-#'       \code{p_raw} and \code{p_trimmed}.}
-#'     \item{\code{extreme}}{Effective trimming parameter \eqn{h}.}
-#'     \item{\code{parameter}}{Vector containing
-#'       \code{n_control} and \code{n_experiment}.}
-#'     \item{\code{null.value}}{Null hypothesis of equal extremity.}
-#'     \item{\code{alternative}}{Character string:
-#'       \code{"greater"}.}
-#'     \item{\code{method}}{Character string describing the test.}
-#'     \item{\code{data.name}}{Character string describing the data.}
+#'     \item{`statistic`}{Named vector containing
+#'       `sRaw` and `sTrimmed`.}
+#'     \item{`p.value`}{Named vector containing
+#'       `p_raw` and `p_trimmed`.}
+#'     \item{`extreme`}{Effective trimming parameter \eqn{h}.}
+#'     \item{`parameter`}{Vector containing
+#'       `n_control` and `n_experiment`.}
+#'     \item{`null.value`}{Null hypothesis of equal extremity.}
+#'     \item{`alternative`}{Character string:
+#'       `"greater"`.}
+#'     \item{`method`}{Character string describing the test.}
+#'     \item{`data.name`}{Character string describing the data.}
 #'   }
 #'
 #' @seealso [wilcox.test()], [ks.test()], [ansari.test()]
@@ -116,8 +116,8 @@
 #' @references
 #' Moses, L.E. (1952).
 #' A two-sample test.
-#' \emph{Psychometrika},
-#' \strong{17}, 239--247.
+#' *Psychometrika*,
+#' **17**, 239--247.
 #' \doi{10.1007/BF02288735}
 #'
 #' @examples

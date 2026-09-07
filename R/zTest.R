@@ -15,9 +15,9 @@
 #' situations. This function is meant to be used during that short period of
 #' learning when the student is learning about inference using z-procedures,
 #' but has not learned the t-based procedures yet.  Once the student has
-#' learned about the t-distribution the \code{t.test()} function should be used
+#' learned about the t-distribution the `t.test()` function should be used
 #' instead of this one (but the syntax is very similar, so this function should
-#' be an appropriate introductory step to learning \code{t.test()}).
+#' be an appropriate introductory step to learning `t.test()`).
 #' 
 #' The formula interface is only applicable for the 2-sample tests.
 #' 
@@ -32,26 +32,26 @@
 #' population. For the two-sample test, this single value is assumed to be
 #' the common known standard deviation of both populations.
 #' @param alternative a character string specifying the alternative hypothesis,
-#' must be one of \code{"two.sided"} (default), \code{"greater"} or
-#' \code{"less"}.  You can specify just the initial letter. \cr For one-sample
-#' tests, \code{alternative} refers to the true mean of the parent population
+#' must be one of `"two.sided"` (default), `"greater"` or
+#' `"less"`.  You can specify just the initial letter. \cr For one-sample
+#' tests, `alternative` refers to the true mean of the parent population
 #' in relation to the hypothesized value of the mean.
 #' @param paired a logical indicating whether you want a paired z-test.
 #' @param conf.level confidence level for the interval computation.
-#' @param formula a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
-#' the data values and \code{rhs} a factor with two levels giving the
+#' @param formula a formula of the form `lhs ~ rhs` where `lhs` gives
+#' the data values and `rhs` a factor with two levels giving the
 #' corresponding groups.
 #' @param data an optional matrix or data frame (or similar: see
-#' \code{\link{model.frame}}) containing the variables in the formula
-#' \code{formula}.  By default the variables are taken from
-#' \code{environment(formula)}.
+#' [model.frame()]) containing the variables in the formula
+#' `formula`.  By default the variables are taken from
+#' `environment(formula)`.
 #' @param subset an optional vector specifying a subset of observations to be
 #' used.
 #' @param na.action a function which indicates what should happen when the data
-#' contain \code{NA}s. Defaults to \code{getOption("na.action")}.
+#' contain `NA`s. Defaults to `getOption("na.action")`.
 #' @param \dots further arguments to be passed to or from methods.
 #' 
-#' @return A list with class "\code{htest}" containing the following
+#' @return A list with class "`htest`" containing the following
 #' components: \item{statistic}{ the value of the z-statistic.} \item{p.value}{
 #' the p-value for the test} \item{conf.int}{a confidence interval for the mean
 #' appropriate to the specified alternative hypothesis.} \item{estimate}{the
@@ -63,8 +63,8 @@
 #' string indicating what type of test was performed.} \item{data.name}{a
 #' character string giving the name(s) of the data.}
 #' 
-#' @seealso [t.test()], \code{\link{print.htest}}
-#' @references Stahel, W. (2002) \emph{Statistische Datenanalyse, 4th ed},
+#' @seealso [t.test()], [print.htest()]
+#' @references Stahel, W. (2002) *Statistische Datenanalyse, 4th ed*,
 #' vieweg
 #' 
 #' @examples

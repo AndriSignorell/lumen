@@ -65,11 +65,11 @@ same median. All observations are dichotomised at the pooled median and the
 resulting 2 x k table is tested for independence.
 }
 \details{
-Not to be confused with \code{\link[stats]{mood.test}}, which is Mood's
+Not to be confused with \code{\link[stats:mood.test]{stats::mood.test()}}, which is Mood's
 two-sample test for a difference in \emph{scale}. The median test described
 here has no base R implementation.
 
-The procedure is the k-sample counterpart of \code{\link{signTest}} and
+The procedure is the k-sample counterpart of \code{\link[=signTest]{signTest()}} and
 shares its robustness and its modest power: only the position of each
 observation relative to the pooled median enters the statistic, so all
 information about distance is discarded. Its asymptotic relative efficiency
@@ -77,9 +77,9 @@ against the F test under normality is \eqn{2/\pi}.
 
 That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
-\code{\link{brunnerMunzelTest}} tests the relative effect
+\code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}} tests the relative effect
 \eqn{P(X < Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}} and
-\code{\link{vanWaerdenTest}} tests equality of the distributions against
+\code{\link[=vanWaerdenTest]{vanWaerdenTest()}} tests equality of the distributions against
 normal-score location alternatives. Neither is a test of equal medians, so
 they are not drop-in replacements. Use the median test when the median is
 genuinely the quantity of interest, or when only the side of a threshold is
@@ -101,7 +101,7 @@ observations rather than removing them.
 \code{method = "exact"} replaces the chi-squared approximation by Fisher's
 exact test on the same table and is advisable when expected counts are small;
 no test statistic is reported in that case. The continuity correction applies
-only to a 2 x 2 table, as in \code{\link[stats]{chisq.test}}.
+only to a 2 x 2 table, as in \code{\link[stats:chisq.test]{stats::chisq.test()}}.
 
 Missing values are removed casewise.
 }

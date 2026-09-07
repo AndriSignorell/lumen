@@ -82,7 +82,7 @@ by counting how many runs there are above and below a threshold. If
 \code{y} is supplied, a two-sample Wald-Wolfowitz test for the equality
 of two distributions is computed.
 
-\bold{The runs test for randomness} requires a dichotomous sequence. For
+\strong{The runs test for randomness} requires a dichotomous sequence. For
 a numeric variable \code{x} with more than two distinct values, the
 sequence is dichotomised by comparing each observation to the median.
 Observations exactly equal to the median are removed before the test, as
@@ -105,7 +105,7 @@ SPSS for \eqn{n < 50}) does: \eqn{c = 0.5} if \eqn{r < \mu_r} and
 The exact p-value is computed from the conditional distribution of the
 number of runs given \eqn{n_0} and \eqn{n_1}, implemented in C++.
 
-\bold{Interpretation of alternatives:}
+\strong{Interpretation of alternatives:}
 \itemize{
 \item \code{"less"}: fewer runs than expected — indicates clustering
 or positive serial correlation.
@@ -114,7 +114,7 @@ or negative serial correlation.
 \item \code{"two.sided"}: departure in either direction.
 }
 
-\bold{The Wald-Wolfowitz test} is a two-sample nonparametric test for the
+\strong{The Wald-Wolfowitz test} is a two-sample nonparametric test for the
 equality of two continuous distributions against general alternatives.
 Exact p-values are not valid in the presence of inter-group ties; a
 warning is issued when such ties are detected.
@@ -146,13 +146,13 @@ Duxbury Press, CA.
 
 Wald, A. and Wolfowitz, J. (1940): On a test whether two samples are
 from the same population. \emph{Annals of Mathematical Statistics}
-\bold{11}, 147--162.
+\strong{11}, 147--162.
 
 Siegel, S. (1956) \emph{Nonparametric Statistics for the Behavioural
 Sciences}, McGraw-Hill Kogakusha, Tokyo.
 }
 \seealso{
-\code{\link{rle}}
+\code{\link[=rle]{rle()}}
 
 Other test.timeseries:
 \code{\link[=adfTest]{adfTest()}},

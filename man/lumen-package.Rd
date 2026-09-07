@@ -64,8 +64,8 @@ The package implements a wide range of statistical tests:
 \section{Probability Distributions}{
 
 
-The package provides density (\code{d*}), distribution (\code{p*}),
-quantile (\code{q*}) and random generation (\code{r*}) functions for
+The package provides density (\verb{d*}), distribution (\verb{p*}),
+quantile (\verb{q*}) and random generation (\verb{r*}) functions for
 a range of distributions, following the standard R conventions.
 
 \strong{Extreme Value Distributions}
@@ -99,7 +99,7 @@ a range of distributions, following the standard R conventions.
 \itemize{
 \item Unified interface across hypothesis tests and distributions
 \item Standard \code{d/p/q/r} naming for distributions
-\item Clear classification via \code{@family} and \code{@concept}
+\item Clear classification via \verb{@family} and \verb{@concept}
 \item Separation of statistical procedures and data transformation utilities
 }
 }

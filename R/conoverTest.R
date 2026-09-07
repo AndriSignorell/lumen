@@ -4,7 +4,7 @@
 #' A nonparametric post hoc test for multiple pairwise comparisons
 #' following a significant Kruskal-Wallis test, based on rank data.
 #'
-#' \code{conoverTest} performs the post hoc pairwise multiple-comparison
+#' `conoverTest` performs the post hoc pairwise multiple-comparison
 #' procedure appropriate after rejection of the Kruskal-Wallis null
 #' hypothesis. The test is based on the Conover-Iman rank-sum statistic and
 #' is generally more powerful than Dunn's procedure. It is intended as a
@@ -15,54 +15,54 @@
 #' assumption that the cumulative distribution functions of the compared
 #' groups do not cross.
 #'
-#' If \code{x} is a list, its elements are taken as the samples to be
-#' compared and must be numeric vectors. In this case \code{g} is ignored.
-#' Otherwise, \code{x} must be a numeric vector and \code{g} a grouping
+#' If `x` is a list, its elements are taken as the samples to be
+#' compared and must be numeric vectors. In this case `g` is ignored.
+#' Otherwise, `x` must be a numeric vector and `g` a grouping
 #' variable of the same length.
 #'
-#' Each pairwise comparison is labeled \code{"B-A"}, where \code{A} precedes
-#' \code{B} in the ordering of the group levels, and reports the mean rank
+#' Each pairwise comparison is labeled `"B-A"`, where `A` precedes
+#' `B` in the ordering of the group levels, and reports the mean rank
 #' difference \eqn{\bar{R}_B - \bar{R}_A}. For one-sided alternatives,
-#' \code{"greater"} tests whether \code{B} tends to have larger observations
-#' than \code{A} (upper tail), and \code{"less"} tests the reverse (lower
+#' `"greater"` tests whether `B` tends to have larger observations
+#' than `A` (upper tail), and `"less"` tests the reverse (lower
 #' tail).
 #'
 #' @name conoverTest
 #' @aliases conoverTest conoverTest.default conoverTest.formula
 #'
 #' @param x a numeric vector of observations or a list of numeric vectors.
-#' @param g a grouping variable corresponding to \code{x}; ignored when
-#' \code{x} is a list.
+#' @param g a grouping variable corresponding to `x`; ignored when
+#' `x` is a list.
 #' @param method the method used to adjust the p-values for multiple
-#' comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
-#' Passed directly to \code{\link{p.adjust}}.
+#' comparisons, one of `p.adjust.methods` (default is `"holm"`).
+#' Passed directly to [p.adjust()].
 #' @param alternative a character string specifying the alternative
-#' hypothesis, must be one of \code{"two.sided"} (default), \code{"less"}
-#' or \code{"greater"}. See the Details for the direction convention.
+#' hypothesis, must be one of `"two.sided"` (default), `"less"`
+#' or `"greater"`. See the Details for the direction convention.
 #' @param output the output format:
 #'   \itemize{
-#'     \item \code{"list"} pairwise comparison table.
-#'     \item \code{"matrix"} lower-triangular matrix of adjusted p-values.
+#'     \item `"list"` pairwise comparison table.
+#'     \item `"matrix"` lower-triangular matrix of adjusted p-values.
 #'   }
 #' @param alpha the significance level used to compile the groups flagged
 #' as significantly different in the label attribute of the p-value matrix
-#' (default is \code{0.05}).
-#' @param formula a formula of the form \code{response ~ group}.
+#' (default is `0.05`).
+#' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
-#' \code{formula}.
+#' `formula`.
 #' @param subset an optional expression specifying a subset of observations.
 #' @param na.action a function indicating how missing values should be
 #' handled.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
-#' An object of class \code{"rankTest"} containing:
-#'   \item{\code{res}}{
-#'     pairwise comparison results. Depending on \code{output},
+#' An object of class `"rankTest"` containing:
+#'   \item{`res`}{
+#'     pairwise comparison results. Depending on `output`,
 #'     either a table of mean-rank differences and adjusted p-values
 #'     or a lower-triangular p-value matrix.
 #'   }
-#'   \item{\code{pmat}}{
+#'   \item{`pmat`}{
 #'     symmetric matrix of adjusted p-values.
 #'   }
 #'
@@ -70,9 +70,9 @@
 #'
 #' @references
 #' Conover, W. J. and Iman, R. L. (1979) On multiple-comparisons procedures.
-#' \emph{Technical Report LA-7677-MS}, Los Alamos Scientific Laboratory.
+#' *Technical Report LA-7677-MS*, Los Alamos Scientific Laboratory.
 #'
-#' Conover, W. J. (1999) \emph{Practical Nonparametric Statistics}, 3rd ed.,
+#' Conover, W. J. (1999) *Practical Nonparametric Statistics*, 3rd ed.,
 #' Hoboken, NJ: Wiley.
 #'
 #' @examples

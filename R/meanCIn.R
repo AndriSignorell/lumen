@@ -3,7 +3,7 @@
 #' Sample Size for a Given Width of a Confidence Interval for a Mean
 #'
 #' Returns the required sample size to obtain a given width of a confidence
-#' interval for the sample mean. The function uses \code{\link{uniroot}()} to
+#' interval for the sample mean. The function uses [uniroot()] to
 #' find a numeric solution. The t distribution is used.
 #'
 #' The required sample sizes for a specific width of confidence interval for
@@ -17,12 +17,12 @@
 #' @param sd the standard deviation of the sample.
 #' @param interval the interval for the sample size to be searched into,
 #' (default is c(2, 100000)).
-#' @param conf.level confidence level, defaults to \code{0.95}.
+#' @param conf.level confidence level, defaults to `0.95`.
 #' @param norm logical, determining if the t- or normaldistribution should be
 #' used.
 #' @param tol the desired accuracy (convergence tolerance).
 #' @return a numeric value
-#' @seealso \code{\link{binomCIn}()}
+#' @seealso [binomCIn()]
 #' @examples
 #'
 #' meanCIn(ci=c(25, 27), sd=5)

@@ -51,7 +51,7 @@ Crowder, M.J., Hand, D.J. (1990) \emph{Analysis of Repeated Measures}.
 Chapman & Hall, London, p.54-55
 }
 \seealso{
-\code{\link{aov}}
+\code{\link[=aov]{aov()}}
 }
 \concept{anova}
 \concept{variance-analysis}

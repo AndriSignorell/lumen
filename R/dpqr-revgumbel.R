@@ -2,8 +2,8 @@
 #' Reverse Gumbel Distribution
 #' 
 #' Density, distribution function, quantile function and random generation for
-#' the \dQuote{Reverse} Gumbel distribution with parameters \code{location} and
-#' \code{scale}.
+#' the \dQuote{Reverse} Gumbel distribution with parameters `location` and
+#' `scale`.
 #' 
 #' 
 #' @name dpqr-RevGumbel
@@ -14,12 +14,12 @@
 #' function.
 #' @param location location of the distribution.
 #' @param scale scale (\eqn{> 0}) of the distribution.
-#' @param n number of random variates, i.e., \code{\link{length}} of resulting
-#' vector of \code{rRevGumbel()}.
-#' @return A numeric vector, of the same length as \code{x}, \code{q}, or
-#' \code{p} for the first three functions, and of length \code{n} for
-#' \code{rRevGumbel()}.
-#' @seealso [distributions-overview]; the \code{\link{Weibull}} distribution
+#' @param n number of random variates, i.e., [length()] of resulting
+#' vector of `rRevGumbel()`.
+#' @return A numeric vector, of the same length as `x`, `q`, or
+#' `p` for the first three functions, and of length `n` for
+#' `rRevGumbel()`.
+#' @seealso [distributions-overview]; the [Weibull()] distribution
 #' functions in \R's \pkg{stats} package.
 #' @note
 #' Based on code by Werner Stahel, partly inspired by the \pkg{VGAM} package

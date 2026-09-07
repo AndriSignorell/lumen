@@ -13,33 +13,33 @@
 #' and is therefore sensitive to a different class of model
 #' misspecification.
 #'
-#' The default method requires the \emph{full} design matrix \code{X} used
+#' The default method requires the *full* design matrix `X` used
 #' to fit the model, i.e. including the intercept column, as produced by
-#' \code{model.matrix(fit)}. Omitting the intercept column changes the
+#' `model.matrix(fit)`. Omitting the intercept column changes the
 #' projection used to estimate the standard deviation of the test
 #' statistic under the null and gives a materially different, incorrect
-#' result. The \code{glm} method extracts the design matrix, fitted
+#' result. The `glm` method extracts the design matrix, fitted
 #' probabilities and observed outcomes directly from a fitted model object
 #' and is therefore the safer interface.
 #'
 #' @name leCessieTest
 #' @aliases leCessieTest leCessieTest.default leCessieTest.glm
 #'
-#' @param x a fitted binomial \code{\link{glm}} object (\code{glm} method),
+#' @param x a fitted binomial [glm()] object (`glm` method),
 #' or a numeric vector of fitted probabilities, each in \eqn{[0, 1]},
 #' without missing values (default method).
 #' @param obs numeric vector of observed binary outcomes (0 or 1), of the
-#' same length as \code{x}, without missing values; unused for the
-#' \code{glm} method.
+#' same length as `x`, without missing values; unused for the
+#' `glm` method.
 #' @param X the full numeric design matrix used to fit the model,
-#' including the intercept column, with \code{nrow(X) == length(x)} and
-#' without missing values; unused for the \code{glm} method. See the
+#' including the intercept column, with `nrow(X) == length(x)` and
+#' without missing values; unused for the `glm` method. See the
 #' Details.
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{c("LeCessieTest", "htest")}, which is
+#' @return An object of class `c("LeCessieTest", "htest")`, which is
 #' a list with components:
-#' \item{statistic}{the standardised Z statistic, named \code{"Z"}.}
+#' \item{statistic}{the standardised Z statistic, named `"Z"`.}
 #' \item{p.value}{two-sided p-value from the standard normal distribution.}
 #' \item{method}{a character string describing the test.}
 #' \item{sse}{observed sum of squared errors.}
@@ -49,17 +49,17 @@
 #'
 #' @note
 #' Adapted from code by Matthias Kohl previously published as
-#' \code{HLgof.test()} in the \pkg{MKmisc} package, adapted to conform to
+#' `HLgof.test()` in the \pkg{MKmisc} package, adapted to conform to
 #' package standards.
 #'
 #' @references
 #' le Cessie, S. and van Houwelingen, J.C. (1991) A goodness-of-fit test
 #' for binary regression models based on smoothing methods.
-#' \emph{Biometrics}, 47, 1267-1282.
+#' *Biometrics*, 47, 1267-1282.
 #'
 #' Hosmer, D.W., Hosmer, T., le Cessie, S. and Lemeshow, S. (1997) A
 #' comparison of goodness-of-fit tests for the logistic regression model.
-#' \emph{Statistics in Medicine}, 16, 965-980.
+#' *Statistics in Medicine*, 16, 965-980.
 #'
 #' @seealso [glm()]
 #'

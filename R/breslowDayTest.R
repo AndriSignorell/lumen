@@ -7,7 +7,7 @@
 #'
 #' Calculates the Breslow-Day test of homogeneity for a
 #' \eqn{2 \times 2 \times k}{2 x 2 x k} table, in order to investigate if
-#' all \eqn{k} strata have the same OR. If \code{OR} is not given, the
+#' all \eqn{k} strata have the same OR. If `OR` is not given, the
 #' Mantel-Haenszel estimate is used.
 #'
 #' For the Breslow-Day test to be valid, the sample size should be
@@ -20,53 +20,53 @@
 #' discussed in Breslow and Day (1980).
 #'
 #' The statistic is referred to a chi-squared distribution with \eqn{k-1}
-#' degrees of freedom; this also applies when a prespecified \code{OR} is
+#' degrees of freedom; this also applies when a prespecified `OR` is
 #' supplied. Note that Tarone's adjustment is derived for the
-#' Mantel-Haenszel estimate; a warning is issued if \code{correct = TRUE}
-#' is combined with a user-supplied \code{OR}.
+#' Mantel-Haenszel estimate; a warning is issued if `correct = TRUE`
+#' is combined with a user-supplied `OR`.
 #'
 #' Alternatively, it might be better to cast the entire inference problem
 #' into the setting of a logistic regression model. Here, the underlying
 #' question of the Breslow-Day test can be answered by investigating
 #' whether an interaction term with the strata variable is necessary (e.g.
-#' using a likelihood ratio test using the \code{anova} function).
+#' using a likelihood ratio test using the `anova` function).
 #'
 #' @param x a \eqn{2 \times 2 \times k}{2 x 2 x k} table.
 #' @param OR the odds ratio to be tested against. If left undefined
 #' (default) the Mantel-Haenszel estimate will be used.
-#' @param correct logical, if \code{TRUE} the Breslow-Day test with
+#' @param correct logical, if `TRUE` the Breslow-Day test with
 #' Tarone's adjustment is computed, which subtracts an adjustment factor to
 #' make the resulting statistic asymptotically chi-squared.
-#' @return A list with class \code{"htest"} containing the following
+#' @return A list with class `"htest"` containing the following
 #' components:
-#'   \item{\code{statistic}}{the value of the chi-squared test statistic.}
-#'   \item{\code{parameter}}{the degrees of freedom of the approximate
+#'   \item{`statistic`}{the value of the chi-squared test statistic.}
+#'   \item{`parameter`}{the degrees of freedom of the approximate
 #'     chi-squared distribution of the test statistic (\eqn{k-1}).}
-#'   \item{\code{p.value}}{the p-value of the test.}
-#'   \item{\code{method}}{a character string indicating the test performed.}
-#'   \item{\code{data.name}}{a character string giving the name of the data.}
-#'   \item{\code{n}}{the total number of observations (not shown on screen).}
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
+#'   \item{`n`}{the total number of observations (not shown on screen).}
 #'
 #' @note
 #' Based on code by Michael Hoehle, adapted to conform to package
 #' standards.
 #'
-#' @seealso \code{\link{mantelhaen.test}}
+#' @seealso [mantelhaen.test()]
 #'
 #' @references Breslow, N. E. and Day, N. E. (1980) The Analysis of
-#' Case-Control Studies. \emph{Statistical Methods in Cancer Research:
-#' Vol. 1}. Lyon, France, IARC Scientific Publications.
+#' Case-Control Studies. *Statistical Methods in Cancer Research:
+#' Vol. 1*. Lyon, France, IARC Scientific Publications.
 #'
 #' Tarone, R.E. (1985) On heterogeneity tests based on efficient scores,
-#' \emph{Biometrika}, 72, pp. 91-95.
+#' *Biometrika*, 72, pp. 91-95.
 #'
 #' Jones, M. P., O'Gorman, T. W., Lemka, J. H., and Woolson, R. F. (1989)
 #' A Monte Carlo Investigation of Homogeneity Tests of the Odds Ratio
-#' Under Various Sample Size Configurations. \emph{Biometrics}, 45,
+#' Under Various Sample Size Configurations. *Biometrics*, 45,
 #' 171-181.
 #'
 #' Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control
-#' Study. \emph{Journal of the American Statistical Association}, 91,
+#' Study. *Journal of the American Statistical Association*, 91,
 #' 14-26.
 #'
 #' @examples

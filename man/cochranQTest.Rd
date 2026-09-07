@@ -56,7 +56,7 @@ data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 \item{formula}{a formula of the form \code{y ~ groups | blocks}.}
 
 \item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula. By
+\code{\link[=model.frame]{model.frame()}}) containing the variables in the formula. By
 default the variables are taken from \code{environment(formula)}.}
 
 \item{subset}{an optional vector specifying a subset of observations to

@@ -115,8 +115,8 @@
 #'
 #' @references
 #' Zou, G. Y. and Donner, A. (2008). Construction of confidence limits about
-#' effect measures: a general approach. \emph{Statistics in Medicine},
-#' \bold{27}(10), 1693--1702.
+#' effect measures: a general approach. *Statistics in Medicine*,
+#' **27**(10), 1693--1702.
 #'
 #' @seealso [poissonCI()], [poissonRatioCI()], [binomDiffCI()]
 #'
@@ -236,11 +236,11 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #'
 #' @references
 #' Sahai, H. and Khurshid, A. (1993). Confidence intervals for the ratio of two
-#' Poisson means. \emph{The Mathematical Scientist}, \bold{18}, 43--50.
+#' Poisson means. *The Mathematical Scientist*, **18**, 43--50.
 #'
 #' Graham, P. L., Mengersen, K. and Morton, A. P. (2003). Confidence limits for
-#' the ratio of two rates based on likelihood scores. \emph{Statistics in
-#' Medicine}, \bold{22}(12), 2071--2083.
+#' the ratio of two rates based on likelihood scores. *Statistics in
+#' Medicine*, **22**(12), 2071--2083.
 #'
 #' @seealso [poissonCI()], [poissonDiffCI()], [binomRatioCI()],
 #'   [stats::poisson.test()]

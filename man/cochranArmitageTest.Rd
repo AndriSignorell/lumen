@@ -100,7 +100,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John
 Wiley & Sons.
 }
 \seealso{
-\code{\link{prop.trend.test}},
+\code{\link[=prop.trend.test]{prop.trend.test()}},
 \href{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}{SAS PROC FREQ documentation}
 
 Other test.trend:

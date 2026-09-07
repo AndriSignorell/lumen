@@ -10,31 +10,31 @@
 #' Given a vector of observations with the number of samples falling in each
 #' class of a multinomial distribution, builds the simultaneous confidence
 #' intervals for the multinomial probabilities according to the method passed
-#' in \code{method} (see \code{method} below for the full list). The R code for
+#' in `method` (see `method` below for the full list). The R code for
 #' Sison-Glaz (1995) has been translated from the SAS code written by May and
-#' Johnson (2000). See the references for the other methods (\code{qh} =
-#' Quesenberry-Hurst, \code{fs} = Fitzpatrick-Scott).\cr Some of the methods
+#' Johnson (2000). See the references for the other methods (`qh` =
+#' Quesenberry-Hurst, `fs` = Fitzpatrick-Scott).\cr Some of the methods
 #' can yield confidence limits below 0 or above 1; these are truncated to
 #' \verb{[0, 1]}.
 #' 
 #' @param x vector of positive integers, the number of occurrences observed in
-#' each class; the total number of samples is \code{sum(x)}.
-#' @param conf.level confidence level; defaults to \code{0.95}.
+#' each class; the total number of samples is `sum(x)`.
+#' @param conf.level confidence level; defaults to `0.95`.
 #' @param sides character string specifying the side of the confidence
-#' interval, one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}; can be abbreviated. \code{"left"} corresponds to a
-#' hypothesis of \code{"greater"} in \code{t.test()}.
+#' interval, one of `"two.sided"` (default), `"left"` or
+#' `"right"`; can be abbreviated. `"left"` corresponds to a
+#' hypothesis of `"greater"` in `t.test()`.
 #' @param method character string specifying which method to use, one of
-#' \code{"sison-glaz"} (default), \code{"cplus1"}, \code{"goodman"},
-#' \code{"wald"}, \code{"waldcc"}, \code{"wilson"}, \code{"qh"} or
-#' \code{"fs"}; can be abbreviated. See \sQuote{Details} for the individual
+#' `"sison-glaz"` (default), `"cplus1"`, `"goodman"`,
+#' `"wald"`, `"waldcc"`, `"wilson"`, `"qh"` or
+#' `"fs"`; can be abbreviated. See \sQuote{Details} for the individual
 #' methods.
 #' 
 #' @return A numeric matrix with one row per class and columns:
 #' \describe{
-#'   \item{\code{est}}{estimated difference}
-#'   \item{\code{lci}}{lower confidence limit}
-#'   \item{\code{uci}}{upper confidence limit}
+#'   \item{`est`}{estimated difference}
+#'   \item{`lci`}{lower confidence limit}
+#'   \item{`uci`}{upper confidence limit}
 #' }
 #' 
 #' The number of rows correspond to the dimension of x.
@@ -43,40 +43,40 @@
 #' Fitzpatrick-Scott, Quesenberry-Hurst), adapted to coform to package standards.
 #' 
 #' @references Fitzpatrick, S. and Scott, A. (1987). Quick simultaneous
-#' confidence interval for multinomial proportions. \emph{Journal of American
-#' Statistical Association} 82(399): 875-878.
+#' confidence interval for multinomial proportions. *Journal of American
+#' Statistical Association* 82(399): 875-878.
 #' 
 #' Glaz, J., Sison, C.P. (1999) Simultaneous confidence intervals for
-#' multinomial proportions. \emph{Journal of Statistical Planning and
-#' Inference} 82:251-262.
+#' multinomial proportions. *Journal of Statistical Planning and
+#' Inference* 82:251-262.
 #' 
 #' Goodman, L. A. (1965) On Simultaneous Confidence Intervals for Multinomial
-#' Proportions \emph{Technometrics}, 7, 247-254.
+#' Proportions *Technometrics*, 7, 247-254.
 #' 
 #' May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous
 #' confidence intervals for multinomial proportions for small counts in a large
-#' number of cells. \emph{Journal of Statistical Software} 5(6) . Paper and
-#' code available at \url{https://www.jstatsoft.org/v05/i06}.
+#' number of cells. *Journal of Statistical Software* 5(6) . Paper and
+#' code available at <https://www.jstatsoft.org/v05/i06>.
 #' 
 #' Quesenberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous
-#' Confidence Intervals for Multinational Proportions. \emph{Technometrics}, 6:
+#' Confidence Intervals for Multinational Proportions. *Technometrics*, 6:
 #' 191-195.
 #' 
 #' Sangeetha, U., Subbiah, M., Srinivasan, M. R. (2013) Mathematical Analysis
 #' of propensity of aberration on the methods for interval estimation of the
-#' multinomial proportions. \emph{IOSR Journal of Mathematics}, e-ISSN:
+#' multinomial proportions. *IOSR Journal of Mathematics*, e-ISSN:
 #' 2278-5728,p-ISSN: 2319-765X, Volume 7, Issue 4 (Jul. - Aug. 2013), PP 23-28
 #' 
 #' Sison, C.P and Glaz, J. (1995) Simultaneous confidence intervals and sample
-#' size determination for multinomial proportions. \emph{Journal of the
-#' American Statistical Association}, 90:366-369.
+#' size determination for multinomial proportions. *Journal of the
+#' American Statistical Association*, 90:366-369.
 #' 
 #' Wald, A. Tests of statistical hypotheses concerning several parameters when
-#' the number of observations is large, \emph{Trans. Am. Math. Soc.} 54 (1943)
+#' the number of observations is large, *Trans. Am. Math. Soc.* 54 (1943)
 #' 426-482.
 #' 
 #' Wilson, E. B. Probable inference, the law of succession and statistical
-#' inference, \emph{J.Am. Stat. Assoc.} 22 (1927) 209-212.
+#' inference, *J.Am. Stat. Assoc.* 22 (1927) 209-212.
 #' 
 #' @examples
 #' 

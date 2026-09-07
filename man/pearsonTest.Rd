@@ -58,8 +58,7 @@ see the effect on the p-value. Eventually, it is suggested not to rely upon
 the result of the test.
 
 The function call \code{pearsonTest(x)} essentially produces the same
-result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)),
-n.param.est=2)}.
+result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)), n.param.est=2)}.
 
 Based on code by Juergen Gross, adapted to conform to package standards.
 }

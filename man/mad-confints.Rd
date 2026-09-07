@@ -57,7 +57,7 @@ Partial matching is supported.  \code{"left"} sets \code{uci = Inf};
 \item{gldMethod}{A character string passed to \code{.asv.mad()} selecting
 the GLD estimation method.  One of \code{"ML"}, \code{"MPS"},
 \code{"TM"} (default), \code{"SM"}, \code{"TL"}, \code{"Lmom"},
-\code{"DLA"}, or \code{"Mom"}.  See \code{\link[gld]{fit.fkml}()}.
+\code{"DLA"}, or \code{"Mom"}.  See \code{\link[gld:fit.fkml]{gld::fit.fkml()}}.
 Used only when \code{method = "classic"}.}
 
 \item{na.rm}{Logical.  Should missing values be removed before
@@ -157,7 +157,7 @@ intervals for median absolute deviations. \emph{arXiv:1910.00229}
 \verb{[math.ST]}.
 }
 \seealso{
-\code{\link{mad}}, \code{DescToolsX::madX}
+\code{\link[=mad]{mad()}}, \code{DescToolsX::madX}
 }
 \concept{ci.variance}
 \concept{confidence-interval}

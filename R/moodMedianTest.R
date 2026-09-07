@@ -6,11 +6,11 @@
 #' resulting 2 x k table is tested for independence.
 #'
 #' @details
-#' Not to be confused with \code{\link[stats]{mood.test}}, which is Mood's
-#' two-sample test for a difference in \emph{scale}. The median test described
+#' Not to be confused with [stats::mood.test()], which is Mood's
+#' two-sample test for a difference in *scale*. The median test described
 #' here has no base R implementation.
 #'
-#' The procedure is the k-sample counterpart of \code{\link{signTest}} and
+#' The procedure is the k-sample counterpart of [signTest()] and
 #' shares its robustness and its modest power: only the position of each
 #' observation relative to the pooled median enters the statistic, so all
 #' information about distance is discarded. Its asymptotic relative efficiency
@@ -18,55 +18,55 @@
 #'
 #' That low efficiency is the price of asking a narrow question, and the
 #' alternatives ask different ones rather than the same one better:
-#' \code{\link{brunnerMunzelTest}} tests the relative effect
+#' [brunnerMunzelTest()] tests the relative effect
 #' \eqn{P(X < Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}} and
-#' \code{\link{vanWaerdenTest}} tests equality of the distributions against
+#' [vanWaerdenTest()] tests equality of the distributions against
 #' normal-score location alternatives. Neither is a test of equal medians, so
 #' they are not drop-in replacements. Use the median test when the median is
 #' genuinely the quantity of interest, or when only the side of a threshold is
 #' trustworthy, as with coarsely recorded or thresholded data.
 #'
-#' \strong{Observations equal to the pooled median.} With an even total sample
+#' **Observations equal to the pooled median.** With an even total sample
 #' size the pooled median usually falls between two observations and the
-#' question does not arise. Otherwise \code{ties} decides: \code{"below"}
-#' (default) counts them with the lower group, following Conover, \code{"above"}
-#' with the upper group, and \code{"drop"} removes them, which retains a
+#' question does not arise. Otherwise `ties` decides: `"below"`
+#' (default) counts them with the lower group, following Conover, `"above"`
+#' with the upper group, and `"drop"` removes them, which retains a
 #' symmetric above-versus-below classification at the cost of a smaller
 #' effective sample size. Dropping them does not systematically enlarge the
 #' p-value; it can move it either way.
-#' \code{"below"} and \code{"above"} correspond to \code{mid.score} values of
-#' \code{"0"} and \code{"1"} in \code{coin::median_test}; \code{"drop"} has no
-#' counterpart there, since \code{mid.score = "0.5"} scores the median
+#' `"below"` and `"above"` correspond to `mid.score` values of
+#' `"0"` and `"1"` in `coin::median_test`; `"drop"` has no
+#' counterpart there, since `mid.score = "0.5"` scores the median
 #' observations rather than removing them.
 #'
-#' \code{method = "exact"} replaces the chi-squared approximation by Fisher's
+#' `method = "exact"` replaces the chi-squared approximation by Fisher's
 #' exact test on the same table and is advisable when expected counts are small;
 #' no test statistic is reported in that case. The continuity correction applies
-#' only to a 2 x 2 table, as in \code{\link[stats]{chisq.test}}.
+#' only to a 2 x 2 table, as in [stats::chisq.test()].
 #'
 #' Missing values are removed casewise.
 #'
 #' @param x a numeric vector of observations, or a formula of the form
-#'   \code{lhs ~ rhs} with a numeric \code{lhs} and a grouping \code{rhs}
-#' @param g a vector or factor giving the group for each element of \code{x}
+#'   `lhs ~ rhs` with a numeric `lhs` and a grouping `rhs`
+#' @param g a vector or factor giving the group for each element of `x`
 #' @param ties how to treat observations exactly equal to the pooled median, one
-#'   of \code{"below"} (default), \code{"above"} or \code{"drop"}
-#' @param method the test applied to the 2 x k table, either \code{"chisq"}
-#'   (default) or \code{"exact"}
+#'   of `"below"` (default), `"above"` or `"drop"`
+#' @param method the test applied to the 2 x k table, either `"chisq"`
+#'   (default) or `"exact"`
 #' @param correct logical, whether to apply the continuity correction; ignored
 #'   unless the table is 2 x 2
-#' @param formula a formula of the form \code{lhs ~ rhs}
+#' @param formula a formula of the form `lhs ~ rhs`
 #' @param data an optional data frame containing the model variables
 #' @param subset an optional vector specifying a subset of observations
 #' @param na.action a function indicating what should happen when the data
-#'   contain \code{NA}s
+#'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
 #'
-#' @return An object of class \code{"htest"} with components
-#'   \item{statistic}{Pearson's chi-squared statistic, \code{NULL} for
-#'     \code{method = "exact"}}
-#'   \item{parameter}{the degrees of freedom, \code{NULL} for
-#'     \code{method = "exact"}}
+#' @return An object of class `"htest"` with components
+#'   \item{statistic}{Pearson's chi-squared statistic, `NULL` for
+#'     `method = "exact"`}
+#'   \item{parameter}{the degrees of freedom, `NULL` for
+#'     `method = "exact"`}
 #'   \item{p.value}{the p-value}
 #'   \item{estimate}{the group medians}
 #'   \item{observed}{the 2 x k table of counts above and below the pooled median}
@@ -76,10 +76,10 @@
 #'   \item{data.name}{a character string giving the names of the data}
 #'
 #' @references
-#' Mood, A. M. (1950) \emph{Introduction to the Theory of Statistics}.
+#' Mood, A. M. (1950) *Introduction to the Theory of Statistics*.
 #' McGraw-Hill, New York, pp. 394-399.
 #'
-#' Conover, W. J. (1999) \emph{Practical Nonparametric Statistics}, 3rd edition.
+#' Conover, W. J. (1999) *Practical Nonparametric Statistics*, 3rd edition.
 #' Wiley, New York, pp. 218-223.
 #'
 #' @seealso [mood.test()]

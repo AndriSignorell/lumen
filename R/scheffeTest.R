@@ -14,40 +14,40 @@
 #' 
 #' @inheritParams Formulas
 #' 
-#' @param x either a fitted model object, usually an \code{\link{aov}} fit,
-#' when g is left to \code{NULL} or a response variable to be evalutated by g
-#' (which mustn't be \code{NULL} then). 
+#' @param x either a fitted model object, usually an [aov()] fit,
+#' when g is left to `NULL` or a response variable to be evalutated by g
+#' (which mustn't be `NULL` then). 
 #' @param g the grouping variable. 
 #' @param which character vector listing terms in the fitted model for which
 #' the intervals should be calculated. Defaults to all the terms. 
 #' @param contrasts a \eqn{r \times c}{r x c} matrix containing the contrasts
-#' to be computed, while \code{r} is the number of factor levels and \code{c}
+#' to be computed, while `r` is the number of factor levels and `c`
 #' the number of contrasts. Each column must contain a full contrast ("sum")
-#' adding up to 0. Note that the argument \code{which} must be defined, when
-#' non default contrasts are used.  Default value of \code{contrasts} is
-#' \code{NULL}. In this case all pairwise contrasts will be reported. 
+#' adding up to 0. Note that the argument `which` must be defined, when
+#' non default contrasts are used.  Default value of `contrasts` is
+#' `NULL`. In this case all pairwise contrasts will be reported. 
 #' @param conf.level numeric value between zero and one giving the confidence
 #' level to use.  If this is set to NA, just a matrix with the p-values will be
 #' returned. 
 #' @param \dots further arguments, currently not used. 
 #' 
-#' @return A list of classes \code{c("PostHocTest")}, with one component for
-#' each term requested in \code{which}. Each component is a matrix with columns
-#' \code{diff} giving the difference in the observed means, \code{lci}
-#' giving the lower end point of the interval, \code{uci} giving the upper
-#' end point and \code{pval} giving the p-value after adjustment for the
+#' @return A list of classes `c("PostHocTest")`, with one component for
+#' each term requested in `which`. Each component is a matrix with columns
+#' `diff` giving the difference in the observed means, `lci`
+#' giving the lower end point of the interval, `uci` giving the upper
+#' end point and `pval` giving the p-value after adjustment for the
 #' multiple comparisons.
 #' 
-#' There are print and plot methods for class \code{"PostHocTest"}. The plot
-#' method does not accept \code{xlab}, \code{ylab} or \code{main} arguments and
+#' There are print and plot methods for class `"PostHocTest"`. The plot
+#' method does not accept `xlab`, `ylab` or `main` arguments and
 #' creates its own values for each plot.
 #' 
-#' @seealso \code{\link{pairwise.t.test}}, \code{\link{TukeyHSD}} 
-#' @references Robert O. Kuehl, Steel R. (2000) \emph{Design of experiments}.
+#' @seealso [pairwise.t.test()], [TukeyHSD()] 
+#' @references Robert O. Kuehl, Steel R. (2000) *Design of experiments*.
 #' Duxbury
 #' 
-#' Steel R.G.D., Torrie J.H., Dickey, D.A. (1997) \emph{Principles and
-#' Procedures of Statistics, A Biometrical Approach}. McGraw-Hill
+#' Steel R.G.D., Torrie J.H., Dickey, D.A. (1997) *Principles and
+#' Procedures of Statistics, A Biometrical Approach*. McGraw-Hill
 #' 
 #' @examples
 #' 

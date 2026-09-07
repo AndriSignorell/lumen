@@ -16,10 +16,10 @@
 #' @param R number of Monte Carlo simulations used to approximate the CDF.
 #' @param log logical; return log-density if TRUE.
 #'
-#' @return \code{ddirichlet()} gives a numeric vector of densities (one per
-#' row of \code{x}), \code{pdirichlet()} gives an approximate probability,
-#' and \code{rdirichlet()} generates a matrix with \code{n} rows of random
-#' deviates. \code{qdirichlet()} only signals an error, as no unique
+#' @return `ddirichlet()` gives a numeric vector of densities (one per
+#' row of `x`), `pdirichlet()` gives an approximate probability,
+#' and `rdirichlet()` generates a matrix with `n` rows of random
+#' deviates. `qdirichlet()` only signals an error, as no unique
 #' multivariate quantile function exists.
 #'
 #' @examples

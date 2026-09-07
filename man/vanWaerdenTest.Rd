@@ -23,7 +23,7 @@ Non-numeric elements of a list will be coerced, with a warning.}
 the corresponding groups.}
 
 \item{data}{an optional matrix or data frame (or similar: see
-\code{\link{model.frame}}) containing the variables in the formula
+\code{\link[=model.frame]{model.frame()}}) containing the variables in the formula
 \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
@@ -41,8 +41,7 @@ A list with class \code{"htest"} containing the following
 components: \item{statistic}{the van der Waerden statistic.}
 \item{parameter}{the degrees of freedom of the approximate chi-squared
 distribution of the test statistic.} \item{p.value}{the p-value of the
-test.} \item{method}{the character string \code{"Van-der-Waerden normal
-scores test"}.} \item{data.name}{a character string giving the names of the
+test.} \item{method}{the character string \code{"Van-der-Waerden normal scores test"}.} \item{data.name}{a character string giving the names of the
 data.}
 }
 \description{
@@ -109,7 +108,7 @@ Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (Third
 Edition ed.). Wiley. pp. 396--406.
 }
 \seealso{
-\code{\link[coin]{normal_test}} in package \pkg{coin},
+\code{\link[coin:normal_test]{coin::normal_test()}} in package \pkg{coin},
 where the test is implemented in a more general context.
 
 Other test.location:

@@ -25,32 +25,32 @@
 #' @param x numeric vector of observations.
 #' @param y optional second numeric vector.
 #' @param alternative character string specifying the alternative
-#'   hypothesis. One of \code{"two.sided"}, \code{"less"},
-#'   or \code{"greater"}.
+#'   hypothesis. One of `"two.sided"`, `"less"`,
+#'   or `"greater"`.
 #' @param paired logical indicating whether a paired test is performed.
 #' @param mu hypothesized trimmed mean (or trimmed mean difference).
 #' @param conf.level confidence level for the confidence interval.
 #' @param trim fraction of observations trimmed from each tail.
-#'   Must satisfy \code{0 <= trim < 0.5}.
-#' @param formula a formula of the form \code{lhs ~ rhs}.
+#'   Must satisfy `0 <= trim < 0.5`.
+#' @param formula a formula of the form `lhs ~ rhs`.
 #' @param data optional data frame for the formula interface.
 #' @param subset optional subset expression.
 #' @param na.action NA handling function.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
-#' An object of class \code{"htest"}.
+#' An object of class `"htest"`.
 #'
 #' @seealso [t.test()]
 #'
 #' @references
 #' Wilcox, R. R. (2005).
-#' \emph{Introduction to Robust Estimation and Hypothesis Testing}.
+#' *Introduction to Robust Estimation and Hypothesis Testing*.
 #' Academic Press.
 #'
 #' Yuen, K. K. (1974).
 #' The two-sample trimmed t for unequal population variances.
-#' \emph{Biometrika}, 61, 165--170.
+#' *Biometrika*, 61, 165--170.
 #'
 #' @examples
 #' x <- rnorm(25, 100, 5)

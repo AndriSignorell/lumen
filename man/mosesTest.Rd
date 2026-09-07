@@ -46,7 +46,7 @@ trimmed from each end of the control group before recomputing the
 span. If \code{NULL}, defaults to
 \code{max(floor(0.05 * length(x)), 1)}.}
 
-\item{ties.method}{Character string passed to \code{\link{rank}}.
+\item{ties.method}{Character string passed to \code{\link[=rank]{rank()}}.
 Default \code{"first"} preserves integer-valued ranks and exact
 combinatorial validity.}
 
@@ -125,7 +125,7 @@ P(S_h \le s) =
 \strong{Tie handling.}
 The exact combinatorial distribution assumes a continuous underlying
 distribution (no ties). By default,
-\code{ties.method = "first"} is passed to \code{\link{rank}},
+\code{ties.method = "first"} is passed to \code{\link[=rank]{rank()}},
 producing integer-valued ranks that remain compatible with the exact
 formula. Tied observations are ordered according to their occurrence in
 the pooled sample, matching SPSS behaviour.
@@ -137,7 +137,7 @@ resulting p-values should be regarded as approximate rather than exact.
 
 \strong{Numerical stability.}
 The exact distribution is evaluated entirely in log-space using
-\code{\link{lchoose}} and a log-sum-exp transformation, avoiding
+\code{\link[=lchoose]{lchoose()}} and a log-sum-exp transformation, avoiding
 overflow for large sample sizes.
 }
 \examples{

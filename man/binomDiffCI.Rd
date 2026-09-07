@@ -204,7 +204,7 @@ Interval estimation for the difference between independent proportions.
 \emph{Statistics in Medicine}, 17, 873-890.
 }
 \seealso{
-\code{\link{binom.test}}, \code{\link{prop.test}}
+\code{\link[=binom.test]{binom.test()}}, \code{\link[=prop.test]{prop.test()}}
 
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},

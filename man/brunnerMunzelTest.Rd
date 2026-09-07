@@ -93,15 +93,15 @@ two distributions differ in shape or spread, its null distribution is wrong
 and the test does not keep its level. Brunner and Munzel (2000) studentize
 the rank statistic with a separate variance estimate per group and refer it
 to a t distribution with Satterthwaite degrees of freedom, which is the rank
-analogue of the Welch correction. \code{\link{yuenTTest}} plays the same role
+analogue of the Welch correction. \code{\link[=yuenTTest]{yuenTTest()}} plays the same role
 among the parametric location tests.
 
 \strong{Direction of \code{alternative}.} The alternative is stated in terms
 of \eqn{p}, not in terms of \code{x} against \code{y}. \code{"greater"}
 therefore means \eqn{p > p_0}, that is, \code{y} tends to produce the larger
 values. This follows the published definition of the statistic and the
-reported estimate, but it is the reverse of \code{\link[stats]{t.test}} and
-\code{\link[stats]{wilcox.test}}, where \code{"greater"} refers to \code{x}.
+reported estimate, but it is the reverse of \code{\link[stats:t.test]{stats::t.test()}} and
+\code{\link[stats:wilcox.test]{stats::wilcox.test()}}, where \code{"greater"} refers to \code{x}.
 
 \strong{Choice of \code{method}.} The t approximation is liberal in small
 samples; below roughly ten observations per group the studentized permutation
@@ -178,11 +178,11 @@ brunnerMunzelTest(score ~ grp, data = d)
 \references{
 Brunner, E., Munzel, U. (2000). The nonparametric Behrens-Fisher problem:
 asymptotic theory and a small-sample approximation. \emph{Biometrical
-Journal}, \bold{42}(1), 17-25.
+Journal}, \strong{42}(1), 17-25.
 
 Neubert, K., Brunner, E. (2007). A studentized permutation test for the
 non-parametric Behrens-Fisher problem. \emph{Computational Statistics and
-Data Analysis}, \bold{51}(10), 5192-5204.
+Data Analysis}, \strong{51}(10), 5192-5204.
 }
 \seealso{
 \code{\link[=wilcox.test]{wilcox.test()}}

@@ -14,20 +14,20 @@
 #'
 #' @param x a contingency table (matrix or array of counts).
 #' @param MARGIN an integer indicating the margin over which to compute
-#'   the scores. Defaults to \code{1} (rows). Use \code{2} for columns.
+#'   the scores. Defaults to `1` (rows). Use `2` for columns.
 #' @param method a character string specifying the scoring method.
 #'   One of:
 #'   \itemize{
-#'     \item \code{"table"}: uses numeric dimnames if available, otherwise
+#'     \item `"table"`: uses numeric dimnames if available, otherwise
 #'       assigns sequential integers.
-#'     \item \code{"ranks"}: mid-ranks based on cumulative frequencies.
-#'     \item \code{"ridit"}: ridit scores (ranks divided by total count).
-#'     \item \code{"modridit"}: modified ridit scores (ranks divided by
+#'     \item `"ranks"`: mid-ranks based on cumulative frequencies.
+#'     \item `"ridit"`: ridit scores (ranks divided by total count).
+#'     \item `"modridit"`: modified ridit scores (ranks divided by
 #'       total count + 1).
 #'   }
 #'
 #' @details
-#' For \code{method = "table"}, numeric dimension names are used as scores
+#' For `method = "table"`, numeric dimension names are used as scores
 #' if available. Otherwise, consecutive integers starting from 1 are assigned.
 #'
 #' For rank-based methods, scores are computed as midpoints of cumulative
@@ -40,9 +40,9 @@
 #'
 #' @references
 #' Lecoutre, E. (2005). R-help mailing list discussion.
-#' \url{https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html}
+#' <https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html>
 #'
-#' @seealso \code{\link{cochranArmitageTest}}, \code{\link{cor}}
+#' @seealso [cochranArmitageTest()], [cor()]
 #'
 #' @family scores
 #' @concept transformation

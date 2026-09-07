@@ -8,23 +8,23 @@
 #' distributed as \eqn{\chi^2} with \eqn{k} degrees of freedom, where
 #' \eqn{k} is the number of predictors.
 #'
-#' @param fit a fitted \code{\link[stats]{lm}} object.
+#' @param fit a fitted [stats::lm()] object.
 #'
-#' @return An object of class \code{"htest"} with the following components:
-#'     \item{\code{statistic}}{the BP test statistic.}
-#'     \item{\code{parameter}}{degrees of freedom.}
-#'     \item{\code{p.value}}{p-value based on the \eqn{\chi^2} distribution.}
-#'     \item{\code{method}}{character string describing the test.}
-#'     \item{\code{data.name}}{the formula of the fitted model.}
+#' @return An object of class `"htest"` with the following components:
+#'     \item{`statistic`}{the BP test statistic.}
+#'     \item{`parameter`}{degrees of freedom.}
+#'     \item{`p.value`}{p-value based on the \eqn{\chi^2} distribution.}
+#'     \item{`method`}{character string describing the test.}
+#'     \item{`data.name`}{the formula of the fitted model.}
 #'
 #' @references
 #'   Breusch, T.S. and Pagan, A.R. (1979). A simple test for heteroscedasticity
-#'   and random coefficient variation. \emph{Econometrica}, 47, 1287--1294.
+#'   and random coefficient variation. *Econometrica*, 47, 1287--1294.
 #'
 #'   Koenker, R. (1981). A note on studentizing a test for heteroscedasticity.
-#'   \emph{Journal of Econometrics}, 17, 107--112.
+#'   *Journal of Econometrics*, 17, 107--112.
 #'
-#' @seealso \code{\link[stats]{lm}}
+#' @seealso [stats::lm()]
 #'
 #' @examples
 #' fit <- lm(Sepal.Length ~ Sepal.Width, data = iris)

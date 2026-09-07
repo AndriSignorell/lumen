@@ -8,7 +8,7 @@
 #' The C statistic groups observations by quantiles of the fitted
 #' probabilities (equal-frequency bins), while the H statistic uses
 #' equal-width intervals on \eqn{[0, 1]} (e.g. 0--0.1, 0.1--0.2, ... for
-#' \code{nGroups = 10}), as defined in Lemeshow and Hosmer (1982). Groups
+#' `nGroups = 10`), as defined in Lemeshow and Hosmer (1982). Groups
 #' that contain no observations are dropped with a warning, and the
 #' degrees of freedom are based on the number of groups actually used.
 #'
@@ -23,25 +23,25 @@
 #' @name hosmerLemeshowTest
 #' @param x either a numeric vector of fitted probabilities, each in
 #' \eqn{[0, 1]} and without missing values, or a fitted binomial
-#' \code{\link{glm}} object, from which fitted probabilities and observed
+#' [glm()] object, from which fitted probabilities and observed
 #' outcomes are extracted.
 #' @param obs a numeric vector of observed binary outcomes (0 or 1) of the
-#' same length as \code{x}, without missing values; unused for the
-#' \code{glm} method.
-#' @param nGroups integer, the number of groups (default is \code{10}).
+#' same length as `x`, without missing values; unused for the
+#' `glm` method.
+#' @param nGroups integer, the number of groups (default is `10`).
 #' Must be at least 3.
-#' @param type the type of statistic, one of \code{"C"} (default,
-#' quantile-based groups) or \code{"H"} (equal-width groups on
+#' @param type the type of statistic, one of `"C"` (default,
+#' quantile-based groups) or `"H"` (equal-width groups on
 #' \eqn{[0, 1]}).
 #' @param \dots further arguments passed to methods.
 #'
-#' @return An object of class \code{c("HosmerLemeshowTest", "htest")},
+#' @return An object of class `c("HosmerLemeshowTest", "htest")`,
 #' which is a list with components:
 #' \item{statistic}{the chi-squared test statistic.}
 #' \item{parameter}{the degrees of freedom (number of groups used minus 2).}
 #' \item{p.value}{the p-value of the test.}
 #' \item{method}{a character string describing the test.}
-#' \item{type}{the type of statistic computed (\code{"C"} or \code{"H"}).}
+#' \item{type}{the type of statistic computed (`"C"` or `"H"`).}
 #' \item{nGroups}{the number of groups actually used (may be less than
 #' requested if quantile breaks coincide or groups are empty).}
 #' \item{observed}{matrix of observed counts for both outcome classes per
@@ -50,19 +50,19 @@
 #' group.}
 #' \item{data.name}{a character string giving the names of the data.}
 #'
-#' The \code{print} method accepts a \code{details} argument; if
-#' \code{TRUE}, observed and expected counts for both outcome classes are
+#' The `print` method accepts a `details` argument; if
+#' `TRUE`, observed and expected counts for both outcome classes are
 #' printed by group.
 #'
 #' @references
 #' Lemeshow, S. and Hosmer, D. W. (1982) A review of goodness of fit
 #' statistics for use in the development of logistic regression models.
-#' \emph{American Journal of Epidemiology}, \bold{115}(1), 92--106.
+#' *American Journal of Epidemiology*, **115**(1), 92--106.
 #'
-#' Hosmer, D. W., Lemeshow, S. and Sturdivant, R. X. (2013) \emph{Applied
-#' Logistic Regression}, 3rd ed., New York: Wiley.
+#' Hosmer, D. W., Lemeshow, S. and Sturdivant, R. X. (2013) *Applied
+#' Logistic Regression*, 3rd ed., New York: Wiley.
 #'
-#' @seealso \code{\link{glm}}
+#' @seealso [glm()]
 #'
 #' @examples
 #' set.seed(111)
@@ -221,8 +221,8 @@ hosmerLemeshowTest.default <- function(x, obs, nGroups = 10,
 
 
 #' @param digits number of significant digits to display.
-#' @param details logical; if \code{TRUE}, prints observed and expected
-#' counts for both outcome classes by group. Default is \code{FALSE}.
+#' @param details logical; if `TRUE`, prints observed and expected
+#' counts for both outcome classes by group. Default is `FALSE`.
 #'
 #' @rdname hosmerLemeshowTest
 #' @export

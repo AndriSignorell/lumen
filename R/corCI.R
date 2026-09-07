@@ -12,12 +12,12 @@
 #' @param n integer; sample size used to estimate the correlation.
 #'   Must be at least 3.
 #' @param conf.level confidence level of the interval, a single number in
-#'   \eqn{(0, 1)}. Defaults to \code{0.95}; unlike the estimators in this
-#'   package it cannot be \code{NA}, since the interval is all this function
+#'   \eqn{(0, 1)}. Defaults to `0.95`; unlike the estimators in this
+#'   package it cannot be `NA`, since the interval is all this function
 #'   computes.
 #' @param sides character string specifying the sidedness of the confidence
-#'   interval (one of \code{"two.sided"} (default), \code{"left"} or
-#'   \code{"right"}). See \code{DescToolsX::ConfidenceIntervals}.
+#'   interval (one of `"two.sided"` (default), `"left"` or
+#'   `"right"`). See `DescToolsX::ConfidenceIntervals`.
 #'
 #' @details
 #' Fisher's \eqn{z}-transformation is defined as
@@ -31,25 +31,25 @@
 #' interval is reported at that boundary rather than at \eqn{\pm\infty}.
 #'
 #' The transformation has nothing to say in two situations, and both are
-#' answered with \code{NA} bounds and a warning rather than with an interval
+#' answered with `NA` bounds and a warning rather than with an interval
 #' that only looks informative: at \eqn{|\rho| = 1}, where \eqn{z} is
 #' infinite and the interval would collapse onto the estimate and thereby
 #' rule out every other value, and at \eqn{n = 3}, where the standard error
 #' \eqn{1/\sqrt{n-3}} is infinite and the interval would be the whole range.
 #'
 #' @section Argument name:
-#' This function used to take \code{alternative} with the values
-#' \code{"less"} and \code{"greater"}. It now takes \code{sides}, like every
-#' other interval function in the package, and \code{sides} names the side
-#' carrying the \emph{finite} bound - so \code{"left"} is the former
-#' \code{"greater"} and \code{"right"} the former \code{"less"}. The values
+#' This function used to take `alternative` with the values
+#' `"less"` and `"greater"`. It now takes `sides`, like every
+#' other interval function in the package, and `sides` names the side
+#' carrying the *finite* bound - so `"left"` is the former
+#' `"greater"` and `"right"` the former `"less"`. The values
 #' produced are unchanged.
 #'
 #' @return A named numeric vector with elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate (correlation coefficient \code{rho}).}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{point estimate (correlation coefficient `rho`).}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #'
 #' @note Based on code by William Revelle, adapted to conform to package standards.
@@ -65,7 +65,7 @@
 #' r <- seq(0, 0.9, by = 0.1)
 #' t(sapply(r, corCI, n = 30))
 #'
-#' @seealso \code{\link{fisherZ}}, \code{\link{fisherZInv}}, \code{\link{cor.test}}
+#' @seealso [fisherZ()], [fisherZInv()], [cor.test()]
 #'
 #' @family ci.correlation  
 #' @concept correlation  

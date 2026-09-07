@@ -10,33 +10,33 @@
 #'
 #' The labels are numbers by default. Letters are available, but carry the
 #' opposite meaning of a compact letter display, where levels sharing a letter
-#' are those that could \emph{not} be distinguished; here a label marks a
+#' are those that could *not* be distinguished; here a label marks a
 #' significant difference.
 #'
-#' @param x an object of class \code{PostHocTest} as returned by
-#'   \code{\link{postHocTest}}, or of class \code{pairwise.htest} as returned
-#'   by \code{\link[stats]{pairwise.t.test}} and friends
-#' @param alpha the significance level; defaults to \code{1 - conf.level} of
+#' @param x an object of class `PostHocTest` as returned by
+#'   [postHocTest()], or of class `pairwise.htest` as returned
+#'   by [stats::pairwise.t.test()] and friends
+#' @param alpha the significance level; defaults to `1 - conf.level` of
 #'   the object, or to 0.05 where no confidence level is stored
-#' @param direction logical; if \code{TRUE}, a sign is appended to every
+#' @param direction logical; if `TRUE`, a sign is appended to every
 #'   label, giving the direction of the row level's mean relative to the
 #'   listed level. Requires the differences to be present in the object, which
-#'   is not the case for the p-value branch and for \code{pairwise.htest}
+#'   is not the case for the p-value branch and for `pairwise.htest`
 #'   objects.
 #' @param labels either a keyword defining how the levels are abbreviated, one
-#'   of \code{"numbers"} (the default), \code{"letters"}, \code{"LETTERS"},
-#'   \code{"abbreviate"} or \code{"names"}, or a character vector of labels
+#'   of `"numbers"` (the default), `"letters"`, `"LETTERS"`,
+#'   `"abbreviate"` or `"names"`, or a character vector of labels
 #'   with one entry per level
 #' @param minlength the minimum length of the abbreviations, used for
-#'   \code{labels = "abbreviate"} only
+#'   `labels = "abbreviate"` only
 #' @param sep the separator between the labels
 #' @param \dots further arguments, not used so far
 #'
 #' @return a list with one data frame per term, each holding the columns
-#'   \code{label} (the label of the level itself) and \code{diff} (the labels
+#'   `label` (the label of the level itself) and `diff` (the labels
 #'   of the levels it differs significantly from), with the levels as row
-#'   names. The class is \code{"signifDiff"}, the significance level is kept
-#'   in the attribute \code{alpha}.
+#'   names. The class is `"signifDiff"`, the significance level is kept
+#'   in the attribute `alpha`.
 #'
 #' @examples
 #' r.aov <- aov(breaks ~ tension, data = warpbreaks)
@@ -55,7 +55,7 @@
 #'
 #' signifDiff(pairwise.t.test(warpbreaks$breaks, warpbreaks$tension))
 #'
-#' @seealso \code{\link{postHocTest}}, \code{\link[stats]{pairwise.t.test}}
+#' @seealso [postHocTest()], [stats::pairwise.t.test()]
 #'
 #' @family test.posthoc
 #' @concept multiple-comparisons
@@ -149,7 +149,7 @@ signifDiff.pairwise.htest <- function(x,
 
 
 #' @rdname signifDiff
-#' @param legend logical; if \code{TRUE}, the meaning of the signs is printed
+#' @param legend logical; if `TRUE`, the meaning of the signs is printed
 #'   as a footer, separated by a rule
 #' @export
 print.signifDiff <- function(x, legend = TRUE, ...) {
@@ -186,8 +186,8 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
 #' Copes with the two shapes a post hoc result comes in: the four column array
 #' of the confidence interval branch, and the truncated triangular matrix of
 #' the p-value branch, which pairwise.htest objects share. The differences are
-#' available in the first case only, then \code{d[i, j]} is the mean of level
-#' \code{i} minus the mean of level \code{j}.
+#' available in the first case only, then `d[i, j]` is the mean of level
+#' `i` minus the mean of level `j`.
 #'
 #' @keywords internal
 #' @noRd

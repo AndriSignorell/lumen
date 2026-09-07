@@ -91,7 +91,7 @@ poissonDiffCI(x1 = c(15, 20), n1 = 100, x2 = 6, n2 = 120)
 \references{
 Zou, G. Y. and Donner, A. (2008). Construction of confidence limits about
 effect measures: a general approach. \emph{Statistics in Medicine},
-\bold{27}(10), 1693--1702.
+\strong{27}(10), 1693--1702.
 }
 \seealso{
 \code{\link[=poissonCI]{poissonCI()}}, \code{\link[=poissonRatioCI]{poissonRatioCI()}}, \code{\link[=binomDiffCI]{binomDiffCI()}}

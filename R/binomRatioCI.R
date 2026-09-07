@@ -15,32 +15,32 @@
 #' \frac{x_1 / n_1}{x_2 / n_2}.
 #' }
 #'
-#' \strong{Katz-log}:
+#' **Katz-log**:
 #' The classical large-sample log-transformed Wald interval described by
 #' Katz et al. (1978). This method is simple and widely used but may perform
 #' poorly for small sample sizes or proportions close to 0 or 1.
 #'
-#' \strong{Adjusted-log}:
+#' **Adjusted-log**:
 #' A continuity-adjusted modification of the Katz interval using additive
 #' corrections to reduce bias and improve performance in sparse data settings
 #' (Walter, 1975; Pettigrew et al., 1986).
 #'
-#' \strong{Bailey}:
+#' **Bailey**:
 #' A skewness-corrected interval proposed by Bailey (1987) based on a cubic
 #' transformation. Often provides improved coverage probabilities relative to
 #' standard Wald-type intervals.
 #'
-#' \strong{Koopman}:
+#' **Koopman**:
 #' An asymptotic score interval obtained by inverting Pearson's chi-square
 #' statistic (Koopman, 1984). Confidence limits are determined iteratively via
 #' root-finding and the method is generally considered among the most reliable
 #' asymptotic procedures.
 #'
-#' \strong{Noether}:
+#' **Noether**:
 #' A large-sample interval based directly on the asymptotic variance of the
 #' estimated ratio (Noether, 1957).
 #'
-#' \strong{Inverse hyperbolic sine}:
+#' **Inverse hyperbolic sine**:
 #' Based on the variance-stabilizing inverse hyperbolic sine transformation
 #' proposed by Newcombe (2001).
 #'
@@ -54,7 +54,7 @@
 #' Some methods may produce infinite limits when one observed proportion is
 #' zero. This is expected behavior for ratio parameters.
 #'
-#' \strong{Which interval should be used?}\cr
+#' **Which interval should be used?**\cr
 #' The choice of method remains an active topic of discussion. The Koopman
 #' interval is often recommended due to its comparatively good coverage
 #' properties across a broad range of scenarios.
@@ -65,29 +65,29 @@
 #' @param n2 number of trials in the second group.
 #' @param conf.level confidence level, default is 0.95.
 #' @param sides a character string specifying the type of confidence interval:
-#'   \code{"two.sided"} (default), \code{"left"}, or \code{"right"}.
+#'   `"two.sided"` (default), `"left"`, or `"right"`.
 #'   Partial matching is allowed.
 #' @param method one of:
-#'   \code{"koopman"},
-#'   \code{"bailey"},
-#'   \code{"adj-log"},
-#'   \code{"katz-log"},
-#'   \code{"sinh-1"},
-#'   \code{"noether"}.
+#'   `"koopman"`,
+#'   `"bailey"`,
+#'   `"adj-log"`,
+#'   `"katz-log"`,
+#'   `"sinh-1"`,
+#'   `"noether"`.
 #' @param tol desired accuracy (convergence tolerance) for the iterative
 #'   root-finding procedure used by the Koopman interval.
 #'
 #' @return If recycling yields a single case, a named numeric vector with
 #' elements:
 #' \describe{
-#'   \item{\code{est}}{point estimate of the ratio of binomial proportions,
-#'     \code{(x1/n1) / (x2/n2)}.}
-#'   \item{\code{lci}}{lower confidence interval bound.}
-#'   \item{\code{uci}}{upper confidence interval bound.}
+#'   \item{`est`}{point estimate of the ratio of binomial proportions,
+#'     `(x1/n1) / (x2/n2)`.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #'
 #' If recycling yields multiple cases, a data frame with one row per case is
-#' returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+#' returned. Its first three columns are `est`, `lci`, and `uci`;
 #' the remaining columns contain the recycled argument values.
 #' 
 #'
@@ -96,33 +96,33 @@
 #' @references
 #' Bailey BJR (1987).
 #' Confidence limits to the risk ratio.
-#' \emph{Biometrics}, 43(1), 201-205.
+#' *Biometrics*, 43(1), 201-205.
 #'
 #' Katz D, Baptista J, Azen SP, Pike MC (1978).
 #' Obtaining confidence intervals for the risk ratio in cohort studies.
-#' \emph{Biometrics}, 34, 469-474.
+#' *Biometrics*, 34, 469-474.
 #'
 #' Koopman PAR (1984).
 #' Confidence intervals for the ratio of two binomial proportions.
-#' \emph{Biometrics}, 40, 513-517.
+#' *Biometrics*, 40, 513-517.
 #'
 #' Newcombe RG (2001).
 #' Logit confidence intervals and the inverse sinh transformation.
-#' \emph{The American Statistician}, 55, 200-202.
+#' *The American Statistician*, 55, 200-202.
 #'
 #' Noether GE (1957).
 #' Sample size determination for some common nonparametric tests.
-#' \emph{Journal of the American Statistical Association}, 52, 645-647.
+#' *Journal of the American Statistical Association*, 52, 645-647.
 #'
 #' Pettigrew HM, Gart JJ, Thomas DG (1986).
 #' The bias and higher cumulants of the logarithm of a binomial variate.
-#' \emph{Biometrika}, 73(2), 425-435.
+#' *Biometrika*, 73(2), 425-435.
 #'
 #' Walter SD (1975).
 #' The distribution of Levin's measure of attributable risk.
-#' \emph{Biometrika}, 62(2), 371-374.
+#' *Biometrika*, 62(2), 371-374.
 #'
-#' @seealso \code{\link{binom.test}}, \code{\link{prop.test}}
+#' @seealso [binom.test()], [prop.test()]
 #'
 #' @examples
 #'

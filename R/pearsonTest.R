@@ -9,16 +9,16 @@
 #' expected observations (under the hypothesis) in class \eqn{i}. The classes
 #' are build is such a way that they are equiprobable under the hypothesis of
 #' normality. The p-value is computed from a chi-square distribution with
-#' \code{nClasses}-3 degrees of freedom if \code{adjust} is \code{TRUE} and
-#' from a chi-square distribution with \code{nClasses}-1 degrees of freedom
+#' `nClasses`-3 degrees of freedom if `adjust` is `TRUE` and
+#' from a chi-square distribution with `nClasses`-1 degrees of freedom
 #' otherwise. In both cases this is not (!) the correct p-value, lying
 #' somewhere between the two, see also Moore (1986).
 #' 
 #' @param x a numeric vector of data values. Missing values are allowed.
 #' @param nClasses the number of classes. The default is due to Moore (1986).
-#' @param adjust logical; if \code{TRUE} (default), the p-value is computed
-#' from a chi-square distribution with \code{nClasses}-3 degrees of freedom,
-#' otherwise from a chi-square distribution with \code{nClasses}-1 degrees of
+#' @param adjust logical; if `TRUE` (default), the p-value is computed
+#' from a chi-square distribution with `nClasses`-3 degrees of freedom,
+#' otherwise from a chi-square distribution with `nClasses`-1 degrees of
 #' freedom.
 #' @return A list with class \dQuote{htest} containing the following
 #' components: \item{statistic}{the value of the Pearson chi-square statistic.}
@@ -30,22 +30,22 @@
 #' @note The Pearson chi-square test is usually not recommended for testing the
 #' composite hypothesis of normality due to its inferior power properties
 #' compared to other tests. It is common practice to compute the p-value from
-#' the chi-square distribution with \code{nClasses} - 3 degrees of freedom, in
+#' the chi-square distribution with `nClasses` - 3 degrees of freedom, in
 #' order to adjust for the additional estimation of two parameters. (For the
 #' simple hypothesis of normality (mean and variance known) the test statistic
-#' is asymptotically chi-square distributed with \code{nClasses} - 1 degrees
+#' is asymptotically chi-square distributed with `nClasses` - 1 degrees
 #' of freedom.) This is, however, not correct as long as the parameters are
-#' estimated by \code{mean(x)} and \code{var(x)} (or \code{sd(x)}), as it is
+#' estimated by `mean(x)` and `var(x)` (or `sd(x)`), as it is
 #' usually done, see Moore (1986) for details. Since the true p-value is
-#' somewhere between the two, it is suggested to run \code{pearsonTest} twice,
-#' with \code{adjust = TRUE} (default) and with \code{adjust = FALSE}. It is
+#' somewhere between the two, it is suggested to run `pearsonTest` twice,
+#' with `adjust = TRUE` (default) and with `adjust = FALSE`. It is
 #' also suggested to slightly change the default number of classes, in order to
 #' see the effect on the p-value. Eventually, it is suggested not to rely upon
 #' the result of the test.
 #' 
-#' The function call \code{pearsonTest(x)} essentially produces the same
-#' result as the S-PLUS function call \code{chisq.gof((x-mean(x))/sqrt(var(x)),
-#' n.param.est=2)}.
+#' The function call `pearsonTest(x)` essentially produces the same
+#' result as the S-PLUS function call `chisq.gof((x-mean(x))/sqrt(var(x)),
+#' n.param.est=2)`.
 #' 
 #' @note
 #' Based on code by Juergen Gross, adapted to conform to package standards. 

@@ -26,7 +26,7 @@ would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 \item{method}{vector of character strings representing the type of intervals
 required.  The value should be any subset of the values \code{"classic"},
 \code{"bonett"}, \code{"norm"}, \code{"boot"}. Bootstrap type can be set by
-the ... arguments.  See \code{\link[boot]{boot.ci}}.}
+the ... arguments.  See \code{\link[boot:boot.ci]{boot::boot.ci()}}.}
 
 \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.}
 
@@ -93,8 +93,8 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 (might be outdated)
 }
 \seealso{
-\code{\link{meanCI}}, \code{\link{medianCI}},
-\code{\link{varTest}}, \code{DescToolsX::varX}
+\code{\link[=meanCI]{meanCI()}}, \code{\link[=medianCI]{medianCI()}},
+\code{\link[=varTest]{varTest()}}, \code{DescToolsX::varX}
 
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},

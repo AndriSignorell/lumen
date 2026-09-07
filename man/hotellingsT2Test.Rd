@@ -23,7 +23,7 @@ the left-hand side is a numeric matrix of response variables and \code{g}
 is a factor with exactly two levels.}
 
 \item{data}{an optional data frame (or similar, see
-\code{\link{model.frame}}) containing the variables in \code{formula}.
+\code{\link[=model.frame]{model.frame()}}) containing the variables in \code{formula}.
 Defaults to the environment of \code{formula}.}
 
 \item{subset}{an optional vector specifying a subset of observations.}

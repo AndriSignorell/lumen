@@ -12,46 +12,46 @@
 #' while more liberal methods increase power at the cost of a higher
 #' false positive rate.
 #'
-#' \strong{LSD (Fisher)}: \verb{   }No adjustment for multiple testing;
+#' **LSD (Fisher)**: \verb{   }No adjustment for multiple testing;
 #'   highest power but inflated type I error. Mainly suitable for a small
 #'   number of groups.
 #'
-#' \strong{Bonferroni} (Dunn's (Bonferroni) t-test): \verb{   }Adjusts p-values 
+#' **Bonferroni** (Dunn's (Bonferroni) t-test): \verb{   }Adjusts p-values 
 #'   by the number of comparisons;
 #'   simple and robust, but often overly conservative.
 #'
-#' \strong{Tukey HSD}: \verb{   }Controls the family-wise error rate for all
+#' **Tukey HSD**: \verb{   }Controls the family-wise error rate for all
 #'   pairwise comparisons; widely used and generally recommended for balanced
 #'   designs.
 #'
-#' \strong{Newman-Keuls}: \verb{   }Stepwise procedure with more power than Tukey,
+#' **Newman-Keuls**: \verb{   }Stepwise procedure with more power than Tukey,
 #'   but weaker error control; may inflate type I error.
 #'
-#' \strong{Duncan}: \verb{   }Similar to Newman-Keuls but more liberal; provides
+#' **Duncan**: \verb{   }Similar to Newman-Keuls but more liberal; provides
 #'   higher power at the cost of increased false positives.
 #'
-#'  \strong{Scheffé}: \verb{   }Very conservative; suitable for both pairwise and
+#'  **Scheffé**: \verb{   }Very conservative; suitable for both pairwise and
 #'   complex (contrast-based) comparisons.
 #' 
-#' \strong{Guidance}\cr
+#' **Guidance**\cr
 #' Tukey HSD is typically a good default for pairwise comparisons.
 #' Bonferroni is useful when strict error control is required.
 #' Scheffé is appropriate for more complex contrasts.
 #'
-#' \strong{Tables} \cr
+#' **Tables** \cr
 #' For tables pairwise chi-square tests can be performed,
 #' either without correction or with correction for multiple testing following
-#' the logic in \code{\link{p.adjust}}. 
+#' the logic in [p.adjust()]. 
 #' 
 #' @name postHoc
 #' @aliases postHocTest postHocTest.aov postHocTest.table postHocTest.matrix print.postHocTest plot.postHocTest
 #' 
-#' @param x an object of class \code{aov}.
-#' @param method one of \code{"hsd"}, \code{"bonferroni"}, \code{"lsd"},
-#' \code{"scheffe"}, \code{"newmankeuls"}, \code{"duncan"}, defining the
+#' @param x an object of class `aov`.
+#' @param method one of `"hsd"`, `"bonferroni"`, `"lsd"`,
+#' `"scheffe"`, `"newmankeuls"`, `"duncan"`, defining the
 #' method for the pairwise comparisons (may be abbreviated).\cr For the
 #' post hoc test of tables the methods of
-#' \code{\link{p.adjust}} can be supplied. See the detail there. 
+#' [p.adjust()] can be supplied. See the detail there. 
 #' @param which a character vector listing terms in the fitted model for which
 #' the intervals should be calculated. Defaults to all the terms. 
 #' @param conf.level a numeric value between zero and one giving the
@@ -59,20 +59,20 @@
 #' with the p-values will be returned. 
 #' @param ordered a logical value indicating if the levels of the factor should
 #' be ordered according to increasing average in the sample before taking
-#' differences. If ordered is \code{TRUE} then the calculated differences in
+#' differences. If ordered is `TRUE` then the calculated differences in
 #' the means will all be positive. The significant differences will be those
 #' for which the lower end point is positive. \cr This argument will be ignored
-#' if method is not either \code{hsd} or \code{newmankeuls}.
+#' if method is not either `hsd` or `newmankeuls`.
 #' @param digits controls the number of fixed digits to print.
 #' @param \dots further arguments, not used so far.
 #'  
-#' @return An object of class \code{"PostHocTest"}: a list of data frames
+#' @return An object of class `"PostHocTest"`: a list of data frames
 #' containing the mean difference, lower and upper confidence interval bounds,
-#' and p-value when \code{conf.level} is not \code{NA}; otherwise, a list of
+#' and p-value when `conf.level` is not `NA`; otherwise, a list of
 #' p-value matrices.
 #' 
-#' @seealso \code{\link{TukeyHSD}}, \code{\link{aov}},
-#' \code{\link{pairwise.t.test}}, \code{\link{scheffeTest}} 
+#' @seealso [TukeyHSD()], [aov()],
+#' [pairwise.t.test()], [scheffeTest()] 
 #' 
 #' @examples
 #' 
@@ -346,24 +346,24 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
 
 #' Plot Routine for Posthoc Tests Results
 #' 
-#' The plot method visualizes pairwise comparisons from a \code{PostHocTest} object 
+#' The plot method visualizes pairwise comparisons from a `PostHocTest` object 
 #' using dot plots.
-#' Each component of \code{x} is plotted separately, showing estimated differences
+#' Each component of `x` is plotted separately, showing estimated differences
 #' along with confidence intervals. A vertical reference line at zero is added.
 #'
 #'
-#' @param x an object of class \code{"PostHocTest"}, typically returned by
-#'   \code{\link{postHocTest}}.
+#' @param x an object of class `"PostHocTest"`, typically returned by
+#'   [postHocTest()].
 #' @param ... additional graphical parameters passed to
-#'   \code{\link[pharos]{plotDot}} and base plotting functions.
+#'   [pharos::plotDot()] and base plotting functions.
 #'
 #' @details
-#' For each factor in \code{x}, a dot plot is produced displaying pairwise
+#' For each factor in `x`, a dot plot is produced displaying pairwise
 #' differences in means and their confidence intervals. The confidence level
-#' is taken from the \code{"conf.level"} attribute of \code{x}.
+#' is taken from the `"conf.level"` attribute of `x`.
 #'
 #' @return
-#' Invisibly returns \code{NULL}.
+#' Invisibly returns `NULL`.
 #'
 #' @seealso [pharos::plotDot()]
 #'

@@ -70,8 +70,8 @@ The functions \code{dgompertz()} and similar available in the package
 \pkg{eha} label the parameters the other way round, so that what is called
 the \code{shape} there is called the \code{rate} here, and what is called
 \code{1 / scale} there is called the \code{shape} here. The terminology here
-is consistent with the exponential \code{\link{dexp}} and Weibull
-\code{\link{dweibull}} distributions in R.
+is consistent with the exponential \code{\link[=dexp]{dexp()}} and Weibull
+\code{\link[=dweibull]{dweibull()}} distributions in R.
 }
 \note{
 Based on code by Christopher Jackson previously published in
@@ -80,13 +80,13 @@ the \pkg{flexsurv} package, adapted to conform to package standards.
 \references{
 Gompertz, B. (1825) On the nature of the function expressive of the law
 of human mortality. \emph{Philosophical Transactions of the Royal Society},
-\bold{115}, 513--583.
+\strong{115}, 513--583.
 
 Stata Press (2007) \emph{Stata Release 10 Manual: Survival Analysis
 and Epidemiological Tables}. Stata Press.
 }
 \seealso{
-\link{distributions-overview}; \code{\link{dexp}}
+\link{distributions-overview}; \code{\link[=dexp]{dexp()}}
 }
 \concept{demographics}
 \concept{distribution-function}
