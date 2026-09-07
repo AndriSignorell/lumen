@@ -25,7 +25,7 @@ print(x, digits = 4, details = FALSE, ...)
 
   either a numeric vector of fitted probabilities, each in \\\[0, 1\]\\
   and without missing values, or a fitted binomial
-  [`glm`](https://rdrr.io/r/stats/glm.html) object, from which fitted
+  [`glm()`](https://rdrr.io/r/stats/glm.html) object, from which fitted
   probabilities and observed outcomes are extracted.
 
 - ...:
@@ -128,7 +128,7 @@ Logistic Regression*, 3rd ed., New York: Wiley.
 
 ## See also
 
-[`glm`](https://rdrr.io/r/stats/glm.html)
+[`glm()`](https://rdrr.io/r/stats/glm.html)
 
 Other test.regression: [`bpTest()`](bpTest.md),
 [`breuschGodfreyTest()`](breuschGodfreyTest.md),

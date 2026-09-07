@@ -56,8 +56,8 @@ Density function, distribution function, quantile function and random
 generation for the Frechet distribution with location, scale and shape
 parameters.
 
-The Frechet distribution function with parameters \\\code{loc} = a\\,
-\\\code{scale} = b\\ and \\\code{shape} = s\\ is \$\$G(z) =
+The Frechet distribution function with parameters \\\`loc\` = a\\,
+\\\`scale\` = b\\ and \\\`shape\` = s\\ is \$\$G(z) =
 \exp\left\\-\left(\frac{z-a}{b}\right)^{-s}\right\\\$\$ for \\z \> a\\
 and zero otherwise, where \\b \> 0\\ and \\s \> 0\\.
 

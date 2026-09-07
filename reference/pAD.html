@@ -17,7 +17,7 @@ Anderson-Darling test statistic."><meta property="og:image" content="/logo.png">
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@ slower, more accurate algorithm, in the case <code>n=Inf</code>.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>pAD</code> uses the algorithms and C code described in Marsaglia and
 Marsaglia (2004).</p>
-<p><code>qAD</code> uses <code><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></code> to find the quantiles.</p>
+<p><code>qAD</code> uses <code><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot()</a></code> to find the quantiles.</p>
 <p>The argument <code>fast</code> applies only when <code>n=Inf</code> and determines
 whether the asymptotic distribution is approximated using the faster
 algorithm <code>adinf</code> (accurate to 4-5 places) or the slower algorithm
@@ -110,11 +110,11 @@ Baddeley, adapted to conform to package standards.</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 certain 'goodness-of-fit' criteria based on stochastic processes.
-<em>Annals of Mathematical Statistics</em> <b>23</b>, 193–212.</p>
+<em>Annals of Mathematical Statistics</em> <strong>23</strong>, 193–212.</p>
 <p>Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
-<em>Journal of the American Statistical Association</em> <b>49</b>, 765–769.</p>
+<em>Journal of the American Statistical Association</em> <strong>49</strong>, 765–769.</p>
 <p>Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
-Distribution.  <em>Journal of Statistical Software</em> <b>9</b> (2), 1–5.
+Distribution.  <em>Journal of Statistical Software</em> <strong>9</strong> (2), 1–5.
 February 2004.  <a href="http://www.jstatsoft.org/v09/i02" class="external-link">http://www.jstatsoft.org/v09/i02</a></p>
     </div>
     <div class="section level2">

@@ -2,7 +2,7 @@
 
 Compute power of test or determine parameters to obtain target power
 (same as
-[`power.anova.test`](https://rdrr.io/r/stats/power.anova.test.html)).
+[`power.anova.test()`](https://rdrr.io/r/stats/power.anova.test.html)).
 
 ## Usage
 
@@ -55,9 +55,9 @@ supplied; it cannot be solved for.
 
 ## Note
 
-[`uniroot`](https://rdrr.io/r/stats/uniroot.html) is used to solve power
-equation for unknowns, so you may see errors from it, notably about
-inability to bracket the root when invalid arguments are given.
+[`uniroot()`](https://rdrr.io/r/stats/uniroot.html) is used to solve
+power equation for unknowns, so you may see errors from it, notably
+about inability to bracket the root when invalid arguments are given.
 
 Based on code by Stephane Champely, and Peter Dalgaard, adapted to
 conform to package standards.
@@ -69,7 +69,7 @@ Cohen, J. (1988) *Statistical power analysis for the behavioral sciences
 
 ## See also
 
-[`power.t.test`](https://rdrr.io/r/stats/power.t.test.html)
+[`power.t.test()`](https://rdrr.io/r/stats/power.t.test.html)
 
 ## Examples
 

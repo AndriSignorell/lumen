@@ -1,7 +1,7 @@
 # Variance Test for Testing One Variance or Comparing Two Variances
 
 Performs a one-sample or two-sample test for variance, analogous to
-[`t.test`](https://rdrr.io/r/stats/t.test.html), with support for
+[`t.test()`](https://rdrr.io/r/stats/t.test.html), with support for
 classical and likelihood-based lowest-density (LD) two-sided p-values.
 
 ## Usage
@@ -67,9 +67,9 @@ varTest(formula, data, subset, na.action = na.pass, ...)
 - data:
 
   an optional matrix or data frame (or similar; see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in the formula. By default the variables are taken from
-  `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in the formula. By default the variables are
+  taken from `environment(formula)`.
 
 - subset:
 
@@ -137,11 +137,12 @@ The formula interface is only applicable for the 2-sample tests.
 
 ## See also
 
-[`var.test`](https://rdrr.io/r/stats/var.test.html),
-[`bartlett.test`](https://rdrr.io/r/stats/bartlett.test.html) for
+[`var.test()`](https://rdrr.io/r/stats/var.test.html),
+[`bartlett.test()`](https://rdrr.io/r/stats/bartlett.test.html) for
 testing homogeneity of variances in more than two samples from normal
-distributions; [`ansari.test`](https://rdrr.io/r/stats/ansari.test.html)
-and [`mood.test`](https://rdrr.io/r/stats/mood.test.html) for two rank
+distributions;
+[`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html) and
+[`mood.test()`](https://rdrr.io/r/stats/mood.test.html) for two rank
 based (nonparametric) two-sample tests for difference in scale.
 
 Other test.variance: [`leveneTest()`](leveneTest.md),
@@ -212,7 +213,7 @@ varTest(value ~ group, data = df)
 #> 
 #>  Two-sample variance test (classic)
 #> 
-#> data:  value ~ group
+#> data:  
 #> F = 2.8526, df1 = 19, df2 = 24, p-value = 0.0165
 #> alternative hypothesis: two.sided
 #> sample estimates:

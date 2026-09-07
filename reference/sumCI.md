@@ -40,7 +40,7 @@ A named numeric vector with elements:
 
 ## See also
 
-[`binomCI`](binomCI.md)
+[`binomCI()`](binomCI.md)
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
 [`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),

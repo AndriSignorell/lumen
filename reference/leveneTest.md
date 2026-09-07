@@ -36,9 +36,9 @@ leveneTest(x, g, center = median, .centerName = NULL, ...)
 - data:
 
   an optional matrix or data frame (or similar: see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in the formula `formula`. By default the variables are
-  taken from `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in the formula `formula`. By default the
+  variables are taken from `environment(formula)`.
 
 - subset:
 
@@ -100,9 +100,9 @@ Honor of Harold Hotelling*, Stanford University Press, pp. 278-292.
 
 ## See also
 
-[`fligner.test`](https://rdrr.io/r/stats/fligner.test.html) for a
+[`fligner.test()`](https://rdrr.io/r/stats/fligner.test.html) for a
 rank-based (nonparametric) k-sample test for homogeneity of variances,
-[`bartlett.test`](https://rdrr.io/r/stats/bartlett.test.html) for a
+[`bartlett.test()`](https://rdrr.io/r/stats/bartlett.test.html) for a
 parametric alternative
 
 Other test.variance: [`mosesTest()`](mosesTest.md),

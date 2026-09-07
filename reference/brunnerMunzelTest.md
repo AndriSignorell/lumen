@@ -149,15 +149,16 @@ is wrong and the test does not keep its level. Brunner and Munzel (2000)
 studentize the rank statistic with a separate variance estimate per
 group and refer it to a t distribution with Satterthwaite degrees of
 freedom, which is the rank analogue of the Welch correction.
-[`yuenTTest`](yuenTTest.md) plays the same role among the parametric
+[`yuenTTest()`](yuenTTest.md) plays the same role among the parametric
 location tests.
 
 **Direction of `alternative`.** The alternative is stated in terms of
 \\p\\, not in terms of `x` against `y`. `"greater"` therefore means \\p
 \> p_0\\, that is, `y` tends to produce the larger values. This follows
 the published definition of the statistic and the reported estimate, but
-it is the reverse of [`t.test`](https://rdrr.io/r/stats/t.test.html) and
-[`wilcox.test`](https://rdrr.io/r/stats/wilcox.test.html), where
+it is the reverse of
+[`stats::t.test()`](https://rdrr.io/r/stats/t.test.html) and
+[`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html), where
 `"greater"` refers to `x`.
 
 **Choice of `method`.** The t approximation is liberal in small samples;

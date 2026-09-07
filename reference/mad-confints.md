@@ -69,8 +69,8 @@ madRatioCI(
   A character string passed to `.asv.mad()` selecting the GLD estimation
   method. One of `"ML"`, `"MPS"`, `"TM"` (default), `"SM"`, `"TL"`,
   `"Lmom"`, `"DLA"`, or `"Mom"`. See
-  [`fit.fkml()`](https://rdrr.io/pkg/gld/man/fit.fkml.html). Used only
-  when `method = "classic"`.
+  [`gld::fit.fkml()`](https://rdrr.io/pkg/gld/man/fit.fkml.html). Used
+  only when `method = "classic"`.
 
 - na.rm:
 
@@ -158,7 +158,7 @@ intervals for median absolute deviations. *arXiv:1910.00229*
 
 ## See also
 
-[`mad`](https://rdrr.io/r/stats/mad.html), `DescToolsX::madX`
+[`mad()`](https://rdrr.io/r/stats/mad.html), `DescToolsX::madX`
 
 ## Examples
 

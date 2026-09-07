@@ -25,13 +25,13 @@ corTest(
 
   a character string specifying the correlation method, one of
   `"pearson"` (default), `"spearman"` or `"kendall"`. Passed to
-  [`cor`](https://rdrr.io/r/stats/cor.html).
+  [`cor()`](https://rdrr.io/r/stats/cor.html).
 
 - use:
 
   a character string giving a method for computing correlations in the
   presence of missing values, passed to
-  [`cor`](https://rdrr.io/r/stats/cor.html). Default is
+  [`cor()`](https://rdrr.io/r/stats/cor.html). Default is
   `"pairwise.complete.obs"`.
 
 - triangle:
@@ -64,12 +64,12 @@ A list with three matrices:
 ## Details
 
 Pearson, Spearman, and Kendall correlations are supported via the
-`method` argument passed to [`cor`](https://rdrr.io/r/stats/cor.html).
+`method` argument passed to [`cor()`](https://rdrr.io/r/stats/cor.html).
 
 Compared to repeatedly calling
-[`cor.test`](https://rdrr.io/r/stats/cor.test.html), this implementation
-is fully vectorised and substantially faster for matrices with many
-variables.
+[`cor.test()`](https://rdrr.io/r/stats/cor.test.html), this
+implementation is fully vectorised and substantially faster for matrices
+with many variables.
 
 For Pearson and Spearman correlations, the two-sided p-value under the
 null hypothesis \\\rho = 0\\ is computed from the t statistic \$\$t = r
@@ -88,8 +88,8 @@ the number of complete cases.
 
 ## See also
 
-[`cor`](https://rdrr.io/r/stats/cor.html),
-[`cor.test`](https://rdrr.io/r/stats/cor.test.html)
+[`cor()`](https://rdrr.io/r/stats/cor.html),
+[`cor.test()`](https://rdrr.io/r/stats/cor.test.html)
 
 Other test.correlation: [`fisherZ()`](fisherZ.md)
 

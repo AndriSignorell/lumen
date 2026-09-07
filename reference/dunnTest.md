@@ -58,7 +58,7 @@ dunnTest(
 
   the method used to adjust the p-values for multiple comparisons, one
   of `p.adjust.methods` (default is `"holm"`). Passed directly to
-  [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html).
+  [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html).
 
 - alternative:
 
@@ -126,7 +126,7 @@ Dunn, O. J. (1964) Multiple comparisons using rank sums.
 
 [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html),
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html),
-[`p.adjust`](https://rdrr.io/r/stats/p.adjust.html)
+[`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html)
 
 Other test.posthoc: [`conoverTest()`](conoverTest.md),
 [`dscfTest()`](dscfTest.md), [`dunnettTest()`](dunnettTest.md),

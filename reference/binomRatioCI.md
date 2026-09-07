@@ -154,8 +154,8 @@ risk. *Biometrika*, 62(2), 371-374.
 
 ## See also
 
-[`binom.test`](https://rdrr.io/r/stats/binom.test.html),
-[`prop.test`](https://rdrr.io/r/stats/prop.test.html)
+[`binom.test()`](https://rdrr.io/r/stats/binom.test.html),
+[`prop.test()`](https://rdrr.io/r/stats/prop.test.html)
 
 Other ci.proportion: [`binomCI()`](binomCI.md),
 [`binomDiffCI()`](binomDiffCI.md), [`multinomCI()`](multinomCI.md)

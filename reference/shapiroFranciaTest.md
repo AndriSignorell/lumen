@@ -55,7 +55,7 @@ by Royston (1993). The expected ordered quantiles from the standard
 normal distribution are approximated by `qnorm(ppoints(x, a = 3/8))`,
 being slightly different from the approximation
 `qnorm(ppoints(x, a = 1/2))` used for the normal quantile-quantile plot
-by [`qqnorm`](https://rdrr.io/r/stats/qqnorm.html) for sample sizes
+by [`qqnorm()`](https://rdrr.io/r/stats/qqnorm.html) for sample sizes
 greater than 10.
 
 Based on code by Juergen Gross, adapted to conform to package standards.

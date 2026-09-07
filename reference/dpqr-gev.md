@@ -58,8 +58,8 @@ Density function, distribution function, quantile function and random
 generation for the generalized extreme value (GEV) distribution with
 location, scale and shape parameters.
 
-The GEV distribution function with parameters \\\code{loc} = a\\,
-\\\code{scale} = b\\ and \\\code{shape} = s\\ is \$\$G(z) =
+The GEV distribution function with parameters \\\`loc\` = a\\,
+\\\`scale\` = b\\ and \\\`shape\` = s\\ is \$\$G(z) =
 \exp\left\[-\\1+s(z-a)/b\\^{-1/s}\right\]\$\$ for \\1+s(z-a)/b \> 0\\,
 where \\b \> 0\\. If \\s = 0\\ the distribution is defined by
 continuity. If \\1+s(z-a)/b \leq 0\\, the value \\z\\ is either greater

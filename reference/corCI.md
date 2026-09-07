@@ -86,8 +86,8 @@ The values produced are unchanged.
 
 ## See also
 
-[`fisherZ`](fisherZ.md), [`fisherZInv`](fisherZ.md),
-[`cor.test`](https://rdrr.io/r/stats/cor.test.html)
+[`fisherZ()`](fisherZ.md), [`fisherZInv()`](fisherZ.md),
+[`cor.test()`](https://rdrr.io/r/stats/cor.test.html)
 
 ## Examples
 

@@ -81,7 +81,7 @@ where moments do not exist.
 
 |  |  |  |
 |----|----|----|
-| **Distribution ` `** | **Mean ` `** | **Variance** |
+| **Distribution ` `** | **Mean ` `** | \*\*Variance \*\* |
 | Normal | \\\mu\\ | \\\sigma^2\\ |
 | Exponential | \\\frac{1}{\lambda}\\ | \\\frac{1}{\lambda^2}\\ |
 | Gamma | \\\frac{\alpha}{\beta}\\ | \\\frac{\alpha}{\beta^2}\\ |
@@ -105,14 +105,14 @@ Univariate Distributions*, Vol. 2. Wiley.
 
 ## See also
 
-[`dnorm`](https://rdrr.io/r/stats/Normal.html),
-[`dexp`](https://rdrr.io/r/stats/Exponential.html),
-[`dgamma`](https://rdrr.io/r/stats/GammaDist.html),
-[`dlnorm`](https://rdrr.io/r/stats/Lognormal.html),
-[`dbeta`](https://rdrr.io/r/stats/Beta.html),
-[`dchisq`](https://rdrr.io/r/stats/Chisquare.html),
-[`dt`](https://rdrr.io/r/stats/TDist.html),
-[`df`](https://rdrr.io/r/stats/Fdist.html),
+[`dnorm()`](https://rdrr.io/r/stats/Normal.html),
+[`dexp()`](https://rdrr.io/r/stats/Exponential.html),
+[`dgamma()`](https://rdrr.io/r/stats/GammaDist.html),
+[`dlnorm()`](https://rdrr.io/r/stats/Lognormal.html),
+[`dbeta()`](https://rdrr.io/r/stats/Beta.html),
+[`dchisq()`](https://rdrr.io/r/stats/Chisquare.html),
+[`dt()`](https://rdrr.io/r/stats/TDist.html),
+[`df()`](https://rdrr.io/r/stats/Fdist.html),
 [distributions-overview](distributions-overview.md)
 
 ## Examples

@@ -41,8 +41,8 @@ qRevGumbelExp(p)
 - n:
 
   number of random variates, i.e.,
-  [`length`](https://rdrr.io/r/base/length.html) of resulting vector of
-  `rRevGumbel()`.
+  [`length()`](https://rdrr.io/r/base/length.html) of resulting vector
+  of `rRevGumbel()`.
 
 ## Value
 
@@ -58,8 +58,8 @@ standards.
 ## See also
 
 [distributions-overview](distributions-overview.md); the
-[`Weibull`](https://rdrr.io/r/stats/Weibull.html) distribution functions
-in R's stats package.
+[`Weibull()`](https://rdrr.io/r/stats/Weibull.html) distribution
+functions in R's stats package.
 
 ## Examples
 

@@ -106,7 +106,7 @@ Study. *Journal of the American Statistical Association*, 91, 14-26.
 
 ## See also
 
-[`mantelhaen.test`](https://rdrr.io/r/stats/mantelhaen.test.html)
+[`mantelhaen.test()`](https://rdrr.io/r/stats/mantelhaen.test.html)
 
 Other test.categorical: [`barnardTest()`](barnardTest.md),
 [`bhapkarTest()`](bhapkarTest.md), [`cochranQTest()`](cochranQTest.md),

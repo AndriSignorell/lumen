@@ -44,9 +44,9 @@ medianCI(
 - ...:
 
   the dots are passed on to
-  [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html). In particular,
-  the type of bootstrap confidence interval can be defined via this. The
-  defaults are `R=999` and `type="perc"`.
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html). In
+  particular, the type of bootstrap confidence interval can be defined
+  via this. The defaults are `R=999` and `type="perc"`.
 
 ## Value
 
@@ -67,18 +67,18 @@ A named numeric vector with elements:
 ## Details
 
 The `"exact"` method is the way SAS is said to calculate the confidence
-interval. This is also implemented in [`signTest`](signTest.md). The
+interval. This is also implemented in [`signTest()`](signTest.md). The
 boot confidence interval type is calculated by means of
-[`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html) with default type
-`"perc"`.  
-Use [`sapply`](https://rdrr.io/r/base/lapply.html),
-resp.[`apply`](https://rdrr.io/r/base/apply.html), to get the confidence
-intervals from a data.frame or from a matrix.
+[`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) with
+default type `"perc"`.  
+Use [`sapply()`](https://rdrr.io/r/base/lapply.html),
+resp.[`apply()`](https://rdrr.io/r/base/apply.html), to get the
+confidence intervals from a data.frame or from a matrix.
 
 ## See also
 
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html),
-[`median`](https://rdrr.io/r/stats/median.html),
+[`median()`](https://rdrr.io/r/stats/median.html),
 `DescToolsX::hodgesLehmann`
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),

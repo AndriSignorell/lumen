@@ -31,7 +31,7 @@ scheffeTest(x, which = NULL, contrasts = NULL, conf.level = 0.95, ...)
 - x:
 
   either a fitted model object, usually an
-  [`aov`](https://rdrr.io/r/stats/aov.html) fit, when g is left to
+  [`aov()`](https://rdrr.io/r/stats/aov.html) fit, when g is left to
   `NULL` or a response variable to be evalutated by g (which mustn't be
   `NULL` then).
 
@@ -71,9 +71,9 @@ scheffeTest(x, which = NULL, contrasts = NULL, conf.level = 0.95, ...)
 - data:
 
   an optional matrix or data frame (or similar; see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in the formula. By default the variables are taken from
-  `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in the formula. By default the variables are
+  taken from `environment(formula)`.
 
 - subset:
 
@@ -112,8 +112,8 @@ Procedures of Statistics, A Biometrical Approach*. McGraw-Hill
 
 ## See also
 
-[`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html),
-[`TukeyHSD`](https://rdrr.io/r/stats/TukeyHSD.html)
+[`pairwise.t.test()`](https://rdrr.io/r/stats/pairwise.t.test.html),
+[`TukeyHSD()`](https://rdrr.io/r/stats/TukeyHSD.html)
 
 Other test.posthoc: [`conoverTest()`](conoverTest.md),
 [`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),

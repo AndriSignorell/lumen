@@ -17,7 +17,7 @@ bpTest(fit)
 
 - fit:
 
-  a fitted [`lm`](https://rdrr.io/r/stats/lm.html) object.
+  a fitted [`lm()`](https://rdrr.io/r/stats/lm.html) object.
 
 ## Value
 
@@ -54,7 +54,7 @@ heteroscedasticity. *Journal of Econometrics*, 17, 107–112.
 
 ## See also
 
-[`lm`](https://rdrr.io/r/stats/lm.html)
+[`lm()`](https://rdrr.io/r/stats/lm.html)
 
 Other test.regression: [`breuschGodfreyTest()`](breuschGodfreyTest.md),
 [`durbinWatsonTest()`](durbinWatsonTest.md),

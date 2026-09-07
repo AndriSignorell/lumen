@@ -126,9 +126,10 @@ Wiley, New York.
 
 [`t.test()`](https://rdrr.io/r/stats/t.test.html),
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html),
-[`zTest`](zTest.md),
-[`binom.test`](https://rdrr.io/r/stats/binom.test.html), `SIGN.test` in
-the package BSDA (reporting approximative confidence intervals).
+[`zTest()`](zTest.md),
+[`binom.test()`](https://rdrr.io/r/stats/binom.test.html),
+`BSDA::SIGN.test()` in the package BSDA (reporting approximative
+confidence intervals).
 
 Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
 [`hotellingsT2Test()`](hotellingsT2Test.md),

@@ -19,7 +19,7 @@ approximately normally distributed."><meta property="og:image" content="/logo.pn
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@ the corresponding groups.</p></dd>
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>an optional matrix or data frame (or similar: see
-<code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula
+<code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame()</a></code>) containing the variables in the formula
 <code>formula</code>.  By default the variables are taken from
 <code>environment(formula)</code>.</p></dd>
 
@@ -121,8 +121,7 @@ distribution of the test statistic.</p></dd>
 <dd><p>the p-value of the
 test.</p></dd>
  <dt>method</dt>
-<dd><p>the character string <code>"Van-der-Waerden normal
-scores test"</code>.</p></dd>
+<dd><p>the character string <code>"Van-der-Waerden normal scores test"</code>.</p></dd>
  <dt>data.name</dt>
 <dd><p>a character string giving the names of the
 data.</p></dd>
@@ -158,7 +157,7 @@ Edition ed.). Wiley. pp. 396–406.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/coin/man/LocationTests.html" class="external-link">normal_test</a></code> in package <span class="pkg">coin</span>,
+    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/coin/man/LocationTests.html" class="external-link">coin::normal_test()</a></code> in package <span class="pkg">coin</span>,
 where the test is implemented in a more general context.</p>
 <p>Other test.location:
 <code><a href="brunnerMunzelTest.html">brunnerMunzelTest()</a></code>,

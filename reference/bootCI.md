@@ -42,7 +42,7 @@ bootCI(
   a vector of character strings representing the type of intervals
   required. The value should be any subset of the values `"norm"`,
   `"basic"`, `"stud"`, `"perc"`, `"bca"`, as it is passed on as `method`
-  to [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html).
+  to [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html).
 
 - conf.level:
 

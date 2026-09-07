@@ -17,7 +17,7 @@ resulting 2 x k table is tested for independence."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,19 +154,19 @@ contain <code>NA</code>s</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Not to be confused with <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test</a></code>, which is Mood's
+    <p>Not to be confused with <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test()</a></code>, which is Mood's
 two-sample test for a difference in <em>scale</em>. The median test described
 here has no base R implementation.</p>
-<p>The procedure is the k-sample counterpart of <code><a href="signTest.html">signTest</a></code> and
+<p>The procedure is the k-sample counterpart of <code><a href="signTest.html">signTest()</a></code> and
 shares its robustness and its modest power: only the position of each
 observation relative to the pooled median enters the statistic, so all
 information about distance is discarded. Its asymptotic relative efficiency
 against the F test under normality is \(2/\pi\).</p>
 <p>That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
-<code><a href="brunnerMunzelTest.html">brunnerMunzelTest</a></code> tests the relative effect
+<code><a href="brunnerMunzelTest.html">brunnerMunzelTest()</a></code> tests the relative effect
 \(P(X &lt; Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}\) and
-<code><a href="vanWaerdenTest.html">vanWaerdenTest</a></code> tests equality of the distributions against
+<code><a href="vanWaerdenTest.html">vanWaerdenTest()</a></code> tests equality of the distributions against
 normal-score location alternatives. Neither is a test of equal medians, so
 they are not drop-in replacements. Use the median test when the median is
 genuinely the quantity of interest, or when only the side of a threshold is
@@ -186,7 +186,7 @@ observations rather than removing them.</p>
 <p><code>method = "exact"</code> replaces the chi-squared approximation by Fisher's
 exact test on the same table and is advisable when expected counts are small;
 no test statistic is reported in that case. The continuity correction applies
-only to a 2 x 2 table, as in <code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></code>.</p>
+only to a 2 x 2 table, as in <code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test()</a></code>.</p>
 <p>Missing values are removed casewise.</p>
     </div>
     <div class="section level2">

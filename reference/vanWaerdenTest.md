@@ -37,9 +37,9 @@ vanWaerdenTest(x, g, ...)
 - data:
 
   an optional matrix or data frame (or similar: see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in the formula `formula`. By default the variables are
-  taken from `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in the formula `formula`. By default the
+  variables are taken from `environment(formula)`.
 
 - subset:
 
@@ -115,8 +115,9 @@ Edition ed.). Wiley. pp. 396–406.
 
 ## See also
 
-[`normal_test`](https://rdrr.io/pkg/coin/man/LocationTests.html) in
-package coin, where the test is implemented in a more general context.
+[`coin::normal_test()`](https://rdrr.io/pkg/coin/man/LocationTests.html)
+in package coin, where the test is implemented in a more general
+context.
 
 Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
 [`hotellingsT2Test()`](hotellingsT2Test.md),

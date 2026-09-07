@@ -89,7 +89,7 @@ remotes::install_github("AndriSignorell/lumen")
   [`kpssTest()`](reference/kpssTest.md),
   [`runsTest()`](reference/runsTest.md),
   [`vonNeumannTest()`](reference/vonNeumannTest.md)
-- [`bartelsRankTest()`](reference/BartelsRankTest.md),
+- [`bartelsRankTest()`](reference/bartelsRankTest.md),
   [`coxStuartTest()`](reference/coxStuartTest.md),
   [`jonckheereTerpstraTest()`](reference/jonckheereTerpstraTest.md)
 - [`pageTest()`](reference/pageTest.md),

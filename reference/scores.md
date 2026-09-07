@@ -64,5 +64,5 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 
 ## See also
 
-[`cochranArmitageTest`](cochranArmitageTest.md),
-[`cor`](https://rdrr.io/r/stats/cor.html)
+[`cochranArmitageTest()`](cochranArmitageTest.md),
+[`cor()`](https://rdrr.io/r/stats/cor.html)

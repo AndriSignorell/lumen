@@ -34,9 +34,9 @@ dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
 - data:
 
   an optional matrix or data frame (or a similar object; see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in `formula`. By default, the variables are taken from
-  `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in `formula`. By default, the variables are
+  taken from `environment(formula)`.
 
 - subset:
 
@@ -103,10 +103,10 @@ Association*, **50**, 1096–1121.
 
 ## See also
 
-[`print.PostHocTest`](postHoc.md),
-[`plot.PostHocTest`](plot.PostHocTest.md),
-[`pmvt`](https://rdrr.io/pkg/mvtnorm/man/pmvt.html),
-[`qmvt`](https://rdrr.io/pkg/mvtnorm/man/qmvt.html)
+[`print.PostHocTest()`](postHoc.md),
+[`plot.PostHocTest()`](plot.PostHocTest.md),
+[`mvtnorm::pmvt()`](https://rdrr.io/pkg/mvtnorm/man/pmvt.html),
+[`mvtnorm::qmvt()`](https://rdrr.io/pkg/mvtnorm/man/qmvt.html)
 
 Other test.posthoc: [`conoverTest()`](conoverTest.md),
 [`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),

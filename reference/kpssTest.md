@@ -110,7 +110,7 @@ unit root: How sure are we that economic time series have a unit root?
 ## See also
 
 Other test.timeseries: [`adfTest()`](adfTest.md),
-[`bartelsRankTest()`](BartelsRankTest.md), [`runsTest()`](runsTest.md),
+[`bartelsRankTest()`](bartelsRankTest.md), [`runsTest()`](runsTest.md),
 [`vonNeumannTest()`](vonNeumannTest.md)
 
 ## Examples

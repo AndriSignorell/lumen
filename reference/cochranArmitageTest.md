@@ -90,8 +90,8 @@ Agresti, A. (2002) *Categorical Data Analysis*. John Wiley & Sons.
 
 ## See also
 
-[`prop.trend.test`](https://rdrr.io/r/stats/prop.trend.test.html), [SAS
-PROC FREQ
+[`prop.trend.test()`](https://rdrr.io/r/stats/prop.trend.test.html),
+[SAS PROC FREQ
 documentation](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm)
 
 Other test.trend: [`coxStuartTest()`](coxStuartTest.md),

@@ -167,10 +167,10 @@ Sciences*, McGraw-Hill Kogakusha, Tokyo.
 
 ## See also
 
-[`rle`](https://rdrr.io/r/base/rle.html)
+[`rle()`](https://rdrr.io/r/base/rle.html)
 
 Other test.timeseries: [`adfTest()`](adfTest.md),
-[`bartelsRankTest()`](BartelsRankTest.md), [`kpssTest()`](kpssTest.md),
+[`bartelsRankTest()`](bartelsRankTest.md), [`kpssTest()`](kpssTest.md),
 [`vonNeumannTest()`](vonNeumannTest.md)
 
 ## Examples

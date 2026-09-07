@@ -47,7 +47,8 @@ intervals and perform hypothesis tests for correlation coefficients.
 
 ## See also
 
-[`corCI`](corCI.md), [`cor.test`](https://rdrr.io/r/stats/cor.test.html)
+[`corCI()`](corCI.md),
+[`cor.test()`](https://rdrr.io/r/stats/cor.test.html)
 
 Other test.correlation: [`corTest()`](corTest.md)
 

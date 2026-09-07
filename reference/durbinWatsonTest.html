@@ -17,7 +17,7 @@ differences to the total residual sum of squares."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,12 +65,15 @@ differences to the total residual sum of squares.</p>
 <span>  iterations <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  exact <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tol <span class="op">=</span> <span class="fl">0.0000000001</span>,</span>
+<span>  <span class="va">subset</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'lm'</span></span>
 <span><span class="fu">durbinWatsonTest</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  orderBy <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greater"</span>, <span class="st">"two.sided"</span>, <span class="st">"less"</span><span class="op">)</span>,</span>
 <span>  iterations <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -82,6 +85,7 @@ differences to the total residual sum of squares.</p>
 <span><span class="co"># S3 method for class 'numeric'</span></span>
 <span><span class="fu">durbinWatsonTest</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  orderBy <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greater"</span>, <span class="st">"two.sided"</span>, <span class="st">"less"</span><span class="op">)</span>,</span>
 <span>  iterations <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -110,16 +114,19 @@ residuals.</p></dd>
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>an optional data frame containing the variables in the
-model. Only used for the <code>formula</code> method. By default the variables
-are taken from the environment which <code>durbinWatsonTest</code> is called
-from.</p></dd>
+model. By default the variables are taken from the environment which
+<code>durbinWatsonTest</code> is called from. For the <code>lm</code> and <code>numeric</code> methods it
+is used for <code>orderBy</code> only, as the model frame is already fixed there.</p></dd>
 
 
 <dt id="arg-orderby">orderBy<a class="anchor" aria-label="anchor" href="#arg-orderby"></a></dt>
-<dd><p>either a vector <code>z</code> or a formula with a single
-explanatory variable like <code>~ z</code>. The observations in the model are
-ordered by the size of <code>z</code>. If set to <code>NULL</code> (the default) the
-observations are assumed to be ordered (e.g., a time series).</p></dd>
+<dd><p>either a vector <code>z</code> or a one-sided formula like <code>~ z</code>. The
+observations in the model are ordered by the size of <code>z</code>; a formula with
+several terms is used as successive ordering keys. If set to <code>NULL</code> (the
+default) the observations are assumed to be ordered (e.g., a time
+series). <code>z</code> may be given at the length of the original data: rows
+dropped by <code>subset</code> or by <code>na.action</code> are then dropped from <code>z</code> as well.
+Missing values in <code>z</code> are ordered last.</p></dd>
 
 
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
@@ -143,6 +150,16 @@ otherwise.</p></dd>
 <dt id="arg-tol">tol<a class="anchor" aria-label="anchor" href="#arg-tol"></a></dt>
 <dd><p>numeric tolerance. Eigenvalues smaller than <code>tol</code> are
 treated as zero.</p></dd>
+
+
+<dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
+<dd><p>an optional expression indicating which observations to
+use. Only used for the <code>formula</code> method.</p></dd>
+
+
+<dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
+<dd><p>a function specifying how missing values are handled.
+Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit()</a></code>. Only used for the <code>formula</code> method.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -221,7 +238,7 @@ under Test</em>. Heidelberg: Physica.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code></p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>, <code><a href="breuschGodfreyTest.html">breuschGodfreyTest()</a></code></p>
 <p>Other test.regression:
 <code><a href="bpTest.html">bpTest()</a></code>,
 <code><a href="breuschGodfreyTest.html">breuschGodfreyTest()</a></code>,
@@ -253,6 +270,18 @@ under Test</em>. Heidelberg: Physica.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  y ~ x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DW = 0.45961, p-value = 7.862e-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## subset and an ordering variable given at the length of the data</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">err2</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">x</span>, tt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">durbinWatsonTest</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">d</span>, subset <span class="op">=</span> <span class="va">grp</span> <span class="op">==</span> <span class="st">"A"</span>, orderBy <span class="op">=</span> <span class="op">~</span> <span class="va">tt</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Durbin-Watson test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  y ~ x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DW = 2.2901, p-value = 0.8511</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>

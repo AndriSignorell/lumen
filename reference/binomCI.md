@@ -27,7 +27,7 @@ binomCIn(
   width,
   interval = c(1, 100000),
   conf.level = 0.95,
-  sides = "two.sided",
+  sides = c("two.sided", "left", "right"),
   method = "wilson"
 )
 ```
@@ -36,22 +36,27 @@ binomCIn(
 
 - x:
 
-  number of successes.
+  number of successes, an integer between 0 and `n`.
 
 - n:
 
-  number of trials.
+  number of trials, a positive integer.
 
 - conf.level:
 
-  confidence level, defaults to 0.95.
+  confidence level, defaults to 0.95. With `NA` only the point estimate
+  is returned.
 
 - sides:
 
   a character string specifying the side of the confidence interval,
   must be one of `"two.sided"` (default), `"left"` or `"right"`. You can
-  specify just the initial letter. `"left"` would be analogue to a
-  hypothesis of `"greater"` in a `t.test`.
+  specify just the initial letter. `sides` names the side carrying the
+  finite bound: `"left"` reports the lower limit and opens the upper one
+  to 1, `"right"` reports the upper limit and opens the lower one to 0.
+  A one-sided bound at level `conf.level` is the corresponding end of
+  the two-sided interval at level `2 * conf.level - 1`, and therefore
+  requires `conf.level > 0.5`.
 
 - method:
 
@@ -59,8 +64,9 @@ binomCIn(
   of: `"wald"`, `"wald-cc"`,`"wilson"` (default), `"wilson-cc"`,
   `"agresti-coull"`, `"jeffreys"`, `"wilson-mod"`, `"jeffreys-mod"`,
   `"clopper-pearson"`, `"arcsine"`, `"logit"`, `"witting"`, `"pratt"`,
-  `"mid-p"`, `"likelihood"` and `"blaker"`. All the methods can be asked
-  by `".all"`. Abbreviation of method is accepted. See details.
+  `"mid-p"`, `"likelihood"`, `"blaker"` and `"khouadji"`. All the
+  methods can be asked by `".all"`. Abbreviation of method is accepted.
+  See details.
 
 - stdEst:
 
@@ -102,6 +108,10 @@ If recycling yields multiple cases, a data frame with one row per case
 is returned. Its first three columns are `est`, `lci`, and `uci`; the
 remaining columns contain the recycled argument values.
 
+With `conf.level = NA` no interval is computed: the point estimate is
+returned as an unnamed scalar, or as the single column `est` of the data
+frame.
+
 `binomCIn` returns a single numeric value giving the required sample
 size.
 
@@ -120,12 +130,12 @@ limits.
 obtained by inverting the central limit theorem approximation to the
 family of equal-tail tests of \\p = p_0\\. It is recommended by Agresti
 and Coull (1998) and Brown et al. (2001). The same interval is returned
-as `conf.int` by [`prop.test`](https://rdrr.io/r/stats/prop.test.html)
+as `conf.int` by [`prop.test()`](https://rdrr.io/r/stats/prop.test.html)
 with `correct = FALSE`.
 
 **Wilson with continuity correction**: A continuity-corrected
 modification of the Wilson interval. This corresponds to
-[`prop.test`](https://rdrr.io/r/stats/prop.test.html) with
+[`prop.test()`](https://rdrr.io/r/stats/prop.test.html) with
 `correct = TRUE`.
 
 **Modified Wilson**: An adjustment of the Wilson interval for extreme
@@ -151,7 +161,9 @@ the corresponding beta distribution.
 for the binomial distribution.
 
 **Logit**: Obtained by constructing a Wald-type interval on the log-odds
-scale and transforming back to the probability scale.
+scale and transforming back to the probability scale. The transform is
+not defined for \\x = 0\\ and \\x = n\\, where the Clopper-Pearson
+limits are reported instead.
 
 **Witting**: A randomized procedure (Witting, 1985) providing uniformly
 optimal lower and upper confidence bounds for binomial proportions.
@@ -204,6 +216,16 @@ accurate estimate of the population proportion is available, it can be
 used to obtain a smaller required sample size for the same level of
 precision.
 
+The root search evaluates the interval at \\x = p \cdot n\\ for
+continuous \\n\\, so only those methods can be inverted whose limits are
+smooth functions of the count. The methods `"mid-p"`, `"blaker"`,
+`"witting"` and `"likelihood"` are defined through the discrete binomial
+distribution (and `"witting"` is randomized on top of that); they are
+rejected with an error instead of returning a silently meaningless root.
+
+The returned sample size is not rounded, round it up to get a feasible
+number of observations.
+
 ## **Which interval should be used?**
 
 The Wald interval is known to have poor coverage properties,
@@ -231,10 +253,19 @@ Agresti A. and Coull B.A. (1998) Approximate is better than "exact" for
 interval estimation of binomial proportions. *American Statistician*,
 **52**, pp. 119-126.
 
+Blaker, H. (2000) Confidence curves and improved exact confidence
+intervals for discrete distributions, *Canadian Journal of Statistics*
+28 (4), 783-798
+
 Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
 binomial proportion *Statistical Science*, **16**(2), pp. 101-133.
 
-Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
+Khouadji, A. (1999) Sur une méthode d’approximation des intervalles de
+confiance pour une proportion binomiale.
+
+Newcombe, R. G. (1998) Two-sided confidence intervals for the single
+proportion: comparison of seven methods, *Statistics in Medicine*,
+17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
 
 Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and
 other common, related tail probabilities *Journal of the American
@@ -243,20 +274,12 @@ Statistical Association*, 63, 1457- 1483.
 Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
 testing*. Elsevier Academic Press
 
-Newcombe, R. G. (1998) Two-sided confidence intervals for the single
-proportion: comparison of seven methods, *Statistics in Medicine*,
-17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/
-
-Blaker, H. (2000) Confidence curves and improved exact confidence
-intervals for discrete distributions, *Canadian Journal of Statistics*
-28 (4), 783-798
-
-A. Khouadji (1999) Sur une méthode d’approximation des intervalles de
-confiance pour une proportion binomiale.
+Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
 
 ## See also
 
-[`binom.test`](https://rdrr.io/r/stats/binom.test.html), `binconf`
+[`binom.test()`](https://rdrr.io/r/stats/binom.test.html),
+`Hmisc::binconf()`
 
 Other ci.proportion: [`binomDiffCI()`](binomDiffCI.md),
 [`binomRatioCI()`](binomRatioCI.md), [`multinomCI()`](multinomCI.md)
@@ -409,4 +432,8 @@ binomCI(4, 19, conf.level =0.95,
 
 binomCIn(p=0.1, width=0.05, method="pratt")
 #> [1] 586.9031
+
+# round up to get the number of observations to plan for
+ceiling(binomCIn(width=0.1))
+#> [1] 381
 ```

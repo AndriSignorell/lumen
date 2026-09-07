@@ -199,7 +199,7 @@ Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version
 
 ## See also
 
-[`fisher.test`](https://rdrr.io/r/stats/fisher.test.html)
+[`fisher.test()`](https://rdrr.io/r/stats/fisher.test.html)
 
 Other test.categorical: [`bhapkarTest()`](bhapkarTest.md),
 [`breslowDayTest()`](breslowDayTest.md),

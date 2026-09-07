@@ -78,9 +78,9 @@ The functions `dgompertz()` and similar available in the package eha
 label the parameters the other way round, so that what is called the
 `shape` there is called the `rate` here, and what is called `1 / scale`
 there is called the `shape` here. The terminology here is consistent
-with the exponential [`dexp`](https://rdrr.io/r/stats/Exponential.html)
-and Weibull [`dweibull`](https://rdrr.io/r/stats/Weibull.html)
-distributions in R.
+with the exponential
+[`dexp()`](https://rdrr.io/r/stats/Exponential.html) and Weibull
+[`dweibull()`](https://rdrr.io/r/stats/Weibull.html) distributions in R.
 
 ## Note
 
@@ -99,4 +99,4 @@ Epidemiological Tables*. Stata Press.
 ## See also
 
 [distributions-overview](distributions-overview.md);
-[`dexp`](https://rdrr.io/r/stats/Exponential.html)
+[`dexp()`](https://rdrr.io/r/stats/Exponential.html)

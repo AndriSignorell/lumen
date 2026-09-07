@@ -57,8 +57,8 @@ Density function, distribution function, quantile function and random
 generation for the Gumbel distribution with location and scale
 parameters.
 
-The Gumbel distribution function with parameters \\\code{loc} = a\\ and
-\\\code{scale} = b\\ is \$\$G(z) =
+The Gumbel distribution function with parameters \\\`loc\` = a\\ and
+\\\`scale\` = b\\ is \$\$G(z) =
 \exp\left\\-\exp\left\[-\left(\frac{z-a}{b}\right)\right\]\right\\\$\$
 for all real \\z\\, where \\b \> 0\\.
 

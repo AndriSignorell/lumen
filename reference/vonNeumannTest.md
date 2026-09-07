@@ -96,7 +96,7 @@ Randomness. *Journal of the American Statistical Association*,
 ## See also
 
 Other test.timeseries: [`adfTest()`](adfTest.md),
-[`bartelsRankTest()`](BartelsRankTest.md), [`kpssTest()`](kpssTest.md),
+[`bartelsRankTest()`](bartelsRankTest.md), [`kpssTest()`](kpssTest.md),
 [`runsTest()`](runsTest.md)
 
 ## Examples

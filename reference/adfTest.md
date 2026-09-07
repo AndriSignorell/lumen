@@ -124,9 +124,7 @@ University Press.
 
 ## See also
 
-[`kpssTest`](kpssTest.md)
-
-Other test.timeseries: [`bartelsRankTest()`](BartelsRankTest.md),
+Other test.timeseries: [`bartelsRankTest()`](bartelsRankTest.md),
 [`kpssTest()`](kpssTest.md), [`runsTest()`](runsTest.md),
 [`vonNeumannTest()`](vonNeumannTest.md)
 

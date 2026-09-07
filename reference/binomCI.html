@@ -23,7 +23,7 @@ corresponding sample size."><meta property="og:image" content="/logo.png"></head
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@ corresponding sample size.</p>
 <span>  <span class="va">width</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100000</span><span class="op">)</span>,</span>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  sides <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
+<span>  sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"wilson"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -89,22 +89,27 @@ corresponding sample size.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>number of successes.</p></dd>
+<dd><p>number of successes, an integer between 0 and <code>n</code>.</p></dd>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>number of trials.</p></dd>
+<dd><p>number of trials, a positive integer.</p></dd>
 
 
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
-<dd><p>confidence level, defaults to 0.95.</p></dd>
+<dd><p>confidence level, defaults to 0.95. With <code>NA</code> only the
+point estimate is returned.</p></dd>
 
 
 <dt id="arg-sides">sides<a class="anchor" aria-label="anchor" href="#arg-sides"></a></dt>
 <dd><p>a character string specifying the side of the confidence
 interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or
-<code>"right"</code>. You can specify just the initial letter. <code>"left"</code>
-would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
+<code>"right"</code>. You can specify just the initial letter. <code>sides</code> names the
+side carrying the finite bound: <code>"left"</code> reports the lower limit and
+opens the upper one to 1, <code>"right"</code> reports the upper limit and opens
+the lower one to 0. A one-sided bound at level <code>conf.level</code> is the
+corresponding end of the two-sided interval at level
+<code>2 * conf.level - 1</code>, and therefore requires <code>conf.level &gt; 0.5</code>.</p></dd>
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
@@ -114,7 +119,7 @@ one out of: <code>"wald"</code>, <code>"wald-cc"</code>,<code>"wilson"</code> (d
 <code>"agresti-coull"</code>, <code>"jeffreys"</code>, <code>"wilson-mod"</code>,
 <code>"jeffreys-mod"</code>, <code>"clopper-pearson"</code>, <code>"arcsine"</code>,
 <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"mid-p"</code>,
-<code>"likelihood"</code> and <code>"blaker"</code>.  All the methods can be
+<code>"likelihood"</code>, <code>"blaker"</code> and <code>"khouadji"</code>.  All the methods can be
 asked by <code>".all"</code>. Abbreviation of method is
 accepted. See details.</p></dd>
 
@@ -156,6 +161,9 @@ if <code>stdEst = TRUE</code>, otherwise the method-specific estimate.</p></dd>
 </dl><p>If recycling yields multiple cases, a data frame with one row per case is
 returned. Its first three columns are <code>est</code>, <code>lci</code>, and <code>uci</code>;
 the remaining columns contain the recycled argument values.</p>
+<p>With <code>conf.level = NA</code> no interval is computed: the point estimate is
+returned as an unnamed scalar, or as the single column <code>est</code> of the
+data frame.</p>
 <p><code>binomCIn</code> returns a single numeric value giving the required sample size.</p>
     </div>
     <div class="section level2">
@@ -172,10 +180,10 @@ Introduced by Wilson (1927), this interval is obtained by inverting the
 central limit theorem approximation to the family of equal-tail tests of
 \(p = p_0\). It is recommended by Agresti and Coull (1998) and
 Brown et al. (2001). The same interval is returned as <code>conf.int</code>
-by <code><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test</a></code> with <code>correct = FALSE</code>.</p>
+by <code><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test()</a></code> with <code>correct = FALSE</code>.</p>
 <p><strong>Wilson with continuity correction</strong>:
 A continuity-corrected modification of the Wilson interval. This
-corresponds to <code><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test</a></code> with <code>correct = TRUE</code>.</p>
+corresponds to <code><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test()</a></code> with <code>correct = TRUE</code>.</p>
 <p><strong>Modified Wilson</strong>:
 An adjustment of the Wilson interval for extreme counts
 (i.e., \(x\) close to 0 or \(n\)), as proposed by Brown et al. (2001).</p>
@@ -199,7 +207,9 @@ Based on the variance-stabilizing arcsine transformation for
 the binomial distribution.</p>
 <p><strong>Logit</strong>:
 Obtained by constructing a Wald-type interval on the log-odds scale
-and transforming back to the probability scale.</p>
+and transforming back to the probability scale. The transform is not
+defined for \(x = 0\) and \(x = n\), where the Clopper-Pearson
+limits are reported instead.</p>
 <p><strong>Witting</strong>:
 A randomized procedure (Witting, 1985) providing uniformly optimal
 lower and upper confidence bounds for binomial proportions.
@@ -247,6 +257,14 @@ and therefore yields the largest required sample size. If a more
 accurate estimate of the population proportion is available,
 it can be used to obtain a smaller required sample size for the same
 level of precision.</p>
+<p>The root search evaluates the interval at \(x = p \cdot n\) for
+continuous \(n\), so only those methods can be inverted whose limits
+are smooth functions of the count. The methods <code>"mid-p"</code>, <code>"blaker"</code>,
+<code>"witting"</code> and <code>"likelihood"</code> are defined through the discrete binomial
+distribution (and <code>"witting"</code> is randomized on top of that); they are
+rejected with an error instead of returning a silently meaningless root.</p>
+<p>The returned sample size is not rounded, round it up to get a feasible
+number of observations.</p>
     </div>
     <div class="section level2">
     <h2 id="which-interval-should-be-used-"><strong>Which interval should be used?</strong><a class="anchor" aria-label="anchor" href="#which-interval-should-be-used-"></a></h2>
@@ -276,27 +294,27 @@ Andri Signorell.</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Agresti A. and Coull B.A. (1998) Approximate is better than
 "exact" for interval estimation of binomial proportions.  <em>American
-Statistician</em>, <b>52</b>, pp. 119-126.</p>
+Statistician</em>, <strong>52</strong>, pp. 119-126.</p>
+<p>Blaker, H. (2000) Confidence curves and improved exact confidence intervals
+for discrete distributions, <em>Canadian Journal of Statistics</em> 28 (4),
+783-798</p>
 <p>Brown L.D., Cai T.T. and Dasgupta A. (2001) Interval estimation for a
-binomial proportion <em>Statistical Science</em>, <b>16</b>(2), pp. 101-133.</p>
-<p>Witting H. (1985) <em>Mathematische Statistik I</em>. Stuttgart: Teubner.</p>
+binomial proportion <em>Statistical Science</em>, <strong>16</strong>(2), pp. 101-133.</p>
+<p>Khouadji, A. (1999) Sur une méthode d’approximation des intervalles
+de confiance pour une proportion binomiale.</p>
+<p>Newcombe, R. G. (1998) Two-sided confidence intervals for the single
+proportion: comparison of seven methods, <em>Statistics in Medicine</em>,
+17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/</p>
 <p>Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
 common, related tail probabilities <em>Journal of the American
 Statistical Association</em>, 63, 1457- 1483.</p>
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis
 testing</em>. Elsevier Academic Press</p>
-<p>Newcombe, R. G. (1998) Two-sided confidence intervals for the single
-proportion: comparison of seven methods, <em>Statistics in Medicine</em>,
-17:857-872 https://pubmed.ncbi.nlm.nih.gov/16206245/</p>
-<p>Blaker, H. (2000) Confidence curves and improved exact confidence intervals
-for discrete distributions, <em>Canadian Journal of Statistics</em> 28 (4),
-783-798</p>
-<p>A. Khouadji (1999) Sur une méthode d’approximation des intervalles
-de confiance pour une proportion binomiale.</p>
+<p>Witting H. (1985) <em>Mathematische Statistik I</em>. Stuttgart: Teubner.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test</a></code>, <code>binconf</code></p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test()</a></code>, <code>Hmisc::binconf()</code></p>
 <p>Other ci.proportion:
 <code><a href="binomDiffCI.html">binomDiffCI()</a></code>,
 <code><a href="binomRatioCI.html">binomRatioCI()</a></code>,
@@ -450,6 +468,10 @@ de confiance pour une proportion binomiale.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">binomCIn</span><span class="op">(</span>p<span class="op">=</span><span class="fl">0.1</span>, width<span class="op">=</span><span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"pratt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 586.9031</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># round up to get the number of observations to plan for</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu">binomCIn</span><span class="op">(</span>width<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 381</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

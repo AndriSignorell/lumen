@@ -28,14 +28,14 @@ print(x, digits = 1L, ...)
 
   the method used to adjust the per-category p-values for multiple
   comparisons, passed to
-  [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html). Default is
+  [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html). Default is
   `"hochberg"`, as recommended by Lehmacher (1980).
 
 - digits:
 
   a non-null value for digits specifies the minimum number of
   significant digits to be printed. See
-  [`print.default`](https://rdrr.io/r/base/print.default.html).
+  [`print.default()`](https://rdrr.io/r/base/print.default.html).
 
 - ...:
 
@@ -122,7 +122,7 @@ lehmacherTest(x)
 #> 
 #>  Lehmacher test for marginal homogeneity
 #> 
-#> data:  x
+#> data:  
 #> 
 #>     Chi²   p-value     p-adj      
 #> A    0.2     0.667     0.667      

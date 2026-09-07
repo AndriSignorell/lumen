@@ -65,16 +65,16 @@ Print and plot methods are available for class `"PostHocTest"`.
 
 ## Details
 
-Tukey's HSD, [`scheffeTest`](scheffeTest.md) and the parametric methods
-in [`postHoc`](postHoc.md) all rely on a single pooled error variance.
-When the group variances differ, that pooled estimate is wrong for every
-pair that does not happen to match it, and the procedure loses its
-nominal level - liberally when the larger variance sits in the smaller
-group, conservatively in the opposite case. Games and Howell (1976)
-replace the pooled term by the pairwise Welch standard error, which
-makes this the post-hoc counterpart of the Welch t test and of
-[`oneway.test`](https://rdrr.io/r/stats/oneway.test.html).
-[`yuenTTest`](yuenTTest.md) addresses heteroscedasticity and
+Tukey's HSD, [`scheffeTest()`](scheffeTest.md) and the parametric
+methods in [`postHoc()`](postHoc.md) all rely on a single pooled error
+variance. When the group variances differ, that pooled estimate is wrong
+for every pair that does not happen to match it, and the procedure loses
+its nominal level - liberally when the larger variance sits in the
+smaller group, conservatively in the opposite case. Games and Howell
+(1976) replace the pooled term by the pairwise Welch standard error,
+which makes this the post-hoc counterpart of the Welch t test and of
+[`oneway.test()`](https://rdrr.io/r/stats/oneway.test.html).
+[`yuenTTest()`](yuenTTest.md) addresses heteroscedasticity and
 non-normality with trimmed means and separate Winsorized variance
 estimates, but provides no all-pairs multiple-comparison procedure, so
 it is not the two-sample form of this procedure.

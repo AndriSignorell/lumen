@@ -132,7 +132,7 @@ against trend. *Biometrie und Informatik in Medizin und Biologie 20*,
 
 ## See also
 
-[`friedman.test`](https://rdrr.io/r/stats/friedman.test.html)
+[`friedman.test()`](https://rdrr.io/r/stats/friedman.test.html)
 
 Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),
 [`coxStuartTest()`](coxStuartTest.md),
@@ -191,7 +191,7 @@ pageTest(x ~ group | block, data = plng)
 #> 
 #>  Page test for ordered alternatives (exact)
 #> 
-#> data:  x ~ group | block
+#> data:  
 #> L = 252, k = 4, n = 9, p-value = 0.0007053
 #> 
 

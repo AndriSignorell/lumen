@@ -69,9 +69,9 @@ Thode Jr., H.C. (2002) *Testing for Normality*. New York: Marcel Dekker.
 
 ## See also
 
-[`shapiro.test`](https://rdrr.io/r/stats/shapiro.test.html) for
+[`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html) for
 performing the Shapiro-Wilk test for normality,
-[`andersonDarlingTest`](andersonDarlingTest.md),
+[`andersonDarlingTest()`](andersonDarlingTest.md),
 [`pharos::plotQQ()`](https://andrisignorell.github.io/pharos/reference/plotQQ.html)
 for producing extended normal quantile-quantile plots
 

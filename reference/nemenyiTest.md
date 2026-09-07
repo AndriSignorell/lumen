@@ -89,7 +89,7 @@ Nemenyi's test is commonly used as a post hoc procedure after a
 significant
 [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) when all
 pairwise comparisons between groups are of interest. Unlike
-[`dunnTest`](dunnTest.md) and [`conoverTest`](conoverTest.md), no
+[`dunnTest()`](dunnTest.md) and [`conoverTest()`](conoverTest.md), no
 additional p-value adjustment is applied, since multiplicity control is
 built into the test statistic.
 

@@ -1,8 +1,8 @@
 # Print Method for rankTest Objects
 
 Prints pairwise comparison results produced by
-[`dunnTest`](dunnTest.md), [`conoverTest`](conoverTest.md), or
-[`nemenyiTest`](nemenyiTest.md).
+[`dunnTest()`](dunnTest.md), [`conoverTest()`](conoverTest.md), or
+[`nemenyiTest()`](nemenyiTest.md).
 
 ## Usage
 
@@ -20,14 +20,15 @@ print(x, digits = getOption("digits", 3), ...)
 - digits:
 
   number of significant digits used for printing numeric values. Passed
-  to [`print.data.frame`](https://rdrr.io/r/base/print.dataframe.html).
+  to
+  [`print.data.frame()`](https://rdrr.io/r/base/print.dataframe.html).
   Defaults to `getOption("digits", 3)`.
 
 - ...:
 
   further arguments passed to
-  [`print.data.frame`](https://rdrr.io/r/base/print.dataframe.html) or
-  [`print.default`](https://rdrr.io/r/base/print.default.html).
+  [`print.data.frame()`](https://rdrr.io/r/base/print.dataframe.html) or
+  [`print.default()`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -35,5 +36,5 @@ print(x, digits = getOption("digits", 3), ...)
 
 ## See also
 
-[`dunnTest`](dunnTest.md), [`conoverTest`](conoverTest.md),
-[`nemenyiTest`](nemenyiTest.md)
+[`dunnTest()`](dunnTest.md), [`conoverTest()`](conoverTest.md),
+[`nemenyiTest()`](nemenyiTest.md)

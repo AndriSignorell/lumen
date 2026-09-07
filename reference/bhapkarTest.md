@@ -52,7 +52,7 @@ A list with class `"htest"` containing the following components:
 Bhapkar's test (Bhapkar, 1966) is used to assess marginal homogeneity in
 square contingency tables. It is based on the asymptotic normality of
 marginal proportions and is closely related to the generalized McNemar
-test, as implemented in [`stuartMaxwellTest`](stuartMaxwellTest.md).
+test, as implemented in [`stuartMaxwellTest()`](stuartMaxwellTest.md).
 
 The two tests differ only in the estimation of the variance-covariance
 matrix of the marginal proportions and are asymptotically equivalent

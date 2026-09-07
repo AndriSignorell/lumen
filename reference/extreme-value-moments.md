@@ -69,9 +69,9 @@ Imperial College Press.
 
 ## See also
 
-[`dgumbel`](dpqr-gumbel.md), [`dfrechet`](dpqr-frechet.md),
-[`drweibull`](dpqr-rweibull.md), [`dgev`](dpqr-gev.md),
-[`dgpd`](dpqr-gpd.md),
+[`dgumbel()`](dpqr-gumbel.md), [`dfrechet()`](dpqr-frechet.md),
+[`drweibull()`](dpqr-rweibull.md), [`dgev()`](dpqr-gev.md),
+[`dgpd()`](dpqr-gpd.md),
 [distributions-overview](distributions-overview.md)
 
 ## Examples

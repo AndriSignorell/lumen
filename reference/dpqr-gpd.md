@@ -58,10 +58,10 @@ generation for the generalized Pareto distribution (GPD) with location,
 scale and shape parameters.
 
 The generalized Pareto distribution function (Pickands, 1975) with
-parameters \\\code{loc} = a\\, \\\code{scale} = b\\ and \\\code{shape} =
-s\\ is \$\$G(z) = 1 - \\1+s(z-a)/b\\^{-1/s}\$\$ for \\1+s(z-a)/b \> 0\\
-and \\z \> a\\, where \\b \> 0\\. If \\s = 0\\ the distribution is
-defined by continuity.
+parameters \\\`loc\` = a\\, \\\`scale\` = b\\ and \\\`shape\` = s\\ is
+\$\$G(z) = 1 - \\1+s(z-a)/b\\^{-1/s}\$\$ for \\1+s(z-a)/b \> 0\\ and \\z
+\> a\\, where \\b \> 0\\. If \\s = 0\\ the distribution is defined by
+continuity.
 
 ## Note
 

@@ -13,6 +13,8 @@ breuschGodfreyTest(
   order = 1,
   orderBy = NULL,
   type = c("chisq", "f"),
+  subset,
+  na.action = na.omit,
   fill = 0
 )
 ```
@@ -22,24 +24,32 @@ breuschGodfreyTest(
 - formula:
 
   a symbolic description for the model to be tested (or a fitted `"lm"`
-  object).
+  object, in which case the model frame is taken from the fit and
+  `subset` and `na.action` are ignored).
 
 - data:
 
   an optional data frame containing the variables in the model. By
   default the variables are taken from the environment which
-  `breuschGodfreyTest` is called from.
+  `breuschGodfreyTest` is called from. For a fitted `"lm"` object it is
+  used for `orderBy` only, as the model itself carries its own model
+  frame.
 
 - order:
 
-  integer, the maximal order of serial correlation to be tested.
+  integer, the maximal order of serial correlation to be tested. Must be
+  smaller than the residual degrees of freedom of the auxiliary
+  regression.
 
 - orderBy:
 
   either a vector `z` or a formula with a single explanatory variable
   like `~ z`. The observations in the model are ordered by the size of
-  `z`. If set to `NULL` (the default) the observations are assumed to be
-  ordered (e.g., a time series).
+  `z`; a formula with several terms is used as successive ordering keys.
+  If set to `NULL` (the default) the observations are assumed to be
+  ordered (e.g., a time series). `z` may be given at the length of the
+  original data: rows dropped by `subset` or by `na.action` are then
+  dropped from `z` as well. Missing values in `z` are ordered last.
 
 - type:
 
@@ -47,10 +57,23 @@ breuschGodfreyTest(
   for the chi-squared test statistic or `"f"` for the F test statistic.
   Case-insensitive.
 
+- subset:
+
+  an optional expression indicating which observations to use.
+
+- na.action:
+
+  a function specifying how missing values are handled. Defaults to
+  [`na.omit()`](https://rdrr.io/r/stats/na.fail.html): the auxiliary
+  regression is fitted by
+  [`lm.fit()`](https://rdrr.io/r/stats/lmfit.html) and cannot carry
+  missing values.
+
 - fill:
 
-  starting values for the lagged residuals in the auxiliary regression.
-  By default `0` but can also be set to `NA`.
+  a single value used as starting value for the lagged residuals in the
+  auxiliary regression. By default `0` but can also be set to `NA`, in
+  which case the leading incomplete rows are dropped.
 
 ## Value
 
@@ -85,6 +108,11 @@ containing the following components:
 
   the corresponding covariance matrix estimate.
 
+- `df.residual`:
+
+  the residual degrees of freedom of the auxiliary regression, for both
+  types of test statistic.
+
 ## Details
 
 `breuschGodfreyTest` performs the Breusch-Godfrey test for higher-order
@@ -113,6 +141,13 @@ Based on code by David Mitchell and Achim Zeileis previously published
 as `bgtest()` in the lmtest package, adapted to conform to package
 standards.
 
+Unlike `bgtest()`, the residual degrees of freedom of the auxiliary
+regression are reported for both types of test statistic. They are a
+property of that regression and not of the statistic derived from it,
+whereas `bgtest()` hands back `NULL` for the chi-squared version.
+`coeftest()` therefore refers the coefficients to a \\t\\ distribution
+in either case, where `bgtest()` switches to the normal one.
+
 ## References
 
 Breusch, T. S. (1978) Testing for autocorrelation in dynamic linear
@@ -123,6 +158,8 @@ average error models when the regressors include lagged dependent
 variables. *Econometrica*, 46, 1293-1301.
 
 ## See also
+
+[`durbinWatsonTest()`](durbinWatsonTest.md)
 
 Other test.regression: [`bpTest()`](bpTest.md),
 [`durbinWatsonTest()`](durbinWatsonTest.md),
@@ -173,5 +210,47 @@ breuschGodfreyTest(y2 ~ x)
 #> 
 #> data:  y2 ~ x
 #> LM test = 19.907, df = 1, p-value = 8.128e-06
+#> 
+
+## finite sample F version, and dropping the leading lags instead of
+## filling them with zeros
+breuschGodfreyTest(y2 ~ x, order = 4, type = "f")
+#> 
+#>  Breusch-Godfrey test for serial correlation of order up to 4
+#> 
+#> data:  y2 ~ x
+#> LM test = 7.2942, df1 = 4, df2 = 94, p-value = 3.682e-05
+#> 
+breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
+#> 
+#>  Breusch-Godfrey test for serial correlation of order up to 4
+#> 
+#> data:  y2 ~ x
+#> LM test = 24.401, df = 4, p-value = 6.637e-05
+#> 
+
+## transformed terms and an explicit ordering variable
+d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+                grp = rep(c("A", "B"), each = 50))
+breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
+#> Error: the auxiliary regression is rank deficient
+
+## subset and orderBy combined: tt is given at the length of d and is
+## reduced to the rows the model frame kept
+breuschGodfreyTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
+#> 
+#>  Breusch-Godfrey test for serial correlation of order up to 1
+#> 
+#> data:  y ~ x
+#> LM test = 2.2103, df = 1, p-value = 0.1371
+#> 
+
+## the test can also be applied to a fitted model
+breuschGodfreyTest(lm(y1 ~ x))
+#> 
+#>  Breusch-Godfrey test for serial correlation of order up to 1
+#> 
+#> data:  lm(y1 ~ x)
+#> LM test = 0.0036887, df = 1, p-value = 0.9516
 #> 
 ```

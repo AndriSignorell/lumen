@@ -19,7 +19,7 @@ shapes or equal variances in the two groups."><meta property="og:image" content=
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,14 +191,14 @@ two distributions differ in shape or spread, its null distribution is wrong
 and the test does not keep its level. Brunner and Munzel (2000) studentize
 the rank statistic with a separate variance estimate per group and refer it
 to a t distribution with Satterthwaite degrees of freedom, which is the rank
-analogue of the Welch correction. <code><a href="yuenTTest.html">yuenTTest</a></code> plays the same role
+analogue of the Welch correction. <code><a href="yuenTTest.html">yuenTTest()</a></code> plays the same role
 among the parametric location tests.</p>
 <p><strong>Direction of <code>alternative</code>.</strong> The alternative is stated in terms
 of \(p\), not in terms of <code>x</code> against <code>y</code>. <code>"greater"</code>
 therefore means \(p &gt; p_0\), that is, <code>y</code> tends to produce the larger
 values. This follows the published definition of the statistic and the
-reported estimate, but it is the reverse of <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></code> and
-<code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></code>, where <code>"greater"</code> refers to <code>x</code>.</p>
+reported estimate, but it is the reverse of <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">stats::t.test()</a></code> and
+<code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test()</a></code>, where <code>"greater"</code> refers to <code>x</code>.</p>
 <p><strong>Choice of <code>method</code>.</strong> The t approximation is liberal in small
 samples; below roughly ten observations per group the studentized permutation
 test of Neubert and Brunner (2007) should be preferred. Permuting the
@@ -245,10 +245,10 @@ right-hand side; more than two levels are rejected by
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Brunner, E., Munzel, U. (2000). The nonparametric Behrens-Fisher problem:
 asymptotic theory and a small-sample approximation. <em>Biometrical
-Journal</em>, <b>42</b>(1), 17-25.</p>
+Journal</em>, <strong>42</strong>(1), 17-25.</p>
 <p>Neubert, K., Brunner, E. (2007). A studentized permutation test for the
 non-parametric Behrens-Fisher problem. <em>Computational Statistics and
-Data Analysis</em>, <b>51</b>(10), 5192-5204.</p>
+Data Analysis</em>, <strong>51</strong>(10), 5192-5204.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

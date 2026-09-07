@@ -53,7 +53,7 @@ Chapman & Hall, London, p.54-55
 
 ## See also
 
-[`aov`](https://rdrr.io/r/stats/aov.html)
+[`aov()`](https://rdrr.io/r/stats/aov.html)
 
 ## Examples
 

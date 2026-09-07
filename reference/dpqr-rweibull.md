@@ -65,8 +65,8 @@ Density function, distribution function, quantile function and random
 generation for the reverse (sometimes called negative) Weibull
 distribution with location, scale and shape parameters.
 
-The reverse Weibull distribution function with parameters \\\code{loc} =
-a\\, \\\code{scale} = b\\ and \\\code{shape} = s\\ is \$\$G(z) =
+The reverse Weibull distribution function with parameters \\\`loc\` =
+a\\, \\\`scale\` = b\\ and \\\`shape\` = s\\ is \$\$G(z) =
 \exp\left\\-\left\[-\left(\frac{z-a}{b}\right)\right\]^s\right\\\$\$ for
 \\z \< a\\ and one otherwise, where \\b \> 0\\ and \\s \> 0\\.
 

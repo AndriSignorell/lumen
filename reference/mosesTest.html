@@ -25,7 +25,7 @@ of the control group."><meta property="og:image" content="/logo.png"></head><bod
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,7 +129,7 @@ span. If <code>NULL</code>, defaults to
 
 
 <dt id="arg-ties-method">ties.method<a class="anchor" aria-label="anchor" href="#arg-ties-method"></a></dt>
-<dd><p>Character string passed to <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank</a></code>.
+<dd><p>Character string passed to <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank()</a></code>.
 Default <code>"first"</code> preserves integer-valued ranks and exact
 combinatorial validity.</p></dd>
 
@@ -209,7 +209,7 @@ $$</p>
 <p><strong>Tie handling.</strong>
 The exact combinatorial distribution assumes a continuous underlying
 distribution (no ties). By default,
-<code>ties.method = "first"</code> is passed to <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank</a></code>,
+<code>ties.method = "first"</code> is passed to <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank()</a></code>,
 producing integer-valued ranks that remain compatible with the exact
 formula. Tied observations are ordered according to their occurrence in
 the pooled sample, matching SPSS behaviour.</p>
@@ -219,7 +219,7 @@ mid-ranks. In such cases the span is rounded upward via
 resulting p-values should be regarded as approximate rather than exact.</p>
 <p><strong>Numerical stability.</strong>
 The exact distribution is evaluated entirely in log-space using
-<code><a href="https://rdrr.io/r/base/Special.html" class="external-link">lchoose</a></code> and a log-sum-exp transformation, avoiding
+<code><a href="https://rdrr.io/r/base/Special.html" class="external-link">lchoose()</a></code> and a log-sum-exp transformation, avoiding
 overflow for large sample sizes.</p>
     </div>
     <div class="section level2">

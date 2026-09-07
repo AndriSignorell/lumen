@@ -38,7 +38,8 @@ varCI(
   vector of character strings representing the type of intervals
   required. The value should be any subset of the values `"classic"`,
   `"bonett"`, `"norm"`, `"boot"`. Bootstrap type can be set by the ...
-  arguments. See [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html).
+  arguments. See
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html).
 
 - na.rm:
 
@@ -83,8 +84,8 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 
 ## See also
 
-[`meanCI`](meanCI.md), [`medianCI`](medianCI.md),
-[`varTest`](varTest.md), `DescToolsX::varX`
+[`meanCI()`](meanCI.md), [`medianCI()`](medianCI.md),
+[`varTest()`](varTest.md), `DescToolsX::varX`
 
 Other test.variance: [`leveneTest()`](leveneTest.md),
 [`mosesTest()`](mosesTest.md),

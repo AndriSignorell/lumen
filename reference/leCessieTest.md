@@ -22,7 +22,7 @@ print(x, digits = 4, ...)
 
 - x:
 
-  a fitted binomial [`glm`](https://rdrr.io/r/stats/glm.html) object
+  a fitted binomial [`glm()`](https://rdrr.io/r/stats/glm.html) object
   (`glm` method), or a numeric vector of fitted probabilities, each in
   \\\[0, 1\]\\, without missing values (default method).
 

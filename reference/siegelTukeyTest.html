@@ -18,11 +18,11 @@ from the second-lowest upward. If the combined sample size is odd, the
 median observation is dropped before ranking (it is taken from the larger
 group when group sizes differ).
 Ties receive average ranks. The p-value is computed exactly (via
-pwilcox) when there are no ties and both samples are smaller
+pwilcox()) when there are no ties and both samples are smaller
 than 50 observations; otherwise a normal approximation with tie-corrected
 variance is used. This behaviour can be overridden with exact.
 Note: The Siegel-Tukey test has relatively low power compared to
-alternatives such as ansari.test or mood.test,
+alternatives such as ansari.test() or mood.test(),
 and may indicate significance due to median differences rather than scale
 differences when adjustMedian = FALSE."><meta property="og:description" content="The Siegel-Tukey test examines the null hypothesis that the variability
 (scale) of x and y is equal. Rejection indicates that the
@@ -37,11 +37,11 @@ from the second-lowest upward. If the combined sample size is odd, the
 median observation is dropped before ranking (it is taken from the larger
 group when group sizes differ).
 Ties receive average ranks. The p-value is computed exactly (via
-pwilcox) when there are no ties and both samples are smaller
+pwilcox()) when there are no ties and both samples are smaller
 than 50 observations; otherwise a normal approximation with tie-corrected
 variance is used. This behaviour can be overridden with exact.
 Note: The Siegel-Tukey test has relatively low power compared to
-alternatives such as ansari.test or mood.test,
+alternatives such as ansari.test() or mood.test(),
 and may indicate significance due to median differences rather than scale
 differences when adjustMedian = FALSE."><meta property="og:image" content="/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -51,7 +51,7 @@ differences when adjustMedian = FALSE."><meta property="og:image" content="/logo
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,11 +94,11 @@ from the second-lowest upward. If the combined sample size is odd, the
 median observation is dropped before ranking (it is taken from the larger
 group when group sizes differ).</p>
 <p>Ties receive average ranks. The p-value is computed exactly (via
-<code><a href="https://rdrr.io/r/stats/Wilcoxon.html" class="external-link">pwilcox</a></code>) when there are no ties and both samples are smaller
+<code><a href="https://rdrr.io/r/stats/Wilcoxon.html" class="external-link">pwilcox()</a></code>) when there are no ties and both samples are smaller
 than 50 observations; otherwise a normal approximation with tie-corrected
 variance is used. This behaviour can be overridden with <code>exact</code>.</p>
 <p><strong>Note:</strong> The Siegel-Tukey test has relatively low power compared to
-alternatives such as <code><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test</a></code> or <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test</a></code>,
+alternatives such as <code><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test()</a></code> or <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test()</a></code>,
 and may indicate significance due to median differences rather than scale
 differences when <code>adjustMedian = FALSE</code>.</p>
     </div>
@@ -176,7 +176,7 @@ differences from inflating the test statistic. Default is <code>FALSE</code>.</p
 
 <dt id="arg-exact">exact<a class="anchor" aria-label="anchor" href="#arg-exact"></a></dt>
 <dd><p>logical; if <code>TRUE</code>, an exact p-value is computed via
-<code><a href="https://rdrr.io/r/stats/Wilcoxon.html" class="external-link">pwilcox</a></code>. Exact computation is not possible in the presence
+<code><a href="https://rdrr.io/r/stats/Wilcoxon.html" class="external-link">pwilcox()</a></code>. Exact computation is not possible in the presence
 of ties; a warning is issued and the normal approximation is used instead.
 If <code>NA</code> (default), exact computation is used when both samples have
 fewer than 50 observations and there are no ties.</p></dd>
@@ -237,13 +237,13 @@ statistic is then computed on these ranks.</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Siegel, S. and Tukey, J. W. (1960): A nonparametric sum of ranks procedure
 for relative spread in unpaired samples. <em>Journal of the American
-Statistical Association</em>, <b>55</b>(291), 429–445.</p>
+Statistical Association</em>, <strong>55</strong>(291), 429–445.</p>
 <p>Sheskin, D. J. (2004): <em>Handbook of Parametric and Nonparametric
 Statistical Procedures</em>, 3rd ed. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test</a></code>, <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test</a></code>,
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test()</a></code>, <code><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test()</a></code>,
 <code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test()</a></code></p>
 <p>Other test.variance:
 <code><a href="leveneTest.html">leveneTest()</a></code>,

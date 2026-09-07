@@ -18,12 +18,15 @@ durbinWatsonTest(
   iterations = 15,
   exact = NULL,
   tol = 0.0000000001,
+  subset,
+  na.action = na.omit,
   ...
 )
 
 # S3 method for class 'lm'
 durbinWatsonTest(
   x,
+  data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
@@ -35,6 +38,7 @@ durbinWatsonTest(
 # S3 method for class 'numeric'
 durbinWatsonTest(
   x,
+  data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
@@ -60,16 +64,21 @@ durbinWatsonTest(x, ...)
 
 - data:
 
-  an optional data frame containing the variables in the model. Only
-  used for the `formula` method. By default the variables are taken from
-  the environment which `durbinWatsonTest` is called from.
+  an optional data frame containing the variables in the model. By
+  default the variables are taken from the environment which
+  `durbinWatsonTest` is called from. For the `lm` and `numeric` methods
+  it is used for `orderBy` only, as the model frame is already fixed
+  there.
 
 - orderBy:
 
-  either a vector `z` or a formula with a single explanatory variable
-  like `~ z`. The observations in the model are ordered by the size of
-  `z`. If set to `NULL` (the default) the observations are assumed to be
-  ordered (e.g., a time series).
+  either a vector `z` or a one-sided formula like `~ z`. The
+  observations in the model are ordered by the size of `z`; a formula
+  with several terms is used as successive ordering keys. If set to
+  `NULL` (the default) the observations are assumed to be ordered (e.g.,
+  a time series). `z` may be given at the length of the original data:
+  rows dropped by `subset` or by `na.action` are then dropped from `z`
+  as well. Missing values in `z` are ordered last.
 
 - alternative:
 
@@ -90,6 +99,17 @@ durbinWatsonTest(x, ...)
 - tol:
 
   numeric tolerance. Eigenvalues smaller than `tol` are treated as zero.
+
+- subset:
+
+  an optional expression indicating which observations to use. Only used
+  for the `formula` method.
+
+- na.action:
+
+  a function specifying how missing values are handled. Defaults to
+  [`na.omit()`](https://rdrr.io/r/stats/na.fail.html). Only used for the
+  `formula` method.
 
 ## Value
 
@@ -179,7 +199,8 @@ Test*. Heidelberg: Physica.
 
 ## See also
 
-[`lm()`](https://rdrr.io/r/stats/lm.html)
+[`lm()`](https://rdrr.io/r/stats/lm.html),
+[`breuschGodfreyTest()`](breuschGodfreyTest.md)
 
 Other test.regression: [`bpTest()`](bpTest.md),
 [`breuschGodfreyTest()`](breuschGodfreyTest.md),
@@ -211,6 +232,18 @@ durbinWatsonTest(y ~ x, data = data.frame(y = 1 + x + err2, x = x))
 #> 
 #> data:  y ~ x
 #> DW = 0.45961, p-value = 7.862e-15
+#> alternative hypothesis: true autocorrelation is greater than 0
+#> 
+
+## subset and an ordering variable given at the length of the data
+d <- data.frame(y = 1 + x + as.vector(err2), x = x, tt = sample(100),
+                grp = rep(c("A", "B"), each = 50))
+durbinWatsonTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
+#> 
+#>  Durbin-Watson test
+#> 
+#> data:  y ~ x
+#> DW = 2.2901, p-value = 0.8511
 #> alternative hypothesis: true autocorrelation is greater than 0
 #> 
 

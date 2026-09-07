@@ -61,7 +61,7 @@ print(x, digits = getOption("digits", 3), ...)
   `"duncan"`, defining the method for the pairwise comparisons (may be
   abbreviated).  
   For the post hoc test of tables the methods of
-  [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html) can be supplied.
+  [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html) can be supplied.
   See the detail there.
 
 - conf.level:
@@ -123,14 +123,14 @@ appropriate for more complex contrasts.
 **Tables**  
 For tables pairwise chi-square tests can be performed, either without
 correction or with correction for multiple testing following the logic
-in [`p.adjust`](https://rdrr.io/r/stats/p.adjust.html).
+in [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html).
 
 ## See also
 
-[`TukeyHSD`](https://rdrr.io/r/stats/TukeyHSD.html),
-[`aov`](https://rdrr.io/r/stats/aov.html),
-[`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html),
-[`scheffeTest`](scheffeTest.md)
+[`TukeyHSD()`](https://rdrr.io/r/stats/TukeyHSD.html),
+[`aov()`](https://rdrr.io/r/stats/aov.html),
+[`pairwise.t.test()`](https://rdrr.io/r/stats/pairwise.t.test.html),
+[`scheffeTest()`](scheffeTest.md)
 
 Other test.posthoc: [`conoverTest()`](conoverTest.md),
 [`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),

@@ -19,7 +19,7 @@ the family-wise error rate."><meta property="og:image" content="/logo.png"></hea
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,7 +111,7 @@ the intervals should be calculated. Defaults to all the terms.</p></dd>
 <code>"scheffe"</code>, <code>"newmankeuls"</code>, <code>"duncan"</code>, defining the
 method for the pairwise comparisons (may be abbreviated).<br> For the
 post hoc test of tables the methods of
-<code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></code> can be supplied. See the detail there.</p></dd>
+<code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust()</a></code> can be supplied. See the detail there.</p></dd>
 
 
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
@@ -168,12 +168,12 @@ Scheffé is appropriate for more complex contrasts.</p>
 <p><strong>Tables</strong> <br>
 For tables pairwise chi-square tests can be performed,
 either without correction or with correction for multiple testing following
-the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></code>.</p>
+the logic in <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code>, <code><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></code>,
-<code><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test</a></code>, <code><a href="scheffeTest.html">scheffeTest</a></code></p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD()</a></code>, <code><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov()</a></code>,
+<code><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test()</a></code>, <code><a href="scheffeTest.html">scheffeTest()</a></code></p>
 <p>Other test.posthoc:
 <code><a href="conoverTest.html">conoverTest()</a></code>,
 <code><a href="dscfTest.html">dscfTest()</a></code>,

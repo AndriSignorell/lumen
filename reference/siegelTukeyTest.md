@@ -15,17 +15,17 @@ observation is dropped before ranking (it is taken from the larger group
 when group sizes differ).
 
 Ties receive average ranks. The p-value is computed exactly (via
-[`pwilcox`](https://rdrr.io/r/stats/Wilcoxon.html)) when there are no
+[`pwilcox()`](https://rdrr.io/r/stats/Wilcoxon.html)) when there are no
 ties and both samples are smaller than 50 observations; otherwise a
 normal approximation with tie-corrected variance is used. This behaviour
 can be overridden with `exact`.
 
 **Note:** The Siegel-Tukey test has relatively low power compared to
 alternatives such as
-[`ansari.test`](https://rdrr.io/r/stats/ansari.test.html) or
-[`mood.test`](https://rdrr.io/r/stats/mood.test.html), and may indicate
-significance due to median differences rather than scale differences
-when `adjustMedian = FALSE`.
+[`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html) or
+[`mood.test()`](https://rdrr.io/r/stats/mood.test.html), and may
+indicate significance due to median differences rather than scale
+differences when `adjustMedian = FALSE`.
 
 ## Usage
 
@@ -99,11 +99,11 @@ siegelTukeyTest(
 - exact:
 
   logical; if `TRUE`, an exact p-value is computed via
-  [`pwilcox`](https://rdrr.io/r/stats/Wilcoxon.html). Exact computation
-  is not possible in the presence of ties; a warning is issued and the
-  normal approximation is used instead. If `NA` (default), exact
-  computation is used when both samples have fewer than 50 observations
-  and there are no ties.
+  [`pwilcox()`](https://rdrr.io/r/stats/Wilcoxon.html). Exact
+  computation is not possible in the presence of ties; a warning is
+  issued and the normal approximation is used instead. If `NA`
+  (default), exact computation is used when both samples have fewer than
+  50 observations and there are no ties.
 
 - correct:
 
@@ -173,8 +173,8 @@ Statistical Procedures*, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 
 ## See also
 
-[`ansari.test`](https://rdrr.io/r/stats/ansari.test.html),
-[`mood.test`](https://rdrr.io/r/stats/mood.test.html),
+[`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html),
+[`mood.test()`](https://rdrr.io/r/stats/mood.test.html),
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
 Other test.variance: [`leveneTest()`](leveneTest.md),

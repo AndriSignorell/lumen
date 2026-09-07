@@ -153,7 +153,7 @@ yuenTTest(extra ~ group, data = sleep)
 #> 
 #>  Yuen Two-Sample Trimmed Mean t-test
 #> 
-#> data:  extra ~ group
+#> data:  
 #> t = -1.5314, df = 8.7502, trim = 0.2000, p-value = 0.161
 #> alternative hypothesis: true trimmed mean difference is not equal to 0
 #> 95 percent confidence interval:

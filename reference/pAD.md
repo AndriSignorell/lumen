@@ -46,8 +46,8 @@ A numeric vector of the same length as `p` or `q`.
 `pAD` uses the algorithms and C code described in Marsaglia and
 Marsaglia (2004).
 
-`qAD` uses [`uniroot`](https://rdrr.io/r/stats/uniroot.html) to find the
-quantiles.
+`qAD` uses [`uniroot()`](https://rdrr.io/r/stats/uniroot.html) to find
+the quantiles.
 
 The argument `fast` applies only when `n=Inf` and determines whether the
 asymptotic distribution is approximated using the faster algorithm

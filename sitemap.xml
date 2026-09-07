@@ -3,11 +3,11 @@
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
-<url><loc>/reference/BartelsRankTest.html</loc></url>
 <url><loc>/reference/Formulas.html</loc></url>
 <url><loc>/reference/adfTest.html</loc></url>
 <url><loc>/reference/andersonDarlingTest.html</loc></url>
 <url><loc>/reference/barnardTest.html</loc></url>
+<url><loc>/reference/bartelsRankTest.html</loc></url>
 <url><loc>/reference/bhapkarTest.html</loc></url>
 <url><loc>/reference/binomCI.html</loc></url>
 <url><loc>/reference/binomDiffCI.html</loc></url>
@@ -28,6 +28,7 @@
 <url><loc>/reference/disc.moments.html</loc></url>
 <url><loc>/reference/distributions-overview.html</loc></url>
 <url><loc>/reference/dot-checkVerbose.html</loc></url>
+<url><loc>/reference/dot-sidesAlpha.html</loc></url>
 <url><loc>/reference/dpqr-RevGumbel.html</loc></url>
 <url><loc>/reference/dpqr-benford.html</loc></url>
 <url><loc>/reference/dpqr-dirichlet.html</loc></url>

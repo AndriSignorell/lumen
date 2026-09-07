@@ -78,9 +78,9 @@ cochranQTest(
 - data:
 
   an optional matrix or data frame (or similar: see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in the formula. By default the variables are taken from
-  `environment(formula)`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in the formula. By default the variables are
+  taken from `environment(formula)`.
 
 - subset:
 
@@ -182,7 +182,7 @@ cochranQTest(resp ~ time | id, data=d.long)
 #> 
 #>  Cochran's Q test (asymptotic)
 #> 
-#> data:  resp ~ time | id
+#> data:  
 #> Cochran's Q = 8.4706, df = 2, p-value = 0.01448
 #> 
 

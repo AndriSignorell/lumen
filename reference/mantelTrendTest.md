@@ -71,7 +71,7 @@ distribution with one degree of freedom.
 This test is sometimes called the Mantel-Haenszel chi-squared test for
 trend, but it is *not* the stratified Cochran-Mantel-Haenszel test for
 \\2 \times 2 \times k\\ tables (see
-[`mantelhaen.test`](https://rdrr.io/r/stats/mantelhaen.test.html) for
+[`mantelhaen.test()`](https://rdrr.io/r/stats/mantelhaen.test.html) for
 that). It is a score test for ordinal association, also known as the
 linear-by-linear association test.
 
@@ -81,7 +81,7 @@ levels stored as label strings that parse as numbers), those values are
 used as the default scores; otherwise the default is `1:nrow(x)` resp.
 `1:ncol(x)`, i.e. the categories are assumed equally spaced. This
 mirrors the scoring convention used by
-[`cochranArmitageTest`](cochranArmitageTest.md). The choice of scores
+[`cochranArmitageTest()`](cochranArmitageTest.md). The choice of scores
 affects the result: any monotone scores are permitted; non-monotone
 scores (neither strictly increasing nor strictly decreasing) produce a
 warning, since \\r\\ would then no longer reflect a consistent ordinal
@@ -98,12 +98,12 @@ Statistical Association*, 58, 690-700.
 
 ## See also
 
-[`mantelhaen.test`](https://rdrr.io/r/stats/mantelhaen.test.html) for
+[`mantelhaen.test()`](https://rdrr.io/r/stats/mantelhaen.test.html) for
 the stratified Cochran-Mantel-Haenszel test,
-[`chisq.test`](https://rdrr.io/r/stats/chisq.test.html) for the general
-chi-squared test of independence,
-[`cochranArmitageTest`](cochranArmitageTest.md) for a related trend test
-with a binary response
+[`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html) for the
+general chi-squared test of independence,
+[`cochranArmitageTest()`](cochranArmitageTest.md) for a related trend
+test with a binary response
 
 Other test.categorical: [`barnardTest()`](barnardTest.md),
 [`bhapkarTest()`](bhapkarTest.md),

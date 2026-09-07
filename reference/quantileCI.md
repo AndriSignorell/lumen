@@ -54,7 +54,8 @@ quantileCI(
 - ...:
 
   bootstrap arguments can be provided by the dots argument. See
-  [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html) for details.
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) for
+  details.
 
 ## Value
 
@@ -80,8 +81,8 @@ achieved coverage (which may differ from the requested level).
 The `"exact"` method corresponds to the way the confidence interval for
 the median is calculated in SAS.  
 The boot confidence interval type is calculated by means of
-[`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html) with default type
-`"basic"`.
+[`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) with
+default type `"basic"`.
 
 ## See also
 

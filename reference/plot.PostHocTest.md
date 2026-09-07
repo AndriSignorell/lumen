@@ -17,12 +17,12 @@ plot(x, ...)
 - x:
 
   an object of class `"PostHocTest"`, typically returned by
-  [`postHocTest`](postHoc.md).
+  [`postHocTest()`](postHoc.md).
 
 - ...:
 
   additional graphical parameters passed to
-  [`plotDot`](https://andrisignorell.github.io/pharos/reference/plotDot.html)
+  [`pharos::plotDot()`](https://andrisignorell.github.io/pharos/reference/plotDot.html)
   and base plotting functions.
 
 ## Value

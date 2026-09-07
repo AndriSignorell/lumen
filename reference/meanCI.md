@@ -40,7 +40,8 @@ meanCI(
 
   A vector of character strings representing the type of intervals
   required. The value should be any subset of the values `"classic"`,
-  `"boot"`. See [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html).
+  `"boot"`. See
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html).
 
 - sd:
 
@@ -63,12 +64,12 @@ meanCI(
 - ...:
 
   further arguments are passed to the
-  [`boot`](https://rdrr.io/pkg/boot/man/boot.html) function. Supported
-  arguments are `type` (`"norm"`, `"basic"`, `"stud"`, `"perc"`,
-  `"bca"`), `parallel` and the number of bootstrap replicates `R`. If
-  not defined those will be set to their defaults, being `"basic"` for
-  `type`, option `"boot.parallel"` (and if that is not set, `"no"`) for
-  `parallel` and `999` for `R`.
+  [`boot::boot()`](https://rdrr.io/pkg/boot/man/boot.html) function.
+  Supported arguments are `type` (`"norm"`, `"basic"`, `"stud"`,
+  `"perc"`, `"bca"`), `parallel` and the number of bootstrap replicates
+  `R`. If not defined those will be set to their defaults, being
+  `"basic"` for `type`, option `"boot.parallel"` (and if that is not
+  set, `"no"`) for `parallel` and `999` for `R`.
 
 ## Value
 

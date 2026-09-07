@@ -84,11 +84,11 @@ Univariate Distributions*, Vol. 2. Wiley.
 
 ## See also
 
-[`Binomial`](https://rdrr.io/r/stats/Binomial.html),
-[`Poisson`](https://rdrr.io/r/stats/Poisson.html),
-[`Geometric`](https://rdrr.io/r/stats/Geometric.html),
-[`NegBinomial`](https://rdrr.io/r/stats/NegBinomial.html),
-[`Hypergeometric`](https://rdrr.io/r/stats/Hypergeometric.html),
+[`Binomial()`](https://rdrr.io/r/stats/Binomial.html),
+[`Poisson()`](https://rdrr.io/r/stats/Poisson.html),
+[`Geometric()`](https://rdrr.io/r/stats/Geometric.html),
+[`NegBinomial()`](https://rdrr.io/r/stats/NegBinomial.html),
+[`Hypergeometric()`](https://rdrr.io/r/stats/Hypergeometric.html),
 [distributions-overview](distributions-overview.md)
 
 ## Examples

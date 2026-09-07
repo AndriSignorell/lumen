@@ -17,7 +17,7 @@ observation in the second half and applying a sign test to the differences."><me
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,11 +111,11 @@ dropped.</p>
 <p>Every observation enters at most one pair, so under independence and a
 continuous common distribution the signs are independent Bernoulli variables
 with probability one half. The p-value from
-<code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test</a></code> is then exact at any series length, however
+<code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test()</a></code> is then exact at any series length, however
 short. That exactness rests on the independence assumption: with serially
 dependent observations the signs need not be independent and the nominal
 level is no longer guaranteed.</p>
-<p>The test is a special case of <code><a href="signTest.html">signTest</a></code> and inherits both its
+<p>The test is a special case of <code><a href="signTest.html">signTest()</a></code> and inherits both its
 robustness and its low power: only the sign of each paired difference is
 used, and half the observations enter only as partners. It detects a
 monotone drift, not curvature or oscillation: a series that rises and then
@@ -128,13 +128,13 @@ the pairing refers to the observed values, not to their original positions.</p>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
-dispersion. <em>Biometrika</em>, <b>42</b>(1/2), 80-95.</p>
+dispersion. <em>Biometrika</em>, <strong>42</strong>(1/2), 80-95.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="signTest.html">signTest</a></code>, <code><a href="jonckheereTerpstraTest.html">jonckheereTerpstraTest</a></code>,
-<code><a href="mantelTrendTest.html">mantelTrendTest</a></code>, <code><a href="BartelsRankTest.html">bartelsRankTest</a></code>,
-<code><a href="runsTest.html">runsTest</a></code></p>
+    <div class="dont-index"><p><code><a href="signTest.html">signTest()</a></code>, <code><a href="jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code>,
+<code><a href="mantelTrendTest.html">mantelTrendTest()</a></code>, <code><a href="bartelsRankTest.html">bartelsRankTest()</a></code>,
+<code><a href="runsTest.html">runsTest()</a></code></p>
 <p>Other test.trend:
 <code><a href="cochranArmitageTest.html">cochranArmitageTest()</a></code>,
 <code><a href="jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code>,

@@ -72,7 +72,7 @@ The available confidence-interval methods are:
 - `"exact"`:
 
   the exact Poisson interval calculated by
-  [`stats::poisson.test()`](https://rdrr.io/r/stats/poisson.test.html),
+  [`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html),
   equivalent to the Garwood interval
 
 - `"score"`:
@@ -107,7 +107,7 @@ US Government Printing Office.
 
 ## See also
 
-[`stats::poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
+[`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
 
 ## Examples
 

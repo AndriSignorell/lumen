@@ -17,7 +17,7 @@ a threshold)."><meta property="og:image" content="/logo.png"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,7 +166,7 @@ hypothesis.</p></dd>
 by counting how many runs there are above and below a threshold. If
 <code>y</code> is supplied, a two-sample Wald-Wolfowitz test for the equality
 of two distributions is computed.</p>
-<p><b>The runs test for randomness</b> requires a dichotomous sequence. For
+<p><strong>The runs test for randomness</strong> requires a dichotomous sequence. For
 a numeric variable <code>x</code> with more than two distinct values, the
 sequence is dichotomised by comparing each observation to the median.
 Observations exactly equal to the median are removed before the test, as
@@ -185,12 +185,12 @@ SPSS for \(n &lt; 50\)) does: \(c = 0.5\) if \(r &lt; \mu_r\) and
 \(c = -0.5\) if \(r &gt; \mu_r\).</p>
 <p>The exact p-value is computed from the conditional distribution of the
 number of runs given \(n_0\) and \(n_1\), implemented in C++.</p>
-<p><b>Interpretation of alternatives:</b></p><ul><li><p><code>"less"</code>: fewer runs than expected — indicates clustering
+<p><strong>Interpretation of alternatives:</strong></p><ul><li><p><code>"less"</code>: fewer runs than expected — indicates clustering
 or positive serial correlation.</p></li>
 <li><p><code>"greater"</code>: more runs than expected — indicates alternation
 or negative serial correlation.</p></li>
 <li><p><code>"two.sided"</code>: departure in either direction.</p></li>
-</ul><p><b>The Wald-Wolfowitz test</b> is a two-sample nonparametric test for the
+</ul><p><strong>The Wald-Wolfowitz test</strong> is a two-sample nonparametric test for the
 equality of two continuous distributions against general alternatives.
 Exact p-values are not valid in the presence of inter-group ties; a
 warning is issued when such ties are detected.</p>
@@ -202,16 +202,16 @@ warning is issued when such ties are detected.</p>
 Duxbury Press, CA.</p>
 <p>Wald, A. and Wolfowitz, J. (1940): On a test whether two samples are
 from the same population. <em>Annals of Mathematical Statistics</em>
-<b>11</b>, 147–162.</p>
+<strong>11</strong>, 147–162.</p>
 <p>Siegel, S. (1956) <em>Nonparametric Statistics for the Behavioural
 Sciences</em>, McGraw-Hill Kogakusha, Tokyo.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/base/rle.html" class="external-link">rle</a></code></p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/base/rle.html" class="external-link">rle()</a></code></p>
 <p>Other test.timeseries:
 <code><a href="adfTest.html">adfTest()</a></code>,
-<code><a href="BartelsRankTest.html">bartelsRankTest()</a></code>,
+<code><a href="bartelsRankTest.html">bartelsRankTest()</a></code>,
 <code><a href="kpssTest.html">kpssTest()</a></code>,
 <code><a href="vonNeumannTest.html">vonNeumannTest()</a></code></p></div>
     </div>

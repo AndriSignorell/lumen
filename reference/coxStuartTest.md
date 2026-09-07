@@ -68,12 +68,12 @@ information about direction and are dropped.
 Every observation enters at most one pair, so under independence and a
 continuous common distribution the signs are independent Bernoulli
 variables with probability one half. The p-value from
-[`binom.test`](https://rdrr.io/r/stats/binom.test.html) is then exact at
-any series length, however short. That exactness rests on the
+[`binom.test()`](https://rdrr.io/r/stats/binom.test.html) is then exact
+at any series length, however short. That exactness rests on the
 independence assumption: with serially dependent observations the signs
 need not be independent and the nominal level is no longer guaranteed.
 
-The test is a special case of [`signTest`](signTest.md) and inherits
+The test is a special case of [`signTest()`](signTest.md) and inherits
 both its robustness and its low power: only the sign of each paired
 difference is used, and half the observations enter only as partners. It
 detects a monotone drift, not curvature or oscillation: a series that
@@ -92,10 +92,10 @@ location and dispersion. *Biometrika*, **42**(1/2), 80-95.
 
 ## See also
 
-[`signTest`](signTest.md),
-[`jonckheereTerpstraTest`](jonckheereTerpstraTest.md),
-[`mantelTrendTest`](mantelTrendTest.md),
-[`bartelsRankTest`](BartelsRankTest.md), [`runsTest`](runsTest.md)
+[`signTest()`](signTest.md),
+[`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md),
+[`mantelTrendTest()`](mantelTrendTest.md),
+[`bartelsRankTest()`](bartelsRankTest.md), [`runsTest()`](runsTest.md)
 
 Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),
 [`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md),

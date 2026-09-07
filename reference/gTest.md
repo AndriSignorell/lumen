@@ -125,7 +125,7 @@ contingency tables. *Biometrika*, 63, 33-37.
 
 ## See also
 
-[`chisq.test`](https://rdrr.io/r/stats/chisq.test.html)
+[`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html)
 
 Other test.categorical: [`barnardTest()`](barnardTest.md),
 [`bhapkarTest()`](bhapkarTest.md),
@@ -205,6 +205,6 @@ gTest(table(x))                # NOT 'gTest(x)'!
 #>  Log likelihood ratio (G-test) goodness of fit test
 #> 
 #> data:  table(x)
-#> G = 7.3121, df = 4, p-value = 0.1203
+#> G = 2.5267, df = 4, p-value = 0.6399
 #> 
 ```

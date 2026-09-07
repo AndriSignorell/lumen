@@ -87,8 +87,8 @@ The available confidence-interval methods are:
   the exact conditional interval obtained by conditioning on \\x_1 +
   x_2\\ and transforming a Clopper–Pearson interval for the resulting
   binomial probability; this is the construction used by
-  [`stats::poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
-  for two samples
+  [`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html) for two
+  samples
 
 - `"midp"`:
 
@@ -127,7 +127,7 @@ Medicine*, **22**(12), 2071–2083.
 
 [`poissonCI()`](poissonCI.md), [`poissonDiffCI()`](poissonDiffCI.md),
 [`binomRatioCI()`](binomRatioCI.md),
-[`stats::poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
+[`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
 
 ## Examples
 

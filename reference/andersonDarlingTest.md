@@ -96,7 +96,7 @@ distribution. *Journal of Statistical Software* **9** (2), 1–5.
 
 ## See also
 
-[`pAD`](pAD.md) for the null distribution of the test statistic
+[`pAD()`](pAD.md) for the null distribution of the test statistic
 
 Other test.normality: [`cramerVonMisesTest()`](cramerVonMisesTest.md),
 [`jarqueBeraTest()`](jarqueBeraTest.md),

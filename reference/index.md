@@ -137,7 +137,7 @@ Tests for stationarity, trends, serial dependence, and randomness.
 
 - [`adfTest()`](adfTest.md) : Augmented Dickey-Fuller Unit Root Test for
   Detecting Unit Roots in Time Series
-- [`bartelsRankTest()`](BartelsRankTest.md) : Bartels Rank Test of
+- [`bartelsRankTest()`](bartelsRankTest.md) : Bartels Rank Test of
   Randomness for Detecting Non-Random Order in Continuous Sequences
 - [`kpssTest()`](kpssTest.md) : Kwiatkowski-Phillips-Schmidt-Shin Test
   for Assessing Level or Trend Stationarity

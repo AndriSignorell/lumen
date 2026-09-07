@@ -70,9 +70,9 @@ print(x, digits = getOption("digits"), ...)
 
 - ties.method:
 
-  Character string passed to [`rank`](https://rdrr.io/r/base/rank.html).
-  Default `"first"` preserves integer-valued ranks and exact
-  combinatorial validity.
+  Character string passed to
+  [`rank()`](https://rdrr.io/r/base/rank.html). Default `"first"`
+  preserves integer-valued ranks and exact combinatorial validity.
 
 - digits:
 
@@ -153,7 +153,7 @@ n_k^\prime,\\ n_e)} \binom{i + n_k^\prime - 2}{i}\\ \binom{n_e + 2h +
 **Tie handling.** The exact combinatorial distribution assumes a
 continuous underlying distribution (no ties). By default,
 `ties.method = "first"` is passed to
-[`rank`](https://rdrr.io/r/base/rank.html), producing integer-valued
+[`rank()`](https://rdrr.io/r/base/rank.html), producing integer-valued
 ranks that remain compatible with the exact formula. Tied observations
 are ordered according to their occurrence in the pooled sample, matching
 SPSS behaviour.
@@ -165,7 +165,7 @@ integer-valued test statistic, but the resulting p-values should be
 regarded as approximate rather than exact.
 
 **Numerical stability.** The exact distribution is evaluated entirely in
-log-space using [`lchoose`](https://rdrr.io/r/base/Special.html) and a
+log-space using [`lchoose()`](https://rdrr.io/r/base/Special.html) and a
 log-sum-exp transformation, avoiding overflow for large sample sizes.
 
 ## References

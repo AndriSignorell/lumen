@@ -45,7 +45,7 @@ meanDiffCI(
   a vector of character strings representing the type of intervals
   required. The value should be any subset of the values `"classic"`,
   `"boot"`. Bootstrap type can be provided by the dots. See
-  [`boot.ci`](https://rdrr.io/pkg/boot/man/boot.ci.html).
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html).
 
 - paired:
 
@@ -91,7 +91,7 @@ This function collects code from two sources. The classical confidence
 interval is calculated by means of
 [`t.test()`](https://rdrr.io/r/stats/t.test.html). The bootstrap
 intervals are strongly based on the example in
-[`boot`](https://rdrr.io/pkg/boot/man/boot.html).
+[`boot::boot()`](https://rdrr.io/pkg/boot/man/boot.html).
 
 The bootstrap type `"stud"` (studentized) is not supported: the
 statistic functions used here return only the point estimate, not a

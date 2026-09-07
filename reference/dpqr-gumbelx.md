@@ -85,7 +85,7 @@ package, adapted to conform to package standards.
 ## See also
 
 [distributions-overview](distributions-overview.md);
-[`uniroot`](https://rdrr.io/r/stats/uniroot.html), which `qgumbelx()`
+[`uniroot()`](https://rdrr.io/r/stats/uniroot.html), which `qgumbelx()`
 uses for root finding
 
 ## Examples

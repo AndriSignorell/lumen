@@ -117,7 +117,7 @@ stuartMaxwellTest(hyp)
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  x
+#> data:  
 #> chi-squared = 13.765, df = 2, p-value = 0.001026
 #> 
 
@@ -130,7 +130,7 @@ stuartMaxwellTest(x=d.hyp[,1], y=d.hyp[,2])
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  x and y
+#> data:  
 #> chi-squared = 13.765, df = 2, p-value = 0.001026
 #> 
 
@@ -143,7 +143,7 @@ stuartMaxwellTest(mc)
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  x
+#> data:  
 #> chi-squared = 0.089722, df = 3, p-value = 0.993
 #> 
 

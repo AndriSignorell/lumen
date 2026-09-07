@@ -17,7 +17,7 @@ autocorrelation and models with lagged dependent variables."><meta property="og:
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,8 @@ autocorrelation and models with lagged dependent variables.</p>
 <span>  order <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  orderBy <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chisq"</span>, <span class="st">"f"</span><span class="op">)</span>,</span>
+<span>  <span class="va">subset</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
 <span>  fill <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -70,25 +72,32 @@ autocorrelation and models with lagged dependent variables.</p>
 
 <dl><dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
 <dd><p>a symbolic description for the model to be tested (or a
-fitted <code>"lm"</code> object).</p></dd>
+fitted <code>"lm"</code> object, in which case the model frame is taken from the fit
+and <code>subset</code> and <code>na.action</code> are ignored).</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>an optional data frame containing the variables in the
 model. By default the variables are taken from the environment which
-<code>breuschGodfreyTest</code> is called from.</p></dd>
+<code>breuschGodfreyTest</code> is called from. For a fitted <code>"lm"</code> object it is used
+for <code>orderBy</code> only, as the model itself carries its own model frame.</p></dd>
 
 
 <dt id="arg-order">order<a class="anchor" aria-label="anchor" href="#arg-order"></a></dt>
 <dd><p>integer, the maximal order of serial correlation to be
-tested.</p></dd>
+tested. Must be smaller than the residual degrees of freedom of the
+auxiliary regression.</p></dd>
 
 
 <dt id="arg-orderby">orderBy<a class="anchor" aria-label="anchor" href="#arg-orderby"></a></dt>
 <dd><p>either a vector <code>z</code> or a formula with a single
 explanatory variable like <code>~ z</code>. The observations in the model are
-ordered by the size of <code>z</code>. If set to <code>NULL</code> (the default) the
-observations are assumed to be ordered (e.g., a time series).</p></dd>
+ordered by the size of <code>z</code>; a formula with several terms is used as
+successive ordering keys. If set to <code>NULL</code> (the default) the observations
+are assumed to be ordered (e.g., a time series). <code>z</code> may be given at the
+length of the original data: rows dropped by <code>subset</code> or by <code>na.action</code>
+are then dropped from <code>z</code> as well. Missing values in <code>z</code> are ordered
+last.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
@@ -97,9 +106,20 @@ observations are assumed to be ordered (e.g., a time series).</p></dd>
 <code>"f"</code> for the F test statistic. Case-insensitive.</p></dd>
 
 
+<dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
+<dd><p>an optional expression indicating which observations to use.</p></dd>
+
+
+<dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
+<dd><p>a function specifying how missing values are handled.
+Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit()</a></code>: the auxiliary regression is fitted by
+<code><a href="https://rdrr.io/r/stats/lmfit.html" class="external-link">lm.fit()</a></code> and cannot carry missing values.</p></dd>
+
+
 <dt id="arg-fill">fill<a class="anchor" aria-label="anchor" href="#arg-fill"></a></dt>
-<dd><p>starting values for the lagged residuals in the auxiliary
-regression. By default <code>0</code> but can also be set to <code>NA</code>.</p></dd>
+<dd><p>a single value used as starting value for the lagged residuals
+in the auxiliary regression. By default <code>0</code> but can also be set to <code>NA</code>,
+in which case the leading incomplete rows are dropped.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -130,6 +150,10 @@ regression.</p></dd>
 <dt><code>vcov</code></dt>
 <dd><p>the corresponding covariance matrix estimate.</p></dd>
 
+<dt><code>df.residual</code></dt>
+<dd><p>the residual degrees of freedom of the auxiliary
+regression, for both types of test statistic.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -154,6 +178,12 @@ standard errors and t-statistics in this regression.)</p>
     <p>Based on code by David Mitchell and Achim Zeileis previously published
 as <code>bgtest()</code> in the <span class="pkg">lmtest</span> package, adapted to conform to
 package standards.</p>
+<p>Unlike <code>bgtest()</code>, the residual degrees of freedom of the auxiliary
+regression are reported for both types of test statistic. They are a
+property of that regression and not of the statistic derived from it,
+whereas <code>bgtest()</code> hands back <code>NULL</code> for the chi-squared version.
+<code>coeftest()</code> therefore refers the coefficients to a \(t\) distribution
+in either case, where <code>bgtest()</code> switches to the normal one.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -165,7 +195,8 @@ variables. <em>Econometrica</em>, 46, 1293-1301.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other test.regression:
+    <div class="dont-index"><p><code><a href="durbinWatsonTest.html">durbinWatsonTest()</a></code></p>
+<p>Other test.regression:
 <code><a href="bpTest.html">bpTest()</a></code>,
 <code><a href="durbinWatsonTest.html">durbinWatsonTest()</a></code>,
 <code><a href="hosmerLemeshowTest.html">hosmerLemeshowTest()</a></code>,
@@ -215,6 +246,48 @@ variables. <em>Econometrica</em>, 46, 1293-1301.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  y2 ~ x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LM test = 19.907, df = 1, p-value = 8.128e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## finite sample F version, and dropping the leading lags instead of</span></span></span>
+<span class="r-in"><span><span class="co">## filling them with zeros</span></span></span>
+<span class="r-in"><span><span class="fu">breuschGodfreyTest</span><span class="op">(</span><span class="va">y2</span> <span class="op">~</span> <span class="va">x</span>, order <span class="op">=</span> <span class="fl">4</span>, type <span class="op">=</span> <span class="st">"f"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Breusch-Godfrey test for serial correlation of order up to 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  y2 ~ x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM test = 7.2942, df1 = 4, df2 = 94, p-value = 3.682e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">breuschGodfreyTest</span><span class="op">(</span><span class="va">y2</span> <span class="op">~</span> <span class="va">x</span>, order <span class="op">=</span> <span class="fl">4</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Breusch-Godfrey test for serial correlation of order up to 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  y2 ~ x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM test = 24.401, df = 4, p-value = 6.637e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## transformed terms and an explicit ordering variable</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">y2</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">x</span>, tt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">breuschGodfreyTest</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">d</span>, orderBy <span class="op">=</span> <span class="op">~</span> <span class="va">tt</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> the auxiliary regression is rank deficient</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## subset and orderBy combined: tt is given at the length of d and is</span></span></span>
+<span class="r-in"><span><span class="co">## reduced to the rows the model frame kept</span></span></span>
+<span class="r-in"><span><span class="fu">breuschGodfreyTest</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">d</span>, subset <span class="op">=</span> <span class="va">grp</span> <span class="op">==</span> <span class="st">"A"</span>, orderBy <span class="op">=</span> <span class="op">~</span> <span class="va">tt</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Breusch-Godfrey test for serial correlation of order up to 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  y ~ x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM test = 2.2103, df = 1, p-value = 0.1371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## the test can also be applied to a fitted model</span></span></span>
+<span class="r-in"><span><span class="fu">breuschGodfreyTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y1</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Breusch-Godfrey test for serial correlation of order up to 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  lm(y1 ~ x)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM test = 0.0036887, df = 1, p-value = 0.9516</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -15,7 +15,7 @@ the classical way or with the bootstrap approach."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,7 @@ be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.<
 <dd><p>a vector of character strings representing the type of
 intervals required. The value should be any subset of the values
 <code>"classic"</code>, <code>"boot"</code>. Bootstrap type can be provided by the dots.
-See <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code>.</p></dd>
+See <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code>.</p></dd>
 
 
 <dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
@@ -134,7 +134,7 @@ the boot function.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function collects code from two sources. The classical confidence
 interval is calculated by means of <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code>. The bootstrap
-intervals are strongly based on the example in <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code>.</p>
+intervals are strongly based on the example in <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot::boot()</a></code>.</p>
 <p>The bootstrap type <code>"stud"</code> (studentized) is not supported: the
 statistic functions used here return only the point estimate, not a
 per-replicate variance estimate, so requesting it raises an error.</p>

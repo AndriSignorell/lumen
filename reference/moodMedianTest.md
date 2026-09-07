@@ -112,11 +112,11 @@ An object of class `"htest"` with components
 ## Details
 
 Not to be confused with
-[`mood.test`](https://rdrr.io/r/stats/mood.test.html), which is Mood's
+[`mood.test()`](https://rdrr.io/r/stats/mood.test.html), which is Mood's
 two-sample test for a difference in *scale*. The median test described
 here has no base R implementation.
 
-The procedure is the k-sample counterpart of [`signTest`](signTest.md)
+The procedure is the k-sample counterpart of [`signTest()`](signTest.md)
 and shares its robustness and its modest power: only the position of
 each observation relative to the pooled median enters the statistic, so
 all information about distance is discarded. Its asymptotic relative
@@ -124,9 +124,9 @@ efficiency against the F test under normality is \\2/\pi\\.
 
 That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
-[`brunnerMunzelTest`](brunnerMunzelTest.md) tests the relative effect
+[`brunnerMunzelTest()`](brunnerMunzelTest.md) tests the relative effect
 \\P(X \< Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}\\ and
-[`vanWaerdenTest`](vanWaerdenTest.md) tests equality of the
+[`vanWaerdenTest()`](vanWaerdenTest.md) tests equality of the
 distributions against normal-score location alternatives. Neither is a
 test of equal medians, so they are not drop-in replacements. Use the
 median test when the median is genuinely the quantity of interest, or
@@ -150,7 +150,7 @@ median observations rather than removing them.
 exact test on the same table and is advisable when expected counts are
 small; no test statistic is reported in that case. The continuity
 correction applies only to a 2 x 2 table, as in
-[`chisq.test`](https://rdrr.io/r/stats/chisq.test.html).
+[`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html).
 
 Missing values are removed casewise.
 

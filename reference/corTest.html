@@ -15,7 +15,7 @@ for all variable pairs in a numeric matrix."><meta property="og:image" content="
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,12 +71,12 @@ for all variable pairs in a numeric matrix.</p>
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>a character string specifying the correlation method, one
 of <code>"pearson"</code> (default), <code>"spearman"</code> or <code>"kendall"</code>.
-Passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>.</p></dd>
+Passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>.</p></dd>
 
 
 <dt id="arg-use">use<a class="anchor" aria-label="anchor" href="#arg-use"></a></dt>
 <dd><p>a character string giving a method for computing correlations
-in the presence of missing values, passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>. Default
+in the presence of missing values, passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>. Default
 is <code>"pairwise.complete.obs"</code>.</p></dd>
 
 
@@ -109,8 +109,8 @@ diagonal).</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Pearson, Spearman, and Kendall correlations are supported via the
-<code>method</code> argument passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>.</p>
-<p>Compared to repeatedly calling <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code>, this
+<code>method</code> argument passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>.</p>
+<p>Compared to repeatedly calling <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code>, this
 implementation is fully vectorised and substantially faster for matrices
 with many variables.</p>
 <p>For Pearson and Spearman correlations, the two-sided p-value under the
@@ -130,7 +130,7 @@ otherwise all pairs share the number of complete cases.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>, <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code></p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>, <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code></p>
 <p>Other test.correlation:
 <code><a href="fisherZ.html">fisherZ()</a></code></p></div>
     </div>

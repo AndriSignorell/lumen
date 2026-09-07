@@ -19,7 +19,7 @@ studentized range distribution."><meta property="og:image" content="/logo.png"><
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.942</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,15 +119,15 @@ simultaneous p-value. Print and plot methods are available for class
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Tukey's HSD, <code><a href="scheffeTest.html">scheffeTest</a></code> and the parametric methods in
-<code><a href="postHoc.html">postHoc</a></code> all rely on a single pooled error variance. When the
+    <p>Tukey's HSD, <code><a href="scheffeTest.html">scheffeTest()</a></code> and the parametric methods in
+<code><a href="postHoc.html">postHoc()</a></code> all rely on a single pooled error variance. When the
 group variances differ, that pooled estimate is wrong for every pair that
 does not happen to match it, and the procedure loses its nominal level -
 liberally when the larger variance sits in the smaller group, conservatively
 in the opposite case. Games and Howell (1976) replace the pooled term by the
 pairwise Welch standard error, which makes this the post-hoc counterpart of
-the Welch t test and of <code><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></code>.
-<code><a href="yuenTTest.html">yuenTTest</a></code> addresses heteroscedasticity and non-normality with
+the Welch t test and of <code><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test()</a></code>.
+<code><a href="yuenTTest.html">yuenTTest()</a></code> addresses heteroscedasticity and non-normality with
 trimmed means and separate Winsorized variance estimates, but provides no
 all-pairs multiple-comparison procedure, so it is not the two-sample form of
 this procedure.</p>
@@ -156,7 +156,7 @@ comparisons are kept. Missing values are removed casewise.</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Games, P. A., Howell, J. F. (1976) Pairwise multiple comparison procedures
 with unequal n's and/or variances: a Monte Carlo study. <em>Journal of
-Educational Statistics</em>, <b>1</b>(2), 113-125.</p>
+Educational Statistics</em>, <strong>1</strong>(2), 113-125.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

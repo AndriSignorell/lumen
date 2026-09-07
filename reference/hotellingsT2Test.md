@@ -37,8 +37,9 @@ hotellingsT2Test(x, y = NULL, mu = NULL, test = c("f", "chi"), ...)
 - data:
 
   an optional data frame (or similar, see
-  [`model.frame`](https://rdrr.io/r/stats/model.frame.html)) containing
-  the variables in `formula`. Defaults to the environment of `formula`.
+  [`model.frame()`](https://rdrr.io/r/stats/model.frame.html))
+  containing the variables in `formula`. Defaults to the environment of
+  `formula`.
 
 - subset:
 

@@ -40,8 +40,9 @@ print(x, legend = TRUE, ...)
 - x:
 
   an object of class `PostHocTest` as returned by
-  [`postHocTest`](postHoc.md), or of class `pairwise.htest` as returned
-  by [`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html)
+  [`postHocTest()`](postHoc.md), or of class `pairwise.htest` as
+  returned by
+  [`pairwise.t.test()`](https://rdrr.io/r/stats/pairwise.t.test.html)
   and friends
 
 - ...:
@@ -100,8 +101,8 @@ significant difference.
 
 ## See also
 
-[`postHocTest`](postHoc.md),
-[`pairwise.t.test`](https://rdrr.io/r/stats/pairwise.t.test.html)
+[`postHocTest()`](postHoc.md),
+[`pairwise.t.test()`](https://rdrr.io/r/stats/pairwise.t.test.html)
 
 Other test.posthoc: [`conoverTest()`](conoverTest.md),
 [`dscfTest()`](dscfTest.md), [`dunnTest()`](dunnTest.md),
