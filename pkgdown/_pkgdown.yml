@@ -189,8 +189,8 @@ reference:
   - dpqr-gpd
   - dpqr-gumbel
   - dpqr-gumbelx
-  - dpqr-RevGumbel
-  - dpqr-rweibull
+  - dpqr-revgumbel
+  - dpqr-revweibull
   # distributions.order -- Order statistics and test-statistic distributions
   - dpqr-order
   - pAD
