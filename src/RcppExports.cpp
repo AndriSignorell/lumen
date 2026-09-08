@@ -296,14 +296,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // pdirichlet_cpp
-double pdirichlet_cpp(NumericVector q, NumericVector alpha, int n_sim);
+double pdirichlet_cpp(const NumericVector& q, const NumericVector& alpha, const int n_sim);
 RcppExport SEXP _lumen_pdirichlet_cpp(SEXP qSEXP, SEXP alphaSEXP, SEXP n_simSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type q(qSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< int >::type n_sim(n_simSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type q(qSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< const int >::type n_sim(n_simSEXP);
     rcpp_result_gen = Rcpp::wrap(pdirichlet_cpp(q, alpha, n_sim));
     return rcpp_result_gen;
 END_RCPP

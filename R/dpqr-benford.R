@@ -91,15 +91,9 @@
 #' @rdname dpqr-benford
 #' @export
 dbenford <- function(x, nDigits = 1, log = FALSE) {
-  if (!isNumeric(nDigits, isPositive = TRUE, isIntegerValued = TRUE) ||
-      nDigits > 2)
-    stop("argument 'nDigits' must be 1 or 2")
+  .assertScalar(nDigits, lower = 1, upper = 2, integerValued = TRUE)
   lowerlimit <- ifelse(nDigits == 1, 1, 10)
   upperlimit <- ifelse(nDigits == 1, 9, 99)
-
-  if (!is.logical(log.arg <- log) || length(log) != 1)
-    stop("bad input for argument 'log'")
-  rm(log)
 
   ans <- x * NA
   indexTF <- is.finite(x) & (x >= lowerlimit)
@@ -109,20 +103,15 @@ dbenford <- function(x, nDigits = 1, log = FALSE) {
         ((x < lowerlimit) |
            (x > upperlimit) |
            (x != round(x)))] <- 0.0
-  if (log.arg) log(ans) else ans
+  # 'log' shadows the base function of the same name
+  if (log) base::log(ans) else ans
 }
 
 
 #' @rdname dpqr-benford
 #' @export
 pbenford <- function(q, nDigits = 1, lower.tail = TRUE, log.p = FALSE) {
-  if (!isNumeric(nDigits, isPositive = TRUE, isIntegerValued = TRUE) ||
-      nDigits > 2)
-    stop("argument 'nDigits' must be 1 or 2")
-  if (!is.logical(lower.tail) || length(lower.tail) != 1)
-    stop("bad input for argument 'lower.tail'")
-  if (!is.logical(log.p) || length(log.p) != 1)
-    stop("bad input for argument 'log.p'")
+  .assertScalar(nDigits, lower = 1, upper = 2, integerValued = TRUE)
 
   lowerlimit <- ifelse(nDigits == 1, 1, 10)
   upperlimit <- ifelse(nDigits == 1, 9, 99)
@@ -143,22 +132,11 @@ pbenford <- function(q, nDigits = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @rdname dpqr-benford
 #' @export
 qbenford <- function(p, nDigits = 1, lower.tail = TRUE, log.p = FALSE) {
-  if (!isNumeric(nDigits, isPositive = TRUE, isIntegerValued = TRUE) ||
-      nDigits > 2)
-    stop("argument 'nDigits' must be 1 or 2")
-  if (!is.logical(lower.tail) || length(lower.tail) != 1)
-    stop("bad input for argument 'lower.tail'")
-  if (!is.logical(log.p) || length(log.p) != 1)
-    stop("bad input for argument 'log.p'")
-
-  if (log.p) p <- exp(p)
-  if (!lower.tail) p <- 1 - p
+  .assertScalar(nDigits, lower = 1, upper = 2, integerValued = TRUE)
+  p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
 
   lowerlimit <- ifelse(nDigits == 1, 1, 10)
   upperlimit <- ifelse(nDigits == 1, 9, 99)
-  bad <- !is.na(p) & !is.nan(p) & ((p < 0) | (p > 1))
-  if (any(bad))
-    stop("bad input for argument 'p'")
 
   ans <- rep(lowerlimit, length = length(p))
   for (ii in (lowerlimit+1):upperlimit) {
@@ -178,9 +156,7 @@ qbenford <- function(p, nDigits = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @rdname dpqr-benford
 #' @export
 rbenford <- function(n, nDigits = 1) {
-  if (!isNumeric(nDigits, isPositive = TRUE, isIntegerValued = TRUE) ||
-      nDigits > 2)
-    stop("argument 'nDigits' must be 1 or 2")
+  .assertScalar(nDigits, lower = 1, upper = 2, integerValued = TRUE)
   lowerlimit <- ifelse(nDigits == 1, 1, 10)
   upperlimit <- ifelse(nDigits == 1, 9, 99)
   use.n <- if ((length.n <- length(n)) > 1) length.n else

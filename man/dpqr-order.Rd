@@ -9,7 +9,17 @@
 \usage{
 dorder(x, dFun, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, log = FALSE)
 
-porder(q, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, lower.tail = TRUE)
+porder(
+  q,
+  pFun,
+  ...,
+  distn,
+  mlen = 1,
+  j = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
 rorder(n, qFun, ..., distn, mlen = 1, j = 1, largest = TRUE)
 }
@@ -35,7 +45,8 @@ smallest of \code{mlen}, according to the value of \code{largest}.}
 \item{largest}{logical; if \code{TRUE} (default) use the \code{j}th largest
 order statistic, otherwise use the \code{j}th smallest.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default) probabilities are
 \verb{P[X <= x]}, otherwise P\verb{[X > x]}.}

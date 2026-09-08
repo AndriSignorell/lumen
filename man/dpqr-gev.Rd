@@ -10,9 +10,9 @@
 \usage{
 dgev(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
-pgev(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgev(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
-qgev(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgev(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
 rgev(n, loc = 0, scale = 1, shape = 0)
 }
@@ -22,7 +22,8 @@ rgev(n, loc = 0, scale = 1, shape = 0)
 \item{loc, scale, shape}{location, scale and shape parameters; the
 \code{shape} argument cannot be a vector (must have length one).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
 \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}

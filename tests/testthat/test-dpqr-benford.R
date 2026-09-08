@@ -80,9 +80,15 @@ test_that("qbenford: pbenford(qbenford(p)) == p for exact CDF values", {
   expect_equal(pbenford(qbenford(p_exact)), p_exact, tolerance = 1e-10)
 })
 
-test_that("qbenford: invalid p throws error", {
-  expect_error(qbenford(-0.1))
-  expect_error(qbenford(1.1))
+test_that("qbenford: p outside [0,1] gives NA with a warning", {
+  expect_warning(res <- qbenford(c(-0.1, 1.1)), "NaN")
+  expect_true(all(is.na(res)))
+})
+
+test_that("qbenford: lower.tail and log.p", {
+  p <- c(0.4, 0.6)
+  expect_equal(qbenford(log(p), log.p = TRUE), qbenford(p))
+  expect_equal(qbenford(p, lower.tail = FALSE), qbenford(1 - p))
 })
 
 
@@ -91,8 +97,20 @@ test_that("dbenford: invalid nDigits throws error", {
   expect_error(dbenford(1, nDigits = 3))
 })
 
-test_that("dbenford: invalid log argument throws error", {
-  expect_error(dbenford(1, log = 1))
+test_that("mbenford and dbenford agree on the moments", {
+  d  <- 1:9
+  p  <- dbenford(d)
+  mu <- sum(d * p)
+  expect_equal(unname(mbenford()["mean"]),     mu, tolerance = 1e-10)
+  expect_equal(unname(mbenford()["variance"]), sum(d^2 * p) - mu^2,
+               tolerance = 1e-10)
+})
+
+test_that("mbenford and dbenford agree for two leading digits", {
+  d  <- 10:99
+  p  <- dbenford(d, nDigits = 2)
+  mu <- sum(d * p)
+  expect_equal(unname(mbenford(nDigits = 2)["mean"]), mu, tolerance = 1e-10)
 })
 
 test_that("dbenford: NaN propagates", {

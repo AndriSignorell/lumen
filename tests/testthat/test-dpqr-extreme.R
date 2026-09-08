@@ -74,7 +74,34 @@ test_that("pextreme(qextreme(p)) roundtrip", {
     p, tolerance = tol)
 })
 
-test_that("qextreme: p outside (0,1) throws error", {
-  expect_error(qextreme(0, distn = "norm", mlen = 2))
-  expect_error(qextreme(1, distn = "norm", mlen = 2))
+test_that("qextreme: p = 0 and p = 1 give the end points of the support", {
+  expect_equal(qextreme(c(0, 1), distn = "norm", mlen = 2), c(-Inf, Inf))
+})
+
+test_that("qextreme: p outside [0,1] gives NaN with a warning", {
+  expect_warning(res <- qextreme(1.1, distn = "norm", mlen = 2), "NaN")
+  expect_true(is.nan(res))
+})
+
+test_that("qextreme: log.p and lower.tail", {
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qextreme(log(p), distn = "exp", rate = 1.2, mlen = 2,
+                        log.p = TRUE),
+               qextreme(p, distn = "exp", rate = 1.2, mlen = 2))
+  expect_equal(qextreme(p, distn = "exp", rate = 1.2, mlen = 2,
+                        lower.tail = FALSE),
+               qextreme(1 - p, distn = "exp", rate = 1.2, mlen = 2))
+})
+
+test_that("pextreme: log.p returns the log of the CDF", {
+  q <- c(0, 1, 2)
+  expect_equal(pextreme(q, distn = "norm", mlen = 3, log.p = TRUE),
+               log(pextreme(q, distn = "norm", mlen = 3)))
+})
+
+test_that("dextreme mlen = 1: finite where the CDF underflows to zero", {
+  # (mlen - 1) * log(F) once produced 0 * -Inf = NaN here
+  expect_equal(dextreme(-40, distn = "norm", mlen = 1), dnorm(-40))
+  expect_equal(dextreme(0, distn = "unif", mlen = 1), dunif(0))
+  expect_false(is.nan(dextreme(-40, distn = "norm", mlen = 1, log = TRUE)))
 })

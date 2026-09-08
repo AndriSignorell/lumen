@@ -95,28 +95,43 @@ NULL
 
 #' @rdname cont.moments
 #' @export
-mnorm <- function(mean, sd) {
+mnorm <- function(mean = 0, sd = 1) {
+
+  .assertScalar(mean)
+  .assertScalar(sd, lower = 0)
+
   c(mean     = mean,
     variance = sd^2)
 }
 
 #' @rdname cont.moments
 #' @export
-mexp <- function(rate) {
+mexp <- function(rate = 1) {
+
+  .assertScalar(rate, lower = 0, strictLower = TRUE)
+
   c(mean     = 1 / rate,
     variance = 1 / rate^2)
 }
 
 #' @rdname cont.moments
 #' @export
-mgamma <- function(shape, rate) {
+mgamma <- function(shape, rate = 1) {
+
+  .assertScalar(shape, lower = 0, strictLower = TRUE)
+  .assertScalar(rate,  lower = 0, strictLower = TRUE)
+
   c(mean     = shape / rate,
     variance = shape / rate^2)
 }
 
 #' @rdname cont.moments
 #' @export
-mlnorm <- function(meanlog, sdlog) {
+mlnorm <- function(meanlog = 0, sdlog = 1) {
+
+  .assertScalar(meanlog)
+  .assertScalar(sdlog, lower = 0)
+
   c(mean     = exp(meanlog + 0.5 * sdlog^2),
     variance = (exp(sdlog^2) - 1) * exp(2 * meanlog + sdlog^2))
 }
@@ -124,6 +139,10 @@ mlnorm <- function(meanlog, sdlog) {
 #' @rdname cont.moments
 #' @export
 mbeta <- function(shape1, shape2) {
+
+  .assertScalar(shape1, lower = 0, strictLower = TRUE)
+  .assertScalar(shape2, lower = 0, strictLower = TRUE)
+
   c(mean     = shape1 / (shape1 + shape2),
     variance = (shape1 * shape2) /
       ((shape1 + shape2)^2 * (shape1 + shape2 + 1)))
@@ -132,6 +151,9 @@ mbeta <- function(shape1, shape2) {
 #' @rdname cont.moments
 #' @export
 mchisq <- function(df) {
+
+  .assertScalar(df, lower = 0, strictLower = TRUE)
+
   c(mean     = df,
     variance = 2 * df)
 }
@@ -139,6 +161,9 @@ mchisq <- function(df) {
 #' @rdname cont.moments
 #' @export
 mt <- function(df) {
+
+  .assertScalar(df, lower = 0, strictLower = TRUE)
+
   c(mean     = if (df > 1) 0 else NA_real_,
     variance = if (df > 2) df / (df - 2) else NA_real_)
 }
@@ -146,6 +171,10 @@ mt <- function(df) {
 #' @rdname cont.moments
 #' @export
 mf <- function(df1, df2) {
+
+  .assertScalar(df1, lower = 0, strictLower = TRUE)
+  .assertScalar(df2, lower = 0, strictLower = TRUE)
+
   c(mean     = if (df2 > 2) df2 / (df2 - 2) else NA_real_,
     variance = if (df2 > 4)
       2 * df2^2 * (df1 + df2 - 2) /
@@ -156,6 +185,15 @@ mf <- function(df1, df2) {
 #' @rdname cont.moments
 #' @export
 mtri <- function(min = 0, max = 1, mode = 0.5) {
+
+  .assertScalar(min)
+  .assertScalar(max)
+  .assertScalar(mode)
+
+  if (!(min < mode && mode < max))
+    stop("'min', 'mode' and 'max' must satisfy min < mode < max",
+         call. = FALSE)
+
   c(mean     = (min + max + mode) / 3,
     variance = (min^2 + max^2 + mode^2 - 
                   min*max - min*mode - max*mode) / 18)

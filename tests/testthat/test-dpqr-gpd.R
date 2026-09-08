@@ -55,7 +55,30 @@ test_that("pgpd(qgpd(p)) roundtrip", {
   expect_equal(pgpd(qgpd(p, 1, 2, 0.8), 1, 2, 0.8), p, tolerance = tol)
 })
 
-test_that("qgpd: invalid p throws error", {
-  expect_error(qgpd(0))
-  expect_error(qgpd(1))
+test_that("qgpd: p = 0 and p = 1 give the end points of the support", {
+  # support starts at loc
+  expect_equal(qgpd(c(0, 1), loc = 1), c(1, Inf))
+  # shape < 0 bounds the support above at loc - scale/shape
+  expect_equal(qgpd(1, loc = 0, scale = 1, shape = -0.5), 2)
+})
+
+test_that("qgpd: p outside [0,1] gives NaN with a warning", {
+  expect_warning(res <- qgpd(1.1), "NaN")
+  expect_true(is.nan(res))
+})
+
+test_that("qgpd: log.p and lower.tail", {
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qgpd(log(p), 1, 2, 0.8, log.p = TRUE), qgpd(p, 1, 2, 0.8))
+  expect_equal(qgpd(p, 1, 2, 0.8, lower.tail = FALSE), qgpd(1 - p, 1, 2, 0.8))
+})
+
+test_that("pgpd: log.p returns the log of the CDF", {
+  q <- c(2, 3, 4)
+  expect_equal(pgpd(q, 1, 0.5, 0.8, log.p = TRUE), log(pgpd(q, 1, 0.5, 0.8)))
+})
+
+test_that("qgpd and rgpd reject a zero scale as d and p do", {
+  expect_error(qgpd(0.5, scale = 0))
+  expect_error(rgpd(5, scale = 0))
 })

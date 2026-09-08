@@ -10,16 +10,25 @@
 \usage{
 dgumbelx(x, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, log = FALSE)
 
-pgumbelx(q, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1, lower.tail = TRUE)
-
-qgumbelx(
-  p,
-  interval,
+pgumbelx(
+  q,
   loc1 = 0,
   scale1 = 1,
   loc2 = 0,
   scale2 = 1,
   lower.tail = TRUE,
+  log.p = FALSE
+)
+
+qgumbelx(
+  p,
+  loc1 = 0,
+  scale1 = 1,
+  loc2 = 0,
+  scale2 = 1,
+  lower.tail = TRUE,
+  log.p = FALSE,
+  interval = NULL,
   ...
 )
 
@@ -29,10 +38,11 @@ rgumbelx(n, loc1 = 0, scale1 = 1, loc2 = 0, scale2 = 1)
 \item{x, q}{vector of quantiles.}
 
 \item{loc1, scale1, loc2, scale2}{location and scale parameters of the two
-Gumbel distributions. The second location parameter must be greater than or
-equal to the first location parameter.}
+Gumbel distributions. The distribution is symmetric in the two margins,
+so their order is immaterial.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
 \verb{P[X <= x]}, otherwise, \verb{P[X > x]}.}
@@ -40,7 +50,9 @@ equal to the first location parameter.}
 \item{p}{vector of probabilities.}
 
 \item{interval}{a length two vector containing the end-points of the
-interval to be searched for the quantiles, passed to the uniroot function.}
+interval to be searched for the quantiles, passed to \code{\link[=uniroot]{uniroot()}}. By
+default a bracketing interval is derived from the quantiles of the two
+Gumbel margins.}
 
 \item{\dots}{other arguments passed to uniroot.}
 
@@ -55,8 +67,7 @@ function, and \code{rgumbelx()} generates random deviates.
 The extended Gumbel distribution models the maximum of two independent
 Gumbel-distributed random variables with potentially different location
 and scale parameters. It is parameterized by two pairs of location and
-scale parameters, with the constraint that the first location parameter
-does not exceed the second.
+scale parameters.
 }
 \details{
 Density function, distribution function, quantile function and random
@@ -71,10 +82,10 @@ the \pkg{evd} package, adapted to conform to package standards.
 
 dgumbelx(2:4, 0, 1.1, 1, 0.5)
 pgumbelx(2:4, 0, 1.1, 1, 0.5)
-qgumbelx(seq(0.9, 0.6, -0.1), interval = c(0,10), 0, 1.2, 2, 0.5)
+qgumbelx(seq(0.9, 0.6, -0.1), 0, 1.2, 2, 0.5)
 rgumbelx(6, 0, 1.1, 1, 0.5)
 p <- (1:9)/10
-pgumbelx(qgumbelx(p, interval = c(0,10), 0, 0.5, 1, 2), 0, 0.5, 1, 2)
+pgumbelx(qgumbelx(p, 0, 0.5, 1, 2), 0, 0.5, 1, 2)
 ## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 
 }

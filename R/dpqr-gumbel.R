@@ -21,7 +21,8 @@
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param loc,scale location and scale parameters (can be given as vectors).
-#' @param log logical; if `TRUE`, the log density is returned.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
 #' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return `dgumbel()` gives the density function, `pgumbel()` gives
@@ -58,17 +59,19 @@ dgumbel <- function(x, loc = 0, scale = 1, log = FALSE)
 
 #' @rdname dpqr-gumbel
 #' @export
-pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE)
+pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
   {
-    pgev(q, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail)
+    pgev(q, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail,
+         log.p = log.p)
   }
 
 
 #' @rdname dpqr-gumbel
 #' @export
-qgumbel <- function(p, loc = 0, scale = 1, lower.tail = TRUE)
+qgumbel <- function(p, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
   {
-    qgev(p, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail)
+    qgev(p, loc = loc, scale = scale, shape = 0, lower.tail = lower.tail,
+         log.p = log.p)
   }
 
 

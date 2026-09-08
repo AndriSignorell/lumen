@@ -2,25 +2,36 @@
 #' Reverse Gumbel Distribution
 #' 
 #' Density, distribution function, quantile function and random generation for
-#' the \dQuote{Reverse} Gumbel distribution with parameters `location` and
+#' the \dQuote{Reverse} Gumbel distribution with parameters `loc` and
 #' `scale`.
 #' 
+#' The reverse Gumbel distribution is the distribution of \eqn{a - bY} for a
+#' standard Gumbel \eqn{Y}, i.e. the Type I extreme value distribution for
+#' minima. With \eqn{`loc` = a} and \eqn{`scale` = b} its distribution
+#' function is
+#' \deqn{F(x) = 1 - \exp\left\{-\exp\left[\left(\frac{x-a}{b}\right)\right]\right\}}{F(x) = 1 - exp(-exp((x-a)/b))}
+#' for all real \eqn{x}, where \eqn{b > 0}.
 #' 
-#' @name dpqr-RevGumbel
-#' @aliases dRevGumbel pRevGumbel qRevGumbel qRevGumbelExp rRevGumbel
+#' @name dpqr-revgumbel
+#' @aliases drevgumbel prevgumbel qrevgumbel qrevgumbelExp rrevgumbel
 #' @param x,q numeric vector of abscissa (or quantile) values at which to
 #' evaluate the density or distribution function.
 #' @param p numeric vector of probabilities at which to evaluate the quantile
 #' function.
-#' @param location location of the distribution.
+#' @param loc location of the distribution.
 #' @param scale scale (\eqn{> 0}) of the distribution.
 #' @param n number of random variates, i.e., [length()] of resulting
-#' vector of `rRevGumbel()`.
+#' vector of `rrevgumbel()`.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
+#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return A numeric vector, of the same length as `x`, `q`, or
 #' `p` for the first three functions, and of length `n` for
-#' `rRevGumbel()`.
-#' @seealso [distributions-overview]; the [Weibull()] distribution
-#' functions in \R's \pkg{stats} package.
+#' `rrevgumbel()`. `qrevgumbelExp()` gives the quantiles of
+#' \eqn{\exp(X)}, the exponential parametrization used in some applications.
+#' @seealso [distributions-overview]; [dpqr-gumbel] for the Gumbel
+#' distribution this one reverses.
 #' @note
 #' Based on code by Werner Stahel, partly inspired by the \pkg{VGAM} package
 #' (numeric refinements by Martin Maechler), adapted to conform to package
@@ -28,59 +39,61 @@
 #' 
 #' @examples
 #' 
-#' curve(pRevGumbel(x, scale= 1/2), -3,2, n=1001, col=1, lwd=2,
-#'       main = "RevGumbel(x, scale = 1/2)")
+#' curve(prevgumbel(x, scale= 1/2), -3,2, n=1001, col=1, lwd=2,
+#'       main = "revgumbel(x, scale = 1/2)")
 #' abline(h=0:1, v = 0, lty=3, col = "gray30")
-#' curve(dRevGumbel(x, scale= 1/2),       n=1001, add=TRUE,
+#' curve(drevgumbel(x, scale= 1/2),       n=1001, add=TRUE,
 #'       col = (col.d <- adjustcolor(2, 0.5)), lwd=3)
 #' legend("left", c("cdf","pdf"), col=c("black", col.d), lwd=2:3, bty="n")
 #' 
-#' med <- qRevGumbel(0.5, scale=1/2)
+#' med <- qrevgumbel(0.5, scale=1/2)
 #' cat("The median is:",  format(med),"\n")
 #' 
 
-#' @rdname dpqr-RevGumbel
+#' @rdname dpqr-revgumbel
 #' @concept distribution-function
 #' @concept extreme-value
 #' @export
-dRevGumbel <- function (x, location = 0, scale = 1) {
-  if (!isNumeric(scale, isPositive=TRUE))
-    stop("\"scale\" must be positive")
-  temp <- exp((x - location)/scale)
-  temp * exp(-temp)/scale
+drevgumbel <- function (x, loc = 0, scale = 1, log = FALSE) {
+  .assertPositive(scale)
+  t <- (x - loc)/scale
+  d <- t - exp(t) - log(scale)
+  if (log) d else exp(d)
 }
 
-#' @rdname dpqr-RevGumbel
+#' @rdname dpqr-revgumbel
 #' @export
-pRevGumbel <- function (q, location = 0, scale = 1) {
-  
-  if (!isNumeric(scale, isPositive=TRUE))
-    stop("\"scale\" must be positive")
-  1-exp(-exp((q - location)/scale))
+prevgumbel <- function (q, loc = 0, scale = 1, lower.tail = TRUE,
+                        log.p = FALSE) {
+  .assertPositive(scale)
+  # the upper tail is exp(-exp(t)) and thus exact on the log scale
+  lupper <- -exp((q - loc)/scale)
+  if (lower.tail) {
+    if (log.p) log(-expm1(lupper)) else -expm1(lupper)
+  } else {
+    if (log.p) lupper else exp(lupper)
+  }
 }
 
-#' @rdname dpqr-RevGumbel
+#' @rdname dpqr-revgumbel
 #' @export
-qRevGumbel <- function (p, location = 0, scale = 1)
-{
-  if (!isNumeric(scale, isPositive=TRUE))
-    stop("\"scale\" must be positive")
-  location + scale * log(-log1p(-p))
+qrevgumbel <- function (p, loc = 0, scale = 1, lower.tail = TRUE,
+                        log.p = FALSE) {
+  .assertPositive(scale)
+  p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
+  loc + scale * log(-log1p(-p))
 }
 
-
-#' @rdname dpqr-RevGumbel
+#' @rdname dpqr-revgumbel
 #' @export
-rRevGumbel <- function (n, location = 0, scale = 1)
-{
-  if (!isNumeric(n, isPositive=TRUE, isIntegerValued=TRUE))
-    stop("bad input for argument \"n\"")
-  if (!isNumeric(scale, isPositive=TRUE))
-    stop("\"scale\" must be positive")
-  location + scale * log(-log(runif(n)))
+rrevgumbel <- function (n, loc = 0, scale = 1) {
+  .assertPositive(scale)
+  loc + scale * log(-log(runif(n)))
 }
 
-#' @rdname dpqr-RevGumbel
+#' @rdname dpqr-revgumbel
 #' @export
-qRevGumbelExp <- function (p) exp(qRevGumbel(p))
-
+qrevgumbelExp <- function (p, loc = 0, scale = 1, lower.tail = TRUE,
+                           log.p = FALSE)
+  exp(qrevgumbel(p, loc = loc, scale = scale, lower.tail = lower.tail,
+                 log.p = log.p))

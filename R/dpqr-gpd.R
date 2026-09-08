@@ -23,7 +23,8 @@
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters; the
 #' `shape` argument cannot be a vector (must have length one).
-#' @param log logical; if `TRUE`, the log density is returned.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
 #' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return `dgpd()` gives the density function, `pgpd()` gives the
@@ -58,8 +59,8 @@
 #' @export
 dgpd <- function(x, loc = 0, scale = 1, shape = 0, log = FALSE)
   {
-    if(min(scale) <= 0) stop("invalid scale")
-    if(length(shape) != 1) stop("invalid shape")
+    .assertPositive(scale)
+    .assertScalar(shape)
     d <- (x - loc)/scale
     nn <- length(d)
     scale <- rep(scale, length.out = nn)
@@ -80,10 +81,11 @@ dgpd <- function(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
 #' @rdname dpqr-gpd
 #' @export
-pgpd <- function(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgpd <- function(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE,
+                 log.p = FALSE)
   {
-    if(min(scale) <= 0) stop("invalid scale")
-    if(length(shape) != 1) stop("invalid shape")
+    .assertPositive(scale)
+    .assertScalar(shape)
     q <- pmax(q - loc, 0)/scale
     if(shape == 0) p <- 1 - exp(-q)
     else {
@@ -91,18 +93,18 @@ pgpd <- function(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
       p <- 1 - p^(-1/shape)
     }
     if(!lower.tail) p <- 1 - p
-    p
+    if(log.p) log(p) else p
   }
 
 #' @rdname dpqr-gpd
 #' @export
-qgpd <- function(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgpd <- function(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE,
+                 log.p = FALSE)
   {
-    if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
-      stop("`p' must contain probabilities in (0,1)")
-    if(min(scale) < 0) stop("invalid scale")
-    if(length(shape) != 1) stop("invalid shape")
-    if(lower.tail) p <- 1 - p
+    .assertPositive(scale)
+    .assertScalar(shape)
+    # the formulae below are stated for the upper tail
+    p <- 1 - .qProb(p, lower.tail = lower.tail, log.p = log.p)
     if(shape == 0) return(loc - scale*log(p))
     else return(loc + scale * (p^(-shape) - 1) / shape)
   }
@@ -112,8 +114,8 @@ qgpd <- function(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
 #' @export
 rgpd <- function(n, loc = 0, scale = 1, shape = 0)
   {
-    if(min(scale) < 0) stop("invalid scale")
-    if(length(shape) != 1) stop("invalid shape")
+    .assertPositive(scale)
+    .assertScalar(shape)
     if(shape == 0) return(loc + scale*rexp(n))
     else return(loc + scale * (runif(n)^(-shape) - 1) / shape)
   }

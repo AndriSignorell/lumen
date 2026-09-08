@@ -24,7 +24,8 @@
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
 #' vectors).
-#' @param log logical; if `TRUE`, the log density is returned.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
 #' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' 
@@ -56,7 +57,8 @@
 #' @export
 dfrechet <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
   {
-    if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     x <- (x - loc)/scale
     xpos <- x[x>0 | is.na(x)]
     nn <- length(x)
@@ -72,23 +74,25 @@ dfrechet <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
 #' @rdname dpqr-frechet
 #' @export
-pfrechet <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+pfrechet <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE,
+                     log.p = FALSE)
   {
-    if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     q <- pmax((q - loc)/scale,0)
     p <- exp(-q^(-shape))
     if(!lower.tail) p <- 1 - p
-    p
+    if(log.p) log(p) else p
   }
 
 #' @rdname dpqr-frechet
 #' @export
-qfrechet <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qfrechet <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE,
+                     log.p = FALSE)
   {
-    if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
-      stop("`p' must contain probabilities in (0,1)")
-    if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
-    if(!lower.tail) p <- 1 - p
+    .assertPositive(scale)
+    .assertPositive(shape)
+    p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
     loc + scale * (-log(p))^(-1/shape)
   }
 
@@ -96,7 +100,8 @@ qfrechet <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
 #' @export
 rfrechet <- function(n, loc = 0, scale = 1, shape = 1)
   {
-    if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     loc + scale * rexp(n)^(-1/shape)
   }
 

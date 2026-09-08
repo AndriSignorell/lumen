@@ -10,9 +10,9 @@
 \usage{
 dgumbel(x, loc = 0, scale = 1, log = FALSE)
 
-pgumbel(q, loc = 0, scale = 1, lower.tail = TRUE)
+pgumbel(q, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
 
-qgumbel(p, loc = 0, scale = 1, lower.tail = TRUE)
+qgumbel(p, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
 
 rgumbel(n, loc = 0, scale = 1)
 }
@@ -21,7 +21,8 @@ rgumbel(n, loc = 0, scale = 1)
 
 \item{loc, scale}{location and scale parameters (can be given as vectors).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
 \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}

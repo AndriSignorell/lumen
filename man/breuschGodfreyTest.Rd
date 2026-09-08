@@ -130,9 +130,9 @@ breuschGodfreyTest(y2 ~ x, order = 4, type = "f")
 breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
 
 ## transformed terms and an explicit ordering variable
-d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+d <- data.frame(y = as.vector(y2), x = x, z = rnorm(100), tt = sample(100),
                 grp = rep(c("A", "B"), each = 50))
-breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
+breuschGodfreyTest(y ~ x + I(z^2), data = d, orderBy = ~ tt)
 
 ## subset and orderBy combined: tt is given at the length of d and is
 ## reduced to the rows the model frame kept

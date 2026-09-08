@@ -3,7 +3,7 @@ Further Contributors:
   
 Achim Zeileis — breuschGodfreyTest.R, durbinWatsonTest.R, woolfTest.R
 Adrian Baddeley — adTest.R, pAD.R
-Alec Stephenson — dpqr-extreme.R, dpqr-frechet.R, dpqr-gev.R, dpqr-gpd.R, dpqr-gumbel.R, dpqr-gumbelx.R, dpqr-order.R, dpqr-rweibull.R
+Alec Stephenson — dpqr-extreme.R, dpqr-frechet.R, dpqr-gev.R, dpqr-gpd.R, dpqr-gumbel.R, dpqr-gumbelx.R, dpqr-order.R, dpqr-revweibull.R
 Bernhard Pfaff — adfTest.R, kpssTest.R
 Brian Ripley — leveneTest.R
 Carl Pearson — binomCI.R

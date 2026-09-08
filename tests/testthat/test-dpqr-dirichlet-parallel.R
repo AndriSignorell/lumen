@@ -1,12 +1,13 @@
 
 library(testthat)
+library(lumen)
 
 # ------------------------------------------------------------------------------
 # basic functionality
 # ------------------------------------------------------------------------------
 
 test_that("pdirichlet returns scalar in [0,1]", {
-  q <- c(0.2, 0.3, 0.5)
+  q <- c(0.5, 0.6, 0.7)
   alpha <- c(1, 1, 1)
   
   p <- pdirichlet(q, alpha, R = 1e4)
@@ -21,8 +22,8 @@ test_that("pdirichlet returns scalar in [0,1]", {
 # ------------------------------------------------------------------------------
 
 test_that("symmetry for uniform Dirichlet", {
-  q1 <- c(0.2, 0.3, 0.5)
-  q2 <- c(0.5, 0.3, 0.2)
+  q1 <- c(0.5, 0.6, 0.7)
+  q2 <- c(0.7, 0.6, 0.5)
   
   alpha <- c(1, 1, 1)
   
@@ -39,8 +40,8 @@ test_that("symmetry for uniform Dirichlet", {
 test_that("CDF is monotone in q", {
   alpha <- c(1,1,1)
   
-  q_small <- c(0.1, 0.2, 0.7)
-  q_large <- c(0.2, 0.3, 0.5)
+  q_small <- c(0.4, 0.5, 0.6)
+  q_large <- c(0.6, 0.7, 0.8)
   
   p_small <- pdirichlet(q_small, alpha, R = 2e4)
   p_large <- pdirichlet(q_large, alpha, R = 2e4)
@@ -56,7 +57,7 @@ test_that("extreme q values", {
   alpha <- c(1,1,1)
   
   # very small region
-  q_small <- c(0.01, 0.01, 0.98)
+  q_small <- c(0.35, 0.35, 0.35)
   p_small <- pdirichlet(q_small, alpha, R = 2e4)
   
   expect_true(p_small < 0.2)
@@ -102,7 +103,7 @@ test_that("agrees with R Monte Carlo implementation", {
     mean(apply(sims <= matrix(q, nrow = R, ncol = length(q), byrow = TRUE), 1, all))
   }
   
-  q <- c(0.2, 0.3, 0.5)
+  q <- c(0.5, 0.6, 0.7)
   alpha <- c(1,1,1)
   
   p_cpp <- pdirichlet(q, alpha, R = 2e4)

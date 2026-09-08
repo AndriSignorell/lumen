@@ -3,7 +3,6 @@ library(lumen)
 
 tol <- 1e-6
 
-# Parameters: loc1 <= loc2 required
 L1 <- 0; S1 <- 1.1; L2 <- 1; S2 <- 0.5
 
 test_that("dgumbelx: density >= 0", {
@@ -22,8 +21,16 @@ test_that("dgumbelx: log=TRUE", {
                log(dgumbelx(x, L1, S1, L2, S2)), tolerance = tol)
 })
 
-test_that("dgumbelx: loc1 > loc2 throws error", {
-  expect_error(dgumbelx(1, loc1 = 2, loc2 = 1))
+test_that("dgumbelx: symmetric in the two margins", {
+  # the maximum of two Gumbels does not care which one comes first
+  x <- seq(-1, 6, by = 0.5)
+  expect_equal(dgumbelx(x, L1, S1, L2, S2), dgumbelx(x, L2, S2, L1, S1))
+  expect_equal(pgumbelx(x, L1, S1, L2, S2), pgumbelx(x, L2, S2, L1, S1))
+})
+
+test_that("dgumbelx: invalid scale throws error", {
+  expect_error(dgumbelx(1, scale1 = 0))
+  expect_error(dgumbelx(1, scale2 = -1))
 })
 
 test_that("pgumbelx: in [0,1] and non-decreasing", {
@@ -48,8 +55,29 @@ test_that("pgumbelx: when loc1=loc2 and scale1=scale2, equals pgumbel^2", {
 
 test_that("pgumbelx(qgumbelx(p)) roundtrip", {
   p <- c(0.2, 0.5, 0.8)
-  q <- qgumbelx(p, interval = c(-5, 20), L1, S1, L2, S2)
-  expect_equal(pgumbelx(q, L1, S1, L2, S2), p, tolerance = 1e-5)
+  # the bracketing interval is derived from the margins by default
+  q <- qgumbelx(p, L1, S1, L2, S2)
+  expect_equal(pgumbelx(q, L1, S1, L2, S2), p, tolerance = 1e-7)
+  expect_equal(qgumbelx(p, L1, S1, L2, S2, interval = c(-5, 20)), q,
+               tolerance = 1e-7)
+})
+
+test_that("qgumbelx: p = 0 and p = 1 give the end points of the support", {
+  expect_equal(qgumbelx(c(0, 1), L1, S1, L2, S2), c(-Inf, Inf))
+})
+
+test_that("qgumbelx: log.p and lower.tail", {
+  p <- c(0.2, 0.5, 0.8)
+  expect_equal(qgumbelx(log(p), L1, S1, L2, S2, log.p = TRUE),
+               qgumbelx(p, L1, S1, L2, S2))
+  expect_equal(qgumbelx(p, L1, S1, L2, S2, lower.tail = FALSE),
+               qgumbelx(1 - p, L1, S1, L2, S2))
+})
+
+test_that("pgumbelx: log.p returns the log of the CDF", {
+  q <- c(0, 1, 3)
+  expect_equal(pgumbelx(q, L1, S1, L2, S2, log.p = TRUE),
+               log(pgumbelx(q, L1, S1, L2, S2)))
 })
 
 test_that("rgumbelx: returns correct length", {

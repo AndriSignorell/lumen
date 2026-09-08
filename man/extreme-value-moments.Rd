@@ -3,8 +3,9 @@
 \name{extreme-value-moments}
 \alias{extreme-value-moments}
 \alias{mgumbel}
+\alias{mrevgumbel}
 \alias{mfrechet}
-\alias{mrweibull}
+\alias{mrevweibull}
 \alias{mgev}
 \alias{mgpd}
 \alias{mgompertz}
@@ -12,9 +13,11 @@
 \usage{
 mgumbel(loc = 0, scale = 1)
 
+mrevgumbel(loc = 0, scale = 1)
+
 mfrechet(loc = 0, scale = 1, shape = 1)
 
-mrweibull(loc = 0, scale = 1, shape = 1)
+mrevweibull(loc = 0, scale = 1, shape = 1)
 
 mgev(loc = 0, scale = 1, shape = 0)
 
@@ -27,7 +30,7 @@ mgompertz(shape, rate = 1)
 
 \item{scale}{scale parameter.}
 
-\item{shape, rate}{vector of shape and rate parameters.}
+\item{shape, rate}{shape and rate parameters.}
 }
 \value{
 A named numeric vector with elements \code{mean} and
@@ -43,6 +46,9 @@ given their parameters.
 \tab \strong{Variance} \cr
 Gumbel \tab
 \eqn{a + b\gamma} \tab
+\eqn{\frac{\pi^2}{6}b^2} \cr
+Reverse Gumbel \tab
+\eqn{a - b\gamma} \tab
 \eqn{\frac{\pi^2}{6}b^2} \cr
 Fréchet \tab
 \eqn{a + b\Gamma(1 - 1/s) \quad (s > 1)} \tab
@@ -67,7 +73,7 @@ numerical integration for \eqn{\alpha > 0} \tab dito \cr
 \tab \code{NA} for \eqn{\alpha < 0} \tab dito \cr
 }
 
-For the first five distributions, \eqn{a} = \code{loc},
+For the first six distributions, \eqn{a} = \code{loc},
 \eqn{b} = \code{scale}, and \eqn{s} = \code{shape}. For the GEV with
 \eqn{s = 0}, the Gumbel moments apply. Furthermore,
 \eqn{\gamma \approx 0.5772} is the Euler-Mascheroni constant. For the
@@ -77,8 +83,9 @@ numerically by integration.
 }
 \examples{
 mgumbel(loc = 0, scale = 1)
+mrevgumbel(loc = 0, scale = 1)
 mfrechet(loc = 0, scale = 1, shape = 3)
-mrweibull(loc = 0, scale = 1, shape = 2)
+mrevweibull(loc = 0, scale = 1, shape = 2)
 mgev(loc = 0, scale = 1, shape = 0)
 mgev(loc = 0, scale = 1, shape = 0.3)
 mgev(loc = 0, scale = 1, shape = -0.3)
@@ -93,8 +100,8 @@ Kotz, S. and Nadarajah, S. (2000) \emph{Extreme Value Distributions}.
 Imperial College Press.
 }
 \seealso{
-\code{\link[=dgumbel]{dgumbel()}}, \code{\link[=dfrechet]{dfrechet()}},
-\code{\link[=drweibull]{drweibull()}}, \code{\link[=dgev]{dgev()}}, \code{\link[=dgpd]{dgpd()}},
+\code{\link[=dgumbel]{dgumbel()}}, \code{\link[=drevgumbel]{drevgumbel()}}, \code{\link[=dfrechet]{dfrechet()}},
+\code{\link[=drevweibull]{drevweibull()}}, \code{\link[=dgev]{dgev()}}, \code{\link[=dgpd]{dgpd()}},
 \link{distributions-overview}
 }
 \concept{distribution-summary}

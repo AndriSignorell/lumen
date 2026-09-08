@@ -14,7 +14,7 @@ pdirichlet(q, concentration, R = 100000)
 
 rdirichlet(n, concentration)
 
-qdirichlet()
+qdirichlet(p, concentration, ...)
 }
 \arguments{
 \item{x}{numeric vector or matrix (rows sum to 1).}
@@ -25,16 +25,24 @@ qdirichlet()
 
 \item{q}{numeric vector of quantiles.}
 
-\item{R}{number of Monte Carlo simulations used to approximate the CDF.}
+\item{R}{number of Monte Carlo simulations used to approximate the CDF.
+Must be at most \code{.Machine$integer.max}.}
 
 \item{n}{number of samples.}
+
+\item{p}{numeric vector of probabilities; accepted by \code{qdirichlet()}
+only to give a meaningful error, see below.}
+
+\item{\dots}{further arguments, accepted by \code{qdirichlet()} and ignored.}
 }
 \value{
 \code{ddirichlet()} gives a numeric vector of densities (one per
 row of \code{x}), \code{pdirichlet()} gives an approximate probability,
 and \code{rdirichlet()} generates a matrix with \code{n} rows of random
 deviates. \code{qdirichlet()} only signals an error, as no unique
-multivariate quantile function exists.
+multivariate quantile function exists; it takes the same arguments as
+the others so that the message is reached rather than an argument
+mismatch.
 }
 \description{
 Density, random generation, and basic utilities for the Dirichlet distribution.
@@ -44,6 +52,15 @@ The Dirichlet distribution is a multivariate generalization of the Beta
 distribution defined on the simplex:
 \deqn{\sum_{i=1}^k x_i = 1, \quad x_i \ge 0}
 }
+\section{Random number generation}{
+
+\code{pdirichlet()} evaluates the CDF by simulation and is parallelised. Each
+range of draws runs its own generator, seeded from R's stream, so that
+\code{\link[=set.seed]{set.seed()}} governs the result; the seeding does depend on how the work
+is split, so reproducing a value also requires the same
+\code{RcppParallel::setThreadOptions()}.
+}
+
 \examples{
 ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 pdirichlet(c(0.2, 0.3, 0.5), c(1,1,1))

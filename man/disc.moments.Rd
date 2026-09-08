@@ -20,7 +20,7 @@ mnbinom(size, prob)
 
 mhyper(m, n, k)
 
-mbenford(ndigits = 1)
+mbenford(nDigits = 1)
 }
 \arguments{
 \item{size}{number of trials (binomial, negative binomial).}
@@ -36,7 +36,7 @@ negative binomial).}
 
 \item{k}{number of balls drawn (hypergeometric).}
 
-\item{ndigits}{number of leading digits for Benford's distribution,
+\item{nDigits}{number of leading digits for Benford's distribution,
 either \code{1} (default, support \{1,...,9\}) or \code{2}
 (support \{10,...,99\}).}
 }
@@ -74,8 +74,8 @@ Benford \tab
 For the binomial distribution, \eqn{n} = \code{size}; for the negative
 binomial distribution, \eqn{r} = \code{size}; and for the hypergeometric
 distribution, \eqn{N = m + n}. For Benford's distribution, the sum runs
-over \eqn{d \in \{1,\ldots,9\}} for \code{ndigits = 1} and
-\eqn{d \in \{10,\ldots,99\}} for \code{ndigits = 2}. As there is no
+over \eqn{d \in \{1,\ldots,9\}} for \code{nDigits = 1} and
+\eqn{d \in \{10,\ldots,99\}} for \code{nDigits = 2}. As there is no
 closed-form solution, the moments are computed numerically.
 }
 \examples{
@@ -84,8 +84,8 @@ mpois(lambda = 3)
 mgeom(prob = 0.3)
 mnbinom(size = 5, prob = 0.3)
 mhyper(m = 10, n = 5, k = 4)
-mbenford(ndigits = 1)
-mbenford(ndigits = 2)
+mbenford(nDigits = 1)
+mbenford(nDigits = 2)
 
 }
 \references{

@@ -21,7 +21,11 @@
 #' Thus if \eqn{a} is negative, letting \eqn{x} tend to infinity shows that
 #' there is a non-zero probability \eqn{1 - \exp(b/a)}{1 - exp(b/a)} of living
 #' forever.  On these occasions `qgompertz()` and `rgompertz()` will
-#' return `Inf`.
+#' return `Inf`, and `pgompertz()` approaches
+#' \eqn{1 - \exp(b/a)}{1 - exp(b/a)} rather than one.
+#' 
+#' A non-positive `rate` gives `NaN` with a warning, as in the base R
+#' distribution functions.
 #' 
 #' **Note:** Some implementations of the Gompertz restrict \eqn{a} to be strictly
 #' positive, which ensures that the probability of survival decreases to zero
@@ -63,6 +67,22 @@
 #'
 #' Stata Press (2007) *Stata Release 10 Manual: Survival Analysis
 #' and Epidemiological Tables*. Stata Press.
+#' 
+#' @examples
+#' 
+#' dgompertz(1:3, shape = 0.1, rate = 0.2)
+#' pgompertz(1:3, shape = 0.1, rate = 0.2)
+#' qgompertz(seq(0.9, 0.6, -0.1), shape = 0.1, rate = 0.2)
+#' rgompertz(6, shape = 0.1, rate = 0.2)
+#' 
+#' ## for shape = 0 the Gompertz reduces to the exponential distribution
+#' all.equal(pgompertz(1:3, shape = 0, rate = 0.2), pexp(1:3, rate = 0.2))
+#' 
+#' ## a negative shape leaves a non-zero probability of living forever,
+#' ## for which the quantile function returns Inf
+#' qgompertz(0.9, shape = -0.5, rate = 0.2)
+#' 
+#' mgompertz(shape = 0.1, rate = 0.2)
 #'  
 
 #' @rdname dpqr-gompertz
@@ -70,6 +90,9 @@
 #' @concept demographics
 #' @export
 dgompertz <- function(x, shape, rate = 1, log = FALSE) {
+  # the C++ side returns NaN for invalid parameters; the warning that goes
+  # with it is raised here, once per call rather than once per element
+  .checkGompertz(shape, rate)
   dgompertz_cpp(x, shape, rate, log)
 }
 
@@ -77,6 +100,7 @@ dgompertz <- function(x, shape, rate = 1, log = FALSE) {
 #' @rdname dpqr-gompertz
 #' @export
 pgompertz <- function(q, shape, rate = 1, lower.tail = TRUE, log.p = FALSE) {
+  .checkGompertz(shape, rate)
   pgompertz_cpp(q, shape, rate, lower.tail, log.p)
 }
 
@@ -92,8 +116,9 @@ qgompertz <- function(p, shape, rate = 1, lower.tail = TRUE, log.p = FALSE) {
   shape <- d$shape
   rate  <- d$rate
   
-  ret[ind][shape == 0] <- qexp(p[shape == 0], rate = rate[shape == 0])
-  sn0 <- shape != 0
+  s0 <- abs(shape) <= .gompertzShapeTol
+  ret[ind][s0] <- qexp(p[s0], rate = rate[s0])
+  sn0 <- !s0
   if (any(sn0)) {
     p     <- p[sn0]
     shape <- shape[sn0]
@@ -125,18 +150,19 @@ rgompertz <- function(n, shape, rate = 1) {
 # == internal helper functions ===============================================
 
 
-# parameter validity check for the Gompertz distribution: any real shape
-# is allowed, the rate must be non-negative (invalid entries yield NaN
-# with a warning, matching the base R d/p/q/r convention)
+# parameter validity for the Gompertz distribution: any real shape is
+# allowed, the rate must be positive (invalid entries yield NaN with a
+# warning, matching the base R d/p/q/r convention). The test itself lives
+# in C++ so that d, p, q and r cannot drift apart.
 .checkGompertz <- function(shape, rate) {
-  ret <- rep(TRUE, max(length(shape), length(rate)))
-  bad <- !is.na(rate) & rate < 0
-  if (any(bad)) {
-    warning("Negative rate parameter")
-    ret[bad] <- FALSE
-  }
-  ret
+  ok <- checkGompertz_cpp(shape, rate)
+  if (any(!ok)) warning("Non-positive rate parameter")
+  ok
 }
+
+# below this the shape counts as zero and the exponential limit is used;
+# the same value is hard-wired in gompertz.cpp
+.gompertzShapeTol <- 1e-12
 
 
 ### Standardised procedure for defining density, cumulative

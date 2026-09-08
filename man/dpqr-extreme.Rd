@@ -10,9 +10,27 @@
 \usage{
 dextreme(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
 
-pextreme(q, pFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+pextreme(
+  q,
+  pFun,
+  ...,
+  distn,
+  mlen = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
-qextreme(p, qFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+qextreme(
+  p,
+  qFun,
+  ...,
+  distn,
+  mlen = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
 rextreme(n, qFun, ..., distn, mlen = 1, largest = TRUE)
 }
@@ -35,7 +53,8 @@ prefixes \code{d}, \code{p} and \code{q} respectively.}
 \item{largest}{logical; if \code{TRUE} (default) use maxima, otherwise
 minima.}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default) probabilities are
 \verb{P[X <= x]}, otherwise P\verb{[X > x]}.}

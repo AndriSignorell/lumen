@@ -56,9 +56,18 @@ test_that("qgumbel: median = loc - scale*log(log(2))", {
                2 - log(-log(0.5)), tolerance = tol)
 })
 
-test_that("qgumbel: invalid p throws error", {
-  expect_error(qgumbel(0))
-  expect_error(qgumbel(1))
+test_that("qgumbel: p = 0 and p = 1 give the end points of the support", {
+  expect_equal(qgumbel(c(0, 1)), c(-Inf, Inf))
+})
+
+test_that("qgumbel: log.p is passed through to qgev", {
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qgumbel(log(p), 1, 2, log.p = TRUE), qgumbel(p, 1, 2))
+})
+
+test_that("pgumbel: log.p is passed through to pgev", {
+  q <- c(-2, 0, 2)
+  expect_equal(pgumbel(q, log.p = TRUE), log(pgumbel(q)))
 })
 
 # --- rgumbel ---
@@ -100,6 +109,7 @@ test_that("qgumbel lower.tail=FALSE roundtrip", {
 
 test_that("dgumbel invalid scale throws error", {
   expect_error(dgumbel(1, scale = -1))
+  expect_error(dgumbel(1, scale = 0))
 })
 
 test_that("rgumbel invalid scale throws error", {

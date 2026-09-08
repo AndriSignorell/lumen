@@ -43,7 +43,7 @@
 #' distributed uniform random variables with parameters `min=`\eqn{\alpha}
 #' and `max=`\eqn{\beta} has a triangular distribution with parameters
 #' `min=`\eqn{\alpha}, `max=`\eqn{\beta}, and
-#' `mode=`\eqn{(\beta-\alpha)/2}.
+#' `mode=`\eqn{(\alpha+\beta)/2}.
 #' 
 #' @name dpqr-tri
 #' @aliases Triangular dtri ptri qtri rtri
@@ -59,11 +59,16 @@
 #' @param max vector of maximum values of the random variable.  The default
 #' value is `max=1`.
 #' @param mode vector of modes of the random variable.  The default value is
-#' `mode=1/2`.
+#' `mode=1/2`.  The parameters must satisfy \eqn{min < mode < max}.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
+#' @param lower.tail logical; if `TRUE` (default), probabilities are 
+#' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
 #' @return `dtri()` gives the density, `ptri()` gives the
 #' distribution function, `qtri()` gives the quantile function, and
 #' `rtri()` generates random deviates.
 #' 
+#' @details
 #' The triangular distribution is sometimes used as an input distribution in
 #' probability risk assessment.
 #' 
@@ -121,121 +126,86 @@
 #' @concept distribution-function
 #' @concept sampling
 #' @export
-dtri <- function (x, min = 0, max = 1, mode = 1/2) {
-  names.x <- names(x)
-  arg.mat <- .cbind.no.warn(x = as.vector(x), min = as.vector(min),
-                           max = as.vector(max), mode = as.vector(mode))
-  na.index <- .is_na_matrix(arg.mat)
-  if (all(na.index))
-    y <- rep(NA, nrow(arg.mat))
-  else {
-    y <- numeric(nrow(arg.mat))
-    y[na.index] <- NA
-    y.no.na <- y[!na.index]
-    for (i in c("x", "min", "max", "mode")) assign(i, arg.mat[!na.index,
-                                                              i])
-    if (any(is.infinite(min)) || any(is.infinite(max)))
-      stop("All non-missing values of 'min' and 'max' must be finite.")
-    if (any(mode <= min) || any(max <= mode))
-      stop(paste("All values of 'mode' must be larger than",
-                 "the corresponding values of 'min', and all",
-                 "values of 'max' must be larger than the", "corresponding values of 'mode'."))
-    mmm <- max - min
-    y.no.na <- 2 * ifelse(x <= mode, (x - min)/(mmm * (mode -
-                                                         min)), (max - x)/(mmm * (max - mode)))
-    y.no.na[y.no.na < 0] <- 0
-    y[!na.index] <- y.no.na
-  }
-  if (!is.null(names.x))
-    names(y) <- rep(names.x, length = length(y))
-  else names(y) <- NULL
-  y
+dtri <- function (x, min = 0, max = 1, mode = 1/2, log = FALSE) {
+
+  # 'min' and 'max' shadow the base functions of the same name
+  a <- min; b <- max; m <- mode
+  .checkTri(a, b, m)
+
+  nms <- names(x)
+  n <- base::max(length(x), length(a), length(b), length(m))
+  x <- rep_len(x, n); a <- rep_len(a, n)
+  b <- rep_len(b, n); m <- rep_len(m, n)
+
+  d   <- numeric(n)
+  bad <- is.na(x) | is.na(a) | is.na(b) | is.na(m)
+
+  lo <- which(!bad & x >= a & x <= m)
+  hi <- which(!bad & x >  m & x <= b)
+  d[lo] <- 2 * (x[lo] - a[lo]) / ((b[lo] - a[lo]) * (m[lo] - a[lo]))
+  d[hi] <- 2 * (b[hi] - x[hi]) / ((b[hi] - a[hi]) * (b[hi] - m[hi]))
+  d[bad] <- NA
+
+  if (!is.null(nms)) names(d) <- rep_len(nms, n)
+  if (log) base::log(d) else d
 }
 
 
 
 #' @rdname dpqr-tri
 #' @export
-ptri <- function (q, min = 0, max = 1, mode = 1/2) {
-  names.q <- names(q)
-  arg.mat <- .cbind.no.warn(q = as.vector(q), min = as.vector(min),
-                           max = as.vector(max), mode = as.vector(mode))
-  na.index <- .is_na_matrix(arg.mat)
-  if (all(na.index))
-    p <- rep(NA, nrow(arg.mat))
-  else {
-    p <- numeric(nrow(arg.mat))
-    p[na.index] <- NA
-    p.no.na <- p[!na.index]
-    for (i in c("q", "min", "max", "mode")) assign(i, arg.mat[!na.index,
-                                                              i])
-    if (any(is.infinite(min)) || any(is.infinite(max)))
-      stop("All non-missing values of 'min' and 'max' must be finite.")
-    if (any(mode <= min) || any(max <= mode))
-      stop(paste("All values of 'mode' must be larger than",
-                 "the corresponding values of 'min', and all",
-                 "values of 'max' must be larger than the", "corresponding values of 'mode'."))
-    q.low <- q <= min
-    p.no.na[q.low] <- 0
-    q.high <- q >= max
-    p.no.na[q.high] <- 1
-    if (any(index <- !(q.low | q.high))) {
-      for (i in c("q", "min", "max", "mode")) assign(i,
-                                                     get(i)[index])
-      mmm <- max - min
-      p.no.na[index] <- ifelse(q <= mode, (q - min)^2/(mmm *
-                                                         (mode - min)), 1 - ((max - q)^2/(mmm * (max -
-                                                                                                   mode))))
-    }
-    p[!na.index] <- p.no.na
-  }
-  if (!is.null(names.q))
-    names(p) <- rep(names.q, length = length(p))
-  else names(p) <- NULL
-  p
+ptri <- function (q, min = 0, max = 1, mode = 1/2, lower.tail = TRUE,
+                  log.p = FALSE) {
+
+  a <- min; b <- max; m <- mode
+  .checkTri(a, b, m)
+
+  nms <- names(q)
+  n <- base::max(length(q), length(a), length(b), length(m))
+  q <- rep_len(q, n); a <- rep_len(a, n)
+  b <- rep_len(b, n); m <- rep_len(m, n)
+
+  p   <- numeric(n)
+  bad <- is.na(q) | is.na(a) | is.na(b) | is.na(m)
+
+  lo <- which(!bad & q >  a & q <= m)
+  hi <- which(!bad & q >  m & q <  b)
+  p[which(!bad & q >= b)] <- 1
+  p[lo] <- (q[lo] - a[lo])^2 / ((b[lo] - a[lo]) * (m[lo] - a[lo]))
+  p[hi] <- 1 - (b[hi] - q[hi])^2 / ((b[hi] - a[hi]) * (b[hi] - m[hi]))
+  p[bad] <- NA
+
+  if (!lower.tail) p <- 1 - p
+  if (!is.null(nms)) names(p) <- rep_len(nms, n)
+  if (log.p) base::log(p) else p
 }
 
 
 
 #' @rdname dpqr-tri
 #' @export
-qtri <- function (p, min = 0, max = 1, mode = 1/2) {
-  names.p <- names(p)
-  arg.mat <- .cbind.no.warn(p = as.vector(p), min = as.vector(min),
-                           max = as.vector(max), mode = as.vector(mode))
-  na.index <- .is_na_matrix(arg.mat)
-  if (all(na.index))
-    q <- rep(NA, nrow(arg.mat))
-  else {
-    q <- numeric(nrow(arg.mat))
-    q[na.index] <- NA
-    q.no.na <- q[!na.index]
-    for (i in c("p", "min", "max", "mode")) assign(i, arg.mat[!na.index,
-                                                              i])
-    if (any(p < 0) || any(p > 1))
-      stop("All non-missing values of 'p' must be between 0 and 1.")
-    if (any(is.infinite(min)) || any(is.infinite(max)))
-      stop("All non-missing values of 'min' and 'max' must be finite.")
-    if (any(mode <= min) || any(max <= mode))
-      stop(paste("All values of 'mode' must be larger than",
-                 "the corresponding values of 'min', and all",
-                 "values of 'max' must be larger than the", "corresponding values of 'mode'."))
-    q.no.na[p == 0] <- min[p == 0]
-    q.no.na[p == 1] <- max[p == 1]
-    if (any(index <- 0 < p & p < 1)) {
-      for (i in c("p", "min", "max", "mode")) assign(i,
-                                                     get(i)[index])
-      mmm <- max - min
-      q.no.na[index] <- ifelse(p <= ptri(mode, min = min,
-                                         max = max, mode = mode), min + sqrt(mmm * (mode -
-                                                                                      min) * p), max - sqrt(mmm * (max - mode) * (1 -
-                                                                                                                                    p)))
-    }
-    q[!na.index] <- q.no.na
-  }
-  if (!is.null(names.p))
-    names(q) <- rep(names.p, length = length(q))
-  else names(q) <- NULL
+qtri <- function (p, min = 0, max = 1, mode = 1/2, lower.tail = TRUE,
+                  log.p = FALSE) {
+
+  a <- min; b <- max; m <- mode
+  .checkTri(a, b, m)
+
+  nms <- names(p)
+  p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
+  n <- base::max(length(p), length(a), length(b), length(m))
+  p <- rep_len(p, n); a <- rep_len(a, n)
+  b <- rep_len(b, n); m <- rep_len(m, n)
+
+  # F(mode), the probability at which the two branches meet
+  pm <- (m - a) / (b - a)
+  q  <- ifelse(p <= pm,
+               a + sqrt((b - a) * (m - a) * p),
+               b - sqrt((b - a) * (b - m) * (1 - p)))
+
+  # ifelse() turns a NaN condition into NA; keep the two apart
+  q[is.na(p)] <- p[is.na(p)]
+
+  if (!is.null(nms)) names(q) <- rep_len(nms, n)
   q
 }
 
@@ -243,54 +213,36 @@ qtri <- function (p, min = 0, max = 1, mode = 1/2) {
 #' @rdname dpqr-tri
 #' @export
 rtri <- function (n, min = 0, max = 1, mode = 1/2) {
-  ln <- length(n)
-  if (ln < 1)
-    stop("'n' must be non-empty.")
-  if (ln > 1)
-    n <- ln
-  else {
-    if (is.na(n) || n <= 0 || n != trunc(n))
-      stop("'n' must be a positive integer or vector.")
-  }
-  arg.mat <- .cbind.no.warn(dum = rep(1, n), min = as.vector(min),
-                           max = as.vector(max), mode = as.vector(mode))[, -1, drop = FALSE]
-  if (n < nrow(arg.mat))
-    arg.mat <- arg.mat[1:n, , drop = FALSE]
-  for (i in c("min", "max", "mode")) assign(i, arg.mat[, i])
-  na.index <- .is_na_matrix(arg.mat)
-  if (all(na.index))
-    return(rep(NA, n))
-  else {
-    if (any(is.infinite(min)) || any(is.infinite(max)))
-      stop("All non-missing values of 'min' and 'max' must be finite.")
-    if (any(mode <= min) || any(max <= mode))
-      stop(paste("All values of 'mode' must be larger than",
-                 "the corresponding values of 'min', and all",
-                 "values of 'max' must be larger than the", "corresponding values of 'mode'."))
-    return(qtri(p = runif(n), min = min, max = max, mode = mode))
-  }
+
+  if (length(n) > 1) n <- length(n)
+  .assertScalar(n, lower = 1, integerValued = TRUE)
+
+  qtri(runif(n), min = min, max = max, mode = mode)
 }
 
 
-# == internal helper functions ======================================================
+# == internal helper functions ===============================================
 
 
-.is_na_matrix <- function (mat, rows = TRUE) {
-  
-  if (!is.matrix(mat))
-    stop("'mat' must be a matrix or data frame.")
-  if (rows)
-    return(apply(mat, 1, function(x) any(is.na(x))))
-  else return(apply(mat, 2, function(x) any(is.na(x))))
+# the three parameters must satisfy min < mode < max; missing values are
+# passed over here and propagate to the result
+#
+# @noRd
+.checkTri <- function(min, max, mode) {
+
+  n <- base::max(length(min), length(max), length(mode))
+  a <- rep_len(min, n); b <- rep_len(max, n); m <- rep_len(mode, n)
+  ok <- !(is.na(a) | is.na(b) | is.na(m))
+
+  if (!is.numeric(a) || !is.numeric(b) || !is.numeric(m))
+    stop("'min', 'max' and 'mode' must be numeric", call. = FALSE)
+
+  if (any(!is.finite(a[ok])) || any(!is.finite(b[ok])))
+    stop("'min' and 'max' must be finite", call. = FALSE)
+
+  if (any(a[ok] >= m[ok]) || any(m[ok] >= b[ok]))
+    stop("'min', 'mode' and 'max' must satisfy min < mode < max",
+         call. = FALSE)
+
+  invisible(TRUE)
 }
-
-
-.cbind.no.warn <- function (..., deparse.level = 1) {
-  
-  oldopts <- options(warn = -1)
-  on.exit(options(oldopts))
-  base::cbind(..., deparse.level = deparse.level)
-}
-
-
-

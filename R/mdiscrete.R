@@ -29,8 +29,8 @@
 #' For the binomial distribution, \eqn{n} = `size`; for the negative
 #' binomial distribution, \eqn{r} = `size`; and for the hypergeometric
 #' distribution, \eqn{N = m + n}. For Benford's distribution, the sum runs
-#' over \eqn{d \in \{1,\ldots,9\}} for `ndigits = 1` and
-#' \eqn{d \in \{10,\ldots,99\}} for `ndigits = 2`. As there is no
+#' over \eqn{d \in \{1,\ldots,9\}} for `nDigits = 1` and
+#' \eqn{d \in \{10,\ldots,99\}} for `nDigits = 2`. As there is no
 #' closed-form solution, the moments are computed numerically.
 #' 
 #' @param size number of trials (binomial, negative binomial).
@@ -40,7 +40,7 @@
 #' @param m number of white balls in the urn (hypergeometric).
 #' @param n number of black balls in the urn (hypergeometric).
 #' @param k number of balls drawn (hypergeometric).
-#' @param ndigits number of leading digits for Benford's distribution,
+#' @param nDigits number of leading digits for Benford's distribution,
 #'   either `1` (default, support \{1,...,9\}) or `2`
 #'   (support \{10,...,99\}).
 #'
@@ -67,8 +67,8 @@
 #' mgeom(prob = 0.3)
 #' mnbinom(size = 5, prob = 0.3)
 #' mhyper(m = 10, n = 5, k = 4)
-#' mbenford(ndigits = 1)
-#' mbenford(ndigits = 2)
+#' mbenford(nDigits = 1)
+#' mbenford(nDigits = 2)
 #'
 #' @name disc.moments
 NULL
@@ -76,6 +76,10 @@ NULL
 #' @rdname disc.moments
 #' @export
 mbinom <- function(size, prob) {
+
+  .assertScalar(size, lower = 0, integerValued = TRUE)
+  .assertScalar(prob, lower = 0, upper = 1)
+
   c(mean     = size * prob,
     variance = size * prob * (1 - prob))
 }
@@ -83,6 +87,9 @@ mbinom <- function(size, prob) {
 #' @rdname disc.moments
 #' @export
 mpois <- function(lambda) {
+
+  .assertScalar(lambda, lower = 0)
+
   c(mean     = lambda,
     variance = lambda)
 }
@@ -90,6 +97,9 @@ mpois <- function(lambda) {
 #' @rdname disc.moments
 #' @export
 mgeom <- function(prob) {
+
+  .assertScalar(prob, lower = 0, upper = 1, strictLower = TRUE)
+
   c(mean     = (1 - prob) / prob,
     variance = (1 - prob) / prob^2)
 }
@@ -97,6 +107,12 @@ mgeom <- function(prob) {
 #' @rdname disc.moments
 #' @export
 mnbinom <- function(size, prob) {
+
+  # 'size' need not be a whole number: dnbinom() admits the continuous
+  # gamma-mixture parametrisation as well
+  .assertScalar(size, lower = 0, strictLower = TRUE)
+  .assertScalar(prob, lower = 0, upper = 1, strictLower = TRUE)
+
   c(mean     = size * (1 - prob) / prob,
     variance = size * (1 - prob) / prob^2)
 }
@@ -104,15 +120,29 @@ mnbinom <- function(size, prob) {
 #' @rdname disc.moments
 #' @export
 mhyper <- function(m, n, k) {
+
+  .assertScalar(m, lower = 0, integerValued = TRUE)
+  .assertScalar(n, lower = 0, integerValued = TRUE)
+
   N <- m + n
+
+  # the variance divides by N - 1
+  if (N < 2)
+    stop("'m + n' must be at least 2", call. = FALSE)
+
+  .assertScalar(k, lower = 0, upper = N, integerValued = TRUE)
+
   c(mean     = k * m / N,
     variance = k * m / N * n / N * (N - k) / (N - 1))
 }
 
 #' @rdname disc.moments
 #' @export
-mbenford <- function(ndigits = 1) {
-  d <- if (ndigits == 1) 1:9 else 10:99
+mbenford <- function(nDigits = 1) {
+
+  .assertScalar(nDigits, lower = 1, upper = 2, integerValued = TRUE)
+
+  d <- if (nDigits == 1) 1:9 else 10:99
   p <- log10(1 + 1/d)
   mu <- sum(d * p)
   c(mean     = mu,

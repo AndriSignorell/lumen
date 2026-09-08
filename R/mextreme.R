@@ -6,7 +6,7 @@
 #'
 #' @param loc location parameter.
 #' @param scale scale parameter.
-#' @param shape,rate vector of shape and rate parameters.
+#' @param shape,rate shape and rate parameters.
 #'
 #' @return A named numeric vector with elements `mean` and
 #'   `variance`. Returns `NA` where moments do not exist.
@@ -17,6 +17,9 @@
 #'   \tab **Variance** \cr
 #'   Gumbel \tab
 #'     \eqn{a + b\gamma} \tab
+#'     \eqn{\frac{\pi^2}{6}b^2} \cr
+#'   Reverse Gumbel \tab
+#'     \eqn{a - b\gamma} \tab
 #'     \eqn{\frac{\pi^2}{6}b^2} \cr
 #'   Fréchet \tab
 #'     \eqn{a + b\Gamma(1 - 1/s) \quad (s > 1)} \tab
@@ -41,7 +44,7 @@
 #'     \tab `NA` for \eqn{\alpha < 0} \tab dito \cr
 #' }
 #'
-#' For the first five distributions, \eqn{a} = `loc`,
+#' For the first six distributions, \eqn{a} = `loc`,
 #' \eqn{b} = `scale`, and \eqn{s} = `shape`. For the GEV with
 #' \eqn{s = 0}, the Gumbel moments apply. Furthermore,
 #' \eqn{\gamma \approx 0.5772} is the Euler-Mascheroni constant. For the
@@ -49,8 +52,8 @@
 #' \eqn{\beta} = `rate`; moments for \eqn{\alpha > 0} are computed
 #' numerically by integration.
 #' 
-#' @seealso [dgumbel()], [dfrechet()],
-#'   [drweibull()], [dgev()], [dgpd()],
+#' @seealso [dgumbel()], [drevgumbel()], [dfrechet()],
+#'   [drevweibull()], [dgev()], [dgpd()],
 #'   [distributions-overview]
 #'
 #' @references
@@ -66,8 +69,9 @@
 #'
 #' @examples
 #' mgumbel(loc = 0, scale = 1)
+#' mrevgumbel(loc = 0, scale = 1)
 #' mfrechet(loc = 0, scale = 1, shape = 3)
-#' mrweibull(loc = 0, scale = 1, shape = 2)
+#' mrevweibull(loc = 0, scale = 1, shape = 2)
 #' mgev(loc = 0, scale = 1, shape = 0)
 #' mgev(loc = 0, scale = 1, shape = 0.3)
 #' mgev(loc = 0, scale = 1, shape = -0.3)
@@ -79,13 +83,35 @@ NULL
 #' @rdname extreme-value-moments
 #' @export
 mgumbel <- function(loc = 0, scale = 1) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+
   c(mean     = loc + scale * 0.5772156649015329,
     variance = pi^2 / 6 * scale^2)
 }
 
 #' @rdname extreme-value-moments
 #' @export
+mrevgumbel <- function(loc = 0, scale = 1) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+
+  # the reflection X = a - bY of the standard Gumbel Y flips the sign of the
+  # scale term in the mean and leaves the variance untouched
+  c(mean     = loc - scale * 0.5772156649015329,
+    variance = pi^2 / 6 * scale^2)
+}
+
+#' @rdname extreme-value-moments
+#' @export
 mfrechet <- function(loc = 0, scale = 1, shape = 1) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+  .assertScalar(shape, lower = 0, strictLower = TRUE)
+
   c(mean     = if (shape > 1)
     loc + scale * gamma(1 - 1/shape)
     else NA_real_,
@@ -96,7 +122,12 @@ mfrechet <- function(loc = 0, scale = 1, shape = 1) {
 
 #' @rdname extreme-value-moments
 #' @export
-mrweibull <- function(loc = 0, scale = 1, shape = 1) {
+mrevweibull <- function(loc = 0, scale = 1, shape = 1) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+  .assertScalar(shape, lower = 0, strictLower = TRUE)
+
   c(mean     = loc - scale * gamma(1 + 1/shape),
     variance = scale^2 * (gamma(1 + 2/shape) - gamma(1 + 1/shape)^2))
 }
@@ -104,6 +135,11 @@ mrweibull <- function(loc = 0, scale = 1, shape = 1) {
 #' @rdname extreme-value-moments
 #' @export
 mgev <- function(loc = 0, scale = 1, shape = 0) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+  .assertScalar(shape)
+
   if (shape == 0) {
     # Gumbel
     c(mean     = loc + scale * 0.5772156649015329,
@@ -123,6 +159,11 @@ mgev <- function(loc = 0, scale = 1, shape = 0) {
 #' @rdname extreme-value-moments
 #' @export
 mgpd <- function(loc = 0, scale = 1, shape = 0) {
+
+  .assertScalar(loc)
+  .assertScalar(scale, lower = 0, strictLower = TRUE)
+  .assertScalar(shape)
+
   c(mean     = if (shape < 1)
     loc + scale / (1 - shape)
     else NA_real_,
@@ -137,10 +178,8 @@ mgpd <- function(loc = 0, scale = 1, shape = 0) {
 #' @export
 mgompertz <- function(shape, rate = 1) {
 
-  if (!is.numeric(rate) || length(rate) != 1L || is.na(rate) || rate <= 0)
-    stop("'rate' must be a single positive number")
-  if (!is.numeric(shape) || length(shape) != 1L || is.na(shape))
-    stop("'shape' must be a single number")
+  .assertScalar(shape)
+  .assertScalar(rate, lower = 0, strictLower = TRUE)
   
   if (shape == 0) {
     return(c(mean = 1 / rate,

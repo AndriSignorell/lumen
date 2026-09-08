@@ -77,8 +77,33 @@ test_that("rdirichlet: concentration <= 0 throws error", {
 
 test_that("pdirichlet: probability in [0,1]", {
   set.seed(1)
-  p <- pdirichlet(c(0.2, 0.3, 0.5), c(1, 1, 1), R = 1e4)
+  p <- pdirichlet(c(0.5, 0.6, 0.7), c(1, 1, 1), R = 1e4)
   expect_true(p >= 0 && p <= 1)
+})
+
+test_that("pdirichlet: agrees with an exactly known value", {
+  # for Dir(1,1,1), P(X_i > q_i) = (1 - q_i)^2, and the three events are
+  # disjoint once the thresholds sum above 1, so P = 1 - sum (1 - q_i)^2
+  q <- c(0.5, 0.6, 0.7)
+  set.seed(1)
+  expect_equal(pdirichlet(q, c(1, 1, 1), R = 2e5), 1 - sum((1 - q)^2),
+               tolerance = 0.01)
+})
+
+test_that("pdirichlet: a degenerate region has probability zero", {
+  # x1 <= 0.2 and x2 <= 0.3 force x1 + x2 <= 0.5, while x3 <= 0.5 forces
+  # x1 + x2 >= 0.5: the region is a face of the simplex
+  set.seed(1)
+  expect_equal(pdirichlet(c(0.2, 0.3, 0.5), c(1, 1, 1), R = 1e4), 0)
+})
+
+test_that("pdirichlet: set.seed makes the simulation reproducible", {
+  q <- c(0.5, 0.6, 0.7)
+  set.seed(42); a <- pdirichlet(q, c(1, 1, 1), R = 5e4)
+  set.seed(42); b <- pdirichlet(q, c(1, 1, 1), R = 5e4)
+  set.seed(43); d <- pdirichlet(q, c(1, 1, 1), R = 5e4)
+  expect_identical(a, b)
+  expect_false(identical(a, d))
 })
 
 test_that("pdirichlet: P(X <= 1) = 1 (maximal point on simplex)", {
@@ -90,4 +115,15 @@ test_that("pdirichlet: P(X <= 1) = 1 (maximal point on simplex)", {
 
 test_that("qdirichlet: always throws error (not defined)", {
   expect_error(qdirichlet())
+  # the arguments are accepted so that the message is reached
+  expect_error(qdirichlet(0.5, c(1, 1, 1)), "no quantile function")
+})
+
+test_that("pdirichlet: mismatched length throws error", {
+  expect_error(pdirichlet(c(0.2, 0.8), c(1, 1, 1), R = 1000))
+})
+
+test_that("pdirichlet: invalid concentration or R throws error", {
+  expect_error(pdirichlet(c(0.2, 0.3, 0.5), c(1, 0, 1)))
+  expect_error(pdirichlet(c(0.2, 0.3, 0.5), c(1, 1, 1), R = 0))
 })

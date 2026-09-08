@@ -48,7 +48,30 @@ test_that("pfrechet(qfrechet(p)) roundtrip", {
   expect_equal(pfrechet(qfrechet(p, 1, 2, 0.8), 1, 2, 0.8), p, tolerance = tol)
 })
 
-test_that("qfrechet: invalid p throws error", {
-  expect_error(qfrechet(0))
-  expect_error(qfrechet(1))
+test_that("qfrechet: p = 0 and p = 1 give the end points of the support", {
+  # support is (loc, Inf)
+  expect_equal(qfrechet(c(0, 1), loc = 1), c(1, Inf))
+})
+
+test_that("qfrechet: p outside [0,1] gives NaN with a warning", {
+  expect_warning(res <- qfrechet(1.1), "NaN")
+  expect_true(is.nan(res))
+})
+
+test_that("qfrechet: log.p and lower.tail", {
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qfrechet(log(p), 1, 2, 0.8, log.p = TRUE), qfrechet(p, 1, 2, 0.8))
+  expect_equal(qfrechet(p, 1, 2, 0.8, lower.tail = FALSE),
+               qfrechet(1 - p, 1, 2, 0.8))
+})
+
+test_that("pfrechet: log.p returns the log of the CDF", {
+  q <- c(1.5, 2, 3)
+  expect_equal(pfrechet(q, 1, 0.5, 0.8, log.p = TRUE),
+               log(pfrechet(q, 1, 0.5, 0.8)))
+})
+
+test_that("qfrechet and rfrechet reject a zero scale as d and p do", {
+  expect_error(qfrechet(0.5, scale = 0))
+  expect_error(rfrechet(5, scale = 0))
 })

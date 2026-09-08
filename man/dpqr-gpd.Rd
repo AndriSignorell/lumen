@@ -10,9 +10,9 @@
 \usage{
 dgpd(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
-pgpd(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgpd(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
-qgpd(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgpd(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
 rgpd(n, loc = 0, scale = 1, shape = 0)
 }
@@ -22,7 +22,8 @@ rgpd(n, loc = 0, scale = 1, shape = 0)
 \item{loc, scale, shape}{location, scale and shape parameters; the
 \code{shape} argument cannot be a vector (must have length one).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
 \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}

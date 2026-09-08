@@ -94,9 +94,34 @@ test_that("ptri invalid parameters throw error", {
   expect_error(ptri(0.5, 0, 1, 0))
 })
 
-test_that("qtri invalid probability throws error", {
-  expect_error(qtri(-0.1))
-  expect_error(qtri(1.1))
+test_that("qtri: p outside [0,1] gives NaN with a warning", {
+  expect_warning(res <- qtri(c(-0.1, 1.1)), "NaN")
+  expect_true(all(is.nan(res)))
+})
+
+test_that("dtri, ptri and qtri handle log, lower.tail and log.p", {
+  x <- c(2.5, 3, 5, 6)
+  expect_equal(dtri(x, 2, 7, 5, log = TRUE), log(dtri(x, 2, 7, 5)))
+  expect_equal(ptri(x, 2, 7, 5, log.p = TRUE), log(ptri(x, 2, 7, 5)))
+  expect_equal(ptri(x, 2, 7, 5, lower.tail = FALSE), 1 - ptri(x, 2, 7, 5))
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qtri(log(p), 2, 7, 5, log.p = TRUE), qtri(p, 2, 7, 5))
+  expect_equal(qtri(p, 2, 7, 5, lower.tail = FALSE), qtri(1 - p, 2, 7, 5))
+})
+
+test_that("dtri and ptri recycle their parameters and keep names", {
+  expect_equal(dtri(c(0.25, 0.5), min = 0, max = c(1, 2), mode = c(0.5, 1)),
+               c(dtri(0.25, 0, 1, 0.5), dtri(0.5, 0, 2, 1)))
+  expect_named(dtri(c(a = 0.25, b = 0.5)), c("a", "b"))
+  expect_named(ptri(c(a = 0.25, b = 0.5)), c("a", "b"))
+})
+
+test_that("mtri agrees with a numerical moment of dtri", {
+  m <- mtri(2, 7, 5)
+  mu <- integrate(function(x) x * dtri(x, 2, 7, 5), 2, 7)$value
+  v  <- integrate(function(x) (x - mu)^2 * dtri(x, 2, 7, 5), 2, 7)$value
+  expect_equal(unname(m["mean"]),     mu, tolerance = 1e-4)
+  expect_equal(unname(m["variance"]), v,  tolerance = 1e-4)
 })
 
 test_that("qtri preserves NA", {

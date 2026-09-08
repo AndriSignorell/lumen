@@ -16,14 +16,14 @@
 #' | Gumbel | [dpqr-gumbel] | [mgumbel()] |
 #' | Gumbel, maximum of two \verb{  } | [dpqr-gumbelx] | `-` |
 #' | Fréchet | [dpqr-frechet] | [mfrechet()] |
-#' | Reversed Weibull | [dpqr-rweibull] | [mrweibull()] |
-#' | Reverse Gumbel | [dpqr-RevGumbel] \verb{  } | `-` |
+#' | Reverse Weibull | [dpqr-revweibull] | [mrevweibull()] |
+#' | Reverse Gumbel | [dpqr-revgumbel] \verb{  } | [mrevgumbel()] |
 #' | Order statistics | [dpqr-order] | `-` |
 #'
 #' Order statistics have no quantile function (`qorder()` does not
-#' exist). [qRevGumbelExp()] is a specialized quantile for the
+#' exist). [qrevgumbelExp()] is a specialized quantile for the
 #' exponential parametrization of the reverse Gumbel distribution, not a
-#' general-purpose `q` slot -- use [qRevGumbel()] for that.
+#' general-purpose `q` slot -- use [qrevgumbel()] for that.
 #'
 #' @section Other distributions:
 #'

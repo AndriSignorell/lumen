@@ -18,16 +18,16 @@ provides d-p-q-r for. A \code{-} marks a combination with no function.
    Gumbel \tab \link{dpqr-gumbel} \tab \code{\link[=mgumbel]{mgumbel()}} \cr
    Gumbel, maximum of two \verb{  } \tab \link{dpqr-gumbelx} \tab \code{-} \cr
    Fréchet \tab \link{dpqr-frechet} \tab \code{\link[=mfrechet]{mfrechet()}} \cr
-   Reversed Weibull \tab \link{dpqr-rweibull} \tab \code{\link[=mrweibull]{mrweibull()}} \cr
-   Reverse Gumbel \tab \link{dpqr-RevGumbel} \verb{  } \tab \code{-} \cr
+   Reverse Weibull \tab \link{dpqr-revweibull} \tab \code{\link[=mrevweibull]{mrevweibull()}} \cr
+   Reverse Gumbel \tab \link{dpqr-revgumbel} \verb{  } \tab \code{\link[=mrevgumbel]{mrevgumbel()}} \cr
    Order statistics \tab \link{dpqr-order} \tab \code{-} \cr
 }
 
 
 Order statistics have no quantile function (\code{qorder()} does not
-exist). \code{\link[=qRevGumbelExp]{qRevGumbelExp()}} is a specialized quantile for the
+exist). \code{\link[=qrevgumbelExp]{qrevgumbelExp()}} is a specialized quantile for the
 exponential parametrization of the reverse Gumbel distribution, not a
-general-purpose \code{q} slot -- use \code{\link[=qRevGumbel]{qRevGumbel()}} for that.
+general-purpose \code{q} slot -- use \code{\link[=qrevgumbel]{qrevgumbel()}} for that.
 }
 
 \section{Other distributions}{

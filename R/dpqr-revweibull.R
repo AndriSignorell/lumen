@@ -1,5 +1,5 @@
 
-#' Reversed Weibull Distribution
+#' Reverse Weibull Distribution
 #' 
 #' The Reverse Weibull distribution, also known as the Type III extreme 
 #' value distribution, is the distribution of the negative of a 
@@ -21,21 +21,22 @@
 #' three-parameter distribution used in survival analysis, which is related by
 #' a change of sign to the distribution given above.
 #' 
-#' @name dpqr-rweibull
-#' @aliases drweibull prweibull qrweibull rrweibull dnweibull pnweibull qnweibull rnweibull
+#' @name dpqr-revweibull
+#' @aliases drevweibull prevweibull qrevweibull rrevweibull dnweibull pnweibull qnweibull rnweibull
 #' 
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
 #' @param n number of observations.
 #' @param loc,scale,shape location, scale and shape parameters (can be given as
 #' vectors).
-#' @param log logical; if `TRUE`, the log density is returned.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
 #' @param lower.tail logical; if `TRUE` (default), probabilities are 
 #' \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.
-#' @return `drweibull()` and `dnweibull()` give the density
-#' function, `prweibull()` and `pnweibull()` give the distribution
-#' function, `qrweibull()` and `qnweibull()` give the quantile
-#' function, `rrweibull()` and `rnweibull()` generate random
+#' @return `drevweibull()` and `dnweibull()` give the density
+#' function, `prevweibull()` and `pnweibull()` give the distribution
+#' function, `qrevweibull()` and `qnweibull()` give the quantile
+#' function, `rrevweibull()` and `rnweibull()` generate random
 #' deviates.
 #' @seealso [distributions-overview]
 #' 
@@ -48,21 +49,22 @@
 #' 
 #' @examples
 #' 
-#' drweibull(-5:-3, -1, 0.5, 0.8)
-#' prweibull(-5:-3, -1, 0.5, 0.8)
-#' qrweibull(seq(0.9, 0.6, -0.1), 2, 0.5, 0.8)
-#' rrweibull(6, -1, 0.5, 0.8)
+#' drevweibull(-5:-3, -1, 0.5, 0.8)
+#' prevweibull(-5:-3, -1, 0.5, 0.8)
+#' qrevweibull(seq(0.9, 0.6, -0.1), 2, 0.5, 0.8)
+#' rrevweibull(6, -1, 0.5, 0.8)
 #' p <- (1:9)/10
-#' prweibull(qrweibull(p, -1, 2, 0.8), -1, 2, 0.8)
+#' prevweibull(qrevweibull(p, -1, 2, 0.8), -1, 2, 0.8)
 #' ## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 #' 
 
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-drweibull <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
+drevweibull <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
   {
-    if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     x <- (x - loc)/scale
     xneg <- x[x<0 | is.na(x)]
     nn <- length(x)
@@ -78,33 +80,36 @@ drweibull <- function(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
 
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-prweibull <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+prevweibull <- function(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE,
+                        log.p = FALSE)
   {
-    if(min(scale) <= 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     q <- pmin((q - loc)/scale,0)
     p <- exp(-(-q)^shape)
     if(!lower.tail) p <- 1 - p
-    p
+    if(log.p) log(p) else p
   }
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-qrweibull <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qrevweibull <- function(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE,
+                        log.p = FALSE)
   {
-    if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
-      stop("`p' must contain probabilities in (0,1)")
-    if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
-    if(!lower.tail) p <- 1 - p
+    .assertPositive(scale)
+    .assertPositive(shape)
+    p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
     loc - scale * (-log(p))^(1/shape)
   }
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-rrweibull <- function(n, loc = 0, scale = 1, shape = 1)
+rrevweibull <- function(n, loc = 0, scale = 1, shape = 1)
   {
-    if(min(scale) < 0 || min(shape) <= 0) stop("invalid arguments")
+    .assertPositive(scale)
+    .assertPositive(shape)
     loc - scale * rexp(n)^(1/shape)
   }
 
@@ -113,21 +118,21 @@ rrweibull <- function(n, loc = 0, scale = 1, shape = 1)
 # distribution (see Details) -- exported as plain synonyms, not separate
 # implementations.
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-dnweibull <- drweibull
+dnweibull <- drevweibull
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-pnweibull <- prweibull
+pnweibull <- prevweibull
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-qnweibull <- qrweibull
+qnweibull <- qrevweibull
 
-#' @rdname dpqr-rweibull
+#' @rdname dpqr-revweibull
 #' @export
-rnweibull <- rrweibull
+rnweibull <- rrevweibull
 
 
 

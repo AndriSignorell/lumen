@@ -29,7 +29,8 @@
 #' @param mlen the number of independent variables.
 #' @param largest logical; if `TRUE` (default) use maxima, otherwise
 #' minima.
-#' @param log logical; if `TRUE`, the log density is returned.
+#' @param log,log.p logical; if `TRUE`, probabilities `p` are given as
+#' `log(p)` and the density is returned on the log scale.
 #' @param lower.tail logical; if `TRUE` (default) probabilities are 
 #' \verb{P[X <= x]}, otherwise P\verb{[X > x]}.
 #' 
@@ -62,20 +63,23 @@
 #' 
 #' @rdname dpqr-extreme
 #' @export
-dextreme <- function(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
+dextreme <- function(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE,
+                     log = FALSE)
   {
     .checkOrderIndex(mlen)
     if(missing(dFun))
-      dFun <- get(paste("d", distn, sep=""), mode="function")
+      dFun <- get(paste0("d", distn), mode="function")
     if(missing(pFun))
-      pFun <- get(paste("p", distn, sep=""), mode="function")
+      pFun <- get(paste0("p", distn), mode="function")
     dens <- dFun(x, ..., log = TRUE)
-    distn <- pFun(x, ...)[!is.infinite(dens)]
-    if(!largest) distn <- 1 - distn
-    distn <- (mlen-1) * log(distn)
+    ok   <- !is.infinite(dens)
+    cdf  <- pFun(x, ...)[ok]
+    if(!largest) cdf <- 1 - cdf
+    # the exponent vanishes for mlen == 1, where log(cdf) may be -Inf
+    lcdf <- if(mlen == 1L) 0 else (mlen-1) * log(cdf)
     d <- numeric(length(x))
-    d[!is.infinite(dens)] <- log(mlen) + dens[!is.infinite(dens)] + distn
-    d[is.infinite(dens)] <- -Inf
+    d[ok]  <- log(mlen) + dens[ok] + lcdf
+    d[!ok] <- -Inf
     if(!log) d <- exp(d)
     d
   }
@@ -83,29 +87,29 @@ dextreme <- function(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE, log = 
 
 #' @rdname dpqr-extreme
 #' @export
-pextreme <- function(q, pFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+pextreme <- function(q, pFun, ..., distn, mlen = 1, largest = TRUE,
+                     lower.tail = TRUE, log.p = FALSE)
   {
     .checkOrderIndex(mlen)
     if(missing(pFun))
-      pFun <- get(paste("p", distn, sep=""), mode="function")
-    distn <- pFun(q, ...)
-    if(!largest) distn <- 1-distn
-    p <- distn^mlen
+      pFun <- get(paste0("p", distn), mode="function")
+    cdf <- pFun(q, ...)
+    if(!largest) cdf <- 1-cdf
+    p <- cdf^mlen
     if(largest != lower.tail) p <- 1 - p
-    p
+    if(log.p) log(p) else p
   }
 
 
 #' @rdname dpqr-extreme
 #' @export
-qextreme <- function(p, qFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+qextreme <- function(p, qFun, ..., distn, mlen = 1, largest = TRUE,
+                     lower.tail = TRUE, log.p = FALSE)
   {
-    if(min(p, na.rm = TRUE) <= 0 || max(p, na.rm = TRUE) >=1)
-      stop("`p' must contain probabilities in (0,1)")
     .checkOrderIndex(mlen)
     if(missing(qFun))
-      qFun <- get(paste("q", distn, sep=""), mode="function")
-    if(!lower.tail) p <- 1 - p
+      qFun <- get(paste0("q", distn), mode="function")
+    p <- .qProb(p, lower.tail = lower.tail, log.p = log.p)
     if(largest) 
       qFun(p^(1/mlen), ...)
     else
@@ -119,7 +123,7 @@ rextreme <- function(n, qFun, ..., distn, mlen = 1, largest = TRUE)
   {
     .checkOrderIndex(mlen)
     if(missing(qFun))
-      qFun <- get(paste("q", distn, sep=""), mode="function")
+      qFun <- get(paste0("q", distn), mode="function")
     if(largest)
       qFun(rbeta(n, mlen, 1), ...)
     else

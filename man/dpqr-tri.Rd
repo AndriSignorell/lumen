@@ -9,11 +9,11 @@
 \alias{rtri}
 \title{Triangular Distribution}
 \usage{
-dtri(x, min = 0, max = 1, mode = 1/2)
+dtri(x, min = 0, max = 1, mode = 1/2, log = FALSE)
 
-ptri(q, min = 0, max = 1, mode = 1/2)
+ptri(q, min = 0, max = 1, mode = 1/2, lower.tail = TRUE, log.p = FALSE)
 
-qtri(p, min = 0, max = 1, mode = 1/2)
+qtri(p, min = 0, max = 1, mode = 1/2, lower.tail = TRUE, log.p = FALSE)
 
 rtri(n, min = 0, max = 1, mode = 1/2)
 }
@@ -27,9 +27,15 @@ variable.  The default value is \code{min=0}.}
 value is \code{max=1}.}
 
 \item{mode}{vector of modes of the random variable.  The default value is
-\code{mode=1/2}.}
+\code{mode=1/2}.  The parameters must satisfy \eqn{min < mode < max}.}
+
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{q}{vector of quantiles.  Missing values (\code{NA}s) are allowed.}
+
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
+\verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}
 
 \item{p}{vector of probabilities between 0 and 1.  Missing values
 (\code{NA}s) are allowed.}
@@ -41,9 +47,6 @@ value is \code{max=1}.}
 \code{dtri()} gives the density, \code{ptri()} gives the
 distribution function, \code{qtri()} gives the quantile function, and
 \code{rtri()} generates random deviates.
-
-The triangular distribution is sometimes used as an input distribution in
-probability risk assessment.
 }
 \description{
 The triangular distribution is a continuous distribution with a lower
@@ -89,7 +92,10 @@ probability density function. The average of two independent identically
 distributed uniform random variables with parameters \verb{min=}\eqn{\alpha}
 and \verb{max=}\eqn{\beta} has a triangular distribution with parameters
 \verb{min=}\eqn{\alpha}, \verb{max=}\eqn{\beta}, and
-\verb{mode=}\eqn{(\beta-\alpha)/2}.
+\verb{mode=}\eqn{(\alpha+\beta)/2}.
+
+The triangular distribution is sometimes used as an input distribution in
+probability risk assessment.
 }
 \note{
 Based on code by Steven P. Millard previously published in

@@ -10,9 +10,9 @@
 \usage{
 dfrechet(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
-pfrechet(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+pfrechet(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE, log.p = FALSE)
 
-qfrechet(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qfrechet(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE, log.p = FALSE)
 
 rfrechet(n, loc = 0, scale = 1, shape = 1)
 }
@@ -22,7 +22,8 @@ rfrechet(n, loc = 0, scale = 1, shape = 1)
 \item{loc, scale, shape}{location, scale and shape parameters (can be given as
 vectors).}
 
-\item{log}{logical; if \code{TRUE}, the log density is returned.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities \code{p} are given as
+\code{log(p)} and the density is returned on the log scale.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are
 \verb{P[X <= x]}, otherwise, P\verb{[X > x]}.}

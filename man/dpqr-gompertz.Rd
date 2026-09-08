@@ -59,7 +59,11 @@ The probability distribution function is
 Thus if \eqn{a} is negative, letting \eqn{x} tend to infinity shows that
 there is a non-zero probability \eqn{1 - \exp(b/a)}{1 - exp(b/a)} of living
 forever.  On these occasions \code{qgompertz()} and \code{rgompertz()} will
-return \code{Inf}.
+return \code{Inf}, and \code{pgompertz()} approaches
+\eqn{1 - \exp(b/a)}{1 - exp(b/a)} rather than one.
+
+A non-positive \code{rate} gives \code{NaN} with a warning, as in the base R
+distribution functions.
 
 \strong{Note:} Some implementations of the Gompertz restrict \eqn{a} to be strictly
 positive, which ensures that the probability of survival decreases to zero
@@ -76,6 +80,23 @@ is consistent with the exponential \code{\link[=dexp]{dexp()}} and Weibull
 \note{
 Based on code by Christopher Jackson previously published in
 the \pkg{flexsurv} package, adapted to conform to package standards.
+}
+\examples{
+
+dgompertz(1:3, shape = 0.1, rate = 0.2)
+pgompertz(1:3, shape = 0.1, rate = 0.2)
+qgompertz(seq(0.9, 0.6, -0.1), shape = 0.1, rate = 0.2)
+rgompertz(6, shape = 0.1, rate = 0.2)
+
+## for shape = 0 the Gompertz reduces to the exponential distribution
+all.equal(pgompertz(1:3, shape = 0, rate = 0.2), pexp(1:3, rate = 0.2))
+
+## a negative shape leaves a non-zero probability of living forever,
+## for which the quantile function returns Inf
+qgompertz(0.9, shape = -0.5, rate = 0.2)
+
+mgompertz(shape = 0.1, rate = 0.2)
+ 
 }
 \references{
 Gompertz, B. (1825) On the nature of the function expressive of the law

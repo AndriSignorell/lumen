@@ -113,9 +113,9 @@
 #' breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
 #'
 #' ## transformed terms and an explicit ordering variable
-#' d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+#' d <- data.frame(y = as.vector(y2), x = x, z = rnorm(100), tt = sample(100),
 #'                 grp = rep(c("A", "B"), each = 50))
-#' breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
+#' breuschGodfreyTest(y ~ x + I(z^2), data = d, orderBy = ~ tt)
 #'
 #' ## subset and orderBy combined: tt is given at the length of d and is
 #' ## reduced to the rows the model frame kept
@@ -142,7 +142,8 @@ breuschGodfreyTest <- function(formula, data = list(), order = 1,
   if (length(nLags) != 1L || is.na(nLags) || nLags < 1L)
     stop("'order' must be a single positive integer", call. = FALSE)
 
-  if (length(fill) != 1L || !(is.numeric(fill) || is.na(fill)))
+  if (length(fill) != 1L ||
+      !(is.numeric(fill) || (is.logical(fill) && is.na(fill))))
     stop("'fill' must be a single numeric value or NA", call. = FALSE)
 
   # ── Response and design matrix ────────────────────────────────────────────
@@ -202,7 +203,14 @@ breuschGodfreyTest <- function(formula, data = list(), order = 1,
     stop("'order' must be smaller than the number of observations",
          call. = FALSE)
 
-  resi <- lm.fit(X, y)$residuals
+  fit <- lm.fit(X, y)
+
+  # a defect of the model itself, reported here rather than as a rank
+  # deficiency of the auxiliary regression below
+  if (fit$rank < k)
+    stop("the model matrix is rank deficient", call. = FALSE)
+
+  resi <- fit$residuals
   lags <- seq_len(nLags)
 
   Z <- vapply(lags, function(i) c(rep(fill, i), resi[seq_len(n - i)]),

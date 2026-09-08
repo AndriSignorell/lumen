@@ -37,6 +37,12 @@ test_that("dgev log=TRUE", {
 
 test_that("dgev: invalid scale throws error", {
   expect_error(dgev(1, scale = -1))
+  expect_error(dgev(1, scale = 0))
+})
+
+test_that("qgev and rgev reject a zero scale as d and p do", {
+  expect_error(qgev(0.5, scale = 0))
+  expect_error(rgev(5, scale = 0))
 })
 
 # --- pgev ---
@@ -75,9 +81,29 @@ test_that("pgev(qgev(p)) roundtrip shape=0", {
   expect_equal(pgev(qgev(p, 1, 2, 0), 1, 2, 0), p, tolerance = tol)
 })
 
-test_that("qgev: invalid p throws error", {
-  expect_error(qgev(0))
-  expect_error(qgev(1))
+test_that("qgev: p = 0 and p = 1 give the end points of the support", {
+  # shape = 0: support is the whole real line
+  expect_equal(qgev(c(0, 1)), c(-Inf, Inf))
+  # shape > 0: bounded below by loc - scale/shape
+  expect_equal(qgev(c(0, 1), shape = 0.5), c(-2, Inf))
+  # shape < 0: bounded above by loc - scale/shape
+  expect_equal(qgev(c(0, 1), shape = -0.5), c(-Inf, 2))
+})
+
+test_that("qgev: p outside [0,1] gives NaN with a warning", {
+  expect_warning(res <- qgev(c(-0.1, 1.1)), "NaN")
+  expect_true(all(is.nan(res)))
+})
+
+test_that("qgev: log.p and lower.tail", {
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qgev(log(p), 1, 2, 0.8, log.p = TRUE), qgev(p, 1, 2, 0.8))
+  expect_equal(qgev(p, 1, 2, 0.8, lower.tail = FALSE), qgev(1 - p, 1, 2, 0.8))
+})
+
+test_that("pgev: log.p returns the log of the CDF", {
+  q <- c(0, 1, 2)
+  expect_equal(pgev(q, shape = 0.5, log.p = TRUE), log(pgev(q, shape = 0.5)))
 })
 
 

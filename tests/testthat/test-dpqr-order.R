@@ -57,6 +57,36 @@ test_that("porder largest=FALSE: CDF of minimum", {
                1 - (1 - pnorm(q))^3, tolerance = tol)
 })
 
+test_that("dorder: finite at the ends of a bounded support", {
+  # the vanishing exponents once met log(0), giving NaN
+  expect_equal(dorder(c(0, 0.5, 1), distn = "unif", mlen = 2, j = 1),
+               c(0, 1, 2))
+  expect_equal(dorder(c(0, 0.5, 1), distn = "unif", mlen = 2, j = 2),
+               c(2, 1, 0))
+})
+
+test_that("porder: finite at the ends of a bounded support", {
+  expect_equal(porder(c(0, 0.5, 1), distn = "unif", mlen = 2, j = 1),
+               c(0, 0.25, 1))
+  # the 2nd smallest of 3 is below the median iff at least two draws are
+  expect_equal(porder(c(0, 0.5, 1), distn = "unif", mlen = 3, j = 2,
+                      largest = FALSE),
+               c(0, 0.5, 1))
+})
+
+test_that("porder: log.p returns the log of the CDF", {
+  q <- c(-1, 0, 1)
+  expect_equal(porder(q, distn = "norm", mlen = 5, j = 3, log.p = TRUE),
+               log(porder(q, distn = "norm", mlen = 5, j = 3)))
+})
+
+test_that("dorder j = 1, largest = FALSE: density of the minimum", {
+  # mlen * f(x) * (1 - F(x))^(mlen - 1)
+  x <- c(-1, 0, 1)
+  expect_equal(dorder(x, distn = "norm", mlen = 3, j = 1, largest = FALSE),
+               3 * dnorm(x) * (1 - pnorm(x))^2, tolerance = tol)
+})
+
 # --- rorder ---
 
 test_that("rorder: returns correct length", {

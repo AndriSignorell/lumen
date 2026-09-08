@@ -60,7 +60,7 @@ pgompertz_cpp <- function(q, shape, rate, lower_tail, give_log) {
     .Call(`_lumen_pgompertz_cpp`, q, shape, rate, lower_tail, give_log)
 }
 
-check.gompertz <- function(shape, rate) {
+checkGompertz_cpp <- function(shape, rate) {
     .Call(`_lumen_check_gompertz_cpp`, shape, rate)
 }
 
