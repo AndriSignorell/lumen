@@ -9,11 +9,11 @@ likely value of a quantity are known.
 ## Usage
 
 ``` r
-dtri(x, min = 0, max = 1, mode = 1/2)
+dtri(x, min = 0, max = 1, mode = 1/2, log = FALSE)
 
-ptri(q, min = 0, max = 1, mode = 1/2)
+ptri(q, min = 0, max = 1, mode = 1/2, lower.tail = TRUE, log.p = FALSE)
 
-qtri(p, min = 0, max = 1, mode = 1/2)
+qtri(p, min = 0, max = 1, mode = 1/2, lower.tail = TRUE, log.p = FALSE)
 
 rtri(n, min = 0, max = 1, mode = 1/2)
 ```
@@ -37,11 +37,21 @@ rtri(n, min = 0, max = 1, mode = 1/2)
 - mode:
 
   vector of modes of the random variable. The default value is
-  `mode=1/2`.
+  `mode=1/2`. The parameters must satisfy \\min \< mode \< max\\.
+
+- log, log.p:
+
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - q:
 
   vector of quantiles. Missing values (`NA`s) are allowed.
+
+- lower.tail:
+
+  logical; if `TRUE` (default), probabilities are `P[X <= x]`,
+  otherwise, P`[X > x]`.
 
 - p:
 
@@ -58,9 +68,6 @@ rtri(n, min = 0, max = 1, mode = 1/2)
 `dtri()` gives the density, `ptri()` gives the distribution function,
 `qtri()` gives the quantile function, and `rtri()` generates random
 deviates.
-
-The triangular distribution is sometimes used as an input distribution
-in probability risk assessment.
 
 ## Details
 
@@ -113,7 +120,10 @@ The triangular distribution is so named because of the shape of its
 probability density function. The average of two independent identically
 distributed uniform random variables with parameters `min=`\\\alpha\\
 and `max=`\\\beta\\ has a triangular distribution with parameters
-`min=`\\\alpha\\, `max=`\\\beta\\, and `mode=`\\(\beta-\alpha)/2\\.
+`min=`\\\alpha\\, `max=`\\\beta\\, and `mode=`\\(\alpha+\beta)/2\\.
+
+The triangular distribution is sometimes used as an input distribution
+in probability risk assessment.
 
 ## Note
 

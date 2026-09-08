@@ -19,7 +19,7 @@ characterized by an exponentially increasing hazard rate."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.947</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,10 @@ $$F(x | a, b) = 1 - \exp(-b/a (e^{ax} - 1))$$</p>
 <p>Thus if \(a\) is negative, letting \(x\) tend to infinity shows that
 there is a non-zero probability \(1 - \exp(b/a)\) of living
 forever.  On these occasions <code>qgompertz()</code> and <code>rgompertz()</code> will
-return <code>Inf</code>.</p>
+return <code>Inf</code>, and <code>pgompertz()</code> approaches
+\(1 - \exp(b/a)\) rather than one.</p>
+<p>A non-positive <code>rate</code> gives <code>NaN</code> with a warning, as in the base R
+distribution functions.</p>
 <p><strong>Note:</strong> Some implementations of the Gompertz restrict \(a\) to be strictly
 positive, which ensures that the probability of survival decreases to zero
 as \(x\) increases to infinity.  The more flexible implementation given
@@ -144,6 +147,33 @@ and Epidemiological Tables</em>. Stata Press.</p>
     <div class="dont-index"><p><a href="distributions-overview.html">distributions-overview</a>; <code><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">dexp()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">dgompertz</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">0.1</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1791056 0.1568848 0.1341019</span>
+<span class="r-in"><span><span class="fu">pgompertz</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">0.1</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1896928 0.3577679 0.5032744</span>
+<span class="r-in"><span><span class="fu">qgompertz</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.6</span>, <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">0.1</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.660688 5.904049 4.712444 3.771653</span>
+<span class="r-in"><span><span class="fu">rgompertz</span><span class="op">(</span><span class="fl">6</span>, shape <span class="op">=</span> <span class="fl">0.1</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.32919735 0.03655073 9.11096610 4.91622943 1.51676067 5.19308535</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## for shape = 0 the Gompertz reduces to the exponential distribution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu">pgompertz</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">0</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">pexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## a negative shape leaves a non-zero probability of living forever,</span></span></span>
+<span class="r-in"><span><span class="co">## for which the quantile function returns Inf</span></span></span>
+<span class="r-in"><span><span class="fu">qgompertz</span><span class="op">(</span><span class="fl">0.9</span>, shape <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Inf</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="extreme-value-moments.html">mgompertz</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">0.1</span>, rate <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     mean variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.613286 8.024897 </span>
+<span class="r-in"><span> </span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

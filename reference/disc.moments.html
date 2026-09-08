@@ -15,7 +15,7 @@ their parameters."><meta property="og:image" content="/logo.png"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.947</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ their parameters.</p>
 <span></span>
 <span><span class="fu">mhyper</span><span class="op">(</span><span class="va">m</span>, <span class="va">n</span>, <span class="va">k</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">mbenford</span><span class="op">(</span>ndigits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">mbenford</span><span class="op">(</span>nDigits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -93,7 +93,7 @@ negative binomial).</p></dd>
 <dd><p>number of balls drawn (hypergeometric).</p></dd>
 
 
-<dt id="arg-ndigits">ndigits<a class="anchor" aria-label="anchor" href="#arg-ndigits"></a></dt>
+<dt id="arg-ndigits">nDigits<a class="anchor" aria-label="anchor" href="#arg-ndigits"></a></dt>
 <dd><p>number of leading digits for Benford's distribution,
 either <code>1</code> (default, support {1,...,9}) or <code>2</code>
 (support {10,...,99}).</p></dd>
@@ -110,8 +110,8 @@ either <code>1</code> (default, support {1,...,9}) or <code>2</code>
 <table class="table table"><tr><td><strong>Distribution<code>       </code> </strong></td><td><strong>Mean<code>                 </code> </strong></td><td><strong>Variance</strong></td></tr><tr><td>Binomial</td><td>\(np\)</td><td>\(np(1-p)\)</td></tr><tr><td>Poisson</td><td>\(\lambda\)</td><td>\(\lambda\)</td></tr><tr><td>Geometric</td><td>\(\frac{1-p}{p}\)</td><td>\(\frac{1-p}{p^2}\)</td></tr><tr><td>Negative binomial</td><td>\(\frac{r(1-p)}{p}\)</td><td>\(\frac{r(1-p)}{p^2}\)</td></tr><tr><td>Hypergeometric</td><td>\(\frac{km}{N}\)</td><td>\(\frac{km}{N}\frac{n}{N}\frac{N-k}{N-1}\)</td></tr><tr><td>Benford</td><td>\(\sum_d d\log_{10}\left(1 + \frac{1}{d}\right)\)</td><td>\(\sum_d d^2\log_{10}\left(1 + \frac{1}{d}\right) - \mu^2\)</td></tr></table><p>For the binomial distribution, \(n\) = <code>size</code>; for the negative
 binomial distribution, \(r\) = <code>size</code>; and for the hypergeometric
 distribution, \(N = m + n\). For Benford's distribution, the sum runs
-over \(d \in \{1,\ldots,9\}\) for <code>ndigits = 1</code> and
-\(d \in \{10,\ldots,99\}\) for <code>ndigits = 2</code>. As there is no
+over \(d \in \{1,\ldots,9\}\) for <code>nDigits = 1</code> and
+\(d \in \{10,\ldots,99\}\) for <code>nDigits = 2</code>. As there is no
 closed-form solution, the moments are computed numerically.</p>
     </div>
     <div class="section level2">
@@ -145,10 +145,10 @@ closed-form solution, the moments are computed numerically.</p>
 <span class="r-in"><span><span class="fu">mhyper</span><span class="op">(</span>m <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">5</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mean  variance </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.6666667 0.6984127 </span>
-<span class="r-in"><span><span class="fu">mbenford</span><span class="op">(</span>ndigits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mbenford</span><span class="op">(</span>nDigits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean variance </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.440237 6.056513 </span>
-<span class="r-in"><span><span class="fu">mbenford</span><span class="op">(</span>ndigits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mbenford</span><span class="op">(</span>nDigits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mean  variance </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  38.58976 621.83174 </span>
 <span class="r-in"><span></span></span>

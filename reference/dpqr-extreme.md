@@ -10,9 +10,27 @@ analytically from the underlying distribution function.
 ``` r
 dextreme(x, dFun, pFun, ..., distn, mlen = 1, largest = TRUE, log = FALSE)
 
-pextreme(q, pFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+pextreme(
+  q,
+  pFun,
+  ...,
+  distn,
+  mlen = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
-qextreme(p, qFun, ..., distn, mlen = 1, largest = TRUE, lower.tail = TRUE)
+qextreme(
+  p,
+  qFun,
+  ...,
+  distn,
+  mlen = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
 rextreme(n, qFun, ..., distn, mlen = 1, largest = TRUE)
 ```
@@ -48,9 +66,10 @@ rextreme(n, qFun, ..., distn, mlen = 1, largest = TRUE)
 
   logical; if `TRUE` (default) use maxima, otherwise minima.
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -102,7 +121,7 @@ pextreme(2:4, distn = "exp", rate = 1.2, mlen = 2)
 qextreme(seq(0.9, 0.6, -0.1), distn = "exp", rate = 1.2, mlen = 2)
 #> [1] 2.474783 1.873629 1.509935 1.241553
 rextreme(5, qgamma, shape = 1, mlen = 10)
-#> [1] 1.089317 2.953382 1.127408 2.007502 2.624579
+#> [1] 2.624579 4.592664 1.719339 1.870533 2.646311
 
 p <- (1:9)/10
 pexp(qextreme(p, distn = "exp", rate = 1.2, mlen = 1), rate = 1.2)

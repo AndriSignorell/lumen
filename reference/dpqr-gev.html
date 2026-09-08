@@ -19,7 +19,7 @@ by location, scale, and a shape parameter that determines which type applies."><
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.947</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,9 +59,9 @@ by location, scale, and a shape parameter that determines which type applies.</p
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dgev</span><span class="op">(</span><span class="va">x</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">pgev</span><span class="op">(</span><span class="va">q</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">pgev</span><span class="op">(</span><span class="va">q</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span>, log.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">qgev</span><span class="op">(</span><span class="va">p</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">qgev</span><span class="op">(</span><span class="va">p</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span>, log.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">rgev</span><span class="op">(</span><span class="va">n</span>, loc <span class="op">=</span> <span class="fl">0</span>, scale <span class="op">=</span> <span class="fl">1</span>, shape <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -79,8 +79,9 @@ by location, scale, and a shape parameter that determines which type applies.</p
 <code>shape</code> argument cannot be a vector (must have length one).</p></dd>
 
 
-<dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
-<dd><p>logical; if <code>TRUE</code>, the log density is returned.</p></dd>
+<dt id="arg-log-log-p">log, log.p<a class="anchor" aria-label="anchor" href="#arg-log-log-p"></a></dt>
+<dd><p>logical; if <code>TRUE</code>, probabilities <code>p</code> are given as
+<code>log(p)</code> and the density is returned on the log scale.</p></dd>
 
 
 <dt id="arg-lower-tail">lower.tail<a class="anchor" aria-label="anchor" href="#arg-lower-tail"></a></dt>
@@ -146,7 +147,7 @@ to data</p></div>
 <span class="r-in"><span><span class="fu">qgev</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.6</span>, <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.157141 3.449973 2.800811 2.444700</span>
 <span class="r-in"><span><span class="fu">rgev</span><span class="op">(</span><span class="fl">6</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9494715 0.8191944 3.4902610 0.9856113 0.7009025 1.2436763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.1900924 1.1968316 0.9958415 0.7560799 7.0426032 3.8921888</span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span><span class="op">/</span><span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="fu">pgev</span><span class="op">(</span><span class="fu">qgev</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">0.8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</span>

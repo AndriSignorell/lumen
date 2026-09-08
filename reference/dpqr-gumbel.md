@@ -11,9 +11,9 @@ value theory.
 ``` r
 dgumbel(x, loc = 0, scale = 1, log = FALSE)
 
-pgumbel(q, loc = 0, scale = 1, lower.tail = TRUE)
+pgumbel(q, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
 
-qgumbel(p, loc = 0, scale = 1, lower.tail = TRUE)
+qgumbel(p, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE)
 
 rgumbel(n, loc = 0, scale = 1)
 ```
@@ -28,9 +28,10 @@ rgumbel(n, loc = 0, scale = 1)
 
   location and scale parameters (can be given as vectors).
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -82,7 +83,7 @@ pgumbel(-1:2, -1, 0.5)
 qgumbel(seq(0.9, 0.6, -0.1), 2, 0.5)
 #> [1] 3.125184 2.749970 2.515465 2.335863
 rgumbel(6, -1, 0.5)
-#> [1] -0.33366250 -0.82888510 -1.00417239 -1.30921410  0.47954005  0.07979104
+#> [1] -1.093299 -1.017609 -1.609304 -1.179280 -1.258742 -1.460279
 p <- (1:9)/10
 pgumbel(qgumbel(p, -1, 2), -1, 2)
 #> [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9

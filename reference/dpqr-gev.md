@@ -11,9 +11,9 @@ applies.
 ``` r
 dgev(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
-pgev(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgev(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
-qgev(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgev(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
 rgev(n, loc = 0, scale = 1, shape = 0)
 ```
@@ -29,9 +29,10 @@ rgev(n, loc = 0, scale = 1, shape = 0)
   location, scale and shape parameters; the `shape` argument cannot be a
   vector (must have length one).
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -98,7 +99,7 @@ pgev(2:4, 1, 0.5, 0.8)
 qgev(seq(0.9, 0.6, -0.1), 2, 0.5, 0.8)
 #> [1] 5.157141 3.449973 2.800811 2.444700
 rgev(6, 1, 0.5, 0.8)
-#> [1] 0.9494715 0.8191944 3.4902610 0.9856113 0.7009025 1.2436763
+#> [1] 2.1900924 1.1968316 0.9958415 0.7560799 7.0426032 3.8921888
 p <- (1:9)/10
 pgev(qgev(p, 1, 2, 0.8), 1, 2, 0.8)
 #> [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9

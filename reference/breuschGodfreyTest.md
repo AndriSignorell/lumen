@@ -230,10 +230,15 @@ breuschGodfreyTest(y2 ~ x, order = 4, fill = NA)
 #> 
 
 ## transformed terms and an explicit ordering variable
-d <- data.frame(y = as.vector(y2), x = x, tt = sample(100),
+d <- data.frame(y = as.vector(y2), x = x, z = rnorm(100), tt = sample(100),
                 grp = rep(c("A", "B"), each = 50))
-breuschGodfreyTest(y ~ x + I(x^2), data = d, orderBy = ~ tt)
-#> Error: the auxiliary regression is rank deficient
+breuschGodfreyTest(y ~ x + I(z^2), data = d, orderBy = ~ tt)
+#> 
+#>  Breusch-Godfrey test for serial correlation of order up to 1
+#> 
+#> data:  y ~ x + I(z^2)
+#> LM test = 1.5791, df = 1, p-value = 0.2089
+#> 
 
 ## subset and orderBy combined: tt is given at the length of d and is
 ## reduced to the rows the model frame kept
@@ -242,7 +247,7 @@ breuschGodfreyTest(y ~ x, data = d, subset = grp == "A", orderBy = ~ tt)
 #>  Breusch-Godfrey test for serial correlation of order up to 1
 #> 
 #> data:  y ~ x
-#> LM test = 2.2103, df = 1, p-value = 0.1371
+#> LM test = 0.83472, df = 1, p-value = 0.3609
 #> 
 
 ## the test can also be applied to a fitted model

@@ -6,13 +6,13 @@ their parameters.
 ## Usage
 
 ``` r
-mnorm(mean, sd)
+mnorm(mean = 0, sd = 1)
 
-mexp(rate)
+mexp(rate = 1)
 
-mgamma(shape, rate)
+mgamma(shape, rate = 1)
 
-mlnorm(meanlog, sdlog)
+mlnorm(meanlog = 0, sdlog = 1)
 
 mbeta(shape1, shape2)
 

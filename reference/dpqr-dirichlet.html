@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.944</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.947</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
 <span></span>
 <span><span class="fu">rdirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="va">concentration</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">qdirichlet</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">qdirichlet</span><span class="op">(</span><span class="va">p</span>, <span class="va">concentration</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -78,11 +78,21 @@
 
 
 <dt id="arg-r">R<a class="anchor" aria-label="anchor" href="#arg-r"></a></dt>
-<dd><p>number of Monte Carlo simulations used to approximate the CDF.</p></dd>
+<dd><p>number of Monte Carlo simulations used to approximate the CDF.
+Must be at most <code>.Machine$integer.max</code>.</p></dd>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
 <dd><p>number of samples.</p></dd>
+
+
+<dt id="arg-p">p<a class="anchor" aria-label="anchor" href="#arg-p"></a></dt>
+<dd><p>numeric vector of probabilities; accepted by <code>qdirichlet()</code>
+only to give a meaningful error, see below.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>further arguments, accepted by <code>qdirichlet()</code> and ignored.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,13 +101,25 @@
 row of <code>x</code>), <code>pdirichlet()</code> gives an approximate probability,
 and <code>rdirichlet()</code> generates a matrix with <code>n</code> rows of random
 deviates. <code>qdirichlet()</code> only signals an error, as no unique
-multivariate quantile function exists.</p>
+multivariate quantile function exists; it takes the same arguments as
+the others so that the message is reached rather than an argument
+mismatch.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The Dirichlet distribution is a multivariate generalization of the Beta
 distribution defined on the simplex:
 $$\sum_{i=1}^k x_i = 1, \quad x_i \ge 0$$</p>
+    </div>
+    <div class="section level2">
+    <h2 id="random-number-generation">Random number generation<a class="anchor" aria-label="anchor" href="#random-number-generation"></a></h2>
+
+
+<p><code>pdirichlet()</code> evaluates the CDF by simulation and is parallelised. Each
+range of draws runs its own generator, seeded from R's stream, so that
+<code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> governs the result; the seeding does depend on how the work
+is split, so reproducing a value also requires the same
+<code><a href="https://rdrr.io/pkg/RcppParallel/man/setThreadOptions.html" class="external-link">RcppParallel::setThreadOptions()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -111,12 +133,12 @@ $$\sum_{i=1}^k x_i = 1, \quad x_i \ge 0$$</p>
 <span class="r-in"><span><span class="fu">pdirichlet</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span><span class="fu">rdirichlet</span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]       [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.3098634 0.04969046 0.64044617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.3710099 0.27675250 0.35223762</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.6817090 0.01999573 0.29829523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.3373393 0.01923777 0.64342291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.1445963 0.85109235 0.00431132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]       [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.007664882 0.45423051 0.53810461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.406895342 0.57088656 0.02221810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.335196674 0.62893638 0.03586694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.417697775 0.08456334 0.49773888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.005668935 0.88696625 0.10736481</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -16,14 +16,14 @@ marks a combination with no function.
 | Gumbel | [dpqr-gumbel](dpqr-gumbel.md) | [`mgumbel()`](extreme-value-moments.md) |
 | Gumbel, maximum of two ` ` | [dpqr-gumbelx](dpqr-gumbelx.md) | `-` |
 | Fréchet | [dpqr-frechet](dpqr-frechet.md) | [`mfrechet()`](extreme-value-moments.md) |
-| Reversed Weibull | [dpqr-rweibull](dpqr-rweibull.md) | [`mrweibull()`](extreme-value-moments.md) |
-| Reverse Gumbel | [dpqr-RevGumbel](dpqr-RevGumbel.md) ` ` | `-` |
+| Reverse Weibull | [dpqr-revweibull](dpqr-revweibull.md) | [`mrevweibull()`](extreme-value-moments.md) |
+| Reverse Gumbel | [dpqr-revgumbel](dpqr-RevGumbel.md) ` ` | [`mrevgumbel()`](extreme-value-moments.md) |
 | Order statistics | [dpqr-order](dpqr-order.md) | `-` |
 
 Order statistics have no quantile function (`qorder()` does not exist).
-[`qRevGumbelExp()`](dpqr-RevGumbel.md) is a specialized quantile for the
+[`qrevgumbelExp()`](dpqr-RevGumbel.md) is a specialized quantile for the
 exponential parametrization of the reverse Gumbel distribution, not a
-general-purpose `q` slot – use [`qRevGumbel()`](dpqr-RevGumbel.md) for
+general-purpose `q` slot – use [`qrevgumbel()`](dpqr-RevGumbel.md) for
 that.
 
 ## Other distributions

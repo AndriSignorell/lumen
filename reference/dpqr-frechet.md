@@ -10,9 +10,9 @@ a heavy right tail, and is parameterized by location, scale, and shape.
 ``` r
 dfrechet(x, loc = 0, scale = 1, shape = 1, log = FALSE)
 
-pfrechet(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+pfrechet(q, loc = 0, scale = 1, shape = 1, lower.tail = TRUE, log.p = FALSE)
 
-qfrechet(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE)
+qfrechet(p, loc = 0, scale = 1, shape = 1, lower.tail = TRUE, log.p = FALSE)
 
 rfrechet(n, loc = 0, scale = 1, shape = 1)
 ```
@@ -27,9 +27,10 @@ rfrechet(n, loc = 0, scale = 1, shape = 1)
 
   location, scale and shape parameters (can be given as vectors).
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -81,7 +82,7 @@ pfrechet(2:4, 1, 0.5, 0.8)
 qfrechet(seq(0.9, 0.6, -0.1), 2, 0.5, 0.8)
 #> [1] 10.329571  5.260165  3.813966  3.157788
 rfrechet(6, 1, 0.5, 0.8)
-#> [1] 1.147215 1.265835 1.955350 1.197307 1.533234 8.566491
+#> [1] 1.180762 1.836321 2.017466 9.541024 5.224901 1.860130
 p <- (1:9)/10
 pfrechet(qfrechet(p, 1, 2, 0.8), 1, 2, 0.8)
 #> [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9

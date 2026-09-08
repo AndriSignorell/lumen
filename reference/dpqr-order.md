@@ -10,7 +10,17 @@ using the beta distribution representation of order statistics.
 ``` r
 dorder(x, dFun, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, log = FALSE)
 
-porder(q, pFun, ..., distn, mlen = 1, j = 1, largest = TRUE, lower.tail = TRUE)
+porder(
+  q,
+  pFun,
+  ...,
+  distn,
+  mlen = 1,
+  j = 1,
+  largest = TRUE,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
 rorder(n, qFun, ..., distn, mlen = 1, j = 1, largest = TRUE)
 ```
@@ -52,9 +62,10 @@ rorder(n, qFun, ..., distn, mlen = 1, j = 1, largest = TRUE)
   logical; if `TRUE` (default) use the `j`th largest order statistic,
   otherwise use the `j`th smallest.
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -95,5 +106,5 @@ dorder(2:4, distn = "exp", mlen = 2, j = 2)
 porder(2:4, distn = "exp", rate = 1.2, mlen = 2, j = 2)
 #> [1] 0.9917703 0.9992534 0.9999323
 rorder(5, qgamma, shape = 1, mlen = 10, j = 2)
-#> [1] 3.1585386 2.0492856 0.7806257 1.8950382 2.8174036
+#> [1] 1.0699673 0.9894456 1.9396696 1.7528036 2.2440109
 ```

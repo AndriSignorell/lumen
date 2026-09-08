@@ -8,9 +8,11 @@ given their parameters.
 ``` r
 mgumbel(loc = 0, scale = 1)
 
+mrevgumbel(loc = 0, scale = 1)
+
 mfrechet(loc = 0, scale = 1, shape = 1)
 
-mrweibull(loc = 0, scale = 1, shape = 1)
+mrevweibull(loc = 0, scale = 1, shape = 1)
 
 mgev(loc = 0, scale = 1, shape = 0)
 
@@ -31,7 +33,7 @@ mgompertz(shape, rate = 1)
 
 - shape, rate:
 
-  vector of shape and rate parameters.
+  shape and rate parameters.
 
 ## Value
 
@@ -44,6 +46,7 @@ where moments do not exist.
 |----|----|----|
 | **Distribution** | **Mean** | **Variance** |
 | Gumbel | \\a + b\gamma\\ | \\\frac{\pi^2}{6}b^2\\ |
+| Reverse Gumbel | \\a - b\gamma\\ | \\\frac{\pi^2}{6}b^2\\ |
 | Fréchet | \\a + b\Gamma(1 - 1/s) \quad (s \> 1)\\ | \\b^2\left\[\Gamma(1 - 2/s) - \Gamma(1 - 1/s)^2\right\] \quad (s \> 2)\\ |
 | Reverse Weibull ` ` | \\a - b\Gamma(1 + 1/s)\\ | \\b^2\left\[\Gamma(1 + 2/s) - \Gamma(1 + 1/s)^2\right\]\\ |
 | GEV | \\a + b\frac{\Gamma(1-s)-1}{s} \quad (s \ne 0,\\ s \< 1)\\ ` ` | \\b^2\frac{\Gamma(1-2s)-\Gamma(1-s)^2}{s^2} \quad (s \ne 0,\\ s \< 1/2)\\ |
@@ -52,7 +55,7 @@ where moments do not exist.
 |  | \\1/\beta\\ for \\\alpha = 0\\; | \\1/\beta^2\\ for \\\alpha = 0\\; |
 |  | `NA` for \\\alpha \< 0\\ | dito |
 
-For the first five distributions, \\a\\ = `loc`, \\b\\ = `scale`, and
+For the first six distributions, \\a\\ = `loc`, \\b\\ = `scale`, and
 \\s\\ = `shape`. For the GEV with \\s = 0\\, the Gumbel moments apply.
 Furthermore, \\\gamma \approx 0.5772\\ is the Euler-Mascheroni constant.
 For the Gompertz distribution, \\\alpha\\ = `shape` and \\\beta\\ =
@@ -69,9 +72,9 @@ Imperial College Press.
 
 ## See also
 
-[`dgumbel()`](dpqr-gumbel.md), [`dfrechet()`](dpqr-frechet.md),
-[`drweibull()`](dpqr-rweibull.md), [`dgev()`](dpqr-gev.md),
-[`dgpd()`](dpqr-gpd.md),
+[`dgumbel()`](dpqr-gumbel.md), [`drevgumbel()`](dpqr-RevGumbel.md),
+[`dfrechet()`](dpqr-frechet.md), [`drevweibull()`](dpqr-revweibull.md),
+[`dgev()`](dpqr-gev.md), [`dgpd()`](dpqr-gpd.md),
 [distributions-overview](distributions-overview.md)
 
 ## Examples
@@ -80,10 +83,13 @@ Imperial College Press.
 mgumbel(loc = 0, scale = 1)
 #>      mean  variance 
 #> 0.5772157 1.6449341 
+mrevgumbel(loc = 0, scale = 1)
+#>       mean   variance 
+#> -0.5772157  1.6449341 
 mfrechet(loc = 0, scale = 1, shape = 3)
 #>      mean  variance 
 #> 1.3541179 0.8453031 
-mrweibull(loc = 0, scale = 1, shape = 2)
+mrevweibull(loc = 0, scale = 1, shape = 2)
 #>       mean   variance 
 #> -0.8862269  0.2146018 
 mgev(loc = 0, scale = 1, shape = 0)

@@ -405,8 +405,9 @@ compositions.
   [`mhyper()`](disc.moments.md) [`mbenford()`](disc.moments.md) : Mean
   and Variance of Discrete Distributions
 - [`mgumbel()`](extreme-value-moments.md)
+  [`mrevgumbel()`](extreme-value-moments.md)
   [`mfrechet()`](extreme-value-moments.md)
-  [`mrweibull()`](extreme-value-moments.md)
+  [`mrevweibull()`](extreme-value-moments.md)
   [`mgev()`](extreme-value-moments.md)
   [`mgpd()`](extreme-value-moments.md)
   [`mgompertz()`](extreme-value-moments.md) : Mean and Variance of
@@ -442,16 +443,19 @@ compositions.
 - [`dgumbelx()`](dpqr-gumbelx.md) [`pgumbelx()`](dpqr-gumbelx.md)
   [`qgumbelx()`](dpqr-gumbelx.md) [`rgumbelx()`](dpqr-gumbelx.md) :
   Maxima of Two Gumbel Distributions
-- [`dRevGumbel()`](dpqr-RevGumbel.md)
-  [`pRevGumbel()`](dpqr-RevGumbel.md)
-  [`qRevGumbel()`](dpqr-RevGumbel.md)
-  [`rRevGumbel()`](dpqr-RevGumbel.md)
-  [`qRevGumbelExp()`](dpqr-RevGumbel.md) : Reverse Gumbel Distribution
-- [`drweibull()`](dpqr-rweibull.md) [`prweibull()`](dpqr-rweibull.md)
-  [`qrweibull()`](dpqr-rweibull.md) [`rrweibull()`](dpqr-rweibull.md)
-  [`dnweibull()`](dpqr-rweibull.md) [`pnweibull()`](dpqr-rweibull.md)
-  [`qnweibull()`](dpqr-rweibull.md) [`rnweibull()`](dpqr-rweibull.md) :
-  Reversed Weibull Distribution
+- [`drevgumbel()`](dpqr-RevGumbel.md)
+  [`prevgumbel()`](dpqr-RevGumbel.md)
+  [`qrevgumbel()`](dpqr-RevGumbel.md)
+  [`rrevgumbel()`](dpqr-RevGumbel.md)
+  [`qrevgumbelExp()`](dpqr-RevGumbel.md) : Reverse Gumbel Distribution
+- [`drevweibull()`](dpqr-revweibull.md)
+  [`prevweibull()`](dpqr-revweibull.md)
+  [`qrevweibull()`](dpqr-revweibull.md)
+  [`rrevweibull()`](dpqr-revweibull.md)
+  [`dnweibull()`](dpqr-revweibull.md)
+  [`pnweibull()`](dpqr-revweibull.md)
+  [`qnweibull()`](dpqr-revweibull.md)
+  [`rnweibull()`](dpqr-revweibull.md) : Reverse Weibull Distribution
 - [`dorder()`](dpqr-order.md) [`porder()`](dpqr-order.md)
   [`rorder()`](dpqr-order.md) : Distributions of Order Statistics
 - [`pAD()`](pAD.md) [`qAD()`](pAD.md) : Null Distribution of

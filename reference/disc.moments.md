@@ -16,7 +16,7 @@ mnbinom(size, prob)
 
 mhyper(m, n, k)
 
-mbenford(ndigits = 1)
+mbenford(nDigits = 1)
 ```
 
 ## Arguments
@@ -46,7 +46,7 @@ mbenford(ndigits = 1)
 
   number of balls drawn (hypergeometric).
 
-- ndigits:
+- nDigits:
 
   number of leading digits for Benford's distribution, either `1`
   (default, support {1,...,9}) or `2` (support {10,...,99}).
@@ -70,8 +70,8 @@ A named numeric vector with elements `mean` and `variance`.
 For the binomial distribution, \\n\\ = `size`; for the negative binomial
 distribution, \\r\\ = `size`; and for the hypergeometric distribution,
 \\N = m + n\\. For Benford's distribution, the sum runs over \\d \in
-\\1,\ldots,9\\\\ for `ndigits = 1` and \\d \in \\10,\ldots,99\\\\ for
-`ndigits = 2`. As there is no closed-form solution, the moments are
+\\1,\ldots,9\\\\ for `nDigits = 1` and \\d \in \\10,\ldots,99\\\\ for
+`nDigits = 2`. As there is no closed-form solution, the moments are
 computed numerically.
 
 ## References
@@ -109,10 +109,10 @@ mnbinom(size = 5, prob = 0.3)
 mhyper(m = 10, n = 5, k = 4)
 #>      mean  variance 
 #> 2.6666667 0.6984127 
-mbenford(ndigits = 1)
+mbenford(nDigits = 1)
 #>     mean variance 
 #> 3.440237 6.056513 
-mbenford(ndigits = 2)
+mbenford(nDigits = 2)
 #>      mean  variance 
 #>  38.58976 621.83174 
 ```

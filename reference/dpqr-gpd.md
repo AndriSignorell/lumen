@@ -10,9 +10,9 @@ threshold excesses.
 ``` r
 dgpd(x, loc = 0, scale = 1, shape = 0, log = FALSE)
 
-pgpd(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+pgpd(q, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
-qgpd(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE)
+qgpd(p, loc = 0, scale = 1, shape = 0, lower.tail = TRUE, log.p = FALSE)
 
 rgpd(n, loc = 0, scale = 1, shape = 0)
 ```
@@ -28,9 +28,10 @@ rgpd(n, loc = 0, scale = 1, shape = 0)
   location, scale and shape parameters; the `shape` argument cannot be a
   vector (must have length one).
 
-- log:
+- log, log.p:
 
-  logical; if `TRUE`, the log density is returned.
+  logical; if `TRUE`, probabilities `p` are given as `log(p)` and the
+  density is returned on the log scale.
 
 - lower.tail:
 
@@ -89,7 +90,7 @@ pgpd(2:4, 1, 0.5, 0.8)
 qgpd(seq(0.9, 0.6, -0.1), 2, 0.5, 0.8)
 #> [1] 5.318483 3.639936 3.012506 2.675864
 rgpd(6, 1, 0.5, 0.8)
-#> [1] 1.134926 1.031631 1.094098 3.241592 1.327359 1.104716
+#> [1] 1.073178 1.729300 1.188356 2.335112 1.259598 1.012437
 p <- (1:9)/10
 pgpd(qgpd(p, 1, 2, 0.8), 1, 2, 0.8)
 #> [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
