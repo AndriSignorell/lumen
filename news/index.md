@@ -1,6 +1,6 @@
 # Changelog
 
-## lumen (development version)
+## lumen 0.0.0.948
 
 ### New features
 
