@@ -19,6 +19,7 @@ tinytex::install_tinytex()
   
 Rcpp::compileAttributes()
 devtools::clean_dll()
+
 devtools::document()
 devtools::load_all()
 devtools::check()
