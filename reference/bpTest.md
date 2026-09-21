@@ -3,9 +3,9 @@
 Tests the null hypothesis of homoscedasticity (constant error variance)
 against heteroscedasticity using the Koenker variant of the
 Breusch-Pagan test. The test statistic is \\BP = n \cdot R^2\\ from an
-auxiliary regression of squared residuals on fitted values,
-asymptotically distributed as \\\chi^2\\ with \\k\\ degrees of freedom,
-where \\k\\ is the number of predictors.
+auxiliary regression of squared residuals on the regressors of the
+model, asymptotically distributed as \\\chi^2\\ with \\k\\ degrees of
+freedom, where \\k\\ is the number of predictors.
 
 ## Usage
 

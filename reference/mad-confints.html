@@ -21,7 +21,7 @@ lambda distribution (GLD), and a parallel bootstrap interval."><meta property="o
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.949</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.950</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -215,10 +215,10 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-in"><span><span class="co"># single sample</span></span></span>
 <span class="r-in"><span><span class="fu">madCI</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.7075985 1.1453991 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.6762726 1.1767250 </span>
 <span class="r-in"><span><span class="fu">madCI</span><span class="op">(</span><span class="va">x</span>, sides <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.7427919       Inf </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.7165023       Inf </span>
 <span class="r-in"><span><span class="fu">madCI</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"bca"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.9264988 0.6922272 1.2100449 </span>
@@ -226,7 +226,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-in"><span><span class="co"># two-sample difference</span></span></span>
 <span class="r-in"><span><span class="fu">madDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.372101 -1.267849 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.428262 -1.211688 </span>
 <span class="r-in"><span><span class="fu">madDiffCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"perc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est       lci       uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.819975 -2.328010 -1.104668 </span>
@@ -234,7 +234,7 @@ intervals for median absolute deviations. <em>arXiv:1910.00229</em>
 <span class="r-in"><span><span class="co"># two-sample squared ratio</span></span></span>
 <span class="r-in"><span><span class="fu">madRatioCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.06247871 0.20727434 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.05797801 0.22336457 </span>
 <span class="r-in"><span><span class="fu">madRatioCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"boot"</span>, R <span class="op">=</span> <span class="fl">499</span>, type <span class="op">=</span> <span class="st">"bca"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci        uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.11379909 0.05335922 0.25521800 </span>

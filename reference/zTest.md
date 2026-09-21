@@ -202,7 +202,7 @@ zTest(extra ~ group, data=sleep, sd_pop=2)
 #> 
 #>  Two Sample z-test
 #> 
-#> data:  
+#> data:  extra ~ group
 #> z = -1.7665, Std. Dev. Population = 2, p-value = 0.07731
 #> alternative hypothesis: true difference in means is not equal to 0
 #> 95 percent confidence interval:

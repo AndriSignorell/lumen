@@ -170,10 +170,10 @@ y <- rlnorm(200, meanlog = 1.2)
 # single sample
 madCI(x)
 #>       est       lci       uci 
-#> 0.9264988 0.7075985 1.1453991 
+#> 0.9264988 0.6762726 1.1767250 
 madCI(x, sides = "left")
 #>       est       lci       uci 
-#> 0.9264988 0.7427919       Inf 
+#> 0.9264988 0.7165023       Inf 
 madCI(x, method = "boot", R = 499, type = "bca")
 #>       est       lci       uci 
 #> 0.9264988 0.6922272 1.2100449 
@@ -181,7 +181,7 @@ madCI(x, method = "boot", R = 499, type = "bca")
 # two-sample difference
 madDiffCI(x, y)
 #>       est       lci       uci 
-#> -1.819975 -2.372101 -1.267849 
+#> -1.819975 -2.428262 -1.211688 
 madDiffCI(x, y, method = "boot", R = 499, type = "perc")
 #>       est       lci       uci 
 #> -1.819975 -2.328010 -1.104668 
@@ -189,7 +189,7 @@ madDiffCI(x, y, method = "boot", R = 499, type = "perc")
 # two-sample squared ratio
 madRatioCI(x, y)
 #>        est        lci        uci 
-#> 0.11379909 0.06247871 0.20727434 
+#> 0.11379909 0.05797801 0.22336457 
 madRatioCI(x, y, method = "boot", R = 499, type = "bca")
 #>        est        lci        uci 
 #> 0.11379909 0.05335922 0.25521800 

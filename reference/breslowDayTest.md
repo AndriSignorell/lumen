@@ -178,6 +178,6 @@ breslowDayTest(salary, OR = 4.02)
 #>  Breslow-Day test for homogeneity of the odds ratios
 #> 
 #> data:  salary
-#> X-squared = 0.080143, df = 1, p-value = 0.7771
+#> X-squared = 0.080143, df = 2, p-value = 0.9607
 #> 
 ```

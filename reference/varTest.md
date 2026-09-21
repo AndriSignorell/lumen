@@ -213,7 +213,7 @@ varTest(value ~ group, data = df)
 #> 
 #>  Two-sample variance test (classic)
 #> 
-#> data:  
+#> data:  value ~ group
 #> F = 2.8526, df1 = 19, df2 = 24, p-value = 0.0165
 #> alternative hypothesis: two.sided
 #> sample estimates:

@@ -241,7 +241,7 @@ siegelTukeyTest(x ~ factor(id))
 #> 
 #>  Siegel-Tukey test for scale differences
 #> 
-#> data:  groups[[1L]] and groups[[2L]]
+#> data:  x ~ factor(id)
 #> W = 53.5, p-value = 0.8649
 #> alternative hypothesis: true mu is not equal to 0
 #> 

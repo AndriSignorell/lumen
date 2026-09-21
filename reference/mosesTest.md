@@ -234,7 +234,7 @@ mosesTest(score ~ group, data = df)
 #> 
 #>   Moses Test of Extreme Reactions 
 #> 
-#> data:  groups[[1L]] and groups[[2L]] 
+#> data:  score ~ group 
 #> n_control = 10,  n_experiment = 5
 #> 
 #>   Without trimming:                 span =   15,  p-value = 0.4285714

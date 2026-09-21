@@ -19,7 +19,7 @@ one."><meta property="og:image" content="/logo.png"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.949</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.950</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,8 +128,9 @@ requested level).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code>"exact"</code> method corresponds to the way the confidence interval for
-the median is calculated in SAS. <br> The boot confidence interval type is
+    <p>The <code>"exact"</code> method searches the order statistics near the binomial
+quantiles for the interval whose coverage is closest to, but not below,
+<code>conf.level</code>; the achieved coverage is reported. <br> The boot confidence interval type is
 calculated by means of <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code> with default type
 <code>"basic"</code>.</p>
     </div>
@@ -156,20 +157,20 @@ calculated by means of <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html"
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">quantileCI</span><span class="op">(</span><span class="va">x</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         est  lci  uci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0%   10.400   NA 10.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0%   10.400 -Inf 10.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25%  15.425 13.3 17.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50%  19.200 15.8 21.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 75%  22.800 21.0 30.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100% 33.900 30.4   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100% 33.900 30.4  Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.0000000 0.9555407 0.9649180 0.9555407 1.0000000</span>
 <span class="r-in"><span><span class="fu">quantileCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         est  lci  uci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0%   10.400   NA 10.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0%   10.400 -Inf 10.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25%  15.425 13.3 19.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50%  19.200 15.5 22.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 75%  22.800 19.2 30.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100% 33.900 30.4   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100% 33.900 30.4  Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.0000000 0.9912891 0.9929996 0.9912891 1.0000000</span>
 <span class="r-in"><span></span></span>

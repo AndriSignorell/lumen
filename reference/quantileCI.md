@@ -78,8 +78,9 @@ achieved coverage (which may differ from the requested level).
 
 ## Details
 
-The `"exact"` method corresponds to the way the confidence interval for
-the median is calculated in SAS.  
+The `"exact"` method searches the order statistics near the binomial
+quantiles for the interval whose coverage is closest to, but not below,
+`conf.level`; the achieved coverage is reported.  
 The boot confidence interval type is calculated by means of
 [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) with
 default type `"basic"`.
@@ -106,20 +107,20 @@ quantileCI(x, probs=0.25, na.rm=TRUE)
 
 quantileCI(x, na.rm=TRUE)
 #>         est  lci  uci
-#> 0%   10.400   NA 10.4
+#> 0%   10.400 -Inf 10.4
 #> 25%  15.425 13.3 17.8
 #> 50%  19.200 15.8 21.4
 #> 75%  22.800 21.0 30.4
-#> 100% 33.900 30.4   NA
+#> 100% 33.900 30.4  Inf
 #> attr(,"conf.level")
 #> [1] 1.0000000 0.9555407 0.9649180 0.9555407 1.0000000
 quantileCI(x, conf.level=0.99, na.rm=TRUE)
 #>         est  lci  uci
-#> 0%   10.400   NA 10.4
+#> 0%   10.400 -Inf 10.4
 #> 25%  15.425 13.3 19.2
 #> 50%  19.200 15.5 22.8
 #> 75%  22.800 19.2 30.4
-#> 100% 33.900 30.4   NA
+#> 100% 33.900 30.4  Inf
 #> attr(,"conf.level")
 #> [1] 1.0000000 0.9912891 0.9929996 0.9912891 1.0000000
 

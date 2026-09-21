@@ -116,5 +116,4 @@ powerChisqTest(effectSize=0.1, df=(5-1)*(6-1), power=0.80, sig.level=0.05)
 #> 
 #> NOTE: n is the number of observations
 #> 
-#' @family power
 ```

@@ -191,7 +191,7 @@ pageTest(x ~ group | block, data = plng)
 #> 
 #>  Page test for ordered alternatives (exact)
 #> 
-#> data:  
+#> data:  x ~ group | block
 #> L = 252, k = 4, n = 9, p-value = 0.0007053
 #> 
 

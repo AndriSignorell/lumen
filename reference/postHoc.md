@@ -24,7 +24,7 @@ postHocTest(
 postHocTest(
   x,
   method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
-  conf.level = 0.95,
+  conf.level = NA,
   ...
 )
 
@@ -32,7 +32,7 @@ postHocTest(
 postHocTest(
   x,
   method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
-  conf.level = 0.95,
+  conf.level = NA,
   ...
 )
 

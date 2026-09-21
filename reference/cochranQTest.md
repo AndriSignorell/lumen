@@ -182,7 +182,7 @@ cochranQTest(resp ~ time | id, data=d.long)
 #> 
 #>  Cochran's Q test (asymptotic)
 #> 
-#> data:  
+#> data:  resp ~ time | id
 #> Cochran's Q = 8.4706, df = 2, p-value = 0.01448
 #> 
 
