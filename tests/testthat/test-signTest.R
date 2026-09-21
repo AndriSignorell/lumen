@@ -162,3 +162,63 @@ test_that("signTest: the estimate is the median of x for mu = 0", {
   expect_equal(unname(res$estimate), median(c(1, 2, 3, 4, 5)),
                tolerance = 1e-10)
 })
+
+
+# -- added --------------------------------------------------------------------
+
+test_that("signTest: one-sided intervals are open on the far side", {
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30, 2.10, 0.95)
+  l <- signTest(x, mu = 1, alternative = "less")
+  g <- signTest(x, mu = 1, alternative = "greater")
+  expect_identical(unname(l$conf.int[1]), -Inf)
+  expect_true(is.finite(l$conf.int[2]))
+  expect_identical(unname(g$conf.int[2]), Inf)
+  expect_true(is.finite(g$conf.int[1]))
+  expect_equal(l$p.value,
+               binom.test(sum(x > 1), sum(x != 1), alternative = "less")$p.value)
+  expect_equal(g$p.value,
+               binom.test(sum(x > 1), sum(x != 1), alternative = "greater")$p.value)
+})
+
+test_that("signTest: interval is shifted with mu, not recentred", {
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30, 2.10, 0.95)
+  expect_equal(signTest(x, mu = 1)$conf.int, signTest(x, mu = 0)$conf.int)
+  expect_equal(unname(signTest(x, mu = 1)$estimate), median(x))
+})
+
+test_that("signTest: reported conf.level is the achieved coverage", {
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30, 2.10, 0.95)
+  cl <- attr(signTest(x)$conf.int, "conf.level")
+  expect_gte(cl, 0.95)
+  expect_equal(cl, round(cl, 3))
+})
+
+test_that("signTest: all differences zero warns and returns p = 1", {
+  expect_warning(r <- signTest(c(2, 2, 2), mu = 2), "exactly zero")
+  expect_equal(r$p.value, 1)
+  expect_warning(r <- signTest(1:4, 1:4), "exactly zero")
+  expect_equal(unname(r$estimate), 0)
+})
+
+test_that("signTest: paired input checks", {
+  expect_error(signTest(1:5, letters[1:5]), "'y' must be numeric")
+  expect_error(signTest(1:5, 1:4), "same length")
+  expect_error(signTest(letters), "'x' must be numeric")
+  expect_error(signTest(1:5, mu = c(1, 2)), "'mu'")
+  expect_error(signTest(1:5, mu = NA), "'mu'")
+  expect_error(signTest(1:5, mu = Inf), "'mu'")
+  expect_error(signTest(1:5, conf.level = 1), "'conf.level'")
+  expect_error(signTest(1:5, conf.level = c(0.9, 0.95)), "'conf.level'")
+})
+
+test_that("signTest: paired NA handling is pairwise, infinite one-sample values drop", {
+  x <- c(5.1, 4.8, NA, 6.0, 5.5, 4.9, 6.2)
+  y <- c(4.9, 5.0, 5.2, NA, 5.0, 4.5, 5.8)
+  ok <- complete.cases(x, y)
+  expect_equal(signTest(x, y)$p.value, signTest(x[ok] - y[ok])$p.value)
+  expect_equal(unname(signTest(x, y)$parameter), sum(x[ok] != y[ok]))
+  expect_identical(signTest(x, y)$data.name, "x and y")
+
+  z <- c(1, 3, Inf, 2, -Inf, 4)
+  expect_equal(unname(signTest(z, mu = 2.5)$parameter), 4)
+})

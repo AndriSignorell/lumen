@@ -152,7 +152,19 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   
   # rewritten in R by Andri Signorell
 
-  n <- sum(x, na.rm=TRUE)
+  # without these checks NA, negative counts or an empty table ended deep
+  # inside the Sison-Glaz iteration ("missing value where TRUE/FALSE needed")
+  if (!is.numeric(x) || anyNA(x) || any(!is.finite(x)) || any(x < 0))
+    stop("'x' must be a vector of non-negative finite counts", call. = FALSE)
+  if (length(x) < 2L)
+    stop("'x' must hold at least 2 categories", call. = FALSE)
+  if (sum(x) == 0)
+    stop("at least one count in 'x' must be positive", call. = FALSE)
+  if (length(conf.level) != 1L || !is.numeric(conf.level) ||
+      !is.finite(conf.level) || conf.level <= 0 || conf.level >= 1)
+    stop("'conf.level' must be a single number between 0 and 1", call. = FALSE)
+
+  n <- sum(x)
   k <- length(x)
   p <- x/n
   
@@ -161,8 +173,12 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   
   sides <- match.arg(sides, choices = c("two.sided","left","right"), 
                      several.ok = FALSE)
-  if(sides!="two.sided")
+  if(sides!="two.sided") {
+    if (conf.level <= 0.5)
+      stop(gettextf("a one-sided interval needs 'conf.level' above 0.5, not %g",
+                    conf.level), domain = NA)
     conf.level <- 1 - 2 * (1 - conf.level)
+  }
 
   
   method <- match.arg(arg = method, 

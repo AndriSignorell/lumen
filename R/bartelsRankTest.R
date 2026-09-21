@@ -102,7 +102,7 @@ bartelsRankTest <- function(x,
                                             "oscillation"),
                             method      = c("auto", "normal", "beta")) {
 
-  DNAME <- deparse(substitute(x))
+  DNAME <- deparse1(substitute(x))
 
   stopifnot(is.numeric(x))
   x <- x[!is.na(x)]

@@ -96,6 +96,8 @@ meanDiffCI <- function(x,
   
   method <- match.arg(method)
   sides  <- match.arg(sides)
+
+  .checkSidedLevel(conf.level, sides)
   
   if (sides != "two.sided")
     conf.level <- 1 - 2 * (1 - conf.level)
@@ -235,20 +237,12 @@ meanDiffCI <- function(x,
     type = args$type
   )
   
-  if (args$type == "norm") {
-    
-    c(
-      meandiff = boot.fun$t0,
-      lci = ci[[4]][2],
-      uci = ci[[4]][3]
-    )
-    
-  } else {
-    
-    c(
-      meandiff = boot.fun$t0,
-      lci = ci[[4]][4],
-      uci = ci[[4]][5]
-    )
-  }
+  # by name, not ci[[4]]: boot.ci() drops a component it cannot compute
+  bnd <- .bootCIBounds(ci, args$type)
+
+  c(
+    meandiff = boot.fun$t0,
+    lci = bnd[1L],
+    uci = bnd[2L]
+  )
 }

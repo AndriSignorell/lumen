@@ -145,20 +145,15 @@ runsTest.formula <- function(formula,
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
   
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args)
-  
+  # direct call, never do.call(): do.call() evaluates the substituted
+  # subset expression in this frame, where the data columns do not exist
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+
+  d <- resolveFormula(formula, data,
+                      subset    = subset_expr,
+                      na.action = na.action,
+                      allowed   = "two-sample-independent")
+
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
   # on d$x/d$y directly.
@@ -170,7 +165,7 @@ runsTest.formula <- function(formula,
     ...
   )
   
-  res$data.name <- d$data.name
+  res$data.name <- d$dataName
   res
 }
 
@@ -190,11 +185,19 @@ runsTest.default <- function(x,
   ## Two-sample Wald-Wolfowitz
   ## -------------------------------------------------------------------
   if (!is.null(y)) {
-    
+
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
+
+    # NA was sorted to the end and counted as an observation of its group
+    if (na.rm) {
+      x <- x[!is.na(x)]
+      y <- y[!is.na(y)]
+    } else if (anyNA(x) || anyNA(y)) {
+      stop("'x' or 'y' contains NA values; set na.rm = TRUE to remove them")
+    }
+
     if (length(x) == 0L || length(y) == 0L)
       stop("'x' and 'y' must be non-empty")
-    
-    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     
     grp <- c(rep(0L, length(x)), rep(1L, length(y)))
     val <- c(x, y)

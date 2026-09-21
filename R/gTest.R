@@ -149,15 +149,13 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
     if (correct == "yates") {
       if (nrow(x) != 2L || ncol(x) != 2L)
         stop("Yates' correction requires a 2 x 2 matrix")
-      # shift all cells towards their expected values by 0.5
-      # (margins are preserved)
-      if (x[1, 1] * x[2, 2] - x[1, 2] * x[2, 1] > 0) {
-        x <- x + 0.5
-        diag(x) <- diag(x) - 1
-      } else {
-        x <- x - 0.5
-        diag(x) <- diag(x) + 1
-      }
+      # shift all cells towards their expected values by 0.5, but never
+      # beyond them (as chisq.test() does): for |O - E| < 0.5 the fixed
+      # shift overshot, gave G > 0 for a table in perfect independence
+      # and negative cells for an empty row or column. In a 2 x 2 table
+      # |O - E| is the same in all four cells, margins are preserved.
+      d <- x - outer(rowSums(x), colSums(x)) / n
+      x <- x - sign(d) * min(0.5, abs(d[1L, 1L]))
     }
 
     sr <- rowSums(x)

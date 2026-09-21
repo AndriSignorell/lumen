@@ -62,8 +62,8 @@
 #' @export
 bhapkarTest <- function(x, y = NULL) {
 
-  DNAME <- if (is.null(y)) deparse(substitute(x)) else
-    paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  DNAME <- if (is.null(y)) deparse1(substitute(x)) else
+    paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
 
   res <- stuartMaxwellTest(x = x, y = y)
 

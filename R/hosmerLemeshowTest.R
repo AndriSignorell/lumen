@@ -100,6 +100,14 @@ hosmerLemeshowTest.glm <- function(x, nGroups = 10, type = c("C", "H"),
   if (!(x$family$family %in% c("binomial", "quasibinomial")))
     stop("'x' must be a binomial glm")
 
+  # prior weights are case weights of the likelihood, which the statistic
+  # does not know about - ignoring them silently gave a wrong result
+  w <- x$prior.weights
+  if (!is.null(w) && !isTRUE(all.equal(as.vector(w), rep(1, length(w)))))
+    stop("weighted glms are not supported", call. = FALSE)
+
+  # x$fitted.values, not fitted(x): fitted() pads the rows removed by
+  # na.exclude with NA, while the response of the model frame has none
   obs <- model.response(model.frame(x))
 
   if (is.matrix(obs))
@@ -114,7 +122,7 @@ hosmerLemeshowTest.glm <- function(x, nGroups = 10, type = c("C", "H"),
     obs <- as.integer(obs)
   }
 
-  res <- hosmerLemeshowTest.default(x = fitted(x), obs = obs,
+  res <- hosmerLemeshowTest.default(x = x$fitted.values, obs = obs,
                                     nGroups = nGroups, type = type)
   res$data.name <- deparse1(formula(x))
 
@@ -146,8 +154,8 @@ hosmerLemeshowTest.default <- function(x, obs, nGroups = 10,
     stop("'x' must contain probabilities in [0, 1]")
   if (!all(obs %in% c(0, 1)))
     stop("'obs' must be binary (0 or 1 only)")
-  if (!is.numeric(nGroups) || length(nGroups) != 1L || is.na(nGroups) ||
-      nGroups < 3 || nGroups != as.integer(nGroups))
+  if (!is.numeric(nGroups) || length(nGroups) != 1L ||
+      !is.finite(nGroups) || nGroups < 3 || nGroups %% 1 != 0)
     stop("'nGroups' must be a single integer >= 3")
 
   nGroups <- as.integer(nGroups)

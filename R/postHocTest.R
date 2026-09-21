@@ -112,6 +112,11 @@ postHocTest.aov <- function (x, which = NULL,
   method <- match.arg(method)
   
   .stopIfCovariates(x)
+
+  # the MSE below comes from unweighted residuals
+  w <- x$weights
+  if (!is.null(w) && !isTRUE(all.equal(as.vector(w), rep(1, length(w)))))
+    stop("weighted models are not supported", call. = FALSE)
   
   FUN_MAP <- list(
     bonferroni = .bonferroni,
@@ -227,11 +232,13 @@ postHocTest.aov <- function (x, which = NULL,
 #' @rdname postHoc
 #' @export
 postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
-                               conf.level = 0.95, ...) {
+                               conf.level = NA, ...) {
   
   # http://support.sas.com/resources/papers/proceedings14/1544-2014.pdf
   
-  if (!missing(conf.level) && !is.na(conf.level))
+  # NA default: the table method forwards conf.level explicitly, so a
+  # missing() test fired the warning on every call via a table
+  if (!is.na(conf.level))
     warning("conf.level is not supported for postHocTest.matrix; ",
             "only p-values are returned")
   
@@ -269,7 +276,7 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
 #' @rdname postHoc
 #' @export
 postHocTest.table <- function(x, method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
-                              conf.level = 0.95, ...) {
+                              conf.level = NA, ...) {
   class(x) <- "matrix"
   postHocTest(x, method=method, conf.level=conf.level, ...)
 }
@@ -395,12 +402,14 @@ plot.PostHocTest <- function(x, ...){
   se <- sqrt(MSE * outer(1/n, 1/n, "+"))
   keep <- lower.tri(se)
   
-  # divide by the number of pairwise comparisons k*(k-1)/2, matching the
-  # pvals formula below; using k*(k-1) here previously made the interval
-  # inconsistent with (too wide relative to) its own p-values
-  width <- qt(1 - (1 - conf.level)/(k * (k - 1) / 2), df) * se[keep]
+  # two-sided Bonferroni: alpha is split over the m = k*(k-1)/2 pairs AND
+  # the two tails, i.e. qt(1 - alpha/(2m)) - the k*(k-1) of the original
+  # was right. The p-values below use the same correction, so the interval
+  # excludes 0 exactly when pval < alpha.
+  m <- k * (k - 1) / 2
+  width <- qt(1 - (1 - conf.level) / (2 * m), df) * se[keep]
   est <- center / se[keep]
-  pvals <- pmin(2 * pt(abs(est), df = df, lower.tail = FALSE) * (k*(k-1)/2), 1)
+  pvals <- pmin(2 * pt(abs(est), df = df, lower.tail = FALSE) * m, 1)
   
   list(width=width, est=est, pvals=pvals, method.str="Bonferroni")
 }

@@ -99,10 +99,7 @@ yuenTTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(
-    resolveFormula,
-    args
-  )
+  d <- do.call(resolveFormula, args, quote = TRUE)
   
   # resolveFormula() returns d$x as the FULL response (both groups,
   # length n) and d$group as the matching full-length factor - d$y is
@@ -117,7 +114,7 @@ yuenTTest.formula <- function(formula,
     ...
   )
   
-  res$data.name <- d$data.name
+  res$data.name <- d$dataName
   
   res
   

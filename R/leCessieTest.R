@@ -95,6 +95,14 @@ leCessieTest.glm <- function(x, ...) {
   if (!(x$family$family %in% c("binomial", "quasibinomial")))
     stop("'x' must be a binomial glm")
 
+  # prior weights are case weights of the likelihood, which the statistic
+  # does not know about - ignoring them silently gave a wrong result
+  w <- x$prior.weights
+  if (!is.null(w) && !isTRUE(all.equal(as.vector(w), rep(1, length(w)))))
+    stop("weighted glms are not supported", call. = FALSE)
+
+  # x$fitted.values, not fitted(x): fitted() pads the rows removed by
+  # na.exclude with NA, while the response of the model frame has none
   obs <- model.response(model.frame(x))
 
   if (is.matrix(obs))
@@ -110,7 +118,7 @@ leCessieTest.glm <- function(x, ...) {
     obs <- as.integer(obs)
   }
 
-  res <- leCessieTest.default(x = fitted(x), obs = obs,
+  res <- leCessieTest.default(x = x$fitted.values, obs = obs,
                               X = model.matrix(x))
   res$data.name <- deparse1(formula(x))
 

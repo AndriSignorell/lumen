@@ -329,16 +329,16 @@ brunnerMunzelTest.formula <- function(formula, data, subset, na.action = na.pass
   # evaluate that expression in the wrong frame (hotellingsT2Test regression).
   subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
 
-  mf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
+  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
                        na.action = na.action,
                        allowed = "two-sample-independent")
 
-  # x + group is the canonical access path; mf$y is convenience only
-  grp <- split(mf$x, mf$group)
+  # x + group is the canonical access path; rf$y is convenience only
+  grp <- split(rf$x, rf$group)
 
   res <- brunnerMunzelTest.default(x = grp[[1L]], y = grp[[2L]], ...)
   # resolveFormula() names its components in camelCase, the htest slot keeps
   # the dot: a mismatch here assigns NULL and silently drops the slot
-  res$data.name <- mf$dataName
+  res$data.name <- rf$dataName
   res
 }

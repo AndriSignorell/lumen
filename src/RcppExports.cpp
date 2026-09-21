@@ -22,17 +22,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ad_test_cpp
-double ad_test_cpp(NumericVector x);
-RcppExport SEXP _lumen_ad_test_cpp(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(ad_test_cpp(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // ad_prob_exact_inf_cpp
 NumericVector ad_prob_exact_inf_cpp(NumericVector a);
 RcppExport SEXP _lumen_ad_prob_exact_inf_cpp(SEXP aSEXP) {
@@ -266,21 +255,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// median_boot_cpp
-NumericVector median_boot_cpp(NumericVector x, int R, double alpha, int seed, String method);
-RcppExport SEXP _lumen_median_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP seedSEXP, SEXP methodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type R(RSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(median_boot_cpp(x, R, alpha, seed, method));
-    return rcpp_result_gen;
-END_RCPP
-}
 // pan_cpp
 double pan_cpp(NumericVector A, int M, double C, int N);
 RcppExport SEXP _lumen_pan_cpp(SEXP ASEXP, SEXP MSEXP, SEXP CSEXP, SEXP NSEXP) {
@@ -325,7 +299,6 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lumen_ad_stat_cpp", (DL_FUNC) &_lumen_ad_stat_cpp, 1},
-    {"_lumen_ad_test_cpp", (DL_FUNC) &_lumen_ad_test_cpp, 1},
     {"_lumen_ad_prob_exact_inf_cpp", (DL_FUNC) &_lumen_ad_prob_exact_inf_cpp, 1},
     {"_lumen_ad_prob_approx_inf_cpp", (DL_FUNC) &_lumen_ad_prob_approx_inf_cpp, 1},
     {"_lumen_ad_prob_n_cpp", (DL_FUNC) &_lumen_ad_prob_n_cpp, 2},
@@ -343,7 +316,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_mad_boot_cpp", (DL_FUNC) &_lumen_mad_boot_cpp, 6},
     {"_lumen_mad_diff_boot_cpp", (DL_FUNC) &_lumen_mad_diff_boot_cpp, 7},
     {"_lumen_mad_ratio_boot_cpp", (DL_FUNC) &_lumen_mad_ratio_boot_cpp, 7},
-    {"_lumen_median_boot_cpp", (DL_FUNC) &_lumen_median_boot_cpp, 5},
     {"_lumen_pan_cpp", (DL_FUNC) &_lumen_pan_cpp, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
     {"_lumen_pruns_cpp", (DL_FUNC) &_lumen_pruns_cpp, 4},

@@ -5,10 +5,6 @@ ad_stat_cpp <- function(x) {
     .Call(`_lumen_ad_stat_cpp`, x)
 }
 
-ad_test_cpp <- function(x) {
-    .Call(`_lumen_ad_test_cpp`, x)
-}
-
 ad_prob_exact_inf_cpp <- function(a) {
     .Call(`_lumen_ad_prob_exact_inf_cpp`, a)
 }
@@ -78,10 +74,6 @@ mad_diff_boot_cpp <- function(x, y, R = 1000L, alpha = 0.05, constant = 1.4826, 
 
 mad_ratio_boot_cpp <- function(x, y, R = 1000L, alpha = 0.05, constant = 1.4826, seed = -1L, method = "perc") {
     .Call(`_lumen_mad_ratio_boot_cpp`, x, y, R, alpha, constant, seed, method)
-}
-
-median_boot_cpp <- function(x, R = 1000L, alpha = 0.05, seed = -1L, method = "perc") {
-    .Call(`_lumen_median_boot_cpp`, x, R, alpha, seed, method)
 }
 
 pan_cpp <- function(A, M, C, N) {

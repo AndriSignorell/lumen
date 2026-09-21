@@ -25,14 +25,14 @@ postHocTest(x, ...)
 \method{postHocTest}{matrix}(
   x,
   method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
-  conf.level = 0.95,
+  conf.level = NA,
   ...
 )
 
 \method{postHocTest}{table}(
   x,
   method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
-  conf.level = 0.95,
+  conf.level = NA,
   ...
 )
 

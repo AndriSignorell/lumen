@@ -80,11 +80,22 @@ lillieTest <- function(x) {
 
   DNAME <- deparse1(substitute(x))
 
+  if (!is.numeric(x))
+    stop("'x' must be numeric")
+
   x <- sort(x[complete.cases(x)])
   n <- length(x)
 
+  # an infinite value or constant data gave NaN in the standardisation and
+  # an "missing value where TRUE/FALSE needed" further down
+  if (any(!is.finite(x)))
+    stop("'x' must not contain infinite values")
+
   if (n < 5)
     stop("sample size must be at least 5")
+
+  if (sd(x) == 0)
+    stop("all observations are identical, the test is not defined")
 
   p <- pnorm((x - mean(x)) / sd(x))
 

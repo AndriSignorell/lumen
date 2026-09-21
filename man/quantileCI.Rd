@@ -58,8 +58,9 @@ sometimes need to have a nonparameteric alternative. This function offers
 one.
 }
 \details{
-The \code{"exact"} method corresponds to the way the confidence interval for
-the median is calculated in SAS. \cr The boot confidence interval type is
+The \code{"exact"} method searches the order statistics near the binomial
+quantiles for the interval whose coverage is closest to, but not below,
+\code{conf.level}; the achieved coverage is reported. \cr The boot confidence interval type is
 calculated by means of \code{\link[boot:boot.ci]{boot::boot.ci()}} with default type
 \code{"basic"}.
 }

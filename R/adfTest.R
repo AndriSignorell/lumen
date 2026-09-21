@@ -93,7 +93,7 @@ adfTest <- function(y, type = c("none", "drift", "trend"),
   type <- match.arg(type)
   selectLags <- match.arg(tolower(selectLags), c("fixed", "aic", "bic"))
 
-  DNAME <- deparse(substitute(y))
+  DNAME <- deparse1(substitute(y))
 
   if (ncol(as.matrix(y)) > 1)
     stop("'y' must be a vector or a univariate time series")

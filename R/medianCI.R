@@ -81,6 +81,8 @@ medianCI <- function(x,
 
   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
 
+  .checkSidedLevel(conf.level, sides)
+
   # note: no top-level sides -> conf.level transform here, unlike
   # meanCI/meanDiffCI/multinomCI: .medianCI.binom() computes one-sided
   # binomial CIs natively (see below), and .medianCI.boot() applies its
@@ -192,10 +194,8 @@ medianCI <- function(x,
     type     = boot_args$type
   )
   
-  if (boot_args$type == "norm")
-    res <- res[[4]][c(2, 3)]
-  else
-    res <- res[[4]][c(4, 5)]
+  # by name, not res[[4]]: boot.ci() drops a component it cannot compute
+  res <- .bootCIBounds(res, boot_args$type)
   
   return(res)
   

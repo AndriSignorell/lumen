@@ -55,39 +55,43 @@
 #' @export
 bootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", "perc", "bca"),
                    conf.level = 0.95, sides = c("two.sided", "left", "right"), R = 999) {
-  
-  dots <- as.list(substitute(list( ... ))) [-1]
+
+  # evaluated here, in the caller's frame: substitute() handed unevaluated
+  # expressions to do.call(), which then resolved them inside the boot()
+  # statistic, where no caller variable is visible
+  dots <- list(...)
   bci.method <- match.arg(bci.method)
-  
-  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-  if(sides!="two.sided")
-    conf.level <- 1 - 2*(1-conf.level)
-  
-  if(is.null(y)) {
-    if(is.matrix(x) || is.data.frame(x)){
-      boot.fun <- boot::boot(x, function(x, d) 
-        do.call(FUN, append(list(x[d, , drop=FALSE]), dots)), R = R)
-    } else {
-      boot.fun <- boot::boot(x, function(x, d) 
-        do.call(FUN, append(list(x[d]), dots)), R = R)
-    }
-  } else
-    boot.fun <- boot::boot(x, function(x, d) do.call(FUN, append(list(x[d], y[d]), dots)), R = R)
-  
-  ci <- boot::boot.ci(boot.fun, conf=conf.level, type=bci.method)[[4]]
-  
-  res <- c(est = boot.fun$t0, 
-           lci = ci[ncol(ci)-1],
-           uci = ci[ncol(ci)])
-  
-  if(sides=="left")
-    res[3] <- Inf
-  else if(sides=="right")
-    res[2] <- -Inf
-  
-  return(res)
-  
+  sides <- match.arg(sides)
+
+  if (sides != "two.sided") {
+    if (conf.level <= 0.5)
+      stop(gettextf("a one-sided interval needs 'conf.level' above 0.5, not %g",
+                    conf.level), domain = NA)
+    conf.level <- 1 - 2 * (1 - conf.level)
+  }
+
+  stat <- if (!is.null(y)) {
+    function(x, d) do.call(FUN, c(list(x[d], y[d]), dots))
+  } else if (is.matrix(x) || is.data.frame(x)) {
+    function(x, d) do.call(FUN, c(list(x[d, , drop = FALSE]), dots))
+  } else {
+    function(x, d) do.call(FUN, c(list(x[d]), dots))
+  }
+
+  boot.fun <- boot::boot(x, stat, R = R)
+
+  ci <- boot::boot.ci(boot.fun, conf = conf.level, type = bci.method)
+
+  # by name, not ci[[4]]: a dropped component ('stud' without variances)
+  # made the positional access fail with "subscript out of bounds"
+  bnd <- .bootCIBounds(ci, bci.method)
+
+  res <- c(est = unname(boot.fun$t0[1L]), lci = bnd[1L], uci = bnd[2L])
+
+  if (sides == "left")
+    res[["uci"]] <- Inf
+  else if (sides == "right")
+    res[["lci"]] <- -Inf
+
+  res
 }
-
-
-

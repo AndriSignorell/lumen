@@ -105,3 +105,80 @@ test_that("dextreme mlen = 1: finite where the CDF underflows to zero", {
   expect_equal(dextreme(0, distn = "unif", mlen = 1), dunif(0))
   expect_false(is.nan(dextreme(-40, distn = "norm", mlen = 1, log = TRUE)))
 })
+
+
+# -- added --------------------------------------------------------------------
+
+test_that("explicit dFun/pFun/qFun equal the distn lookup", {
+  x <- c(0.2, 1, 2.5)
+  expect_equal(dextreme(x, dFun = dexp, pFun = pexp, rate = 2, mlen = 3),
+               dextreme(x, distn = "exp", rate = 2, mlen = 3))
+  expect_equal(pextreme(x, pFun = pexp, rate = 2, mlen = 3),
+               pextreme(x, distn = "exp", rate = 2, mlen = 3))
+  p <- c(0.1, 0.5, 0.9)
+  expect_equal(qextreme(p, qFun = qexp, rate = 2, mlen = 3),
+               qextreme(p, distn = "exp", rate = 2, mlen = 3))
+  # a user function without a d/p/q family name
+  myp <- function(q, ...) pnorm(q, ...)
+  expect_equal(pextreme(x, pFun = myp, mean = 1, mlen = 2),
+               pnorm(x, mean = 1)^2)
+})
+
+test_that("minimum: closed forms", {
+  q <- c(0.1, 0.5, 2)
+  # min of m iid Exp(rate) is Exp(m * rate)
+  expect_equal(pextreme(q, distn = "exp", rate = 1.5, mlen = 4, largest = FALSE),
+               pexp(q, rate = 6))
+  expect_equal(pextreme(q, distn = "exp", rate = 1.5, mlen = 4, largest = FALSE,
+                        lower.tail = FALSE),
+               pexp(q, rate = 6, lower.tail = FALSE))
+  expect_equal(dextreme(q, distn = "exp", rate = 1.5, mlen = 4, largest = FALSE),
+               dexp(q, rate = 6))
+  p <- c(0.05, 0.5, 0.95)
+  expect_equal(qextreme(p, distn = "exp", rate = 1.5, mlen = 4, largest = FALSE),
+               qexp(p, rate = 6))
+})
+
+test_that("maximum of uniforms is Beta(mlen, 1)", {
+  q <- c(0.1, 0.4, 0.9)
+  expect_equal(pextreme(q, distn = "unif", mlen = 5), pbeta(q, 5, 1))
+  expect_equal(dextreme(q, distn = "unif", mlen = 5), dbeta(q, 5, 1))
+  expect_equal(qextreme(q, distn = "unif", mlen = 5), qbeta(q, 5, 1))
+  expect_equal(pextreme(q, distn = "unif", mlen = 5, lower.tail = FALSE,
+                        log.p = TRUE),
+               pbeta(q, 5, 1, lower.tail = FALSE, log.p = TRUE))
+})
+
+test_that("dextreme outside the support is 0, resp. -Inf on the log scale", {
+  expect_identical(dextreme(-1, distn = "exp", mlen = 3), 0)
+  expect_identical(dextreme(-1, distn = "exp", mlen = 3, log = TRUE), -Inf)
+  expect_identical(dextreme(c(-1, 2), distn = "unif", mlen = 2, largest = FALSE),
+                   c(0, 0))
+})
+
+test_that("rextreme: same draws as the quantile transform, correct law", {
+  set.seed(1)
+  r <- rextreme(5, distn = "norm", mlen = 3)
+  set.seed(1)
+  expect_equal(r, qnorm(rbeta(5, 3, 1)))
+
+  set.seed(1)
+  r <- rextreme(5, qFun = qexp, rate = 2, mlen = 3, largest = FALSE)
+  set.seed(1)
+  expect_equal(r, qexp(rbeta(5, 1, 3), rate = 2))
+
+  set.seed(2)
+  z <- rextreme(4000, distn = "exp", rate = 1, mlen = 4, largest = FALSE)
+  expect_gt(ks.test(z, "pexp", rate = 4)$p.value, 0.001)
+  set.seed(3)
+  z <- rextreme(4000, distn = "norm", mlen = 5)
+  expect_gt(ks.test(z, function(q) pextreme(q, distn = "norm", mlen = 5))$p.value,
+            0.001)
+})
+
+test_that("all four functions validate mlen", {
+  expect_error(pextreme(1, distn = "norm", mlen = 0))
+  expect_error(qextreme(0.5, distn = "norm", mlen = 2.5))
+  expect_error(rextreme(1, distn = "norm", mlen = -1))
+  expect_length(rextreme(0, distn = "norm", mlen = 2), 0)
+})

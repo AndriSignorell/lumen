@@ -118,141 +118,119 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
   
   
   alternative <- match.arg(alternative)
-  type <- match.arg(type)
-  
+  type        <- match.arg(type)
+
+  if (!is.numeric(x) || length(x) < 2L)
+    stop("'x' must be a numeric vector with at least two observations")
 
   # =============================
   # One-sample test
   # =============================
   if (is.null(y)) {
-    
-    if (is.null(sigma2_0)) {
+
+    if (is.null(sigma2_0))
       stop("sigma2_0 must be provided for one-sample test.")
-    }
-    
-    n <- length(x)
-    df <- n - 1
-    s2 <- var(x)
-    x_obs <- df * s2 / sigma2_0
-    
-    if (type == "classic") {
-      if (alternative == "two.sided") {
-        p <- 2 * min(pchisq(x_obs, df), 1 - pchisq(x_obs, df))
-      } else if (alternative == "less") {
-        p <- pchisq(x_obs, df)
-      } else {
-        p <- 1 - pchisq(x_obs, df)
-      }
-    } else {
-      if (alternative == "two.sided") {
-        p <- .pchisqLD(x_obs, df)
-      } else if (alternative == "less") {
-        p <- pchisq(x_obs, df)
-      } else {
-        p <- 1 - pchisq(x_obs, df)
-      }
-    }
-    
-    result <- list(
-      statistic = c("X-squared" = x_obs),
-      parameter = c("df" = df),
-      p.value = p,
-      estimate = c("variance" = s2),
-      null.value = c("variance" = sigma2_0),
-      alternative = alternative,
-      method = paste("One-sample variance test (", type, ")", sep = ""),
-      data.name = deparse1(substitute(x))
-    )
-    
+
+    if (!is.numeric(sigma2_0) || length(sigma2_0) != 1L ||
+        !is.finite(sigma2_0) || sigma2_0 <= 0)
+      stop("'sigma2_0' must be a single positive finite number")
+
+    nu   <- length(x) - 1
+    s2   <- var(x)
+    stat <- c("X-squared" = nu * s2 / sigma2_0)
+
+    pdist <- function(q, lower.tail = TRUE) pchisq(q, nu, lower.tail = lower.tail)
+    ddist <- function(q) dchisq(q, nu)
+    mode  <- max(nu - 2, 0)
+
+    parameter  <- c(df = nu)
+    estimate   <- c(variance = s2)
+    null.value <- c(variance = sigma2_0)
+    method     <- paste0("One-sample variance test (", type, ")")
+    data.name  <- deparse1(substitute(x))
+
     # =============================
     # Two-sample test
     # =============================
   } else {
-    
-    nx <- length(x)
-    ny <- length(y)
-    
-    df1 <- nx - 1
-    df2 <- ny - 1
-    
-    s2x <- var(x)
-    s2y <- var(y)
-    
-    f_obs <- s2x / s2y
-    
-    if (type == "classic") {
-      if (alternative == "two.sided") {
-        p <- 2 * min(pf(f_obs, df1, df2), 1 - pf(f_obs, df1, df2))
-      } else if (alternative == "less") {
-        p <- pf(f_obs, df1, df2)
-      } else {
-        p <- 1 - pf(f_obs, df1, df2)
-      }
-    } else {
-      if (alternative == "two.sided") {
-        p <- .pfLD(f_obs, df1, df2)
-      } else if (alternative == "less") {
-        p <- pf(f_obs, df1, df2)
-      } else {
-        p <- 1 - pf(f_obs, df1, df2)
-      }
-    }
-    
-    result <- list(
-      statistic = c("F" = f_obs),
-      parameter = c("df1" = df1, "df2" = df2),
-      p.value = p,
-      estimate = c("var(x)" = s2x, "var(y)" = s2y),
-      alternative = alternative,
-      method = paste("Two-sample variance test (", type, ")", sep = ""),
-      data.name = paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
-    )
-  }
-  
-  class(result) <- "htest"
-  return(result)
-}
 
+    if (!is.numeric(y) || length(y) < 2L)
+      stop("'y' must be a numeric vector with at least two observations")
+
+    nu1  <- length(x) - 1
+    nu2  <- length(y) - 1
+    s2x  <- var(x)
+    s2y  <- var(y)
+    stat <- c(F = s2x / s2y)
+
+    pdist <- function(q, lower.tail = TRUE) pf(q, nu1, nu2, lower.tail = lower.tail)
+    ddist <- function(q) df(q, nu1, nu2)
+    mode  <- if (nu1 > 2) (nu1 - 2) / nu1 * nu2 / (nu2 + 2) else 0
+
+    parameter  <- c(df1 = nu1, df2 = nu2)
+    estimate   <- c("var(x)" = s2x, "var(y)" = s2y)
+    null.value <- NULL
+    method     <- paste0("Two-sample variance test (", type, ")")
+    data.name  <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
+  }
+
+  # Filter() drops null.value for the two-sample test
+  structure(
+    Filter(Negate(is.null), list(
+         statistic   = stat,
+         parameter   = parameter,
+         p.value     = .varTestPValue(unname(stat), pdist, ddist, mode,
+                                      alternative, type),
+         estimate    = estimate,
+         null.value  = null.value,
+         alternative = alternative,
+         method      = method,
+         data.name   = data.name)),
+    class = "htest")
+}
 
 
 
 #' @rdname varTest
 #' @export
 varTest.formula <- function(formula,
-                          data,
-                          subset,
-                          na.action = na.pass,
-                          ...) {
-  
+                            data,
+                            subset,
+                            na.action = na.pass,
+                            ...) {
+
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
-  
+
   args <- list(
     formula   = formula,
     na.action = na.action,
     allowed   = "two-sample-independent"
   )
-  
+
   if (!missing(data))
     args$data <- data
-  
+
   if (!missing(subset))
     args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args)
-  
+
+  # quote = TRUE: without it do.call() evaluates the subset expression in
+  # this frame instead of passing it on unevaluated, so a subset naming a
+  # column of 'data' fails with "object not found"
+  d <- do.call(resolveFormula, args, quote = TRUE)
+
   if (nlevels(d$group) != 2L)
     stop("grouping factor must have exactly 2 levels")
-  
+
   groups <- split(d$x, d$group)
-  
+
   res <- varTest.default(
     x = groups[[1L]],
     y = groups[[2L]],
     ...
   )
-  
-  res$data.name <- d$data.name
+
+  res$data.name <- d$dataName      # htest uses data.name, resolveFormula dataName
   res
 }
 
@@ -261,66 +239,48 @@ varTest.formula <- function(formula,
 # == internal helper functions ================================================
 
 
-.pchisqLD <- function(x_obs, df) {
-  
-  # LD p-value chisq
-  
-  d_obs <- dchisq(x_obs, df)
-  mode <- if (df >= 2) df - 2 else 0
-  f <- function(x) dchisq(x, df) - d_obs
-  
-  # For df < 2 the chi-squared density has no interior mode (it is
-  # monotonically decreasing on (0, Inf)), so there is no "other side"
-  # to search for; the LD region for x_obs is then simply the plain
-  # upper tail.
-  if (mode <= 0) {
-    return(1 - pchisq(x_obs, df))
-  }
-  
-  # NOTE: the search interval must stop AT the mode, not at x_obs.
-  # dchisq(x_obs, df) - d_obs is exactly 0 AT x_obs by construction, so
-  # including x_obs as an interval endpoint gives uniroot() a trivial
-  # root (x_obs itself) instead of the genuine density-matching point on
-  # the other side of the mode -- this previously made the function
-  # return p = 1 in most cases (verified numerically).
-  if (x_obs >= mode) {
-    root <- uniroot(f, c(1e-10, mode))$root
-    pchisq(root, df) + (1 - pchisq(x_obs, df))
-  } else {
-    ub <- qchisq(0.999999, df)
-    root <- uniroot(f, c(mode, ub))$root
-    pchisq(x_obs, df) + (1 - pchisq(root, df))
-  }
+.varTestPValue <- function(q, pdist, ddist, mode, alternative, type) {
+
+  if (is.na(q))
+    return(NA_real_)
+
+  switch(alternative,
+         less      = pdist(q),
+         greater   = pdist(q, lower.tail = FALSE),
+         two.sided = if (type == "classic")
+           2 * min(pdist(q), pdist(q, lower.tail = FALSE))
+         else
+           .ldPValue(q, pdist, ddist, mode))
 }
 
 
-.pfLD <- function(f_obs, df1, df2) {
-  
-  # LD p-value F
-  
-  d_obs <- df(f_obs, df1, df2)
-  
-  mode <- if (df1 > 2) {
-    (df1 - 2)/df1 * (df2/(df2 + 2))
-  } else 0
-  
-  f_fun <- function(x) df(x, df1, df2) - d_obs
-  
-  # see the analogous note in .pchisqLD() above
-  if (mode <= 0) {
-    return(1 - pf(f_obs, df1, df2))
-  }
-  
-  if (f_obs >= mode) {
-    root <- uniroot(f_fun, c(1e-10, mode))$root
-    pf(root, df1, df2) + (1 - pf(f_obs, df1, df2))
+.ldPValue <- function(q, pdist, ddist, mode, tol = 1e-12) {
+
+  # Lowest-density two-sided p-value P(d(T) <= d(q)) for a unimodal null
+  # density d with interior mode 'mode'. mode = 0 means d is decreasing on
+  # (0, Inf) (chi-squared df <= 2, F df1 <= 2): no second tail, the LD
+  # region is the plain upper tail.
+  if (mode <= 0)
+    return(pdist(q, lower.tail = FALSE))
+
+  if (q == mode)
+    return(1)
+
+  dObs <- ddist(q)
+  g    <- function(t) ddist(t) - dObs
+
+  # d(0) = 0 whenever mode > 0, so [0, mode] always brackets the left root.
+  # Right of the mode d is decreasing, so the upper end is extended until
+  # the sign changes. (The former fixed brackets [1e-10, mode] and
+  # [mode, q(0.999999)] failed for extreme statistics, e.g. chi-squared
+  # df = 3, q = 30.) A tight tol matters: the default ~1.2e-4 cost up to
+  # 4e-6 in the p-value.
+  if (q > mode) {
+    root <- uniroot(g, c(0, mode), tol = tol)$root
+    pdist(root) + pdist(q, lower.tail = FALSE)
   } else {
-    ub <- qf(0.999999, df1, df2)
-    root <- uniroot(f_fun, c(mode, ub))$root
-    pf(f_obs, df1, df2) + (1 - pf(root, df1, df2))
+    root <- uniroot(g, c(mode, 2 * mode + 1), extendInt = "downX",
+                    tol = tol)$root
+    pdist(q) + pdist(root, lower.tail = FALSE)
   }
 }
-
-
-
-

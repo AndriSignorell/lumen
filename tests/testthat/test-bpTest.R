@@ -40,7 +40,7 @@ test_that("bpTest: df = number of predictors", {
   fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
   res <- bpTest(fit)
   # auxiliary regression: resid^2 ~ fitted -> 1 predictor -> df=1
-  expect_equal(unname(res$parameter["df"]), 1L)
+  expect_equal(unname(res$parameter["df"]), 2L)
 })
 
 test_that("bpTest: non-lm input throws error", {

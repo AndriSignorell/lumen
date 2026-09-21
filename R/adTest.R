@@ -84,12 +84,12 @@
 andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
                                 nullname) {
 
-  xname <- deparse(substitute(x))
-  nulltext <- deparse(substitute(null))
+  xname <- deparse1(substitute(x))
+  nulltext <- deparse1(substitute(null))
   if (is.character(null)) nulltext <- null
 
   if (missing(nullname) || is.null(nullname)) {
-    reco <- recogniseCdf(nulltext)
+    reco <- .recogniseCdf(nulltext)
     nullname <- if (!is.null(reco)) reco else
       paste("distribution", sQuote(nulltext))
   }
@@ -98,8 +98,10 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
   x <- as.vector(x)
   x <- x[!is.na(x)]
   n <- length(x)
+  if (n == 0L)
+    stop("not enough (non-missing) 'x' observations")
 
-  F0 <- getCdf(null)
+  F0 <- .getCdf(null)
   U <- F0(x, ...)
   if (any(U < 0 | U > 1))
     stop("null distribution function returned values outside [0,1]")
@@ -112,12 +114,12 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
 
   if (!estimated) {
     # simple null hypothesis
-    z <- simpleADtest(U)
+    z <- .simpleADtest(U)
     ADJUST <- NULL
   } else {
     # composite null hypothesis, use Braun (1980)
     m <- round(sqrt(n))
-    z <- braun(U, simpleADtest, m = m)
+    z <- .braun(U, .simpleADtest, m = m)
     ADJUST <- paste("Braun's adjustment using", m, "groups")
   }
 
@@ -156,7 +158,7 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
 
 
 
-simpleADtest <- function(U) {
+.simpleADtest <- function(U) {
   # internal: call the Marsaglia C++ code (expects sorted values)
   z <- ad_test_r_cpp(sort(U))
   list(statistic = z$adstat, pvalue = z$pvalue, statname = "An")
@@ -166,7 +168,7 @@ simpleADtest <- function(U) {
 
 # == internal helper functions ========================================
 
-recogniseCdf <- function(s = "punif") {
+.recogniseCdf <- function(s = "punif") {
 
   if (!is.character(s) || length(s) != 1 || nchar(s) == 0) return(NULL)
 
@@ -209,13 +211,13 @@ recogniseCdf <- function(s = "punif") {
 }
 
 
-getfunky <- function(funname) {
+.getfunky <- function(funname) {
   mget(funname, mode = "function", ifnotfound = list(NULL),
        inherits = TRUE)[[1]]
 }
 
 
-getCdf <- function(s = "punif", fatal = TRUE) {
+.getCdf <- function(s = "punif", fatal = TRUE) {
 
   sname <- deparse(substitute(s), nlines = 1L)
 
@@ -224,11 +226,11 @@ getCdf <- function(s = "punif", fatal = TRUE) {
   if (is.character(s) && length(s) == 1 && nchar(s) > 0) {
     # first try adding a leading 'p' (to catch the case s="t")
     if (substr(s, 1, 1) != "p") {
-      f <- getfunky(paste0("p", s))
+      f <- .getfunky(paste0("p", s))
       if (is.function(f))
         return(f)
     }
-    f <- getfunky(s)
+    f <- .getfunky(s)
     if (is.function(f))
       return(f)
   }
@@ -242,7 +244,7 @@ getCdf <- function(s = "punif", fatal = TRUE) {
 }
 
 
-braun <- function(U, simpletest, m) {
+.braun <- function(U, simpletest, m) {
   # Braun (1980) method for a composite null hypothesis
 
   n <- length(U)

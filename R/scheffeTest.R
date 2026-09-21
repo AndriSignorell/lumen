@@ -82,19 +82,36 @@ scheffeTest <- function (x, ...)
 #' @rdname scheffeTest
 #' @export
 scheffeTest.default <- function (x, g = NULL, which = NULL, contrasts = NULL, conf.level = 0.95, ...) {
-  scheffeTest(x=aov(x ~ g), which=which, contrasts=contrasts, conf.level=conf.level, ...)
+
+  if (is.null(g))
+    stop("'g' is missing: the default method needs a grouping vector")
+  if (length(x) != length(g))
+    stop("'x' and 'g' must have the same length")
+
+  # factor(g): numeric group codes were passed on as a covariate and hit
+  # .stopIfCovariates(); the data frame keeps the term name 'g'
+  d <- data.frame(x = x, g = factor(g))
+
+  scheffeTest(x = aov(x ~ g, data = d), which = which, contrasts = contrasts,
+              conf.level = conf.level, ...)
 }
 
 
 #' @rdname scheffeTest
 #' @export
 scheffeTest.formula <- function (formula, data, subset, na.action, ...) {
-  args <- list(formula = formula)
-  if (!missing(data))      args$data      <- data
-  if (!missing(subset))    args$subset    <- subset
-  if (!missing(na.action)) args$na.action <- na.action
-  scheffeTest(do.call(aov, args), ...)
-}  
+
+  # The model is fitted by a call evaluated in the caller's frame, as lm()
+  # does it. do.call() had evaluated 'subset' eagerly, outside the data
+  # ("object not found"), and stored the whole data set in the call, which
+  # print() then dumped as "Fit: ...".
+  cl <- match.call(expand.dots = FALSE)
+  cl <- cl[c(1L, match(c("formula", "data", "subset", "na.action"),
+                       names(cl), 0L))]
+  cl[[1L]] <- quote(stats::aov)
+
+  scheffeTest(eval(cl, parent.frame()), ...)
+}
 
 
 #' @rdname scheffeTest
@@ -102,6 +119,11 @@ scheffeTest.formula <- function (formula, data, subset, na.action, ...) {
 scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ...){
   
   .stopIfCovariates(x)
+
+  # the MSE below comes from unweighted residuals
+  w <- x$weights
+  if (!is.null(w) && !isTRUE(all.equal(as.vector(w), rep(1, length(w)))))
+    stop("weighted models are not supported", call. = FALSE)
 
   mm <- model.tables(x, "means")
   if (is.null(mm$n))
@@ -126,6 +148,8 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
   autoContr <- is.null(contrasts)
   if(!is.null(contrasts)){
     contrasts <- data.frame(contrasts)
+    if (any(abs(colSums(contrasts)) > sqrt(.Machine$double.eps)))
+      stop("every column of 'contrasts' must sum to zero")
   }
   
   # nm <- "tension"
@@ -142,7 +166,15 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
     if (length(n) < length(means))
       n <- rep.int(n, length(means))
     
-    if(autoContr) contrasts <- .contrasts(nms)
+    if(autoContr) {
+      contrasts <- .contrasts(nms)
+    } else if (nrow(contrasts) != length(means)) {
+      # user contrasts belong to one term; applied to a term with another
+      # number of levels they were silently recycled
+      stop(gettextf(
+        "'contrasts' has %d rows, but term '%s' has %d levels; select the term with 'which'",
+        nrow(contrasts), nm, length(means)), domain = NA)
+    }
     
     psi <- apply(contrasts * means, 2, sum)
     sscoeff <- apply(contrasts * contrasts / n, 2, sum)
@@ -175,9 +207,11 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
     
     if(!autoContr) {
       # define contrasts rownames
-      rownames(out[[nm]]) <-  apply(contrasts, 2, function(x)
+      # unname: apply() names the labels after the data frame columns
+      # (X1, X2, ...), and those names ended up inside the dimnames
+      rownames(out[[nm]]) <- unname(apply(contrasts, 2, function(x)
         gettextf("%s-%s", paste(nms[x>0], collapse=","),
-                 paste(nms[x<0], collapse=",")) )
+                 paste(nms[x<0], collapse=","))))
       if(is.na(conf.level)) out[[nm]] <- out[[nm]][,-c(2:3)]
     }
     

@@ -178,12 +178,12 @@ gamesHowellTest.formula <- function(formula, data, subset, na.action = na.pass, 
 
   subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
 
-  mf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
+  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
                        na.action = na.action,
                        allowed = c("two-sample-independent",
                                    "n-sample-independent"))
 
-  res <- gamesHowellTest.default(x = mf$x, g = mf$group, ...)
+  res <- gamesHowellTest.default(x = rf$x, g = rf$group, ...)
   names(res) <- all.vars(formula)[2L]
   attr(res, "orig.call") <- sys.call()
   res
@@ -206,16 +206,16 @@ gamesHowellTest.aov <- function(x, conf.level = 0.95, ...) {
   if(!is.null(stats::weights(x)))
     stop("weighted models are not supported")
 
-  mf <- stats::model.frame(x)
+  frame <- stats::model.frame(x)
   # an offset need not appear among the term labels and would be dropped silently
-  if(!is.null(stats::model.offset(mf)))
+  if(!is.null(stats::model.offset(frame)))
     stop("models with an offset are not supported")
 
-  g <- mf[[tl]]
+  g <- frame[[tl]]
   if(!is.factor(g) && !is.character(g))
     stop("the predictor must be a factor")
 
-  res <- gamesHowellTest.default(x = stats::model.response(mf), g = g,
+  res <- gamesHowellTest.default(x = stats::model.response(frame), g = g,
                                  conf.level = conf.level, ...)
   names(res) <- tl
   attr(res, "orig.call") <- sys.call()

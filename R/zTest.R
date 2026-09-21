@@ -112,32 +112,27 @@ zTest.formula <- function(formula,
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
   
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args)
-  
+  # direct call, never do.call(): do.call() evaluates the substituted
+  # subset expression in this frame, where the data columns do not exist
+  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
+
+  d <- resolveFormula(formula, data,
+                      subset    = subset_expr,
+                      na.action = na.action,
+                      allowed   = "two-sample-independent")
+
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
   # on d$x/d$y directly.
   groups <- split(d$x, d$group)
-  
+
   res <- zTest.default(
     x = groups[[1L]],
     y = groups[[2L]],
     ...
   )
   
-  res$data.name <- d$data.name
+  res$data.name <- d$dataName
   res
 }
 

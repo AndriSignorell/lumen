@@ -6,8 +6,9 @@
 #' sometimes need to have a nonparameteric alternative. This function offers
 #' one. 
 #' 
-#' The `"exact"` method corresponds to the way the confidence interval for
-#' the median is calculated in SAS. \cr The boot confidence interval type is
+#' The `"exact"` method searches the order statistics near the binomial
+#' quantiles for the interval whose coverage is closest to, but not below,
+#' `conf.level`; the achieved coverage is reported. \cr The boot confidence interval type is
 #' calculated by means of [boot::boot.ci()] with default type
 #' `"basic"`. 
 #' 
@@ -93,6 +94,8 @@ quantileCI <- function(x,
     choices = c("two.sided", "left", "right"),
     several.ok = FALSE
   )
+
+  .checkSidedLevel(conf.level, sides)
   
   method <- match.arg(
     arg = method,
@@ -197,8 +200,11 @@ quantileCI <- function(x,
       prob = prob
     ) + (-2:2)
     
+    # order statistic 0 resp. n + 1 is the open end of the support; its
+    # coverage term pbinom(0 - 1) = 0 resp. pbinom(n) = 1 is already right,
+    # only the value must not be looked up (s[0] is numeric(0))
     u[u > n] <- Inf
-    l[l < 0] <- -Inf
+    l[l < 1] <- -Inf
     
     coverage <- outer(
       l,
@@ -230,56 +236,43 @@ quantileCI <- function(x,
     coverage <- coverage[i]
     
   } else if (sides == "left") {
-    
-    l <- qbinom(
-      p = alpha,
-      size = n,
-      prob = prob
-    )
-    
+
+    # X_(l) <= q  <=>  Bin(n, prob) >= l
+    l <- qbinom(p = alpha, size = n, prob = prob)
     u <- Inf
-    
-    coverage <- 1 - pbinom(
-      q = l - 1,
-      size = n,
-      prob = prob
-    )
-    
+
+    coverage <- 1 - pbinom(q = l - 1, size = n, prob = prob)
+
+    if (l < 1) l <- -Inf
+
   } else if (sides == "right") {
-    
+
+    # X_(u) >= q  <=>  Bin(n, prob) <= u - 1. The upper index was one
+    # short (u = qbinom(1 - alpha)) and the coverage was reported as
+    # pbinom(u) - the bound fell below the requested level while the
+    # attribute claimed otherwise (n = 20, median: 0.942 vs 0.979).
     l <- -Inf
-    
-    u <- qbinom(
-      p = 1 - alpha,
-      size = n,
-      prob = prob
-    )
-    
-    coverage <- pbinom(
-      q = u,
-      size = n,
-      prob = prob
-    )
+    u <- qbinom(p = 1 - alpha, size = n, prob = prob) + 1
+
+    coverage <- pbinom(q = u - 1, size = n, prob = prob)
+
+    if (u > n) u <- Inf
   }
-  
-  # get the values
-  if (prob %notin% c(0, 1)) {
-    
-    s <- sort(
-      x,
-      partial = c(u, l)[is.finite(c(u, l))]
-    )
-    
-  } else {
-    
-    s <- sort(x)
-  }
-  
-  res <- c(
-    lci = s[l],
-    uci = s[u]
-  )
-  
+
+  # get the values; an infinite index stands for the open end itself
+  idx <- c(l, u)
+  fin <- is.finite(idx)
+
+  s <- if (prob %notin% c(0, 1) && any(fin))
+    sort(x, partial = idx[fin])
+  else
+    sort(x)
+
+  val <- idx
+  val[fin] <- s[idx[fin]]
+
+  res <- c(lci = val[1L], uci = val[2L])
+
   attr(res, "conf.level") <- coverage
   
   if (sides == "left") {
@@ -334,20 +327,9 @@ quantileCI <- function(x,
         type = args$type
       )
       
-      if (args$type == "norm") {
-        
-        c(
-          lci = ci[[4]][2],
-          uci = ci[[4]][3]
-        )
-        
-      } else {
-        
-        c(
-          lci = ci[[4]][4],
-          uci = ci[[4]][5]
-        )
-      }
+      bnd <- .bootCIBounds(ci, args$type)
+
+      c(lci = bnd[1L], uci = bnd[2L])
     }
   ))
   

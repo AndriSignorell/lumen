@@ -224,7 +224,10 @@ breslowDayTest <- function(x, OR = NULL, correct = FALSE) {
   }
 
   STATISTIC <- unname(X2.HBD)
-  PARAMETER <- K - 1L
+  # one df is spent on estimating the common OR; a hypothesised OR is not
+  # estimated, the K stratum terms then carry K df. K - 1 in that case made
+  # the test anti-conservative (simulated size 0.106 at alpha = 0.05, K = 4).
+  PARAMETER <- if (is.null(OR)) K - 1L else K
 
   structure(
     list(

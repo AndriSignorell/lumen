@@ -130,6 +130,8 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
   
   # see also:   pois.conf.int {epitools}
   
+  .checkSidedLevel(conf.level, sides)
+
   alpha <- 1 - conf.level
   
   # For a one-sided interval, the reported bound is one side of a

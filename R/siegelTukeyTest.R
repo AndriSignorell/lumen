@@ -173,18 +173,22 @@ siegelTukeyTest.formula <- function(formula, data, subset,
   if (!missing(subset))
     args$subset <- substitute(subset)
   
-  d <- do.call(resolveFormula, args)
+  d <- do.call(resolveFormula, args, quote = TRUE)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying
   # on d$x/d$y directly.
   groups <- split(d$x, d$group)
   
-  siegelTukeyTest.default(
+  res <- siegelTukeyTest.default(
     x = groups[[1L]],
     y = groups[[2L]],
     ...
   )
+
+  # otherwise the result reads "groups[[1L]] and groups[[2L]]"
+  res$data.name <- d$dataName
+  res
 }
 
 

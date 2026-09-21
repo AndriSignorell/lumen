@@ -174,8 +174,9 @@ barnardTest <- function(x,
   # translate to the interface used in Exact::exact.test()
   if (method == "santner-snell") method <- "santner and snell"
 
-  DNAME <- if (is.null(y)) deparse(substitute(x)) else
-    paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  # deparse1: deparse() splits long expressions into several strings
+  DNAME <- if (is.null(y)) deparse1(substitute(x)) else
+    paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
 
   # validate 'fixed' before anything else
   if (length(fixed) == 2 && setequal(fixed, 1:2))

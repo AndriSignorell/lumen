@@ -1,6 +1,7 @@
 
 #include <Rcpp.h>
 #include <cmath>
+#include <algorithm>
 
 using namespace Rcpp;
 
@@ -25,12 +26,20 @@ using namespace Rcpp;
     static const long double v[] = {
       1.25331413731550025L,  .421369229288054473L,  .236652382913560671L,
       .162377660896867462L,  .123131963257932296L,  .0990285964717319214L,
-      .0827662865013691773L, .0710695805388521071L, .0622586659950261958L
+      .0827662865013691773L, .0710695805388521071L, .0622586659950261958L,
+      .0553856514701007345L   // R(18), needed for 17 <= |x| < 19
     };
+    // v[j] is the Mills ratio R(2j), j = 0..9. ADf() calls cPhi() with
+    // x = sqrt(2t) <= sqrt(300) ~ 17.32, i.e. j = 9 -- the original table
+    // stopped at j = 8, so the lookup read past the array. Beyond |x| >= 19
+    // the tail is < 1e-80 and irrelevant for all callers.
     
     double h, a, b, z, t, s, pwr;
     int i, j;
     
+    if (std::isnan(x)) return x;
+    if (std::fabs(x) >= 19.0) return (x > 0) ? 0.0 : 1.0;
+
     j = (std::fabs(x) + 1.0) / 2.0;
     a = v[j];
     z = 2.0 * j;
@@ -85,7 +94,9 @@ using namespace Rcpp;
   }
 
 double ADinf(double z) {
+  if (std::isnan(z)) return z;
   if (z < 0.01) return 0.0;
+  if (std::isinf(z)) return 1.0;
   
   double ad, adnew, r;
   r = 1.0 / z;
@@ -105,6 +116,9 @@ double ADinf(double z) {
 ============================================================ */
   
   double adinf(double z) {
+    if (std::isnan(z)) return z;
+    if (z <= 0.0) return 0.0;
+    if (std::isinf(z)) return 1.0;
     if (z < 2.0) {
       return std::exp(-1.2337141 / z) / std::sqrt(z) *
         (2.00012 +
@@ -159,15 +173,20 @@ double ADinf(double z) {
 ============================================================ */
   
   double AD(int n, double z) {
+    if (std::isnan(z)) return z;             // std::max/min would swallow NaN
+    if (std::isinf(z)) return (z > 0) ? 1.0 : 0.0;   // U in {0, 1}: p = 0
     double x = adinf(z);
-    return x + errfix(n, x);
+    // the Marsaglia error correction can push the result slightly outside
+    // [0, 1] for very small z (e.g. n = 5, z < 0.145), which made
+    // andersonDarlingTest() return p-values > 1
+    return std::min(1.0, std::max(0.0, x + errfix(n, x)));
   }
 
 /* ============================================================
   Test statistic & p-value
 ============================================================ */
   
-  // [[Rcpp::export]]
+// [[Rcpp::export]]
 double ad_stat_cpp(NumericVector x) {
   int n = x.size();
   double z = 0.0;
@@ -177,14 +196,6 @@ double ad_stat_cpp(NumericVector x) {
     z -= (2 * i + 1) * std::log(t);
   }
   return -n + z / n;
-}
-
-// [[Rcpp::export]]
-double ad_test_cpp(NumericVector x) {
-  int n = x.size();
-  double a = ad_stat_cpp(x);
-  double p = AD(n, a);
-  return 1.0 - p;
 }
 
 // [[Rcpp::export]]

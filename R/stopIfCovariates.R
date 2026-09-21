@@ -24,6 +24,10 @@
   if (resp > 0L) {
     cls <- cls[-resp]
   }
+
+  # "(weights)" and "(offset)" are listed as numeric, but are no covariates;
+  # a weighted model was rejected as an ancova with covariate '(weights)'
+  cls <- cls[!startsWith(names(cls), "(")]
   
   # nmatrix.k covers poly() and matrix covariates
   isCov <- grepl("^(numeric|nmatrix)", cls)

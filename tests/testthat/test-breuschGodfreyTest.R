@@ -116,3 +116,80 @@ test_that("breuschGodfreyTest: vcov and df.residual methods work (coeftest)", {
   expect_equal(colnames(lmtest::coeftest(lmtest::bgtest(y1 ~ x, order = 2)))[4L],
                "Pr(>|z|)")
 })
+
+
+# -- added --------------------------------------------------------------------
+
+set.seed(3)
+bb <- data.frame(x = rnorm(50), z = runif(50))
+bb$y <- 1 + bb$x + as.numeric(stats::filter(rnorm(50), 0.4, "recursive"))
+
+test_that("identical to lmtest::bgtest with fill = NA and with orderBy", {
+  skip_if_not_installed("lmtest")
+  for (tp in c("Chisq", "F")) {
+    a <- breuschGodfreyTest(y ~ x, data = bb, order = 3, fill = NA, type = tp)
+    b <- lmtest::bgtest(y ~ x, data = bb, order = 3, fill = NA, type = tp)
+    expect_equal(unname(a$statistic), unname(b$statistic), info = tp)
+    expect_equal(a$p.value, b$p.value, info = tp)
+    expect_equal(unname(a$parameter), unname(b$parameter), info = tp)
+
+    a <- breuschGodfreyTest(y ~ x, data = bb, order = 2, orderBy = ~ z, type = tp)
+    b <- lmtest::bgtest(y ~ x, data = bb, order = 2, order.by = ~ z, type = tp)
+    expect_equal(unname(a$statistic), unname(b$statistic), info = tp)
+  }
+})
+
+test_that("fill = NA drops the first 'order' observations", {
+  a <- breuschGodfreyTest(y ~ x, data = bb, order = 3, fill = NA, type = "F")
+  # k = 2 regressors + 3 lags, n = 50 - 3
+  expect_equal(a$df.residual, 50 - 3 - 2 - 3)
+})
+
+test_that("lm input equals the formula, with and without stored x/y", {
+  f <- breuschGodfreyTest(y ~ x, data = bb, order = 2)
+  l1 <- breuschGodfreyTest(lm(y ~ x, data = bb), order = 2)
+  l2 <- breuschGodfreyTest(lm(y ~ x, data = bb, x = TRUE, y = TRUE), order = 2)
+  expect_equal(l1$statistic, f$statistic)
+  expect_equal(l2$statistic, f$statistic)
+  expect_match(l1$data.name, "lm")
+})
+
+test_that("lm input: orderBy aligned after subset", {
+  fit <- lm(y ~ x, data = bb, subset = z > 0.3)
+  a <- breuschGodfreyTest(fit, data = bb, orderBy = ~ z, order = 2)
+  b <- breuschGodfreyTest(y ~ x, data = bb[bb$z > 0.3, ], orderBy = ~ z, order = 2)
+  expect_equal(a$statistic, b$statistic)
+})
+
+test_that("formula subset", {
+  a <- breuschGodfreyTest(y ~ x, data = bb, subset = z > 0.3, order = 2)
+  b <- breuschGodfreyTest(y ~ x, data = bb[bb$z > 0.3, ], order = 2)
+  expect_equal(a$statistic, b$statistic)
+})
+
+test_that("coefficients and vcov are labelled", {
+  r <- breuschGodfreyTest(y ~ x, data = bb, order = 2)
+  nm <- c("(Intercept)", "x", "lag(resid)_1", "lag(resid)_2")
+  expect_named(r$coefficients, nm)
+  expect_identical(dimnames(vcov(r)), list(nm, nm))
+  expect_identical(df.residual(r), r$df.residual)
+  expect_identical(r$method,
+                   "Breusch-Godfrey test for serial correlation of order up to 2")
+})
+
+test_that("argument checks", {
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, order = NA), "positive integer")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, order = c(1, 2)), "positive integer")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, order = 50), "smaller than")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, fill = "a"), "'fill'")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, fill = c(0, 0)), "'fill'")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb, type = "t"))
+  expect_error(breuschGodfreyTest(cbind(y, z) ~ x, data = bb), "single vector")
+})
+
+test_that("rank deficiency and too few observations", {
+  d2 <- bb; d2$x2 <- 2 * d2$x
+  expect_error(breuschGodfreyTest(y ~ x + x2, data = d2), "model matrix is rank deficient")
+  expect_error(breuschGodfreyTest(y ~ x, data = bb[1:5, ], order = 3),
+               "not enough observations")
+})

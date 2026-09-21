@@ -120,3 +120,92 @@ test_that("leCessieTest.glm: rejects a non-binomial glm", {
   g <- glm(x2 ~ x1, family = gaussian)
   expect_error(leCessieTest(g), "binomial")
 })
+
+
+# -- added --------------------------------------------------------------------
+
+set.seed(8)
+lc <- data.frame(x = rnorm(300), z = runif(300))
+lc$y <- rbinom(300, 1, plogis(-0.2 + 0.9 * lc$x))
+lfit <- glm(y ~ x, family = binomial, data = lc)
+
+# direct matrix form: Var(SSE) = d'(W - W X (X'WX)^-1 X'W) d, d = 1 - 2p
+lcRef <- function(p, y, X) {
+  W <- diag(p * (1 - p))
+  d <- 1 - 2 * p
+  V <- W - W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W
+  (sum((y - p)^2) - sum(p * (1 - p))) / sqrt(drop(t(d) %*% V %*% d))
+}
+
+test_that("statistic equals the closed matrix form", {
+  r <- leCessieTest(lfit)
+  ref <- lcRef(fitted(lfit), lc$y, model.matrix(lfit))
+  expect_equal(unname(r$statistic), ref)
+  expect_equal(r$p.value, 2 * pnorm(-abs(ref)))
+  expect_equal(r$sse, sum((lc$y - fitted(lfit))^2))
+  expect_equal(r$expected, sum(fitted(lfit) * (1 - fitted(lfit))))
+})
+
+test_that("closed form also with a factor and an interaction", {
+  d <- lc
+  d$g <- gl(3, 100)
+  f <- glm(y ~ x * g, family = binomial, data = d)
+  expect_equal(unname(leCessieTest(f)$statistic),
+               lcRef(fitted(f), d$y, model.matrix(f)))
+})
+
+test_that("size under a correctly specified model", {
+  set.seed(4)
+  p <- replicate(800, {
+    x <- rnorm(200)
+    y <- rbinom(200, 1, plogis(0.3 + x))
+    leCessieTest(glm(y ~ x, family = binomial))$p.value
+  })
+  expect_lt(abs(mean(p < 0.05) - 0.05), 0.025)
+})
+
+test_that("glm with na.exclude", {
+  d <- lc
+  d$x[c(3, 50, 99)] <- NA
+  f1 <- glm(y ~ x, family = binomial, data = d, na.action = na.exclude)
+  f2 <- glm(y ~ x, family = binomial, data = d)
+  # regression: fitted() padded the excluded rows with NA
+  expect_equal(leCessieTest(f1)$statistic, leCessieTest(f2)$statistic)
+})
+
+test_that("factor, logical and quasibinomial responses", {
+  d <- lc
+  d$yf <- factor(ifelse(d$y == 1, "yes", "no"))
+  d$yl <- d$y == 1
+  ref <- leCessieTest(lfit)$statistic
+  expect_equal(leCessieTest(glm(yf ~ x, binomial, d))$statistic, ref)
+  expect_equal(leCessieTest(glm(yl ~ x, binomial, d))$statistic, ref)
+  expect_equal(leCessieTest(glm(y ~ x, quasibinomial, d))$statistic, ref)
+})
+
+test_that("glm method rejects unsupported models", {
+  d <- lc
+  d$n1 <- d$y; d$n0 <- 1 - d$y
+  expect_error(leCessieTest(glm(cbind(n1, n0) ~ x, binomial, d)),
+               "matrix responses")
+  expect_error(leCessieTest(glm(y ~ x, binomial, d, weights = rep(1:3, length.out = 300))),
+               "weighted")
+  expect_error(leCessieTest(glm(y ~ x, binomial, d, weights = rep(2, 300))),
+               "weighted")
+})
+
+test_that("default method: further checks", {
+  p <- fitted(lfit); X <- model.matrix(lfit)
+  expect_error(leCessieTest(as.character(p), lc$y, X), "numeric")
+  expect_error(leCessieTest(replace(p, 1, NA), lc$y, X), "'x' must not contain")
+  expect_error(leCessieTest(p, replace(lc$y, 1, NA), X), "'obs' must not contain")
+  expect_error(leCessieTest(p, lc$y, as.data.frame(X)), "numeric matrix")
+  expect_error(leCessieTest(p, lc$y, replace(X, 1, NA)), "'X' must not contain")
+  # p = 0.5 everywhere: d = 0, the standard deviation vanishes
+  expect_error(leCessieTest(rep(0.5, 300), lc$y, X), "standard deviation is zero")
+})
+
+test_that("print shows SSE and its expectation", {
+  expect_output(print(leCessieTest(lfit)), "Sum of squared errors")
+  expect_invisible(print(leCessieTest(lfit)))
+})

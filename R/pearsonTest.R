@@ -72,14 +72,26 @@ pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))),
                          adjust = TRUE) {
   
     DNAME <- deparse1(substitute(x))
+    if (!is.numeric(x))
+        stop("'x' must be numeric")
     x <- x[!is.na(x)]
     n <- length(x)
+    # constant data or an infinite value gave a "significant" result
+    # (P = n * (nClasses - 1) resp. a shifted classification) instead of
+    # an error
+    if (any(!is.finite(x)))
+        stop("'x' must not contain infinite values")
+    if (n < 2L || sd(x) == 0)
+        stop("all observations are identical, the test is not defined")
     if (adjust) {
         dfd <- 2
     }
     else {
         dfd <- 0
     }
+    if (nClasses - 1 - dfd < 1)
+        stop(gettextf("%d classes leave no degree of freedom, use more classes or more data",
+                      nClasses), domain = NA)
     # clamp to nClasses: for extremely extreme outliers, pnorm() can
     # round to exactly 1 in double precision, which would otherwise push
     # an observation into a nonexistent (nClasses+1)-th bin and make

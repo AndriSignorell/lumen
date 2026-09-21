@@ -54,10 +54,18 @@
 shapiroFranciaTest <- function (x) {
   
     DNAME <- deparse1(substitute(x))
+    if (!is.numeric(x))
+        stop("'x' must be numeric")
     x <- sort(x[complete.cases(x)])
     n <- length(x)
     if ((n < 5 || n > 5000)) 
         stop("sample size must be between 5 and 5000")
+    # cor() of a constant vector is NA, an infinite value gives NaN: both
+    # ended as W = NA without an error
+    if (any(!is.finite(x)))
+        stop("'x' must not contain infinite values")
+    if (x[1L] == x[n])
+        stop("all observations are identical, the test is not defined")
     y <- qnorm(ppoints(n, a = 3/8))
     W <- cor(x, y)^2
     u <- log(n)

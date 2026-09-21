@@ -200,12 +200,12 @@ moodMedianTest.formula <- function(formula, data, subset, na.action = na.pass, .
 
   subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
 
-  mf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
+  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
                        na.action = na.action,
                        allowed = c("two-sample-independent",
                                    "n-sample-independent"))
 
-  res <- moodMedianTest.default(x = mf$x, g = mf$group, ...)
-  res$data.name <- mf$dataName
+  res <- moodMedianTest.default(x = rf$x, g = rf$group, ...)
+  res$data.name <- rf$dataName
   res
 }

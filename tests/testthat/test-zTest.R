@@ -1,5 +1,3 @@
-library(testthat)
-library(lumen)
 
 tol <- 1e-4
 set.seed(1); x <- rnorm(50, mean = 5, sd = 2)
@@ -47,3 +45,135 @@ test_that("zTest: two-sample works", {
   res <- zTest(x, y, sd_pop = 2)
   expect_s3_class(res, "htest")
 })
+
+# zTest() --------------------------------------------------------------------
+
+x <- c(102.1, 98.4, 105.3, 99.8, 101.2, 97.6, 103.9, 100.5)
+y <- c( 96.2, 99.1,  94.8, 98.3,  97.7, 95.5)
+
+test_that("one-sample: statistic, p-value and interval by hand", {
+  r <- zTest(x, mu = 99, sd_pop = 3)
+  se <- 3 / sqrt(length(x))
+  z <- (mean(x) - 99) / se
+  
+  expect_s3_class(r, "htest")
+  expect_equal(r$statistic, c(z = z))
+  expect_equal(r$p.value, 2 * pnorm(-abs(z)))
+  expect_equal(as.vector(r$conf.int), mean(x) + c(-1, 1) * qnorm(0.975) * se)
+  expect_equal(attr(r$conf.int, "conf.level"), 0.95)
+  expect_equal(r$estimate, c("mean of x" = mean(x)))
+  expect_equal(r$null.value, c(mean = 99))
+  expect_equal(r$stderr, se)
+  expect_identical(r$method, "One Sample z-test")
+  expect_identical(r$data.name, "x")
+})
+
+test_that("one-sided alternatives", {
+  se <- 3 / sqrt(length(x))
+  z <- (mean(x) - 99) / se
+  
+  g <- zTest(x, mu = 99, sd_pop = 3, alternative = "greater", conf.level = 0.9)
+  expect_equal(g$p.value, pnorm(z, lower.tail = FALSE))
+  expect_equal(as.vector(g$conf.int), c(mean(x) - qnorm(0.9) * se, Inf))
+  
+  l <- zTest(x, mu = 99, sd_pop = 3, alternative = "l")
+  expect_equal(l$p.value, pnorm(z))
+  expect_equal(as.vector(l$conf.int), c(-Inf, mean(x) + qnorm(0.95) * se))
+  
+  expect_equal(g$p.value + l$p.value, 1)
+})
+
+test_that("two-sample", {
+  r <- zTest(x, y, sd_pop = 2, mu = 1)
+  se <- 2 * sqrt(1 / length(x) + 1 / length(y))
+  z <- (mean(x) - mean(y) - 1) / se
+  
+  expect_equal(r$statistic, c(z = z))
+  expect_equal(r$p.value, 2 * pnorm(-abs(z)))
+  expect_equal(as.vector(r$conf.int),
+               mean(x) - mean(y) + c(-1, 1) * qnorm(0.975) * se)
+  expect_equal(unname(r$estimate), c(mean(x), mean(y)))
+  expect_named(r$estimate, c("mean of x", "mean of y"))
+  expect_equal(r$null.value, c("difference in means" = 1))
+  expect_identical(r$method, "Two Sample z-test")
+  expect_identical(r$data.name, "x and y")
+})
+
+test_that("paired test equals one-sample test on the differences", {
+  a <- c(44.5, 55, 52.5, 50.2, 45.3, 46.1, 52.1, 50.5, 50.6, 49.2)
+  b <- c(44.9, 54.8, 55.6, 55.2, 55.6, 47.7, 53, 49.1, 52.3, 50.7)
+  p <- zTest(a, b, sd_pop = 3, paired = TRUE)
+  o <- zTest(a - b, sd_pop = 3)
+  
+  expect_equal(p$statistic, o$statistic)
+  expect_equal(p$p.value, o$p.value)
+  expect_equal(p$conf.int, o$conf.int)
+  expect_identical(p$method, "Paired z-test")
+  expect_named(p$estimate, "mean of the differences")
+  expect_named(p$null.value, "difference in means")
+})
+
+test_that("missing values: pairwise for paired, separately otherwise", {
+  a <- c(1.2, NA, 3.1, 4.0, 5.2, 2.2)
+  b <- c(2.0, 2.5, NA, 4.4, 5.9, 2.0)
+  
+  ok <- complete.cases(a, b)
+  expect_equal(zTest(a, b, sd_pop = 1, paired = TRUE)$statistic,
+               zTest(a[ok] - b[ok], sd_pop = 1)$statistic)
+  expect_equal(zTest(a, b, sd_pop = 1)$statistic,
+               zTest(na.omit(a), na.omit(b), sd_pop = 1)$statistic)
+  expect_equal(zTest(a, sd_pop = 1)$estimate[[1]], mean(a, na.rm = TRUE))
+})
+
+test_that("argument checks", {
+  expect_error(zTest(x, mu = c(1, 2), sd_pop = 1), "'mu' must be a single number")
+  expect_error(zTest(x, mu = NA, sd_pop = 1), "'mu' must be a single number")
+  expect_error(zTest(x, sd_pop = 1, conf.level = 1.5), "'conf.level'")
+  expect_error(zTest(x, sd_pop = 1, conf.level = NA), "'conf.level'")
+  expect_error(zTest(x, sd_pop = 1, paired = TRUE), "'y' is missing")
+  expect_error(zTest(1, sd_pop = 1), "not enough 'x' observations")
+  expect_error(zTest(c(NA, NA), 1:3, sd_pop = 1), "not enough 'x' observations")
+  expect_error(zTest(1:3, NA, sd_pop = 1), "not enough 'y' observations")
+  expect_error(zTest(1, 2, sd_pop = 1), "not enough observations")
+  expect_error(zTest(c(5, 5, 5), sd_pop = 0), "essentially constant")
+  expect_error(zTest(c(5, 5), c(5, 5), sd_pop = 0), "essentially constant")
+  expect_error(zTest(x, sd_pop = 1, alternative = "foo"))
+})
+
+test_that("formula interface equals the default method", {
+  f <- zTest(extra ~ group, data = sleep, sd_pop = 2)
+  d <- with(sleep, zTest(extra[group == 1], extra[group == 2], sd_pop = 2))
+  
+  expect_equal(f$statistic, d$statistic)
+  expect_equal(f$p.value, d$p.value)
+  expect_equal(f$conf.int, d$conf.int)
+  expect_equal(f$estimate, d$estimate)
+  
+  # regression: the name was read from a component resolveFormula() does
+  # not return, which deleted data.name from the result
+  expect_type(f$data.name, "character")
+  expect_match(f$data.name, "extra")
+})
+
+test_that("formula interface passes '...' on", {
+  f <- zTest(extra ~ group, data = sleep, sd_pop = 2,
+             alternative = "less", mu = -1)
+  d <- with(sleep, zTest(extra[group == 1], extra[group == 2], sd_pop = 2,
+                         alternative = "less", mu = -1))
+  expect_equal(f$p.value, d$p.value)
+  expect_identical(f$alternative, "less")
+})
+
+test_that("formula interface honours subset", {
+  # regression: do.call() evaluated the subset expression outside the data
+  f <- zTest(extra ~ group, data = sleep, subset = ID != "1", sd_pop = 2)
+  s <- sleep[sleep$ID != "1", ]
+  d <- zTest(s$extra[s$group == 1], s$extra[s$group == 2], sd_pop = 2)
+  expect_equal(f$statistic, d$statistic)
+})
+
+test_that("formula interface rejects one-sided formulas", {
+  expect_error(zTest(~ extra, data = sleep, sd_pop = 2),
+               "'formula' missing or incorrect")
+})
+

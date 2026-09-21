@@ -217,3 +217,86 @@ test_that("Tarone correction with user-supplied OR warns", {
     "Tarone"
   )
 })
+
+
+# -- added --------------------------------------------------------------------
+
+# expected count of cell (1,1) under a common OR, found by root search
+tildeA <- function(tab, or) {
+  m1 <- sum(tab[1, ]); n1 <- sum(tab[, 1]); N <- sum(tab)
+  lo <- max(0, m1 + n1 - N); hi <- min(m1, n1)
+  f <- function(a) a * (N - m1 - n1 + a) - or * (m1 - a) * (n1 - a)
+  uniroot(f, c(lo, hi), tol = 1e-12)$root
+}
+
+bdRef <- function(x, or) {
+  s <- 0; a <- ta <- va <- numeric(dim(x)[3])
+  for (j in seq_len(dim(x)[3])) {
+    t <- x[, , j]; e <- tildeA(t, or)
+    m1 <- sum(t[1, ]); n1 <- sum(t[, 1]); N <- sum(t)
+    v <- 1 / (1 / e + 1 / (m1 - e) + 1 / (n1 - e) + 1 / (N - m1 - n1 + e))
+    s <- s + (t[1, 1] - e)^2 / v
+    a[j] <- t[1, 1]; ta[j] <- e; va[j] <- v
+  }
+  list(stat = s, tarone = s - (sum(a) - sum(ta))^2 / sum(va))
+}
+
+orMH <- function(x) {
+  n <- apply(x, 3, sum)
+  sum(x[1, 1, ] * x[2, 2, ] / n) / sum(x[1, 2, ] * x[2, 1, ] / n)
+}
+
+test_that("statistic equals the definition with a root-searched expectation", {
+  for (x in list(migraine, salary)) {
+    ref <- bdRef(x, orMH(x))
+    expect_equal(unname(breslowDayTest(x)$statistic), ref$stat, tolerance = 1e-8)
+    expect_equal(unname(breslowDayTest(x, correct = TRUE)$statistic),
+                 ref$tarone, tolerance = 1e-8)
+  }
+})
+
+test_that("OR = 1 takes the linear branch: expectation m1 * n1 / N", {
+  ref <- bdRef(salary, 1)
+  expect_equal(unname(breslowDayTest(salary, OR = 1)$statistic), ref$stat,
+               tolerance = 1e-8)
+})
+
+test_that("a hypothesised OR is not estimated: K df instead of K - 1", {
+  r <- breslowDayTest(salary, OR = 4.02)
+  expect_equal(unname(r$parameter), 2L)
+  expect_equal(r$p.value, pchisq(unname(r$statistic), 2, lower.tail = FALSE))
+  # OR = NA is the MH estimate, i.e. still K - 1
+  expect_equal(unname(breslowDayTest(salary, OR = NA)$parameter), 1L)
+})
+
+test_that("size under H0 with a hypothesised OR", {
+  set.seed(1)
+  K <- 4
+  p <- replicate(1500, {
+    x <- array(0, c(2, 2, K))
+    for (j in seq_len(K)) {
+      p0 <- 0.3; p1 <- 2 * p0 / (1 - p0 + 2 * p0)
+      x[, 1, j] <- c(rbinom(1, 60, p1), rbinom(1, 60, p0))
+      x[, 2, j] <- 60 - x[, 1, j]
+    }
+    breslowDayTest(x, OR = 2)$p.value
+  })
+  expect_lt(abs(mean(p < 0.05) - 0.05), 0.025)
+})
+
+test_that("input checks", {
+  x <- salary
+  expect_error(breslowDayTest(array(1:8, c(2, 2, 2, 1))), "2x2xK")
+  x[1, 1, 1] <- NA
+  expect_error(breslowDayTest(x), "nonnegative and finite")
+  expect_error(breslowDayTest(salary, OR = c(1, 2)), "positive finite")
+  expect_error(breslowDayTest(salary, correct = c(TRUE, FALSE)), "TRUE or FALSE")
+  expect_error(breslowDayTest(salary, correct = "a"), "TRUE or FALSE")
+
+  z <- salary; z[1, , 1] <- 0
+  expect_error(breslowDayTest(z), "zero marginal totals")
+
+  # all b*c products zero: MH estimate undefined
+  y <- array(c(5, 0, 0, 7, 4, 0, 0, 9), c(2, 2, 2))
+  expect_error(breslowDayTest(y), "denominator is zero")
+})

@@ -146,6 +146,8 @@ madCI <- function(x,
   
   sides  <- match.arg(sides)
   method <- match.arg(method)
+
+  .checkSidedLevel(conf.level, sides)
   
   # one-sided: adjust conf.level to two-sided equivalent for computation
   conf_adj <- if (sides != "two.sided") 1 - 2 * (1 - conf.level) else conf.level
@@ -229,6 +231,8 @@ madDiffCI <- function(x, y,
   
   sides  <- match.arg(sides)
   method <- match.arg(method)
+
+  .checkSidedLevel(conf.level, sides)
   
   conf_adj <- if (sides != "two.sided") 1 - 2 * (1 - conf.level) else conf.level
   alpha    <- 1 - conf_adj
@@ -312,6 +316,8 @@ madRatioCI <- function(x, y,
   
   sides  <- match.arg(sides)
   method <- match.arg(method)
+
+  .checkSidedLevel(conf.level, sides)
   
   conf_adj <- if (sides != "two.sided") 1 - 2 * (1 - conf.level) else conf.level
   alpha    <- 1 - conf_adj
@@ -376,17 +382,21 @@ madRatioCI <- function(x, y,
 
 # internal helper functions ---------------------------------
 
-.asv.mad <- function(x, method = "TM"){
+.asv.mad <- function(x, method = "TM", constant = 1.4826) {
+
+  # Asymptotic variance of constant * MAD (Arachchige & Prendergast 2019).
+  # The formula is stated for the raw MAD zeta, defined by
+  # F(m + zeta) - F(m - zeta) = 1/2, so the density must be evaluated at
+  # m -/+ mad(x, constant = 1). The CI functions use the consistency-scaled
+  # mad(x) as estimate, hence the factor constant^2.
   lambda <- gld::fit.fkml(x, method = method)$lambda
-  m  <- median(x)
-  mad.x <- mad(x)
-  fFinv <- gld::dgl(c(m - mad.x, m + mad.x, m), lambda1 = lambda)
-  FFinv <- gld::pgl(c(m - mad.x, m + mad.x), lambda1 = lambda)
+  m      <- median(x)
+  zeta   <- mad(x, constant = 1)
+  fFinv  <- gld::dgl(c(m - zeta, m + zeta, m), lambda1 = lambda)
+  FFinv  <- gld::pgl(c(m - zeta, m + zeta), lambda1 = lambda)
   A <- fFinv[1] + fFinv[2]
   C <- fFinv[1] - fFinv[2]
-  B <- C^2 + 4*C*fFinv[3]*(1 - FFinv[2] - FFinv[1])
-  
-  (1/(4 * A^2))*(1 + B/fFinv[3]^2)
-  
-} 
+  B <- C^2 + 4 * C * fFinv[3] * (1 - FFinv[2] - FFinv[1])
 
+  constant^2 * (1 + B / fFinv[3]^2) / (4 * A^2)
+}

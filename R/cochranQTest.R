@@ -149,11 +149,14 @@ cochranQTest.default <- function(y, groups, blocks,
     DNAME <- paste0(DNAME, ", ", deparse1(substitute(groups)),
                     " and ", deparse1(substitute(blocks)))
 
-    if (any(table(groups, blocks) != 1L))
-      stop("not an unreplicated complete block design")
-
+    # factor() first: it drops unused levels, e.g. a block removed by
+    # 'subset' in the formula method, which table() counted as an empty
+    # block and so rejected a complete design
     groups <- factor(groups)
     blocks <- factor(blocks)
+
+    if (any(table(groups, blocks) != 1L))
+      stop("not an unreplicated complete block design")
     o      <- order(groups, blocks)
     y      <- asBinary(y[o])
     groups <- groups[o]
@@ -199,7 +202,7 @@ cochranQTest.formula <- function(formula,
   if (!missing(subset))
     args$subset <- substitute(subset)
 
-  d <- do.call(resolveFormula, args)
+  d <- do.call(resolveFormula, args, quote = TRUE)
 
   res <- cochranQTest.default(
     y         = d$response,
@@ -210,7 +213,7 @@ cochranQTest.formula <- function(formula,
     ...
   )
 
-  res$data.name <- d$data.name
+  res$data.name <- d$dataName
   res
 }
 

@@ -41,7 +41,8 @@
 #' 
 #' ## Exercise 7.8 p. 270
 #' powerChisqTest(effectSize=0.1, df=(5-1)*(6-1), power=0.80, sig.level=0.05)
-#' #' @family power
+#'
+#' @family power
 #' @concept power
 #' @concept sample-size
 #' @concept chi-square-based
