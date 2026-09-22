@@ -146,8 +146,7 @@ distributions;
 based (nonparametric) two-sample tests for difference in scale.
 
 Other test.variance: [`leveneTest()`](leveneTest.md),
-[`mosesTest()`](mosesTest.md),
-[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md)
+[`mosesTest()`](mosesTest.md), [`siegelTukeyTest()`](siegelTukeyTest.md)
 
 ## Examples
 

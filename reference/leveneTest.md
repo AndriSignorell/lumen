@@ -106,8 +106,7 @@ rank-based (nonparametric) k-sample test for homogeneity of variances,
 parametric alternative
 
 Other test.variance: [`mosesTest()`](mosesTest.md),
-[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md),
-[`varTest()`](varTest.md)
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varTest()`](varTest.md)
 
 ## Examples
 

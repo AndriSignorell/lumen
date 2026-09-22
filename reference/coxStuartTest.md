@@ -92,9 +92,7 @@ location and dispersion. *Biometrika*, **42**(1/2), 80-95.
 
 ## See also
 
-[`signTest()`](signTest.md),
-[`jonckheereTerpstraTest()`](jonckheereTerpstraTest.md),
-[`mantelTrendTest()`](mantelTrendTest.md),
+[`signTest()`](signTest.md), [`mantelTrendTest()`](mantelTrendTest.md),
 [`bartelsRankTest()`](bartelsRankTest.md), [`runsTest()`](runsTest.md)
 
 Other test.trend: [`cochranArmitageTest()`](cochranArmitageTest.md),

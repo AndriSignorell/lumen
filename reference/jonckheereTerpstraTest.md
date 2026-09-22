@@ -63,12 +63,14 @@ jonckheereTerpstraTest(
 
   a character string specifying the inference method, one of `"auto"`
   (default), `"exact"`, `"permutation"` or `"asymptotic"`. `"auto"` uses
-  exact inference when possible (no ties, \\n \le 100\\), otherwise the
-  asymptotic approximation.
+  exact inference where it is affordable (without ties \\n \le 100\\,
+  with ties a cost below \\10^7\\ table cells), otherwise the asymptotic
+  approximation.
 
 - R:
 
-  the number of permutations, required when `method = "permutation"`.
+  the number of permutations, a single positive integer, required when
+  `method = "permutation"`.
 
 ## Value
 
@@ -108,15 +110,35 @@ l\\. Large values of the statistic indicate increasing trends across
 groups.
 
 Exact p-values are computed from the exact permutation distribution
-using a dynamic programming recursion implemented in C++. Exact
-inference is only valid without ties and, for practical reasons, is
-offered for total sample sizes \\n \le 100\\.
+using dynamic programming recursions implemented in C++, with and
+without ties.
 
-When ties are present or sample sizes are large, permutation p-values
-can be computed by permuting group labels under the null hypothesis
-(`method = "permutation"`); the number of permutations is controlled by
-`R`, and the reported p-value uses the finite-sample correction \\(m +
-1)/(R + 1)\\. This approach remains valid in the presence of ties.
+Without ties the null distribution depends on the group sizes alone and
+is obtained from the classical recursion; it is offered for total sample
+sizes \\n \le 100\\.
+
+With ties the statistic depends on the data through the table of counts
+of group by distinct value, which under the null hypothesis follows the
+multiple hypergeometric distribution with the group sizes and the tie
+counts as its margins. The distribution is built by splitting off one
+row of that table at a time, the state being the counts not yet
+assigned. Its cost grows with \\\prod_a (c_a + 1)\\, the \\c_a\\ being
+the tie counts, so it is cheapest where ties are heaviest, and
+prohibitive where they are few and the sample is large. `"auto"`
+therefore turns to the asymptotic approximation beyond a cost of about
+\\10^7\\ table cells, and `method = "exact"` warns above \\2 \times
+10^8\\ and falls back to the approximation as well. Note that with ties
+the statistic and the support of its distribution are half-integral.
+
+For large samples permutation p-values can be computed by permuting
+group labels under the null hypothesis (`method = "permutation"`); the
+number of permutations is controlled by `R`, and the reported p-value
+uses the finite-sample correction \\(m + 1)/(R + 1)\\.
+
+Two-sided p-values are the smaller one-sided p-value doubled, in each of
+the three methods. The null distribution of the statistic is symmetric
+only for equal group sizes, so this is not the same as counting the
+values lying at least as far from the null mean as the observed one.
 
 With `method = "asymptotic"` (the fallback of `"auto"` when exact
 inference does not apply), a normal approximation with the tie-corrected
@@ -157,7 +179,8 @@ jonckheereTerpstraTest(x, g)
 #> alternative hypothesis: two.sided
 #> 
 
-# with ties: permutation inference
+# with ties: exact inference as long as it is affordable,
+# permutation inference otherwise
 x[1:2] <- mean(x[1:2])
 jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
 #> 
@@ -165,7 +188,7 @@ jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
 #>  2000)
 #> 
 #> data:  x and g
-#> JT = 438, k = 4, n = 40, p-value = 0.0004998
+#> JT = 438, k = 4, n = 40, p-value = 0.0009995
 #> alternative hypothesis: two.sided
 #> 
 
@@ -192,13 +215,15 @@ motiv <- list(
 
 jonckheereTerpstraTest(motiv, alternative = "increasing")
 #> 
-#>  Jonckheere-Terpstra test for ordered alternatives (asymptotic)
+#>  Jonckheere-Terpstra test for ordered alternatives (exact, ties)
 #> 
 #> data:  x
-#> JT = 79, k = 3, n = 18, p-value = 0.02071
+#> JT = 79, k = 3, n = 18, p-value = 0.02097
 #> alternative hypothesis: increasing
 #> 
-## exact one-sided p-value 0.0379 as in Hollander & Wolfe
+## exact one-sided p-value 0.0210, the data being tied. Hollander and
+## Wolfe report 0.0231 from the tie-free null distribution and 0.0207
+## from the tie-corrected normal approximation
 
 jonckheereTerpstraTest(motiv, alternative = "increasing",
                        method = "asymptotic")

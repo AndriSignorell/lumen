@@ -119,10 +119,8 @@ remotes::install_github("AndriSignorell/lumen")
 
 `dpqr` families for the Benford, Dirichlet, extreme value, Fréchet, GEV,
 GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull
-and triangular distributions, plus
-[`cont.moments()`](reference/cont.moments.md),
-[`disc.moments()`](reference/disc.moments.md) and
-`extreme-value-moments()`.
+and triangular distributions, plus `cont-moments()`, `disc-moments()`
+and `extreme-value-moments()`.
 
 ### 🔹 Power and Sample Size
 

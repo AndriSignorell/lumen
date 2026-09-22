@@ -84,12 +84,9 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 
 ## See also
 
-[`meanCI()`](meanCI.md), [`medianCI()`](medianCI.md),
-[`varTest()`](varTest.md), `DescToolsX::varX`
+[`meanCI()`](meanCI.md), [`medianCI()`](medianCI.md), `DescToolsX::varX`
 
-Other test.variance: [`leveneTest()`](leveneTest.md),
-[`mosesTest()`](mosesTest.md),
-[`siegelTukeyTest()`](siegelTukeyTest.md), [`varTest()`](varTest.md)
+Other ci.variance: [`mad-confints`](mad-confints.md)
 
 ## Examples
 

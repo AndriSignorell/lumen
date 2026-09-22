@@ -31,11 +31,11 @@ that.
 |  |  |  |
 |----|----|----|
 | **Distribution** | **d-p-q-r** | **Moments** |
-| Benford | [dpqr-benford](dpqr-benford.md) | [`mbenford()`](disc.moments.md) |
+| Benford | [dpqr-benford](dpqr-benford.md) | [`mbenford()`](disc-moments.md) |
 | Dirichlet | [dpqr-dirichlet](dpqr-dirichlet.md) | `-` |
 | Gompertz | [dpqr-gompertz](dpqr-gompertz.md) ` ` | [`mgompertz()`](extreme-value-moments.md) |
 | Gen. Pareto ` ` | [dpqr-gpd](dpqr-gpd.md) | [`mgpd()`](extreme-value-moments.md) |
-| Triangular | [dpqr-tri](dpqr-tri.md) | [`mtri()`](cont.moments.md) |
+| Triangular | [dpqr-tri](dpqr-tri.md) | [`mtri()`](cont-moments.md) |
 
 ## Moments for base R distributions
 
@@ -45,19 +45,19 @@ moments function.
 |  |  |  |
 |----|----|----|
 | **Distribution** | **d-p-q-r** | **Moments** |
-| Beta | [Beta](https://rdrr.io/r/stats/Beta.html) | [`mbeta()`](cont.moments.md) |
-| Binomial | [Binomial](https://rdrr.io/r/stats/Binomial.html) | [`mbinom()`](disc.moments.md) |
-| Chi-squared | [Chisquare](https://rdrr.io/r/stats/Chisquare.html) | [`mchisq()`](cont.moments.md) |
-| Exponential | [Exponential](https://rdrr.io/r/stats/Exponential.html) | [`mexp()`](cont.moments.md) |
-| F | [FDist](https://rdrr.io/r/stats/Fdist.html) | [`mf()`](cont.moments.md) |
-| Gamma | [GammaDist](https://rdrr.io/r/stats/GammaDist.html) | [`mgamma()`](cont.moments.md) |
-| Geometric | [Geometric](https://rdrr.io/r/stats/Geometric.html) | [`mgeom()`](disc.moments.md) |
-| Hypergeometric | [Hypergeometric](https://rdrr.io/r/stats/Hypergeometric.html) ` ` | [`mhyper()`](disc.moments.md) |
-| Log-normal | [Lognormal](https://rdrr.io/r/stats/Lognormal.html) | [`mlnorm()`](cont.moments.md) |
-| Negative binomial ` ` | [NegBinomial](https://rdrr.io/r/stats/NegBinomial.html) | [`mnbinom()`](disc.moments.md) |
-| Normal | [Normal](https://rdrr.io/r/stats/Normal.html) | [`mnorm()`](cont.moments.md) |
-| Poisson | [Poisson](https://rdrr.io/r/stats/Poisson.html) | [`mpois()`](disc.moments.md) |
-| Student's t | [TDist](https://rdrr.io/r/stats/TDist.html) | [`mt()`](cont.moments.md) |
+| Beta | [Beta](https://rdrr.io/r/stats/Beta.html) | [`mbeta()`](cont-moments.md) |
+| Binomial | [Binomial](https://rdrr.io/r/stats/Binomial.html) | [`mbinom()`](disc-moments.md) |
+| Chi-squared | [Chisquare](https://rdrr.io/r/stats/Chisquare.html) | [`mchisq()`](cont-moments.md) |
+| Exponential | [Exponential](https://rdrr.io/r/stats/Exponential.html) | [`mexp()`](cont-moments.md) |
+| F | [FDist](https://rdrr.io/r/stats/Fdist.html) | [`mf()`](cont-moments.md) |
+| Gamma | [GammaDist](https://rdrr.io/r/stats/GammaDist.html) | [`mgamma()`](cont-moments.md) |
+| Geometric | [Geometric](https://rdrr.io/r/stats/Geometric.html) | [`mgeom()`](disc-moments.md) |
+| Hypergeometric | [Hypergeometric](https://rdrr.io/r/stats/Hypergeometric.html) ` ` | [`mhyper()`](disc-moments.md) |
+| Log-normal | [Lognormal](https://rdrr.io/r/stats/Lognormal.html) | [`mlnorm()`](cont-moments.md) |
+| Negative binomial ` ` | [NegBinomial](https://rdrr.io/r/stats/NegBinomial.html) | [`mnbinom()`](disc-moments.md) |
+| Normal | [Normal](https://rdrr.io/r/stats/Normal.html) | [`mnorm()`](cont-moments.md) |
+| Poisson | [Poisson](https://rdrr.io/r/stats/Poisson.html) | [`mpois()`](disc-moments.md) |
+| Student's t | [TDist](https://rdrr.io/r/stats/TDist.html) | [`mt()`](cont-moments.md) |
 
 ## Standalone
 

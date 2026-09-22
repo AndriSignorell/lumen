@@ -213,15 +213,15 @@ compositions.
 
 - [`distributions-overview`](distributions-overview.md) : Distribution
   Functions in lumen
-- [`mnorm()`](cont.moments.md) [`mexp()`](cont.moments.md)
-  [`mgamma()`](cont.moments.md) [`mlnorm()`](cont.moments.md)
-  [`mbeta()`](cont.moments.md) [`mchisq()`](cont.moments.md)
-  [`mt()`](cont.moments.md) [`mf()`](cont.moments.md)
-  [`mtri()`](cont.moments.md) : Mean and Variance of Continuous
+- [`mnorm()`](cont-moments.md) [`mexp()`](cont-moments.md)
+  [`mgamma()`](cont-moments.md) [`mlnorm()`](cont-moments.md)
+  [`mbeta()`](cont-moments.md) [`mchisq()`](cont-moments.md)
+  [`mt()`](cont-moments.md) [`mf()`](cont-moments.md)
+  [`mtri()`](cont-moments.md) : Mean and Variance of Continuous
   Distributions
-- [`mbinom()`](disc.moments.md) [`mpois()`](disc.moments.md)
-  [`mgeom()`](disc.moments.md) [`mnbinom()`](disc.moments.md)
-  [`mhyper()`](disc.moments.md) [`mbenford()`](disc.moments.md) : Mean
+- [`mbinom()`](disc-moments.md) [`mpois()`](disc-moments.md)
+  [`mgeom()`](disc-moments.md) [`mnbinom()`](disc-moments.md)
+  [`mhyper()`](disc-moments.md) [`mbenford()`](disc-moments.md) : Mean
   and Variance of Discrete Distributions
 - [`mgumbel()`](extreme-value-moments.md)
   [`mrevgumbel()`](extreme-value-moments.md)

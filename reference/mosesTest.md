@@ -180,8 +180,7 @@ Moses, L.E. (1952). A two-sample test. *Psychometrika*, **17**, 239–247.
 [`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html)
 
 Other test.variance: [`leveneTest()`](leveneTest.md),
-[`siegelTukeyTest()`](siegelTukeyTest.md), [`varCI()`](varCI.md),
-[`varTest()`](varTest.md)
+[`siegelTukeyTest()`](siegelTukeyTest.md), [`varTest()`](varTest.md)
 
 ## Examples
 

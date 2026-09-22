@@ -160,6 +160,8 @@ intervals for median absolute deviations. *arXiv:1910.00229*
 
 [`mad()`](https://rdrr.io/r/stats/mad.html), `DescToolsX::madX`
 
+Other ci.variance: [`varCI()`](varCI.md)
+
 ## Examples
 
 ``` r

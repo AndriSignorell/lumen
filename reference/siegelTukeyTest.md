@@ -178,8 +178,7 @@ Statistical Procedures*, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
 Other test.variance: [`leveneTest()`](leveneTest.md),
-[`mosesTest()`](mosesTest.md), [`varCI()`](varCI.md),
-[`varTest()`](varTest.md)
+[`mosesTest()`](mosesTest.md), [`varTest()`](varTest.md)
 
 ## Examples
 

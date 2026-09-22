@@ -17,7 +17,7 @@ systematically with group order."><meta property="og:image" content="/logo.png">
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.950</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.951</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,13 +115,14 @@ hypothesis, must be one of <code>"two.sided"</code> (default),
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>a character string specifying the inference method, one of
 <code>"auto"</code> (default), <code>"exact"</code>, <code>"permutation"</code> or
-<code>"asymptotic"</code>. <code>"auto"</code> uses exact inference when possible
-(no ties, \(n \le 100\)), otherwise the asymptotic approximation.</p></dd>
+<code>"asymptotic"</code>. <code>"auto"</code> uses exact inference where it is
+affordable (without ties \(n \le 100\), with ties a cost below
+\(10^7\) table cells), otherwise the asymptotic approximation.</p></dd>
 
 
 <dt id="arg-r">R<a class="anchor" aria-label="anchor" href="#arg-r"></a></dt>
-<dd><p>the number of permutations, required when
-<code>method = "permutation"</code>.</p></dd>
+<dd><p>the number of permutations, a single positive integer,
+required when <code>method = "permutation"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -158,15 +159,32 @@ $$JT = \sum_{k&lt;l} \sum_{ij} \left[ I(X_{ik} &lt; X_{jl}) +
 where \(i, j\) index observations from ordered groups \(k, l\).
 Large values of the statistic indicate increasing trends across groups.</p>
 <p>Exact p-values are computed from the exact permutation distribution
-using a dynamic programming recursion implemented in C++. Exact
-inference is only valid without ties and, for practical reasons, is
-offered for total sample sizes \(n \le 100\).</p>
-<p>When ties are present or sample sizes are large, permutation p-values
-can be computed by permuting group labels under the null hypothesis
-(<code>method = "permutation"</code>); the number of permutations is
-controlled by <code>R</code>, and the reported p-value uses the finite-sample
-correction \((m + 1)/(R + 1)\). This approach remains valid in the
-presence of ties.</p>
+using dynamic programming recursions implemented in C++, with and
+without ties.</p>
+<p>Without ties the null distribution depends on the group sizes alone and
+is obtained from the classical recursion; it is offered for total sample
+sizes \(n \le 100\).</p>
+<p>With ties the statistic depends on the data through the table of counts
+of group by distinct value, which under the null hypothesis follows the
+multiple hypergeometric distribution with the group sizes and the tie
+counts as its margins. The distribution is built by splitting off one
+row of that table at a time, the state being the counts not yet
+assigned. Its cost grows with \(\prod_a (c_a + 1)\), the \(c_a\)
+being the tie counts, so it is cheapest where ties are heaviest, and
+prohibitive where they are few and the sample is large. <code>"auto"</code>
+therefore turns to the asymptotic approximation beyond a cost of about
+\(10^7\) table cells, and <code>method = "exact"</code> warns above
+\(2 \times 10^8\) and falls back to the approximation as well. Note
+that with ties the statistic and the support of its distribution are
+half-integral.</p>
+<p>For large samples permutation p-values can be computed by permuting
+group labels under the null hypothesis (<code>method = "permutation"</code>);
+the number of permutations is controlled by <code>R</code>, and the reported
+p-value uses the finite-sample correction \((m + 1)/(R + 1)\).</p>
+<p>Two-sided p-values are the smaller one-sided p-value doubled, in each of
+the three methods. The null distribution of the statistic is symmetric
+only for equal group sizes, so this is not the same as counting the
+values lying at least as far from the null mean as the observed one.</p>
 <p>With <code>method = "asymptotic"</code> (the fallback of <code>"auto"</code> when
 exact inference does not apply), a normal approximation with the
 tie-corrected variance of Hollander and Wolfe (1999, Eq. 6.19) is used.</p>
@@ -205,7 +223,8 @@ Methods</em>, 2nd ed., New York: Wiley.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># with ties: permutation inference</span></span></span>
+<span class="r-in"><span><span class="co"># with ties: exact inference as long as it is affordable,</span></span></span>
+<span class="r-in"><span><span class="co"># permutation inference otherwise</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">jonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, method <span class="op">=</span> <span class="st">"permutation"</span>, R <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -213,7 +232,7 @@ Methods</em>, 2nd ed., New York: Wiley.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	2000)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x and g</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JT = 438, k = 4, n = 40, p-value = 0.0004998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JT = 438, k = 4, n = 40, p-value = 0.0009995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -240,13 +259,15 @@ Methods</em>, 2nd ed., New York: Wiley.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">jonckheereTerpstraTest</span><span class="op">(</span><span class="va">motiv</span>, alternative <span class="op">=</span> <span class="st">"increasing"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Jonckheere-Terpstra test for ordered alternatives (asymptotic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Jonckheere-Terpstra test for ordered alternatives (exact, ties)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JT = 79, k = 3, n = 18, p-value = 0.02071</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JT = 79, k = 3, n = 18, p-value = 0.02097</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: increasing</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="co">## exact one-sided p-value 0.0379 as in Hollander &amp; Wolfe</span></span></span>
+<span class="r-in"><span><span class="co">## exact one-sided p-value 0.0210, the data being tied. Hollander and</span></span></span>
+<span class="r-in"><span><span class="co">## Wolfe report 0.0231 from the tie-free null distribution and 0.0207</span></span></span>
+<span class="r-in"><span><span class="co">## from the tie-corrected normal approximation</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">jonckheereTerpstraTest</span><span class="op">(</span><span class="va">motiv</span>, alternative <span class="op">=</span> <span class="st">"increasing"</span>,</span></span>
 <span class="r-in"><span>                       method <span class="op">=</span> <span class="st">"asymptotic"</span><span class="op">)</span></span></span>
