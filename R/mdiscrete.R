@@ -70,10 +70,10 @@
 #' mbenford(nDigits = 1)
 #' mbenford(nDigits = 2)
 #'
-#' @name disc.moments
+#' @name disc-moments
 NULL
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mbinom <- function(size, prob) {
 
@@ -84,7 +84,7 @@ mbinom <- function(size, prob) {
     variance = size * prob * (1 - prob))
 }
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mpois <- function(lambda) {
 
@@ -94,7 +94,7 @@ mpois <- function(lambda) {
     variance = lambda)
 }
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mgeom <- function(prob) {
 
@@ -104,7 +104,7 @@ mgeom <- function(prob) {
     variance = (1 - prob) / prob^2)
 }
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mnbinom <- function(size, prob) {
 
@@ -117,7 +117,7 @@ mnbinom <- function(size, prob) {
     variance = size * (1 - prob) / prob^2)
 }
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mhyper <- function(m, n, k) {
 
@@ -136,7 +136,7 @@ mhyper <- function(m, n, k) {
     variance = k * m / N * n / N * (N - k) / (N - 1))
 }
 
-#' @rdname disc.moments
+#' @rdname disc-moments
 #' @export
 mbenford <- function(nDigits = 1) {
 

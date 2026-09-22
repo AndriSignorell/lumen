@@ -77,8 +77,7 @@ Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
 dispersion. \emph{Biometrika}, \strong{42}(1/2), 80-95.
 }
 \seealso{
-\code{\link[=signTest]{signTest()}}, \code{\link[=jonckheereTerpstraTest]{jonckheereTerpstraTest()}},
-\code{\link[=mantelTrendTest]{mantelTrendTest()}}, \code{\link[=bartelsRankTest]{bartelsRankTest()}},
+\code{\link[=signTest]{signTest()}}, \code{\link[=mantelTrendTest]{mantelTrendTest()}}, \code{\link[=bartelsRankTest]{bartelsRankTest()}},
 \code{\link[=runsTest]{runsTest()}}
 
 Other test.trend:

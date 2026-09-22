@@ -149,12 +149,7 @@
 #' Interval estimation for the difference between independent proportions.
 #' *Statistics in Medicine*, 17, 873-890.
 #'
-#' @seealso [binom.test()], [prop.test()]
 #'
-#' @family topic.categoricalData
-#' @concept categorical data
-#' @concept confidence intervals
-#'  
 #' @examples
 #' 
 #' x1 <- 56; n1 <- 70; x2 <- 48; n2 <- 80
@@ -192,6 +187,7 @@
 # conf.level <- 0.95
 # xci
 # 
+#' @seealso [binom.test()], [prop.test()]
 #' @family ci.proportion  
 #' @concept confidence-interval  
 #' @concept proportion  

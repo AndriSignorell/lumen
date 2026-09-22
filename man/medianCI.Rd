@@ -92,6 +92,6 @@ Other ci.location:
 \code{\link[=sumCI]{sumCI()}}
 }
 \concept{ci.location}
-\concept{confidence-intervals}
+\concept{confidence-interval}
 \concept{descriptive-statistics}
 \concept{nonparametric}

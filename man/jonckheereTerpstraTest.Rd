@@ -44,11 +44,12 @@ hypothesis, must be one of \code{"two.sided"} (default),
 
 \item{method}{a character string specifying the inference method, one of
 \code{"auto"} (default), \code{"exact"}, \code{"permutation"} or
-\code{"asymptotic"}. \code{"auto"} uses exact inference when possible
-(no ties, \eqn{n \le 100}), otherwise the asymptotic approximation.}
+\code{"asymptotic"}. \code{"auto"} uses exact inference where it is
+affordable (without ties \eqn{n \le 100}, with ties a cost below
+\eqn{10^7} table cells), otherwise the asymptotic approximation.}
 
-\item{R}{the number of permutations, required when
-\code{method = "permutation"}.}
+\item{R}{the number of permutations, a single positive integer,
+required when \code{method = "permutation"}.}
 }
 \value{
 A list with class \code{"htest"} containing the following
@@ -77,16 +78,36 @@ where \eqn{i, j} index observations from ordered groups \eqn{k, l}.
 Large values of the statistic indicate increasing trends across groups.
 
 Exact p-values are computed from the exact permutation distribution
-using a dynamic programming recursion implemented in C++. Exact
-inference is only valid without ties and, for practical reasons, is
-offered for total sample sizes \eqn{n \le 100}.
+using dynamic programming recursions implemented in C++, with and
+without ties.
 
-When ties are present or sample sizes are large, permutation p-values
-can be computed by permuting group labels under the null hypothesis
-(\code{method = "permutation"}); the number of permutations is
-controlled by \code{R}, and the reported p-value uses the finite-sample
-correction \eqn{(m + 1)/(R + 1)}. This approach remains valid in the
-presence of ties.
+Without ties the null distribution depends on the group sizes alone and
+is obtained from the classical recursion; it is offered for total sample
+sizes \eqn{n \le 100}.
+
+With ties the statistic depends on the data through the table of counts
+of group by distinct value, which under the null hypothesis follows the
+multiple hypergeometric distribution with the group sizes and the tie
+counts as its margins. The distribution is built by splitting off one
+row of that table at a time, the state being the counts not yet
+assigned. Its cost grows with \eqn{\prod_a (c_a + 1)}, the \eqn{c_a}
+being the tie counts, so it is cheapest where ties are heaviest, and
+prohibitive where they are few and the sample is large. \code{"auto"}
+therefore turns to the asymptotic approximation beyond a cost of about
+\eqn{10^7} table cells, and \code{method = "exact"} warns above
+\eqn{2 \times 10^8} and falls back to the approximation as well. Note
+that with ties the statistic and the support of its distribution are
+half-integral.
+
+For large samples permutation p-values can be computed by permuting
+group labels under the null hypothesis (\code{method = "permutation"});
+the number of permutations is controlled by \code{R}, and the reported
+p-value uses the finite-sample correction \eqn{(m + 1)/(R + 1)}.
+
+Two-sided p-values are the smaller one-sided p-value doubled, in each of
+the three methods. The null distribution of the statistic is symmetric
+only for equal group sizes, so this is not the same as counting the
+values lying at least as far from the null mean as the observed one.
 
 With \code{method = "asymptotic"} (the fallback of \code{"auto"} when
 exact inference does not apply), a normal approximation with the
@@ -99,7 +120,8 @@ x <- rnorm(40) + 0.5 * as.numeric(g)
 
 jonckheereTerpstraTest(x, g)
 
-# with ties: permutation inference
+# with ties: exact inference as long as it is affordable,
+# permutation inference otherwise
 x[1:2] <- mean(x[1:2])
 jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
 
@@ -118,7 +140,9 @@ motiv <- list(
   acc   = c(48, 40, 45, 43, 46, 44))
 
 jonckheereTerpstraTest(motiv, alternative = "increasing")
-## exact one-sided p-value 0.0379 as in Hollander & Wolfe
+## exact one-sided p-value 0.0210, the data being tied. Hollander and
+## Wolfe report 0.0231 from the tie-free null distribution and 0.0207
+## from the tie-corrected normal approximation
 
 jonckheereTerpstraTest(motiv, alternative = "increasing",
                        method = "asymptotic")

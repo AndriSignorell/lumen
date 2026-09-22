@@ -54,8 +54,7 @@
 #' Cox, D. R., Stuart, A. (1955) Some quick sign tests for trend in location and
 #' dispersion. *Biometrika*, **42**(1/2), 80-95.
 #'
-#' @seealso [signTest()], [jonckheereTerpstraTest()],
-#'   [mantelTrendTest()], [bartelsRankTest()],
+#' @seealso [signTest()], [mantelTrendTest()], [bartelsRankTest()],
 #'   [runsTest()]
 #'
 #' @family test.trend

@@ -13,16 +13,36 @@
 #' Large values of the statistic indicate increasing trends across groups.
 #'
 #' Exact p-values are computed from the exact permutation distribution
-#' using a dynamic programming recursion implemented in C++. Exact
-#' inference is only valid without ties and, for practical reasons, is
-#' offered for total sample sizes \eqn{n \le 100}.
+#' using dynamic programming recursions implemented in C++, with and
+#' without ties.
 #'
-#' When ties are present or sample sizes are large, permutation p-values
-#' can be computed by permuting group labels under the null hypothesis
-#' (`method = "permutation"`); the number of permutations is
-#' controlled by `R`, and the reported p-value uses the finite-sample
-#' correction \eqn{(m + 1)/(R + 1)}. This approach remains valid in the
-#' presence of ties.
+#' Without ties the null distribution depends on the group sizes alone and
+#' is obtained from the classical recursion; it is offered for total sample
+#' sizes \eqn{n \le 100}.
+#'
+#' With ties the statistic depends on the data through the table of counts
+#' of group by distinct value, which under the null hypothesis follows the
+#' multiple hypergeometric distribution with the group sizes and the tie
+#' counts as its margins. The distribution is built by splitting off one
+#' row of that table at a time, the state being the counts not yet
+#' assigned. Its cost grows with \eqn{\prod_a (c_a + 1)}, the \eqn{c_a}
+#' being the tie counts, so it is cheapest where ties are heaviest, and
+#' prohibitive where they are few and the sample is large. `"auto"`
+#' therefore turns to the asymptotic approximation beyond a cost of about
+#' \eqn{10^7} table cells, and `method = "exact"` warns above
+#' \eqn{2 \times 10^8} and falls back to the approximation as well. Note
+#' that with ties the statistic and the support of its distribution are
+#' half-integral.
+#'
+#' For large samples permutation p-values can be computed by permuting
+#' group labels under the null hypothesis (`method = "permutation"`);
+#' the number of permutations is controlled by `R`, and the reported
+#' p-value uses the finite-sample correction \eqn{(m + 1)/(R + 1)}.
+#'
+#' Two-sided p-values are the smaller one-sided p-value doubled, in each of
+#' the three methods. The null distribution of the statistic is symmetric
+#' only for equal group sizes, so this is not the same as counting the
+#' values lying at least as far from the null mean as the observed one.
 #'
 #' With `method = "asymptotic"` (the fallback of `"auto"` when
 #' exact inference does not apply), a normal approximation with the
@@ -40,10 +60,11 @@
 #' `"increasing"` or `"decreasing"`.
 #' @param method a character string specifying the inference method, one of
 #' `"auto"` (default), `"exact"`, `"permutation"` or
-#' `"asymptotic"`. `"auto"` uses exact inference when possible
-#' (no ties, \eqn{n \le 100}), otherwise the asymptotic approximation.
-#' @param R the number of permutations, required when
-#' `method = "permutation"`.
+#' `"asymptotic"`. `"auto"` uses exact inference where it is
+#' affordable (without ties \eqn{n \le 100}, with ties a cost below
+#' \eqn{10^7} table cells), otherwise the asymptotic approximation.
+#' @param R the number of permutations, a single positive integer,
+#' required when `method = "permutation"`.
 #' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
 #' `formula`.
@@ -83,7 +104,8 @@
 #'
 #' jonckheereTerpstraTest(x, g)
 #'
-#' # with ties: permutation inference
+#' # with ties: exact inference as long as it is affordable,
+#' # permutation inference otherwise
 #' x[1:2] <- mean(x[1:2])
 #' jonckheereTerpstraTest(x, g, method = "permutation", R = 2000)
 #'
@@ -102,7 +124,9 @@
 #'   acc   = c(48, 40, 45, 43, 46, 44))
 #'
 #' jonckheereTerpstraTest(motiv, alternative = "increasing")
-#' ## exact one-sided p-value 0.0379 as in Hollander & Wolfe
+#' ## exact one-sided p-value 0.0210, the data being tied. Hollander and
+#' ## Wolfe report 0.0231 from the tie-free null distribution and 0.0207
+#' ## from the tie-corrected normal approximation
 #'
 #' jonckheereTerpstraTest(motiv, alternative = "increasing",
 #'                        method = "asymptotic")
@@ -186,7 +210,8 @@ jonckheereTerpstraTest.default <- function(
   gsize  <- as.integer(table(g))
   cgsize <- c(0L, cumsum(gsize))
 
-  TIES <- anyDuplicated(x) > 0L
+  tieTab <- as.integer(table(x))
+  TIES   <- any(tieTab > 1L)
 
   JT        <- .jtStatistic(x, cgsize)
   STATISTIC <- c(JT = JT)
@@ -194,21 +219,43 @@ jonckheereTerpstraTest.default <- function(
 
   ## resolve method -------------------------------------------------------
 
-  if (method == "auto")
-    method <- if (!TIES && n <= 100L) "exact" else "asymptotic"
+  # cost of the exact distribution with ties, in table cells
+  cells <- if (TIES) .jtTiesCells(gsize, tieTab) else 0
 
-  if (method == "exact" && TIES) {
-    warning("exact inference not available with ties; ",
-            "falling back to asymptotic approximation")
+  # without ties the cost is governed by the sample size alone, with ties
+  # by the table the recursion has to walk
+  affordable <- if (TIES) cells <= .jtTiesAutoCells else n <= 100L
+
+  if (method == "auto")
+    method <- if (affordable) "exact" else "asymptotic"
+
+  if (method == "exact" && cells > .jtTiesMaxCells) {
+
+    warning(gettextf(
+      paste("exact inference with ties would need %.1e table cells,",
+            "the limit is %.1e; falling back to the asymptotic",
+            "approximation, method = \"permutation\" is the",
+            "distribution-free alternative"),
+      cells, .jtTiesMaxCells), call. = FALSE)
+
     method <- "asymptotic"
   }
 
-  if (method == "exact" && n > 100L)
+  if (method == "exact" && !TIES && n > 100L)
     warning("exact inference requested for n = ", n, " > 100; ",
             "this may be slow or fail")
 
-  if (method == "permutation" && is.null(R))
-    stop("'R' must be specified when method = \"permutation\"")
+  if (method == "permutation") {
+
+    if (is.null(R))
+      stop("'R' must be specified when method = \"permutation\"")
+
+    if (!is.numeric(R) || length(R) != 1L || !is.finite(R) ||
+        R < 1 || R != round(R))
+      stop("'R' must be a single positive integer")
+
+    R <- as.integer(R)
+  }
 
   if (!is.null(R) && method != "permutation")
     warning("'R' is ignored when method != \"permutation\"")
@@ -222,17 +269,25 @@ jonckheereTerpstraTest.default <- function(
 
   if (method == "permutation") {
 
-    PVAL <- .jtPvaluePerm(x = x, g = g, observed = JT, mu = muJT,
+    PVAL <- .jtPvaluePerm(x = x, g = g, observed = JT,
                           R = R, alternative = alternative)
 
     METHOD <- paste0(METHOD, " (permutation, R = ", R, ")")
 
   } else if (method == "exact") {
 
-    pdf <- .jtpdf(gsize)
+    # with ties the distribution runs over 2 * JT, the half weights of the
+    # ties making the statistic half-integral
+    if (TIES) {
+      pdf <- .jtpdfTies(gsize, tieTab)
+      at  <- as.integer(round(2 * JT)) + 1L
+    } else {
+      pdf <- .jtpdf(gsize)
+      at  <- JT_int + 1L
+    }
 
-    lower_tail <- sum(pdf[seq_len(JT_int + 1L)])
-    upper_tail <- if (JT_int == 0L) 1 else 1 - sum(pdf[seq_len(JT_int)])
+    lower_tail <- sum(pdf[seq_len(at)])
+    upper_tail <- sum(pdf[at:length(pdf)])
 
     PVAL <- switch(
       alternative,
@@ -241,7 +296,7 @@ jonckheereTerpstraTest.default <- function(
       "two.sided"  = min(2 * min(lower_tail, upper_tail), 1)
     )
 
-    METHOD <- paste(METHOD, "(exact)")
+    METHOD <- paste(METHOD, if (TIES) "(exact, ties)" else "(exact)")
 
   } else {
 
@@ -263,14 +318,23 @@ jonckheereTerpstraTest.default <- function(
       (a2 * b2) / (36 * n * (n - 1) * (n - 2)) +
       (a3 * b3) / (8 * n * (n - 1))
 
-    z <- (JT - muJT) / sqrt(sigma2)
+    # constant data leave nothing to compare: the statistic equals its null
+    # expectation with probability one, and z would be 0/0
+    if (sigma2 <= 0) {
 
-    PVAL <- switch(
-      alternative,
-      "increasing" = pnorm(z, lower.tail = FALSE),
-      "decreasing" = pnorm(z),
-      "two.sided"  = min(2 * pnorm(abs(z), lower.tail = FALSE), 1)
-    )
+      PVAL <- 1
+
+    } else {
+
+      z <- (JT - muJT) / sqrt(sigma2)
+
+      PVAL <- switch(
+        alternative,
+        "increasing" = pnorm(z, lower.tail = FALSE),
+        "decreasing" = pnorm(z),
+        "two.sided"  = min(2 * pnorm(abs(z), lower.tail = FALSE), 1)
+      )
+    }
 
     METHOD <- paste(METHOD, "(asymptotic)")
   }
@@ -316,9 +380,10 @@ jonckheereTerpstraTest.default <- function(
 }
 
 
-# permutation p-value with finite-sample correction
+# permutation p-value with finite-sample correction; two-sided as the
+# doubled smaller tail, as in the exact and the asymptotic branch
 
-.jtPvaluePerm <- function(x, g, observed, mu, R, alternative) {
+.jtPvaluePerm <- function(x, g, observed, R, alternative) {
 
   gsize  <- as.integer(table(g))
   cgsize <- c(0L, cumsum(gsize))
@@ -328,20 +393,56 @@ jonckheereTerpstraTest.default <- function(
     .jtStatistic(xp, cgsize)
   }, numeric(1))
 
-  m <- switch(
-    alternative,
-    "increasing" = sum(perm_stats >= observed),
-    "decreasing" = sum(perm_stats <= observed),
-    # center at the exact null mean, not the empirical one
-    "two.sided"  = sum(abs(perm_stats - mu) >= abs(observed - mu))
-  )
+  upper_tail <- (sum(perm_stats >= observed) + 1) / (R + 1)
+  lower_tail <- (sum(perm_stats <= observed) + 1) / (R + 1)
 
-  (m + 1) / (R + 1)
+  switch(
+    alternative,
+    "increasing" = upper_tail,
+    "decreasing" = lower_tail,
+    "two.sided"  = min(2 * min(lower_tail, upper_tail), 1)
+  )
 }
 
 
-# exact null distribution of JT via DP recursion (C++)
+# exact null distribution of JT via DP recursion (C++), no ties
 
 .jtpdf <- function(gsize) {
   jtpdf_cpp(as.integer(gsize))
 }
+
+
+# exact null distribution of 2 * JT via DP over the tables of group by
+# distinct value (C++), ties included
+
+.jtpdfTies <- function(gsize, tieTab) {
+
+  # the recursion holds the states it can reach in memory, so the cost is
+  # checked here as well: a direct call that skipped the test above would
+  # otherwise take the session down with it
+  if (.jtTiesCells(gsize, tieTab) > .jtTiesMaxCells)
+    stop("the table of group by distinct value is too large to enumerate",
+         call. = FALSE)
+
+  jtpdfTies_cpp(as.integer(gsize), as.integer(tieTab))
+}
+
+
+# cost of that recursion: states times the support of 2 * JT.
+# Roughly 1.5e7 cells per second, and the memory follows the same measure
+
+.jtTiesCells <- function(gsize, tieTab) {
+
+  gsize <- as.numeric(gsize)
+  ahead <- sum(gsize) - cumsum(gsize)
+
+  prod(as.numeric(tieTab) + 1) * (2 * sum(gsize * ahead) + 1)
+}
+
+
+# beyond this many cells "auto" prefers the asymptotic approximation,
+# beyond the second constant "exact" refuses the computation altogether
+
+.jtTiesAutoCells <- 1e7
+
+.jtTiesMaxCells <- 2e8

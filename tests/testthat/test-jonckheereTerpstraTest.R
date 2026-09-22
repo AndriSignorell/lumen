@@ -164,20 +164,44 @@ test_that("exact method works without ties", {
   expect_lte(res$p.value, 1)
 })
 
-test_that("exact method falls back to asymptotic with ties", {
+
+test_that("exact inference now covers tied data", {
   
-  g <- ordered(rep(1:3, each = 5))
-  x <- c(1, 1, 2, 3, 4,
-         2, 2, 3, 4, 5,
-         3, 3, 4, 5, 6)
+  set.seed(4)
+  
+  x <- sample(1:5, 15, TRUE)
+  g <- rep(1:3, each = 5)
+  
+  res <- jonckheereTerpstraTest(x, g, method = "exact")
+  
+  expect_match(res$method, "exact, ties", fixed = TRUE)
+  expect_silent(jonckheereTerpstraTest(x, g, method = "exact"))
+  
+  # the exact statistic is half-integral where tied pairs cross groups
+  expect_equal(unname(res$statistic) %% 0.5, 0)
+})
+
+
+test_that("exact method falls back to asymptotic when ties get too costly", {
+  
+  # few ties in a larger sample: the table of group by distinct value has
+  # more cells than the recursion is allowed to walk
+  set.seed(3)
+  
+  x <- round(rnorm(60), 3)
+  x[1:4] <- 0
+  g <- rep(1:3, each = 20)
   
   expect_warning(
     res <- jonckheereTerpstraTest(x, g, method = "exact"),
-    "ties"
-  )
+    "falling back to the asymptotic approximation")
   
-  expect_match(res$method, "asymptotic")
+  expect_match(res$method, "asymptotic", fixed = TRUE)
 })
+
+
+
+
 
 test_that("exact method warns for n > 100", {
   

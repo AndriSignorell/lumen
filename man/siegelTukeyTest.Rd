@@ -176,7 +176,6 @@ Statistical Procedures}, 3rd ed. Chapman & Hall/CRC, Boca Raton, FL.
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},
 \code{\link[=mosesTest]{mosesTest()}},
-\code{\link[=varCI]{varCI()}},
 \code{\link[=varTest]{varTest()}}
 }
 \concept{nonparametric}

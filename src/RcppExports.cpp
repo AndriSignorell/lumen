@@ -205,6 +205,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// jtpdfTies_cpp
+NumericVector jtpdfTies_cpp(IntegerVector gsize, IntegerVector cnt);
+RcppExport SEXP _lumen_jtpdfTies_cpp(SEXP gsizeSEXP, SEXP cntSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type gsize(gsizeSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type cnt(cntSEXP);
+    rcpp_result_gen = Rcpp::wrap(jtpdfTies_cpp(gsize, cnt));
+    return rcpp_result_gen;
+END_RCPP
+}
 // mad_boot_cpp
 NumericVector mad_boot_cpp(NumericVector x, int R, double alpha, double constant, int seed, String method);
 RcppExport SEXP _lumen_mad_boot_cpp(SEXP xSEXP, SEXP RSEXP, SEXP alphaSEXP, SEXP constantSEXP, SEXP seedSEXP, SEXP methodSEXP) {
@@ -313,6 +325,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_pgompertz_cpp", (DL_FUNC) &_lumen_pgompertz_cpp, 5},
     {"_lumen_check_gompertz_cpp", (DL_FUNC) &_lumen_check_gompertz_cpp, 2},
     {"_lumen_jtpdf_cpp", (DL_FUNC) &_lumen_jtpdf_cpp, 1},
+    {"_lumen_jtpdfTies_cpp", (DL_FUNC) &_lumen_jtpdfTies_cpp, 2},
     {"_lumen_mad_boot_cpp", (DL_FUNC) &_lumen_mad_boot_cpp, 6},
     {"_lumen_mad_diff_boot_cpp", (DL_FUNC) &_lumen_mad_diff_boot_cpp, 7},
     {"_lumen_mad_ratio_boot_cpp", (DL_FUNC) &_lumen_mad_ratio_boot_cpp, 7},

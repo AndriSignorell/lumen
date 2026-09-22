@@ -30,9 +30,6 @@
 #'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #' 
-#' @seealso [meanCI()], [medianCI()],
-#' [varTest()], `DescToolsX::varX` 
-#' 
 #' @references Bonett (2006) Approximate Confidence Interval for Standard
 #' Deviation of Nonnormal Distributions, *Computational Statistics and
 #' Data Analysis*, Vol. 50, pp. 775 - 782.\cr
@@ -72,7 +69,9 @@
 #' varCI(x, method="boot", type="perc")
 #' varCI(x, method="boot", type="bca")
 #' 
-#' @family test.variance  
+#' @seealso [meanCI()], [medianCI()], `DescToolsX::varX` 
+#' 
+#' @family ci.variance  
 #' @concept variance-test  
 #' @concept confidence-interval
 #'

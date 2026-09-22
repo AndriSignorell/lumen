@@ -93,15 +93,11 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm
 (might be outdated)
 }
 \seealso{
-\code{\link[=meanCI]{meanCI()}}, \code{\link[=medianCI]{medianCI()}},
-\code{\link[=varTest]{varTest()}}, \code{DescToolsX::varX}
+\code{\link[=meanCI]{meanCI()}}, \code{\link[=medianCI]{medianCI()}}, \code{DescToolsX::varX}
 
-Other test.variance:
-\code{\link[=leveneTest]{leveneTest()}},
-\code{\link[=mosesTest]{mosesTest()}},
-\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=varTest]{varTest()}}
+Other ci.variance:
+\code{\link{mad-confints}}
 }
+\concept{ci.variance}
 \concept{confidence-interval}
-\concept{test.variance}
 \concept{variance-test}

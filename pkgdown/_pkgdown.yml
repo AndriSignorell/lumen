@@ -174,8 +174,8 @@ reference:
   contents:
   # distributions.overview -- Entry point and moments
   - distributions-overview
-  - cont.moments
-  - disc.moments
+  - cont-moments
+  - disc-moments
   - extreme-value-moments
   # distributions.general -- General and multivariate distributions
   - dpqr-benford

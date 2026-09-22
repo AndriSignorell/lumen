@@ -67,7 +67,7 @@
 #' [median()], `DescToolsX::hodgesLehmann`
 #' 
 #' @family ci.location
-#' @concept confidence-intervals
+#' @concept confidence-interval
 #' @concept descriptive-statistics
 #' @concept nonparametric
 #'

@@ -91,8 +91,6 @@
 #'   intervals for median absolute deviations. *arXiv:1910.00229*
 #'   \verb{[math.ST]}.
 #'
-#' @seealso [mad()], `DescToolsX::madX`
-#'
 #' @examples
 #' set.seed(1)
 #' x <- rlnorm(100)
@@ -114,6 +112,8 @@
 #' @name mad-confints
 #' @aliases madCI madDiffCI madRatioCI
 #' 
+#' @seealso [mad()], `DescToolsX::madX`
+#'
 #' @family ci.variance  
 #' @concept confidence-interval  
 #' @concept robust-statistics

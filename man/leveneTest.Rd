@@ -114,7 +114,6 @@ for a parametric alternative
 Other test.variance:
 \code{\link[=mosesTest]{mosesTest()}},
 \code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=varCI]{varCI()}},
 \code{\link[=varTest]{varTest()}}
 }
 \concept{homogeneity}

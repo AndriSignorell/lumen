@@ -212,9 +212,6 @@ Other ci.proportion:
 \code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{binary-outcome}
-\concept{categorical data}
 \concept{ci.proportion}
-\concept{confidence intervals}
 \concept{confidence-interval}
 \concept{proportion}
-\concept{topic.categoricalData}

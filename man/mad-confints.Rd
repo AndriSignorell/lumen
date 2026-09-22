@@ -158,6 +158,9 @@ intervals for median absolute deviations. \emph{arXiv:1910.00229}
 }
 \seealso{
 \code{\link[=mad]{mad()}}, \code{DescToolsX::madX}
+
+Other ci.variance:
+\code{\link[=varCI]{varCI()}}
 }
 \concept{ci.variance}
 \concept{confidence-interval}

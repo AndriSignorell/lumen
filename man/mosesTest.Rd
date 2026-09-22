@@ -179,7 +179,6 @@ A two-sample test.
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},
 \code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=varCI]{varCI()}},
 \code{\link[=varTest]{varTest()}}
 }
 \concept{nonparametric}

@@ -121,8 +121,7 @@ homogeneity of variances in more than two samples from normal distributions;
 Other test.variance:
 \code{\link[=leveneTest]{leveneTest()}},
 \code{\link[=mosesTest]{mosesTest()}},
-\code{\link[=siegelTukeyTest]{siegelTukeyTest()}},
-\code{\link[=varCI]{varCI()}}
+\code{\link[=siegelTukeyTest]{siegelTukeyTest()}}
 }
 \concept{test.variance}
 \concept{variance-test}

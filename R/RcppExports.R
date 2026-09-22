@@ -64,6 +64,10 @@ jtpdf_cpp <- function(gsize) {
     .Call(`_lumen_jtpdf_cpp`, gsize)
 }
 
+jtpdfTies_cpp <- function(gsize, cnt) {
+    .Call(`_lumen_jtpdfTies_cpp`, gsize, cnt)
+}
+
 mad_boot_cpp <- function(x, R = 1000L, alpha = 0.05, constant = 1.4826, seed = -1L, method = "perc") {
     .Call(`_lumen_mad_boot_cpp`, x, R, alpha, constant, seed, method)
 }

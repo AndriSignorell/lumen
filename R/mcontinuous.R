@@ -90,10 +90,10 @@
 #' mtri(min = 0, max = 1, mode = 0.5)
 #' mtri(min = 2, max = 10, mode = 4)
 #'
-#' @name cont.moments
+#' @name cont-moments
 NULL
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mnorm <- function(mean = 0, sd = 1) {
 
@@ -104,7 +104,7 @@ mnorm <- function(mean = 0, sd = 1) {
     variance = sd^2)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mexp <- function(rate = 1) {
 
@@ -114,7 +114,7 @@ mexp <- function(rate = 1) {
     variance = 1 / rate^2)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mgamma <- function(shape, rate = 1) {
 
@@ -125,7 +125,7 @@ mgamma <- function(shape, rate = 1) {
     variance = shape / rate^2)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mlnorm <- function(meanlog = 0, sdlog = 1) {
 
@@ -136,7 +136,7 @@ mlnorm <- function(meanlog = 0, sdlog = 1) {
     variance = (exp(sdlog^2) - 1) * exp(2 * meanlog + sdlog^2))
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mbeta <- function(shape1, shape2) {
 
@@ -148,7 +148,7 @@ mbeta <- function(shape1, shape2) {
       ((shape1 + shape2)^2 * (shape1 + shape2 + 1)))
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mchisq <- function(df) {
 
@@ -158,7 +158,7 @@ mchisq <- function(df) {
     variance = 2 * df)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mt <- function(df) {
 
@@ -168,7 +168,7 @@ mt <- function(df) {
     variance = if (df > 2) df / (df - 2) else NA_real_)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mf <- function(df1, df2) {
 
@@ -182,7 +182,7 @@ mf <- function(df1, df2) {
     else NA_real_)
 }
 
-#' @rdname cont.moments
+#' @rdname cont-moments
 #' @export
 mtri <- function(min = 0, max = 1, mode = 0.5) {
 

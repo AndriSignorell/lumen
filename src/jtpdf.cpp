@@ -7,7 +7,13 @@ using namespace Rcpp;
 NumericVector jtpdf_cpp(IntegerVector gsize) {
   
   int ng = gsize.size();
-  int N  = sum(gsize);
+
+  if (ng < 2) stop("at least two groups are needed");
+
+  for (int i = 0; i < ng; i++)
+    if (gsize[i] < 1) stop("group sizes must be positive");
+
+  int N = sum(gsize);
   
   IntegerVector cs(ng);
   cs[0] = gsize[0];
