@@ -131,12 +131,10 @@ test_that("argument checks", {
   expect_error(zTest(x, sd_pop = 1, conf.level = 1.5), "'conf.level'")
   expect_error(zTest(x, sd_pop = 1, conf.level = NA), "'conf.level'")
   expect_error(zTest(x, sd_pop = 1, paired = TRUE), "'y' is missing")
-  expect_error(zTest(1, sd_pop = 1), "not enough 'x' observations")
   expect_error(zTest(c(NA, NA), 1:3, sd_pop = 1), "not enough 'x' observations")
   expect_error(zTest(1:3, NA, sd_pop = 1), "not enough 'y' observations")
-  expect_error(zTest(1, 2, sd_pop = 1), "not enough observations")
-  expect_error(zTest(c(5, 5, 5), sd_pop = 0), "essentially constant")
-  expect_error(zTest(c(5, 5), c(5, 5), sd_pop = 0), "essentially constant")
+  expect_error(zTest(c(5, 5, 5), sd_pop = 0), "'sd_pop'")
+  expect_error(zTest(c(5, 5), c(5, 5), sd_pop = 0), "'sd_pop'")
   expect_error(zTest(x, sd_pop = 1, alternative = "foo"))
 })
 
@@ -177,3 +175,64 @@ test_that("formula interface rejects one-sided formulas", {
                "'formula' missing or incorrect")
 })
 
+
+test_that("formula interface rejects paired, also abbreviated", {
+
+  msg <- "formula interface"
+  expect_error(zTest(extra ~ group, data = sleep, sd_pop = 2, paired = TRUE), msg)
+  # abbreviated: would be matched partially by zTest.default()
+  expect_error(zTest(extra ~ group, data = sleep, sd_pop = 2, pair = TRUE), msg)
+  expect_error(zTest(extra ~ group, data = sleep, sd_pop = 2, paired = NA), msg)
+
+  # paired = FALSE stays allowed
+  expect_s3_class(zTest(extra ~ group, data = sleep, sd_pop = 2,
+                        paired = FALSE), "htest")
+})
+
+
+test_that("guards on sd_pop, mu, paired and the data", {
+
+  expect_error(zTest(x), "'sd_pop'.*required")
+  expect_error(zTest(x, sd_pop = -1), "'sd_pop'")
+  expect_error(zTest(x, sd_pop = NA), "'sd_pop'")
+  expect_error(zTest(x, sd_pop = Inf), "'sd_pop'")
+  expect_error(zTest(x, sd_pop = c(1, 2)), "'sd_pop'")
+  expect_error(zTest(x, sd_pop = "2"), "'sd_pop'")
+
+  expect_error(zTest(x, mu = Inf, sd_pop = 1), "'mu'")
+  expect_error(zTest(x, mu = "1", sd_pop = 1), "'mu'")
+
+  expect_error(zTest(x, x, sd_pop = 1, paired = NA), "'paired'")
+  expect_error(zTest(x, x, sd_pop = 1, paired = c(TRUE, FALSE)), "'paired'")
+  expect_error(zTest(x, x[-1], sd_pop = 1, paired = TRUE), "same length")
+
+  expect_error(zTest(letters, sd_pop = 1), "numeric")
+})
+
+
+test_that("constant data are fine: the standard error does not depend on them", {
+  r <- zTest(c(5, 5, 5, 5), mu = 4, sd_pop = 2)
+  expect_equal(unname(r$statistic), (5 - 4) / (2 / 2))
+})
+
+
+test_that("non-finite values are removed, as documented", {
+  expect_equal(zTest(c(x, Inf, -Inf), sd_pop = 3)$statistic,
+               zTest(x, sd_pop = 3)$statistic)
+  expect_equal(zTest(c(x, Inf), c(y, NA), sd_pop = 3)$statistic,
+               zTest(x, y, sd_pop = 3)$statistic)
+  expect_equal(zTest(c(x[1:6], Inf), c(y, 1), sd_pop = 3, paired = TRUE)$statistic,
+               zTest(x[1:6], y, sd_pop = 3, paired = TRUE)$statistic)
+})
+
+
+test_that("a single observation suffices when sd_pop is known", {
+  r <- zTest(3, mu = 1, sd_pop = 2)
+  expect_equal(unname(r$statistic), (3 - 1) / 2)
+  expect_equal(unname(r$conf.int[1:2]), 3 + c(-1, 1) * qnorm(0.975) * 2)
+
+  r2 <- zTest(3, 1, sd_pop = 2)
+  expect_equal(unname(r2$statistic), (3 - 1) / (2 * sqrt(2)))
+
+  expect_error(zTest(numeric(0), sd_pop = 1), "not enough 'x' observations")
+})

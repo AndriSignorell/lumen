@@ -133,3 +133,50 @@ test_that("print.htest works", {
   
   expect_output(print(res), "Bhapkar")
 })
+
+
+
+test_that("mismatched but overlapping levels are unified", {
+  x <- factor(c("A", "A", "B", "B", "A", "B", "C"), levels = c("A", "B", "C"))
+  y <- factor(c("B", "B", "C", "C", "D", "B", "C"), levels = c("B", "C", "D"))
+  
+  lev <- c("A", "B", "C", "D")
+  expect_no_warning(res <- bhapkarTest(x, y))
+  expect_equal(res$statistic,
+               bhapkarTest(table(factor(x, levels = lev),
+                                 factor(y, levels = lev)))$statistic)
+  expect_equal(unname(res$parameter), 3L)
+  
+  # by hand: Stuart-Maxwell Q = 5, n = 7, Bhapkar Q / (1 - Q/n) = 17.5
+  expect_equal(unname(res$statistic), 17.5)
+})
+
+
+test_that("n is the full sample size, also with perfect-agreement categories", {
+  # category C agrees perfectly and is dropped from the Stuart-Maxwell
+  # computation; Bhapkar's d' (S - d d'/N)^-1 d still uses the full N = 38.
+  # Reduced table A, B: d = 12 - 13 = -1, S = 12 + 13 - 2 * 10 = 5
+  mat <- matrix(c(10, 3, 0, 2, 8, 0, 0, 0, 15), nrow = 3,
+                dimnames = list(c("A", "B", "C"), c("A", "B", "C")))
+  res <- bhapkarTest(mat)
+  expect_equal(unname(res$statistic), 1 / (5 - 1 / 38))
+  expect_equal(res$n, 38)
+})
+
+
+test_that("a singular Bhapkar covariance is an error, not Inf", {
+  # all four pairs off the diagonal in one direction: Stuart-Maxwell Q = n = 4
+  x <- factor(c("A", "A", "B", "B"))
+  y <- factor(c("B", "B", "C", "C"))
+  expect_equal(unname(stuartMaxwellTest(x, y)$statistic), 4)
+  expect_error(bhapkarTest(x, y), "singular")
+})
+
+
+test_that("data.name uses the names at the call site", {
+  a <- factor(c("A", "A", "B", "B", "A", "B", "C"))
+  b <- factor(c("B", "B", "C", "C", "A", "B", "C"))
+  expect_identical(bhapkarTest(a, b)$data.name, "a and b")
+  mc <- table(a, b)
+  expect_identical(bhapkarTest(mc)$data.name, "mc")
+})

@@ -136,9 +136,12 @@ test_that("empty table throws error", {
 })
 
 test_that("zero variance scores throw error", {
-  expect_error(
-    mantelTrendTest(Job, srow = rep(1, 4)),
-    "zero variance"
+  # the error alone, without a monotonicity warning in front of it
+  expect_no_warning(
+    expect_error(
+      mantelTrendTest(Job, srow = rep(1, 4)),
+      "zero variance"
+    )
   )
 })
 

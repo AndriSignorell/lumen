@@ -58,9 +58,8 @@ If \code{NA} (default), exact computation is used when both samples have
 fewer than 50 observations and there are no ties.}
 
 \item{correct}{logical; if \code{TRUE} (default), a continuity correction
-is applied in the normal approximation. Ignored when \code{exact = TRUE}
-or when ties are present (continuity correction is not appropriate with
-tie-corrected variance).}
+is applied in the normal approximation, as in \code{\link[=wilcox.test]{wilcox.test()}}. Ignored
+when the exact p-value is computed.}
 }
 \value{
 An object of class \code{"htest"} with the following components:
@@ -90,13 +89,23 @@ remove median differences before testing.
 Ranks are assigned to the combined sorted sample in the pattern
 1, 4, 5, 8, 9, \ldots from the extremes inward, and 2, 3, 6, 7, \ldots
 from the second-lowest upward. If the combined sample size is odd, the
-median observation is dropped before ranking (it is taken from the larger
-group when group sizes differ).
+median observation is dropped before ranking. It belongs to whichever
+group holds the median value; if observations of both groups equal the
+median, the one from \code{x} is dropped.
 
 Ties receive average ranks. The p-value is computed exactly (via
 \code{\link[=pwilcox]{pwilcox()}}) when there are no ties and both samples are smaller
-than 50 observations; otherwise a normal approximation with tie-corrected
-variance is used. This behaviour can be overridden with \code{exact}.
+than 50 observations; otherwise a normal approximation is used. This
+behaviour can be overridden with \code{exact}.
+
+The test statistic is the rank sum of \code{y} computed directly on the
+Siegel-Tukey ranks; the ranks are not passed on to \code{\link[=wilcox.test]{wilcox.test()}},
+which would rank them a second time. In the normal approximation the
+variance is the exact permutation variance of that rank sum,
+\eqn{mn / (N(N-1)) \sum (r_i - \bar r)^2}{m*n/(N*(N-1)) * sum((r - mean(r))^2)}.
+The familiar Wilcoxon tie correction does not apply here, because it
+assumes tied observations to share consecutive ranks, which Siegel-Tukey
+ranks of adjacent values are not. Without ties both expressions coincide.
 
 \strong{Note:} The Siegel-Tukey test has relatively low power compared to
 alternatives such as \code{\link[=ansari.test]{ansari.test()}} or \code{\link[=mood.test]{mood.test()}},

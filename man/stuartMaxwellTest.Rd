@@ -10,7 +10,8 @@ stuartMaxwellTest(x, y = NULL)
 \item{x}{either a 2-way \eqn{k \times k}{k x k} contingency table in matrix
 form, or a factor.}
 
-\item{y}{a factor with the same levels as x; ignored if x is a matrix.}
+\item{y}{a factor or vector of the same length as \code{x}; ignored if \code{x} is
+a matrix. Its levels are combined with those of \code{x}.}
 }
 \value{
 A list with class \code{"htest"} containing the following
@@ -38,9 +39,13 @@ and \verb{[j, i]} are the same.
 
 If \code{x} is a matrix, it is taken as a two-dimensional contingency table,
 and hence its entries should be nonnegative integers. Otherwise, both x and
-y must be vectors or factors of the same length and with the same levels.
-\cr Incomplete cases are removed, vectors are coerced into factors, and the
-contingency table is computed from these.
+y must be vectors or factors of the same length. \cr Incomplete cases are
+removed, vectors are coerced into factors, and the contingency table is
+computed from these. Since rows and columns must represent the same
+categories, both are given the union of the categories observed in \code{x}
+and \code{y} (those of \code{x} first): a category observed in only one of the two
+classifications becomes a row or column of zeros instead of making the
+table non-square. Levels observed in neither are dropped.
 
 If there is perfect agreement for any category k, that category must be
 omitted in order to invert matrix S.

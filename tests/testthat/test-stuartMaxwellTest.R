@@ -66,12 +66,23 @@ test_that("matrix and vector interface give same result", {
 # -------------------------------------------------------------------------
 test_that("mismatched but overlapping levels are unified", {
   
-  # x has A,B; y has B,C -> union = A,B,C
-  x <- factor(c("A","A","B","B"), levels = c("A","B"))
-  y <- factor(c("A","B","B","C"), levels = c("B","C"))
+  # x uses A, B; y uses B, C -> union A, B, C, a square 3 x 3 table.
+  # (The former data had "A" in y outside its levels, i.e. an NA, and the
+  # test only checked that no error occurred - it passed with a 2 x 2 table
+  # whose rows A, B and columns B, C did not match.)
+  x <- factor(c("A", "A", "B", "B"), levels = c("A", "B"))
+  y <- factor(c("B", "B", "C", "C"), levels = c("B", "C"))
   
-  # Should not throw error about level mismatch
-  expect_no_error(stuartMaxwellTest(x, y))
+  expect_no_warning(res <- stuartMaxwellTest(x, y))
+  
+  lev <- c("A", "B", "C")
+  ref <- stuartMaxwellTest(table(factor(x, levels = lev),
+                                 factor(y, levels = lev)))
+  expect_equal(res$statistic, ref$statistic)
+  expect_equal(unname(res$parameter), 2L)
+  
+  # by hand: d = (2, 0), S = [2 -2; -2 4], d' S^-1 d = 4
+  expect_equal(unname(res$statistic), 4)
 })
 
 test_that("same levels give same result as explicit matrix", {
@@ -209,3 +220,21 @@ test_that("print.htest works", {
 })
 
 
+test_that("data.name uses the names at the call site", {
+  # regression: the name was read from CT$data.name, but resolveContingency()
+  # returns 'dataName', so data.name was NULL
+  a <- factor(c("A", "A", "B", "C", "A", "B"))
+  b <- factor(c("A", "B", "A", "C", "B", "A"))
+  expect_identical(stuartMaxwellTest(a, b)$data.name, "a and b")
+  tab <- table(a, b)
+  expect_identical(stuartMaxwellTest(tab)$data.name, "tab")
+  # a table given together with y: y is ignored, so is its name
+  expect_identical(stuartMaxwellTest(tab, b)$data.name, "tab")
+})
+
+
+test_that("n is the full sample size, also with perfect-agreement categories", {
+  mat <- matrix(c(10, 3, 0, 2, 8, 0, 0, 0, 15), nrow = 3,
+                dimnames = list(c("A", "B", "C"), c("A", "B", "C")))
+  expect_equal(stuartMaxwellTest(mat)$n, 38)
+})

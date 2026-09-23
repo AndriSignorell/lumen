@@ -1,14 +1,25 @@
 
+# SAS PROC FREQ drugs example (favourable / unfavourable responses to three
+# drugs), coded 0/1 with U = 1. Cochran's Q is invariant to swapping 0 and 1,
+# so the reference values hold for either coding; coding explicitly avoids
+# the asBinary() warning about which level is taken as 1 (tested separately).
+.sasDrugs <- function(binary = TRUE) {
+  d.frm <- expand.grid(A = c("F", "U"), B = c("F", "U"), C = c("F", "U"))[
+    rep(1:8, c(6, 2, 2, 6, 16, 4, 4, 6)), ]
+  row.names(d.frm) <- NULL
+  d.long <- reshape(d.frm, varying = 1:3, times = names(d.frm)[1:3],
+                    v.names = "resp", direction = "long")
+  if (binary)
+    d.long$resp <- as.integer(d.long$resp == "U")
+  d.long
+}
+
 # -------------------------------------------------------------------------
 # Basic functionality
 # -------------------------------------------------------------------------
 test_that("cochranQTest returns an htest object", {
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long)
   
@@ -24,11 +35,7 @@ test_that("cochranQTest returns an htest object", {
 # -------------------------------------------------------------------------
 test_that("SAS drugs example gives correct Q and p-value", {
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long)
   
@@ -42,17 +49,13 @@ test_that("SAS drugs example gives correct Q and p-value", {
 # -------------------------------------------------------------------------
 test_that("matrix interface gives same result as formula interface", {
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res_formula <- cochranQTest(resp ~ time | id, data = d.long)
   
   # build binary matrix manually
   d_ord <- d.long[order(d.long$id, d.long$time), ]
-  mat   <- matrix(as.integer(d_ord$resp == "U"),
+  mat   <- matrix(d_ord$resp,
                   ncol = 3, byrow = TRUE)
   
   res_mat <- cochranQTest(mat)
@@ -64,11 +67,7 @@ test_that("matrix interface gives same result as formula interface", {
 
 test_that("vector interface gives same result as formula interface", {
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res_formula <- cochranQTest(resp ~ time | id, data = d.long)
   res_default <- cochranQTest(d.long$resp, d.long$time, d.long$id)
@@ -113,11 +112,7 @@ test_that("approximate method gives plausible p-value", {
   
   set.seed(1)
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long,
                       method = "approximate", nresample = 5000)
@@ -135,11 +130,7 @@ test_that("approximate method uses nresample argument", {
   
   set.seed(1)
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long,
                       method = "approximate", nresample = 999)
@@ -220,11 +211,7 @@ test_that("no variation gives Q = 0 and p = 1", {
 # -------------------------------------------------------------------------
 test_that("print.htest works", {
   
-  d.frm <- expand.grid(A=c("F","U"), B=c("F","U"), C=c("F","U"))[
-    rep(1:8, c(6,2,2,6,16,4,4,6)), ]
-  row.names(d.frm) <- NULL
-  d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[1:3],
-                    v.names="resp", direction="long")
+  d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long)
   
@@ -234,12 +221,7 @@ test_that("print.htest works", {
 
 test_that("cochranQTest.formula works with the SAS reference example", {
   
-  d.frm <- expand.grid(A = c("F", "U"), B = c("F", "U"), C = c("F", "U"))[
-    rep(1:8, c(6, 2, 2, 6, 16, 4, 4, 6)), ]
-  row.names(d.frm) <- NULL
-  
-  d.long <- reshape(d.frm, varying = 1:3, times = names(d.frm)[1:3],
-                    v.names = "resp", direction = "long")
+  d.long <- .sasDrugs()
   
   expect_no_error(res <- cochranQTest(resp ~ time | id, data = d.long))
   expect_s3_class(res, "htest")
@@ -271,4 +253,17 @@ test_that("incomplete blocks are also removed for method = 'approximate'", {
   expect_equal(unname(res_na$statistic), unname(res_full$statistic),
                tolerance = 1e-10)
   expect_null(res_na$parameter)
+})
+
+
+test_that("a factor response is coerced with a warning, same result", {
+
+  d.fac <- .sasDrugs(binary = FALSE)
+
+  expect_warning(res_fac <- cochranQTest(resp ~ time | id, data = d.fac),
+                 "using 'U' as '1'")
+  res_bin <- cochranQTest(resp ~ time | id, data = .sasDrugs())
+
+  expect_equal(res_fac$statistic, res_bin$statistic)
+  expect_equal(res_fac$p.value, res_bin$p.value)
 })

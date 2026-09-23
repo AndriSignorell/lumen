@@ -119,7 +119,8 @@ test_that("corTest: p-value is NA for insufficient pairwise observations", {
   Xs <- matrix(rnorm(20), 10, 2)
   Xs[3:10, 1] <- NA    # only 2 complete pairs
 
-  res <- corTest(Xs)
+  # NA without a detour through pt(df = 0) and a "NaNs produced" warning
+  expect_no_warning(res <- corTest(Xs))
 
   expect_true(is.na(res$pValue[1, 2]))
 })

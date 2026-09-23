@@ -19,8 +19,10 @@
 #'
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in
 #' matrix form, or a factor.
-#' @param y a factor with the same levels as `x`; ignored if `x`
-#' is a matrix.
+#' @param y a factor or vector of the same length as `x`; ignored if `x`
+#' is a matrix. Its levels are combined with those of `x`, as in
+#' [stuartMaxwellTest()], so that rows and columns represent the same
+#' categories.
 #' @return A list with class `"htest"` containing the following
 #' components:
 #'   \item{`statistic`}{the value of the chi-squared test statistic.}
@@ -62,13 +64,24 @@
 #' @export
 bhapkarTest <- function(x, y = NULL) {
 
-  DNAME <- if (is.null(y)) deparse1(substitute(x)) else
+  DNAME <- if (is.null(y) || !is.null(dim(x))) deparse1(substitute(x)) else
     paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
 
   res <- stuartMaxwellTest(x = x, y = y)
 
   Q_SM <- unname(res$statistic)
-  Q_B  <- Q_SM / (1 - Q_SM / res$n)
+
+  # Q_B = Q_SM / (1 - Q_SM / n) is the Sherman-Morrison form of
+  # d' (S - d d' / n)^-1 d. For Q_SM >= n that matrix is singular (or not
+  # positive definite), and the formula would return Inf or a negative value
+  # with p = 0 or 1 - it happens for small, extreme tables such as n = 4
+  # with all pairs off the diagonal in one direction
+  if (Q_SM >= res$n * (1 - sqrt(.Machine$double.eps)))
+    stop("Bhapkar's variance-covariance matrix is singular ",
+         "(Stuart-Maxwell statistic >= n); cannot compute statistic",
+         call. = FALSE)
+
+  Q_B <- Q_SM / (1 - Q_SM / res$n)
 
   res$statistic <- c("chi-squared" = Q_B)
   res$p.value   <- pchisq(Q_B, df = res$parameter, lower.tail = FALSE)

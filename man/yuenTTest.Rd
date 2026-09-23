@@ -8,7 +8,7 @@
 \usage{
 yuenTTest(x, ...)
 
-\method{yuenTTest}{formula}(formula, data, subset, na.action = na.pass, ...)
+\method{yuenTTest}{formula}(formula, data, subset, na.action = na.pass, paired = FALSE, ...)
 
 \method{yuenTTest}{default}(
   x,
@@ -22,7 +22,9 @@ yuenTTest(x, ...)
 )
 }
 \arguments{
-\item{x}{numeric vector of observations.}
+\item{x}{numeric vector of observations. Non-finite values (\code{NA},
+\code{NaN}, \code{Inf}, \code{-Inf}) are removed; in the paired case the pair is
+removed.}
 
 \item{\dots}{further arguments passed to methods.}
 
@@ -34,6 +36,10 @@ yuenTTest(x, ...)
 
 \item{na.action}{NA handling function.}
 
+\item{paired}{logical indicating whether a paired test is performed.
+Only available in the default method: the formula interface describes
+independent groups and does not identify pairs.}
+
 \item{y}{optional second numeric vector.}
 
 \item{alternative}{character string specifying the alternative
@@ -41,8 +47,6 @@ hypothesis. One of \code{"two.sided"}, \code{"less"},
 or \code{"greater"}.}
 
 \item{mu}{hypothesized trimmed mean (or trimmed mean difference).}
-
-\item{paired}{logical indicating whether a paired test is performed.}
 
 \item{conf.level}{confidence level for the confidence interval.}
 
@@ -64,12 +68,40 @@ The test is based on:
 \item Welch-type degrees of freedom.
 }
 
-For paired tests, trimming is performed on the paired differences,
-following Yuen (1974).
+For paired tests, trimming is performed on the paired differences, i.e.
+the one-sample trimmed t-test (Tukey & McLaughlin, 1963) is applied to
+\eqn{x - y}. This tests the trimmed mean of the differences, which in
+general is not the difference of the trimmed means; the latter is what
+e.g. \code{WRS2::yuend()} compares.
 }
 \details{
 Robust one-, two-, and paired-sample t-tests based on trimmed means
 and winsorized variances.
+
+\strong{Winsorizing.} With \eqn{g = \lfloor \mathrm{trim} \cdot n \rfloor},
+the \eqn{g} smallest observations are set to the \eqn{(g+1)}-th order
+statistic and the \eqn{g} largest to the \eqn{(n-g)}-th, as in Yuen
+(1974) and Wilcox (2005). The winsorized variance must be taken this way,
+at order statistics rather than at interpolated quantiles: the standard
+error \eqn{\sqrt{(n-1) s_w^2 / (h(h-1))}} with \eqn{h = n - 2g} is
+derived for exactly \eqn{g} replaced values in each tail, the same
+\eqn{g} observations that \code{\link[=mean]{mean()}} with \code{trim} removes. The results agree
+with \code{WRS2::yuen()} and \code{PairedData::yuen.t.test()}.
+
+\strong{Standard error.} In all three designs the squared standard error of a
+trimmed mean is \eqn{(n-1) s_w^2 / (h(h-1))}, with \eqn{s_w^2} the
+winsorized variance and \eqn{h} the number of observations left after
+trimming; the degrees of freedom are \eqn{h - 1} (combined by Welch's
+formula in the two-sample case). With \code{trim = 0}, or whenever
+\eqn{g = 0}, the three tests reduce exactly to the corresponding
+\code{\link[=t.test]{t.test()}}: one-sample, paired, and Welch. The one-sample version in
+\code{WRS2::trimse()} uses the asymptotically equivalent
+\eqn{s_w / ((1 - 2\,\mathrm{trim}) \sqrt{n})}; it differs in small
+samples, where it inflates the standard error even if no observation is
+trimmed (e.g. \eqn{n = 4}, \code{trim = 0.2}).
+
+The confidence interval is for the estimated parameter itself (the
+trimmed mean, or the difference of trimmed means), independent of \code{mu}.
 }
 \examples{
 x <- rnorm(25, 100, 5)
@@ -86,6 +118,11 @@ yuenTTest(extra ~ group, data = sleep)
 Wilcox, R. R. (2005).
 \emph{Introduction to Robust Estimation and Hypothesis Testing}.
 Academic Press.
+
+Tukey, J. W., & McLaughlin, D. H. (1963).
+Less vulnerable confidence and significance procedures for location based
+on a single sample: trimming/winsorization 1.
+\emph{Sankhya A}, 25, 331--352.
 
 Yuen, K. K. (1974).
 The two-sample trimmed t for unequal population variances.

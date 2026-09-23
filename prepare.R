@@ -45,8 +45,6 @@ pkgdown::build_site()
 usethis::use_pkgdown_github_pages()
 
 
-
-
 devtools::document()
 devtools::load_all()
 devtools::check()

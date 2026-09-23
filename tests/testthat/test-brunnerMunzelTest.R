@@ -179,10 +179,14 @@ test_that("exact enumeration is used only below the split threshold", {
   set.seed(5)
   expect_match(brunnerMunzelTest(x, y, method = "permutation")$method,
                "resamples", fixed = TRUE)
-  expect_match(brunnerMunzelTest(x, y, method = "permutation", exact = TRUE)$method,
-               "4457400 splits", fixed = TRUE)
-  expect_equal(brunnerMunzelTest(x, y, method = "permutation", exact = TRUE)$p.value,
-               0.00803764526405528, tolerance = 1e-12)
+
+  # one enumeration instead of two, and its progress message is expected
+  expect_message(
+    r <- brunnerMunzelTest(x, y, method = "permutation", exact = TRUE),
+    "enumerating 4457400 splits"
+  )
+  expect_match(r$method, "4457400 splits", fixed = TRUE)
+  expect_equal(r$p.value, 0.00803764526405528, tolerance = 1e-12)
 })
 
 

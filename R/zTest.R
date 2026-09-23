@@ -28,15 +28,18 @@
 #' @param y an optional numeric vector of data values: as with x non-finite
 #' values will be omitted.
 #' @param mu a number specifying the hypothesized mean of the population.
-#' @param sd_pop a number specifying the known standard deviation of the
-#' population. For the two-sample test, this single value is assumed to be
-#' the common known standard deviation of both populations.
+#' @param sd_pop a positive number specifying the known standard deviation
+#' of the population. Required. For the two-sample test, this single value
+#' is assumed to be the common known standard deviation of both
+#' populations.
 #' @param alternative a character string specifying the alternative hypothesis,
 #' must be one of `"two.sided"` (default), `"greater"` or
 #' `"less"`.  You can specify just the initial letter. \cr For one-sample
 #' tests, `alternative` refers to the true mean of the parent population
 #' in relation to the hypothesized value of the mean.
 #' @param paired a logical indicating whether you want a paired z-test.
+#' Only available in the default method: the formula interface describes
+#' independent groups and does not identify pairs.
 #' @param conf.level confidence level for the interval computation.
 #' @param formula a formula of the form `lhs ~ rhs` where `lhs` gives
 #' the data values and `rhs` a factor with two levels giving the
@@ -107,10 +110,20 @@ zTest.formula <- function(formula,
                           data,
                           subset,
                           na.action = na.pass,
+                          paired = FALSE,
                           ...) {
   
   if (missing(formula) || length(formula) != 3L)
     stop("'formula' missing or incorrect")
+
+  # the groups are split from independent rows; pairing them by position
+  # would make the result depend on the row order within each group.
+  # 'paired' is a formal argument so that abbreviations (pair = TRUE) are
+  # caught here - passed on in '...', zTest.default() would match them
+  # partially to its own 'paired' (a gap stats::t.test.formula() still has)
+  if (!isFALSE(paired))
+    stop("'paired' must be FALSE in the formula interface; ",
+         "use zTest(x, y, paired = TRUE)")
   
   # direct call, never do.call(): do.call() evaluates the substituted
   # subset expression in this frame, where the data columns do not exist
@@ -144,8 +157,27 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
                            paired = FALSE, mu = 0, sd_pop, conf.level = 0.95,  ...)  {
   
   alternative <- match.arg(alternative)
-  if (!missing(mu) && (length(mu) != 1 || is.na(mu)))
-    stop("'mu' must be a single number")
+
+  if (!is.numeric(mu) || length(mu) != 1L || !is.finite(mu))
+    stop("'mu' must be a single number (finite)")
+
+  if (!is.logical(paired) || length(paired) != 1L || is.na(paired))
+    stop("'paired' must be a single non-missing logical value")
+
+  # the known standard deviation is the whole point of the z-test; checking
+  # it here replaces the t.test-style "essentially constant" guard, which
+  # makes no sense when the standard error does not depend on the data
+  if (missing(sd_pop))
+    stop("'sd_pop' (the known population standard deviation) is required")
+  if (!is.numeric(sd_pop) || length(sd_pop) != 1L ||
+      !is.finite(sd_pop) || sd_pop <= 0)
+    stop("'sd_pop' must be a single positive number")
+
+  # all-NA input (logical NA) is let through to the "not enough
+  # observations" checks below
+  .num <- function(v) is.numeric(v) || all(is.na(v))
+  if (!.num(x) || (!is.null(y) && !.num(y)))
+    stop("'x' and 'y' must be numeric")
   if (!missing(conf.level) && (length(conf.level) != 1 || !is.finite(conf.level) ||
                                conf.level < 0 || conf.level > 1))
     stop("'conf.level' must be a single number between 0 and 1")
@@ -153,11 +185,13 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   if (!is.null(y)) {
     dname <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     
-    if (paired)
-      xok <- yok <- complete.cases(x, y)
-    else {
-      yok <- !is.na(y)
-      xok <- !is.na(x)
+    if (paired) {
+      if (length(x) != length(y))
+        stop("'x' and 'y' must have the same length for a paired test")
+      xok <- yok <- is.finite(x) & is.finite(y)
+    } else {
+      yok <- is.finite(y)
+      xok <- is.finite(x)
     }
     
     y <- y[yok]
@@ -166,7 +200,7 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
     dname <- deparse1(substitute(x))
     if (paired)
       stop("'y' is missing for paired test")
-    xok <- !is.na(x)
+    xok <- is.finite(x)
     yok <- NULL
   }
   x <- x[xok]
@@ -180,11 +214,11 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   mx <- mean(x)
   
   if (is.null(y)) {
-    if (nx < 2)
+    # with a known sd_pop a single observation suffices; n >= 2 was
+    # inherited from t.test(), which has to estimate the standard deviation
+    if (nx < 1)
       stop("not enough 'x' observations")
-    stderr <- sqrt(sd_pop^2/nx)
-    if (stderr < 10 * .Machine$double.eps * abs(mx))
-      stop("data are essentially constant")
+    stderr <- sd_pop / sqrt(nx)
     zstat <- (mx - mu)/stderr
     
     method <- if (paired)
@@ -199,19 +233,13 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
       stop("not enough 'x' observations")
     if (ny < 1)
       stop("not enough 'y' observations")
-    if (nx + ny < 3)
-      stop("not enough observations")
     my <- mean(y)
     
     method <- paste("Two Sample z-test")
     estimate <- c(mx, my)
     names(estimate) <- c("mean of x", "mean of y")
     
-    stderr <- sqrt(sd_pop^2 * (1/nx + 1/ny))
-    
-    if (stderr < 10 * .Machine$double.eps * max(abs(mx),
-                                                abs(my)))
-      stop("data are essentially constant")
+    stderr <- sd_pop * sqrt(1/nx + 1/ny)
     zstat <- (mx - my - mu)/stderr
   }
   if (alternative == "less") {

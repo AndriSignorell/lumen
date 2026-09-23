@@ -95,7 +95,8 @@ test_that("print: legend only for signed results", {
   expect_false(any(grepl("Sign codes", out)))
   out <- capture.output(print(signifDiff(ph, direction = FALSE)))
   expect_false(any(grepl("Sign codes", out)))
-  expect_invisible(print(signifDiff(ph)))
+  # wrapped in expect_output(): print() would write to the console during the run
+  expect_output(expect_invisible(print(signifDiff(ph))))
 })
 
 test_that(".pairMatrices: symmetric p, antisymmetric d", {

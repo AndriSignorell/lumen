@@ -123,10 +123,11 @@ test_that("rgompertz matches flexsurv distribution", {
                unname(mgompertz(shape = 0.5, rate = 1)["mean"]), 
                tolerance = 0.05)
   
-  # KS test against flexsurv
-  set.seed(42)
-  x_flex <- flexsurv::rgompertz(10000, shape = 0.5, rate = 1)
-  ks <- ks.test(x, x_flex)
+  # KS test of our sample against flexsurv's distribution function. The
+  # former two-sample test drew x_flex with the same seed: both generators
+  # invert the same CDF, so the samples coincided, ks.test() warned about
+  # ties and the comparison could not fail.
+  ks <- ks.test(x, flexsurv::pgompertz, shape = 0.5, rate = 1)
   expect_gt(ks$p.value, 0.01)
 })
 
@@ -138,8 +139,10 @@ test_that("gompertz boundary and edge cases", {
   # NA input returns NA
   expect_true(is.na(dgompertz(NA, shape = 0.5, rate = 1)))
   
-  # invalid rate returns NA
-  expect_true(is.na(dgompertz(1, shape = 0.5, rate = -1)))
+  # invalid rate returns NA, with a warning
+  expect_warning(res <- dgompertz(1, shape = 0.5, rate = -1),
+                 "Non-positive rate")
+  expect_true(is.na(res))
   
   # p = 0 and p = 1
   expect_equal(qgompertz(0, shape = 0.5, rate = 1), 0)

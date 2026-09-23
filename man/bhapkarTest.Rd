@@ -10,8 +10,10 @@ bhapkarTest(x, y = NULL)
 \item{x}{either a 2-way \eqn{k \times k}{k x k} contingency table in
 matrix form, or a factor.}
 
-\item{y}{a factor with the same levels as \code{x}; ignored if \code{x}
-is a matrix.}
+\item{y}{a factor or vector of the same length as \code{x}; ignored if \code{x}
+is a matrix. Its levels are combined with those of \code{x}, as in
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}, so that rows and columns represent the same
+categories.}
 }
 \value{
 A list with class \code{"htest"} containing the following

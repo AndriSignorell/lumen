@@ -109,8 +109,12 @@ test_that("the formula method matches the default method", {
   expect_equal(unname(f$statistic), unname(g$statistic))
   expect_equal(f$data.name, "breaks ~ tension")
 
-  # subset is evaluated in 'data'
-  s <- moodMedianTest(breaks ~ tension, data = warpbreaks, subset = wool == "A")
+  # subset is evaluated in 'data'; 27 observations in 3 groups give small
+  # expected counts, so the chi-squared warning is expected here
+  expect_warning(
+    s <- moodMedianTest(breaks ~ tension, data = warpbreaks, subset = wool == "A"),
+    "chi-squared approximation"
+  )
   expect_equal(sum(s$observed), 27)
 })
 

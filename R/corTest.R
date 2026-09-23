@@ -87,17 +87,21 @@ corTest <- function(x,
            dimnames = dimnames(R))
   }
 
+  # p-values only where the test is defined; computing them everywhere and
+  # overwriting afterwards called pt() with df <= 0 and warned "NaNs produced"
+  P <- matrix(NA_real_, nrow(R), ncol(R), dimnames = dimnames(R))
+
   if (method == "kendall") {
     # normal approximation for Kendall's tau (no ties correction)
-    Z <- 3 * R * sqrt(n * (n - 1)) / sqrt(2 * (2 * n + 5))
-    P <- 2 * pnorm(-abs(Z))
-    P[n < 2] <- NA_real_
+    ok <- n >= 2 & !is.na(R)
+    Z  <- 3 * R[ok] * sqrt(n[ok] * (n[ok] - 1)) / sqrt(2 * (2 * n[ok] + 5))
+    P[ok] <- 2 * pnorm(-abs(Z))
   } else {
     # exact for Pearson (under normality), approximate for Spearman:
     # t = r * sqrt((n-2)/(1-r^2)) with n-2 degrees of freedom
-    T_stat <- R * sqrt((n - 2) / pmax(1 - R^2, .Machine$double.eps))
-    P <- 2 * pt(-abs(T_stat), df = n - 2)
-    P[n < 3] <- NA_real_
+    ok <- n >= 3 & !is.na(R)
+    T_stat <- R[ok] * sqrt((n[ok] - 2) / pmax(1 - R[ok]^2, .Machine$double.eps))
+    P[ok]  <- 2 * pt(-abs(T_stat), df = n[ok] - 2)
   }
 
   diag(P) <- NA

@@ -199,7 +199,8 @@ test_that("print methods run for both branches", {
   expect_output(print(postHocTest(fit1)), "Signif. codes", fixed = TRUE)
   expect_output(print(postHocTest(fit1, ordered = TRUE)), "have been ordered")
   expect_output(print(postHocTest(fit1, conf.level = NA)), "Tukey HSD")
-  expect_invisible(print(postHocTest(fit1, conf.level = NA)))
+  # wrapped in expect_output(): print() would write to the console during the run
+  expect_output(expect_invisible(print(postHocTest(fit1, conf.level = NA))))
 })
 
 test_that("plot method runs", {

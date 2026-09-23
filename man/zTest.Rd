@@ -8,7 +8,7 @@
 \usage{
 zTest(x, ...)
 
-\method{zTest}{formula}(formula, data, subset, na.action = na.pass, ...)
+\method{zTest}{formula}(formula, data, subset, na.action = na.pass, paired = FALSE, ...)
 
 \method{zTest}{default}(
   x,
@@ -42,6 +42,10 @@ used.}
 \item{na.action}{a function which indicates what should happen when the data
 contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 
+\item{paired}{a logical indicating whether you want a paired z-test.
+Only available in the default method: the formula interface describes
+independent groups and does not identify pairs.}
+
 \item{y}{an optional numeric vector of data values: as with x non-finite
 values will be omitted.}
 
@@ -51,13 +55,12 @@ must be one of \code{"two.sided"} (default), \code{"greater"} or
 tests, \code{alternative} refers to the true mean of the parent population
 in relation to the hypothesized value of the mean.}
 
-\item{paired}{a logical indicating whether you want a paired z-test.}
-
 \item{mu}{a number specifying the hypothesized mean of the population.}
 
-\item{sd_pop}{a number specifying the known standard deviation of the
-population. For the two-sample test, this single value is assumed to be
-the common known standard deviation of both populations.}
+\item{sd_pop}{a positive number specifying the known standard deviation
+of the population. Required. For the two-sample test, this single value
+is assumed to be the common known standard deviation of both
+populations.}
 
 \item{conf.level}{confidence level for the interval computation.}
 }

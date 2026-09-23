@@ -17,9 +17,13 @@
 #' 
 #' If `x` is a matrix, it is taken as a two-dimensional contingency table,
 #' and hence its entries should be nonnegative integers. Otherwise, both x and
-#' y must be vectors or factors of the same length and with the same levels.
-#' \cr Incomplete cases are removed, vectors are coerced into factors, and the
-#' contingency table is computed from these.
+#' y must be vectors or factors of the same length. \cr Incomplete cases are
+#' removed, vectors are coerced into factors, and the contingency table is
+#' computed from these. Since rows and columns must represent the same
+#' categories, both are given the union of the categories observed in `x`
+#' and `y` (those of `x` first): a category observed in only one of the two
+#' classifications becomes a row or column of zeros instead of making the
+#' table non-square. Levels observed in neither are dropped.
 #' 
 #' If there is perfect agreement for any category k, that category must be
 #' omitted in order to invert matrix S.
@@ -40,7 +44,8 @@
 #' @name stuartMaxwellTest
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in matrix
 #' form, or a factor. 
-#' @param y a factor with the same levels as x; ignored if x is a matrix. 
+#' @param y a factor or vector of the same length as `x`; ignored if `x` is
+#' a matrix. Its levels are combined with those of `x`.
 #' 
 #' @return A list with class `"htest"` containing the following
 #' components: \item{statistic}{the value of the test statistic.}
@@ -91,21 +96,18 @@
 #' @export
 stuartMaxwellTest <- function(x, y = NULL) {
   
-  CT <- resolveContingency(x, y)
+  # the name at this call site: resolveContingency() would only see its own
+  # arguments. (The result element is 'dataName'; reading 'data.name' from
+  # it returned NULL, so the test reported no data name at all.)
+  DNAME <- if (is.null(y) || !is.null(dim(x))) deparse1(substitute(x)) else
+    paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
+  
+  # square = TRUE: a square table, and for two classification variables both
+  # tabulated over the union of their categories, so that x using A, B and y
+  # using B, C give a 3 x 3 table over A, B, C. Counts are validated there.
+  CT <- resolveContingency(x, y, square = TRUE, dataName = DNAME)
   
   x <- CT$table
-  DNAME <- CT$data.name
-  
-  r <- nrow(x)
-  
-  if (r < 2L || ncol(x) != r)
-    stop("'x' must be square with at least two rows and columns")
-  
-  if (any(x < 0, na.rm = TRUE) || any(!is.finite(x)))
-    stop("all entries of 'x' must be nonnegative and finite")
-  
-  if (any(x != round(x)))
-    warning("'x' contains non-integer counts", call. = FALSE)
   
   if (!is.null(dimnames(x)) &&
       !identical(dimnames(x)[[1L]], dimnames(x)[[2L]]))
@@ -160,7 +162,10 @@ stuartMaxwellTest <- function(x, y = NULL) {
       p.value   = pchisq(STATISTIC, df = PARAMETER, lower.tail = FALSE),
       method    = "Stuart-Maxwell test for marginal homogeneity",
       data.name = DNAME,
-      n         = sum(rowsums)
+      # total sample size, including categories dropped for perfect
+      # agreement: bhapkarTest() needs the full N (sum(rowsums) is the
+      # reduced table after dropping)
+      n         = CT$n
     ),
     class = "htest"
   )

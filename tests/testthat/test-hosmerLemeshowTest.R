@@ -1,10 +1,12 @@
 library(testthat)
 library(lumen)
 
+# n = 300 rather than 50: with 10 groups of 5, nearly every call warned that
+# expected counts are below 5, which is the test's own sparsity, not a finding
 set.seed(111)
-x1  <- factor(sample(1:3, 50, replace = TRUE))
-x2  <- rnorm(50)
-obs <- sample(c(0, 1), 50, replace = TRUE)
+x1  <- factor(sample(1:3, 300, replace = TRUE))
+x2  <- rnorm(300)
+obs <- sample(c(0, 1), 300, replace = TRUE)
 fit <- glm(obs ~ x1 + x2, family = binomial)
 f   <- fitted(fit)
 
@@ -15,7 +17,9 @@ test_that("hosmerLemeshowTest: returns htest / HosmerLemeshowTest (type C)", {
 })
 
 test_that("hosmerLemeshowTest: returns htest / HosmerLemeshowTest (type H)", {
-  res <- hosmerLemeshowTest(x = f, obs = obs, type = "H")
+  # fixed [0, 1] bins: fitted values near 0.5 leave most bins empty or
+  # sparse, so warnings are expected here (tested in their own block below)
+  res <- suppressWarnings(hosmerLemeshowTest(x = f, obs = obs, type = "H"))
   expect_s3_class(res, "htest")
   expect_s3_class(res, "HosmerLemeshowTest")
 })
@@ -52,7 +56,8 @@ test_that("hosmerLemeshowTest: well-specified model gives large p", {
   eta <- -1 + 2 * x
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x, family = binomial)
-  res <- hosmerLemeshowTest(x = fitted(g), obs = y)
+  # the tail deciles of a well-fitting model have few expected events
+  res <- suppressWarnings(hosmerLemeshowTest(x = fitted(g), obs = y))
   expect_gt(res$p.value, 0.05)
 })
 
@@ -114,9 +119,13 @@ test_that("hosmerLemeshowTest: type = 'H' uses fixed [0,1] bins and can drop emp
   fit_narrow <- runif(80, 0.35, 0.65)   # occupies only a few of 10 [0,1] bins
   obs_narrow <- rbinom(80, 1, fit_narrow)
 
+  # two warnings: dropped groups, and sparse expected counts in the rest
   expect_warning(
-    res <- hosmerLemeshowTest(fit_narrow, obs_narrow, type = "H"),
-    "empty group"
+    expect_warning(
+      res <- hosmerLemeshowTest(fit_narrow, obs_narrow, type = "H"),
+      "empty group"
+    ),
+    "expected counts"
   )
   expect_lt(res$nGroups, 10L)
   expect_equal(unname(res$parameter), res$nGroups - 2L)
@@ -233,5 +242,6 @@ test_that("print shows the group table with details = TRUE", {
   a <- suppressWarnings(hosmerLemeshowTest(hfit))
   expect_output(print(a), "Number of groups: 10")
   expect_output(print(a, details = TRUE), "Observed vs Expected")
-  expect_invisible(print(a))
+  # print() would otherwise write to the console during the test run
+  expect_output(expect_invisible(print(a)))
 })

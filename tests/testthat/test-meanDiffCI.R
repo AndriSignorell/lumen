@@ -115,7 +115,10 @@ test_that("boot: type = 'perc' produces finite interval", {
 
 test_that("boot paired: meandiff equals mean(x - y)", {
   set.seed(1)
-  out <- meanDiffCI(x_paired, y_paired, method = "boot", paired = TRUE, R = 199)
+  # the estimate does not depend on the interval type; "perc" avoids the BCa
+  # warning about extreme order statistics that R = 199 triggers
+  out <- meanDiffCI(x_paired, y_paired, method = "boot", paired = TRUE,
+                    type = "perc", R = 199)
   expect_equal(out[["meandiff"]], mean(x_paired - y_paired), tolerance = 1e-10)
 })
 

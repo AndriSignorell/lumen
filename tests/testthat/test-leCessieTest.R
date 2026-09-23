@@ -207,5 +207,6 @@ test_that("default method: further checks", {
 
 test_that("print shows SSE and its expectation", {
   expect_output(print(leCessieTest(lfit)), "Sum of squared errors")
-  expect_invisible(print(leCessieTest(lfit)))
+  # wrapped in expect_output(): print() would write to the console during the run
+  expect_output(expect_invisible(print(leCessieTest(lfit))))
 })

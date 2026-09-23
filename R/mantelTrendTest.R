@@ -101,6 +101,10 @@ mantelTrendTest <- function(x, srow = scores(x, MARGIN = 1L, method = "table"),
   if (length(scol) != ncol(x))
     stop("'scol' must have the same length as ncol(x)")
 
+  # the correlation first: scores with zero variance are an error, and the
+  # monotonicity warnings below would only precede it as noise
+  r <- .pearsonCor(x, srow = srow, scol = scol)
+
   if (!(all(diff(srow) > 0) || all(diff(srow) < 0)))
     warning("'srow' is neither strictly increasing nor strictly ",
             "decreasing; scores should be monotone and ordinal",
@@ -111,7 +115,6 @@ mantelTrendTest <- function(x, srow = scores(x, MARGIN = 1L, method = "table"),
             "decreasing; scores should be monotone and ordinal",
             call. = FALSE)
 
-  r <- .pearsonCor(x, srow = srow, scol = scol)
   STATISTIC <- (sum(x) - 1) * r^2
 
   structure(
