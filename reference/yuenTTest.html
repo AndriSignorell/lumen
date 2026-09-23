@@ -14,8 +14,11 @@ winsorized variances,
 Welch-type degrees of freedom.
 
 
-For paired tests, trimming is performed on the paired differences,
-following Yuen (1974)."><meta property="og:description" content="Performs Yuen's robust t-test for trimmed means. Compared with the
+For paired tests, trimming is performed on the paired differences, i.e.
+the one-sample trimmed t-test (Tukey &amp;amp; McLaughlin, 1963) is applied to
+\(x - y\). This tests the trimmed mean of the differences, which in
+general is not the difference of the trimmed means; the latter is what
+e.g. WRS2::yuend() compares."><meta property="og:description" content="Performs Yuen's robust t-test for trimmed means. Compared with the
 classical t-test, the procedure is substantially less sensitive to
 outliers, heavy tails, and moderate departures from normality.
 The test is based on:
@@ -24,8 +27,11 @@ winsorized variances,
 Welch-type degrees of freedom.
 
 
-For paired tests, trimming is performed on the paired differences,
-following Yuen (1974)."><meta property="og:image" content="/logo.png"></head><body>
+For paired tests, trimming is performed on the paired differences, i.e.
+the one-sample trimmed t-test (Tukey &amp;amp; McLaughlin, 1963) is applied to
+\(x - y\). This tests the trimmed mean of the differences, which in
+general is not the difference of the trimmed means; the latter is what
+e.g. WRS2::yuend() compares."><meta property="og:image" content="/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -33,7 +39,7 @@ following Yuen (1974)."><meta property="og:image" content="/logo.png"></head><bo
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.952</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.953</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,8 +75,11 @@ outliers, heavy tails, and moderate departures from normality.</p>
 <p>The test is based on:</p><ul><li><p>trimmed means,</p></li>
 <li><p>winsorized variances,</p></li>
 <li><p>Welch-type degrees of freedom.</p></li>
-</ul><p>For paired tests, trimming is performed on the paired differences,
-following Yuen (1974).</p>
+</ul><p>For paired tests, trimming is performed on the paired differences, i.e.
+the one-sample trimmed t-test (Tukey &amp; McLaughlin, 1963) is applied to
+\(x - y\). This tests the trimmed mean of the differences, which in
+general is not the difference of the trimmed means; the latter is what
+e.g. <code>WRS2::yuend()</code> compares.</p>
     </div>
 
     <div class="section level2">
@@ -78,7 +87,7 @@ following Yuen (1974).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">yuenTTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
-<span><span class="fu">yuenTTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">yuenTTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">yuenTTest</span><span class="op">(</span></span>
@@ -98,7 +107,9 @@ following Yuen (1974).</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>numeric vector of observations.</p></dd>
+<dd><p>numeric vector of observations. Non-finite values (<code>NA</code>,
+<code>NaN</code>, <code>Inf</code>, <code>-Inf</code>) are removed; in the paired case the pair is
+removed.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -121,6 +132,12 @@ following Yuen (1974).</p>
 <dd><p>NA handling function.</p></dd>
 
 
+<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
+<dd><p>logical indicating whether a paired test is performed.
+Only available in the default method: the formula interface describes
+independent groups and does not identify pairs.</p></dd>
+
+
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>optional second numeric vector.</p></dd>
 
@@ -133,10 +150,6 @@ or <code>"greater"</code>.</p></dd>
 
 <dt id="arg-mu">mu<a class="anchor" aria-label="anchor" href="#arg-mu"></a></dt>
 <dd><p>hypothesized trimmed mean (or trimmed mean difference).</p></dd>
-
-
-<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
-<dd><p>logical indicating whether a paired test is performed.</p></dd>
 
 
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
@@ -156,12 +169,38 @@ Must satisfy <code>0 &lt;= trim &lt; 0.5</code>.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Robust one-, two-, and paired-sample t-tests based on trimmed means
 and winsorized variances.</p>
+<p><strong>Winsorizing.</strong> With \(g = \lfloor \mathrm{trim} \cdot n \rfloor\),
+the \(g\) smallest observations are set to the \((g+1)\)-th order
+statistic and the \(g\) largest to the \((n-g)\)-th, as in Yuen
+(1974) and Wilcox (2005). The winsorized variance must be taken this way,
+at order statistics rather than at interpolated quantiles: the standard
+error \(\sqrt{(n-1) s_w^2 / (h(h-1))}\) with \(h = n - 2g\) is
+derived for exactly \(g\) replaced values in each tail, the same
+\(g\) observations that <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> with <code>trim</code> removes. The results agree
+with <code>WRS2::yuen()</code> and <code>PairedData::yuen.t.test()</code>.</p>
+<p><strong>Standard error.</strong> In all three designs the squared standard error of a
+trimmed mean is \((n-1) s_w^2 / (h(h-1))\), with \(s_w^2\) the
+winsorized variance and \(h\) the number of observations left after
+trimming; the degrees of freedom are \(h - 1\) (combined by Welch's
+formula in the two-sample case). With <code>trim = 0</code>, or whenever
+\(g = 0\), the three tests reduce exactly to the corresponding
+<code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code>: one-sample, paired, and Welch. The one-sample version in
+<code>WRS2::trimse()</code> uses the asymptotically equivalent
+\(s_w / ((1 - 2\,\mathrm{trim}) \sqrt{n})\); it differs in small
+samples, where it inflates the standard error even if no observation is
+trimmed (e.g. \(n = 4\), <code>trim = 0.2</code>).</p>
+<p>The confidence interval is for the estimated parameter itself (the
+trimmed mean, or the difference of trimmed means), independent of <code>mu</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Wilcox, R. R. (2005).
 <em>Introduction to Robust Estimation and Hypothesis Testing</em>.
 Academic Press.</p>
+<p>Tukey, J. W., &amp; McLaughlin, D. H. (1963).
+Less vulnerable confidence and significance procedures for location based
+on a single sample: trimming/winsorization 1.
+<em>Sankhya A</em>, 25, 331–352.</p>
 <p>Yuen, K. K. (1974).
 The two-sample trimmed t for unequal population variances.
 <em>Biometrika</em>, 61, 165–170.</p>
@@ -187,10 +226,10 @@ The two-sample trimmed t for unequal population variances.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Yuen One-Sample Trimmed Mean t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t = 0.74889, df = 14.0, trim = 0.2, p-value = 0.4663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true trimmed mean difference is not equal to 99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t = 0.76501, df = 14.0, trim = 0.2, p-value = 0.457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true trimmed mean is not equal to 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -2.115739  4.385920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   96.95275 103.31743</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> trimmed mean of x </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          100.1351 </span>
@@ -203,10 +242,10 @@ The two-sample trimmed t for unequal population variances.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Yuen Two-Sample Trimmed Mean t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  extra[group == 1] and extra[group == 2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t = -1.5314, df = 8.7502, trim = 0.2000, p-value = 0.161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t = -1.6168, df = 8.2647, trim = 0.2000, p-value = 0.1434</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true trimmed mean difference is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -1.939437  3.006103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -4.0306400  0.6973066</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> trimmed mean of x trimmed mean of y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0.5333333         2.2000000 </span>
@@ -217,10 +256,10 @@ The two-sample trimmed t for unequal population variances.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Yuen Two-Sample Trimmed Mean t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  extra ~ group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t = -1.5314, df = 8.7502, trim = 0.2000, p-value = 0.161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t = -1.6168, df = 8.2647, trim = 0.2000, p-value = 0.1434</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true trimmed mean difference is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -1.939437  3.006103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -4.0306400  0.6973066</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> trimmed mean of x trimmed mean of y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0.5333333         2.2000000 </span>

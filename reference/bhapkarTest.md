@@ -20,7 +20,10 @@ bhapkarTest(x, y = NULL)
 
 - y:
 
-  a factor with the same levels as `x`; ignored if `x` is a matrix.
+  a factor or vector of the same length as `x`; ignored if `x` is a
+  matrix. Its levels are combined with those of `x`, as in
+  [`stuartMaxwellTest()`](stuartMaxwellTest.md), so that rows and
+  columns represent the same categories.
 
 ## Value
 

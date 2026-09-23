@@ -19,7 +19,8 @@ stuartMaxwellTest(x, y = NULL)
 
 - y:
 
-  a factor with the same levels as x; ignored if x is a matrix.
+  a factor or vector of the same length as `x`; ignored if `x` is a
+  matrix. Its levels are combined with those of `x`.
 
 ## Value
 
@@ -59,10 +60,14 @@ The null is that the probabilities of being classified into cells
 
 If `x` is a matrix, it is taken as a two-dimensional contingency table,
 and hence its entries should be nonnegative integers. Otherwise, both x
-and y must be vectors or factors of the same length and with the same
-levels.  
+and y must be vectors or factors of the same length.  
 Incomplete cases are removed, vectors are coerced into factors, and the
-contingency table is computed from these.
+contingency table is computed from these. Since rows and columns must
+represent the same categories, both are given the union of the
+categories observed in `x` and `y` (those of `x` first): a category
+observed in only one of the two classifications becomes a row or column
+of zeros instead of making the table non-square. Levels observed in
+neither are dropped.
 
 If there is perfect agreement for any category k, that category must be
 omitted in order to invert matrix S.
@@ -117,7 +122,7 @@ stuartMaxwellTest(hyp)
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  
+#> data:  hyp
 #> chi-squared = 13.765, df = 2, p-value = 0.001026
 #> 
 
@@ -130,7 +135,7 @@ stuartMaxwellTest(x=d.hyp[,1], y=d.hyp[,2])
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  
+#> data:  d.hyp[, 1] and d.hyp[, 2]
 #> chi-squared = 13.765, df = 2, p-value = 0.001026
 #> 
 
@@ -143,7 +148,7 @@ stuartMaxwellTest(mc)
 #> 
 #>  Stuart-Maxwell test for marginal homogeneity
 #> 
-#> data:  
+#> data:  mc
 #> chi-squared = 0.089722, df = 3, p-value = 0.993
 #> 
 

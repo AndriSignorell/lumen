@@ -11,14 +11,25 @@ median differences before testing.
 Ranks are assigned to the combined sorted sample in the pattern 1, 4, 5,
 8, 9, ... from the extremes inward, and 2, 3, 6, 7, ... from the
 second-lowest upward. If the combined sample size is odd, the median
-observation is dropped before ranking (it is taken from the larger group
-when group sizes differ).
+observation is dropped before ranking. It belongs to whichever group
+holds the median value; if observations of both groups equal the median,
+the one from `x` is dropped.
 
 Ties receive average ranks. The p-value is computed exactly (via
 [`pwilcox()`](https://rdrr.io/r/stats/Wilcoxon.html)) when there are no
 ties and both samples are smaller than 50 observations; otherwise a
-normal approximation with tie-corrected variance is used. This behaviour
-can be overridden with `exact`.
+normal approximation is used. This behaviour can be overridden with
+`exact`.
+
+The test statistic is the rank sum of `y` computed directly on the
+Siegel-Tukey ranks; the ranks are not passed on to
+[`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html), which would
+rank them a second time. In the normal approximation the variance is the
+exact permutation variance of that rank sum, \\mn / (N(N-1)) \sum (r_i -
+\bar r)^2\\. The familiar Wilcoxon tie correction does not apply here,
+because it assumes tied observations to share consecutive ranks, which
+Siegel-Tukey ranks of adjacent values are not. Without ties both
+expressions coincide.
 
 **Note:** The Siegel-Tukey test has relatively low power compared to
 alternatives such as
@@ -108,9 +119,9 @@ siegelTukeyTest(
 - correct:
 
   logical; if `TRUE` (default), a continuity correction is applied in
-  the normal approximation. Ignored when `exact = TRUE` or when ties are
-  present (continuity correction is not appropriate with tie-corrected
-  variance).
+  the normal approximation, as in
+  [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html). Ignored
+  when the exact p-value is computed.
 
 ## Value
 

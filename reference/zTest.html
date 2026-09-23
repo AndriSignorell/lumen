@@ -17,7 +17,7 @@ on the standard normal distribution."><meta property="og:image" content="/logo.p
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.952</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.953</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ on the standard normal distribution.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">zTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
-<span><span class="fu">zTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">zTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">zTest</span><span class="op">(</span></span>
@@ -108,6 +108,12 @@ used.</p></dd>
 contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></dd>
 
 
+<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
+<dd><p>a logical indicating whether you want a paired z-test.
+Only available in the default method: the formula interface describes
+independent groups and does not identify pairs.</p></dd>
+
+
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>an optional numeric vector of data values: as with x non-finite
 values will be omitted.</p></dd>
@@ -121,18 +127,15 @@ tests, <code>alternative</code> refers to the true mean of the parent population
 in relation to the hypothesized value of the mean.</p></dd>
 
 
-<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
-<dd><p>a logical indicating whether you want a paired z-test.</p></dd>
-
-
 <dt id="arg-mu">mu<a class="anchor" aria-label="anchor" href="#arg-mu"></a></dt>
 <dd><p>a number specifying the hypothesized mean of the population.</p></dd>
 
 
 <dt id="arg-sd-pop">sd_pop<a class="anchor" aria-label="anchor" href="#arg-sd-pop"></a></dt>
-<dd><p>a number specifying the known standard deviation of the
-population. For the two-sample test, this single value is assumed to be
-the common known standard deviation of both populations.</p></dd>
+<dd><p>a positive number specifying the known standard deviation
+of the population. Required. For the two-sample test, this single value
+is assumed to be the common known standard deviation of both
+populations.</p></dd>
 
 
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>

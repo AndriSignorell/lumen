@@ -10,7 +10,7 @@ variances, based on the standard normal distribution.
 zTest(x, ...)
 
 # S3 method for class 'formula'
-zTest(formula, data, subset, na.action = na.pass, ...)
+zTest(formula, data, subset, na.action = na.pass, paired = FALSE, ...)
 
 # Default S3 method
 zTest(
@@ -57,6 +57,12 @@ zTest(
   a function which indicates what should happen when the data contain
   `NA`s. Defaults to `getOption("na.action")`.
 
+- paired:
+
+  a logical indicating whether you want a paired z-test. Only available
+  in the default method: the formula interface describes independent
+  groups and does not identify pairs.
+
 - y:
 
   an optional numeric vector of data values: as with x non-finite values
@@ -70,19 +76,15 @@ zTest(
   For one-sample tests, `alternative` refers to the true mean of the
   parent population in relation to the hypothesized value of the mean.
 
-- paired:
-
-  a logical indicating whether you want a paired z-test.
-
 - mu:
 
   a number specifying the hypothesized mean of the population.
 
 - sd_pop:
 
-  a number specifying the known standard deviation of the population.
-  For the two-sample test, this single value is assumed to be the common
-  known standard deviation of both populations.
+  a positive number specifying the known standard deviation of the
+  population. Required. For the two-sample test, this single value is
+  assumed to be the common known standard deviation of both populations.
 
 - conf.level:
 

@@ -17,7 +17,7 @@ categories."><meta property="og:image" content="/logo.png"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.952</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.953</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,8 @@ form, or a factor.</p></dd>
 
 
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
-<dd><p>a factor with the same levels as x; ignored if x is a matrix.</p></dd>
+<dd><p>a factor or vector of the same length as <code>x</code>; ignored if <code>x</code> is
+a matrix. Its levels are combined with those of <code>x</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,9 +103,13 @@ McNemar test to \(k \times k\) table.</p>
 and <code>[j, i]</code> are the same.</p>
 <p>If <code>x</code> is a matrix, it is taken as a two-dimensional contingency table,
 and hence its entries should be nonnegative integers. Otherwise, both x and
-y must be vectors or factors of the same length and with the same levels.
-<br> Incomplete cases are removed, vectors are coerced into factors, and the
-contingency table is computed from these.</p>
+y must be vectors or factors of the same length. <br> Incomplete cases are
+removed, vectors are coerced into factors, and the contingency table is
+computed from these. Since rows and columns must represent the same
+categories, both are given the union of the categories observed in <code>x</code>
+and <code>y</code> (those of <code>x</code> first): a category observed in only one of the two
+classifications becomes a row or column of zeros instead of making the
+table non-square. Levels observed in neither are dropped.</p>
 <p>If there is perfect agreement for any category k, that category must be
 omitted in order to invert matrix S.</p>
 <p>If for any category <code>k</code>, all frequencies in row <code>k</code> and column
@@ -156,7 +161,7 @@ independent judges. <em>British Journal of Psychiatry</em>, 116, 651-655.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Stuart-Maxwell test for marginal homogeneity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  hyp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> chi-squared = 13.765, df = 2, p-value = 0.001026</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -169,7 +174,7 @@ independent judges. <em>British Journal of Psychiatry</em>, 116, 651-655.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Stuart-Maxwell test for marginal homogeneity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  d.hyp[, 1] and d.hyp[, 2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> chi-squared = 13.765, df = 2, p-value = 0.001026</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -182,7 +187,7 @@ independent judges. <em>British Journal of Psychiatry</em>, 116, 651-655.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Stuart-Maxwell test for marginal homogeneity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  mc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> chi-squared = 0.089722, df = 3, p-value = 0.993</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
