@@ -253,7 +253,7 @@ siegelTukeyTest(A, B)
 #>  Siegel-Tukey test for scale differences
 #> 
 #> data:  A and B
-#> W = 75.5, p-value = 0.02825
+#> W = 75.5, p-value = 0.02777
 #> alternative hypothesis: true mu is not equal to 0
 #> 
 
@@ -277,7 +277,7 @@ siegelTukeyTest(x, y)
 #>  Siegel-Tukey test for scale differences
 #> 
 #> data:  x and y
-#> W = 15, p-value = 0.01141
+#> W = 15, p-value = 0.009467
 #> alternative hypothesis: true mu is not equal to 0
 #> 
 
