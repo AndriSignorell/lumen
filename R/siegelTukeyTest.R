@@ -18,13 +18,23 @@
 #' Ranks are assigned to the combined sorted sample in the pattern
 #' 1, 4, 5, 8, 9, \ldots from the extremes inward, and 2, 3, 6, 7, \ldots
 #' from the second-lowest upward. If the combined sample size is odd, the
-#' median observation is dropped before ranking (it is taken from the larger
-#' group when group sizes differ).
+#' median observation is dropped before ranking. It belongs to whichever
+#' group holds the median value; if observations of both groups equal the
+#' median, the one from `x` is dropped.
 #'
 #' Ties receive average ranks. The p-value is computed exactly (via
 #' [pwilcox()]) when there are no ties and both samples are smaller
-#' than 50 observations; otherwise a normal approximation with tie-corrected
-#' variance is used. This behaviour can be overridden with `exact`.
+#' than 50 observations; otherwise a normal approximation is used. This
+#' behaviour can be overridden with `exact`.
+#'
+#' The test statistic is the rank sum of `y` computed directly on the
+#' Siegel-Tukey ranks; the ranks are not passed on to [wilcox.test()],
+#' which would rank them a second time. In the normal approximation the
+#' variance is the exact permutation variance of that rank sum,
+#' \eqn{mn / (N(N-1)) \sum (r_i - \bar r)^2}{m*n/(N*(N-1)) * sum((r - mean(r))^2)}.
+#' The familiar Wilcoxon tie correction does not apply here, because it
+#' assumes tied observations to share consecutive ranks, which Siegel-Tukey
+#' ranks of adjacent values are not. Without ties both expressions coincide.
 #'
 #' **Note:** The Siegel-Tukey test has relatively low power compared to
 #' alternatives such as [ansari.test()] or [mood.test()],
@@ -49,9 +59,8 @@
 #'   If `NA` (default), exact computation is used when both samples have
 #'   fewer than 50 observations and there are no ties.
 #' @param correct logical; if `TRUE` (default), a continuity correction
-#'   is applied in the normal approximation. Ignored when `exact = TRUE`
-#'   or when ties are present (continuity correction is not appropriate with
-#'   tie-corrected variance).
+#'   is applied in the normal approximation, as in [wilcox.test()]. Ignored
+#'   when the exact p-value is computed.
 #' @param formula a formula of the form `response ~ group`, where
 #'   `response` is a numeric vector and `group` a factor or vector
 #'   with exactly two levels.
@@ -275,12 +284,22 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
     )
     
   } else {
-    # normal approximation with tie-corrected variance
-    tie_table     <- table(strank$unique.ranks)
-    tie_correction <- sum(tie_table^3 - tie_table) / (N * (N - 1) * (N + 1))
-    
+    # normal approximation with the exact permutation variance of the rank
+    # sum, V = m n / (N (N - 1)) * sum((r - mean(r))^2).
+    #
+    # The usual Wilcoxon tie correction, 1 - sum(t^3 - t) / (N^3 - N), must
+    # not be used here: it assumes that tied observations share CONSECUTIVE
+    # ranks, whose within-group sum of squares is (t^3 - t) / 12. Siegel-Tukey
+    # ranks of adjacent values are not consecutive (the two smallest get 1 and
+    # 4), so the correction understates the loss of variance. The former code
+    # also counted ties via table(unique.ranks), which merges different tie
+    # groups that happen to share a mean rank (the two smallest and the two
+    # largest values both average to 2.5). Without ties the expression below
+    # reduces to m n (N + 1) / 12.
+    r <- strank$unique.ranks
+
     E <- m * n / 2
-    V <- m * n * (N + 1) / 12 * (1 - tie_correction)
+    V <- m * n / (N * (N - 1)) * sum((r - mean(r))^2)
     
     z <- U - E
     

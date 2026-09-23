@@ -194,3 +194,69 @@ test_that(".siegelTukeyRank averages ranks for tied x values", {
   
   expect_equal(length(unique(tied_ranks)), 1)
 })
+
+
+
+# reference: two-sided normal approximation with the permutation variance
+# of the rank sum, computed independently from the Siegel-Tukey ranks
+.refStP <- function(x, y, correct = TRUE) {
+  st <- .siegelTukeyRank(c(x, y), g = rep(0:1, c(length(x), length(y))))
+  r  <- st$unique.ranks
+  m  <- sum(st$sort.id == 0)
+  n  <- sum(st$sort.id == 1)
+  N  <- m + n
+  U  <- sum(r[st$sort.id == 1]) - n * (n + 1) / 2
+  z  <- U - m * n / 2
+  if (correct) z <- z - sign(z) * 0.5
+  V  <- m * n / (N * (N - 1)) * sum((r - mean(r))^2)
+  2 * pnorm(-abs(z) / sqrt(V))
+}
+
+
+test_that("without ties the approximation equals wilcox.test on the ST ranks", {
+  
+  x <- c(23, 18, 17, 25, 22, 19, 31, 26, 29, 33)
+  y <- c(21, 28, 32, 30, 41, 24, 35, 34, 27, 39, 36)
+  
+  st <- .siegelTukeyRank(c(x, y), g = rep(0:1, c(length(x), length(y))))
+  expect_false(anyDuplicated(st$sort.x) > 0)
+  
+  # without ties the ST ranks are a permutation of 1..N, so ranking them
+  # again changes nothing
+  ref <- wilcox.test(st$unique.ranks[st$sort.id == 1],
+                     st$unique.ranks[st$sort.id == 0],
+                     exact = FALSE)$p.value
+  
+  expect_equal(siegelTukeyTest(x, y, exact = FALSE)$p.value, ref)
+})
+
+
+test_that("with ties the variance is the permutation variance of the ST ranks", {
+  
+  # example from the DescTools issue: aligning the medians creates ties
+  x <- c(23, 18, 17, 25, 22, 19, 31, 26, 29, 33)
+  y <- c(21, 28, 32, 30, 41, 24, 35, 34, 27, 39, 36)
+  
+  res <- suppressWarnings(
+    siegelTukeyTest(x, y, adjustMedian = TRUE, exact = FALSE))
+  
+  expect_true(res$ties)
+  expect_equal(res$p.value,
+               .refStP(x - (median(x) - median(y)), y))
+})
+
+
+test_that("tie groups sharing a mean rank are not merged", {
+  
+  # the two smallest (ranks 1, 4) and the two largest (ranks 3, 2) both
+  # average to 2.5; table(unique.ranks) counted them as one group of four
+  x <- c(1, 3, 5, 8)
+  y <- c(1, 4, 6, 8)
+  
+  st <- .siegelTukeyRank(c(x, y), g = rep(0:1, each = 4))
+  expect_equal(sum(st$unique.ranks == 2.5), 4L)
+  
+  for (cc in c(TRUE, FALSE))
+    expect_equal(siegelTukeyTest(x, y, exact = FALSE, correct = cc)$p.value,
+                 .refStP(x, y, correct = cc))
+})
