@@ -308,6 +308,34 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// wangBinomCI
+Rcpp::NumericVector wangBinomCI(double x, double n, double alpha, double tol);
+RcppExport SEXP _lumen_wangBinomCI(SEXP xSEXP, SEXP nSEXP, SEXP alphaSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(wangBinomCI(x, n, alpha, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wangHyperCI
+Rcpp::IntegerVector wangHyperCI(double x, double n, double N, double alpha);
+RcppExport SEXP _lumen_wangHyperCI(SEXP xSEXP, SEXP nSEXP, SEXP NSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type N(NSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(wangHyperCI(x, n, N, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lumen_ad_stat_cpp", (DL_FUNC) &_lumen_ad_stat_cpp, 1},
@@ -332,6 +360,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_pan_cpp", (DL_FUNC) &_lumen_pan_cpp, 4},
     {"_lumen_pdirichlet_cpp", (DL_FUNC) &_lumen_pdirichlet_cpp, 3},
     {"_lumen_pruns_cpp", (DL_FUNC) &_lumen_pruns_cpp, 4},
+    {"_lumen_wangBinomCI", (DL_FUNC) &_lumen_wangBinomCI, 4},
+    {"_lumen_wangHyperCI", (DL_FUNC) &_lumen_wangHyperCI, 4},
     {NULL, NULL, 0}
 };
 

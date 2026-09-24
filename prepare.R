@@ -22,8 +22,8 @@ devtools::clean_dll()
 
 devtools::document()
 devtools::load_all()
-devtools::check()
 devtools::test()
+devtools::check()
 
 .rs.restartR()
 devtools::install()

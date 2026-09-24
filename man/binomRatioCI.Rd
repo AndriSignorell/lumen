@@ -177,6 +177,7 @@ The distribution of Levin's measure of attributable risk.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
+\code{\link[=hyperCI]{hyperCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{binary-outcome}

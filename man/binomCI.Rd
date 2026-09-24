@@ -12,7 +12,7 @@ binomCI(
   sides = c("two.sided", "left", "right"),
   method = c("wilson", "wilson-cc", "wilson-mod", "wald", "wald-cc", "jeffreys",
     "jeffreys-mod", "clopper-pearson", "agresti-coull", "pratt", "arcsine", "logit",
-    "witting", "mid-p", "blaker", "likelihood", "khouadji"),
+    "witting", "mid-p", "blaker", "wang", "likelihood", "khouadji"),
   stdEst = TRUE
 )
 
@@ -40,7 +40,10 @@ side carrying the finite bound: \code{"left"} reports the lower limit and
 opens the upper one to 1, \code{"right"} reports the upper limit and opens
 the lower one to 0. A one-sided bound at level \code{conf.level} is the
 corresponding end of the two-sided interval at level
-\code{2 * conf.level - 1}, and therefore requires \code{conf.level > 0.5}.}
+\code{2 * conf.level - 1}, and therefore requires \code{conf.level > 0.5}. The
+exceptions are \code{"blaker"} and \code{"wang"}, which are calibrated on the
+two-sided coverage only; their one-sided bound is the Clopper-Pearson
+bound (see details).}
 
 \item{method}{character string specifying which method to use; this can be
 one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default),
@@ -48,7 +51,7 @@ one out of: \code{"wald"}, \code{"wald-cc"},\code{"wilson"} (default),
 \code{"agresti-coull"}, \code{"jeffreys"}, \code{"wilson-mod"},
 \code{"jeffreys-mod"}, \code{"clopper-pearson"}, \code{"arcsine"},
 \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"mid-p"},
-\code{"likelihood"}, \code{"blaker"} and \code{"khouadji"}.  All the methods can be
+\code{"likelihood"}, \code{"blaker"}, \code{"wang"} and \code{"khouadji"}.  All the methods can be
 asked by \code{".all"}. Abbreviation of method is
 accepted. See details.}
 
@@ -150,7 +153,12 @@ limits are reported instead.
 
 \strong{Witting}:
 A randomized procedure (Witting, 1985) providing uniformly optimal
-lower and upper confidence bounds for binomial proportions.
+lower and upper confidence bounds for binomial proportions. With
+\eqn{U \sim U(0, 1)}, the distribution function of \eqn{X + U} is
+continuous and decreasing in \eqn{p}; each bound puts exactly
+\eqn{\alpha/2} into its tail, so the coverage equals the level for every
+\eqn{p}, not only on average. At \eqn{x = 0} (\eqn{x = n}) the lower
+(upper) bound is 0 (1) whenever \eqn{U} leaves no root.
 Repeated calls may yield slightly different results unless the
 random number generator seed is fixed.
 
@@ -173,6 +181,22 @@ in the neighbourhood of the maximum likelihood estimator.
 
 \strong{Blaker}:
 An exact interval based on the method proposed by Blaker (2000).
+One-sided, the Clopper-Pearson bound is returned: an end of the two-sided
+Blaker interval at level \code{2 * conf.level - 1} misses the level.
+
+\strong{Wang}:
+The Wang interval (Wang 2014) is an exact interval: starting from the
+Clopper-Pearson interval, the limits are shrunk pairwise
+(\eqn{U_x = 1 - L_{n-x}}) from the middle of the sample space outwards, each
+as far as the infimum coverage probability permits. The resulting family
+is monotone and symmetric and admissible in the sense of Wang (2014): no
+limit can be moved inwards, the other intervals held fixed, without the
+infimum coverage falling below \code{conf.level}. It is never wider than
+Clopper-Pearson. One-sided, the Clopper-Pearson bound is already the
+smallest exact bound and is returned instead of an end of the two-sided
+Wang interval at level \code{2 * conf.level - 1}, which would miss the level. The
+computation proceeds from \eqn{n/2} towards \eqn{x}; for large \eqn{n} and
+\eqn{x} far from \eqn{n/2} it takes a few seconds at \eqn{n = 10^5}.
 
 \strong{Khouadji}:
 A transformation-based approximation for binomial confidence intervals.
@@ -207,8 +231,9 @@ level of precision.
 The root search evaluates the interval at \eqn{x = p \cdot n} for
 continuous \eqn{n}, so only those methods can be inverted whose limits
 are smooth functions of the count. The methods \code{"mid-p"}, \code{"blaker"},
-\code{"witting"} and \code{"likelihood"} are defined through the discrete binomial
-distribution (and \code{"witting"} is randomized on top of that); they are
+\code{"wang"}, \code{"witting"} and \code{"likelihood"} are defined through the
+discrete binomial distribution (and \code{"witting"} is randomized on top of
+that); they are
 rejected with an error instead of returning a silently meaningless root.
 
 The returned sample size is not rounded, round it up to get a feasible
@@ -303,6 +328,10 @@ Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
 common, related tail probabilities \emph{Journal of the American
 Statistical Association}, 63, 1457- 1483.
 
+Wang, W. (2014) An iterative construction of confidence intervals for a
+proportion, \emph{Statistica Sinica} 24, 1389-1410,
+\doi{10.5705/ss.2012.257}
+
 Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis
 testing}. Elsevier Academic Press
 
@@ -314,6 +343,7 @@ Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
+\code{\link[=hyperCI]{hyperCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{ci.proportion}

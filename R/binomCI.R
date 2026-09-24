@@ -60,7 +60,12 @@
 #'
 #' **Witting**:
 #' A randomized procedure (Witting, 1985) providing uniformly optimal
-#' lower and upper confidence bounds for binomial proportions.
+#' lower and upper confidence bounds for binomial proportions. With
+#' \eqn{U \sim U(0, 1)}, the distribution function of \eqn{X + U} is
+#' continuous and decreasing in \eqn{p}; each bound puts exactly
+#' \eqn{\alpha/2} into its tail, so the coverage equals the level for every
+#' \eqn{p}, not only on average. At \eqn{x = 0} (\eqn{x = n}) the lower
+#' (upper) bound is 0 (1) whenever \eqn{U} leaves no root.
 #' Repeated calls may yield slightly different results unless the
 #' random number generator seed is fixed.
 #'
@@ -83,6 +88,22 @@
 #'
 #' **Blaker**:
 #' An exact interval based on the method proposed by Blaker (2000).
+#' One-sided, the Clopper-Pearson bound is returned: an end of the two-sided
+#' Blaker interval at level `2 * conf.level - 1` misses the level.
+#'
+#' **Wang**:
+#' The Wang interval (Wang 2014) is an exact interval: starting from the
+#' Clopper-Pearson interval, the limits are shrunk pairwise
+#' (\eqn{U_x = 1 - L_{n-x}}) from the middle of the sample space outwards, each
+#' as far as the infimum coverage probability permits. The resulting family
+#' is monotone and symmetric and admissible in the sense of Wang (2014): no
+#' limit can be moved inwards, the other intervals held fixed, without the
+#' infimum coverage falling below `conf.level`. It is never wider than
+#' Clopper-Pearson. One-sided, the Clopper-Pearson bound is already the
+#' smallest exact bound and is returned instead of an end of the two-sided
+#' Wang interval at level `2 * conf.level - 1`, which would miss the level. The
+#' computation proceeds from \eqn{n/2} towards \eqn{x}; for large \eqn{n} and
+#' \eqn{x} far from \eqn{n/2} it takes a few seconds at \eqn{n = 10^5}.
 #'
 #' **Khouadji**:
 #' A transformation-based approximation for binomial confidence intervals. 
@@ -124,14 +145,17 @@
 #' opens the upper one to 1, `"right"` reports the upper limit and opens
 #' the lower one to 0. A one-sided bound at level `conf.level` is the
 #' corresponding end of the two-sided interval at level
-#' `2 * conf.level - 1`, and therefore requires `conf.level > 0.5`.
+#' `2 * conf.level - 1`, and therefore requires `conf.level > 0.5`. The
+#' exceptions are `"blaker"` and `"wang"`, which are calibrated on the
+#' two-sided coverage only; their one-sided bound is the Clopper-Pearson
+#' bound (see details).
 #' @param method character string specifying which method to use; this can be
 #' one out of: `"wald"`, `"wald-cc"`,`"wilson"` (default), 
 #' `"wilson-cc"`,
 #' `"agresti-coull"`, `"jeffreys"`, `"wilson-mod"`,
 #' `"jeffreys-mod"`, `"clopper-pearson"`, `"arcsine"`,
 #' `"logit"`, `"witting"`, `"pratt"`, `"mid-p"`,
-#' `"likelihood"`, `"blaker"` and `"khouadji"`.  All the methods can be
+#' `"likelihood"`, `"blaker"`, `"wang"` and `"khouadji"`.  All the methods can be
 #' asked by `".all"`. Abbreviation of method is 
 #' accepted. See details.
 #' 
@@ -191,6 +215,10 @@
 #' common, related tail probabilities *Journal of the American
 #' Statistical Association*, 63, 1457- 1483.
 #' 
+#' Wang, W. (2014) An iterative construction of confidence intervals for a
+#' proportion, \emph{Statistica Sinica} 24, 1389-1410,
+#' \doi{10.5705/ss.2012.257}
+#' 
 #' Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
 #' testing*. Elsevier Academic Press
 #' 
@@ -248,7 +276,7 @@ binomCI <- function(x, n,
                                "jeffreys", "jeffreys-mod",
                                "clopper-pearson", "agresti-coull",
                                "pratt", "arcsine", "logit",
-                               "witting", "mid-p","blaker",
+                               "witting", "mid-p","blaker","wang",
                                "likelihood", "khouadji" ), 
                     stdEst=TRUE) {
   
@@ -323,7 +351,7 @@ binomCI <- function(x, n,
 
   alpha <- .sidesAlpha(conf.level, sides)
 
-  CI <- .binomCI_bounds(x, n, alpha, method)
+  CI <- .binomCI_bounds(x, n, alpha, method, sides)
   
   # this is the default estimator used by the most (but not all) methods
   est <- x/n
@@ -357,8 +385,20 @@ binomCI <- function(x, n,
 #' @keywords internal
 # the naked interval: no validation, no clamping and no point estimate. 'x'
 # may be non-integer here, so that binomCIn() can invert the width
-# continuously. Method specific attributes (p.tilde) are passed through.
-.binomCI_bounds <- function(x, n, alpha, method) {
+# continuously; this holds only for the smooth methods, binomCIn() rejects
+# the discrete ones (mid-p, blaker, wang, witting, likelihood), and wang
+# stops on a non-integer count instead of truncating it. Method specific
+# attributes (p.tilde) are passed through.
+# 'sides' is only needed for the methods whose one-sided bound is not an end
+# of the two-sided interval at the doubled alpha (blaker, wang).
+.binomCI_bounds <- function(x, n, alpha, method, sides = "two.sided") {
+
+  # blaker and wang are calibrated on the two-sided coverage only: one end of
+  # their two-sided interval at the doubled alpha is not a one-sided bound at
+  # conf.level and undercovers. One-sided, the Clopper-Pearson bound is the
+  # smallest exact bound and is used instead.
+  if (sides != "two.sided" && method %in% c("blaker", "wang"))
+    method <- "clopper-pearson"
 
   switch( method
           , "wald" =              { .binomCI.wald(x, n, alpha) }
@@ -376,6 +416,7 @@ binomCI <- function(x, n,
           , "wilson-mod" =        { .binomCI.wilson_mod(x, n, alpha) }
           , "mid-p" =             { .binomCI.midp(x, n, alpha) }
           , "blaker" =            { .binomCI.blaker(x, n, alpha) }
+          , "wang" =              { .binomCI.wang(x, n, alpha) }
           , "likelihood" =        { .binomCI.lik(x, n, alpha) }
           , "khouadji" =          { .binomCI.khouadji(x, n, alpha) }
           , stop(gettextf("Unknown method '%s'.", method))
@@ -584,23 +625,29 @@ binomCI <- function(x, n,
   # reproducible results
   x.tilde <- x + runif(1, min = 0, max = 1)
   
-  pbinom.abscont <- function(q, size, prob){
-    v <- trunc(q)
-    return( pbinom(v-1, size = size, prob = prob) +
-              (q - v) * dbinom(v, size = size, prob = prob))
+  # P(X + U <= t | p): continuous in t, decreasing in p
+  pAbscont <- function(prob, t) {
+    v <- floor(t)
+    pbinom(v - 1, size = n, prob = prob) +
+      (t - v) * dbinom(v, size = n, prob = prob)
   }
   
-  qbinom.abscont <- function(p, size, x){
-    
-    fun <- function(prob, size, x, p){
-      pbinom.abscont(x, size, prob) - p
-    }
-    uniroot(fun, interval = c(0, 1), size = size, x = x, p = p)$root
+  # the p with pAbscont(p, x.tilde) = q. At x = 0 the curve starts below
+  # q = 1 - alpha/2 whenever U < q (lower bound 0), at x = n it ends above
+  # q = alpha/2 whenever U > q (upper bound 1); uniroot() used to fail there
+  solveP <- function(q) {
+    f <- function(prob) pAbscont(prob, x.tilde) - q
+    if (f(0) <= 0) return(0)
+    if (f(1) >= 0) return(1)
+    uniroot(f, interval = c(0, 1), tol = 1e-10)$root
   }
   
+  # alpha/2 per tail: Satz 2.105 in Witting (1985) gives the one-sided
+  # bounds; with alpha per tail the two-sided level was 1 - 2 * alpha, and
+  # 1 - 4 * alpha' for one-sided requests (doubled alpha from .sidesAlpha())
   res <- c(
-    lci = qbinom.abscont(1-alpha, size = n, x = x.tilde),
-    uci = qbinom.abscont(alpha, size = n, x = x.tilde)
+    lci = solveP(1 - alpha / 2),
+    uci = solveP(alpha / 2)
   )
   attr(res, "p.tilde") <- x.tilde / n
   
@@ -799,4 +846,15 @@ binomCI <- function(x, n,
   return(res)
   
 }
+
+
+# Wang (2014): admissible exact interval, obtained by shrinking the two-sided
+# Clopper-Pearson interval pairwise from the middle of the sample space.
+# Two-sided only; .binomCI_bounds() hands one-sided requests to
+# clopper-pearson (with alpha = 2 * (1 - conf.level) it puts 1 - conf.level
+# into each tail, so its closed side is the one-sided bound at conf.level).
+.binomCI.wang <- function(x, n, alpha) {
+  setNames(.wangBinomCI(x, n, alpha), c("lci", "uci"))
+}
+
 

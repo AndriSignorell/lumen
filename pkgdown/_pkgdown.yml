@@ -58,6 +58,7 @@ reference:
   - binomCI
   - binomDiffCI
   - binomRatioCI
+  - hyperCI
   - multinomCI
   # ci.rate -- Poisson rates
   - poissonCI

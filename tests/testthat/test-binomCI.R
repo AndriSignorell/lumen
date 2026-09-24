@@ -10,7 +10,7 @@ methods_bci <- c(
   "wald", "wald-cc", "wilson", "wilson-cc", "wilson-mod",
   "agresti-coull", "jeffreys", "jeffreys-mod",
   "clopper-pearson", "arcsine", "logit",
-  "pratt", "mid-p", "blaker", "likelihood", "khouadji"
+  "pratt", "mid-p", "blaker", "wang", "likelihood", "khouadji"
 )
 # witting excluded from deterministic tests (randomized)
 
@@ -164,6 +164,51 @@ test_that("witting: bounds in [0, 1]", {
 })
 
 
+test_that("witting works at x = 0 and x = n", {
+  # uniroot() failed in about 95 % of the calls here
+  set.seed(1)
+  for (i in 1:50) {
+    r0 <- binomCI(0, 20, method = "witting")
+    rn <- binomCI(20, 20, method = "witting")
+    expect_equal(r0[["lci"]], 0)
+    expect_equal(rn[["uci"]], 1)
+    .expect_bci(r0, info = "x = 0"); .expect_bci(rn, info = "x = n")
+  }
+})
+
+
+test_that("witting bounds solve their defining equation with alpha/2", {
+  # P(X + U <= x.tilde | p) at the bound equals 1 - alpha/2 (lci) and
+  # alpha/2 (uci); x.tilde is recovered from the p.tilde attribute
+  pAbs <- function(p, t, n)
+    pbinom(floor(t) - 1, n, p) + (t - floor(t)) * dbinom(floor(t), n, p)
+  set.seed(7)
+  for (i in 1:20) {
+    n <- 25; x <- sample(1:(n - 1), 1)
+    r <- lumen:::.binomCI.witting(x, n, 0.05)
+    t <- attr(r, "p.tilde") * n
+    expect_equal(pAbs(r[["lci"]], t, n), 0.975, tolerance = 1e-7)
+    expect_equal(pAbs(r[["uci"]], t, n), 0.025, tolerance = 1e-7)
+  }
+})
+
+
+test_that("witting keeps the level exactly (Monte Carlo)", {
+  # randomized exactness: coverage 1 - alpha for every p; with alpha per
+  # tail it was about 0.885 two-sided and 0.90 one-sided at 95 %
+  set.seed(11)
+  n <- 20; p <- 0.3; R <- 4000
+  x  <- rbinom(R, n, p)
+  ci <- t(vapply(x, function(xx)
+    binomCI(xx, n, method = "witting")[c("lci", "uci")], numeric(2)))
+  lo <- vapply(x, function(xx)
+    binomCI(xx, n, sides = "left", method = "witting")[["lci"]], numeric(1))
+  se <- sqrt(0.95 * 0.05 / R)
+  expect_lt(abs(mean(ci[, 1] <= p & p <= ci[, 2]) - 0.95), 4 * se)
+  expect_lt(abs(mean(lo <= p) - 0.95), 4 * se)
+})
+
+
 # --- regression test ------------------------------------------------
 
 test_that("blaker limits are nested in clopper-pearson for all scales", {
@@ -218,4 +263,81 @@ test_that("stress test: random x, n for all methods", {
 
   expect_length(bad, 0)
   if (length(bad)) message(paste(head(bad, 20), collapse = "\n"))
+})
+test_that("wang reproduces Wang (2014) / ExactCIone::WbinoCI", {
+  # ExactCIone 1.0.5, WbinoCI(x, 5, 0.95, details = TRUE)$CIM
+  ref <- rbind(c(0,          0.5000000), c(0.01020614, 0.6574084),
+               c(0.07644030, 0.8107447), c(0.18925530, 0.9235597),
+               c(0.34259163, 0.9897939), c(0.49999997, 1))
+  got <- t(sapply(0:5, function(x)
+    binomCI(x, 5, method = "wang")[c("lci", "uci")]))
+  expect_equal(unname(got), ref, tolerance = 1e-6)
+})
+
+test_that("wang is nested in clopper-pearson and keeps exact coverage", {
+  for (n in c(7, 20, 45)) {
+    w  <- binomCI(0:n, n, method = "wang")
+    cp <- binomCI(0:n, n, method = "clopper-pearson")
+    expect_true(all(w$lci >= cp$lci - 1e-12 & w$uci <= cp$uci + 1e-12))
+    pts <- unique(c(w$lci, w$uci)); pts <- pts[pts > 0 & pts < 1]
+    pp  <- c(pts - 1e-9, pts + 1e-9, seq(0.001, 0.999, length.out = 500))
+    cov <- vapply(pp, function(p)
+      sum(dbinom(0:n, n, p)[w$lci <= p & p <= w$uci]), numeric(1))
+    expect_gte(min(cov), 0.95 - 1e-9)
+  }
+})
+
+test_that("wang keeps the level also between two nearly equal limits", {
+  # the one-sided coverage limits at every breakpoint; shifting p by a
+  # relative 1e-12 instead missed a piece of width 2e-13 at n = 11 between
+  # U(0) and L(6) with coverage 0.919
+  infcov <- function(n, conf.level) {
+    w <- binomCI(0:n, n, conf.level = conf.level, method = "wang")
+    p <- unique(c(w$lci, w$uci)); p <- p[p > 0 & p < 1]
+    min(vapply(p, function(pp) {
+      d <- dbinom(0:n, n, pp)
+      min(sum(d[w$lci < pp & w$uci >= pp]), sum(d[w$lci <= pp & w$uci > pp]))
+    }, numeric(1)))
+  }
+  expect_gte(infcov(11, 0.95), 0.95 - 1e-12)
+  for (n in c(30, 41, 47, 56)) for (cl in c(0.95, 0.99, 0.999))
+    expect_gte(infcov(n, cl), cl - 1e-12, label = sprintf("n=%d cl=%g", n, cl))
+})
+
+test_that("wang rejects non-integer counts instead of truncating", {
+  expect_error(.wangBinomCI(2.5, 5, 0.05), "integer")
+  expect_error(.wangBinomCI(2, 5, 1.2), "alpha")
+})
+
+test_that("blaker and wang one-sided equal one-sided clopper-pearson", {
+  # an end of the two-sided blaker interval at the doubled alpha is no
+  # one-sided bound: x = 1, n = 1 gave the lower bound 0.1 at 95 %, which
+  # covers p just below 0.1 with probability 0.9 only
+  for (m in c("blaker", "wang")) for (s in c("left", "right"))
+    expect_equal(binomCI(3, 17, method = m, sides = s),
+                 binomCI(3, 17, method = "clopper-pearson", sides = s),
+                 label = paste(m, s))
+  expect_equal(binomCI(1, 1, sides = "left", method = "blaker")[["lci"]],
+               0.05)
+})
+
+
+test_that("wang stays valid at low levels", {
+  for (n in c(2, 7, 13, 30)) for (cl in c(0.05, 0.2, 0.3, 0.5)) {
+    w <- binomCI(0:n, n, conf.level = cl, method = "wang")
+    lab <- sprintf("n=%d cl=%g", n, cl)
+    expect_true(all(w$lci <= w$uci) && !is.unsorted(w$lci), label = lab)
+    p <- unique(c(w$lci, w$uci)); p <- p[p > 0 & p < 1]
+    cov <- vapply(p, function(pp) {
+      d <- dbinom(0:n, n, pp)
+      min(sum(d[w$lci < pp & w$uci >= pp]), sum(d[w$lci <= pp & w$uci > pp]))
+    }, numeric(1))
+    expect_gte(min(cov), cl - 1e-12, label = lab)
+  }
+})
+
+test_that("wang is symmetric in x <-> n - x", {
+  a <- binomCI(4, 31, method = "wang"); b <- binomCI(27, 31, method = "wang")
+  expect_equal(a[["lci"]], 1 - b[["uci"]])
+  expect_equal(a[["uci"]], 1 - b[["lci"]])
 })

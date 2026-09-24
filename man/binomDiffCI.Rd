@@ -209,6 +209,7 @@ Interval estimation for the difference between independent proportions.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
+\code{\link[=hyperCI]{hyperCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }
 \concept{binary-outcome}

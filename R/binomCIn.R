@@ -18,9 +18,10 @@
 #'
 #' The root search evaluates the interval at \eqn{x = p \cdot n} for
 #' continuous \eqn{n}, so only those methods can be inverted whose limits
-#' are smooth functions of the count. The methods `"mid-p"`, `"blaker"`,
-#' `"witting"` and `"likelihood"` are defined through the discrete binomial
-#' distribution (and `"witting"` is randomized on top of that); they are
+#' are smooth functions of the count. The methods `"mid-p"`, `"blaker"`, 
+#' `"wang"`, `"witting"` and `"likelihood"` are defined through the 
+#' discrete binomial distribution (and `"witting"` is randomized on top of 
+#' that); they are
 #' rejected with an error instead of returning a silently meaningless root.
 #'
 #' The returned sample size is not rounded, round it up to get a feasible
@@ -59,7 +60,7 @@ binomCIn <- function(p=0.5, width, interval=c(1, 1e5),
   
   # the root search evaluates the interval at non-integer x = p * n, which
   # only the methods with closed form limits tolerate
-  if (method %in% c("mid-p", "blaker", "witting", "likelihood"))
+  if (method %in% c("mid-p", "blaker", "wang","witting", "likelihood"))
     stop(gettextf(paste("method '%s' is a function of integer counts and",
                         "cannot be inverted for a sample size"),
                   method), call. = FALSE)

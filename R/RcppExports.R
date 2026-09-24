@@ -92,3 +92,11 @@ pruns_cpp <- function(r, n1, n2, alternative = "two.sided") {
     .Call(`_lumen_pruns_cpp`, r, n1, n2, alternative)
 }
 
+.wangBinomCI <- function(x, n, alpha, tol = 1e-10) {
+    .Call(`_lumen_wangBinomCI`, x, n, alpha, tol)
+}
+
+.wangHyperCI <- function(x, n, N, alpha) {
+    .Call(`_lumen_wangHyperCI`, x, n, N, alpha)
+}
+

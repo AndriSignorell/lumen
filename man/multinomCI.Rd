@@ -162,7 +162,8 @@ inference, \emph{J.Am. Stat. Assoc.} 22 (1927) 209-212.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
-\code{\link[=binomRatioCI]{binomRatioCI()}}
+\code{\link[=binomRatioCI]{binomRatioCI()}},
+\code{\link[=hyperCI]{hyperCI()}}
 }
 \concept{ci.proportion}
 \concept{confidence-interval}
