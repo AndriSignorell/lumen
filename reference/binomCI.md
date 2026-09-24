@@ -18,7 +18,7 @@ binomCI(
   sides = c("two.sided", "left", "right"),
   method = c("wilson", "wilson-cc", "wilson-mod", "wald", "wald-cc", "jeffreys",
     "jeffreys-mod", "clopper-pearson", "agresti-coull", "pratt", "arcsine", "logit",
-    "witting", "mid-p", "blaker", "likelihood", "khouadji"),
+    "witting", "mid-p", "blaker", "wang", "likelihood", "khouadji"),
   stdEst = TRUE
 )
 
@@ -56,7 +56,9 @@ binomCIn(
   to 1, `"right"` reports the upper limit and opens the lower one to 0.
   A one-sided bound at level `conf.level` is the corresponding end of
   the two-sided interval at level `2 * conf.level - 1`, and therefore
-  requires `conf.level > 0.5`.
+  requires `conf.level > 0.5`. The exceptions are `"blaker"` and
+  `"wang"`, which are calibrated on the two-sided coverage only; their
+  one-sided bound is the Clopper-Pearson bound (see details).
 
 - method:
 
@@ -64,9 +66,9 @@ binomCIn(
   of: `"wald"`, `"wald-cc"`,`"wilson"` (default), `"wilson-cc"`,
   `"agresti-coull"`, `"jeffreys"`, `"wilson-mod"`, `"jeffreys-mod"`,
   `"clopper-pearson"`, `"arcsine"`, `"logit"`, `"witting"`, `"pratt"`,
-  `"mid-p"`, `"likelihood"`, `"blaker"` and `"khouadji"`. All the
-  methods can be asked by `".all"`. Abbreviation of method is accepted.
-  See details.
+  `"mid-p"`, `"likelihood"`, `"blaker"`, `"wang"` and `"khouadji"`. All
+  the methods can be asked by `".all"`. Abbreviation of method is
+  accepted. See details.
 
 - stdEst:
 
@@ -166,9 +168,13 @@ not defined for \\x = 0\\ and \\x = n\\, where the Clopper-Pearson
 limits are reported instead.
 
 **Witting**: A randomized procedure (Witting, 1985) providing uniformly
-optimal lower and upper confidence bounds for binomial proportions.
-Repeated calls may yield slightly different results unless the random
-number generator seed is fixed.
+optimal lower and upper confidence bounds for binomial proportions. With
+\\U \sim U(0, 1)\\, the distribution function of \\X + U\\ is continuous
+and decreasing in \\p\\; each bound puts exactly \\\alpha/2\\ into its
+tail, so the coverage equals the level for every \\p\\, not only on
+average. At \\x = 0\\ (\\x = n\\) the lower (upper) bound is 0 (1)
+whenever \\U\\ leaves no root. Repeated calls may yield slightly
+different results unless the random number generator seed is fixed.
 
 **Pratt**: Based on a highly accurate normal approximation (Pratt,
 1968).
@@ -186,7 +192,22 @@ binomial deviance in the neighbourhood of the maximum likelihood
 estimator.
 
 **Blaker**: An exact interval based on the method proposed by Blaker
-(2000).
+(2000). One-sided, the Clopper-Pearson bound is returned: an end of the
+two-sided Blaker interval at level `2 * conf.level - 1` misses the
+level.
+
+**Wang**: The Wang interval (Wang 2014) is an exact interval: starting
+from the Clopper-Pearson interval, the limits are shrunk pairwise (\\U_x
+= 1 - L\_{n-x}\\) from the middle of the sample space outwards, each as
+far as the infimum coverage probability permits. The resulting family is
+monotone and symmetric and admissible in the sense of Wang (2014): no
+limit can be moved inwards, the other intervals held fixed, without the
+infimum coverage falling below `conf.level`. It is never wider than
+Clopper-Pearson. One-sided, the Clopper-Pearson bound is already the
+smallest exact bound and is returned instead of an end of the two-sided
+Wang interval at level `2 * conf.level - 1`, which would miss the level.
+The computation proceeds from \\n/2\\ towards \\x\\; for large \\n\\ and
+\\x\\ far from \\n/2\\ it takes a few seconds at \\n = 10^5\\.
 
 **Khouadji**: A transformation-based approximation for binomial
 confidence intervals. It applies a variance-stabilizing transformation
@@ -219,9 +240,10 @@ precision.
 The root search evaluates the interval at \\x = p \cdot n\\ for
 continuous \\n\\, so only those methods can be inverted whose limits are
 smooth functions of the count. The methods `"mid-p"`, `"blaker"`,
-`"witting"` and `"likelihood"` are defined through the discrete binomial
-distribution (and `"witting"` is randomized on top of that); they are
-rejected with an error instead of returning a silently meaningless root.
+`"wang"`, `"witting"` and `"likelihood"` are defined through the
+discrete binomial distribution (and `"witting"` is randomized on top of
+that); they are rejected with an error instead of returning a silently
+meaningless root.
 
 The returned sample size is not rounded, round it up to get a feasible
 number of observations.
@@ -271,6 +293,10 @@ Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and
 other common, related tail probabilities *Journal of the American
 Statistical Association*, 63, 1457- 1483.
 
+Wang, W. (2014) An iterative construction of confidence intervals for a
+proportion, *Statistica Sinica* 24, 1389-1410,
+[doi:10.5705/ss.2012.257](https://doi.org/10.5705/ss.2012.257)
+
 Wilcox, R. R. (2005) *Introduction to robust estimation and hypothesis
 testing*. Elsevier Academic Press
 
@@ -282,7 +308,8 @@ Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
 `Hmisc::binconf()`
 
 Other ci.proportion: [`binomDiffCI()`](binomDiffCI.md),
-[`binomRatioCI()`](binomRatioCI.md), [`multinomCI()`](multinomCI.md)
+[`binomRatioCI()`](binomRatioCI.md), [`hyperCI()`](hyperCI.md),
+[`multinomCI()`](multinomCI.md)
 
 ## Examples
 
@@ -303,11 +330,12 @@ binomCI(x=37, n=43,
 #> 10 0.8604651 0.7661306 0.9472522 37 43       0.95 two.sided           pratt
 #> 11 0.8604651 0.7346862 0.9424696 37 43       0.95 two.sided         arcsine
 #> 12 0.8604651 0.7224337 0.9359412 37 43       0.95 two.sided           logit
-#> 13 0.8604651 0.7532381 0.9301239 37 43       0.95 two.sided         witting
+#> 13 0.8604651 0.7306888 0.9406232 37 43       0.95 two.sided         witting
 #> 14 0.8604651 0.7321815 0.9414281 37 43       0.95 two.sided           mid-p
 #> 15 0.8604651 0.7255219 0.9374444 37 43       0.95 two.sided          blaker
-#> 16 0.8604651 0.7372546 0.9420472 37 43       0.95 two.sided      likelihood
-#> 17 0.8604651 0.7223441 0.9372304 37 43       0.95 two.sided        khouadji
+#> 16 0.8604651 0.7206752 0.9374444 37 43       0.95 two.sided            wang
+#> 17 0.8604651 0.7372546 0.9420472 37 43       0.95 two.sided      likelihood
+#> 18 0.8604651 0.7223441 0.9372304 37 43       0.95 two.sided        khouadji
 #>    stdEst
 #> 1    TRUE
 #> 2    TRUE
@@ -326,6 +354,7 @@ binomCI(x=37, n=43,
 #> 15   TRUE
 #> 16   TRUE
 #> 17   TRUE
+#> 18   TRUE
 
 prop.test(x=37, n=43, correct=FALSE) # same as method wilson
 #> 
@@ -423,11 +452,12 @@ binomCI(4, 19, conf.level =0.95,
 #> 10 0.2105263 0.0650967399 0.4556617           pratt
 #> 11 0.2105263 0.0687042574 0.4296953         arcsine
 #> 12 0.2105263 0.0813092940 0.4455116           logit
-#> 13 0.2105263 0.0958686719 0.4072225         witting
+#> 13 0.2105263 0.0779600791 0.4444031         witting
 #> 14 0.2105263 0.0707064177 0.4331720           mid-p
 #> 15 0.2105263 0.0752938166 0.4448898          blaker
-#> 16 0.2105263 0.0706525937 0.4235382      likelihood
-#> 17 0.2105263 0.0814142100 0.4403249        khouadji
+#> 16 0.2105263 0.0752938166 0.4556531            wang
+#> 17 0.2105263 0.0706525937 0.4235382      likelihood
+#> 18 0.2105263 0.0814142100 0.4403249        khouadji
 
 
 binomCIn(p=0.1, width=0.05, method="pratt")

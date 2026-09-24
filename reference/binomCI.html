@@ -23,7 +23,7 @@ corresponding sample size."><meta property="og:image" content="/logo.png"></head
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.953</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.954</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@ corresponding sample size.</p>
 <span>  sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wilson-cc"</span>, <span class="st">"wilson-mod"</span>, <span class="st">"wald"</span>, <span class="st">"wald-cc"</span>, <span class="st">"jeffreys"</span>,</span>
 <span>    <span class="st">"jeffreys-mod"</span>, <span class="st">"clopper-pearson"</span>, <span class="st">"agresti-coull"</span>, <span class="st">"pratt"</span>, <span class="st">"arcsine"</span>, <span class="st">"logit"</span>,</span>
-<span>    <span class="st">"witting"</span>, <span class="st">"mid-p"</span>, <span class="st">"blaker"</span>, <span class="st">"likelihood"</span>, <span class="st">"khouadji"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"witting"</span>, <span class="st">"mid-p"</span>, <span class="st">"blaker"</span>, <span class="st">"wang"</span>, <span class="st">"likelihood"</span>, <span class="st">"khouadji"</span><span class="op">)</span>,</span>
 <span>  stdEst <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -109,7 +109,10 @@ side carrying the finite bound: <code>"left"</code> reports the lower limit and
 opens the upper one to 1, <code>"right"</code> reports the upper limit and opens
 the lower one to 0. A one-sided bound at level <code>conf.level</code> is the
 corresponding end of the two-sided interval at level
-<code>2 * conf.level - 1</code>, and therefore requires <code>conf.level &gt; 0.5</code>.</p></dd>
+<code>2 * conf.level - 1</code>, and therefore requires <code>conf.level &gt; 0.5</code>. The
+exceptions are <code>"blaker"</code> and <code>"wang"</code>, which are calibrated on the
+two-sided coverage only; their one-sided bound is the Clopper-Pearson
+bound (see details).</p></dd>
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
@@ -119,7 +122,7 @@ one out of: <code>"wald"</code>, <code>"wald-cc"</code>,<code>"wilson"</code> (d
 <code>"agresti-coull"</code>, <code>"jeffreys"</code>, <code>"wilson-mod"</code>,
 <code>"jeffreys-mod"</code>, <code>"clopper-pearson"</code>, <code>"arcsine"</code>,
 <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"mid-p"</code>,
-<code>"likelihood"</code>, <code>"blaker"</code> and <code>"khouadji"</code>.  All the methods can be
+<code>"likelihood"</code>, <code>"blaker"</code>, <code>"wang"</code> and <code>"khouadji"</code>.  All the methods can be
 asked by <code>".all"</code>. Abbreviation of method is
 accepted. See details.</p></dd>
 
@@ -212,7 +215,12 @@ defined for \(x = 0\) and \(x = n\), where the Clopper-Pearson
 limits are reported instead.</p>
 <p><strong>Witting</strong>:
 A randomized procedure (Witting, 1985) providing uniformly optimal
-lower and upper confidence bounds for binomial proportions.
+lower and upper confidence bounds for binomial proportions. With
+\(U \sim U(0, 1)\), the distribution function of \(X + U\) is
+continuous and decreasing in \(p\); each bound puts exactly
+\(\alpha/2\) into its tail, so the coverage equals the level for every
+\(p\), not only on average. At \(x = 0\) (\(x = n\)) the lower
+(upper) bound is 0 (1) whenever \(U\) leaves no root.
 Repeated calls may yield slightly different results unless the
 random number generator seed is fixed.</p>
 <p><strong>Pratt</strong>:
@@ -230,7 +238,22 @@ is set to 0; for \(x = n\) the upper bound is set to 1.</p>
 Confidence intervals obtained by profiling the binomial deviance
 in the neighbourhood of the maximum likelihood estimator.</p>
 <p><strong>Blaker</strong>:
-An exact interval based on the method proposed by Blaker (2000).</p>
+An exact interval based on the method proposed by Blaker (2000).
+One-sided, the Clopper-Pearson bound is returned: an end of the two-sided
+Blaker interval at level <code>2 * conf.level - 1</code> misses the level.</p>
+<p><strong>Wang</strong>:
+The Wang interval (Wang 2014) is an exact interval: starting from the
+Clopper-Pearson interval, the limits are shrunk pairwise
+(\(U_x = 1 - L_{n-x}\)) from the middle of the sample space outwards, each
+as far as the infimum coverage probability permits. The resulting family
+is monotone and symmetric and admissible in the sense of Wang (2014): no
+limit can be moved inwards, the other intervals held fixed, without the
+infimum coverage falling below <code>conf.level</code>. It is never wider than
+Clopper-Pearson. One-sided, the Clopper-Pearson bound is already the
+smallest exact bound and is returned instead of an end of the two-sided
+Wang interval at level <code>2 * conf.level - 1</code>, which would miss the level. The
+computation proceeds from \(n/2\) towards \(x\); for large \(n\) and
+\(x\) far from \(n/2\) it takes a few seconds at \(n = 10^5\).</p>
 <p><strong>Khouadji</strong>:
 A transformation-based approximation for binomial confidence intervals.
 It applies a variance-stabilizing transformation to the sample
@@ -260,8 +283,9 @@ level of precision.</p>
 <p>The root search evaluates the interval at \(x = p \cdot n\) for
 continuous \(n\), so only those methods can be inverted whose limits
 are smooth functions of the count. The methods <code>"mid-p"</code>, <code>"blaker"</code>,
-<code>"witting"</code> and <code>"likelihood"</code> are defined through the discrete binomial
-distribution (and <code>"witting"</code> is randomized on top of that); they are
+<code>"wang"</code>, <code>"witting"</code> and <code>"likelihood"</code> are defined through the
+discrete binomial distribution (and <code>"witting"</code> is randomized on top of
+that); they are
 rejected with an error instead of returning a silently meaningless root.</p>
 <p>The returned sample size is not rounded, round it up to get a feasible
 number of observations.</p>
@@ -308,6 +332,9 @@ proportion: comparison of seven methods, <em>Statistics in Medicine</em>,
 <p>Pratt J. W. (1968) A normal approximation for binomial, F, Beta, and other
 common, related tail probabilities <em>Journal of the American
 Statistical Association</em>, 63, 1457- 1483.</p>
+<p>Wang, W. (2014) An iterative construction of confidence intervals for a
+proportion, <em>Statistica Sinica</em> 24, 1389-1410,
+<a href="https://doi.org/10.5705/ss.2012.257" class="external-link">doi:10.5705/ss.2012.257</a></p>
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis
 testing</em>. Elsevier Academic Press</p>
 <p>Witting H. (1985) <em>Mathematische Statistik I</em>. Stuttgart: Teubner.</p>
@@ -318,6 +345,7 @@ testing</em>. Elsevier Academic Press</p>
 <p>Other ci.proportion:
 <code><a href="binomDiffCI.html">binomDiffCI()</a></code>,
 <code><a href="binomRatioCI.html">binomRatioCI()</a></code>,
+<code><a href="hyperCI.html">hyperCI()</a></code>,
 <code><a href="multinomCI.html">multinomCI()</a></code></p></div>
     </div>
 
@@ -339,11 +367,12 @@ testing</em>. Elsevier Academic Press</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.8604651 0.7661306 0.9472522 37 43       0.95 two.sided           pratt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.8604651 0.7346862 0.9424696 37 43       0.95 two.sided         arcsine</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.8604651 0.7224337 0.9359412 37 43       0.95 two.sided           logit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.8604651 0.7532381 0.9301239 37 43       0.95 two.sided         witting</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.8604651 0.7306888 0.9406232 37 43       0.95 two.sided         witting</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.8604651 0.7321815 0.9414281 37 43       0.95 two.sided           mid-p</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.8604651 0.7255219 0.9374444 37 43       0.95 two.sided          blaker</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.8604651 0.7372546 0.9420472 37 43       0.95 two.sided      likelihood</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.8604651 0.7223441 0.9372304 37 43       0.95 two.sided        khouadji</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.8604651 0.7206752 0.9374444 37 43       0.95 two.sided            wang</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.8604651 0.7372546 0.9420472 37 43       0.95 two.sided      likelihood</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.8604651 0.7223441 0.9372304 37 43       0.95 two.sided        khouadji</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    stdEst</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRUE</span>
@@ -362,6 +391,7 @@ testing</em>. Elsevier Academic Press</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15   TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16   TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">37</span>, n<span class="op">=</span><span class="fl">43</span>, correct<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># same as method wilson</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -459,11 +489,12 @@ testing</em>. Elsevier Academic Press</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.2105263 0.0650967399 0.4556617           pratt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.2105263 0.0687042574 0.4296953         arcsine</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.2105263 0.0813092940 0.4455116           logit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.2105263 0.0958686719 0.4072225         witting</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.2105263 0.0779600791 0.4444031         witting</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.2105263 0.0707064177 0.4331720           mid-p</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.2105263 0.0752938166 0.4448898          blaker</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.2105263 0.0706525937 0.4235382      likelihood</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.2105263 0.0814142100 0.4403249        khouadji</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.2105263 0.0752938166 0.4556531            wang</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.2105263 0.0706525937 0.4235382      likelihood</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.2105263 0.0814142100 0.4403249        khouadji</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">binomCIn</span><span class="op">(</span>p<span class="op">=</span><span class="fl">0.1</span>, width<span class="op">=</span><span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"pratt"</span><span class="op">)</span></span></span>

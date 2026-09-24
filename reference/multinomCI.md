@@ -120,7 +120,8 @@ inference, *J.Am. Stat. Assoc.* 22 (1927) 209-212.
 ## See also
 
 Other ci.proportion: [`binomCI()`](binomCI.md),
-[`binomDiffCI()`](binomDiffCI.md), [`binomRatioCI()`](binomRatioCI.md)
+[`binomDiffCI()`](binomDiffCI.md), [`binomRatioCI()`](binomRatioCI.md),
+[`hyperCI()`](hyperCI.md)
 
 ## Examples
 

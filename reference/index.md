@@ -35,6 +35,8 @@ scale parameters.
   Difference of Two Binomial Proportions
 - [`binomRatioCI()`](binomRatioCI.md) : Confidence Intervals for the
   Ratio of Two Binomial Proportions
+- [`hyperCI()`](hyperCI.md) : Confidence Intervals for the Number of
+  Successes in a Finite Population
 - [`multinomCI()`](multinomCI.md) : Confidence Intervals for Multinomial
   Proportions
 - [`poissonCI()`](poissonCI.md) : Confidence Interval for a Poisson Rate
