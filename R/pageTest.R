@@ -49,10 +49,10 @@
 #' @param formula a formula of the form `y ~ groups | blocks`.
 #' @param data an optional data frame containing the variables in
 #'   `formula`.
-#' @param subset an optional vector specifying a subset of observations to
-#'   be used.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data`, as in [friedman.test()].
 #' @param na.action a function which indicates what should happen when the
-#'   data contain `NA`s. Defaults to `getOption("na.action")`.
+#'   data contain `NA`s. Defaults to [na.pass()].
 #' @param \dots further arguments to be passed to or from methods.
 #'
 #' @return A list with class `"htest"` containing:
@@ -247,22 +247,10 @@ pageTest.formula <- function(formula,
                              na.action = na.pass,
                              ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "n-sample-dependent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args, quote = TRUE)
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in friedman.test()
+  d <- resolveFormulaFromCall(allowed   = "n-sample-dependent",
+                              na.action = na.action)
   
   res <- pageTest.default(
     y      = d$response,

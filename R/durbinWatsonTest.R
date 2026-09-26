@@ -32,9 +32,8 @@
 #'     exists.}
 #' }
 #'
-#' @param x a symbolic description of the model to be tested (a
-#' `formula`), a fitted `"lm"` object, or a numeric vector of
-#' residuals.
+#' @param x a fitted `"lm"` object, or a numeric vector of residuals.
+#' @param formula a symbolic description of the model to be tested.
 #' @param data an optional data frame containing the variables in the
 #' model. By default the variables are taken from the environment which
 #' `durbinWatsonTest` is called from. For the `lm` and `numeric` methods it
@@ -47,7 +46,8 @@
 #' dropped by `subset` or by `na.action` are then dropped from `z` as well.
 #' Missing values in `z` are ordered last.
 #' @param subset an optional expression indicating which observations to
-#' use. Only used for the `formula` method.
+#' use, evaluated in `data` (`subset = grp == "A"`), as in [lm()]. Only used
+#' for the `formula` method.
 #' @param na.action a function specifying how missing values are handled.
 #' Defaults to [na.omit()]. Only used for the `formula` method.
 #' @param alternative a character string specifying the alternative
@@ -136,17 +136,19 @@ durbinWatsonTest <- function(x, ...) UseMethod("durbinWatsonTest")
 
 #' @rdname durbinWatsonTest
 #' @export
-durbinWatsonTest.formula <- function(x, data = list(), orderBy = NULL,
+durbinWatsonTest.formula <- function(formula, data = list(), orderBy = NULL,
                                      alternative = c("greater", "two.sided",
                                                      "less"),
                                      iterations = 15, exact = NULL,
                                      tol = 1e-10,
                                      subset, na.action = na.omit, ...) {
 
-  subsetExpr <- if (missing(subset)) NULL else substitute(subset)
-
-  r <- resolveFormula(x, data = data, subset = subsetExpr,
-                      na.action = na.action, allowed = "regression")
+  # The first argument is called 'formula', as resolveFormulaFromCall()
+  # expects and as in the other formula methods: R CMD check exempts the
+  # first argument of a .formula method from the generic/method consistency
+  # check. formula, data and subset are forwarded unevaluated, so that
+  # 'subset' is evaluated in 'data' as in lm().
+  r <- resolveFormulaFromCall(allowed = "regression", na.action = na.action)
 
   # the model matrix must be built from the terms: the columns of a model
   # frame are named after the deparsed expressions ("log(x)"), so the

@@ -50,7 +50,8 @@
 #' @param conf.level confidence level of the simultaneous intervals
 #' @param formula a formula of the form `lhs ~ rhs`
 #' @param data an optional data frame containing the model variables
-#' @param subset an optional vector specifying a subset of observations
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = wool == "A"`), as in [oneway.test()]
 #' @param na.action a function indicating what should happen when the data
 #'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
@@ -176,15 +177,17 @@ gamesHowellTest.default <- function(x, g, conf.level = 0.95, ...) {
 #' @export
 gamesHowellTest.formula <- function(formula, data, subset, na.action = na.pass, ...) {
 
-  subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
-
-  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
-                       na.action = na.action,
-                       allowed = c("two-sample-independent",
-                                   "n-sample-independent"))
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in oneway.test()
+  rf <- resolveFormulaFromCall(allowed   = c("two-sample-independent",
+                                             "n-sample-independent"),
+                               na.action = na.action)
 
   res <- gamesHowellTest.default(x = rf$x, g = rf$group, ...)
-  names(res) <- all.vars(formula)[2L]
+  # the right-hand side as written: all.vars()[2] named the result after the
+  # first variable only, "supp" for y ~ supp:dose, and after a variable of
+  # the response for log(y) ~ g
+  names(res) <- deparse1(formula[[3L]])
   attr(res, "orig.call") <- sys.call()
   res
 }

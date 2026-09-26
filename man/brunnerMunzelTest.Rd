@@ -54,7 +54,8 @@ numeric and \code{rhs} a factor with two levels}
 
 \item{data}{an optional data frame containing the model variables}
 
-\item{subset}{an optional vector specifying a subset of observations}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = score > 1}), as in \code{\link[=wilcox.test]{wilcox.test()}}}
 
 \item{na.action}{a function indicating what should happen when the data
 contain \code{NA}s}

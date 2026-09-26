@@ -29,11 +29,12 @@ gives the data values and \code{rhs} the corresponding groups.}
 \code{formula}. By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to
-be used.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=bartlett.test]{bartlett.test()}}.}
 
 \item{na.action}{a function which indicates what should happen when the
-data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
+data contain \code{NA}s. Defaults to \code{\link[=na.pass]{na.pass()}}: incomplete cases are then
+removed by the default method.}
 
 \item{center}{the name of a function to compute the center of each
 group; \code{mean} gives the original Levene's test, the default,

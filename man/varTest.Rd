@@ -20,7 +20,8 @@ varTest(x, ...)
 \method{varTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a formula.}
+\item{x}{a numeric vector of data values, or a formula. Non-finite
+values are removed.}
 
 \item{...}{further arguments passed to methods.}
 

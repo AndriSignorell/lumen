@@ -53,10 +53,12 @@
 #' @param data an optional matrix or data frame (or similar: see
 #' [model.frame()]) containing the variables in the formula. By
 #' default the variables are taken from `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to
-#' be used.
-#' @param na.action a function which indicates what should happen when the
-#' data contain `NA`s. Defaults to `getOption("na.action")`.
+#' @param subset an optional expression specifying a subset of observations,
+#' evaluated in `data` (`subset = id <= 30`), as in [friedman.test()].
+#' @param na.action for the formula method, a function which indicates what
+#' should happen when the data contain `NA`s. Defaults to [na.pass()]:
+#' missing responses are then handled by the default method, which removes
+#' the affected blocks. Ignored by the default method.
 #' @param \dots further arguments to be passed to or from methods.
 #' 
 #' @return A list with class `"htest"` containing the following
@@ -90,6 +92,9 @@
 #' # after having done the hard work of data organisation,
 #' # performing the test is a piece of cake....
 #' cochranQTest(resp ~ time | id, data=d.long)
+#'
+#' # subset, evaluated in data
+#' cochranQTest(resp ~ time | id, data=d.long, subset = id <= 30)
 #'
 #' # and let's perform a post hoc analysis using mcnemar's test
 #' z <- split(d.long, f=d.long$time)
@@ -187,22 +192,10 @@ cochranQTest.formula <- function(formula,
                                  nresample = 1e4,
                                  ...) {
 
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "n-sample-dependent"
-  )
-
-  if (!missing(data))
-    args$data <- data
-
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-
-  d <- do.call(resolveFormula, args, quote = TRUE)
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in friedman.test()
+  d <- resolveFormulaFromCall(allowed   = "n-sample-dependent",
+                              na.action = na.action)
 
   res <- cochranQTest.default(
     y         = d$response,

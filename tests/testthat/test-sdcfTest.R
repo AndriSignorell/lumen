@@ -209,7 +209,10 @@ test_that("dscfTest.formula: data.name is set from formula", {
   )
   
   res <- dscfTest(val ~ grp, data = df)
-  expect_equal(res$data.name, "val ~ grp")
+  # an attribute, as set by the default method; a list component would sit
+  # next to it and leave the attribute at "x and g"
+  expect_null(res$data.name)
+  expect_equal(attr(res, "data.name"), "val ~ grp")
 })
 
 
@@ -264,11 +267,9 @@ test_that("dscfTest: print method runs without error", {
 })
 
 
-test_that("dscfTest: error on malformed formula", {
-  expect_error(
-    dscfTest.formula(~ x),
-    "'formula' missing or incorrect"
-  )
+test_that("dscfTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(dscfTest(~ x), "two-sided")
 })
 
 

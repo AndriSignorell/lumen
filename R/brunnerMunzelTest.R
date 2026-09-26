@@ -106,7 +106,8 @@
 #' @param nPerm number of Monte-Carlo resamples used when the permutation
 #'   distribution is not enumerated
 #' @param data an optional data frame containing the model variables
-#' @param subset an optional vector specifying a subset of observations
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = score > 1`), as in [wilcox.test()]
 #' @param na.action a function indicating what should happen when the data
 #'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
@@ -324,14 +325,10 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
 #' @export
 brunnerMunzelTest.formula <- function(formula, data, subset, na.action = na.pass, ...) {
 
-  # 'subset' must be captured here and handed to resolveFormula() as an
-  # unevaluated expression; the call has to be direct, since do.call() would
-  # evaluate that expression in the wrong frame (hotellingsT2Test regression).
-  subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
-
-  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
-                       na.action = na.action,
-                       allowed = "two-sample-independent")
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in wilcox.test()
+  rf <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                               na.action = na.action)
 
   # x + group is the canonical access path; rf$y is convenience only
   grp <- split(rf$x, rf$group)

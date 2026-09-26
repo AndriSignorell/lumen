@@ -32,12 +32,16 @@
 #'   the test statistic. One of `"tukey"` (default) or `"chisq"`.
 #' @param output character string specifying the output format. One of
 #'   `"list"` (default) or `"matrix"`.
+#' @param alpha the significance level used to compile the groups flagged
+#'   as significantly different in the label attribute of the p-value
+#'   matrix (default is `0.05`).
 #' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
 #'   `formula`.
-#' @param subset an optional expression specifying a subset of observations to
-#'   be used.
-#' @param na.action a function specifying how missing values should be handled.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
+#' @param na.action a function specifying how missing values should be
+#'   handled. Defaults to [na.omit()].
 #' @param \dots further arguments passed to methods.
 #'
 #' @return An object of class `"rankTest"` containing:
@@ -93,23 +97,13 @@ nemenyiTest <- function(x, ...)
 
 #' @rdname nemenyiTest
 #' @export
-nemenyiTest.formula <- function(formula, data, subset, na.action, ...) {
+nemenyiTest.formula <- function(formula, data, subset, na.action = na.omit,
+                                ...) {
   
-  if (missing(formula) || (length(formula) != 3L) ||
-      (length(attr(terms(formula[-2L]), "term.labels")) != 1L))
-    stop("'formula' missing or incorrect")
-  
-  # capture subset / na.action here, before they are evaluated
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
-  
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
-  )
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
+  pf <- resolveFormulaFromCall(allowed   = "n-sample-independent",
+                               na.action = na.action)
   
   y <- nemenyiTest(
     x = pf$x,
@@ -117,7 +111,9 @@ nemenyiTest.formula <- function(formula, data, subset, na.action, ...) {
     ...
   )
   
-  y$data.name <- pf$dataName
+  # an attribute, as set by the default method: y$data.name added a list
+  # element next to the attribute, which kept its "x and g"
+  attr(y, "data.name") <- pf$dataName
   
   y
   
@@ -131,6 +127,7 @@ nemenyiTest.default <- function(
     g,
     dist = c("tukey", "chisq"),
     output = c("list", "matrix"),
+    alpha = 0.05,
     ...
 ) {
   
@@ -196,7 +193,7 @@ nemenyiTest.default <- function(
     pmatxt,
     1,
     function(x)
-      paste(rownames(pmatxt)[x < 0.05], collapse = ",")
+      paste(rownames(pmatxt)[!is.na(x) & x < alpha], collapse = ",")
   )
   
   # --- output ------------------------------------------------------------

@@ -11,7 +11,7 @@
 durbinWatsonTest(x, ...)
 
 \method{durbinWatsonTest}{formula}(
-  x,
+  formula,
   data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
@@ -48,11 +48,11 @@ durbinWatsonTest(x, ...)
 \method{durbinWatsonTest}{default}(x, ...)
 }
 \arguments{
-\item{x}{a symbolic description of the model to be tested (a
-\code{formula}), a fitted \code{"lm"} object, or a numeric vector of
-residuals.}
+\item{x}{a fitted \code{"lm"} object, or a numeric vector of residuals.}
 
 \item{\dots}{further arguments passed to or from other methods.}
+
+\item{formula}{a symbolic description of the model to be tested.}
 
 \item{data}{an optional data frame containing the variables in the
 model. By default the variables are taken from the environment which
@@ -83,7 +83,8 @@ otherwise.}
 treated as zero.}
 
 \item{subset}{an optional expression indicating which observations to
-use. Only used for the \code{formula} method.}
+use, evaluated in \code{data} (\code{subset = grp == "A"}), as in \code{\link[=lm]{lm()}}. Only used
+for the \code{formula} method.}
 
 \item{na.action}{a function specifying how missing values are handled.
 Defaults to \code{\link[=na.omit]{na.omit()}}. Only used for the \code{formula} method.}

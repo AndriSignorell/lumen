@@ -8,7 +8,7 @@
 \usage{
 dscfTest(x, ...)
 
-\method{dscfTest}{formula}(formula, data, subset, na.action, ...)
+\method{dscfTest}{formula}(formula, data, subset, na.action = na.omit, ...)
 
 \method{dscfTest}{default}(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
 }
@@ -24,10 +24,11 @@ vectors.}
 \code{formula}.}
 
 \item{subset}{an optional expression specifying a subset of
-observations to be used.}
+observations, evaluated in \code{data} (\code{subset = Month != 5}), as in
+\code{\link[=kruskal.test]{kruskal.test()}}.}
 
 \item{na.action}{a function specifying how missing values should be
-handled.}
+handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
 
 \item{g}{a grouping factor corresponding to \code{x}. Ignored if
 \code{x} is a list.}

@@ -50,9 +50,10 @@
 #' @param formula a formula of the form `response ~ group`.
 #' @param data an optional data frame containing the variables in
 #' `formula`.
-#' @param subset an optional expression specifying a subset of observations.
+#' @param subset an optional expression specifying a subset of observations,
+#' evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
 #' @param na.action a function indicating how missing values should be
-#' handled.
+#' handled. Defaults to [na.omit()].
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
@@ -99,6 +100,9 @@
 #' ## Formula interface
 #' conoverTest(Ozone ~ factor(Month), data = airquality)
 #'
+#' ## subset, evaluated in data
+#' conoverTest(Ozone ~ factor(Month), data = airquality, subset = Month != 5)
+#'
 #' @family test.posthoc
 #' @concept k-sample
 #' @concept nonparametric
@@ -117,22 +121,14 @@ conoverTest <- function(x, ...)
 conoverTest.formula <- function(formula,
                                 data,
                                 subset,
-                                na.action,
+                                na.action = na.omit,
                                 ...) {
 
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-
-  # capture subset / na.action here, before they are evaluated
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
-
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
+  pf <- resolveFormulaFromCall(
+    allowed   = "n-sample-independent",
+    na.action = na.action
   )
 
   y <- conoverTest(x = pf$x, g = pf$group, ...)

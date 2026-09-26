@@ -59,10 +59,11 @@
 #'   two groups required).
 #' @param data an optional data frame containing the variables in
 #'   `formula`.
-#' @param subset an optional vector specifying a subset of observations to
-#'   be used.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data`, as in [wilcox.test()].
 #' @param na.action a function which indicates what should happen when the
-#'   data contain `NA`s. Defaults to `getOption("na.action")`.
+#'   data contain `NA`s. Defaults to [na.pass()]: `NA`s are then removed by
+#'   the default method (`na.rm = TRUE`).
 #' @param alternative a character string specifying the alternative
 #'   hypothesis, must be one of `"two.sided"` (default),
 #'   `"less"` (fewer runs, clustering) or `"greater"` (more
@@ -142,17 +143,10 @@ runsTest.formula <- function(formula,
                              na.action = na.pass,
                              ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  # direct call, never do.call(): do.call() evaluates the substituted
-  # subset expression in this frame, where the data columns do not exist
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-
-  d <- resolveFormula(formula, data,
-                      subset    = subset_expr,
-                      na.action = na.action,
-                      allowed   = "two-sample-independent")
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in wilcox.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
 
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying

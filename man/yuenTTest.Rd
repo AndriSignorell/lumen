@@ -32,9 +32,12 @@ removed.}
 
 \item{data}{optional data frame for the formula interface.}
 
-\item{subset}{optional subset expression.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = ID != 1}), as in \code{\link[=t.test]{t.test()}}.}
 
-\item{na.action}{NA handling function.}
+\item{na.action}{a function indicating what should happen when the data
+contain \code{NA}s. Defaults to \code{\link[=na.pass]{na.pass()}}: non-finite values are then
+removed by the default method.}
 
 \item{paired}{logical indicating whether a paired test is performed.
 Only available in the default method: the formula interface describes

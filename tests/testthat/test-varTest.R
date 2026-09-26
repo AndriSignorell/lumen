@@ -146,10 +146,24 @@ test_that(".ldPValue(): both tails have equal density, mode gives p = 1", {
 })
 
 
-test_that("missing values give NA, not an error", {
-  expect_identical(varTest(c(x, NA), sigma2_0 = 4)$p.value, NA_real_)
-  expect_identical(varTest(c(x, NA), sigma2_0 = 4, type = "ld")$p.value, NA_real_)
-  expect_identical(varTest(x, c(y, NA), type = "ld")$p.value, NA_real_)
+test_that("non-finite values are removed, as in var.test()", {
+  # formerly they made the whole result NA - with the na.pass default of the
+  # formula method whenever the response had a missing value
+  keep <- c("statistic", "parameter", "p.value", "estimate")
+  expect_equal(varTest(c(x, NA), sigma2_0 = 4)[keep], varTest(x, sigma2_0 = 4)[keep])
+  expect_equal(varTest(c(x, NA, Inf), sigma2_0 = 4, type = "ld")$p.value,
+               varTest(x, sigma2_0 = 4, type = "ld")$p.value)
+  expect_equal(varTest(x, c(y, NA), type = "ld")$p.value,
+               varTest(x, y, type = "ld")$p.value)
+  # the data name is taken before the values are removed
+  xna <- c(x, NA)
+  expect_identical(varTest(xna, sigma2_0 = 4)$data.name, "xna")
+  # the formula method agrees with var.test() on data with a missing value
+  d <- data.frame(v = c(x, NA, y), g = rep(c("A", "B"), c(31, 25)))
+  expect_equal(varTest(v ~ g, data = d)$p.value,
+               var.test(v ~ g, data = d)$p.value)
+  # too few values left
+  expect_error(varTest(c(1, NA, NA), sigma2_0 = 1), "at least two")
 })
 
 
@@ -193,5 +207,6 @@ test_that("formula method: subset is evaluated in data", {
 test_that("formula method: errors", {
   d <- data.frame(v = 1:9, g = factor(rep(c("A", "B", "C"), 3)))
   expect_error(varTest(v ~ g, data = d))
-  expect_error(varTest.formula(~ g, data = d), "'formula' missing or incorrect")
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(varTest(~ g, data = d), "two-sided")
 })

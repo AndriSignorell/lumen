@@ -100,11 +100,8 @@ test_that("formula interface rejects incorrect formula", {
     group = rep(c("a", "b"), length.out = 5)
   )
   
-  expect_error(
-    siegelTukeyTest(~ value, data = dat),
-    "'formula' missing or incorrect",
-    fixed = TRUE
-  )
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(siegelTukeyTest(~ value, data = dat), "two-sided")
 })
 
 

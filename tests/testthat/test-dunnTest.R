@@ -175,8 +175,9 @@ test_that("dunnTest: print method runs without error", {
 })
 
 
-test_that("dunnTest: error on malformed formula", {
-  expect_error(dunnTest.formula(~ x), "'formula' missing or incorrect")
+test_that("dunnTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(dunnTest(~ x), "two-sided")
 })
 
 

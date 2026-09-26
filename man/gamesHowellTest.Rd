@@ -30,7 +30,8 @@ of the form \code{lhs ~ rhs} with a numeric \code{lhs} and a grouping
 
 \item{data}{an optional data frame containing the model variables}
 
-\item{subset}{an optional vector specifying a subset of observations}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = wool == "A"}), as in \code{\link[=oneway.test]{oneway.test()}}}
 
 \item{na.action}{a function indicating what should happen when the data
 contain \code{NA}s}

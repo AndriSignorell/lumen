@@ -253,11 +253,9 @@ test_that("dunnettTest: airquality formula example runs without error", {
 })
 
 
-test_that("dunnettTest: error on malformed formula", {
-  expect_error(
-    dunnettTest.formula(~ x),
-    "'formula' missing or incorrect"
-  )
+test_that("dunnettTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(dunnettTest(~ x), "two-sided")
 })
 
 

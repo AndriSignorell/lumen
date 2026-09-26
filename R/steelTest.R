@@ -45,9 +45,10 @@
 #' @param data an optional data frame containing the variables in
 #'   `formula`.
 #' @param subset an optional expression specifying a subset of
-#'   observations to be used.
+#'   observations, evaluated in `data` (`subset = Month != 5`), as in
+#'   [kruskal.test()].
 #' @param na.action a function specifying how missing values should be
-#'   handled.
+#'   handled. Defaults to [na.omit()].
 #' @param \dots further arguments passed to methods.
 #'
 #' @return An object of class `"rankTest"` containing:
@@ -131,32 +132,14 @@ steelTest.formula <- function(
     formula,
     data,
     subset,
-    na.action,
+    na.action = na.omit,
     ...
 ) {
   
-  if (missing(formula) ||
-      (length(formula) != 3L) ||
-      (length(attr(terms(formula[-2L]), "term.labels")) != 1L))
-    stop("'formula' missing or incorrect")
-  
-  subset_expr <- if (!missing(subset))
-    substitute(subset)
-  else
-    NULL
-  
-  na_expr <- if (!missing(na.action))
-    substitute(na.action)
-  else
-    NULL
-  
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
-  )
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
+  pf <- resolveFormulaFromCall(allowed   = "n-sample-independent",
+                               na.action = na.action)
   
   out <- steelTest(
     x = pf$x,
@@ -164,7 +147,9 @@ steelTest.formula <- function(
     ...
   )
   
-  out$data.name <- pf$dataName
+  # an attribute, as set by the default method: out$data.name added a list
+  # element next to the attribute, which kept its "x and g"
+  attr(out, "data.name") <- pf$dataName
   
   out
 }

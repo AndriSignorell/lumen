@@ -83,7 +83,8 @@
 #'   variable with exactly two levels.
 #' @param data Optional data frame containing the variables in
 #'   `formula`.
-#' @param subset Optional vector specifying a subset of observations.
+#' @param subset Optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = score > 0.75`), as in [wilcox.test()].
 #' @param na.action Function specifying how missing values are handled.
 #' @param extreme Non-negative integer \eqn{h}. Number of extreme ranks
 #'   trimmed from each end of the control group before recomputing the
@@ -167,22 +168,10 @@ mosesTest.formula <- function(formula,
                               na.action = na.pass,
                               ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args, quote = TRUE)
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in wilcox.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying

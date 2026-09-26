@@ -17,7 +17,7 @@ time points. It generalizes the McNemar test to more than two groups."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.953</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,8 +117,10 @@ package).</p></dd>
 
 
 <dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
-<dd><p>a function which indicates what should happen when the
-data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></dd>
+<dd><p>for the formula method, a function which indicates what
+should happen when the data contain <code>NA</code>s. Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.pass()</a></code>:
+missing responses are then handled by the default method, which removes
+the affected blocks. Ignored by the default method.</p></dd>
 
 
 <dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
@@ -132,8 +134,8 @@ default the variables are taken from <code>environment(formula)</code>.</p></dd>
 
 
 <dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
-<dd><p>an optional vector specifying a subset of observations to
-be used.</p></dd>
+<dd><p>an optional expression specifying a subset of observations,
+evaluated in <code>data</code> (<code>subset = id &lt;= 30</code>), as in <code><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">friedman.test()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -227,6 +229,16 @@ Samples. <em>Biometrika</em>, 37 (3/4): 256-266.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  resp ~ time | id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cochran's Q = 8.4706, df = 2, p-value = 0.01448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># subset, evaluated in data</span></span></span>
+<span class="r-in"><span><span class="fu">cochranQTest</span><span class="op">(</span><span class="va">resp</span> <span class="op">~</span> <span class="va">time</span> <span class="op">|</span> <span class="va">id</span>, data<span class="op">=</span><span class="va">d.long</span>, subset <span class="op">=</span> <span class="va">id</span> <span class="op">&lt;=</span> <span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>coercing factor to binary (0/1): using 'U' as '1'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Cochran's Q test (asymptotic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  resp ~ time | id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cochran's Q = 3, df = 2, p-value = 0.2231</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># and let's perform a post hoc analysis using mcnemar's test</span></span></span>

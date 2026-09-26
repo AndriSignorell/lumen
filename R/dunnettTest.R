@@ -39,10 +39,10 @@
 #' @param data an optional matrix or data frame (or a similar object; see
 #'   [model.frame()]) containing the variables in `formula`.
 #'   By default, the variables are taken from `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to
-#'   be used.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = Month != 5`), as in [aov()].
 #' @param na.action a function indicating how missing values should be
-#'   handled. Defaults to `getOption("na.action")`.
+#'   handled. Defaults to [na.omit()].
 #' @param \dots further arguments passed to or from methods.
 #' 
 #' @return An object of class `"PostHocTest"`: a list containing one
@@ -116,22 +116,14 @@ dunnettTest <- function(x, ...)
 dunnettTest.formula <- function(formula,
                                 data,
                                 subset,
-                                na.action,
+                                na.action = na.omit,
                                 ...) {
 
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-
-  # capture subset / na.action here, before they are evaluated
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
-
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
+  pf <- resolveFormulaFromCall(
+    allowed   = "n-sample-independent",
+    na.action = na.action
   )
 
   rval <- dunnettTest(x = pf$x, g = pf$group, ...)

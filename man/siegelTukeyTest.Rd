@@ -34,7 +34,8 @@ with exactly two levels.}
 containing the variables in \code{formula}. If not supplied, variables
 are taken from \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to use.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = x > 26.5}), as in \code{\link[=ansari.test]{ansari.test()}}.}
 
 \item{na.action}{a function indicating how to handle \code{NA}s in the
 formula interface. Defaults to \code{na.pass}; \code{NA}s in \code{x} or

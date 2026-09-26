@@ -42,10 +42,10 @@
 #' [model.frame()]) containing the variables in the formula
 #' `formula`.  By default the variables are taken from
 #' `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
+#' @param subset an optional expression specifying a subset of observations,
+#' evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
 #' @param na.action a function which indicates what should happen when the data
-#' contain `NA`s.  Defaults to `getOption("na.action")`.
+#' contain `NA`s.  Defaults to [na.omit()].
 #' @param \dots further arguments to be passed to or from methods.
 #' @return A list with class `"htest"` containing the following
 #' components: \item{statistic}{the van der Waerden statistic.}
@@ -99,21 +99,12 @@ vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
 
 #' @rdname vanWaerdenTest
 #' @export
-vanWaerdenTest.formula <- function(formula, data, subset, na.action, ...) {
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  # capture subset / na.action here, before they are evaluated
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-  na_expr     <- if (!missing(na.action)) substitute(na.action) else NULL
-  
-  pf <- resolveFormula(
-    formula   = formula,
-    data      = data,
-    subset    = subset_expr,
-    na.action = na_expr,
-    allowed   = "n-sample-independent"
-  )
+vanWaerdenTest.formula <- function(formula, data, subset, na.action = na.omit,
+                                   ...) {
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
+  pf <- resolveFormulaFromCall(allowed   = "n-sample-independent",
+                               na.action = na.action)
   
   y <- vanWaerdenTest(
     x = pf$x,

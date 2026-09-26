@@ -8,7 +8,7 @@
 \usage{
 vanWaerdenTest(x, ...)
 
-\method{vanWaerdenTest}{formula}(formula, data, subset, na.action, ...)
+\method{vanWaerdenTest}{formula}(formula, data, subset, na.action = na.omit, ...)
 
 \method{vanWaerdenTest}{default}(x, g, ...)
 }
@@ -27,11 +27,11 @@ the corresponding groups.}
 \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a subset of observations to be
-used.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=kruskal.test]{kruskal.test()}}.}
 
 \item{na.action}{a function which indicates what should happen when the data
-contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
+contain \code{NA}s.  Defaults to \code{\link[=na.omit]{na.omit()}}.}
 
 \item{g}{a vector or factor object giving the group for the corresponding
 elements of \code{x}.  Ignored with a warning if \code{x} is a list.}

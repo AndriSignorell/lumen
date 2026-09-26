@@ -8,7 +8,7 @@
 \usage{
 conoverTest(x, ...)
 
-\method{conoverTest}{formula}(formula, data, subset, na.action, ...)
+\method{conoverTest}{formula}(formula, data, subset, na.action = na.omit, ...)
 
 \method{conoverTest}{default}(
   x,
@@ -30,10 +30,11 @@ conoverTest(x, ...)
 \item{data}{an optional data frame containing the variables in
 \code{formula}.}
 
-\item{subset}{an optional expression specifying a subset of observations.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=kruskal.test]{kruskal.test()}}.}
 
 \item{na.action}{a function indicating how missing values should be
-handled.}
+handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
 
 \item{g}{a grouping variable corresponding to \code{x}; ignored when
 \code{x} is a list.}
@@ -118,6 +119,9 @@ conoverTest(x, g)
 
 ## Formula interface
 conoverTest(Ozone ~ factor(Month), data = airquality)
+
+## subset, evaluated in data
+conoverTest(Ozone ~ factor(Month), data = airquality, subset = Month != 5)
 
 }
 \references{

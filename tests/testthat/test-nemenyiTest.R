@@ -196,17 +196,32 @@ test_that("nemenyiTest: print method runs without error", {
 })
 
 
-test_that("nemenyiTest: error on malformed formula (missing RHS)", {
-  expect_error(nemenyiTest.formula(~ x), "'formula' missing or incorrect")
+test_that("nemenyiTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(nemenyiTest(~ x), "two-sided")
 })
 
 
-test_that("nemenyiTest: error on malformed formula (missing response)", {
-  # Two RHS terms -> length(term.labels) != 1 -> guard fires before any eval
-  expect_error(
-    nemenyiTest.formula(y ~ a + b),
-    "'formula' missing or incorrect"
-  )
+test_that("nemenyiTest: y ~ a + b is rejected, y ~ a:b compares the cells", {
+  d <- data.frame(y = rnorm(24), a = rep(c("p", "q"), 12),
+                  b = rep(c("u", "v", "w"), each = 8))
+  # additive terms are not cells; the message points to a:b
+  expect_error(nemenyiTest(y ~ a + b, data = d), "a:b")
+  # 6 cells -> 15 pairs
+  expect_equal(nrow(nemenyiTest(y ~ a:b, data = d)$res), 15L)
+})
+
+
+test_that("nemenyiTest.default: alpha controls the significance label", {
+  set.seed(1)
+  x <- c(rnorm(20, 0), rnorm(20, 5))
+  g <- rep(c("A", "B"), each = 20)
+
+  res0 <- nemenyiTest(x, g, alpha = 0)
+  expect_true(all(attr(res0$pmat, "lbl") == ""))
+
+  res5 <- nemenyiTest(x, g, alpha = 0.05)
+  expect_true(any(attr(res5$pmat, "lbl") != ""))
 })
 
 

@@ -67,8 +67,11 @@
 #'   Must satisfy `0 <= trim < 0.5`.
 #' @param formula a formula of the form `lhs ~ rhs`.
 #' @param data optional data frame for the formula interface.
-#' @param subset optional subset expression.
-#' @param na.action NA handling function.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = ID != 1`), as in [t.test()].
+#' @param na.action a function indicating what should happen when the data
+#'   contain `NA`s. Defaults to [na.pass()]: non-finite values are then
+#'   removed by the default method.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
@@ -123,9 +126,6 @@ yuenTTest.formula <- function(formula,
                               paired = FALSE,
                               ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-
   # the groups are split from independent rows; pairing them by position
   # would make the result depend on the row order within each group.
   # 'paired' is a formal argument so that abbreviations (pair = TRUE) are
@@ -135,19 +135,10 @@ yuenTTest.formula <- function(formula,
     stop("'paired' must be FALSE in the formula interface; ",
          "use yuenTTest(x, y, paired = TRUE)")
   
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args, quote = TRUE)
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in t.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
   
   # resolveFormula() returns d$x as the FULL response (both groups,
   # length n) and d$group as the matching full-length factor - d$y is

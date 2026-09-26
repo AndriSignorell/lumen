@@ -34,7 +34,8 @@ variable with exactly two levels.}
 \item{data}{Optional data frame containing the variables in
 \code{formula}.}
 
-\item{subset}{Optional vector specifying a subset of observations.}
+\item{subset}{Optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = score > 0.75}), as in \code{\link[=wilcox.test]{wilcox.test()}}.}
 
 \item{na.action}{Function specifying how missing values are handled.}
 

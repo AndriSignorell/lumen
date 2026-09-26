@@ -67,7 +67,8 @@
 #' @param data an optional data frame (or matrix, coerced to data frame)
 #'   containing the variables in `formula`. If not supplied, variables
 #'   are taken from `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to use.
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = x > 26.5`), as in [ansari.test()].
 #' @param na.action a function indicating how to handle `NA`s in the
 #'   formula interface. Defaults to `na.pass`; `NA`s in `x` or
 #'   `y` are silently dropped in the default method.
@@ -167,22 +168,10 @@ siegelTukeyTest <- function (x, ...)  UseMethod("siegelTukeyTest")
 siegelTukeyTest.formula <- function(formula, data, subset,
                                     na.action = na.pass, ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-  
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-  
-  if (!missing(data))
-    args$data <- data
-  
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-  
-  d <- do.call(resolveFormula, args, quote = TRUE)
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in ansari.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
   
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying

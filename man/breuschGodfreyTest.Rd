@@ -42,7 +42,8 @@ last.}
 \code{"chisq"} (default) for the chi-squared test statistic or
 \code{"f"} for the F test statistic. Case-insensitive.}
 
-\item{subset}{an optional expression indicating which observations to use.}
+\item{subset}{an optional expression indicating which observations to use,
+evaluated in \code{data} (\code{subset = grp == "A"}), as in \code{\link[=lm]{lm()}}.}
 
 \item{na.action}{a function specifying how missing values are handled.
 Defaults to \code{\link[=na.omit]{na.omit()}}: the auxiliary regression is fitted by

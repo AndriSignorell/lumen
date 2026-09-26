@@ -45,7 +45,8 @@
 #' @param type the type of test statistic to be returned, either
 #' `"chisq"` (default) for the chi-squared test statistic or
 #' `"f"` for the F test statistic. Case-insensitive.
-#' @param subset an optional expression indicating which observations to use.
+#' @param subset an optional expression indicating which observations to use,
+#' evaluated in `data` (`subset = grp == "A"`), as in [lm()].
 #' @param na.action a function specifying how missing values are handled.
 #' Defaults to [na.omit()]: the auxiliary regression is fitted by
 #' [lm.fit()] and cannot carry missing values.
@@ -149,10 +150,9 @@ breuschGodfreyTest <- function(formula, data = list(), order = 1,
   # ── Response and design matrix ────────────────────────────────────────────
   if (inherits(formula, "formula")) {
 
-    subsetExpr <- if (missing(subset)) NULL else substitute(subset)
-
-    r <- resolveFormula(formula, data = data, subset = subsetExpr,
-                        na.action = na.action, allowed = "regression")
+    # formula, data and subset are forwarded unevaluated, so that 'subset'
+    # is evaluated in 'data' as in lm()
+    r <- resolveFormulaFromCall(allowed = "regression", na.action = na.action)
 
     y <- r$response
     # the model matrix must be built from the terms: the columns of a model

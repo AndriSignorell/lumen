@@ -33,11 +33,12 @@ two groups required).}
 \item{data}{an optional data frame containing the variables in
 \code{formula}.}
 
-\item{subset}{an optional vector specifying a subset of observations to
-be used.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data}, as in \code{\link[=wilcox.test]{wilcox.test()}}.}
 
 \item{na.action}{a function which indicates what should happen when the
-data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
+data contain \code{NA}s. Defaults to \code{\link[=na.pass]{na.pass()}}: \code{NA}s are then removed by
+the default method (\code{na.rm = TRUE}).}
 
 \item{y}{an optional (non-empty) numeric vector of data values for the
 Wald-Wolfowitz two-sample test.}

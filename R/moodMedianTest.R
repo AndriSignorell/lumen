@@ -57,7 +57,8 @@
 #'   unless the table is 2 x 2
 #' @param formula a formula of the form `lhs ~ rhs`
 #' @param data an optional data frame containing the model variables
-#' @param subset an optional vector specifying a subset of observations
+#' @param subset an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = wool == "A"`), as in [kruskal.test()]
 #' @param na.action a function indicating what should happen when the data
 #'   contain `NA`s
 #' @param \dots further arguments, passed to the default method
@@ -198,12 +199,11 @@ moodMedianTest.default <- function(x, g, ties = c("below", "above", "drop"),
 #' @export
 moodMedianTest.formula <- function(formula, data, subset, na.action = na.pass, ...) {
 
-  subsetExpr <- if(!missing(subset)) substitute(subset) else NULL
-
-  rf <- resolveFormula(formula = formula, data = data, subset = subsetExpr,
-                       na.action = na.action,
-                       allowed = c("two-sample-independent",
-                                   "n-sample-independent"))
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in kruskal.test()
+  rf <- resolveFormulaFromCall(allowed   = c("two-sample-independent",
+                                             "n-sample-independent"),
+                               na.action = na.action)
 
   res <- moodMedianTest.default(x = rf$x, g = rf$group, ...)
   res$data.name <- rf$dataName

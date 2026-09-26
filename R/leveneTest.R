@@ -29,10 +29,11 @@
 #' [model.frame()]) containing the variables in the formula
 #' `formula`. By default the variables are taken from
 #' `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to
-#' be used.
+#' @param subset an optional expression specifying a subset of observations,
+#' evaluated in `data` (`subset = Month != 5`), as in [bartlett.test()].
 #' @param na.action a function which indicates what should happen when the
-#' data contain `NA`s. Defaults to `getOption("na.action")`.
+#' data contain `NA`s. Defaults to [na.pass()]: incomplete cases are then
+#' removed by the default method.
 #' @param .centerName internal, not intended to be set by the user. Used
 #' to pass the deparsed name of the `center` function through the
 #' method dispatch chain (from `leveneTest.formula` to
@@ -105,12 +106,10 @@ leveneTest.formula <- function(formula, data, subset,
                                na.action = na.pass,
                                center    = median, ...) {
 
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-
-  res <- resolveFormula(formula, data,
-                        subset    = subset_expr,
-                        na.action = na.action,
-                        allowed   = "n-sample-independent")
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in bartlett.test()
+  res <- resolveFormulaFromCall(allowed   = "n-sample-independent",
+                                na.action = na.action)
 
   y <- leveneTest.default(x           = res$x,
                           g           = res$group,

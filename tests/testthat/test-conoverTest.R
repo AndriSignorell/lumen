@@ -216,8 +216,9 @@ test_that("conoverTest: print method runs without error", {
 })
 
 
-test_that("conoverTest: error on malformed formula", {
-  expect_error(conoverTest.formula(~ x), "'formula' missing or incorrect")
+test_that("conoverTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(conoverTest(~ x), "two-sided")
 })
 
 

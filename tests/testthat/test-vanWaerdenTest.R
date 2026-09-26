@@ -210,8 +210,9 @@ test_that("vanWaerdenTest: airquality formula example runs without error", {
 })
 
 
-test_that("vanWaerdenTest: error on malformed formula", {
-  expect_error(vanWaerdenTest.formula(~ x), "'formula' missing or incorrect")
+test_that("vanWaerdenTest: error on a one-sided formula", {
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(vanWaerdenTest(~ x), "two-sided")
 })
 
 

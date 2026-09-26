@@ -40,7 +40,8 @@ unless the table is 2 x 2}
 
 \item{data}{an optional data frame containing the model variables}
 
-\item{subset}{an optional vector specifying a subset of observations}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = wool == "A"}), as in \code{\link[=kruskal.test]{kruskal.test()}}}
 
 \item{na.action}{a function indicating what should happen when the data
 contain \code{NA}s}

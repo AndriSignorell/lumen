@@ -5,7 +5,8 @@
 #' [t.test()], with support for classical and likelihood-based
 #' lowest-density (LD) two-sided p-values.
 #'
-#' @param x a numeric vector of data values, or a formula.
+#' @param x a numeric vector of data values, or a formula. Non-finite
+#' values are removed.
 #' @param y an optional second numeric vector. If provided, a two-sample variance
 #' test is performed.
 #' @param sigma2_0 a numeric value specifying the null hypothesis variance for
@@ -120,8 +121,19 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
   alternative <- match.arg(alternative)
   type        <- match.arg(type)
 
+  # before x and y are modified, after which substitute() no longer
+  # returns the expressions
+  dname <- if (is.null(y)) deparse1(substitute(x))
+           else paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
+
+  # non-finite values are removed, as in var.test(): a single NA made the
+  # variance and so the whole result NA - with the na.pass default of the
+  # formula method whenever the response had a missing value
+  if (is.numeric(x)) x <- x[is.finite(x)]
+  if (is.numeric(y)) y <- y[is.finite(y)]
+
   if (!is.numeric(x) || length(x) < 2L)
-    stop("'x' must be a numeric vector with at least two observations")
+    stop("'x' must be a numeric vector with at least two finite observations")
 
   # =============================
   # One-sample test
@@ -147,7 +159,6 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
     estimate   <- c(variance = s2)
     null.value <- c(variance = sigma2_0)
     method     <- paste0("One-sample variance test (", type, ")")
-    data.name  <- deparse1(substitute(x))
 
     # =============================
     # Two-sample test
@@ -155,7 +166,7 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
   } else {
 
     if (!is.numeric(y) || length(y) < 2L)
-      stop("'y' must be a numeric vector with at least two observations")
+      stop("'y' must be a numeric vector with at least two finite observations")
 
     nu1  <- length(x) - 1
     nu2  <- length(y) - 1
@@ -171,7 +182,6 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
     estimate   <- c("var(x)" = s2x, "var(y)" = s2y)
     null.value <- NULL
     method     <- paste0("Two-sample variance test (", type, ")")
-    data.name  <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
   }
 
   # Filter() drops null.value for the two-sample test
@@ -185,7 +195,7 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
          null.value  = null.value,
          alternative = alternative,
          method      = method,
-         data.name   = data.name)),
+         data.name   = dname)),
     class = "htest")
 }
 
@@ -199,28 +209,11 @@ varTest.formula <- function(formula,
                             na.action = na.pass,
                             ...) {
 
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in var.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
 
-  args <- list(
-    formula   = formula,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
-
-  if (!missing(data))
-    args$data <- data
-
-  if (!missing(subset))
-    args$subset <- substitute(subset)
-
-  # quote = TRUE: without it do.call() evaluates the subset expression in
-  # this frame instead of passing it on unevaluated, so a subset naming a
-  # column of 'data' fails with "object not found"
-  d <- do.call(resolveFormula, args, quote = TRUE)
-
-  if (nlevels(d$group) != 2L)
-    stop("grouping factor must have exactly 2 levels")
 
   groups <- split(d$x, d$group)
 

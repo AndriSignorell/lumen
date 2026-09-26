@@ -34,9 +34,11 @@
 #' @param data    an optional data frame (or similar, see
 #'   [model.frame()]) containing the variables in `formula`.
 #'   Defaults to the environment of `formula`.
-#' @param subset  an optional vector specifying a subset of observations.
+#' @param subset  an optional expression specifying a subset of observations,
+#'   evaluated in `data` (`subset = satis > 1`), as in [t.test()].
 #' @param na.action a function indicating what should happen when the data
-#'   contain `NA`s.  Defaults to `getOption("na.action")`.
+#'   contain `NA`s.  Defaults to [na.pass()]: incomplete rows are then
+#'   removed by the default method.
 #' @param \dots  further arguments passed to or from methods.
 #'
 #' @return An object of class `"htest"` containing:
@@ -98,24 +100,10 @@ hotellingsT2Test.formula <- function(formula,
                                      na.action = na.pass,
                                      ...) {
 
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect.")
-
-  # NOTE: subset must be passed as an unevaluated expression and resolved
-  # only inside resolveFormula() (against 'data'); do NOT route it through
-  # do.call() with a pre-built args list, since do.call()'s default
-  # quote = FALSE evaluates any language-object list element immediately,
-  # in the wrong environment (it would look for a variable named after the
-  # subset expression here, rather than a column of 'data').
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-
-  rf <- resolveFormula(
-    formula,
-    data,
-    subset    = subset_expr,
-    na.action = na.action,
-    allowed   = "two-sample-independent"
-  )
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in t.test()
+  rf <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                               na.action = na.action)
 
   # split the full response matrix rf$x by the group factor
   lev <- levels(rf$group)

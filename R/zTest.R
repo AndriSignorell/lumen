@@ -48,10 +48,11 @@
 #' [model.frame()]) containing the variables in the formula
 #' `formula`.  By default the variables are taken from
 #' `environment(formula)`.
-#' @param subset an optional vector specifying a subset of observations to be
-#' used.
+#' @param subset an optional expression specifying a subset of observations,
+#' evaluated in `data` (`subset = ID != 1`), as in [t.test()].
 #' @param na.action a function which indicates what should happen when the data
-#' contain `NA`s. Defaults to `getOption("na.action")`.
+#' contain `NA`s. Defaults to [na.pass()]: non-finite values are then removed
+#' by the default method.
 #' @param \dots further arguments to be passed to or from methods.
 #' 
 #' @return A list with class "`htest`" containing the following
@@ -113,9 +114,6 @@ zTest.formula <- function(formula,
                           paired = FALSE,
                           ...) {
   
-  if (missing(formula) || length(formula) != 3L)
-    stop("'formula' missing or incorrect")
-
   # the groups are split from independent rows; pairing them by position
   # would make the result depend on the row order within each group.
   # 'paired' is a formal argument so that abbreviations (pair = TRUE) are
@@ -125,14 +123,10 @@ zTest.formula <- function(formula,
     stop("'paired' must be FALSE in the formula interface; ",
          "use zTest(x, y, paired = TRUE)")
   
-  # direct call, never do.call(): do.call() evaluates the substituted
-  # subset expression in this frame, where the data columns do not exist
-  subset_expr <- if (!missing(subset)) substitute(subset) else NULL
-
-  d <- resolveFormula(formula, data,
-                      subset    = subset_expr,
-                      na.action = na.action,
-                      allowed   = "two-sample-independent")
+  # formula, data and subset are forwarded unevaluated, so that 'subset' is
+  # evaluated in 'data' as in t.test()
+  d <- resolveFormulaFromCall(allowed   = "two-sample-independent",
+                              na.action = na.action)
 
   # d$x is the full response (both groups); d$y is only a convenience
   # alias for group 2. Split explicitly by d$group instead of relying

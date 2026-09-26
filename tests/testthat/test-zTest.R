@@ -171,8 +171,8 @@ test_that("formula interface honours subset", {
 })
 
 test_that("formula interface rejects one-sided formulas", {
-  expect_error(zTest(~ extra, data = sleep, sd_pop = 2),
-               "'formula' missing or incorrect")
+  # the check lives in resolveFormula(), called via resolveFormulaFromCall()
+  expect_error(zTest(~ extra, data = sleep, sd_pop = 2), "two-sided")
 })
 
 

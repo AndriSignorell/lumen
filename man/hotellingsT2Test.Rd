@@ -26,10 +26,12 @@ is a factor with exactly two levels.}
 \code{\link[=model.frame]{model.frame()}}) containing the variables in \code{formula}.
 Defaults to the environment of \code{formula}.}
 
-\item{subset}{an optional vector specifying a subset of observations.}
+\item{subset}{an optional expression specifying a subset of observations,
+evaluated in \code{data} (\code{subset = satis > 1}), as in \code{\link[=t.test]{t.test()}}.}
 
 \item{na.action}{a function indicating what should happen when the data
-contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
+contain \code{NA}s.  Defaults to \code{\link[=na.pass]{na.pass()}}: incomplete rows are then
+removed by the default method.}
 
 \item{y}{an optional numeric matrix or data frame for the two-sample
 test.  If \code{NULL} (default) a one-sample test is performed.}

@@ -347,5 +347,5 @@ test_that("formula interface", {
   expect_equal(s$p.value, runsTest(dd$v[dd$g == "A"], dd$v[dd$g == "B"],
                                    exact = FALSE)$p.value)
 
-  expect_error(runsTest(~ v, data = d), "'formula' missing or incorrect")
+  expect_error(runsTest(~ v, data = d), "two-sided")
 })
