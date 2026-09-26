@@ -9,7 +9,7 @@ following a significant Kruskal-Wallis test, based on rank data.
 conoverTest(x, ...)
 
 # S3 method for class 'formula'
-conoverTest(formula, data, subset, na.action, ...)
+conoverTest(formula, data, subset, na.action = na.omit, ...)
 
 # Default S3 method
 conoverTest(
@@ -43,11 +43,14 @@ conoverTest(
 
 - subset:
 
-  an optional expression specifying a subset of observations.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html).
 
 - na.action:
 
-  a function indicating how missing values should be handled.
+  a function indicating how missing values should be handled. Defaults
+  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
 
 - g:
 
@@ -208,6 +211,22 @@ conoverTest(Ozone ~ factor(Month), data = airquality)
 #> 8-7    -2.67307692  1.0000    
 #> 9-7   -29.21419098  0.0031 ** 
 #> 9-8   -26.54111406  0.0084 ** 
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+
+## subset, evaluated in data
+conoverTest(Ozone ~ factor(Month), data = airquality, subset = Month != 5)
+#> 
+#>  Conover's test of multiple comparisons : holm 
+#> 
+#>     mean.rank.diff   pval    
+#> 7-6     24.2820513 0.0412 *  
+#> 8-6     22.3012821 0.0543 .  
+#> 9-6      0.6494253 1.0000    
+#> 8-7     -1.9807692 1.0000    
+#> 9-7    -23.6326260 0.0026 ** 
+#> 9-8    -21.6518568 0.0060 ** 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 

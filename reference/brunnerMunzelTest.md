@@ -83,7 +83,9 @@ brunnerMunzelTest(formula, data, subset, na.action = na.pass, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = score > 1`), as in
+  [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
 - na.action:
 

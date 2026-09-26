@@ -43,12 +43,15 @@ hotellingsT2Test(x, y = NULL, mu = NULL, test = c("f", "chi"), ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = satis > 1`), as in
+  [`t.test()`](https://rdrr.io/r/stats/t.test.html).
 
 - na.action:
 
   a function indicating what should happen when the data contain `NA`s.
-  Defaults to `getOption("na.action")`.
+  Defaults to [`na.pass()`](https://rdrr.io/r/stats/na.fail.html):
+  incomplete rows are then removed by the default method.
 
 - y:
 

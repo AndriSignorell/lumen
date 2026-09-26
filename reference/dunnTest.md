@@ -10,7 +10,7 @@ adjustment for multiple testing.
 dunnTest(x, ...)
 
 # S3 method for class 'formula'
-dunnTest(formula, data, subset, na.action, ...)
+dunnTest(formula, data, subset, na.action = na.omit, ...)
 
 # Default S3 method
 dunnTest(
@@ -44,11 +44,14 @@ dunnTest(
 
 - subset:
 
-  an optional expression specifying a subset of observations.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html).
 
 - na.action:
 
-  a function indicating how missing values should be handled.
+  a function indicating how missing values should be handled. Defaults
+  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
 
 - g:
 

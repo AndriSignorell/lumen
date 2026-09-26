@@ -46,12 +46,16 @@ runsTest(
 
 - subset:
 
-  an optional vector specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data`, as in
+  [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html).
 
 - na.action:
 
   a function which indicates what should happen when the data contain
-  `NA`s. Defaults to `getOption("na.action")`.
+  `NA`s. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): `NA`s are then
+  removed by the default method (`na.rm = TRUE`).
 
 - y:
 

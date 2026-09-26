@@ -68,8 +68,11 @@ cochranQTest(
 
 - na.action:
 
-  a function which indicates what should happen when the data contain
-  `NA`s. Defaults to `getOption("na.action")`.
+  for the formula method, a function which indicates what should happen
+  when the data contain `NA`s. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): missing responses
+  are then handled by the default method, which removes the affected
+  blocks. Ignored by the default method.
 
 - formula:
 
@@ -84,7 +87,9 @@ cochranQTest(
 
 - subset:
 
-  an optional vector specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = id <= 30`), as in
+  [`friedman.test()`](https://rdrr.io/r/stats/friedman.test.html).
 
 ## Value
 
@@ -184,6 +189,16 @@ cochranQTest(resp ~ time | id, data=d.long)
 #> 
 #> data:  resp ~ time | id
 #> Cochran's Q = 8.4706, df = 2, p-value = 0.01448
+#> 
+
+# subset, evaluated in data
+cochranQTest(resp ~ time | id, data=d.long, subset = id <= 30)
+#> Warning: coercing factor to binary (0/1): using 'U' as '1'
+#> 
+#>  Cochran's Q test (asymptotic)
+#> 
+#> data:  resp ~ time | id
+#> Cochran's Q = 3, df = 2, p-value = 0.2231
 #> 
 
 # and let's perform a post hoc analysis using mcnemar's test

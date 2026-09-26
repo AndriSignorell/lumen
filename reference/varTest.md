@@ -27,7 +27,8 @@ varTest(formula, data, subset, na.action = na.pass, ...)
 
 - x:
 
-  a numeric vector of data values, or a formula.
+  a numeric vector of data values, or a formula. Non-finite values are
+  removed.
 
 - ...:
 

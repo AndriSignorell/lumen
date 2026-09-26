@@ -49,7 +49,9 @@ gamesHowellTest(x, conf.level = 0.95, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = wool == "A"`), as in
+  [`oneway.test()`](https://rdrr.io/r/stats/oneway.test.html)
 
 - na.action:
 

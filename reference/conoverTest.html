@@ -15,7 +15,7 @@ following a significant Kruskal-Wallis test, based on rank data."><meta property
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.954</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ following a significant Kruskal-Wallis test, based on rank data.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">conoverTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
-<span><span class="fu">conoverTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">conoverTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.omit</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">conoverTest</span><span class="op">(</span></span>
@@ -90,12 +90,13 @@ following a significant Kruskal-Wallis test, based on rank data.</p>
 
 
 <dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
-<dd><p>an optional expression specifying a subset of observations.</p></dd>
+<dd><p>an optional expression specifying a subset of observations,
+evaluated in <code>data</code> (<code>subset = Month != 5</code>), as in <code><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">kruskal.test()</a></code>.</p></dd>
 
 
 <dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
 <dd><p>a function indicating how missing values should be
-handled.</p></dd>
+handled. Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit()</a></code>.</p></dd>
 
 
 <dt id="arg-g">g<a class="anchor" aria-label="anchor" href="#arg-g"></a></dt>
@@ -252,6 +253,22 @@ Hoboken, NJ: Wiley.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8-7    -2.67307692  1.0000    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9-7   -29.21419098  0.0031 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9-8   -26.54111406  0.0084 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## subset, evaluated in data</span></span></span>
+<span class="r-in"><span><span class="fu">conoverTest</span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Month</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">airquality</span>, subset <span class="op">=</span> <span class="va">Month</span> <span class="op">!=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Conover's test of multiple comparisons : holm </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     mean.rank.diff   pval    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7-6     24.2820513 0.0412 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8-6     22.3012821 0.0543 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-6      0.6494253 1.0000    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8-7     -1.9807692 1.0000    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-7    -23.6326260 0.0026 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9-8    -21.6518568 0.0060 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

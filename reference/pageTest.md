@@ -49,12 +49,15 @@ pageTest(formula, data, subset, na.action = na.pass, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data`, as in
+  [`friedman.test()`](https://rdrr.io/r/stats/friedman.test.html).
 
 - na.action:
 
   a function which indicates what should happen when the data contain
-  `NA`s. Defaults to `getOption("na.action")`.
+  `NA`s. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html).
 
 ## Value
 

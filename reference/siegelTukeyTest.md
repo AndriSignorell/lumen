@@ -82,7 +82,9 @@ siegelTukeyTest(
 
 - subset:
 
-  an optional vector specifying a subset of observations to use.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = x > 26.5`), as in
+  [`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html).
 
 - na.action:
 

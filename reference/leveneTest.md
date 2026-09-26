@@ -42,12 +42,16 @@ leveneTest(x, g, center = median, .centerName = NULL, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`bartlett.test()`](https://rdrr.io/r/stats/bartlett.test.html).
 
 - na.action:
 
   a function which indicates what should happen when the data contain
-  `NA`s. Defaults to `getOption("na.action")`.
+  `NA`s. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): incomplete cases
+  are then removed by the default method.
 
 - center:
 

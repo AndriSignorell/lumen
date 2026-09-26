@@ -11,7 +11,7 @@ durbinWatsonTest(x, ...)
 
 # S3 method for class 'formula'
 durbinWatsonTest(
-  x,
+  formula,
   data = list(),
   orderBy = NULL,
   alternative = c("greater", "two.sided", "less"),
@@ -55,12 +55,15 @@ durbinWatsonTest(x, ...)
 
 - x:
 
-  a symbolic description of the model to be tested (a `formula`), a
-  fitted `"lm"` object, or a numeric vector of residuals.
+  a fitted `"lm"` object, or a numeric vector of residuals.
 
 - ...:
 
   further arguments passed to or from other methods.
+
+- formula:
+
+  a symbolic description of the model to be tested.
 
 - data:
 
@@ -102,8 +105,10 @@ durbinWatsonTest(x, ...)
 
 - subset:
 
-  an optional expression indicating which observations to use. Only used
-  for the `formula` method.
+  an optional expression indicating which observations to use, evaluated
+  in `data` (`subset = grp == "A"`), as in
+  [`lm()`](https://rdrr.io/r/stats/lm.html). Only used for the `formula`
+  method.
 
 - na.action:
 

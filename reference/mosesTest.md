@@ -51,7 +51,9 @@ print(x, digits = getOption("digits"), ...)
 
 - subset:
 
-  Optional vector specifying a subset of observations.
+  Optional expression specifying a subset of observations, evaluated in
+  `data` (`subset = score > 0.75`), as in
+  [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html).
 
 - na.action:
 

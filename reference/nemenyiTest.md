@@ -10,7 +10,7 @@ mean ranks.
 nemenyiTest(x, ...)
 
 # S3 method for class 'formula'
-nemenyiTest(formula, data, subset, na.action, ...)
+nemenyiTest(formula, data, subset, na.action = na.omit, ...)
 
 # Default S3 method
 nemenyiTest(
@@ -18,6 +18,7 @@ nemenyiTest(
   g,
   dist = c("tukey", "chisq"),
   output = c("list", "matrix"),
+  alpha = 0.05,
   ...
 )
 ```
@@ -42,11 +43,14 @@ nemenyiTest(
 
 - subset:
 
-  an optional expression specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html).
 
 - na.action:
 
-  a function specifying how missing values should be handled.
+  a function specifying how missing values should be handled. Defaults
+  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
 
 - g:
 
@@ -61,6 +65,12 @@ nemenyiTest(
 
   character string specifying the output format. One of `"list"`
   (default) or `"matrix"`.
+
+- alpha:
+
+  the significance level used to compile the groups flagged as
+  significantly different in the label attribute of the p-value matrix
+  (default is `0.05`).
 
 ## Value
 

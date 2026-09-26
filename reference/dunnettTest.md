@@ -10,7 +10,7 @@ error rate.
 dunnettTest(x, ...)
 
 # S3 method for class 'formula'
-dunnettTest(formula, data, subset, na.action, ...)
+dunnettTest(formula, data, subset, na.action = na.omit, ...)
 
 # Default S3 method
 dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
@@ -40,12 +40,14 @@ dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`aov()`](https://rdrr.io/r/stats/aov.html).
 
 - na.action:
 
   a function indicating how missing values should be handled. Defaults
-  to `getOption("na.action")`.
+  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
 
 - g:
 

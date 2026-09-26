@@ -59,7 +59,9 @@ breuschGodfreyTest(
 
 - subset:
 
-  an optional expression indicating which observations to use.
+  an optional expression indicating which observations to use, evaluated
+  in `data` (`subset = grp == "A"`), as in
+  [`lm()`](https://rdrr.io/r/stats/lm.html).
 
 - na.action:
 

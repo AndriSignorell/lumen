@@ -9,7 +9,7 @@ multiple-comparison procedure for independent samples.
 dscfTest(x, ...)
 
 # S3 method for class 'formula'
-dscfTest(formula, data, subset, na.action, ...)
+dscfTest(formula, data, subset, na.action = na.omit, ...)
 
 # Default S3 method
 dscfTest(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
@@ -35,11 +35,14 @@ dscfTest(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
 
 - subset:
 
-  an optional expression specifying a subset of observations to be used.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = Month != 5`), as in
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html).
 
 - na.action:
 
-  a function specifying how missing values should be handled.
+  a function specifying how missing values should be handled. Defaults
+  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
 
 - g:
 

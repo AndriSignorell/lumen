@@ -60,11 +60,15 @@ yuenTTest(
 
 - subset:
 
-  optional subset expression.
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = ID != 1`), as in
+  [`t.test()`](https://rdrr.io/r/stats/t.test.html).
 
 - na.action:
 
-  NA handling function.
+  a function indicating what should happen when the data contain `NA`s.
+  Defaults to [`na.pass()`](https://rdrr.io/r/stats/na.fail.html):
+  non-finite values are then removed by the default method.
 
 - paired:
 

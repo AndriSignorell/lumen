@@ -63,7 +63,9 @@ moodMedianTest(formula, data, subset, na.action = na.pass, ...)
 
 - subset:
 
-  an optional vector specifying a subset of observations
+  an optional expression specifying a subset of observations, evaluated
+  in `data` (`subset = wool == "A"`), as in
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html)
 
 - na.action:
 
