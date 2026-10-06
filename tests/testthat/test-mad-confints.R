@@ -11,7 +11,7 @@ z975 <- qnorm(0.975)
 
 test_that(".asv.mad() matches the closed-form asymptotic variance of mad()", {
   # noise-free samples, so only the GLD approximation error remains
-  # Normal: n Var(mad(x)) -> 1.4826^2 / (16 phiCoef(q75)^2) = 1.3605
+  # Normal: n Var(mad(x)) -> 1.4826^2 / (16 phi(q75)^2) = 1.3605
   expect_equal(.asv.mad(qnorm(ppoints(1000))),
                1.4826^2 / (16 * dnorm(qnorm(0.75))^2), tolerance = 0.05)
 
