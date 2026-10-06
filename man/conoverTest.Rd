@@ -8,15 +8,15 @@
 \usage{
 conoverTest(x, ...)
 
-\method{conoverTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{conoverTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{conoverTest}{default}(
   x,
   g,
-  method = p.adjust.methods,
+  p.adjust.method = p.adjust.methods,
   alternative = c("two.sided", "less", "greater"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 }
@@ -33,13 +33,15 @@ conoverTest(x, ...)
 \item{subset}{an optional expression specifying a subset of observations,
 evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=kruskal.test]{kruskal.test()}}.}
 
-\item{na.action}{a function indicating how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a grouping variable corresponding to \code{x}; ignored when
 \code{x} is a list.}
 
-\item{method}{the method used to adjust the p-values for multiple
+\item{p.adjust.method}{the method used to adjust the p-values for multiple
 comparisons, one of \code{p.adjust.methods} (default is \code{"holm"}).
 Passed directly to \code{\link[=p.adjust]{p.adjust()}}.}
 
@@ -53,7 +55,7 @@ or \code{"greater"}. See the Details for the direction convention.}
 \item \code{"matrix"} lower-triangular matrix of adjusted p-values.
 }}
 
-\item{alpha}{the significance level used to compile the groups flagged
+\item{sig.level}{the significance level used to compile the groups flagged
 as significantly different in the label attribute of the p-value matrix
 (default is \code{0.05}).}
 }

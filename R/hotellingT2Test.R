@@ -71,14 +71,14 @@
 #'   satis   = c(1, 3, 2, 4, 6, 6, 5, 5, 4),
 #'   know    = c(3, 7, 2, 6, 8, 8, 10, 10, 6))
 #'
-#' hotellingsT2Test(cbind(satis, know) ~ teacher, data = math.teach)
+#' hotellingT2Test(cbind(satis, know) ~ teacher, data = math.teach)
 #'
 #' # chi-squared approximation
-#' hotellingsT2Test(cbind(satis, know) ~ teacher, data = math.teach,
+#' hotellingT2Test(cbind(satis, know) ~ teacher, data = math.teach,
 #'                  test = "chi")
 #'
-#' @name hotellingsT2Test
-#' @aliases hotellingsT2Test hotellingsT2Test.default hotellingsT2Test.formula
+#' @name hotellingT2Test
+#' @aliases hotellingT2Test hotellingT2Test.default hotellingT2Test.formula
 #'
 #' @family test.location
 #' @concept location-test
@@ -86,15 +86,15 @@
 #' @concept multivariate
 #'
 #' @export
-hotellingsT2Test <- function(x, ...) {
-  UseMethod("hotellingsT2Test")
+hotellingT2Test <- function(x, ...) {
+  UseMethod("hotellingT2Test")
 }
 
 
 
-#' @rdname hotellingsT2Test
+#' @rdname hotellingT2Test
 #' @export
-hotellingsT2Test.formula <- function(formula,
+hotellingT2Test.formula <- function(formula,
                                      data,
                                      subset,
                                      na.action = na.pass,
@@ -114,7 +114,7 @@ hotellingsT2Test.formula <- function(formula,
   dimnames(x) <- list(NULL, colnames(rf$mf[[1L]]))
   dimnames(y) <- list(NULL, colnames(rf$mf[[1L]]))
 
-  res           <- hotellingsT2Test.default(x = x, y = y, ...)
+  res           <- hotellingT2Test.default(x = x, y = y, ...)
   res$data.name <- rf$dataName
   res
 }
@@ -122,9 +122,9 @@ hotellingsT2Test.formula <- function(formula,
 
 
 
-#' @rdname hotellingsT2Test
+#' @rdname hotellingT2Test
 #' @export
-hotellingsT2Test.default <- function(x, y = NULL, mu = NULL,
+hotellingT2Test.default <- function(x, y = NULL, mu = NULL,
                                      test = c("f", "chi"), ...) {
 
   # --- data name -------------------------------------------------------

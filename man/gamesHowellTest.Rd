@@ -40,7 +40,7 @@ contain \code{NA}s}
 An object of class \code{"PostHocTest"}: a list with one matrix,
 named after the grouping variable. The matrix has columns \code{diff} for
 the observed mean difference (second group minus first), \code{lci} and
-\code{uci} for the simultaneous confidence limits, and \code{pval} for the
+\code{uci} for the simultaneous confidence limits, and \code{p.value} for the
 simultaneous p-value. Print and plot methods are available for class
 \code{"PostHocTest"}.
 }
@@ -91,7 +91,7 @@ comparisons are kept. Missing values are removed casewise.
 gamesHowellTest(breaks ~ tension, data = warpbreaks)
 
 ## compare with the pooled-variance procedures
-gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "pval"]
+gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "p.value"]
 ## [1] 0.080082272 0.006355163 0.251298244
 
 TukeyHSD(aov(breaks ~ tension, data = warpbreaks))

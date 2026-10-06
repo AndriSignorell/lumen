@@ -16,7 +16,7 @@
 #' @param x an object of class `PostHocTest` as returned by
 #'   [postHocTest()], or of class `pairwise.htest` as returned
 #'   by [pairwise.t.test()] and friends
-#' @param alpha the significance level; defaults to `1 - conf.level` of
+#' @param sig.level the significance level; defaults to `1 - conf.level` of
 #'   the object, or to 0.05 where no confidence level is stored
 #' @param direction logical; if `TRUE`, a sign is appended to every
 #'   label, giving the direction of the row level's mean relative to the
@@ -36,7 +36,7 @@
 #'   `label` (the label of the level itself) and `diff` (the labels
 #'   of the levels it differs significantly from), with the levels as row
 #'   names. The class is `"signifDiff"`, the significance level is kept
-#'   in the attribute `alpha`.
+#'   in the attribute `sig.level`.
 #'
 #' @examples
 #' r.aov <- aov(breaks ~ tension, data = warpbreaks)
@@ -45,7 +45,7 @@
 #' signifDiff(res)
 #'
 #' # stricter level, without recomputing the test
-#' signifDiff(res, alpha = 0.01)
+#' signifDiff(res, sig.level = 0.01)
 #'
 #' # readable labels instead of numbers
 #' signifDiff(res, labels = "abbreviate", minlength = 4)
@@ -72,17 +72,17 @@ signifDiff <- function(x, ...) {
 #' @rdname signifDiff
 #' @export
 signifDiff.PostHocTest <- function(x,
-                                   alpha = NULL,
+                                   sig.level = NULL,
                                    direction = TRUE,
                                    labels = "numbers",
                                    minlength = 3L,
                                    sep = ", ",
                                    ...) {
 
-  if (is.null(alpha)) {
+  if (is.null(sig.level)) {
     conf.level <- attr(x, "conf.level")
 
-    alpha <- if (is.null(conf.level) || is.na(conf.level)) {
+    sig.level <- if (is.null(conf.level) || is.na(conf.level)) {
       0.05
     } else {
       1 - conf.level
@@ -99,12 +99,12 @@ signifDiff.PostHocTest <- function(x,
             call. = FALSE)
   }
 
-  res <- lapply(mats, .diffTable, alpha = alpha, direction = direction,
+  res <- lapply(mats, .diffTable, sig.level = sig.level, direction = direction,
                 labels = labels, minlength = minlength, sep = sep)
 
   structure(
     res,
-    alpha = alpha,
+    sig.level = sig.level,
     signed = isTRUE(attr(res[[1L]], "signed")),
     method.str = attr(x, "method.str"),
     class = "signifDiff"
@@ -117,7 +117,7 @@ signifDiff.PostHocTest <- function(x,
 #' @rdname signifDiff
 #' @export
 signifDiff.pairwise.htest <- function(x,
-                                      alpha = 0.05,
+                                      sig.level = 0.05,
                                       direction = FALSE,
                                       labels = "numbers",
                                       minlength = 3L,
@@ -130,7 +130,7 @@ signifDiff.pairwise.htest <- function(x,
   }
 
   res <- list(
-    .diffTable(.pairMatrices(x$p.value), alpha = alpha, direction = FALSE,
+    .diffTable(.pairMatrices(x$p.value), sig.level = sig.level, direction = FALSE,
                labels = labels, minlength = minlength, sep = sep)
   )
 
@@ -138,7 +138,7 @@ signifDiff.pairwise.htest <- function(x,
 
   structure(
     res,
-    alpha = alpha,
+    sig.level = sig.level,
     signed = FALSE,
     method.str = gettextf("\n  Pairwise comparisons : %s \n", x$method),
     class = "signifDiff"
@@ -156,8 +156,8 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
 
   cat(attr(x, "method.str"))
 
-  cat(gettextf("    levels a level differs from, at alpha = %s\n",
-               format(attr(x, "alpha"))))
+  cat(gettextf("    levels a level differs from, at sig.level = %s\n",
+               format(attr(x, "sig.level"))))
 
   for (nm in names(x)) {
     cat("\n$", nm, "\n", sep = "")
@@ -193,7 +193,7 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
 #' @noRd
 .pairMatrices <- function(z) {
 
-  if (is.matrix(z) && "pval" %in% colnames(z)) {
+  if (is.matrix(z) && "p.value" %in% colnames(z)) {
 
     lvls <- attr(z, "levels")
 
@@ -216,8 +216,8 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
     rev <- idx[, c(2L, 1L), drop = FALSE]
 
     p <- empty
-    p[idx] <- z[, "pval"]
-    p[rev] <- z[, "pval"]
+    p[idx] <- z[, "p.value"]
+    p[rev] <- z[, "p.value"]
 
     d <- empty
     d[idx] <- z[, "diff"]
@@ -277,7 +277,7 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
 #'
 #' @keywords internal
 #' @noRd
-.diffTable <- function(m, alpha, direction, labels, minlength, sep) {
+.diffTable <- function(m, sig.level, direction, labels, minlength, sep) {
 
   p <- m$p
 
@@ -285,7 +285,7 @@ print.signifDiff <- function(x, legend = TRUE, ...) {
 
   lab <- .makeLabels(lvls, labels = labels, minlength = minlength)
 
-  isSignif <- !is.na(p) & p < alpha
+  isSignif <- !is.na(p) & p < sig.level
 
   diag(isSignif) <- FALSE
 

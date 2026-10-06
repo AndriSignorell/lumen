@@ -44,7 +44,7 @@ test_that("multinomCI: wider CI with higher conf.level", {
 })
 
 test_that("multinomCI: all methods return valid result", {
-  methods <- c("sison-glaz","goodman","wald","waldcc","wilson")
+  methods <- c("sison-glaz","goodman","wald","wald-cc","wilson")
   for (m in methods) {
     res <- multinomCI(x, method = m)
     expect_true(all(res[,"lci"] >= 0), label = paste(m, "lci>=0"))
@@ -98,20 +98,20 @@ test_that("wilson and qh are score intervals at level cl resp. chi2(k-1)", {
                tolerance = 1e-10)
   # Quesenberry-Hurst: z^2 = qchisq(cl, k - 1)
   clq <- 2 * pnorm(sqrt(qchisq(0.95, k - 1))) - 1
-  r <- multinomCI(x, method = "qh")
+  r <- multinomCI(x, method = "quesenberry-hurst")
   expect_equal(unname(r[, c("lci", "uci")]), wilsonCI(x, n, clq),
                tolerance = 1e-10)
 })
 
-test_that("wald, waldcc and fs by hand", {
+test_that("wald, wald-cc and fs by hand", {
   x <- c(A = 20, B = 15, C = 25); n <- 60; p <- x / n
   z <- qnorm(0.975)
   w <- z * sqrt(p * (1 - p) / n)
   expect_equal(unname(multinomCI(x, method = "wald")[, 2:3]),
                unname(cbind(p - w, p + w)))
-  expect_equal(unname(multinomCI(x, method = "waldcc")[, 2:3]),
+  expect_equal(unname(multinomCI(x, method = "wald-cc")[, 2:3]),
                unname(cbind(p - w - 1 / (2 * n), p + w + 1 / (2 * n))))
-  expect_equal(unname(multinomCI(x, method = "fs")[, 2:3]),
+  expect_equal(unname(multinomCI(x, method = "fitzpatrick-scott")[, 2:3]),
                unname(cbind(p - z / (2 * sqrt(n)), p + z / (2 * sqrt(n)))))
 })
 
@@ -126,7 +126,7 @@ test_that("cplus1 is the symmetric Sison-Glaz interval widened by 1/n", {
 
 test_that("bounds are clipped to [0, 1] and names are kept", {
   x <- c(A = 1, B = 0, C = 29)
-  for (m in c("wald", "waldcc", "fs", "goodman", "wilson", "qh",
+  for (m in c("wald", "wald-cc", "fitzpatrick-scott", "goodman", "wilson", "quesenberry-hurst",
               "sison-glaz", "cplus1")) {
     r <- multinomCI(x, method = m)
     expect_identical(rownames(r), c("A", "B", "C"), info = m)

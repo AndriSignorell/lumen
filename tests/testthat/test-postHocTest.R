@@ -38,14 +38,14 @@ test_that("postHocTest: scheffe method works", {
 
 test_that("postHocTest: p-values in [0,1]", {
   res <- postHocTest(fit, method = "hsd")
-  pvals <- res[[1]][, "pval"]
+  pvals <- res[[1]][, "p.value"]
   expect_true(all(pvals >= 0 & pvals <= 1, na.rm = TRUE))
 })
 
 test_that("postHocTest: A vs C significant (large difference)", {
   res <- postHocTest(fit, method = "hsd")
   # A-C comparison should have small p-value given mean diff of ~4
-  pvals <- res[[1]][, "pval"]
+  pvals <- res[[1]][, "p.value"]
   ac_p  <- pvals[grep("A-C|C-A", names(pvals))]
   expect_lt(min(ac_p), 0.05)
 })
@@ -65,7 +65,7 @@ fit2 <- aov(breaks ~ wool * tension, data = warpbreaks)
 # the interval must touch 0 exactly at conf.level = 1 - pval; checks that
 # width and p-value of a method carry the same multiplicity correction
 dualityOK <- function(fit, method, term = 1L) {
-  p <- postHocTest(fit, method = method)[[term]][, "pval"]
+  p <- postHocTest(fit, method = method)[[term]][, "p.value"]
   ok <- p > 1e-6 & p < 0.99
   all(vapply(which(ok), function(i) {
     r <- postHocTest(fit, method = method, conf.level = 1 - p[i])[[term]]
@@ -78,7 +78,7 @@ test_that("result structure", {
   r <- postHocTest(fit1)
   expect_s3_class(r, "PostHocTest")
   expect_named(r, "tension")
-  expect_identical(colnames(r$tension), c("diff", "lci", "uci", "pval"))
+  expect_identical(colnames(r$tension), c("diff", "lci", "uci", "p.value"))
   expect_identical(rownames(r$tension), c("M-L", "H-L", "H-M"))
   expect_identical(attr(r, "conf.level"), 0.95)
   expect_false(attr(r, "ordered"))
@@ -114,7 +114,7 @@ test_that("lsd equals pooled pairwise t-tests without adjustment", {
   r <- postHocTest(fit1, method = "lsd")$tension
   pw <- pairwise.t.test(warpbreaks$breaks, warpbreaks$tension,
                         p.adjust.method = "none")$p.value
-  expect_equal(unname(r[, "pval"]), pw[lower.tri(pw, diag = TRUE)])
+  expect_equal(unname(r[, "p.value"]), pw[lower.tri(pw, diag = TRUE)])
   se <- sqrt(sum(fit1$residuals^2) / fit1$df.residual * 2 / 18)
   expect_equal(unname(r[, "uci"] - r[, "diff"]),
                rep(qt(0.975, fit1$df.residual) * se, 3))
@@ -125,7 +125,7 @@ test_that("bonferroni p-values equal pairwise.t.test(p.adjust = 'bonferroni')", 
   r <- postHocTest(fit1, method = "bonf")$tension
   pw <- pairwise.t.test(warpbreaks$breaks, warpbreaks$tension,
                         p.adjust.method = "bonferroni")$p.value
-  expect_equal(unname(r[, "pval"]), pw[lower.tri(pw, diag = TRUE)])
+  expect_equal(unname(r[, "p.value"]), pw[lower.tri(pw, diag = TRUE)])
 })
 
 test_that("bonferroni interval: two-sided, alpha / (2m)", {
@@ -136,7 +136,7 @@ test_that("bonferroni interval: two-sided, alpha / (2m)", {
 })
 
 test_that("interval and p-value agree for every single-step method", {
-  for (m in c("lsd", "bonferroni", "hsd", "scheffe", "newmankeuls", "duncan"))
+  for (m in c("lsd", "bonferroni", "hsd", "scheffe", "newman-keuls", "duncan"))
     expect_true(dualityOK(fit1, m), info = m)
   expect_true(dualityOK(fit2, "bonferroni", "wool:tension"))
 })
@@ -146,24 +146,24 @@ test_that("scheffe by hand", {
   mse <- sum(fit1$residuals^2) / fit1$df.residual
   se <- sqrt(mse * 2 / 18)
   est <- r[, "diff"] / se
-  expect_equal(unname(r[, "pval"]), pf(unname(est)^2 / 2, 2, fit1$df.residual,
+  expect_equal(unname(r[, "p.value"]), pf(unname(est)^2 / 2, 2, fit1$df.residual,
                                        lower.tail = FALSE))
   expect_equal(unname(r[, "uci"] - r[, "diff"]),
                rep(sqrt(2 * qf(0.95, 2, fit1$df.residual)) * se, 3))
 })
 
-test_that("newmankeuls / duncan reduce to lsd for adjacent means", {
+test_that("newman-keuls / duncan reduce to lsd for adjacent means", {
   lsd <- postHocTest(fit1, method = "lsd")$tension
-  for (m in c("newmankeuls", "duncan")) {
+  for (m in c("newman-keuls", "duncan")) {
     r <- postHocTest(fit1, method = m)$tension
     # means L > M > H: M-L and H-M are adjacent, H-L spans 3 means
-    expect_equal(r[c("M-L", "H-M"), "pval"], lsd[c("M-L", "H-M"), "pval"],
+    expect_equal(r[c("M-L", "H-M"), "p.value"], lsd[c("M-L", "H-M"), "p.value"],
                  info = m)
-    expect_gt(r["H-L", "pval"], lsd["H-L", "pval"])
+    expect_gt(r["H-L", "p.value"], lsd["H-L", "p.value"])
   }
   # Newman-Keuls on the full span equals Tukey
-  expect_equal(postHocTest(fit1, method = "newmankeuls")$tension["H-L", "pval"],
-               postHocTest(fit1, method = "hsd")$tension["H-L", "pval"])
+  expect_equal(postHocTest(fit1, method = "newman-keuls")$tension["H-L", "p.value"],
+               postHocTest(fit1, method = "hsd")$tension["H-L", "p.value"])
 })
 
 test_that("conf.level = NA returns the lower triangle of p-values", {
@@ -171,7 +171,7 @@ test_that("conf.level = NA returns the lower triangle of p-values", {
   ci <- postHocTest(fit1, method = "hsd")$tension
   m <- r$tension
   expect_identical(dimnames(m), list(c("M", "H"), c("L", "M")))
-  expect_equal(c(m["M", "L"], m["H", "L"], m["H", "M"]), unname(ci[, "pval"]))
+  expect_equal(c(m["M", "L"], m["H", "L"], m["H", "M"]), unname(ci[, "p.value"]))
   expect_true(is.na(m["M", "M"]))
   expect_true(is.na(attr(r, "conf.level")))
 })
@@ -232,7 +232,7 @@ test_that("table: p.adjust methods", {
   raw <- postHocTest(tab)[[1L]]
   p <- raw[lower.tri(raw, diag = TRUE)]
   for (m in c("holm", "bonferroni", "BH")) {
-    adj <- postHocTest(tab, method = m)[[1L]]
+    adj <- postHocTest(tab, p.adjust.method = m)[[1L]]
     expect_equal(adj[lower.tri(adj, diag = TRUE)], p.adjust(p, m), info = m)
   }
 })
@@ -244,7 +244,7 @@ test_that("table and matrix method agree; conf.level warns", {
   # regression: the table method forwarded conf.level, so every call warned
   expect_no_warning(postHocTest(tab))
   expect_no_warning(postHocTest(tab, conf.level = NA))
-  expect_output(print(postHocTest(tab, method = "holm")), "holm")
+  expect_output(print(postHocTest(tab, p.adjust.method = "holm")), "holm")
 })
 
 

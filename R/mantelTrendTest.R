@@ -32,10 +32,10 @@
 #' ordinal trend.
 #'
 #' @param x a numeric matrix of counts (\eqn{r \times c}{r x c})
-#' @param srow numeric vector of row scores; length must equal
+#' @param rowScores numeric vector of row scores; length must equal
 #' `nrow(x)`. Defaults to the numeric row `dimnames` of
 #' `x` if present, otherwise `1:nrow(x)`. See the Details.
-#' @param scol numeric vector of column scores; length must equal
+#' @param colScores numeric vector of column scores; length must equal
 #' `ncol(x)`. Defaults to the numeric column `dimnames` of
 #' `x` if present, otherwise `1:ncol(x)`. See the Details.
 #'
@@ -68,21 +68,21 @@
 #'                 satisfaction = c("VeryD","LittleD","ModerateS","VeryS")))
 #'
 #' mantelTrendTest(Job)
-#' mantelTrendTest(Job, srow = c(7.5, 20, 32.5, 60))
+#' mantelTrendTest(Job, rowScores = c(7.5, 20, 32.5, 60))
 #'
 #' ## Automatic scores from numeric dimnames
 #' dose <- matrix(c(10, 9, 10, 7, 0, 1, 0, 3), nrow = 4,
 #'                dimnames = list(dose = c("0", "1", "2", "3"),
 #'                                resp = c("no", "yes")))
-#' mantelTrendTest(dose)  # srow taken as c(0, 1, 2, 3), not 1:4
+#' mantelTrendTest(dose)  # rowScores taken as c(0, 1, 2, 3), not 1:4
 #'
 #' @family test.categorical
 #' @concept categorical-test
 #' @concept trend-test
 #'
 #' @export
-mantelTrendTest <- function(x, srow = scores(x, MARGIN = 1L, method = "table"),
-                            scol = scores(x, MARGIN = 2L, method = "table")) {
+mantelTrendTest <- function(x, rowScores = scores(x, margin = 1L, method = "table"),
+                            colScores = scores(x, margin = 2L, method = "table")) {
 
   DNAME <- deparse1(substitute(x))
 
@@ -95,23 +95,23 @@ mantelTrendTest <- function(x, srow = scores(x, MARGIN = 1L, method = "table"),
   if (sum(x) <= 1)
     stop("'x' must contain at least 2 observations")
 
-  if (length(srow) != nrow(x))
-    stop("'srow' must have the same length as nrow(x)")
+  if (length(rowScores) != nrow(x))
+    stop("'rowScores' must have the same length as nrow(x)")
 
-  if (length(scol) != ncol(x))
-    stop("'scol' must have the same length as ncol(x)")
+  if (length(colScores) != ncol(x))
+    stop("'colScores' must have the same length as ncol(x)")
 
   # the correlation first: scores with zero variance are an error, and the
   # monotonicity warnings below would only precede it as noise
-  r <- .pearsonCor(x, srow = srow, scol = scol)
+  r <- .pearsonCor(x, rowScores = rowScores, colScores = colScores)
 
-  if (!(all(diff(srow) > 0) || all(diff(srow) < 0)))
-    warning("'srow' is neither strictly increasing nor strictly ",
+  if (!(all(diff(rowScores) > 0) || all(diff(rowScores) < 0)))
+    warning("'rowScores' is neither strictly increasing nor strictly ",
             "decreasing; scores should be monotone and ordinal",
             call. = FALSE)
 
-  if (!(all(diff(scol) > 0) || all(diff(scol) < 0)))
-    warning("'scol' is neither strictly increasing nor strictly ",
+  if (!(all(diff(colScores) > 0) || all(diff(colScores) < 0)))
+    warning("'colScores' is neither strictly increasing nor strictly ",
             "decreasing; scores should be monotone and ordinal",
             call. = FALSE)
 
@@ -134,21 +134,21 @@ mantelTrendTest <- function(x, srow = scores(x, MARGIN = 1L, method = "table"),
 
 # == internal helper functions ============================================
 
-.pearsonCor <- function(x, srow = 1:nrow(x), scol = 1:ncol(x)) {
+.pearsonCor <- function(x, rowScores = 1:nrow(x), colScores = 1:ncol(x)) {
 
   n    <- sum(x)
-  ubar <- sum(rowSums(x) * srow) / n
-  vbar <- sum(colSums(x) * scol) / n
+  ubar <- sum(rowSums(x) * rowScores) / n
+  vbar <- sum(colSums(x) * colScores) / n
 
-  ssr <- sum(rowSums(x) * (srow - ubar)^2)
-  ssc <- sum(colSums(x) * (scol - vbar)^2)
+  ssr <- sum(rowSums(x) * (rowScores - ubar)^2)
+  ssc <- sum(colSums(x) * (colScores - vbar)^2)
 
   if (ssr <= 0 || ssc <= 0)
     stop("row or column scores have zero variance; ",
          "check that scores are not all identical and that ",
          "more than one row/column is occupied", call. = FALSE)
 
-  ssrc <- sum(x * outer(srow - ubar, scol - vbar))
+  ssrc <- sum(x * outer(rowScores - ubar, colScores - vbar))
 
   ssrc / sqrt(ssr * ssc)
 }

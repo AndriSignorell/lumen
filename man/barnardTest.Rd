@@ -10,7 +10,7 @@ barnardTest(
   alternative = c("two.sided", "less", "greater"),
   method = c("csm", "z-pooled", "z-unpooled", "boschloo", "santner-snell"),
   fixed = 1,
-  useStoredCSM = FALSE,
+  useStoredCsm = FALSE,
   ...
 )
 }
@@ -29,13 +29,13 @@ letter.}
 \code{"csm"} (default), \code{"z-pooled"}, \code{"z-unpooled"},
 \code{"boschloo"} or \code{"santner-snell"}. The CSM test cannot be
 calculated for multinomial models and is computationally the most
-demanding method (see the Details and the \code{useStoredCSM} argument).}
+demanding method (see the Details and the \code{useStoredCsm} argument).}
 
 \item{fixed}{indicates which margin is fixed: \code{1} for rows
 (default), \code{2} for columns, or \code{NA} for none of both
 (multinomial model).}
 
-\item{useStoredCSM}{logical, use a stored ordering matrix for the CSM
+\item{useStoredCsm}{logical, use a stored ordering matrix for the CSM
 test to greatly reduce the computation time (default is \code{FALSE}).}
 
 \item{\dots}{further arguments passed on to \code{Exact::exact.test()},
@@ -112,17 +112,17 @@ significantly large difference in proportions for a two-sided test. The
 p-value of the test is the maximum p-value calculated over all \eqn{p}
 between 0 and 1.
 
-If \code{useStoredCSM} is set to \code{TRUE} a companion data package
+If \code{useStoredCsm} is set to \code{TRUE} a companion data package
 called \pkg{ExactData} must be installed from GitHub.
 
 The author states: \emph{"The CSM test is computationally intensive due
 to iteratively maximizing the p-value calculation to order the tables.
 The CSM ordering matrix has been stored for all possible sample sizes
 less than or equal to 100 (i.e., max(n1,n2)<=100). Thus, using the
-useStoredCSM = TRUE can greatly improve computation time. However, the
+useStoredCsm = TRUE can greatly improve computation time. However, the
 stored ordering matrix was computed with npNumbers=100 and it is possible
 that the ordering matrix was not optimal for larger npNumbers. Increasing
-npNumbers and setting useStoredCSM = FALSE ensures the p-value is
+npNumbers and setting useStoredCsm = FALSE ensures the p-value is
 correctly calculated at the expense of significantly greater computation
 time. The stored ordering matrix is not used in the calculation of
 confidence intervals or non-inferiority tests, so CSM can still be very

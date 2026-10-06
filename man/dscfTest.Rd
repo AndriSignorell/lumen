@@ -8,9 +8,9 @@
 \usage{
 dscfTest(x, ...)
 
-\method{dscfTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{dscfTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
-\method{dscfTest}{default}(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
+\method{dscfTest}{default}(x, g, output = c("list", "matrix"), sig.level = 0.05, ...)
 }
 \arguments{
 \item{x}{a numeric vector of observations, or a list of numeric
@@ -27,8 +27,10 @@ vectors.}
 observations, evaluated in \code{data} (\code{subset = Month != 5}), as in
 \code{\link[=kruskal.test]{kruskal.test()}}.}
 
-\item{na.action}{a function specifying how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a grouping factor corresponding to \code{x}. Ignored if
 \code{x} is a list.}
@@ -36,7 +38,7 @@ handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
 \item{output}{character string specifying the output format. One of
 \code{"list"} (default) or \code{"matrix"}.}
 
-\item{alpha}{the significance level used to compile the groups flagged
+\item{sig.level}{the significance level used to compile the groups flagged
 as significantly different in the label attribute of the p-value
 matrix (default is \code{0.05})}
 }
@@ -44,7 +46,7 @@ matrix (default is \code{0.05})}
 An object of class \code{"rankTest"} containing:
 \item{res}{
 comparison results. For \code{output="list"} a matrix with
-columns \code{z} and \code{pval}; for
+columns \code{z} and \code{p.value}; for
 \code{output="matrix"} a symmetric matrix of adjusted p-values
 with diagonal 1.
 }

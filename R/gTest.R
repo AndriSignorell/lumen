@@ -38,7 +38,7 @@
 #' be factors.
 #' @param y a numeric vector; ignored if `x` is a matrix. If `x`
 #' is a factor, `y` should be a factor of the same length.
-#' @param correct the correction to be applied, one of `"none"`
+#' @param correction the correction to be applied, one of `"none"`
 #' (default), `"williams"` or `"yates"`. See the Details.
 #' @param p a vector of probabilities of the same length as `x`
 #' (goodness-of-fit test only). An error is given if any entry of `p`
@@ -109,10 +109,10 @@
 #' @concept goodness-of-fit
 #'
 #' @export
-gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
+gTest <- function(x, y = NULL, correction = c("none", "williams", "yates"),
                   p = rep(1 / length(x), length(x)), rescaleP = FALSE) {
 
-  correct <- match.arg(correct)
+  correction <- match.arg(correction)
 
   DNAME <- deparse1(substitute(x))
 
@@ -146,7 +146,7 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
 
     ## ---- test of independence -----------------------------------------
 
-    if (correct == "yates") {
+    if (correction == "yates") {
       if (nrow(x) != 2L || ncol(x) != 2L)
         stop("Yates' correction requires a 2 x 2 matrix")
       # shift all cells towards their expected values by 0.5, but never
@@ -164,7 +164,7 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
 
     g <- sum(x[x > 0] * log(x[x > 0] / E[x > 0]))
 
-    q <- if (correct == "williams")
+    q <- if (correction == "williams")
       1 + ((n * sum(1 / sr) - 1) * (n * sum(1 / sc) - 1)) /
         (6 * n * (ncol(x) - 1) * (nrow(x) - 1))
     else 1
@@ -173,7 +173,7 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
     PARAMETER <- (nrow(x) - 1L) * (ncol(x) - 1L)
 
     METHOD <- paste("Log likelihood ratio (G-test) test of independence",
-                    switch(correct,
+                    switch(correction,
                            none     = "without correction",
                            williams = "with Williams' correction",
                            yates    = "with Yates' correction"))
@@ -202,7 +202,7 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
     E <- n * p
     names(E) <- names(x)
 
-    if (correct == "yates") {
+    if (correction == "yates") {
       if (length(x) != 2L)
         stop("Yates' correction requires 2 data values")
       if (x[1] - E[1] > 0.25) {
@@ -216,7 +216,7 @@ gTest <- function(x, y = NULL, correct = c("none", "williams", "yates"),
 
     g <- sum(x[x > 0] * log(x[x > 0] / E[x > 0]))
 
-    q <- if (correct == "williams")
+    q <- if (correction == "williams")
       1 + (length(x) + 1) / (6 * n)
     else 1
 

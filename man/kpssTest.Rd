@@ -5,14 +5,14 @@
 \title{Kwiatkowski-Phillips-Schmidt-Shin Test for Assessing Level or Trend Stationarity}
 \usage{
 kpssTest(
-  y,
+  x,
   type = c("mu", "tau"),
   lags = c("short", "long", "nil"),
   useLag = NULL
 )
 }
 \arguments{
-\item{y}{numeric vector or univariate time series to be tested for
+\item{x}{numeric vector or univariate time series to be tested for
 stationarity.}
 
 \item{type}{the deterministic part of the model, one of \code{"mu"}

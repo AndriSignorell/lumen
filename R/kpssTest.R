@@ -26,7 +26,7 @@
 #'
 #' Missing values are silently removed.
 #'
-#' @param y numeric vector or univariate time series to be tested for
+#' @param x numeric vector or univariate time series to be tested for
 #' stationarity.
 #' @param type the deterministic part of the model, one of `"mu"`
 #' (default, constant) or `"tau"` (constant plus linear trend).
@@ -75,17 +75,17 @@
 #' @concept unit-root
 #'
 #' @export
-kpssTest <- function(y, type = c("mu", "tau"),
+kpssTest <- function(x, type = c("mu", "tau"),
                      lags = c("short", "long", "nil"), useLag = NULL) {
 
-  DNAME <- deparse1(substitute(y))
+  DNAME <- deparse1(substitute(x))
 
   type <- match.arg(type)
   lags <- match.arg(lags)
 
-  y <- as.vector(y)
-  y <- y[!is.na(y)]
-  n <- length(y)
+  x <- as.vector(x)
+  x <- x[!is.na(x)]
+  n <- length(x)
 
   # number of lags for the error term correction
   lmax <- switch(lags,
@@ -113,8 +113,8 @@ kpssTest <- function(y, type = c("mu", "tau"),
 
   # residuals of the deterministic part
   res <- switch(type,
-                mu  = y - mean(y),
-                tau = residuals(lm(y ~ seq_len(n))))
+                mu  = x - mean(x),
+                tau = residuals(lm(x ~ seq_len(n))))
 
   # KPSS statistic: partial sums over long-run variance estimate
   S  <- cumsum(res)

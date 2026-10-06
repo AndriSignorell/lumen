@@ -16,7 +16,7 @@ zTest(x, ...)
   alternative = c("two.sided", "less", "greater"),
   paired = FALSE,
   mu = 0,
-  sd_pop,
+  sd,
   conf.level = 0.95,
   ...
 )
@@ -58,7 +58,7 @@ in relation to the hypothesized value of the mean.}
 
 \item{mu}{a number specifying the hypothesized mean of the population.}
 
-\item{sd_pop}{a positive number specifying the known standard deviation
+\item{sd}{a positive number specifying the known standard deviation
 of the population. Required. For the two-sample test, this single value
 is assumed to be the common known standard deviation of both
 populations.}
@@ -103,25 +103,25 @@ The formula interface is only applicable for the 2-sample tests.
 \examples{
 
 x <- rnorm(25, 100, 5)
-zTest(x, mu=99, sd_pop=5)
+zTest(x, mu=99, sd=5)
 
 # the classic interface
-with(sleep, zTest(extra[group==1], extra[group==2], sd_pop=2))
+with(sleep, zTest(extra[group==1], extra[group==2], sd=2))
 
 # the formula interface
-zTest(extra ~ group, data=sleep, sd_pop=2)
+zTest(extra ~ group, data=sleep, sd=2)
 
 
 # Stahel (2002), pp. 186, 196
 
 Tyres <- data.frame(A=c(44.5,55,52.5,50.2,45.3,46.1,52.1,50.5,50.6,49.2),
                       B=c(44.9,54.8,55.6,55.2,55.6,47.7,53,49.1,52.3,50.7))
-with(Tyres, zTest(A, B, sd_pop=3, paired=TRUE))
+with(Tyres, zTest(A, B, sd=3, paired=TRUE))
 
 
 Oxen <- data.frame(ext=c(2.7,2.7,1.1,3.0,1.9,3.0,3.8,3.8,0.3,1.9,1.9),
                    int=c(6.5,5.4,8.1,3.5,0.5,3.8,6.8,4.9,9.5,6.2,4.1))
-with(Oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
+with(Oxen, zTest(int, ext, sd=1.8, paired=FALSE))
 
 }
 \references{
@@ -133,11 +133,11 @@ vieweg
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=hotellingT2Test]{hotellingT2Test()}},
 \code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
+\code{\link[=tTestSummary]{tTestSummary()}},
+\code{\link[=vanDerWaerdenTest]{vanDerWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}}
 }
 \concept{location-test}

@@ -31,7 +31,7 @@
 #' @param x a numeric vector of observations or a list of numeric vectors.
 #' @param g a grouping variable corresponding to `x`; ignored when
 #' `x` is a list.
-#' @param method the method used to adjust the p-values for multiple
+#' @param p.adjust.method the method used to adjust the p-values for multiple
 #' comparisons, one of `p.adjust.methods` (default is `"holm"`).
 #' Passed directly to [p.adjust()].
 #' @param alternative a character string specifying the alternative
@@ -42,7 +42,7 @@
 #'     \item `"list"` pairwise comparison table.
 #'     \item `"matrix"` lower-triangular matrix of adjusted p-values.
 #'   }
-#' @param alpha the significance level used to compile the groups flagged
+#' @param sig.level the significance level used to compile the groups flagged
 #' as significantly different in the label attribute of the p-value matrix
 #' (default is `0.05`).
 #' @param formula a formula of the form `response ~ group`.
@@ -50,8 +50,10 @@
 #' `formula`.
 #' @param subset an optional expression specifying a subset of observations,
 #' evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
-#' @param na.action a function indicating how missing values should be
-#' handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return
@@ -119,7 +121,7 @@ dunnTest <- function(x, ...)
 dunnTest.formula <- function(formula,
                              data,
                              subset,
-                             na.action = na.omit,
+                             na.action = na.pass,
                              ...) {
 
   # formula, data and subset are forwarded unevaluated, so that 'subset' is
@@ -145,16 +147,16 @@ dunnTest.formula <- function(formula,
 #' @export
 dunnTest.default <- function(x,
                              g,
-                             method = p.adjust.methods,
+                             p.adjust.method = p.adjust.methods,
                              alternative = c("two.sided", "less",
                                              "greater"),
                              output = c("list", "matrix"),
-                             alpha = 0.05,
+                             sig.level = 0.05,
                              ...) {
 
   alternative <- match.arg(alternative)
   output      <- match.arg(output)
-  method      <- match.arg(method)
+  p.adjust.method      <- match.arg(p.adjust.method)
 
   dat <- resolveGroups(x, g)
 
@@ -196,7 +198,7 @@ dunnTest.default <- function(x,
   keep <- lower.tri(pvals)
 
   pvals <- pvals[keep]
-  pvals <- p.adjust(pvals, method = method)
+  pvals <- p.adjust(pvals, method = p.adjust.method)
 
   # --- p-value matrix -----------------------------------------------------
 
@@ -217,7 +219,7 @@ dunnTest.default <- function(x,
     pmatxt,
     1,
     function(x)
-      paste(rownames(pmatxt)[x < alpha], collapse = ",")
+      paste(rownames(pmatxt)[x < sig.level], collapse = ",")
   )
 
   # --- output -------------------------------------------------------------
@@ -226,7 +228,7 @@ dunnTest.default <- function(x,
 
   if (output == "list") {
 
-    dnames <- list(NULL, c("mean rank diff", "pval"))
+    dnames <- list(NULL, c("diff", "p.value"))
 
     if (!is.null(nms)) {
       dnames[[1L]] <- outer(
@@ -250,9 +252,9 @@ dunnTest.default <- function(x,
 
   attr(out, "main") <- gettextf(
     "Dunn's test of multiple comparisons using rank sums : %s",
-    method
+    p.adjust.method
   )
-  attr(out, "method")    <- method
+  attr(out, "method")    <- p.adjust.method
   attr(out, "output")    <- output
   attr(out, "data.name") <- dat$dataName
 

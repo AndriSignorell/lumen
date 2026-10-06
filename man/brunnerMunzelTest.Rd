@@ -16,7 +16,7 @@ brunnerMunzelTest(x, ...)
   conf.level = 0.95,
   method = c("t", "permutation", "normal"),
   exact = NULL,
-  nPerm = 10000L,
+  R = 10000L,
   ...
 )
 
@@ -46,7 +46,7 @@ t approximation), \code{"permutation"} (studentized permutation test) or
 them; \code{NULL} (default) decides by the number of splits. Ignored unless
 \code{method = "permutation"}}
 
-\item{nPerm}{number of Monte-Carlo resamples used when the permutation
+\item{R}{number of Monte-Carlo resamples used when the permutation
 distribution is not enumerated}
 
 \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} is
@@ -125,7 +125,7 @@ tail, because the permutation distribution need not be symmetric when the
 group sizes differ or ties are present.
 
 With \code{exact = NULL} all \eqn{\binom{n_1 + n_2}{n_1}} splits are
-enumerated when there are at most \code{1e6} of them, and \code{nPerm}
+enumerated when there are at most \code{1e6} of them, and \code{R}
 Monte-Carlo resamples are drawn otherwise. Monte-Carlo p-values use the
 \eqn{(1 + k) / (1 + B)} correction and are therefore never zero.
 
@@ -189,11 +189,11 @@ Data Analysis}, \strong{51}(10), 5192-5204.
 \code{\link[=wilcox.test]{wilcox.test()}}
 
 Other test.location:
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=hotellingT2Test]{hotellingT2Test()}},
 \code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
+\code{\link[=tTestSummary]{tTestSummary()}},
+\code{\link[=vanDerWaerdenTest]{vanDerWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }

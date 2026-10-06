@@ -12,8 +12,7 @@
 #' intervals for the multinomial probabilities according to the method passed
 #' in `method` (see `method` below for the full list). The R code for
 #' Sison-Glaz (1995) has been translated from the SAS code written by May and
-#' Johnson (2000). See the references for the other methods (`qh` =
-#' Quesenberry-Hurst, `fs` = Fitzpatrick-Scott).\cr Some of the methods
+#' Johnson (2000). See the references for the other methods.\cr Some of the methods
 #' can yield confidence limits below 0 or above 1; these are truncated to
 #' \verb{[0, 1]}.
 #' 
@@ -26,8 +25,8 @@
 #' hypothesis of `"greater"` in `t.test()`.
 #' @param method character string specifying which method to use, one of
 #' `"sison-glaz"` (default), `"cplus1"`, `"goodman"`,
-#' `"wald"`, `"waldcc"`, `"wilson"`, `"qh"` or
-#' `"fs"`; can be abbreviated. See \sQuote{Details} for the individual
+#' `"wald"`, `"wald-cc"`, `"wilson"`, `"quesenberry-hurst"` or
+#' `"fitzpatrick-scott"`; can be abbreviated. See \sQuote{Details} for the individual
 #' methods.
 #' 
 #' @return A numeric matrix with one row per class and columns:
@@ -100,7 +99,7 @@
 #' multinomCI(x, method="sison-glaz")
 #' multinomCI(x, method="cplus1")
 #' multinomCI(x, method="wald")
-#' multinomCI(x, method="waldcc")
+#' multinomCI(x, method="wald-cc")
 #' multinomCI(x, method="wilson")
 #' 
 #' # compare to
@@ -132,8 +131,8 @@
 #' # 7	 0.089	0.171   0.079  0.170       0.084	0.169
 #' 
 #' x <- c(56, 72, 73, 59, 62, 87, 58)
-#' do.call(cbind, lapply(c("wald", "waldcc", "wilson", 
-#'                         "qh", "goodman", "fs", "sison-glaz"),
+#' do.call(cbind, lapply(c("wald", "wald-cc", "wilson", 
+#'                         "quesenberry-hurst", "goodman", "fitzpatrick-scott", "sison-glaz"),
 #'                       function(m) round(multinomCI(x, method=m)[,-1], 3)))
 #'        
 #'        
@@ -144,7 +143,7 @@
 #'
 #' @export
 multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("sison-glaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")) {
+                       method = c("sison-glaz", "cplus1", "goodman", "wald", "wald-cc", "wilson", "quesenberry-hurst", "fitzpatrick-scott")) {
   
   # Code originally from 
   # Pablo J. Villacorta Iglesias <pjvi@decsai.ugr.es>\n
@@ -183,15 +182,15 @@ multinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   
   method <- match.arg(arg = method, 
                       choices = c("sison-glaz", "cplus1", "goodman", 
-                                  "wald", "waldcc", "wilson", "qh", "fs"))
+                                  "wald", "wald-cc", "wilson", "quesenberry-hurst", "fitzpatrick-scott"))
   
   res <- switch( method
         , "goodman" =    { .multinomCI.goodman(x, n, k, conf.level) }
         , "wald" =       { .multinomCI.wald(x, n, conf.level) }
-        , "waldcc" =     { .multinomCI.wald_cc(x, n, conf.level) }
+        , "wald-cc" =    { .multinomCI.wald_cc(x, n, conf.level) }
         , "wilson" =     { .multinomCI.wilson(x, n, conf.level) }
-        , "fs" =         { .multinomCI.fs(x, n, conf.level) }
-        , "qh" =         { .multinomCI.qh(x, n, k, conf.level) }
+        , "fitzpatrick-scott" = { .multinomCI.fs(x, n, conf.level) }
+        , "quesenberry-hurst" = { .multinomCI.qh(x, n, k, conf.level) }
         , "sison-glaz" = { .multinomCI.sisonglaz(x, n, k, conf.level) }
         , "cplus1" =     { .multinomCI.cplus1(x, n, k, conf.level) }
         )

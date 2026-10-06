@@ -28,7 +28,7 @@
 #' @param y an optional numeric vector of data values: as with x non-finite
 #' values will be omitted.
 #' @param mu a number specifying the hypothesized mean of the population.
-#' @param sd_pop a positive number specifying the known standard deviation
+#' @param sd a positive number specifying the known standard deviation
 #' of the population. Required. For the two-sample test, this single value
 #' is assumed to be the common known standard deviation of both
 #' populations.
@@ -74,25 +74,25 @@
 #' @examples
 #' 
 #' x <- rnorm(25, 100, 5)
-#' zTest(x, mu=99, sd_pop=5)
+#' zTest(x, mu=99, sd=5)
 #' 
 #' # the classic interface
-#' with(sleep, zTest(extra[group==1], extra[group==2], sd_pop=2))
+#' with(sleep, zTest(extra[group==1], extra[group==2], sd=2))
 #' 
 #' # the formula interface
-#' zTest(extra ~ group, data=sleep, sd_pop=2)
+#' zTest(extra ~ group, data=sleep, sd=2)
 #' 
 #' 
 #' # Stahel (2002), pp. 186, 196
 #' 
 #' Tyres <- data.frame(A=c(44.5,55,52.5,50.2,45.3,46.1,52.1,50.5,50.6,49.2),
 #'                       B=c(44.9,54.8,55.6,55.2,55.6,47.7,53,49.1,52.3,50.7))
-#' with(Tyres, zTest(A, B, sd_pop=3, paired=TRUE))
+#' with(Tyres, zTest(A, B, sd=3, paired=TRUE))
 #' 
 #' 
 #' Oxen <- data.frame(ext=c(2.7,2.7,1.1,3.0,1.9,3.0,3.8,3.8,0.3,1.9,1.9),
 #'                    int=c(6.5,5.4,8.1,3.5,0.5,3.8,6.8,4.9,9.5,6.2,4.1))
-#' with(Oxen, zTest(int, ext, sd_pop=1.8, paired=FALSE))
+#' with(Oxen, zTest(int, ext, sd=1.8, paired=FALSE))
 #' 
 #' @rdname zTest
 #' @family test.location
@@ -148,7 +148,7 @@ zTest.formula <- function(formula,
 #' @rdname zTest
 #' @export
 zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"),
-                           paired = FALSE, mu = 0, sd_pop, conf.level = 0.95,  ...)  {
+                           paired = FALSE, mu = 0, sd, conf.level = 0.95,  ...)  {
   
   alternative <- match.arg(alternative)
 
@@ -161,20 +161,18 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   # the known standard deviation is the whole point of the z-test; checking
   # it here replaces the t.test-style "essentially constant" guard, which
   # makes no sense when the standard error does not depend on the data
-  if (missing(sd_pop))
-    stop("'sd_pop' (the known population standard deviation) is required")
-  if (!is.numeric(sd_pop) || length(sd_pop) != 1L ||
-      !is.finite(sd_pop) || sd_pop <= 0)
-    stop("'sd_pop' must be a single positive number")
+  if (missing(sd))
+    stop("'sd' (the known population standard deviation) is required")
+  if (!is.numeric(sd) || length(sd) != 1L ||
+      !is.finite(sd) || sd <= 0)
+    stop("'sd' must be a single positive number")
 
   # all-NA input (logical NA) is let through to the "not enough
   # observations" checks below
   .num <- function(v) is.numeric(v) || all(is.na(v))
   if (!.num(x) || (!is.null(y) && !.num(y)))
     stop("'x' and 'y' must be numeric")
-  if (!missing(conf.level) && (length(conf.level) != 1 || !is.finite(conf.level) ||
-                               conf.level < 0 || conf.level > 1))
-    stop("'conf.level' must be a single number between 0 and 1")
+  checkConfLevel(conf.level, allowNA = FALSE)
   
   if (!is.null(y)) {
     dname <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
@@ -208,11 +206,11 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   mx <- mean(x)
   
   if (is.null(y)) {
-    # with a known sd_pop a single observation suffices; n >= 2 was
+    # with a known sd a single observation suffices; n >= 2 was
     # inherited from t.test(), which has to estimate the standard deviation
     if (nx < 1)
       stop("not enough 'x' observations")
-    stderr <- sd_pop / sqrt(nx)
+    stderr <- sd / sqrt(nx)
     zstat <- (mx - mu)/stderr
     
     method <- if (paired)
@@ -233,7 +231,7 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
     estimate <- c(mx, my)
     names(estimate) <- c("mean of x", "mean of y")
     
-    stderr <- sd_pop * sqrt(1/nx + 1/ny)
+    stderr <- sd * sqrt(1/nx + 1/ny)
     zstat <- (mx - my - mu)/stderr
   }
   if (alternative == "less") {
@@ -255,10 +253,10 @@ zTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   names(mu) <- if (paired || !is.null(y))
     "difference in means"
   else "mean"
-  names(sd_pop) <- "Std. Dev. Population"
+  names(sd) <- "Std. Dev. Population"
   attr(cint, "conf.level") <- conf.level
   rval <- list(
-    statistic = zstat, parameter = sd_pop, p.value = pval,
+    statistic = zstat, parameter = sd, p.value = pval,
     conf.int = cint, estimate = estimate, null.value = mu, stderr = stderr,
     alternative = alternative, method = method, data.name = dname )
   class(rval) <- "htest"

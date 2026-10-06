@@ -8,11 +8,10 @@ bootCI(
   x,
   y = NULL,
   FUN,
-  ...,
-  bci.method = c("norm", "basic", "stud", "perc", "bca"),
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  R = 999
+  R = 999,
+  ...
 )
 }
 \arguments{
@@ -23,13 +22,6 @@ when a bivariate statistic is used.}
 
 \item{FUN}{the function to be used.}
 
-\item{...}{further arguments are passed to the function \code{FUN}.}
-
-\item{bci.method}{a vector of character strings representing the type of
-intervals required. The value should be any subset of the values
-\code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"},
-as it is passed on as \code{method} to \code{\link[boot:boot.ci]{boot::boot.ci()}}.}
-
 \item{conf.level}{confidence level of the interval.}
 
 \item{sides}{a character string specifying the side of the confidence
@@ -37,11 +29,13 @@ interval, must be one of \code{"two.sided"} (default), \code{"left"} or
 \code{"right"}. You can specify just the initial letter. \code{"left"} would
 be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
-\item{R}{number of bootstrap replicates. Usually this will be a single
-positive integer. For importance resampling, some resamples may use one set
-of weights and others use a different set of weights. In this case \code{R}
-would be a vector of integers where each component gives the number of
-resamples from each of the rows of weights.}
+\item{R}{number of bootstrap replicates, a single positive whole number.}
+
+\item{...}{further arguments. The bootstrap options are taken out first,
+as in the other interval functions of the package: \code{type}, the interval
+type passed to \code{\link[boot:boot.ci]{boot::boot.ci()}}, one of \code{"bca"} (default), \code{"perc"},
+\code{"basic"}, \code{"norm"} or \code{"stud"}, and \code{parallel} and \code{ncpus}, passed to
+\code{\link[boot:boot]{boot::boot()}}. Everything else is passed to \code{FUN}.}
 }
 \value{
 A named numeric vector with three elements:
@@ -55,13 +49,23 @@ A named numeric vector with three elements:
 Convenience wrapper for calculating bootstrap confidence intervals for
 univariate and bivariate statistics.
 }
+\details{
+\code{type}, \code{parallel} and \code{ncpus} therefore cannot reach \code{FUN} through the
+dots. A statistic that has an argument of one of these names - the
+\code{type} of \code{\link[=quantile]{quantile()}}, say - is wrapped:
+\code{FUN = function(z) quantile(z, 0.9, type = 6)}.
+
+\code{"stud"} needs a variance estimate for every replicate, which a general
+\code{FUN} does not deliver; \code{\link[boot:boot.ci]{boot::boot.ci()}} then returns no such interval
+and \code{bootCI()} stops with a message saying so.
+}
 \examples{
 
 set.seed(1984)
-bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE, bci.method="basic")
-bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, bci.method="basic")
+bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE)
+bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, type="basic")
 
-# bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, bci.method="basic")
+# bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, type="basic")
 
 # bootCI(Pizza$operator, Pizza$area, FUN=cramerV)
 

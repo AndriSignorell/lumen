@@ -21,7 +21,7 @@ test_that("nemenyiTest.default: result has correct number of comparisons", {
   
   expect_equal(nrow(res$res), 3L)          # 3 choose 2 = 3
   expect_equal(ncol(res$res), 2L)
-  expect_equal(colnames(res$res), c("mean rank diff", "pval"))
+  expect_equal(colnames(res$res), c("diff", "p.value"))
 })
 
 
@@ -32,8 +32,8 @@ test_that("nemenyiTest.default: p-values are in [0, 1] for both distributions", 
   
   for (d in c("tukey", "chisq")) {
     res <- nemenyiTest(x, g, dist = d)
-    expect_true(all(res$res[, "pval"] >= 0), info = d)
-    expect_true(all(res$res[, "pval"] <= 1), info = d)
+    expect_true(all(res$res[, "p.value"] >= 0), info = d)
+    expect_true(all(res$res[, "p.value"] <= 1), info = d)
     expect_true(all(res$pmat >= 0, na.rm = TRUE), info = d)
     expect_true(all(res$pmat <= 1, na.rm = TRUE), info = d)
   }
@@ -60,8 +60,8 @@ test_that("nemenyiTest.default: tukey and chisq give different p-values", {
   x <- c(rnorm(10), rnorm(10, 2), rnorm(10, 4))
   g <- rep(1:3, each = 10)
   
-  p_tukey <- nemenyiTest(x, g, dist = "tukey")$res[, "pval"]
-  p_chisq <- nemenyiTest(x, g, dist = "chisq")$res[, "pval"]
+  p_tukey <- nemenyiTest(x, g, dist = "tukey")$res[, "p.value"]
+  p_chisq <- nemenyiTest(x, g, dist = "chisq")$res[, "p.value"]
   
   expect_false(isTRUE(all.equal(p_tukey, p_chisq)))
 })
@@ -107,8 +107,8 @@ test_that("nemenyiTest.default: ties handling does not crash and preserves p-val
   
   for (d in c("tukey", "chisq")) {
     res <- nemenyiTest(x, g, dist = d)
-    expect_true(all(res$res[, "pval"] >= 0), info = d)
-    expect_true(all(res$res[, "pval"] <= 1), info = d)
+    expect_true(all(res$res[, "p.value"] >= 0), info = d)
+    expect_true(all(res$res[, "p.value"] <= 1), info = d)
   }
 })
 
@@ -120,8 +120,8 @@ test_that("nemenyiTest.default: tiesadj is capped at 1 (all unique ranks)", {
   
   res <- nemenyiTest(x, g)
   
-  expect_false(anyNA(res$res[, "pval"]))
-  expect_false(any(is.nan(res$res[, "pval"])))
+  expect_false(anyNA(res$res[, "p.value"]))
+  expect_false(any(is.nan(res$res[, "p.value"])))
 })
 
 
@@ -137,7 +137,7 @@ test_that("nemenyiTest.formula: equivalent to default interface", {
     res_f <- nemenyiTest(val ~ grp, data = df, dist = d)
     res_d <- nemenyiTest(df$val, df$grp, dist = d)
     
-    expect_equal(res_f$res[, "pval"], res_d$res[, "pval"],
+    expect_equal(res_f$res[, "p.value"], res_d$res[, "p.value"],
                  tolerance = 1e-10, info = d)
     expect_equal(res_f$pmat, res_d$pmat,
                  tolerance = 1e-10, info = d)
@@ -217,10 +217,10 @@ test_that("nemenyiTest.default: alpha controls the significance label", {
   x <- c(rnorm(20, 0), rnorm(20, 5))
   g <- rep(c("A", "B"), each = 20)
 
-  res0 <- nemenyiTest(x, g, alpha = 0)
+  res0 <- nemenyiTest(x, g, sig.level = 0)
   expect_true(all(attr(res0$pmat, "lbl") == ""))
 
-  res5 <- nemenyiTest(x, g, alpha = 0.05)
+  res5 <- nemenyiTest(x, g, sig.level = 0.05)
   expect_true(any(attr(res5$pmat, "lbl") != ""))
 })
 
@@ -235,8 +235,8 @@ test_that("nemenyiTest: chisq p-values use k-1 degrees of freedom", {
   x4 <- c(x3, rnorm(10, 6))
   g4 <- rep(1:4, each = 10)
   
-  p3 <- nemenyiTest(x3, g3, dist = "chisq")$res[, "pval"]
-  p4 <- nemenyiTest(x4, g4, dist = "chisq")$res[1:3, "pval"]
+  p3 <- nemenyiTest(x3, g3, dist = "chisq")$res[, "p.value"]
+  p4 <- nemenyiTest(x4, g4, dist = "chisq")$res[1:3, "p.value"]
   
   # Same pairs, different df -> p-values must differ
   expect_false(isTRUE(all.equal(p3, p4)))

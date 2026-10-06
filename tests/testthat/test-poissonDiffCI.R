@@ -25,12 +25,12 @@ test_that("the other rate-ratio methods give their documented limits", {
   expect_equal(unname(poissonRatioCI(15, 100, 6, 120, method = "wald-log")[c("lci", "uci")]),
                c(1.163996961, 7.731978951), tolerance = 1e-8)
   # uniroot runs at tol = 1e-10, so the mid-p limits are pinned tightly
-  expect_equal(unname(poissonRatioCI(15, 100, 6, 120, method = "midp")[c("lci", "uci")]),
+  expect_equal(unname(poissonRatioCI(15, 100, 6, 120, method = "mid-p")[c("lci", "uci")]),
                c(1.18888277839, 8.41548475954), tolerance = 1e-9)
 
   # mid-p is shorter than the exact interval it approximates
   ex <- poissonRatioCI(15, 100, 6, 120)
-  mp <- poissonRatioCI(15, 100, 6, 120, method = "midp")
+  mp <- poissonRatioCI(15, 100, 6, 120, method = "mid-p")
   expect_gt(mp[["lci"]], ex[["lci"]])
   expect_lt(mp[["uci"]], ex[["uci"]])
 })

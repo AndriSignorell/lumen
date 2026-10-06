@@ -21,7 +21,7 @@ test_that("dscfTest.default: result table has correct structure (output = 'list'
   
   expect_true(is.matrix(res$res))
   expect_equal(nrow(res$res), 3L)          # k*(k-1)/2 = 3
-  expect_equal(colnames(res$res), c("z", "pval"))
+  expect_equal(colnames(res$res), c("z", "p.value"))
 })
 
 
@@ -46,8 +46,8 @@ test_that("dscfTest.default: p-values are in [0, 1]", {
   
   res <- dscfTest(x, g)
   
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
   expect_true(all(res$pmat >= 0, na.rm = TRUE))
   expect_true(all(res$pmat <= 1, na.rm = TRUE))
 })
@@ -99,8 +99,8 @@ test_that("dscfTest.default: well-separated groups give small p-value", {
   res <- dscfTest(x, g)
   
   # a-c and b-c should be significant
-  expect_lt(res$res["a-c", "pval"], 0.001)
-  expect_lt(res$res["b-c", "pval"], 0.001)
+  expect_lt(res$res["a-c", "p.value"], 0.001)
+  expect_lt(res$res["b-c", "p.value"], 0.001)
 })
 
 
@@ -111,7 +111,7 @@ test_that("dscfTest.default: identical groups give large p-value", {
   
   res <- dscfTest(x, g)
   
-  expect_true(all(res$res[, "pval"] > 0.001))
+  expect_true(all(res$res[, "p.value"] > 0.001))
 })
 
 
@@ -121,8 +121,8 @@ test_that("dscfTest.default: ties do not crash and p-values stay in [0, 1]", {
   
   expect_no_error(dscfTest(x, g))
   res <- dscfTest(x, g)
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
 })
 
 
@@ -133,7 +133,7 @@ test_that("dscfTest.default: all-ties (VAR = 0) gives pval = 1", {
   
   res <- dscfTest(x, g)
   
-  expect_true(all(res$res[, "pval"] == 1))
+  expect_true(all(res$res[, "p.value"] == 1))
   expect_true(all(res$res[, "z"]    == 0))
 })
 
@@ -153,8 +153,8 @@ test_that("dscfTest.default: more powerful than nemenyiTest on well-separated da
   x <- c(rnorm(20, 0), rnorm(20, 5), rnorm(20, 10))
   g <- rep(1:3, each = 20)
   
-  p_dscf    <- dscfTest(x, g)$res[, "pval"]
-  p_nemenyi <- nemenyiTest(x, g)$res[, "pval"]
+  p_dscf    <- dscfTest(x, g)$res[, "p.value"]
+  p_nemenyi <- nemenyiTest(x, g)$res[, "p.value"]
   
   expect_lte(mean(p_dscf), mean(p_nemenyi))
 })
@@ -180,7 +180,7 @@ test_that("dscfTest.default: list and vector+g interfaces give identical results
   res_list <- dscfTest(list(x, y, z))
   res_vec  <- dscfTest(c(x, y, z), rep(1:3, c(5, 4, 5)))
   
-  expect_equal(res_list$res[, "pval"], res_vec$res[, "pval"],
+  expect_equal(res_list$res[, "p.value"], res_vec$res[, "p.value"],
                tolerance = 1e-10)
   expect_equal(res_list$pmat, res_vec$pmat, tolerance = 1e-10)
 })
@@ -197,7 +197,7 @@ test_that("dscfTest.formula: equivalent to default interface", {
   res_f <- dscfTest(val ~ grp, data = df)
   res_d <- dscfTest(df$val, df$grp)
   
-  expect_equal(res_f$res[, "pval"], res_d$res[, "pval"], tolerance = 1e-10)
+  expect_equal(res_f$res[, "p.value"], res_d$res[, "p.value"], tolerance = 1e-10)
   expect_equal(res_f$pmat, res_d$pmat, tolerance = 1e-10)
 })
 
@@ -283,9 +283,9 @@ test_that("dscfTest agrees with PMCMRplus::dscfAllPairsTest on Hollander & Wolfe
   res <- dscfTest(x, g)
   
   # All p-values should be in [0, 1] and finite
-  expect_true(all(is.finite(res$res[, "pval"])))
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(is.finite(res$res[, "p.value"])))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
   
   # pmat must be symmetric
   expect_equal(res$pmat, t(res$pmat), tolerance = 1e-10)

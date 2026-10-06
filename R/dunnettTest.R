@@ -41,15 +41,17 @@
 #'   By default, the variables are taken from `environment(formula)`.
 #' @param subset an optional expression specifying a subset of observations,
 #'   evaluated in `data` (`subset = Month != 5`), as in [aov()].
-#' @param na.action a function indicating how missing values should be
-#'   handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to or from methods.
 #' 
 #' @return An object of class `"PostHocTest"`: a list containing one
 #'   matrix for each control level. Each matrix has columns `diff` for
 #'   the observed mean difference (treatment minus control), `lci`
 #'   and `uci` for the simultaneous confidence limits, and
-#'   `pval` for the multiplicity-adjusted p-value.
+#'   `p.value` for the multiplicity-adjusted p-value.
 #'
 #' Print and plot methods are available for class `"PostHocTest"`.
 #' The plot method supplies its own axis labels and title and therefore does
@@ -116,7 +118,7 @@ dunnettTest <- function(x, ...)
 dunnettTest.formula <- function(formula,
                                 data,
                                 subset,
-                                na.action = na.omit,
+                                na.action = na.pass,
                                 ...) {
 
   # formula, data and subset are forwarded unevaluated, so that 'subset' is
@@ -146,9 +148,7 @@ dunnettTest.default <- function(x,
                                 conf.level = 0.95,
                                 ...) {
 
-  if (!is.numeric(conf.level) || length(conf.level) != 1L ||
-      !is.finite(conf.level) || conf.level <= 0 || conf.level >= 1)
-    stop("'conf.level' must be a single number between 0 and 1")
+  checkConfLevel(conf.level, allowNA = FALSE)
 
   DG <- resolveGroups(x, g)
 
@@ -230,7 +230,7 @@ dunnettTest.default <- function(x,
       diff   = meandiffs,
       lci = lower,
       uci = upper,
-      pval   = pval
+      p.value   = pval
     )
 
     rownames(out[[ii]]) <- paste(names(meandiffs), control, sep = "-")

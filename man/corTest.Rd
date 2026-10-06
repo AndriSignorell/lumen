@@ -7,7 +7,8 @@
 corTest(
   x,
   method = c("pearson", "spearman", "kendall"),
-  use = "pairwise.complete.obs",
+  use = c("pairwise.complete.obs", "everything", "all.obs", "complete.obs",
+    "na.or.complete"),
   triangle = c("full", "upper", "lower"),
   maxPValue = NULL
 )

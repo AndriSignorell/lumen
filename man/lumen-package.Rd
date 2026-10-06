@@ -20,14 +20,14 @@ The package implements a wide range of statistical tests:
 \strong{Goodness-of-Fit Tests}
 \itemize{
 \item \code{andersonDarlingTest}, \code{cramerVonMisesTest}
-\item \code{lillieTest}, \code{jarqueBeraTest}, \code{shapiroFranciaTest}
-\item \code{pearsonTest}
+\item \code{lillieforsTest}, \code{jarqueBeraTest}, \code{shapiroFranciaTest}
+\item \code{pearsonChisqTest}
 }
 
 \strong{Nonparametric Tests}
 \itemize{
 \item \code{signTest}, \code{jonckheereTerpstraTest}, \code{pageTest}
-\item \code{mosesTest}, \code{siegelTukeyTest}, \code{vanWaerdenTest}
+\item \code{mosesTest}, \code{siegelTukeyTest}, \code{vanDerWaerdenTest}
 }
 
 \strong{Post-hoc Procedures}
@@ -38,8 +38,8 @@ The package implements a wide range of statistical tests:
 
 \strong{Parametric Tests}
 \itemize{
-\item \code{tTestA}, \code{yuenTTest}, \code{zTest}, \code{varTest}
-\item \code{hotellingsT2Test}, \code{leveneTest}
+\item \code{tTestSummary}, \code{yuenTTest}, \code{zTest}, \code{varTest}
+\item \code{hotellingT2Test}, \code{leveneTest}
 }
 
 \strong{Contingency Table Tests}

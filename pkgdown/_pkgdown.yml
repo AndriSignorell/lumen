@@ -76,11 +76,11 @@ reference:
   contents:
   # test.location -- Location and stochastic-order comparisons
   - brunnerMunzelTest
-  - hotellingsT2Test
+  - hotellingT2Test
   - moodMedianTest
   - signTest
-  - tTestA
-  - vanWaerdenTest
+  - tTestSummary
+  - vanDerWaerdenTest
   - yuenTTest
   - zTest
   # test.correlation -- Correlation tests
@@ -120,8 +120,8 @@ reference:
   - andersonDarlingTest
   - cramerVonMisesTest
   - jarqueBeraTest
-  - lillieTest
-  - pearsonTest
+  - lillieforsTest
+  - pearsonChisqTest
   - shapiroFranciaTest
 
 - title: Trend, Randomness & Time Series Tests
@@ -144,7 +144,7 @@ reference:
     Tests for heteroscedasticity, autocorrelation, calibration, and model fit.
   contents:
   # test.regression -- Linear and logistic regression diagnostics
-  - bpTest
+  - breuschPaganTest
   - breuschGodfreyTest
   - durbinWatsonTest
   - hosmerLemeshowTest

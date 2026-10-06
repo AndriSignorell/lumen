@@ -51,17 +51,17 @@
 #' p-value of the test is the maximum p-value calculated over all \eqn{p}
 #' between 0 and 1.
 #'
-#' If `useStoredCSM` is set to `TRUE` a companion data package
+#' If `useStoredCsm` is set to `TRUE` a companion data package
 #' called \pkg{ExactData} must be installed from GitHub.
 #'
 #' The author states: *"The CSM test is computationally intensive due
 #' to iteratively maximizing the p-value calculation to order the tables.
 #' The CSM ordering matrix has been stored for all possible sample sizes
 #' less than or equal to 100 (i.e., max(n1,n2)<=100). Thus, using the
-#' useStoredCSM = TRUE can greatly improve computation time. However, the
+#' useStoredCsm = TRUE can greatly improve computation time. However, the
 #' stored ordering matrix was computed with npNumbers=100 and it is possible
 #' that the ordering matrix was not optimal for larger npNumbers. Increasing
-#' npNumbers and setting useStoredCSM = FALSE ensures the p-value is
+#' npNumbers and setting useStoredCsm = FALSE ensures the p-value is
 #' correctly calculated at the expense of significantly greater computation
 #' time. The stored ordering matrix is not used in the calculation of
 #' confidence intervals or non-inferiority tests, so CSM can still be very
@@ -78,11 +78,11 @@
 #' `"csm"` (default), `"z-pooled"`, `"z-unpooled"`,
 #' `"boschloo"` or `"santner-snell"`. The CSM test cannot be
 #' calculated for multinomial models and is computationally the most
-#' demanding method (see the Details and the `useStoredCSM` argument).
+#' demanding method (see the Details and the `useStoredCsm` argument).
 #' @param fixed indicates which margin is fixed: `1` for rows
 #' (default), `2` for columns, or `NA` for none of both
 #' (multinomial model).
-#' @param useStoredCSM logical, use a stored ordering matrix for the CSM
+#' @param useStoredCsm logical, use a stored ordering matrix for the CSM
 #' test to greatly reduce the computation time (default is `FALSE`).
 #' @param \dots further arguments passed on to `Exact::exact.test()`,
 #' e.g. `npNumbers` or `conf.int`.
@@ -161,7 +161,7 @@ barnardTest <- function(x,
                         method = c("csm", "z-pooled", "z-unpooled",
                                    "boschloo", "santner-snell"),
                         fixed = 1,
-                        useStoredCSM = FALSE,
+                        useStoredCsm = FALSE,
                         ...) {
 
   if (!requireNamespace("Exact", quietly = TRUE))
@@ -194,7 +194,7 @@ barnardTest <- function(x,
   lst <- list(data         = x,
               alternative  = match.arg(alternative),
               method       = method,
-              useStoredCSM = useStoredCSM,
+              useStoredCSM = useStoredCsm,
               ...)
 
   # defaults that the user may override via ...

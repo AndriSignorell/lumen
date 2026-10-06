@@ -4,12 +4,12 @@
 \alias{breslowDayTest}
 \title{Breslow-Day Test  for Comparing Odds Ratios Across Strata}
 \usage{
-breslowDayTest(x, OR = NULL, correct = FALSE)
+breslowDayTest(x, oddsRatio = NULL, correct = FALSE)
 }
 \arguments{
 \item{x}{a \eqn{2 \times 2 \times k}{2 x 2 x k} table.}
 
-\item{OR}{the odds ratio to be tested against. If left undefined
+\item{oddsRatio}{the odds ratio to be tested against. If left undefined
 (default) the Mantel-Haenszel estimate will be used.}
 
 \item{correct}{logical, if \code{TRUE} the Breslow-Day test with
@@ -35,7 +35,7 @@ is constant across subgroups, as required by the Mantel-Haenszel method.
 \details{
 Calculates the Breslow-Day test of homogeneity for a
 \eqn{2 \times 2 \times k}{2 x 2 x k} table, in order to investigate if
-all \eqn{k} strata have the same OR. If \code{OR} is not given, the
+all \eqn{k} strata have the same OR. If \code{oddsRatio} is not given, the
 Mantel-Haenszel estimate is used.
 
 For the Breslow-Day test to be valid, the sample size should be
@@ -48,10 +48,10 @@ valid, it might not be very powerful against certain alternatives, as
 discussed in Breslow and Day (1980).
 
 The statistic is referred to a chi-squared distribution with \eqn{k-1}
-degrees of freedom; this also applies when a prespecified \code{OR} is
+degrees of freedom; this also applies when a prespecified \code{oddsRatio} is
 supplied. Note that Tarone's adjustment is derived for the
 Mantel-Haenszel estimate; a warning is issued if \code{correct = TRUE}
-is combined with a user-supplied \code{OR}.
+is combined with a user-supplied \code{oddsRatio}.
 
 Alternatively, it might be better to cast the entire inference problem
 into the setting of a logistic regression model. Here, the underlying
@@ -95,7 +95,7 @@ salary <- array(
                     )
 
 # common odds ratio = 4.028269
-breslowDayTest(salary, OR = 4.02)
+breslowDayTest(salary, oddsRatio = 4.02)
 
 }
 \references{

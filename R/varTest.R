@@ -9,7 +9,7 @@
 #' values are removed.
 #' @param y an optional second numeric vector. If provided, a two-sample variance
 #' test is performed.
-#' @param sigma2_0 a numeric value specifying the null hypothesis variance for
+#' @param sigmaSq0 a numeric value specifying the null hypothesis variance for
 #' the one-sample test. Required if `y` is `NULL`.
 #' @param alternative character string specifying the alternative hypothesis.
 #' Must be one of `"two.sided"`, `"less"`, or `"greater"`.
@@ -64,8 +64,8 @@
 #' y <- rnorm(25, sd = 2)
 #'
 #' # One-sample test
-#' varTest(x, sigma2_0 = 9, type = "classic")
-#' varTest(x, sigma2_0 = 9, type = "ld")
+#' varTest(x, sigmaSq0 = 9, type = "classic")
+#' varTest(x, sigmaSq0 = 9, type = "ld")
 #'
 #' # Two-sample test
 #' varTest(x, y, type = "classic")
@@ -88,7 +88,7 @@ varTest <- function(x, ...) UseMethod("varTest")
 
 #' @rdname varTest
 #' @export
-varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
+varTest.default <- function(x, y = NULL, sigmaSq0 = NULL,
                             alternative = c("two.sided", "less", "greater"),
                             type = c("classic", "ld"), ...) {
   
@@ -140,16 +140,16 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
   # =============================
   if (is.null(y)) {
 
-    if (is.null(sigma2_0))
-      stop("sigma2_0 must be provided for one-sample test.")
+    if (is.null(sigmaSq0))
+      stop("'sigmaSq0' must be provided for one-sample test.")
 
-    if (!is.numeric(sigma2_0) || length(sigma2_0) != 1L ||
-        !is.finite(sigma2_0) || sigma2_0 <= 0)
-      stop("'sigma2_0' must be a single positive finite number")
+    if (!is.numeric(sigmaSq0) || length(sigmaSq0) != 1L ||
+        !is.finite(sigmaSq0) || sigmaSq0 <= 0)
+      stop("'sigmaSq0' must be a single positive finite number")
 
     nu   <- length(x) - 1
     s2   <- var(x)
-    stat <- c("X-squared" = nu * s2 / sigma2_0)
+    stat <- c("X-squared" = nu * s2 / sigmaSq0)
 
     pdist <- function(q, lower.tail = TRUE) pchisq(q, nu, lower.tail = lower.tail)
     ddist <- function(q) dchisq(q, nu)
@@ -157,7 +157,7 @@ varTest.default <- function(x, y = NULL, sigma2_0 = NULL,
 
     parameter  <- c(df = nu)
     estimate   <- c(variance = s2)
-    null.value <- c(variance = sigma2_0)
+    null.value <- c(variance = sigmaSq0)
     method     <- paste0("One-sample variance test (", type, ")")
 
     # =============================

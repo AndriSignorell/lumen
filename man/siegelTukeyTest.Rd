@@ -16,7 +16,7 @@ siegelTukeyTest(x, ...)
   alternative = c("two.sided", "less", "greater"),
   mu = 0,
   adjustMedian = FALSE,
-  exact = NA,
+  exact = NULL,
   correct = TRUE,
   ...
 )
@@ -55,7 +55,7 @@ differences from inflating the test statistic. Default is \code{FALSE}.}
 \item{exact}{logical; if \code{TRUE}, an exact p-value is computed via
 \code{\link[=pwilcox]{pwilcox()}}. Exact computation is not possible in the presence
 of ties; a warning is issued and the normal approximation is used instead.
-If \code{NA} (default), exact computation is used when both samples have
+If \code{NULL} (default), exact computation is used when both samples have
 fewer than 50 observations and there are no ties.}
 
 \item{correct}{logical; if \code{TRUE} (default), a continuity correction

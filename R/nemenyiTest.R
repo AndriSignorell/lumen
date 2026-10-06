@@ -32,7 +32,7 @@
 #'   the test statistic. One of `"tukey"` (default) or `"chisq"`.
 #' @param output character string specifying the output format. One of
 #'   `"list"` (default) or `"matrix"`.
-#' @param alpha the significance level used to compile the groups flagged
+#' @param sig.level the significance level used to compile the groups flagged
 #'   as significantly different in the label attribute of the p-value
 #'   matrix (default is `0.05`).
 #' @param formula a formula of the form `response ~ group`.
@@ -40,8 +40,10 @@
 #'   `formula`.
 #' @param subset an optional expression specifying a subset of observations,
 #'   evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
-#' @param na.action a function specifying how missing values should be
-#'   handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return An object of class `"rankTest"` containing:
@@ -97,7 +99,7 @@ nemenyiTest <- function(x, ...)
 
 #' @rdname nemenyiTest
 #' @export
-nemenyiTest.formula <- function(formula, data, subset, na.action = na.omit,
+nemenyiTest.formula <- function(formula, data, subset, na.action = na.pass,
                                 ...) {
   
   # formula, data and subset are forwarded unevaluated, so that 'subset' is
@@ -127,7 +129,7 @@ nemenyiTest.default <- function(
     g,
     dist = c("tukey", "chisq"),
     output = c("list", "matrix"),
-    alpha = 0.05,
+    sig.level = 0.05,
     ...
 ) {
   
@@ -193,7 +195,7 @@ nemenyiTest.default <- function(
     pmatxt,
     1,
     function(x)
-      paste(rownames(pmatxt)[!is.na(x) & x < alpha], collapse = ",")
+      paste(rownames(pmatxt)[!is.na(x) & x < sig.level], collapse = ",")
   )
   
   # --- output ------------------------------------------------------------
@@ -204,7 +206,7 @@ nemenyiTest.default <- function(
     
     dnames <- list(
       NULL,
-      c("mean rank diff", "pval")
+      c("diff", "p.value")
     )
     
     if (!is.null(nms)) {

@@ -34,13 +34,6 @@
 #' @param na.action a function which indicates what should happen when the
 #' data contain `NA`s. Defaults to [na.pass()]: incomplete cases are then
 #' removed by the default method.
-#' @param .centerName internal, not intended to be set by the user. Used
-#' to pass the deparsed name of the `center` function through the
-#' method dispatch chain (from `leveneTest.formula` to
-#' `leveneTest.default`), since `substitute(center)` would
-#' otherwise only resolve to the literal symbol `"center"` rather
-#' than the original expression (e.g. `mean` or `median`)
-#' supplied by the caller.
 #' @param \dots arguments to be passed down, e.g. `data` for the
 #' formula method; can also be used to pass arguments to the function
 #' given by `center` (e.g. `trim = 0.1` for a trimmed mean when
@@ -111,32 +104,56 @@ leveneTest.formula <- function(formula, data, subset,
   res <- resolveFormulaFromCall(allowed   = "n-sample-independent",
                                 na.action = na.action)
 
-  y <- leveneTest.default(x           = res$x,
-                          g           = res$group,
-                          center      = center,
-                          .centerName = deparse1(substitute(center)),
-                          ...)
-
-  y$data.name <- res$dataName
-
-  y
+  # Both methods hand over to .leveneTest() and name the centre function
+  # themselves. The name has to be taken where the caller's expression is
+  # still visible: passed on from here to the default method, 'center'
+  # would deparse to "center" there - which is why the default method once
+  # carried an argument for the name in its public signature.
+  .leveneTest(x          = res$x,
+              g          = res$group,
+              center     = center,
+              centerName = deparse1(substitute(center)),
+              centerArgs = match.call(expand.dots = FALSE)$...,
+              dname      = res$dataName,
+              ...)
 }
 
 
 
 #' @rdname leveneTest
 #' @export
-leveneTest.default <- function(x, g, center = median, .centerName = NULL,
-                               ...) {
+leveneTest.default <- function(x, g, center = median, ...) {
+
+  dname <- if (is.list(x)) deparse1(substitute(x))
+           else paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
+
+  .leveneTest(x          = x,
+              g          = if (missing(g)) NULL else g,
+              center     = center,
+              centerName = deparse1(substitute(center)),
+              centerArgs = match.call(expand.dots = FALSE)$...,
+              dname      = dname,
+              gGiven     = !missing(g),
+              ...)
+}
+
+
+# == internal helper functions ============================================
+
+# The test itself. 'centerName' and 'centerArgs' are the centre function and
+# its extra arguments as the caller wrote them, for the method string;
+# 'dname' is the data name. The dots go to 'center'.
+.leveneTest <- function(x, g, center, centerName, centerArgs, dname,
+                        gGiven = TRUE, ...) {
+
+  DNAME <- dname
 
   if (is.list(x)) {
 
     if (length(x) < 2L)
       stop("'x' must be a list with at least 2 elements")
-    if (!missing(g))
+    if (gGiven)
       warning("'x' is a list, so ignoring argument 'g'")
-
-    DNAME <- deparse1(substitute(x))
 
     x <- lapply(x, function(u) u[complete.cases(u)])
     if (!all(vapply(x, is.numeric, logical(1))))
@@ -156,8 +173,6 @@ leveneTest.default <- function(x, g, center = median, .centerName = NULL,
     if (length(x) != length(g))
       stop("'x' and 'g' must have the same length")
 
-    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
-
     OK <- complete.cases(x, g)
     x  <- x[OK]
     g  <- factor(g[OK])
@@ -176,9 +191,8 @@ leveneTest.default <- function(x, g, center = median, .centerName = NULL,
   ANOVA_TAB <- anova(lm(resp ~ g))
   rownames(ANOVA_TAB)[2] <- " "
 
-  dots <- unlist(match.call(expand.dots = FALSE)$...)
-  center_x <- if (!is.null(.centerName)) .centerName else
-    deparse1(substitute(center))
+  dots <- unlist(centerArgs)
+  center_x <- centerName
   if (!is.null(dots))
     center_x <- paste0(
       center_x,

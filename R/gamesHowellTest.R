@@ -59,7 +59,7 @@
 #' @return An object of class `"PostHocTest"`: a list with one matrix,
 #'   named after the grouping variable. The matrix has columns `diff` for
 #'   the observed mean difference (second group minus first), `lci` and
-#'   `uci` for the simultaneous confidence limits, and `pval` for the
+#'   `uci` for the simultaneous confidence limits, and `p.value` for the
 #'   simultaneous p-value. Print and plot methods are available for class
 #'   `"PostHocTest"`.
 #'
@@ -77,7 +77,7 @@
 #' gamesHowellTest(breaks ~ tension, data = warpbreaks)
 #'
 #' ## compare with the pooled-variance procedures
-#' gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "pval"]
+#' gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "p.value"]
 #' ## [1] 0.080082272 0.006355163 0.251298244
 #'
 #' TukeyHSD(aov(breaks ~ tension, data = warpbreaks))
@@ -96,9 +96,7 @@ gamesHowellTest.default <- function(x, g, conf.level = 0.95, ...) {
     stop("'x' must be a numeric vector")
   if(length(x) != length(g))
     stop("'x' and 'g' must have the same length")
-  if(!is.numeric(conf.level) || length(conf.level) != 1L || is.na(conf.level) ||
-     conf.level <= 0 || conf.level >= 1)
-    stop("'conf.level' must be a single value in (0, 1)")
+  checkConfLevel(conf.level, allowNA = FALSE)
 
   ok <- stats::complete.cases(x, g)
   x <- as.numeric(x[ok])
@@ -158,7 +156,7 @@ gamesHowellTest.default <- function(x, g, conf.level = 0.95, ...) {
                             lower.tail = FALSE)
   half[ok] <- stats::qtukey(conf.level, nmeans = k, df = df[ok]) * se[ok]
 
-  out <- cbind(diff = diff, lci = diff - half, uci = diff + half, pval = pval)
+  out <- cbind(diff = diff, lci = diff - half, uci = diff + half, p.value = pval)
   rownames(out) <- paste(levels(g)[j], levels(g)[i], sep = "-")
 
   res <- list(out)

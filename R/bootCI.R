@@ -9,21 +9,27 @@
 #' @param y NULL (default) or a vector with compatible dimensions to `x`,
 #' when a bivariate statistic is used.
 #' @param FUN the function to be used.
-#' @param bci.method a vector of character strings representing the type of
-#' intervals required. The value should be any subset of the values
-#' `"norm"`, `"basic"`, `"stud"`, `"perc"`, `"bca"`,
-#' as it is passed on as `method` to [boot::boot.ci()].
 #' @param conf.level confidence level of the interval.
 #' @param sides a character string specifying the side of the confidence
 #' interval, must be one of `"two.sided"` (default), `"left"` or
 #' `"right"`. You can specify just the initial letter. `"left"` would
 #' be analogue to a hypothesis of `"greater"` in a `t.test`.
-#' @param ... further arguments are passed to the function `FUN`.
-#' @param R number of bootstrap replicates. Usually this will be a single
-#' positive integer. For importance resampling, some resamples may use one set
-#' of weights and others use a different set of weights. In this case `R`
-#' would be a vector of integers where each component gives the number of
-#' resamples from each of the rows of weights.
+#' @param R number of bootstrap replicates, a single positive whole number.
+#' @param ... further arguments. The bootstrap options are taken out first,
+#' as in the other interval functions of the package: `type`, the interval
+#' type passed to [boot::boot.ci()], one of `"bca"` (default), `"perc"`,
+#' `"basic"`, `"norm"` or `"stud"`, and `parallel` and `ncpus`, passed to
+#' [boot::boot()]. Everything else is passed to `FUN`.
+#'
+#' @details
+#' `type`, `parallel` and `ncpus` therefore cannot reach `FUN` through the
+#' dots. A statistic that has an argument of one of these names - the
+#' `type` of [quantile()], say - is wrapped:
+#' `FUN = function(z) quantile(z, 0.9, type = 6)`.
+#'
+#' `"stud"` needs a variance estimate for every replicate, which a general
+#' `FUN` does not deliver; [boot::boot.ci()] then returns no such interval
+#' and `bootCI()` stops with a message saying so.
 #' 
 #' @return A named numeric vector with three elements:
 #' \describe{
@@ -35,10 +41,10 @@
 #' @examples
 #' 
 #' set.seed(1984)
-#' bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE, bci.method="basic")
-#' bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, bci.method="basic")
+#' bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE)
+#' bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, type="basic")
 #' 
-#' # bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, bci.method="basic")
+#' # bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, type="basic")
 #' 
 #' # bootCI(Pizza$operator, Pizza$area, FUN=cramerV)
 #' 
@@ -53,15 +59,23 @@
 #'
 #'
 #' @export
-bootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", "perc", "bca"),
-                   conf.level = 0.95, sides = c("two.sided", "left", "right"), R = 999) {
+bootCI <- function(x, y=NULL, FUN, conf.level = 0.95,
+                   sides = c("two.sided", "left", "right"), R = 999, ...) {
 
   # evaluated here, in the caller's frame: substitute() handed unevaluated
   # expressions to do.call(), which then resolved them inside the boot()
   # statistic, where no caller variable is visible
   dots <- list(...)
-  bci.method <- match.arg(bci.method)
   sides <- match.arg(sides)
+  checkConfLevel(conf.level, allowNA = FALSE)
+
+  # the bootstrap options leave the dots, the rest belongs to FUN. Split by
+  # a logical index: setdiff() on the names would drop unnamed elements.
+  nms <- names(dots)
+  if (is.null(nms)) nms <- rep("", length(dots))
+  isBoot   <- nms %in% .bootArgNames
+  bootArgs <- .extractBootArgs(c(list(R = R), dots[isBoot]))
+  dots     <- dots[!isBoot]
 
   if (sides != "two.sided") {
     if (conf.level <= 0.5)
@@ -78,13 +92,14 @@ bootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
     function(x, d) do.call(FUN, c(list(x[d]), dots))
   }
 
-  boot.fun <- boot::boot(x, stat, R = R)
+  boot.fun <- boot::boot(x, stat, R = bootArgs$R,
+                         parallel = bootArgs$parallel, ncpus = bootArgs$ncpus)
 
-  ci <- boot::boot.ci(boot.fun, conf = conf.level, type = bci.method)
+  ci <- boot::boot.ci(boot.fun, conf = conf.level, type = bootArgs$type)
 
   # by name, not ci[[4]]: a dropped component ('stud' without variances)
   # made the positional access fail with "subscript out of bounds"
-  bnd <- .bootCIBounds(ci, bci.method)
+  bnd <- .bootCIBounds(ci, bootArgs$type)
 
   res <- c(est = unname(boot.fun$t0[1L]), lci = bnd[1L], uci = bnd[2L])
 

@@ -8,7 +8,7 @@ test_that("gamesHowellTest reproduces the warpbreaks comparisons", {
 
   expect_s3_class(r, "PostHocTest")
   expect_named(r, "tension")
-  expect_equal(colnames(r$tension), c("diff", "lci", "uci", "pval"))
+  expect_equal(colnames(r$tension), c("diff", "lci", "uci", "p.value"))
   expect_equal(rownames(r$tension), c("M-L", "H-L", "H-M"))
 
   expect_equal(unname(r$tension[, "diff"]),
@@ -17,7 +17,7 @@ test_that("gamesHowellTest reproduces the warpbreaks comparisons", {
                c(-21.00112832, -25.54578586, -11.86790457), tolerance = 1e-8)
   expect_equal(unname(r$tension[, "uci"]),
                c(1.001128322, -3.898658584, 2.423460122), tolerance = 1e-8)
-  expect_equal(unname(r$tension[, "pval"]),
+  expect_equal(unname(r$tension[, "p.value"]),
                c(0.080082272, 0.006355163064, 0.2512982436), tolerance = 1e-8)
 
   expect_equal(attr(r, "conf.level"), 0.95)
@@ -39,7 +39,7 @@ test_that("the interval and the p-value agree at the confidence level", {
   r <- gamesHowellTest(breaks ~ tension, data = warpbreaks)
   # an interval excluding zero must correspond to pval < 0.05 and vice versa
   excludes <- r$tension[, "lci"] > 0 | r$tension[, "uci"] < 0
-  expect_equal(excludes, r$tension[, "pval"] < 0.05)
+  expect_equal(excludes, r$tension[, "p.value"] < 0.05)
 
   # a wider level gives wider intervals
   w <- gamesHowellTest(breaks ~ tension, data = warpbreaks, conf.level = 0.99)
@@ -135,7 +135,7 @@ test_that("pairs that are constant in both groups are reported as NA", {
   expect_warning(r <- gamesHowellTest(c(1, 1, 2, 2), rep(c("a", "b"), each = 2)),
                  "both constant")
   expect_equal(unname(r[[1L]][, "diff"]), 1)
-  expect_true(is.na(r[[1L]][, "pval"]))
+  expect_true(is.na(r[[1L]][, "p.value"]))
   expect_true(all(is.na(r[[1L]][, c("lci", "uci")])))
 
   # one constant group among several is harmless, provided the remaining pairs
@@ -143,8 +143,8 @@ test_that("pairs that are constant in both groups are reported as NA", {
   v <- c(rep(1, 5), rep(2, 5), 3:7, 4:8)
   g <- rep(c("a", "b", "c", "d"), each = 5)
   expect_warning(r <- gamesHowellTest(v, g), "1 of 6 comparisons")
-  expect_true(is.na(r$g["b-a", "pval"]))
-  expect_false(any(is.na(r$g[setdiff(rownames(r$g), "b-a"), "pval"])))
+  expect_true(is.na(r$g["b-a", "p.value"]))
+  expect_false(any(is.na(r$g[setdiff(rownames(r$g), "b-a"), "p.value"])))
 })
 
 
@@ -156,7 +156,7 @@ test_that("pairs below two Welch degrees of freedom are reported as NA", {
   v <- c(1, 1, 3, 5)
   g <- rep(c("a", "b"), each = 2)
   expect_warning(r <- gamesHowellTest(v, g), "fewer than 2")
-  expect_true(is.na(r$g[, "pval"]))
+  expect_true(is.na(r$g[, "p.value"]))
   expect_equal(unname(r$g[, "diff"]), 3)
 
   # the obstacle is the tiny group size, not the procedure: three observations
@@ -166,6 +166,6 @@ test_that("pairs below two Welch degrees of freedom are reported as NA", {
   v <- c(1, 3, 5, 5, 7, 9)
   g <- rep(c("a", "b"), each = 3)
   expect_silent(r <- gamesHowellTest(v, g))
-  expect_false(is.na(r$g[, "pval"]))
+  expect_false(is.na(r$g[, "p.value"]))
   expect_equal(unname(r$g[, "diff"]), 4)
 })

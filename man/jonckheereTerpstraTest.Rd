@@ -8,7 +8,7 @@
 \usage{
 jonckheereTerpstraTest(x, ...)
 
-\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{jonckheereTerpstraTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{jonckheereTerpstraTest}{default}(
   x,
@@ -32,8 +32,10 @@ jonckheereTerpstraTest(x, ...)
 \item{subset}{an optional expression specifying a subset of observations,
 evaluated in \code{data} (\code{subset = dose > 0.5}), as in \code{\link[=kruskal.test]{kruskal.test()}}.}
 
-\item{na.action}{a function indicating how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a grouping variable corresponding to \code{x}, whose (factor)
 level order defines the hypothesised ordering; ignored when \code{x} is

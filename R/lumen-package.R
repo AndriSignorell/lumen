@@ -17,14 +17,14 @@
 #' **Goodness-of-Fit Tests**
 #' \itemize{
 #'   \item `andersonDarlingTest`, `cramerVonMisesTest`
-#'   \item `lillieTest`, `jarqueBeraTest`, `shapiroFranciaTest`
-#'   \item `pearsonTest`
+#'   \item `lillieforsTest`, `jarqueBeraTest`, `shapiroFranciaTest`
+#'   \item `pearsonChisqTest`
 #' }
 #'
 #' **Nonparametric Tests**
 #' \itemize{
 #'   \item `signTest`, `jonckheereTerpstraTest`, `pageTest`
-#'   \item `mosesTest`, `siegelTukeyTest`, `vanWaerdenTest`
+#'   \item `mosesTest`, `siegelTukeyTest`, `vanDerWaerdenTest`
 #' }
 #'
 #' **Post-hoc Procedures**
@@ -35,8 +35,8 @@
 #'
 #' **Parametric Tests**
 #' \itemize{
-#'   \item `tTestA`, `yuenTTest`, `zTest`, `varTest`
-#'   \item `hotellingsT2Test`, `leveneTest`
+#'   \item `tTestSummary`, `yuenTTest`, `zTest`, `varTest`
+#'   \item `hotellingT2Test`, `leveneTest`
 #' }
 #'
 #' **Contingency Table Tests**

@@ -188,7 +188,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #' @param sides type of confidence interval: `"two.sided"`, `"left"`, or
 #'   `"right"`; may be abbreviated
 #' @param method method used to calculate the confidence interval: `"exact"`,
-#'   `"midp"`, or `"wald-log"`; may be abbreviated and defaults to `"exact"`
+#'   `"mid-p"`, or `"wald-log"`; may be abbreviated and defaults to `"exact"`
 #'
 #' @return If the arguments identify a single result, a named numeric vector
 #'   with elements:
@@ -213,7 +213,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #'     on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
 #'     resulting binomial probability; this is the construction used by
 #'     [poisson.test()] for two samples}
-#'   \item{`"midp"`}{the corresponding conditional mid-p interval, which is
+#'   \item{`"mid-p"`}{the corresponding conditional mid-p interval, which is
 #'     generally shorter but does not guarantee conservative coverage}
 #'   \item{`"wald-log"`}{the asymptotic Wald interval, symmetric on the
 #'     logarithmic scale}
@@ -256,7 +256,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #' # The exact interval agrees with the two-sample conditional test in stats
 #' poisson.test(c(15, 6), c(100, 120))$conf.int
 #'
-#' poissonRatioCI(15, 100, 6, 120, method = "midp")
+#' poissonRatioCI(15, 100, 6, 120, method = "mid-p")
 #'
 #' # Zero counts are handled explicitly
 #' poissonRatioCI(0, 100, 6, 120)
@@ -264,7 +264,7 @@ poissonDiffCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
 #' @export
 poissonRatioCI <- function(x1, n1 = 1, x2, n2 = 1, conf.level = 0.95,
                            sides = c("two.sided", "left", "right"),
-                           method = c("exact", "midp", "wald-log")) {
+                           method = c("exact", "mid-p", "wald-log")) {
 
   sides <- match.arg(sides)
   method <- match.arg(method)

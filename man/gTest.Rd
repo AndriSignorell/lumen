@@ -7,7 +7,7 @@
 gTest(
   x,
   y = NULL,
-  correct = c("none", "williams", "yates"),
+  correction = c("none", "williams", "yates"),
   p = rep(1/length(x), length(x)),
   rescaleP = FALSE
 )
@@ -19,7 +19,7 @@ be factors.}
 \item{y}{a numeric vector; ignored if \code{x} is a matrix. If \code{x}
 is a factor, \code{y} should be a factor of the same length.}
 
-\item{correct}{the correction to be applied, one of \code{"none"}
+\item{correction}{the correction to be applied, one of \code{"none"}
 (default), \code{"williams"} or \code{"yates"}. See the Details.}
 
 \item{p}{a vector of probabilities of the same length as \code{x}

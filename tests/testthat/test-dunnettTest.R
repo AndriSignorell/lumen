@@ -22,7 +22,7 @@ test_that("dunnettTest.default: result matrix has correct columns", {
   
   mat <- res[[1L]]
   expect_true(is.matrix(mat))
-  expect_equal(colnames(mat), c("diff", "lci", "uci", "pval"))
+  expect_equal(colnames(mat), c("diff", "lci", "uci", "p.value"))
 })
 
 
@@ -45,8 +45,8 @@ test_that("dunnettTest.default: p-values are in [0, 1]", {
   
   res <- dunnettTest(x, g, control = "ctrl")
   
-  expect_true(all(res[["ctrl"]][, "pval"] >= 0))
-  expect_true(all(res[["ctrl"]][, "pval"] <= 1))
+  expect_true(all(res[["ctrl"]][, "p.value"] >= 0))
+  expect_true(all(res[["ctrl"]][, "p.value"] <= 1))
 })
 
 
@@ -87,7 +87,7 @@ test_that("dunnettTest.default: well-separated treatment gives small p-value", {
   res <- dunnettTest(x, g, control = "ctrl")
   
   # trt2 clearly different from ctrl
-  p_trt2 <- res[["ctrl"]]["trt2-ctrl", "pval"]
+  p_trt2 <- res[["ctrl"]]["trt2-ctrl", "p.value"]
   expect_lt(p_trt2, 0.001)
 })
 
@@ -269,7 +269,7 @@ test_that("dunnettTest: list and vector+g interfaces give identical results", {
   
   expect_equal(res_list[[1L]][, "diff"],  res_vec[[1L]][, "diff"],
                tolerance = 1e-10)
-  expect_equal(res_list[[1L]][, "pval"],  res_vec[[1L]][, "pval"],
+  expect_equal(res_list[[1L]][, "p.value"],  res_vec[[1L]][, "p.value"],
                tolerance = 1e-10)
 })
 
@@ -290,7 +290,7 @@ test_that("dunnettTest: matches multcomp single-step Dunnett", {
   res <- dunnettTest(aq$Ozone, aq$g)
 
   # both use randomized quasi-Monte-Carlo integration -> loose tolerance
-  expect_equal(unname(res[["5"]][, "pval"]),
+  expect_equal(unname(res[["5"]][, "p.value"]),
                unname(as.vector(sm$test$pvalues)), tolerance = 5e-3)
   expect_equal(unname(res[["5"]][, "lci"]),
                unname(ci$confint[, "lwr"]), tolerance = 5e-3)

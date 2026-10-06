@@ -47,13 +47,13 @@ test_that("block designs: unused factor levels are no empty blocks", {
                pageTest(s$x, s$time, droplevels(s$id))$statistic)
 })
 
-test_that("bpTest is Koenker's studentized BP test: identical to lmtest::bptest", {
+test_that("breuschPaganTest is Koenker's studentized BP test: identical to lmtest::bptest", {
   skip_if_not_installed("lmtest")
   set.seed(1)
   d <- data.frame(x = rnorm(60), z = rnorm(60))
   d$y <- d$x + rnorm(60) * (1 + abs(d$x))
   for (f in list(y ~ x, y ~ x + z, y ~ poly(x, 2) + z)) {
-    a <- bpTest(lm(f, data = d))
+    a <- breuschPaganTest(lm(f, data = d))
     b <- lmtest::bptest(lm(f, data = d))
     expect_equal(unname(a$statistic), unname(b$statistic))
     expect_equal(unname(a$parameter), unname(b$parameter))
@@ -61,19 +61,19 @@ test_that("bpTest is Koenker's studentized BP test: identical to lmtest::bptest"
   }
 })
 
-test_that("bpTest: na.exclude does not inflate n", {
+test_that("breuschPaganTest: na.exclude does not inflate n", {
   set.seed(2)
   d <- data.frame(x = rnorm(50)); d$y <- d$x + rnorm(50) * (1 + abs(d$x))
   d$x[1:5] <- NA
-  expect_equal(bpTest(lm(y ~ x, d, na.action = na.exclude))$statistic,
-               bpTest(lm(y ~ x, d))$statistic)
+  expect_equal(breuschPaganTest(lm(y ~ x, d, na.action = na.exclude))$statistic,
+               breuschPaganTest(lm(y ~ x, d))$statistic)
 })
 
-test_that("bpTest: rejects weights and glm", {
+test_that("breuschPaganTest: rejects weights and glm", {
   d <- data.frame(x = rnorm(30), y = rnorm(30), w = runif(30))
-  expect_error(bpTest(lm(y ~ x, d, weights = w)), "weighted")
-  expect_error(bpTest(glm(y ~ x, data = d)), "lm object")
-  expect_identical(bpTest(lm(y ~ x, d))$data.name, "y ~ x")
+  expect_error(breuschPaganTest(lm(y ~ x, d, weights = w)), "weighted")
+  expect_error(breuschPaganTest(glm(y ~ x, data = d)), "lm object")
+  expect_identical(breuschPaganTest(lm(y ~ x, d))$data.name, "y ~ x")
 })
 
 
@@ -136,21 +136,21 @@ test_that("bootstrap CIs read their bounds from the named boot.ci component", {
 
 # -- normality tests: degenerate input -----------------------------------------
 
-test_that("pearsonTest and shapiroFranciaTest reject degenerate input", {
-  expect_error(pearsonTest(rep(3, 20)), "identical")
-  expect_error(pearsonTest(c(1:20, Inf)), "infinite")
-  expect_error(pearsonTest(letters), "numeric")
-  expect_error(pearsonTest(c(1.2, 3.4)), "degree of freedom")
+test_that("pearsonChisqTest and shapiroFranciaTest reject degenerate input", {
+  expect_error(pearsonChisqTest(rep(3, 20)), "identical")
+  expect_error(pearsonChisqTest(c(1:20, Inf)), "infinite")
+  expect_error(pearsonChisqTest(letters), "numeric")
+  expect_error(pearsonChisqTest(c(1.2, 3.4)), "degree of freedom")
   expect_error(shapiroFranciaTest(rep(3, 20)), "identical")
   expect_error(shapiroFranciaTest(c(1:20, -Inf)), "infinite")
   expect_error(shapiroFranciaTest(letters), "numeric")
 })
 
-test_that("pearsonTest and shapiroFranciaTest still equal nortest", {
+test_that("pearsonChisqTest and shapiroFranciaTest still equal nortest", {
   skip_if_not_installed("nortest")
   set.seed(4)
   for (x in list(rnorm(30), rexp(80), rt(200, 3))) {
-    expect_equal(pearsonTest(x)$p.value, nortest::pearson.test(x)$p.value)
+    expect_equal(pearsonChisqTest(x)$p.value, nortest::pearson.test(x)$p.value)
     expect_equal(shapiroFranciaTest(x)$p.value, nortest::sf.test(x)$p.value)
   }
 })

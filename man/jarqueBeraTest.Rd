@@ -89,8 +89,8 @@ homoscedasticity and serial independence of regression residuals.
 Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
-\code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pearsonTest]{pearsonTest()}},
+\code{\link[=lillieforsTest]{lillieforsTest()}},
+\code{\link[=pearsonChisqTest]{pearsonChisqTest()}},
 \code{\link[=shapiroFranciaTest]{shapiroFranciaTest()}}
 }
 \concept{goodness-of-fit}

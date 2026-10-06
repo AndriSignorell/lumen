@@ -8,7 +8,7 @@
 #' 
 #' Performs a van der Waerden normal scores test.
 #' 
-#' `vanWaerdenTest` performs a van der Waerden test of the null that the
+#' `vanDerWaerdenTest` performs a van der Waerden test of the null that the
 #' location parameters of the distribution of `x` are the same in each
 #' group (sample). The alternative is that they differ in at least one.
 #' 
@@ -21,16 +21,16 @@
 #' 
 #' If `x` is a list, its elements are taken as the samples to be compared,
 #' and hence have to be numeric data vectors.  In this case, `g` is
-#' ignored, and one can simply use `vanWaerdenTest(x)` to perform the
+#' ignored, and one can simply use `vanDerWaerdenTest(x)` to perform the
 #' test.  If the samples are not yet contained in a list, use
-#' `vanWaerdenTest(list(x, ...))`.
+#' `vanDerWaerdenTest(list(x, ...))`.
 #' 
 #' Otherwise, `x` must be a numeric data vector, and `g` must be a
 #' vector or factor object of the same length as `x` giving the group for
 #' the corresponding elements of `x`.
 #' 
-#' @name vanWaerdenTest
-#' @aliases vanWaerdenTest vanWaerdenTest.default vanWaerdenTest.formula
+#' @name vanDerWaerdenTest
+#' @aliases vanDerWaerdenTest vanDerWaerdenTest.default vanDerWaerdenTest.formula
 #' @param x a numeric vector of data values, or a list of numeric data vectors.
 #' Non-numeric elements of a list will be coerced, with a warning.
 #' @param g a vector or factor object giving the group for the corresponding
@@ -44,8 +44,10 @@
 #' `environment(formula)`.
 #' @param subset an optional expression specifying a subset of observations,
 #' evaluated in `data` (`subset = Month != 5`), as in [kruskal.test()].
-#' @param na.action a function which indicates what should happen when the data
-#' contain `NA`s.  Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments to be passed to or from methods.
 #' @return A list with class `"htest"` containing the following
 #' components: \item{statistic}{the van der Waerden statistic.}
@@ -74,7 +76,7 @@
 #' y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
 #' z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
 #' 
-#' vanWaerdenTest(list(x, y, z))
+#' vanDerWaerdenTest(list(x, y, z))
 #' 
 #' ## Equivalently,
 #' x <- c(x, y, z)
@@ -82,31 +84,31 @@
 #'             labels = c("Normal subjects",
 #'                        "Subjects with obstructive airway disease",
 #'                        "Subjects with asbestosis"))
-#' vanWaerdenTest(x, g)
+#' vanDerWaerdenTest(x, g)
 #' 
 #' ## Formula interface.
 #' require(graphics)
 #' boxplot(Ozone ~ factor(Month), data = airquality)
-#' vanWaerdenTest(Ozone ~ factor(Month), data = airquality)
+#' vanDerWaerdenTest(Ozone ~ factor(Month), data = airquality)
 #' 
-#' @rdname vanWaerdenTest
+#' @rdname vanDerWaerdenTest
 #' @family test.location
 #' @concept location-test
 #' @concept nonparametric
 #'
 #' @export
-vanWaerdenTest <- function (x, ...)    UseMethod("vanWaerdenTest")
+vanDerWaerdenTest <- function (x, ...)    UseMethod("vanDerWaerdenTest")
 
-#' @rdname vanWaerdenTest
+#' @rdname vanDerWaerdenTest
 #' @export
-vanWaerdenTest.formula <- function(formula, data, subset, na.action = na.omit,
+vanDerWaerdenTest.formula <- function(formula, data, subset, na.action = na.pass,
                                    ...) {
   # formula, data and subset are forwarded unevaluated, so that 'subset' is
   # evaluated in 'data' as in kruskal.test(); y ~ a:b compares the cells
   pf <- resolveFormulaFromCall(allowed   = "n-sample-independent",
                                na.action = na.action)
   
-  y <- vanWaerdenTest(
+  y <- vanDerWaerdenTest(
     x = pf$x,
     g = pf$group,
     ...
@@ -120,9 +122,9 @@ vanWaerdenTest.formula <- function(formula, data, subset, na.action = na.omit,
 
 
 
-#' @rdname vanWaerdenTest
+#' @rdname vanDerWaerdenTest
 #' @export
-vanWaerdenTest.default <- function(x, g, ...) {
+vanDerWaerdenTest.default <- function(x, g, ...) {
   
   gd <- resolveGroups(x, g)
   

@@ -8,14 +8,14 @@
 \usage{
 nemenyiTest(x, ...)
 
-\method{nemenyiTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{nemenyiTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{nemenyiTest}{default}(
   x,
   g,
   dist = c("tukey", "chisq"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 }
@@ -32,8 +32,10 @@ nemenyiTest(x, ...)
 \item{subset}{an optional expression specifying a subset of observations,
 evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=kruskal.test]{kruskal.test()}}.}
 
-\item{na.action}{a function specifying how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a grouping factor corresponding to \code{x}. Ignored if
 \code{x} is a list.}
@@ -44,7 +46,7 @@ the test statistic. One of \code{"tukey"} (default) or \code{"chisq"}.}
 \item{output}{character string specifying the output format. One of
 \code{"list"} (default) or \code{"matrix"}.}
 
-\item{alpha}{the significance level used to compile the groups flagged
+\item{sig.level}{the significance level used to compile the groups flagged
 as significantly different in the label attribute of the p-value
 matrix (default is \code{0.05}).}
 }

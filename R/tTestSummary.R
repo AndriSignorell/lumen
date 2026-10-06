@@ -68,7 +68,7 @@
 #' sx <- 1.789010
 #' sy <- 2.002249
 #' nx <- ny <- 10
-#' tTestA(mx=mx, my=my, sx=sx, sy=sy, nx=nx, ny=ny)
+#' tTestSummary(mx=mx, my=my, sx=sx, sy=sy, nx=nx, ny=ny)
 #' 
 #' # compare to
 #' with(sleep, t.test(extra[group == 1], extra[group == 2]))
@@ -77,7 +77,7 @@
 #' x <- with(sleep, extra[group == 1])
 #' y <- with(sleep, extra[group == 2])
 #' 
-#' tTestA(mx=mean(x-y), sx=sd(x-y), nx=length(x-y))
+#' tTestSummary(mx=mean(x-y), sx=sd(x-y), nx=length(x-y))
 #' 
 #' # compared to 
 #' t.test(x, y, paired = TRUE)
@@ -87,7 +87,7 @@
 #' @concept parametric
 #'
 #' @export
-tTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
+tTestSummary <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
                     alternative = c("two.sided", "less", "greater"),
                     mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
                     ...) {

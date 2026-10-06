@@ -19,13 +19,13 @@ test_that("scheffeTest: formula method works", {
 
 test_that("scheffeTest: p-values in [0,1]", {
   res  <- scheffeTest(fit)
-  pvals <- res[[1]][, "pval"]
+  pvals <- res[[1]][, "p.value"]
   expect_true(all(pvals >= 0 & pvals <= 1, na.rm = TRUE))
 })
 
 test_that("scheffeTest: A vs C significant", {
   res   <- scheffeTest(fit)
-  pvals <- res[[1]][, "pval"]
+  pvals <- res[[1]][, "p.value"]
   ac_p  <- pvals[grep("A-C|C-A", names(pvals))]
   expect_lt(min(ac_p), 0.05)
 })
@@ -81,7 +81,7 @@ test_that("scheffeTest: custom contrast by hand", {
   se <- sqrt(mse * sum(cc^2 / n))
   expect_identical(rownames(r), "L-M,H")
   expect_equal(unname(r[, "diff"]), psi)
-  expect_equal(unname(r[, "pval"]),
+  expect_equal(unname(r[, "p.value"]),
                pf(psi^2 / (se^2 * 2), 2, wb$df.residual, lower.tail = FALSE))
   expect_equal(unname(r[, "uci"] - r[, "diff"]),
                sqrt(2 * qf(0.95, 2, wb$df.residual)) * se)
@@ -91,18 +91,18 @@ test_that("scheffeTest: several contrasts at once, and conf.level = NA", {
   cc <- cbind(c(1, -0.5, -0.5), c(0, 1, -1))
   r <- scheffeTest(wb, contrasts = cc)$tension
   expect_identical(rownames(r), c("L-M,H", "M-H"))
-  expect_equal(r["M-H", "pval"], scheffeTest(wb)$tension["H-M", "pval"])
+  expect_equal(r["M-H", "p.value"], scheffeTest(wb)$tension["H-M", "p.value"])
 
   p <- scheffeTest(wb, contrasts = cc, conf.level = NA)$tension
-  expect_identical(colnames(p), c("diff", "pval"))
-  expect_equal(p[, "pval"], r[, "pval"])
+  expect_identical(colnames(p), c("diff", "p.value"))
+  expect_equal(p[, "p.value"], r[, "p.value"])
 })
 
 test_that("scheffeTest: conf.level = NA gives the lower triangle of p-values", {
   r <- scheffeTest(wb, conf.level = NA)$tension
   full <- scheffeTest(wb)$tension
   expect_identical(dimnames(r), list(c("M", "H"), c("L", "M")))
-  expect_equal(c(r["M", "L"], r["H", "L"], r["H", "M"]), unname(full[, "pval"]))
+  expect_equal(c(r["M", "L"], r["H", "L"], r["H", "M"]), unname(full[, "p.value"]))
   expect_true(is.na(r["M", "M"]))
 })
 
@@ -125,7 +125,7 @@ test_that("scheffeTest: dfgrp is the term's own df in a two-factor model", {
   # wool: 2 levels -> df1 = 1, i.e. the plain t-test
   w <- r$wool
   se <- sqrt(mse * 2 / 27)
-  expect_equal(unname(w[, "pval"]),
+  expect_equal(unname(w[, "p.value"]),
                2 * pt(abs(w[, "diff"]) / se, fit2$df.residual, lower.tail = FALSE),
                ignore_attr = TRUE)
 })
@@ -144,7 +144,7 @@ test_that("scheffeTest: default method", {
   expect_equal(unclass(d$g), unclass(scheffeTest(wb)$tension), ignore_attr = TRUE)
   # regression: numeric group codes were treated as a covariate
   n <- with(warpbreaks, scheffeTest(breaks, as.integer(tension)))
-  expect_equal(unname(n$g[, "pval"]), unname(d$g[, "pval"]))
+  expect_equal(unname(n$g[, "p.value"]), unname(d$g[, "p.value"]))
   expect_error(scheffeTest(1:10), "'g' is missing")
   expect_error(scheffeTest(1:10, rep(1:2, 4)), "same length")
 })

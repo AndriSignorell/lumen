@@ -11,7 +11,7 @@ leCessieTest(x, ...)
 
 \method{leCessieTest}{glm}(x, ...)
 
-\method{leCessieTest}{default}(x, obs, X, ...)
+\method{leCessieTest}{default}(x, ref, X, ...)
 
 \method{print}{LeCessieTest}(x, digits = 4, ...)
 }
@@ -22,7 +22,7 @@ without missing values (default method).}
 
 \item{\dots}{further arguments passed to methods.}
 
-\item{obs}{numeric vector of observed binary outcomes (0 or 1), of the
+\item{ref}{numeric vector of observed binary outcomes (0 or 1), of the
 same length as \code{x}, without missing values; unused for the
 \code{glm} method.}
 
@@ -101,8 +101,8 @@ comparison of goodness-of-fit tests for the logistic regression model.
 \code{\link[=glm]{glm()}}
 
 Other test.regression:
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=breuschPaganTest]{breuschPaganTest()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}}
 }

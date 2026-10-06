@@ -5,14 +5,14 @@
 \title{Augmented Dickey-Fuller Unit Root Test for Detecting Unit Roots in Time Series}
 \usage{
 adfTest(
-  y,
+  x,
   type = c("none", "drift", "trend"),
   lags = 1,
   selectLags = c("fixed", "aic", "bic")
 )
 }
 \arguments{
-\item{y}{numeric vector or univariate time series to be tested for a
+\item{x}{numeric vector or univariate time series to be tested for a
 unit root.}
 
 \item{type}{the deterministic part of the test regression, one of

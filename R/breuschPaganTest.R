@@ -28,7 +28,7 @@
 #'
 #' @examples
 #' fit <- lm(Sepal.Length ~ Sepal.Width, data = iris)
-#' bpTest(fit)
+#' breuschPaganTest(fit)
 #'
 
 
@@ -37,7 +37,7 @@
 #' @family test.regression  
 #'
 #' @export
-bpTest <- function(fit) {
+breuschPaganTest <- function(fit) {
 
   if (!inherits(fit, "lm") || inherits(fit, "glm"))
     stop("'fit' must be a fitted lm object")

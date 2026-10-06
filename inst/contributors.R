@@ -22,9 +22,9 @@ Jim Lemon — stuartMaxwellTest.R
 John Fox — leveneTest.R
 John Marsaglia — adTest.R, pAD.R
 Joseph L. Gastwirth — jarqueBeraTest.R
-Juergen Gross — cramerVonMisesTest.R, lillieTest.R, pearsonTest.R, shapiroFrancia.test.R
+Juergen Gross — cramerVonMisesTest.R, lillieforsTest.R, pearsonChisqTest.R, shapiroFrancia.test.R
 Ken Aho — binomRatioCI.R
-Klaus Nordhausen — hotellingsT2Test.R
+Klaus Nordhausen — hotellingT2Test.R
 Kurt Hornik — woolfTest.R
 Luke A. Prendergast — madCI.R
 Martin Maechler — dpqr-revgumbel.R

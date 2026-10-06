@@ -115,7 +115,7 @@ test_that("approximate method gives plausible p-value", {
   d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long,
-                      method = "approximate", nresample = 5000)
+                      method = "approximate", R = 5000)
   
   expect_match(res$method, "approximate")
   expect_gte(res$p.value, 0)
@@ -124,7 +124,7 @@ test_that("approximate method gives plausible p-value", {
   expect_lt(res$p.value, 0.05)
 })
 
-test_that("approximate method uses nresample argument", {
+test_that("approximate method uses R argument", {
   
   skip_if_not_installed("coin")
   
@@ -133,7 +133,7 @@ test_that("approximate method uses nresample argument", {
   d.long <- .sasDrugs()
   
   res <- cochranQTest(resp ~ time | id, data = d.long,
-                      method = "approximate", nresample = 999)
+                      method = "approximate", R = 999)
   
   expect_match(res$method, "999")
 })
@@ -246,9 +246,9 @@ test_that("incomplete blocks are also removed for method = 'approximate'", {
   # the permutation statistic is deterministic, so it must match the
   # statistic computed on the data with the incomplete block dropped
   set.seed(1)
-  res_na   <- cochranQTest(mat_na, method = "approximate", nresample = 199)
+  res_na   <- cochranQTest(mat_na, method = "approximate", R = 199)
   set.seed(1)
-  res_full <- cochranQTest(mat[-2, ], method = "approximate", nresample = 199)
+  res_full <- cochranQTest(mat[-2, ], method = "approximate", R = 199)
 
   expect_equal(unname(res_na$statistic), unname(res_full$statistic),
                tolerance = 1e-10)

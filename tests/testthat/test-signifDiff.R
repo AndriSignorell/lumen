@@ -8,7 +8,7 @@ test_that("PostHocTest: levels, labels and signed differences", {
   s <- signifDiff(ph)
   expect_s3_class(s, "signifDiff")
   expect_named(s, "tension")
-  expect_equal(attr(s, "alpha"), 0.05)
+  expect_equal(attr(s, "sig.level"), 0.05)
   expect_true(attr(s, "signed"))
 
   d <- s$tension
@@ -17,14 +17,14 @@ test_that("PostHocTest: levels, labels and signed differences", {
   expect_identical(d$diff, c("2+, 3+", "1-", "1-"))
 })
 
-test_that("alpha: default from conf.level, explicit value wins", {
+test_that("sig.level: default from conf.level, explicit value wins", {
   s <- signifDiff(postHocTest(fit, conf.level = 0.99))
-  expect_equal(attr(s, "alpha"), 0.01)
+  expect_equal(attr(s, "sig.level"), 0.01)
   expect_identical(s$tension$diff, c("3+", "", "1-"))
 
-  s <- signifDiff(ph, alpha = 0.01)
+  s <- signifDiff(ph, sig.level = 0.01)
   expect_identical(s$tension$diff, c("3+", "", "1-"))
-  expect_identical(signifDiff(ph, alpha = 1e-6)$tension$diff, c("", "", ""))
+  expect_identical(signifDiff(ph, sig.level = 1e-6)$tension$diff, c("", "", ""))
 })
 
 test_that("direction = FALSE drops the signs", {
@@ -66,7 +66,7 @@ test_that("ordered = TRUE: same verdicts, other level order", {
 test_that("p-value branch: no signs, warning only if asked for", {
   pv <- postHocTest(fit, conf.level = NA)
   expect_no_warning(s <- signifDiff(pv))
-  expect_equal(attr(s, "alpha"), 0.05)
+  expect_equal(attr(s, "sig.level"), 0.05)
   expect_false(attr(s, "signed"))
   expect_identical(s$tension$diff, c("2, 3", "1", "1"))
   expect_warning(signifDiff(pv, direction = TRUE), "no differences")
@@ -85,12 +85,12 @@ test_that("pairwise.htest", {
   expect_identical(s[[1L]]["L", "diff"], sig[["L"]])
 
   expect_warning(signifDiff(pw, direction = TRUE), "no differences")
-  expect_identical(signifDiff(pw, alpha = 1e-8)[[1L]]$diff, c("", "", ""))
+  expect_identical(signifDiff(pw, sig.level = 1e-8)[[1L]]$diff, c("", "", ""))
 })
 
 test_that("print: legend only for signed results", {
   expect_output(print(signifDiff(ph)), "Sign codes")
-  expect_output(print(signifDiff(ph)), "alpha = 0.05", fixed = TRUE)
+  expect_output(print(signifDiff(ph)), "sig.level = 0.05", fixed = TRUE)
   out <- capture.output(print(signifDiff(ph), legend = FALSE))
   expect_false(any(grepl("Sign codes", out)))
   out <- capture.output(print(signifDiff(ph, direction = FALSE)))
@@ -104,7 +104,7 @@ test_that(".pairMatrices: symmetric p, antisymmetric d", {
   expect_equal(m$p, t(m$p))
   expect_equal(m$d, -t(m$d))
   expect_equal(m$d["M", "L"], ph$tension["M-L", "diff"])
-  expect_equal(m$p["L", "H"], ph$tension["H-L", "pval"])
+  expect_equal(m$p["L", "H"], ph$tension["H-L", "p.value"])
   expect_true(all(is.na(diag(m$p))))
 
   # levels attribute is preferred over the pair labels

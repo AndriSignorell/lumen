@@ -8,7 +8,7 @@
 \usage{
 dunnettTest(x, ...)
 
-\method{dunnettTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{dunnettTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{dunnettTest}{default}(x, g, control = NULL, conf.level = 0.95, ...)
 }
@@ -27,8 +27,10 @@ By default, the variables are taken from \code{environment(formula)}.}
 \item{subset}{an optional expression specifying a subset of observations,
 evaluated in \code{data} (\code{subset = Month != 5}), as in \code{\link[=aov]{aov()}}.}
 
-\item{na.action}{a function indicating how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a vector or factor identifying the group of each element of
 \code{x}; ignored if \code{x} is a list.}
@@ -45,7 +47,7 @@ An object of class \code{"PostHocTest"}: a list containing one
 matrix for each control level. Each matrix has columns \code{diff} for
 the observed mean difference (treatment minus control), \code{lci}
 and \code{uci} for the simultaneous confidence limits, and
-\code{pval} for the multiplicity-adjusted p-value.
+\code{p.value} for the multiplicity-adjusted p-value.
 
 Print and plot methods are available for class \code{"PostHocTest"}.
 The plot method supplies its own axis labels and title and therefore does

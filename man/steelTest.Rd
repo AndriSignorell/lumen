@@ -8,7 +8,7 @@
 \usage{
 steelTest(x, ...)
 
-\method{steelTest}{formula}(formula, data, subset, na.action = na.omit, ...)
+\method{steelTest}{formula}(formula, data, subset, na.action = na.pass, ...)
 
 \method{steelTest}{default}(
   x,
@@ -16,7 +16,7 @@ steelTest(x, ...)
   control = NULL,
   alternative = c("two.sided", "greater", "less"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 }
@@ -35,8 +35,10 @@ vectors.}
 observations, evaluated in \code{data} (\code{subset = Month != 5}), as in
 \code{\link[=kruskal.test]{kruskal.test()}}.}
 
-\item{na.action}{a function specifying how missing values should be
-handled. Defaults to \code{\link[=na.omit]{na.omit()}}.}
+\item{na.action}{a function indicating how missing values are handled.
+Defaults to \code{\link[=na.pass]{na.pass()}}: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as \code{\link[=kruskal.test]{kruskal.test()}} does.}
 
 \item{g}{a grouping factor corresponding to \code{x}. Ignored if
 \code{x} is a list.}
@@ -51,7 +53,7 @@ hypothesis. One of \code{"two.sided"}, \code{"greater"} or
 \item{output}{character string specifying the output format. One of
 \code{"list"} (default) or \code{"matrix"}.}
 
-\item{alpha}{the significance level used to compile the groups flagged
+\item{sig.level}{the significance level used to compile the groups flagged
 as significantly different in the label attribute of the p-value
 matrix (default is \code{0.05})}
 }
@@ -59,7 +61,7 @@ matrix (default is \code{0.05})}
 An object of class \code{"rankTest"} containing:
 \item{res}{
 comparison results. For \code{output="list"} a matrix with
-columns \code{W}, \code{z} and \code{pval}; for
+columns \code{W}, \code{z} and \code{p.value}; for
 \code{output="matrix"} a many-to-one matrix of adjusted
 p-values.
 }

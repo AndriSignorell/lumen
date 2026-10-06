@@ -11,7 +11,7 @@ fit <- glm(obs ~ x1 + x2, family = binomial)
 f   <- fitted(fit)
 
 test_that("hosmerLemeshowTest: returns htest / HosmerLemeshowTest (type C)", {
-  res <- hosmerLemeshowTest(x = f, obs = obs, type = "C")
+  res <- hosmerLemeshowTest(x = f, ref = obs, type = "C")
   expect_s3_class(res, "htest")
   expect_s3_class(res, "HosmerLemeshowTest")
 })
@@ -19,30 +19,30 @@ test_that("hosmerLemeshowTest: returns htest / HosmerLemeshowTest (type C)", {
 test_that("hosmerLemeshowTest: returns htest / HosmerLemeshowTest (type H)", {
   # fixed [0, 1] bins: fitted values near 0.5 leave most bins empty or
   # sparse, so warnings are expected here (tested in their own block below)
-  res <- suppressWarnings(hosmerLemeshowTest(x = f, obs = obs, type = "H"))
+  res <- suppressWarnings(hosmerLemeshowTest(x = f, ref = obs, type = "H"))
   expect_s3_class(res, "htest")
   expect_s3_class(res, "HosmerLemeshowTest")
 })
 
 test_that("hosmerLemeshowTest: statistic named X-squared", {
-  res <- hosmerLemeshowTest(x = f, obs = obs)
+  res <- hosmerLemeshowTest(x = f, ref = obs)
   expect_named(res$statistic, "X-squared")
 })
 
 test_that("hosmerLemeshowTest: parameter named df equals nGroups - 2", {
-  res <- hosmerLemeshowTest(x = f, obs = obs, nGroups = 10)
+  res <- hosmerLemeshowTest(x = f, ref = obs, nGroups = 10)
   expect_named(res$parameter, "df")
   expect_equal(unname(res$parameter), res$nGroups - 2L)
 })
 
 test_that("hosmerLemeshowTest: p.value in [0, 1]", {
-  res <- hosmerLemeshowTest(x = f, obs = obs)
+  res <- hosmerLemeshowTest(x = f, ref = obs)
   expect_gte(res$p.value, 0)
   expect_lte(res$p.value, 1)
 })
 
 test_that("hosmerLemeshowTest: observed and expected are matrices", {
-  res <- hosmerLemeshowTest(x = f, obs = obs)
+  res <- hosmerLemeshowTest(x = f, ref = obs)
   expect_true(is.matrix(res$observed))
   expect_true(is.matrix(res$expected))
   expect_equal(colnames(res$observed), c("0s", "1s"))
@@ -57,12 +57,12 @@ test_that("hosmerLemeshowTest: well-specified model gives large p", {
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x, family = binomial)
   # the tail deciles of a well-fitting model have few expected events
-  res <- suppressWarnings(hosmerLemeshowTest(x = fitted(g), obs = y))
+  res <- suppressWarnings(hosmerLemeshowTest(x = fitted(g), ref = y))
   expect_gt(res$p.value, 0.05)
 })
 
 test_that("hosmerLemeshowTest: nGroups respected", {
-  res <- hosmerLemeshowTest(x = f, obs = obs, nGroups = 5)
+  res <- hosmerLemeshowTest(x = f, ref = obs, nGroups = 5)
   expect_lte(res$nGroups, 5L)
   expect_gte(res$nGroups, 3L)
 })
@@ -86,18 +86,18 @@ test_that("hosmerLemeshowTest: input validation - nGroups < 3", {
 })
 
 test_that("hosmerLemeshowTest: print method runs without error", {
-  res <- hosmerLemeshowTest(x = f, obs = obs)
+  res <- hosmerLemeshowTest(x = f, ref = obs)
   expect_output(print(res))
 })
 
 test_that("hosmerLemeshowTest: print with details runs without error", {
-  res <- hosmerLemeshowTest(x = f, obs = obs)
+  res <- hosmerLemeshowTest(x = f, ref = obs)
   expect_output(print(res, details = TRUE))
 })
 
 
 test_that("hosmerLemeshowTest.glm: matches the default method on the same data", {
-  res_default <- hosmerLemeshowTest(x = f, obs = obs, type = "C")
+  res_default <- hosmerLemeshowTest(x = f, ref = obs, type = "C")
   res_glm     <- hosmerLemeshowTest(fit)
 
   expect_equal(unname(res_glm$statistic), unname(res_default$statistic))

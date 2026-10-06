@@ -62,8 +62,8 @@ Other test.normality:
 \code{\link[=andersonDarlingTest]{andersonDarlingTest()}},
 \code{\link[=cramerVonMisesTest]{cramerVonMisesTest()}},
 \code{\link[=jarqueBeraTest]{jarqueBeraTest()}},
-\code{\link[=lillieTest]{lillieTest()}},
-\code{\link[=pearsonTest]{pearsonTest()}}
+\code{\link[=lillieforsTest]{lillieforsTest()}},
+\code{\link[=pearsonChisqTest]{pearsonChisqTest()}}
 }
 \concept{goodness-of-fit}
 \concept{normality-test}

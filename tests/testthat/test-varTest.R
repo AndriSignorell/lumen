@@ -30,7 +30,7 @@ ldF <- data.frame(
 # -- htest contract -------------------------------------------------------------
 
 test_that("one-sample: htest contract", {
-  r <- varTest(x, sigma2_0 = 4)
+  r <- varTest(x, sigmaSq0 = 4)
   expect_s3_class(r, "htest")
   expect_named(r, c("statistic", "parameter", "p.value", "estimate",
                     "null.value", "alternative", "method", "data.name"))
@@ -40,7 +40,7 @@ test_that("one-sample: htest contract", {
   expect_identical(r$null.value, c(variance = 4))
   expect_identical(r$method, "One-sample variance test (classic)")
   expect_identical(r$data.name, "x")
-  expect_identical(varTest(x, sigma2_0 = 4, type = "ld")$method,
+  expect_identical(varTest(x, sigmaSq0 = 4, type = "ld")$method,
                    "One-sample variance test (ld)")
 })
 
@@ -61,12 +61,12 @@ test_that("two-sample: htest contract", {
 
 test_that("classic one-sample equals the chi-squared formulas", {
   q <- 29 * var(x) / 4
-  expect_equal(unname(varTest(x, sigma2_0 = 4)$statistic), q)
-  expect_equal(varTest(x, sigma2_0 = 4, alternative = "less")$p.value,
+  expect_equal(unname(varTest(x, sigmaSq0 = 4)$statistic), q)
+  expect_equal(varTest(x, sigmaSq0 = 4, alternative = "less")$p.value,
                pchisq(q, 29))
-  expect_equal(varTest(x, sigma2_0 = 4, alternative = "greater")$p.value,
+  expect_equal(varTest(x, sigmaSq0 = 4, alternative = "greater")$p.value,
                pchisq(q, 29, lower.tail = FALSE))
-  expect_equal(varTest(x, sigma2_0 = 4)$p.value,
+  expect_equal(varTest(x, sigmaSq0 = 4)$p.value,
                2 * min(pchisq(q, 29), pchisq(q, 29, lower.tail = FALSE)))
 })
 
@@ -85,9 +85,9 @@ test_that("classic two-sample equals var.test() for all alternatives", {
 
 test_that("classic: power sanity", {
   set.seed(42)
-  expect_gt(varTest(rnorm(200, sd = 2), sigma2_0 = 4)$p.value, 0.05)
+  expect_gt(varTest(rnorm(200, sd = 2), sigmaSq0 = 4)$p.value, 0.05)
   set.seed(42)
-  expect_lt(varTest(rnorm(200, sd = 5), sigma2_0 = 1)$p.value, 0.05)
+  expect_lt(varTest(rnorm(200, sd = 5), sigmaSq0 = 1)$p.value, 0.05)
   set.seed(42)
   expect_gt(varTest(rnorm(100, sd = 2), rnorm(100, sd = 2))$p.value, 0.05)
   set.seed(42)
@@ -101,7 +101,7 @@ test_that("ld one-sample matches the reference, incl. extreme statistics", {
   for (k in seq_len(nrow(ldChisq))) {
     df <- ldChisq$df[k]
     xk <- withVar(df + 1, ldChisq$q[k] / df)
-    r  <- varTest(xk, sigma2_0 = 1, type = "ld")
+    r  <- varTest(xk, sigmaSq0 = 1, type = "ld")
     expect_equal(unname(r$statistic), ldChisq$q[k], tolerance = 1e-12)
     expect_equal(r$p.value, ldChisq$p[k], tolerance = 1e-8,
                  label = sprintf("LD p, chisq(%g) at %g", df, ldChisq$q[k]))
@@ -124,8 +124,8 @@ test_that("ld two-sample matches the reference, incl. extreme statistics", {
 
 test_that("ld: one-sided alternatives are the classic ones", {
   for (alt in c("less", "greater")) {
-    expect_identical(varTest(x, sigma2_0 = 4, alternative = alt, type = "ld")$p.value,
-                     varTest(x, sigma2_0 = 4, alternative = alt)$p.value)
+    expect_identical(varTest(x, sigmaSq0 = 4, alternative = alt, type = "ld")$p.value,
+                     varTest(x, sigmaSq0 = 4, alternative = alt)$p.value)
     expect_identical(varTest(x, y, alternative = alt, type = "ld")$p.value,
                      varTest(x, y, alternative = alt)$p.value)
   }
@@ -150,33 +150,33 @@ test_that("non-finite values are removed, as in var.test()", {
   # formerly they made the whole result NA - with the na.pass default of the
   # formula method whenever the response had a missing value
   keep <- c("statistic", "parameter", "p.value", "estimate")
-  expect_equal(varTest(c(x, NA), sigma2_0 = 4)[keep], varTest(x, sigma2_0 = 4)[keep])
-  expect_equal(varTest(c(x, NA, Inf), sigma2_0 = 4, type = "ld")$p.value,
-               varTest(x, sigma2_0 = 4, type = "ld")$p.value)
+  expect_equal(varTest(c(x, NA), sigmaSq0 = 4)[keep], varTest(x, sigmaSq0 = 4)[keep])
+  expect_equal(varTest(c(x, NA, Inf), sigmaSq0 = 4, type = "ld")$p.value,
+               varTest(x, sigmaSq0 = 4, type = "ld")$p.value)
   expect_equal(varTest(x, c(y, NA), type = "ld")$p.value,
                varTest(x, y, type = "ld")$p.value)
   # the data name is taken before the values are removed
   xna <- c(x, NA)
-  expect_identical(varTest(xna, sigma2_0 = 4)$data.name, "xna")
+  expect_identical(varTest(xna, sigmaSq0 = 4)$data.name, "xna")
   # the formula method agrees with var.test() on data with a missing value
   d <- data.frame(v = c(x, NA, y), g = rep(c("A", "B"), c(31, 25)))
   expect_equal(varTest(v ~ g, data = d)$p.value,
                var.test(v ~ g, data = d)$p.value)
   # too few values left
-  expect_error(varTest(c(1, NA, NA), sigma2_0 = 1), "at least two")
+  expect_error(varTest(c(1, NA, NA), sigmaSq0 = 1), "at least two")
 })
 
 
 test_that("input validation", {
-  expect_error(varTest(x), "sigma2_0 must be provided")
-  expect_error(varTest(x, sigma2_0 = 0), "'sigma2_0' must be")
-  expect_error(varTest(x, sigma2_0 = -1), "'sigma2_0' must be")
-  expect_error(varTest(x, sigma2_0 = c(1, 2)), "'sigma2_0' must be")
-  expect_error(varTest(1, sigma2_0 = 1), "at least two")
-  expect_error(varTest(letters, sigma2_0 = 1), "'x' must be")
+  expect_error(varTest(x), "sigmaSq0")
+  expect_error(varTest(x, sigmaSq0 = 0), "'sigmaSq0' must be")
+  expect_error(varTest(x, sigmaSq0 = -1), "'sigmaSq0' must be")
+  expect_error(varTest(x, sigmaSq0 = c(1, 2)), "'sigmaSq0' must be")
+  expect_error(varTest(1, sigmaSq0 = 1), "at least two")
+  expect_error(varTest(letters, sigmaSq0 = 1), "'x' must be")
   expect_error(varTest(x, 1), "'y' must be")
-  expect_error(varTest(x, sigma2_0 = 4, alternative = "both"))
-  expect_error(varTest(x, sigma2_0 = 4, type = "exact"))
+  expect_error(varTest(x, sigmaSq0 = 4, alternative = "both"))
+  expect_error(varTest(x, sigmaSq0 = 4, type = "exact"))
 })
 
 

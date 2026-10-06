@@ -11,7 +11,7 @@ varTest(x, ...)
 \method{varTest}{default}(
   x,
   y = NULL,
-  sigma2_0 = NULL,
+  sigmaSq0 = NULL,
   alternative = c("two.sided", "less", "greater"),
   type = c("classic", "ld"),
   ...
@@ -28,7 +28,7 @@ values are removed.}
 \item{y}{an optional second numeric vector. If provided, a two-sample variance
 test is performed.}
 
-\item{sigma2_0}{a numeric value specifying the null hypothesis variance for
+\item{sigmaSq0}{a numeric value specifying the null hypothesis variance for
 the one-sample test. Required if \code{y} is \code{NULL}.}
 
 \item{alternative}{character string specifying the alternative hypothesis.
@@ -98,8 +98,8 @@ x <- rnorm(20, sd = 3)
 y <- rnorm(25, sd = 2)
 
 # One-sample test
-varTest(x, sigma2_0 = 9, type = "classic")
-varTest(x, sigma2_0 = 9, type = "ld")
+varTest(x, sigmaSq0 = 9, type = "classic")
+varTest(x, sigmaSq0 = 9, type = "ld")
 
 # Two-sample test
 varTest(x, y, type = "classic")

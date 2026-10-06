@@ -28,7 +28,7 @@
 #' @param x a fitted binomial [glm()] object (`glm` method),
 #' or a numeric vector of fitted probabilities, each in \eqn{[0, 1]},
 #' without missing values (default method).
-#' @param obs numeric vector of observed binary outcomes (0 or 1), of the
+#' @param ref numeric vector of observed binary outcomes (0 or 1), of the
 #' same length as `x`, without missing values; unused for the
 #' `glm` method.
 #' @param X the full numeric design matrix used to fit the model,
@@ -118,7 +118,7 @@ leCessieTest.glm <- function(x, ...) {
     obs <- as.integer(obs)
   }
 
-  res <- leCessieTest.default(x = x$fitted.values, obs = obs,
+  res <- leCessieTest.default(x = x$fitted.values, ref = obs,
                               X = model.matrix(x))
   res$data.name <- deparse1(formula(x))
 
@@ -129,24 +129,24 @@ leCessieTest.glm <- function(x, ...) {
 
 #' @rdname leCessieTest
 #' @export
-leCessieTest.default <- function(x, obs, X, ...) {
+leCessieTest.default <- function(x, ref, X, ...) {
 
   fit <- x
 
   # --- input validation -------------------------------------------------
 
-  if (!is.numeric(fit) || !is.numeric(obs))
-    stop("'x' and 'obs' must be numeric vectors")
-  if (length(fit) != length(obs))
-    stop("'x' and 'obs' must have the same length")
+  if (!is.numeric(fit) || !is.numeric(ref))
+    stop("'x' and 'ref' must be numeric vectors")
+  if (length(fit) != length(ref))
+    stop("'x' and 'ref' must have the same length")
   if (anyNA(fit))
     stop("'x' must not contain missing values")
-  if (anyNA(obs))
-    stop("'obs' must not contain missing values")
+  if (anyNA(ref))
+    stop("'ref' must not contain missing values")
   if (any(fit < 0 | fit > 1))
     stop("'x' must contain probabilities in [0, 1]")
-  if (!all(obs %in% c(0, 1)))
-    stop("'obs' must be binary (0 or 1 only)")
+  if (!all(ref %in% c(0, 1)))
+    stop("'ref' must be binary (0 or 1 only)")
   if (!is.matrix(X) || !is.numeric(X))
     stop("'X' must be a numeric matrix")
   if (nrow(X) != length(fit))
@@ -160,7 +160,7 @@ leCessieTest.default <- function(x, obs, X, ...) {
   # --- test statistic -----------------------------------------------------
 
   p   <- fit
-  y   <- obs == 1L
+  y   <- ref == 1L
   wt  <- p * (1 - p)
   sse <- sum((y - p)^2)
   ev  <- sum(wt)
@@ -177,7 +177,7 @@ leCessieTest.default <- function(x, obs, X, ...) {
   z_stat  <- (sse - ev) / sd
   p.value <- 2 * pnorm(abs(z_stat), lower.tail = FALSE)
 
-  data.name <- paste(deparse1(substitute(x)), "and", deparse1(substitute(obs)))
+  data.name <- paste(deparse1(substitute(x)), "and", deparse1(substitute(ref)))
   method <- paste("le Cessie-van Houwelingen-Copas-Hosmer",
                   "global goodness of fit test")
 

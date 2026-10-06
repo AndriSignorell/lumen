@@ -66,7 +66,7 @@ A list of classes \code{c("PostHocTest")}, with one component for
 each term requested in \code{which}. Each component is a matrix with columns
 \code{diff} giving the difference in the observed means, \code{lci}
 giving the lower end point of the interval, \code{uci} giving the upper
-end point and \code{pval} giving the p-value after adjustment for the
+end point and \code{p.value} giving the p-value after adjustment for the
 multiple comparisons.
 
 There are print and plot methods for class \code{"PostHocTest"}. The plot

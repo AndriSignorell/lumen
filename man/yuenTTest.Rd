@@ -136,11 +136,11 @@ The two-sample trimmed t for unequal population variances.
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=hotellingT2Test]{hotellingT2Test()}},
 \code{\link[=moodMedianTest]{moodMedianTest()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
+\code{\link[=tTestSummary]{tTestSummary()}},
+\code{\link[=vanDerWaerdenTest]{vanDerWaerdenTest()}},
 \code{\link[=zTest]{zTest()}}
 }
 \concept{location-test}

@@ -11,7 +11,7 @@ signifDiff(x, ...)
 
 \method{signifDiff}{PostHocTest}(
   x,
-  alpha = NULL,
+  sig.level = NULL,
   direction = TRUE,
   labels = "numbers",
   minlength = 3L,
@@ -21,7 +21,7 @@ signifDiff(x, ...)
 
 \method{signifDiff}{pairwise.htest}(
   x,
-  alpha = 0.05,
+  sig.level = 0.05,
   direction = FALSE,
   labels = "numbers",
   minlength = 3L,
@@ -38,7 +38,7 @@ by \code{\link[=pairwise.t.test]{pairwise.t.test()}} and friends}
 
 \item{\dots}{further arguments, not used so far}
 
-\item{alpha}{the significance level; defaults to \code{1 - conf.level} of
+\item{sig.level}{the significance level; defaults to \code{1 - conf.level} of
 the object, or to 0.05 where no confidence level is stored}
 
 \item{direction}{logical; if \code{TRUE}, a sign is appended to every
@@ -65,7 +65,7 @@ a list with one data frame per term, each holding the columns
 \code{label} (the label of the level itself) and \code{diff} (the labels
 of the levels it differs significantly from), with the levels as row
 names. The class is \code{"signifDiff"}, the significance level is kept
-in the attribute \code{alpha}.
+in the attribute \code{sig.level}.
 }
 \description{
 Extracts, for every factor level, the set of levels it differs
@@ -88,7 +88,7 @@ res <- postHocTest(r.aov, method = "hsd")
 signifDiff(res)
 
 # stricter level, without recomputing the test
-signifDiff(res, alpha = 0.01)
+signifDiff(res, sig.level = 0.01)
 
 # readable labels instead of numbers
 signifDiff(res, labels = "abbreviate", minlength = 4)

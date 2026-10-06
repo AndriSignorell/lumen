@@ -155,7 +155,7 @@ variables. \emph{Econometrica}, 46, 1293-1301.
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}}
 
 Other test.regression:
-\code{\link[=bpTest]{bpTest()}},
+\code{\link[=breuschPaganTest]{breuschPaganTest()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}

@@ -37,13 +37,13 @@
 #' of freedom.) This is, however, not correct as long as the parameters are
 #' estimated by `mean(x)` and `var(x)` (or `sd(x)`), as it is
 #' usually done, see Moore (1986) for details. Since the true p-value is
-#' somewhere between the two, it is suggested to run `pearsonTest` twice,
+#' somewhere between the two, it is suggested to run `pearsonChisqTest` twice,
 #' with `adjust = TRUE` (default) and with `adjust = FALSE`. It is
 #' also suggested to slightly change the default number of classes, in order to
 #' see the effect on the p-value. Eventually, it is suggested not to rely upon
 #' the result of the test.
 #' 
-#' The function call `pearsonTest(x)` essentially produces the same
+#' The function call `pearsonChisqTest(x)` essentially produces the same
 #' result as the S-PLUS function call `chisq.gof((x-mean(x))/sqrt(var(x)),
 #' n.param.est=2)`.
 #' 
@@ -61,14 +61,14 @@
 #' 
 #' @examples
 #' 
-#' pearsonTest(rnorm(100, mean = 5, sd = 3))
-#' pearsonTest(runif(100, min = 2, max = 4))
+#' pearsonChisqTest(rnorm(100, mean = 5, sd = 3))
+#' pearsonChisqTest(runif(100, min = 2, max = 4))
 #' @family test.normality
 #' @concept normality-test
 #' @concept goodness-of-fit
 #'
 #' @export
-pearsonTest <- function (x, nClasses = ceiling(2 * (n^(2/5))), 
+pearsonChisqTest <- function (x, nClasses = ceiling(2 * (n^(2/5))), 
                          adjust = TRUE) {
   
     DNAME <- deparse1(substitute(x))

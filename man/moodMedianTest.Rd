@@ -80,7 +80,7 @@ That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}} tests the relative effect
 \eqn{P(X < Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}} and
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}} tests equality of the distributions against
+\code{\link[=vanDerWaerdenTest]{vanDerWaerdenTest()}} tests equality of the distributions against
 normal-score location alternatives. Neither is a test of equal medians, so
 they are not drop-in replacements. Use the median test when the median is
 genuinely the quantity of interest, or when only the side of a threshold is
@@ -132,10 +132,10 @@ Wiley, New York, pp. 218-223.
 
 Other test.location:
 \code{\link[=brunnerMunzelTest]{brunnerMunzelTest()}},
-\code{\link[=hotellingsT2Test]{hotellingsT2Test()}},
+\code{\link[=hotellingT2Test]{hotellingT2Test()}},
 \code{\link[=signTest]{signTest()}},
-\code{\link[=tTestA]{tTestA()}},
-\code{\link[=vanWaerdenTest]{vanWaerdenTest()}},
+\code{\link[=tTestSummary]{tTestSummary()}},
+\code{\link[=vanDerWaerdenTest]{vanDerWaerdenTest()}},
 \code{\link[=yuenTTest]{yuenTTest()}},
 \code{\link[=zTest]{zTest()}}
 }

@@ -38,7 +38,7 @@
 #'   `"less"`.
 #' @param output character string specifying the output format. One of
 #'   `"list"` (default) or `"matrix"`.
-#' @param alpha the significance level used to compile the groups flagged
+#' @param sig.level the significance level used to compile the groups flagged
 #'   as significantly different in the label attribute of the p-value
 #'   matrix (default is `0.05`)
 #' @param formula a formula of the form `response ~ group`.
@@ -47,14 +47,16 @@
 #' @param subset an optional expression specifying a subset of
 #'   observations, evaluated in `data` (`subset = Month != 5`), as in
 #'   [kruskal.test()].
-#' @param na.action a function specifying how missing values should be
-#'   handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return An object of class `"rankTest"` containing:
 #'   \item{res}{
 #'     comparison results. For `output="list"` a matrix with
-#'     columns `W`, `z` and `pval`; for
+#'     columns `W`, `z` and `p.value`; for
 #'     `output="matrix"` a many-to-one matrix of adjusted
 #'     p-values.
 #'   }
@@ -132,7 +134,7 @@ steelTest.formula <- function(
     formula,
     data,
     subset,
-    na.action = na.omit,
+    na.action = na.pass,
     ...
 ) {
   
@@ -170,7 +172,7 @@ steelTest.default <- function(
       "list",
       "matrix"
     ),
-    alpha = 0.05,
+    sig.level = 0.05,
     ...
 ) {
   
@@ -376,7 +378,7 @@ steelTest.default <- function(
   ## Result table
   ## ------------------------------------------------------------
   
-  res.mat <- cbind(W = W, z = z, pval = pval)
+  res.mat <- cbind(W = W, z = z, p.value = pval)
   rownames(res.mat) <- paste(trt.names, control, sep = "-")
   
   if (output == "list") {
@@ -412,7 +414,7 @@ steelTest.default <- function(
     pmat,
     1,
     function(x)
-      paste(rownames(pmat)[!is.na(x) & x < alpha], collapse = ",")
+      paste(rownames(pmat)[!is.na(x) & x < sig.level], collapse = ",")
   )
   
   ## ------------------------------------------------------------

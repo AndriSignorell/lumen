@@ -28,10 +28,10 @@ print.rankTest <- function(
 
     xx <- data.frame(x$res)
 
-    xx$" " <- fm(xx$pval, fmt = "*")
+    xx$" " <- fm(xx$p.value, fmt = "*")
 
-    xx$pval <- format.pval(
-      xx$pval,
+    xx$p.value <- format.pval(
+      xx$p.value,
       digits = 2,
       nsmall = 4
     )

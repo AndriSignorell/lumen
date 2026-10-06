@@ -31,7 +31,7 @@ test_that("default scores give correct result", {
 
 test_that("custom srow scores give correct result", {
   
-  res <- mantelTrendTest(Job, srow = c(7.5,20,32.5,60))
+  res <- mantelTrendTest(Job, rowScores = c(7.5,20,32.5,60))
   
   expect_equal(unname(res$statistic), 3.8075, tolerance = 1e-3)
   expect_equal(res$p.value, 0.05102, tolerance = 1e-4)
@@ -40,7 +40,7 @@ test_that("custom srow scores give correct result", {
 test_that("custom scores change result vs default", {
   
   res_default <- mantelTrendTest(Job)
-  res_custom  <- mantelTrendTest(Job, srow = c(7.5,20,32.5,60))
+  res_custom  <- mantelTrendTest(Job, rowScores = c(7.5,20,32.5,60))
   
   expect_false(
     isTRUE(all.equal(
@@ -63,7 +63,7 @@ test_that(".pearsonCor returns value in [-1, 1]", {
 test_that(".pearsonCor changes with custom scores", {
   
   r_default <- .pearsonCor(Job)
-  r_custom  <- .pearsonCor(Job, srow = c(7.5,20,32.5,60))
+  r_custom  <- .pearsonCor(Job, rowScores = c(7.5,20,32.5,60))
   
   expect_false(isTRUE(all.equal(r_default, r_custom)))
 })
@@ -83,11 +83,11 @@ test_that("Q = (n-1) * r^2", {
 # Score length validation
 # -------------------------------------------------------------------------
 test_that("wrong srow length throws error", {
-  expect_error(mantelTrendTest(Job, srow = 1:3), "srow")
+  expect_error(mantelTrendTest(Job, rowScores = 1:3), "rowScores")
 })
 
 test_that("wrong scol length throws error", {
-  expect_error(mantelTrendTest(Job, scol = 1:3), "scol")
+  expect_error(mantelTrendTest(Job, colScores = 1:3), "colScores")
 })
 # -------------------------------------------------------------------------
 # Input validation
@@ -139,7 +139,7 @@ test_that("zero variance scores throw error", {
   # the error alone, without a monotonicity warning in front of it
   expect_no_warning(
     expect_error(
-      mantelTrendTest(Job, srow = rep(1, 4)),
+      mantelTrendTest(Job, rowScores = rep(1, 4)),
       "zero variance"
     )
   )
@@ -150,7 +150,7 @@ test_that("non-monotone scores produce warning", {
   # sign-invariant) and must NOT warn; a genuinely non-monotone sequence
   # is needed to exercise the warning path
   expect_warning(
-    mantelTrendTest(Job, srow = c(1,3,2,4)),
+    mantelTrendTest(Job, rowScores = c(1,3,2,4)),
     "ordinal"
   )
 })
@@ -158,13 +158,13 @@ test_that("non-monotone scores produce warning", {
 test_that("strictly decreasing scores do not produce a warning", {
   # regression test: decreasing scores are monotone and must not warn
   expect_no_warning(
-    mantelTrendTest(Job, srow = c(4,3,2,1))
+    mantelTrendTest(Job, rowScores = c(4,3,2,1))
   )
 })
 
 test_that("decreasing scores give the same statistic as increasing (sign-invariant)", {
-  res_inc <- suppressWarnings(mantelTrendTest(Job, srow = 1:4))
-  res_dec <- suppressWarnings(mantelTrendTest(Job, srow = 4:1))
+  res_inc <- suppressWarnings(mantelTrendTest(Job, rowScores = 1:4))
+  res_dec <- suppressWarnings(mantelTrendTest(Job, rowScores = 4:1))
 
   expect_equal(unname(res_inc$statistic), unname(res_dec$statistic))
   expect_equal(res_inc$p.value, res_dec$p.value)
@@ -174,7 +174,7 @@ test_that("decreasing scores give the same statistic as increasing (sign-invaria
 # -------------------------------------------------------------------------
 test_that("character dimnames (Job) still default to 1:nrow/1:ncol", {
   res_auto     <- mantelTrendTest(Job)
-  res_explicit <- mantelTrendTest(Job, srow = 1:4, scol = 1:4)
+  res_explicit <- mantelTrendTest(Job, rowScores = 1:4, colScores = 1:4)
 
   expect_equal(res_auto$statistic, res_explicit$statistic)
 })
@@ -185,13 +185,13 @@ test_that("numeric row dimnames are used as default srow", {
                                  resp = c("no","yes")))
 
   res_auto   <- mantelTrendTest(dose)
-  res_manual <- mantelTrendTest(dose, srow = c(0,1,5,20), scol = c(1,2))
+  res_manual <- mantelTrendTest(dose, rowScores = c(0,1,5,20), colScores = c(1,2))
 
   expect_equal(unname(res_auto$statistic), unname(res_manual$statistic))
 
   # and it must differ from the old 1:nrow(x) default, since these
   # dimnames are not evenly spaced
-  res_old_default <- mantelTrendTest(dose, srow = 1:4, scol = 1:2)
+  res_old_default <- mantelTrendTest(dose, rowScores = 1:4, colScores = 1:2)
   expect_false(isTRUE(all.equal(unname(res_auto$statistic),
                                 unname(res_old_default$statistic))))
 })
@@ -201,9 +201,9 @@ test_that("explicit srow/scol still override the automatic default", {
                  dimnames = list(dose = c("0","1","5","20"),
                                  resp = c("no","yes")))
 
-  res <- mantelTrendTest(dose, srow = c(1, 2, 3, 4))
+  res <- mantelTrendTest(dose, rowScores = c(1, 2, 3, 4))
 
   expect_equal(unname(res$statistic),
-               unname(mantelTrendTest(dose, srow = 1:4, scol = c(1,2))$statistic))
+               unname(mantelTrendTest(dose, rowScores = 1:4, colScores = c(1,2))$statistic))
 })
 

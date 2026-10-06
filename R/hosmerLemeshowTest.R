@@ -25,7 +25,7 @@
 #' \eqn{[0, 1]} and without missing values, or a fitted binomial
 #' [glm()] object, from which fitted probabilities and observed
 #' outcomes are extracted.
-#' @param obs a numeric vector of observed binary outcomes (0 or 1) of the
+#' @param ref a numeric vector of observed binary outcomes (0 or 1) of the
 #' same length as `x`, without missing values; unused for the
 #' `glm` method.
 #' @param nGroups integer, the number of groups (default is `10`).
@@ -122,7 +122,7 @@ hosmerLemeshowTest.glm <- function(x, nGroups = 10, type = c("C", "H"),
     obs <- as.integer(obs)
   }
 
-  res <- hosmerLemeshowTest.default(x = x$fitted.values, obs = obs,
+  res <- hosmerLemeshowTest.default(x = x$fitted.values, ref = obs,
                                     nGroups = nGroups, type = type)
   res$data.name <- deparse1(formula(x))
 
@@ -133,10 +133,10 @@ hosmerLemeshowTest.glm <- function(x, nGroups = 10, type = c("C", "H"),
 
 #' @rdname hosmerLemeshowTest
 #' @export
-hosmerLemeshowTest.default <- function(x, obs, nGroups = 10,
+hosmerLemeshowTest.default <- function(x, ref, nGroups = 10,
                                        type = c("C", "H"), ...) {
 
-  DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(obs)))
+  DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(ref)))
 
   ## input validation -----------------------------------------------------
 
@@ -144,16 +144,16 @@ hosmerLemeshowTest.default <- function(x, obs, nGroups = 10,
 
   fit <- x
 
-  if (!is.numeric(fit) || !is.numeric(obs))
-    stop("'x' and 'obs' must be numeric vectors")
-  if (length(fit) != length(obs))
-    stop("'x' and 'obs' must have the same length")
-  if (anyNA(fit) || anyNA(obs))
-    stop("'x' and 'obs' must not contain missing values")
+  if (!is.numeric(fit) || !is.numeric(ref))
+    stop("'x' and 'ref' must be numeric vectors")
+  if (length(fit) != length(ref))
+    stop("'x' and 'ref' must have the same length")
+  if (anyNA(fit) || anyNA(ref))
+    stop("'x' and 'ref' must not contain missing values")
   if (any(fit < 0 | fit > 1))
     stop("'x' must contain probabilities in [0, 1]")
-  if (!all(obs %in% c(0, 1)))
-    stop("'obs' must be binary (0 or 1 only)")
+  if (!all(ref %in% c(0, 1)))
+    stop("'ref' must be binary (0 or 1 only)")
   if (!is.numeric(nGroups) || length(nGroups) != 1L ||
       !is.finite(nGroups) || nGroups < 3 || nGroups %% 1 != 0)
     stop("'nGroups' must be a single integer >= 3")
@@ -184,7 +184,7 @@ hosmerLemeshowTest.default <- function(x, obs, nGroups = 10,
 
   ## observed / expected --------------------------------------------------
 
-  Obs <- xtabs(cbind("0s" = 1 - obs, "1s" = obs) ~ cutfit)
+  Obs <- xtabs(cbind("0s" = 1 - ref, "1s" = ref) ~ cutfit)
   Exp <- xtabs(cbind("0s" = 1 - fit, "1s" = fit) ~ cutfit)
 
   # drop groups without observations (possible for type = "H")

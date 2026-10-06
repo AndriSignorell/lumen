@@ -17,7 +17,7 @@ is constant across subgroups, as required by the Mantel-Haenszel method."><meta 
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ is constant across subgroups, as required by the Mantel-Haenszel method.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">breslowDayTest</span><span class="op">(</span><span class="va">x</span>, OR <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">breslowDayTest</span><span class="op">(</span><span class="va">x</span>, oddsRatio <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -65,7 +65,7 @@ is constant across subgroups, as required by the Mantel-Haenszel method.</p>
 <dd><p>a \(2 \times 2 \times k\) table.</p></dd>
 
 
-<dt id="arg-or">OR<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+<dt id="arg-oddsratio">oddsRatio<a class="anchor" aria-label="anchor" href="#arg-oddsratio"></a></dt>
 <dd><p>the odds ratio to be tested against. If left undefined
 (default) the Mantel-Haenszel estimate will be used.</p></dd>
 
@@ -104,7 +104,7 @@ chi-squared distribution of the test statistic (\(k-1\)).</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Calculates the Breslow-Day test of homogeneity for a
 \(2 \times 2 \times k\) table, in order to investigate if
-all \(k\) strata have the same OR. If <code>OR</code> is not given, the
+all \(k\) strata have the same OR. If <code>oddsRatio</code> is not given, the
 Mantel-Haenszel estimate is used.</p>
 <p>For the Breslow-Day test to be valid, the sample size should be
 relatively large in each stratum, and at least 80% of the expected cell
@@ -115,10 +115,10 @@ sample size) must be relatively large. Even when the Breslow-Day test is
 valid, it might not be very powerful against certain alternatives, as
 discussed in Breslow and Day (1980).</p>
 <p>The statistic is referred to a chi-squared distribution with \(k-1\)
-degrees of freedom; this also applies when a prespecified <code>OR</code> is
+degrees of freedom; this also applies when a prespecified <code>oddsRatio</code> is
 supplied. Note that Tarone's adjustment is derived for the
 Mantel-Haenszel estimate; a warning is issued if <code>correct = TRUE</code>
-is combined with a user-supplied <code>OR</code>.</p>
+is combined with a user-supplied <code>oddsRatio</code>.</p>
 <p>Alternatively, it might be better to cast the entire inference problem
 into the setting of a logistic regression model. Here, the underlying
 question of the Breslow-Day test can be answered by investigating
@@ -216,7 +216,7 @@ Study. <em>Journal of the American Statistical Association</em>, 91,
 <span class="r-in"><span>                    <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># common odds ratio = 4.028269</span></span></span>
-<span class="r-in"><span><span class="fu">breslowDayTest</span><span class="op">(</span><span class="va">salary</span>, OR <span class="op">=</span> <span class="fl">4.02</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">breslowDayTest</span><span class="op">(</span><span class="va">salary</span>, oddsRatio <span class="op">=</span> <span class="fl">4.02</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Breslow-Day test for homogeneity of the odds ratios</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

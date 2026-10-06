@@ -16,7 +16,7 @@ postHocTest(x, ...)
 \method{postHocTest}{aov}(
   x,
   which = NULL,
-  method = c("hsd", "bonferroni", "lsd", "scheffe", "newmankeuls", "duncan"),
+  method = c("hsd", "bonferroni", "lsd", "scheffe", "newman-keuls", "duncan"),
   conf.level = 0.95,
   ordered = FALSE,
   ...
@@ -24,14 +24,16 @@ postHocTest(x, ...)
 
 \method{postHocTest}{matrix}(
   x,
-  method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
+  p.adjust.method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg",
+    "hommel"),
   conf.level = NA,
   ...
 )
 
 \method{postHocTest}{table}(
   x,
-  method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
+  p.adjust.method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg",
+    "hommel"),
   conf.level = NA,
   ...
 )
@@ -47,10 +49,8 @@ postHocTest(x, ...)
 the intervals should be calculated. Defaults to all the terms.}
 
 \item{method}{one of \code{"hsd"}, \code{"bonferroni"}, \code{"lsd"},
-\code{"scheffe"}, \code{"newmankeuls"}, \code{"duncan"}, defining the
-method for the pairwise comparisons (may be abbreviated).\cr For the
-post hoc test of tables the methods of
-\code{\link[=p.adjust]{p.adjust()}} can be supplied. See the detail there.}
+\code{"scheffe"}, \code{"newman-keuls"}, \code{"duncan"}, defining the
+method for the pairwise comparisons (may be abbreviated).}
 
 \item{conf.level}{a numeric value between zero and one giving the
 family-wise confidence level to use.  If this is set to NA, just a matrix
@@ -61,7 +61,11 @@ be ordered according to increasing average in the sample before taking
 differences. If ordered is \code{TRUE} then the calculated differences in
 the means will all be positive. The significant differences will be those
 for which the lower end point is positive. \cr This argument will be ignored
-if method is not either \code{hsd} or \code{newmankeuls}.}
+if method is not either \code{hsd} or \code{newman-keuls}.}
+
+\item{p.adjust.method}{for the post hoc test of tables: the method used
+to adjust the p-values, one of the methods of \code{\link[=p.adjust]{p.adjust()}}. Defaults to
+\code{"none"}.}
 
 \item{digits}{controls the number of fixed digits to print.}
 }
@@ -124,8 +128,8 @@ r.aov <- aov(breaks ~ tension, data = warpbreaks)
 
 # compare p-values:
 round(cbind(
-    lsd= postHocTest(r.aov, method="lsd")$tension[,"pval"]
-  , bonf=postHocTest(r.aov, method="bonf")$tension[,"pval"]
+    lsd= postHocTest(r.aov, method="lsd")$tension[,"p.value"]
+  , bonf=postHocTest(r.aov, method="bonf")$tension[,"p.value"]
 ), 4)
 
 # only p-values by setting conf.level to NA

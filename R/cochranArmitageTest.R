@@ -118,7 +118,7 @@ cochranArmitageTest <- function(x,
   n     <- sum(nidot)
 
   # row scores from dimnames if numeric, otherwise sequential integers
-  Ri   <- scores(x, MARGIN = 1L, "table")
+  Ri   <- scores(x, margin = 1L, "table")
   Rbar <- sum(nidot * Ri) / n
   s2   <- sum(nidot * (Ri - Rbar)^2)
 

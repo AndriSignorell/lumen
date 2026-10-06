@@ -35,7 +35,7 @@
 #' each term requested in `which`. Each component is a matrix with columns
 #' `diff` giving the difference in the observed means, `lci`
 #' giving the lower end point of the interval, `uci` giving the upper
-#' end point and `pval` giving the p-value after adjustment for the
+#' end point and `p.value` giving the p-value after adjustment for the
 #' multiple comparisons.
 #' 
 #' There are print and plot methods for class `"PostHocTest"`. The plot
@@ -119,6 +119,7 @@ scheffeTest.formula <- function (formula, data, subset, na.action, ...) {
 scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ...){
   
   .stopIfCovariates(x)
+  checkConfLevel(conf.level)
 
   # the MSE below comes from unweighted residuals
   w <- x$weights
@@ -203,7 +204,7 @@ scheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
     upr <- psi + sqrt(critvalue) * sqrt(MSE * sscoeff)
     
     out[[nm]] <- cbind(diff=psi, lwr, upr, pval)
-    colnames(out[[nm]]) <- c("diff","lci","uci","pval")
+    colnames(out[[nm]]) <- c("diff","lci","uci","p.value")
     
     if(!autoContr) {
       # define contrasts rownames

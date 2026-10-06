@@ -41,7 +41,7 @@
 #' one of `"asymptotic"` (default, chi-squared approximation) or
 #' `"approximate"` (Monte Carlo permutation via the \pkg{coin}
 #' package).
-#' @param nresample the number of Monte Carlo replicates used for
+#' @param R the number of Monte Carlo replicates used for
 #' `method = "approximate"` (default is `1e4`).
 #' @param groups a vector giving the group for the corresponding elements
 #' of `y` if this is a vector; ignored if `y` is a matrix. If not
@@ -126,7 +126,7 @@ cochranQTest <- function(y, ...) {
 #' @export
 cochranQTest.default <- function(y, groups, blocks,
                                  method    = c("asymptotic", "approximate"),
-                                 nresample = 1e4,
+                                 R = 1e4,
                                  na.action = na.omit,
                                  ...) {
 
@@ -175,7 +175,7 @@ cochranQTest.default <- function(y, groups, blocks,
   y_mat <- y_mat[complete.cases(y_mat), , drop = FALSE]
 
   if (method == "approximate")
-    .cochranApproximate(y_mat, DNAME, nresample)
+    .cochranApproximate(y_mat, DNAME, R)
   else
     .cochranAsymptotic(y_mat, DNAME)
 }
@@ -189,7 +189,7 @@ cochranQTest.formula <- function(formula,
                                  subset,
                                  na.action = na.pass,
                                  method    = c("asymptotic", "approximate"),
-                                 nresample = 1e4,
+                                 R = 1e4,
                                  ...) {
 
   # formula, data and subset are forwarded unevaluated, so that 'subset' is
@@ -202,7 +202,7 @@ cochranQTest.formula <- function(formula,
     groups    = d$treatment,   # resolveFormula: 'group' renamed to 'treatment' for n-sample-dependent
     blocks    = d$block,
     method    = method,
-    nresample = nresample,
+    R = R,
     ...
   )
 
@@ -253,7 +253,7 @@ cochranQTest.formula <- function(formula,
 }
 
 
-.cochranApproximate <- function(x, DNAME, nresample) {
+.cochranApproximate <- function(x, DNAME, R) {
 
   if (!requireNamespace("coin", quietly = TRUE))
     stop("package 'coin' required for method = 'approximate'")
@@ -271,14 +271,14 @@ cochranQTest.formula <- function(formula,
     y ~ groups | blocks,
     data         = df,
     teststat     = "quad",
-    distribution = coin::approximate(nresample = nresample)
+    distribution = coin::approximate(nresample = R)
   )
 
   structure(list(
     statistic = c("Cochran's Q" = as.numeric(coin::statistic(res))),
     p.value   = as.numeric(coin::pvalue(res)),
     method    = paste0("Cochran's Q test (approximate, B = ",
-                       nresample, ")"),
+                       R, ")"),
     data.name = DNAME
   ), class = "htest")
 }

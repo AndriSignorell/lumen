@@ -68,11 +68,13 @@
 #' @export
 corTest <- function(x,
                     method = c("pearson", "spearman", "kendall"),
-                    use = "pairwise.complete.obs",
+                    use = c("pairwise.complete.obs", "everything", "all.obs",
+                            "complete.obs", "na.or.complete"),
                     triangle = c("full", "upper", "lower"),
                     maxPValue = NULL) {
 
   method   <- match.arg(method)
+  use      <- match.arg(use)
   triangle <- match.arg(triangle)
 
   x <- as.matrix(x)

@@ -70,7 +70,7 @@ test_that("Tarone correction gives smaller or equal statistic", {
 test_that("custom OR gives different result than MH estimate", {
   
   res_mh  <- breslowDayTest(salary)
-  res_or  <- breslowDayTest(salary, OR = 4.02)
+  res_or  <- breslowDayTest(salary, oddsRatio = 4.02)
   
   expect_false(
     isTRUE(all.equal(
@@ -89,7 +89,7 @@ test_that("OR = MH estimate gives same result as default", {
   or_mh <- sum(a*d/n) / sum(b*c/n)
   
   res_default <- breslowDayTest(salary)
-  res_manual  <- breslowDayTest(salary, OR = or_mh)
+  res_manual  <- breslowDayTest(salary, oddsRatio = or_mh)
   
   expect_equal(
     unname(res_default$statistic),
@@ -171,10 +171,10 @@ test_that("print.htest works", {
 # Input validation – neue Tests
 # -------------------------------------------------------------------------
 test_that("invalid OR throws error", {
-  expect_error(breslowDayTest(migraine, OR = -1),   "positive")
-  expect_error(breslowDayTest(migraine, OR = 0),    "positive")
-  expect_error(breslowDayTest(migraine, OR = Inf),  "positive")
-  expect_error(breslowDayTest(migraine, OR = "x"),  "positive")
+  expect_error(breslowDayTest(migraine, oddsRatio = -1),   "positive")
+  expect_error(breslowDayTest(migraine, oddsRatio = 0),    "positive")
+  expect_error(breslowDayTest(migraine, oddsRatio = Inf),  "positive")
+  expect_error(breslowDayTest(migraine, oddsRatio = "x"),  "positive")
 })
 
 test_that("negative counts throw error", {
@@ -203,7 +203,7 @@ test_that("n equals total count", {
 test_that("OR = NA is backward compatible with OR = NULL (MH estimate)", {
 
   res_null <- breslowDayTest(salary)
-  res_na   <- breslowDayTest(salary, OR = NA)
+  res_na   <- breslowDayTest(salary, oddsRatio = NA)
 
   expect_equal(res_null$statistic, res_na$statistic, tolerance = 1e-12)
   expect_equal(res_null$p.value, res_na$p.value, tolerance = 1e-12)
@@ -213,7 +213,7 @@ test_that("OR = NA is backward compatible with OR = NULL (MH estimate)", {
 test_that("Tarone correction with user-supplied OR warns", {
 
   expect_warning(
-    breslowDayTest(salary, OR = 4.02, correct = TRUE),
+    breslowDayTest(salary, oddsRatio = 4.02, correct = TRUE),
     "Tarone"
   )
 })
@@ -257,16 +257,16 @@ test_that("statistic equals the definition with a root-searched expectation", {
 
 test_that("OR = 1 takes the linear branch: expectation m1 * n1 / N", {
   ref <- bdRef(salary, 1)
-  expect_equal(unname(breslowDayTest(salary, OR = 1)$statistic), ref$stat,
+  expect_equal(unname(breslowDayTest(salary, oddsRatio = 1)$statistic), ref$stat,
                tolerance = 1e-8)
 })
 
 test_that("a hypothesised OR is not estimated: K df instead of K - 1", {
-  r <- breslowDayTest(salary, OR = 4.02)
+  r <- breslowDayTest(salary, oddsRatio = 4.02)
   expect_equal(unname(r$parameter), 2L)
   expect_equal(r$p.value, pchisq(unname(r$statistic), 2, lower.tail = FALSE))
   # OR = NA is the MH estimate, i.e. still K - 1
-  expect_equal(unname(breslowDayTest(salary, OR = NA)$parameter), 1L)
+  expect_equal(unname(breslowDayTest(salary, oddsRatio = NA)$parameter), 1L)
 })
 
 test_that("size under H0 with a hypothesised OR", {
@@ -279,7 +279,7 @@ test_that("size under H0 with a hypothesised OR", {
       x[, 1, j] <- c(rbinom(1, 60, p1), rbinom(1, 60, p0))
       x[, 2, j] <- 60 - x[, 1, j]
     }
-    breslowDayTest(x, OR = 2)$p.value
+    breslowDayTest(x, oddsRatio = 2)$p.value
   })
   expect_lt(abs(mean(p < 0.05) - 0.05), 0.025)
 })
@@ -289,7 +289,7 @@ test_that("input checks", {
   expect_error(breslowDayTest(array(1:8, c(2, 2, 2, 1))), "2x2xK")
   x[1, 1, 1] <- NA
   expect_error(breslowDayTest(x), "nonnegative and finite")
-  expect_error(breslowDayTest(salary, OR = c(1, 2)), "positive finite")
+  expect_error(breslowDayTest(salary, oddsRatio = c(1, 2)), "positive finite")
   expect_error(breslowDayTest(salary, correct = c(TRUE, FALSE)), "TRUE or FALSE")
   expect_error(breslowDayTest(salary, correct = "a"), "TRUE or FALSE")
 

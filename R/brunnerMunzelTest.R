@@ -60,7 +60,7 @@
 #' group sizes differ or ties are present.
 #'
 #' With `exact = NULL` all \eqn{\binom{n_1 + n_2}{n_1}} splits are
-#' enumerated when there are at most `1e6` of them, and `nPerm`
+#' enumerated when there are at most `1e6` of them, and `R`
 #' Monte-Carlo resamples are drawn otherwise. Monte-Carlo p-values use the
 #' \eqn{(1 + k) / (1 + B)} correction and are therefore never zero.
 #'
@@ -103,7 +103,7 @@
 #' @param exact logical, whether to enumerate all splits instead of sampling
 #'   them; `NULL` (default) decides by the number of splits. Ignored unless
 #'   `method = "permutation"`
-#' @param nPerm number of Monte-Carlo resamples used when the permutation
+#' @param R number of Monte-Carlo resamples used when the permutation
 #'   distribution is not enumerated
 #' @param data an optional data frame containing the model variables
 #' @param subset an optional expression specifying a subset of observations,
@@ -173,7 +173,7 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
                                       alternative = c("two.sided", "less", "greater"),
                                       conf.level = 0.95,
                                       method = c("t", "permutation", "normal"),
-                                      exact = NULL, nPerm = 10000L, ...) {
+                                      exact = NULL, R = 10000L, ...) {
 
   alternative <- match.arg(alternative)
   method <- match.arg(method)
@@ -205,17 +205,15 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
     stop("both samples must contain at least 2 non-missing observations")
   if(!is.numeric(p0) || length(p0) != 1L || is.na(p0) || p0 <= 0 || p0 >= 1)
     stop("'p0' must be a single value in (0, 1)")
-  if(!is.numeric(conf.level) || length(conf.level) != 1L || is.na(conf.level) ||
-     conf.level <= 0 || conf.level >= 1)
-    stop("'conf.level' must be a single value in (0, 1)")
-  if(!is.numeric(nPerm) || length(nPerm) != 1L || !is.finite(nPerm) ||
-     nPerm < 1 || nPerm != floor(nPerm) || nPerm > .Machine$integer.max)
-    stop("'nPerm' must be a single positive integer no larger than ",
+  checkConfLevel(conf.level, allowNA = FALSE)
+  if(!is.numeric(R) || length(R) != 1L || !is.finite(R) ||
+     R < 1 || R != floor(R) || R > .Machine$integer.max)
+    stop("'R' must be a single positive integer no larger than ",
          ".Machine$integer.max")
   if(!is.null(exact) && (!is.logical(exact) || length(exact) != 1L || is.na(exact)))
     stop("'exact' must be NULL or a single non-missing logical value")
 
-  nPerm <- as.integer(nPerm)
+  R <- as.integer(R)
 
   r <- rank(c(x, y))
   core <- bm_core_cpp(r[seq_len(n1)], r[n1 + seq_len(n2)])
@@ -269,7 +267,7 @@ brunnerMunzelTest.default <- function(x, y, p0 = 0.5,
       mstr <- gettextf("Brunner-Munzel test (exact studentized permutation, %.0f splits)",
                        cnt[["n"]])
     } else {
-      cnt <- bm_perm_mc_cpp(sort(r), n1, statistic, nPerm)
+      cnt <- bm_perm_mc_cpp(sort(r), n1, statistic, R)
       pval <- (1 + cnt[[alternative]]) / (1 + cnt[["n"]])
       mstr <- gettextf("Brunner-Munzel test (studentized permutation, %.0f resamples)",
                        cnt[["n"]])

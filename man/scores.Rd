@@ -4,12 +4,12 @@
 \alias{scores}
 \title{Compute Scores for Ordinal Contingency Tables}
 \usage{
-scores(x, MARGIN = 1, method = c("table", "ranks", "ridit", "modridit"))
+scores(x, margin = 1, method = c("table", "ranks", "ridit", "mod-ridit"))
 }
 \arguments{
 \item{x}{a contingency table (matrix or array of counts).}
 
-\item{MARGIN}{an integer indicating the margin over which to compute
+\item{margin}{an integer indicating the margin over which to compute
 the scores. Defaults to \code{1} (rows). Use \code{2} for columns.}
 
 \item{method}{a character string specifying the scoring method.
@@ -19,7 +19,7 @@ One of:
 assigns sequential integers.
 \item \code{"ranks"}: mid-ranks based on cumulative frequencies.
 \item \code{"ridit"}: ridit scores (ranks divided by total count).
-\item \code{"modridit"}: modified ridit scores (ranks divided by
+\item \code{"mod-ridit"}: modified ridit scores (ranks divided by
 total count + 1).
 }}
 }

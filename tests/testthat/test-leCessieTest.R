@@ -10,24 +10,24 @@ f   <- fitted(fit)
 X   <- model.matrix(fit)   # full design matrix, incl. intercept
 
 test_that("leCessieTest: returns htest / LeCessieTest", {
-  res <- leCessieTest(x = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, ref = obs, X = X)
   expect_s3_class(res, "htest")
   expect_s3_class(res, "LeCessieTest")
 })
 
 test_that("leCessieTest: statistic named Z", {
-  res <- leCessieTest(x = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, ref = obs, X = X)
   expect_named(res$statistic, "Z")
 })
 
 test_that("leCessieTest: p.value in [0, 1]", {
-  res <- leCessieTest(x = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, ref = obs, X = X)
   expect_gte(res$p.value, 0)
   expect_lte(res$p.value, 1)
 })
 
 test_that("leCessieTest: sse, expected, sd are positive scalars", {
-  res <- leCessieTest(x = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, ref = obs, X = X)
   expect_gt(res$sse,      0)
   expect_gt(res$expected, 0)
   expect_gt(res$sd,       0)
@@ -41,7 +41,7 @@ test_that("leCessieTest: well-specified model gives large p", {
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x, family = binomial)
   res <- leCessieTest(
-    x   = fitted(g), obs = y,
+    x   = fitted(g), ref = y,
     X   = model.matrix(g)   # full design matrix, incl. intercept
   )
   expect_gt(res$p.value, 0.05)
@@ -57,7 +57,7 @@ test_that("leCessieTest: misspecified model gives small p", {
   y   <- rbinom(n, 1, plogis(eta))
   g   <- glm(y ~ x1 + x2, family = binomial)   # missing interaction
   res <- leCessieTest(
-    x   = fitted(g), obs = y,
+    x   = fitted(g), ref = y,
     X   = model.matrix(g)   # full design matrix, incl. intercept
   )
   expect_lt(res$p.value, 0.05)
@@ -82,13 +82,13 @@ test_that("leCessieTest: input validation - X row mismatch", {
 })
 
 test_that("leCessieTest: print method runs without error", {
-  res <- leCessieTest(x = f, obs = obs, X = X)
+  res <- leCessieTest(x = f, ref = obs, X = X)
   expect_output(print(res))
 })
 
 
 test_that("leCessieTest.glm: matches the default method with the full design matrix", {
-  res_default <- leCessieTest(x = f, obs = obs, X = X)
+  res_default <- leCessieTest(x = f, ref = obs, X = X)
   res_glm     <- leCessieTest(fit)
 
   expect_equal(unname(res_glm$statistic), unname(res_default$statistic))
@@ -198,7 +198,7 @@ test_that("default method: further checks", {
   p <- fitted(lfit); X <- model.matrix(lfit)
   expect_error(leCessieTest(as.character(p), lc$y, X), "numeric")
   expect_error(leCessieTest(replace(p, 1, NA), lc$y, X), "'x' must not contain")
-  expect_error(leCessieTest(p, replace(lc$y, 1, NA), X), "'obs' must not contain")
+  expect_error(leCessieTest(p, replace(lc$y, 1, NA), X), "'ref' must not contain")
   expect_error(leCessieTest(p, lc$y, as.data.frame(X)), "numeric matrix")
   expect_error(leCessieTest(p, lc$y, replace(X, 1, NA)), "'X' must not contain")
   # p = 0.5 everywhere: d = 0, the standard deviation vanishes

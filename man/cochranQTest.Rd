@@ -13,7 +13,7 @@ cochranQTest(y, ...)
   groups,
   blocks,
   method = c("asymptotic", "approximate"),
-  nresample = 10000,
+  R = 10000,
   na.action = na.omit,
   ...
 )
@@ -24,7 +24,7 @@ cochranQTest(y, ...)
   subset,
   na.action = na.pass,
   method = c("asymptotic", "approximate"),
-  nresample = 10000,
+  R = 10000,
   ...
 )
 }
@@ -47,7 +47,7 @@ one of \code{"asymptotic"} (default, chi-squared approximation) or
 \code{"approximate"} (Monte Carlo permutation via the \pkg{coin}
 package).}
 
-\item{nresample}{the number of Monte Carlo replicates used for
+\item{R}{the number of Monte Carlo replicates used for
 \code{method = "approximate"} (default is \code{1e4}).}
 
 \item{na.action}{for the formula method, a function which indicates what

@@ -56,7 +56,7 @@
 #' @param exact logical; if `TRUE`, an exact p-value is computed via
 #'   [pwilcox()]. Exact computation is not possible in the presence
 #'   of ties; a warning is issued and the normal approximation is used instead.
-#'   If `NA` (default), exact computation is used when both samples have
+#'   If `NULL` (default), exact computation is used when both samples have
 #'   fewer than 50 observations and there are no ties.
 #' @param correct logical; if `TRUE` (default), a continuity correction
 #'   is applied in the normal approximation, as in [wilcox.test()]. Ignored
@@ -194,7 +194,7 @@ siegelTukeyTest.formula <- function(formula, data, subset,
 #' @rdname siegelTukeyTest
 #' @export
 siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "greater"),
-                                    mu = 0, adjustMedian = FALSE, exact = NA,
+                                    mu = 0, adjustMedian = FALSE, exact = NULL,
                                     correct = TRUE, ...) {
   
   alternative <- match.arg(alternative)
@@ -206,8 +206,9 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
   if (!is.logical(correct) || length(correct) != 1L || is.na(correct))
     stop("'correct' must be TRUE or FALSE")
   
-  if (!is.logical(exact) || length(exact) != 1L)
-    stop("'exact' must be TRUE, FALSE, or NA")
+  if (!is.null(exact) &&
+      (!is.logical(exact) || length(exact) != 1L || is.na(exact)))
+    stop("'exact' must be TRUE, FALSE, or NULL")
   
   if (!missing(mu) && ((length(mu) > 1L) || !is.finite(mu)))
     stop("'mu' must be a single number")
@@ -239,8 +240,8 @@ siegelTukeyTest.default <- function(x, y, alternative = c("two.sided", "less", "
   # ties defined by duplicated raw values, not by coincidentally equal mean ranks
   TIES <- anyDuplicated(strank$sort.x) > 0
   
-  # honour explicit exact argument, auto-detect only when NA
-  if (is.na(exact))
+  # honour explicit exact argument, auto-detect only when NULL
+  if (is.null(exact))
     exact <- (length(x) < 50L) && (length(y) < 50L) && !TIES
   
   if (exact && TIES) {

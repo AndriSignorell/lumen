@@ -48,10 +48,11 @@
 #' 
 #' @param x an object of class `aov`.
 #' @param method one of `"hsd"`, `"bonferroni"`, `"lsd"`,
-#' `"scheffe"`, `"newmankeuls"`, `"duncan"`, defining the
-#' method for the pairwise comparisons (may be abbreviated).\cr For the
-#' post hoc test of tables the methods of
-#' [p.adjust()] can be supplied. See the detail there. 
+#' `"scheffe"`, `"newman-keuls"`, `"duncan"`, defining the
+#' method for the pairwise comparisons (may be abbreviated).
+#' @param p.adjust.method for the post hoc test of tables: the method used
+#' to adjust the p-values, one of the methods of [p.adjust()]. Defaults to
+#' `"none"`.
 #' @param which a character vector listing terms in the fitted model for which
 #' the intervals should be calculated. Defaults to all the terms. 
 #' @param conf.level a numeric value between zero and one giving the
@@ -62,7 +63,7 @@
 #' differences. If ordered is `TRUE` then the calculated differences in
 #' the means will all be positive. The significant differences will be those
 #' for which the lower end point is positive. \cr This argument will be ignored
-#' if method is not either `hsd` or `newmankeuls`.
+#' if method is not either `hsd` or `newman-keuls`.
 #' @param digits controls the number of fixed digits to print.
 #' @param \dots further arguments, not used so far.
 #'  
@@ -84,8 +85,8 @@
 #' 
 #' # compare p-values:
 #' round(cbind(
-#'     lsd= postHocTest(r.aov, method="lsd")$tension[,"pval"]
-#'   , bonf=postHocTest(r.aov, method="bonf")$tension[,"pval"]
+#'     lsd= postHocTest(r.aov, method="lsd")$tension[,"p.value"]
+#'   , bonf=postHocTest(r.aov, method="bonf")$tension[,"p.value"]
 #' ), 4)
 #' 
 #' # only p-values by setting conf.level to NA
@@ -106,10 +107,11 @@ postHocTest <- function (x, ...)
 #' @export
 postHocTest.aov <- function (x, which = NULL,
                              method=c("hsd","bonferroni","lsd","scheffe",
-                                      "newmankeuls","duncan"),
+                                      "newman-keuls","duncan"),
                              conf.level = 0.95, ordered = FALSE, ...) {
   
   method <- match.arg(method)
+  checkConfLevel(conf.level)
   
   .stopIfCovariates(x)
 
@@ -122,7 +124,7 @@ postHocTest.aov <- function (x, which = NULL,
     bonferroni = .bonferroni,
     lsd = .lsd,
     hsd = .hsd,
-    newmankeuls = .newmankeuls,
+    "newman-keuls" = .newmankeuls,
     duncan = .duncan,
     scheffe = .scheffe
   )
@@ -165,7 +167,7 @@ postHocTest.aov <- function (x, which = NULL,
     if (length(n) < length(means))
       n <- rep.int(n, length(means))
     
-    if (method %in% c("hsd", "newmankeuls", "duncan") && isTRUE(ordered)) {
+    if (method %in% c("hsd", "newman-keuls", "duncan") && isTRUE(ordered)) {
       ord <- order(means)
       means <- means[ord]
       n <- n[ord]
@@ -179,7 +181,7 @@ postHocTest.aov <- function (x, which = NULL,
     k <- length(means)
     fun <- FUN_MAP[[method]]
     
-    res <- if (method %in% c("newmankeuls", "duncan")) {
+    res <- if (method %in% c("newman-keuls", "duncan")) {
       fun(center = center, means = means, n = n,
           MSE = MSE, df = x$df.residual, conf.level = conf.level)
     } else {
@@ -194,7 +196,7 @@ postHocTest.aov <- function (x, which = NULL,
     
     if (!is.null(conf.level) && !is.na(conf.level)) {
       
-      dnames <- list(NULL, c("diff", "lci", "uci", "pval"))
+      dnames <- list(NULL, c("diff", "lci", "uci", "p.value"))
       if (!is.null(nms))
         dnames[[1L]] <- outer(nms, nms, paste, sep = "-")[keep]
       
@@ -231,7 +233,7 @@ postHocTest.aov <- function (x, which = NULL,
 
 #' @rdname postHoc
 #' @export
-postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
+postHocTest.matrix <- function(x, p.adjust.method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
                                conf.level = NA, ...) {
   
   # http://support.sas.com/resources/papers/proceedings14/1544-2014.pdf
@@ -245,7 +247,7 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
   # no conf.level supported so far
   conf.level  <- NA
   
-  method <- match.arg(method)
+  p.adjust.method <- match.arg(p.adjust.method)
   
   pvals <- pairApply(t(as.matrix(x)), 
                      FUN = function(y1, y2) 
@@ -253,8 +255,8 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
   
   pvals[upper.tri(pvals, diag=TRUE)] <- NA
   
-  if(method != "none")
-    pvals[] <- p.adjust(pvals, method=method)
+  if(p.adjust.method != "none")
+    pvals[] <- p.adjust(pvals, method=p.adjust.method)
   
   #  pvals[] <- format.pval(pvals, digits = 2, na.form = "-")
   pvals <- pvals[-1, -ncol(pvals)]
@@ -265,7 +267,7 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
   attr(out, "orig.call") <- "table"
   attr(out, "conf.level") <- conf.level
   attr(out, "ordered") <- FALSE
-  attr(out, "method") <- method
+  attr(out, "method") <- p.adjust.method
   attr(out, "method.str") <- gettextf("\n  Posthoc multiple comparisons on chi-square test : %s \n", attr(out, "method"))
   
   return(out)
@@ -275,10 +277,10 @@ postHocTest.matrix <- function(x, method = c("none","fdr","BH","BY","bonferroni"
 
 #' @rdname postHoc
 #' @export
-postHocTest.table <- function(x, method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
+postHocTest.table <- function(x, p.adjust.method = c("none","fdr","BH","BY","bonferroni","holm","hochberg","hommel"),
                               conf.level = NA, ...) {
   class(x) <- "matrix"
-  postHocTest(x, method=method, conf.level=conf.level, ...)
+  postHocTest(x, p.adjust.method=p.adjust.method, conf.level=conf.level, ...)
 }
 
 
@@ -320,9 +322,9 @@ print.PostHocTest <- function(x, digits = getOption("digits", 3), ...) {
     xx <- lapply(xx, function(xi) as.data.frame(xi))
     
     for (nm in names(xx)) {
-      if ("pval" %in% names(xx[[nm]])) {
-        xx[[nm]]$signif <- fm(xx[[nm]]$pval, fmt = "*")
-        xx[[nm]]$pval <- fm(xx[[nm]]$pval, fmt = "p")
+      if ("p.value" %in% names(xx[[nm]])) {
+        xx[[nm]]$signif <- fm(xx[[nm]]$p.value, fmt = "*")
+        xx[[nm]]$p.value <- fm(xx[[nm]]$p.value, fmt = "p")
       }
     }
     

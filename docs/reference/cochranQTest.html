@@ -17,7 +17,7 @@ time points. It generalizes the McNemar test to more than two groups."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@ time points. It generalizes the McNemar test to more than two groups.</p>
 <span>  <span class="va">groups</span>,</span>
 <span>  <span class="va">blocks</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"asymptotic"</span>, <span class="st">"approximate"</span><span class="op">)</span>,</span>
-<span>  nresample <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  R <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
@@ -74,7 +74,7 @@ time points. It generalizes the McNemar test to more than two groups.</p>
 <span>  <span class="va">subset</span>,</span>
 <span>  na.action <span class="op">=</span> <span class="va">na.pass</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"asymptotic"</span>, <span class="st">"approximate"</span><span class="op">)</span>,</span>
-<span>  nresample <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  R <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -111,7 +111,7 @@ one of <code>"asymptotic"</code> (default, chi-squared approximation) or
 package).</p></dd>
 
 
-<dt id="arg-nresample">nresample<a class="anchor" aria-label="anchor" href="#arg-nresample"></a></dt>
+<dt id="arg-r">R<a class="anchor" aria-label="anchor" href="#arg-r"></a></dt>
 <dd><p>the number of Monte Carlo replicates used for
 <code>method = "approximate"</code> (default is <code>1e4</code>).</p></dd>
 

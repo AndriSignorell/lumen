@@ -95,7 +95,7 @@ test_that("method string reflects p-value method", {
 
 test_that("NA values are silently removed", {
   # harmonized with the other normality tests (andersonDarlingTest,
-  # cramerVonMisesTest, lillieTest): NAs are always dropped silently,
+  # cramerVonMisesTest, lillieforsTest): NAs are always dropped silently,
   # there is no na.rm argument
   expect_no_error(jarqueBeraTest(x_na))
 

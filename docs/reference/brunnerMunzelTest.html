@@ -19,7 +19,7 @@ shapes or equal variances in the two groups."><meta property="og:image" content=
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@ shapes or equal variances in the two groups.</p>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"t"</span>, <span class="st">"permutation"</span>, <span class="st">"normal"</span><span class="op">)</span>,</span>
 <span>  exact <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  nPerm <span class="op">=</span> <span class="fl">10000L</span>,</span>
+<span>  R <span class="op">=</span> <span class="fl">10000L</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -119,7 +119,7 @@ them; <code>NULL</code> (default) decides by the number of splits. Ignored unles
 <code>method = "permutation"</code></p></dd>
 
 
-<dt id="arg-nperm">nPerm<a class="anchor" aria-label="anchor" href="#arg-nperm"></a></dt>
+<dt id="arg-r">R<a class="anchor" aria-label="anchor" href="#arg-r"></a></dt>
 <dd><p>number of Monte-Carlo resamples used when the permutation
 distribution is not enumerated</p></dd>
 
@@ -219,7 +219,7 @@ exchangeability, but it does not in general equal twice the smaller one-sided
 tail, because the permutation distribution need not be symmetric when the
 group sizes differ or ties are present.</p>
 <p>With <code>exact = NULL</code> all \(\binom{n_1 + n_2}{n_1}\) splits are
-enumerated when there are at most <code>1e6</code> of them, and <code>nPerm</code>
+enumerated when there are at most <code>1e6</code> of them, and <code>R</code>
 Monte-Carlo resamples are drawn otherwise. Monte-Carlo p-values use the
 \((1 + k) / (1 + B)\) correction and are therefore never zero.</p>
 <p><strong>Confidence interval.</strong> The interval is the studentized Wald interval
@@ -255,11 +255,11 @@ Data Analysis</em>, <strong>51</strong>(10), 5192-5204.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test()</a></code></p>
 <p>Other test.location:
-<code><a href="hotellingsT2Test.html">hotellingsT2Test()</a></code>,
+<code><a href="hotellingT2Test.html">hotellingT2Test()</a></code>,
 <code><a href="moodMedianTest.html">moodMedianTest()</a></code>,
 <code><a href="signTest.html">signTest()</a></code>,
-<code><a href="tTestA.html">tTestA()</a></code>,
-<code><a href="vanWaerdenTest.html">vanWaerdenTest()</a></code>,
+<code><a href="tTestSummary.html">tTestSummary()</a></code>,
+<code><a href="vanDerWaerdenTest.html">vanDerWaerdenTest()</a></code>,
 <code><a href="yuenTTest.html">yuenTTest()</a></code>,
 <code><a href="zTest.html">zTest()</a></code></p></div>
     </div>

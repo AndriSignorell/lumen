@@ -24,8 +24,8 @@ test_that("dunnTest.default: result has correct number of comparisons", {
   res <- dunnTest(x, g, output = "list")
   
   expect_equal(nrow(res$res), 3L)          # 3 choose 2 = 3
-  expect_equal(ncol(res$res), 2L)          # mean rank diff + pval
-  expect_equal(colnames(res$res), c("mean rank diff", "pval"))
+  expect_equal(ncol(res$res), 2L)          # diff + p.value
+  expect_equal(colnames(res$res), c("diff", "p.value"))
 })
 
 
@@ -36,8 +36,8 @@ test_that("dunnTest.default: p-values are in [0, 1]", {
   
   res <- dunnTest(x, g)
   
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
   expect_true(all(res$pmat >= 0, na.rm = TRUE))
   expect_true(all(res$pmat <= 1, na.rm = TRUE))
 })
@@ -73,9 +73,9 @@ test_that("dunnTest.default: p-adjustment methods produce different results", {
   x <- c(rnorm(12, 0), rnorm(12, 1), rnorm(12, 2), rnorm(12, 3))
   g <- rep(1:4, each = 12)
   
-  p_none <- dunnTest(x, g, method = "none")$res[, "pval"]
-  p_bonf <- dunnTest(x, g, method = "bonferroni")$res[, "pval"]
-  p_holm <- dunnTest(x, g, method = "holm")$res[, "pval"]
+  p_none <- dunnTest(x, g, p.adjust.method = "none")$res[, "p.value"]
+  p_bonf <- dunnTest(x, g, p.adjust.method = "bonferroni")$res[, "p.value"]
+  p_holm <- dunnTest(x, g, p.adjust.method = "holm")$res[, "p.value"]
   
   # Bonferroni and Holm must be >= unadjusted
   expect_true(all(p_bonf >= p_none - .Machine$double.eps))
@@ -91,9 +91,9 @@ test_that("dunnTest.default: alternative = 'less' / 'greater' give one-sided p-v
   x <- c(rnorm(10, 0), rnorm(10, 3))
   g <- rep(c("low", "high"), each = 10)
   
-  p_two   <- dunnTest(x, g, method = "none", alternative = "two.sided")$res[, "pval"]
-  p_less  <- dunnTest(x, g, method = "none", alternative = "less")$res[, "pval"]
-  p_great <- dunnTest(x, g, method = "none", alternative = "greater")$res[, "pval"]
+  p_two   <- dunnTest(x, g, p.adjust.method = "none", alternative = "two.sided")$res[, "p.value"]
+  p_less  <- dunnTest(x, g, p.adjust.method = "none", alternative = "less")$res[, "p.value"]
+  p_great <- dunnTest(x, g, p.adjust.method = "none", alternative = "greater")$res[, "p.value"]
   
   # One-sided p-values should differ from two-sided
   expect_false(isTRUE(all.equal(p_two, p_less)))
@@ -115,7 +115,7 @@ test_that("dunnTest.formula: equivalent to default interface", {
   res_formula <- dunnTest(val ~ grp, data = df)
   res_default <- dunnTest(df$val, df$grp)
   
-  expect_equal(res_formula$res[, "pval"], res_default$res[, "pval"],
+  expect_equal(res_formula$res[, "p.value"], res_default$res[, "p.value"],
                tolerance = 1e-10)
   expect_equal(res_formula$pmat, res_default$pmat,
                tolerance = 1e-10)
@@ -186,10 +186,10 @@ test_that("dunnTest: ties handling does not crash and preserves p-value range", 
   x <- c(rep(1, 5), rep(2, 5), rep(3, 5))
   g <- rep(c("a", "b", "c"), each = 5)
   
-  res <- dunnTest(x, g, method = "none")
+  res <- dunnTest(x, g, p.adjust.method = "none")
   
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
 })
 
 test_that("dunnTest.default: one-sided alternatives respect the direction", {
@@ -201,15 +201,15 @@ test_that("dunnTest.default: one-sided alternatives respect the direction", {
   x <- c(rnorm(20, 0), rnorm(20, 5))
   g <- factor(rep(c("A", "B"), each = 20))   # comparison label: "B-A"
 
-  p_gr <- dunnTest(x, g, method = "none", alternative = "greater")$res[, "pval"]
-  p_le <- dunnTest(x, g, method = "none", alternative = "less")$res[, "pval"]
+  p_gr <- dunnTest(x, g, p.adjust.method = "none", alternative = "greater")$res[, "p.value"]
+  p_le <- dunnTest(x, g, p.adjust.method = "none", alternative = "less")$res[, "p.value"]
 
   expect_lt(p_gr, 0.001)    # B clearly above A
   expect_gt(p_le, 0.999)
 
   # reversed direction
-  p_gr2 <- dunnTest(-x, g, method = "none", alternative = "greater")$res[, "pval"]
-  p_le2 <- dunnTest(-x, g, method = "none", alternative = "less")$res[, "pval"]
+  p_gr2 <- dunnTest(-x, g, p.adjust.method = "none", alternative = "greater")$res[, "p.value"]
+  p_le2 <- dunnTest(-x, g, p.adjust.method = "none", alternative = "less")$res[, "p.value"]
 
   expect_gt(p_gr2, 0.999)
   expect_lt(p_le2, 0.001)
@@ -221,9 +221,9 @@ test_that("dunnTest.default: two.sided equals 2 * min(one-sided)", {
   x <- c(rnorm(10), rnorm(10, 1), rnorm(10, 2))
   g <- rep(letters[1:3], each = 10)
 
-  p2 <- dunnTest(x, g, method = "none", alternative = "two.sided")$res[, "pval"]
-  pg <- dunnTest(x, g, method = "none", alternative = "greater")$res[, "pval"]
-  pl <- dunnTest(x, g, method = "none", alternative = "less")$res[, "pval"]
+  p2 <- dunnTest(x, g, p.adjust.method = "none", alternative = "two.sided")$res[, "p.value"]
+  pg <- dunnTest(x, g, p.adjust.method = "none", alternative = "greater")$res[, "p.value"]
+  pl <- dunnTest(x, g, p.adjust.method = "none", alternative = "less")$res[, "p.value"]
 
   expect_equal(unname(p2), unname(2 * pmin(pg, pl)), tolerance = 1e-12)
 })
@@ -234,9 +234,9 @@ test_that("dunnTest.default: alpha controls the significance label", {
   x <- c(rnorm(20, 0), rnorm(20, 5))
   g <- rep(c("A", "B"), each = 20)
 
-  res0 <- dunnTest(x, g, alpha = 0)
+  res0 <- dunnTest(x, g, sig.level = 0)
   expect_true(all(attr(res0$pmat, "lbl") == ""))
 
-  res5 <- dunnTest(x, g, alpha = 0.05)
+  res5 <- dunnTest(x, g, sig.level = 0.05)
   expect_true(any(attr(res5$pmat, "lbl") != ""))
 })

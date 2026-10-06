@@ -188,13 +188,7 @@ yuenTTest.default <- function(
   if (!is.logical(paired) || length(paired) != 1L || is.na(paired))
     stop("'paired' must be a single non-missing logical value")
   
-  if (!is.numeric(conf.level) ||
-      length(conf.level) != 1L ||
-      !is.finite(conf.level) ||
-      conf.level <= 0 ||
-      conf.level >= 1) {
-    stop("'conf.level' must be in (0,1)")
-  }
+  checkConfLevel(conf.level, allowNA = FALSE)
   
   if (!is.numeric(trim) ||
       length(trim) != 1L ||

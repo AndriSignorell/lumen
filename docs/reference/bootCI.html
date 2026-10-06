@@ -15,7 +15,7 @@ univariate and bivariate statistics."><meta property="og:image" content="/logo.p
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,11 +55,10 @@ univariate and bivariate statistics.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">FUN</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  bci.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"stud"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span><span class="op">)</span>,</span>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>  R <span class="op">=</span> <span class="fl">999</span></span>
+<span>  R <span class="op">=</span> <span class="fl">999</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,17 +79,6 @@ when a bivariate statistic is used.</p></dd>
 <dd><p>the function to be used.</p></dd>
 
 
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments are passed to the function <code>FUN</code>.</p></dd>
-
-
-<dt id="arg-bci-method">bci.method<a class="anchor" aria-label="anchor" href="#arg-bci-method"></a></dt>
-<dd><p>a vector of character strings representing the type of
-intervals required. The value should be any subset of the values
-<code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>,
-as it is passed on as <code>method</code> to <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code>.</p></dd>
-
-
 <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
 <dd><p>confidence level of the interval.</p></dd>
 
@@ -103,11 +91,15 @@ be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.<
 
 
 <dt id="arg-r">R<a class="anchor" aria-label="anchor" href="#arg-r"></a></dt>
-<dd><p>number of bootstrap replicates. Usually this will be a single
-positive integer. For importance resampling, some resamples may use one set
-of weights and others use a different set of weights. In this case <code>R</code>
-would be a vector of integers where each component gives the number of
-resamples from each of the rows of weights.</p></dd>
+<dd><p>number of bootstrap replicates, a single positive whole number.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>further arguments. The bootstrap options are taken out first,
+as in the other interval functions of the package: <code>type</code>, the interval
+type passed to <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code>, one of <code>"bca"</code> (default), <code>"perc"</code>,
+<code>"basic"</code>, <code>"norm"</code> or <code>"stud"</code>, and <code>parallel</code> and <code>ncpus</code>, passed to
+<code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot::boot()</a></code>. Everything else is passed to <code>FUN</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -123,26 +115,36 @@ resamples from each of the rows of weights.</p></dd>
 
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>type</code>, <code>parallel</code> and <code>ncpus</code> therefore cannot reach <code>FUN</code> through the
+dots. A statistic that has an argument of one of these names - the
+<code>type</code> of <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code>, say - is wrapped:
+<code>FUN = function(z) quantile(z, 0.9, type = 6)</code>.</p>
+<p><code>"stud"</code> needs a variance estimate for every replicate, which a general
+<code>FUN</code> does not deliver; <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code> then returns no such interval
+and <code>bootCI()</code> stops with a message saying so.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1984</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bootCI</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, FUN<span class="op">=</span><span class="va">mean</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bootCI</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, FUN<span class="op">=</span><span class="va">mean</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      est      lci      uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.09062 17.99062 22.19687 </span>
-<span class="r-in"><span><span class="fu">bootCI</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, FUN<span class="op">=</span><span class="va">mean</span>, trim<span class="op">=</span><span class="fl">0.1</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.09062 18.12561 22.31055 </span>
+<span class="r-in"><span><span class="fu">bootCI</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, FUN<span class="op">=</span><span class="va">mean</span>, trim<span class="op">=</span><span class="fl">0.1</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      est      lci      uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19.69615 17.46923 21.78846 </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, bci.method="basic")</span></span></span>
+<span class="r-in"><span><span class="co"># bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, type="basic")</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bootCI(Pizza$operator, Pizza$area, FUN=cramerV)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spearman</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"spearman"</span>, use<span class="op">=</span><span class="st">"p"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">bootCI</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">hp</span>, FUN<span class="op">=</span><span class="va">spearman</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci        uci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.8946646 -0.9981280 -0.8188144 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.8946646 -0.9592579 -0.7950177 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

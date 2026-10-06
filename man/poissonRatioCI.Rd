@@ -11,7 +11,7 @@ poissonRatioCI(
   n2 = 1,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  method = c("exact", "midp", "wald-log")
+  method = c("exact", "mid-p", "wald-log")
 )
 }
 \arguments{
@@ -33,7 +33,7 @@ defaults to 1}
 \code{"right"}; may be abbreviated}
 
 \item{method}{method used to calculate the confidence interval: \code{"exact"},
-\code{"midp"}, or \code{"wald-log"}; may be abbreviated and defaults to \code{"exact"}}
+\code{"mid-p"}, or \code{"wald-log"}; may be abbreviated and defaults to \code{"exact"}}
 }
 \value{
 If the arguments identify a single result, a named numeric vector
@@ -63,7 +63,7 @@ The available confidence-interval methods are:
 on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
 resulting binomial probability; this is the construction used by
 \code{\link[=poisson.test]{poisson.test()}} for two samples}
-\item{\code{"midp"}}{the corresponding conditional mid-p interval, which is
+\item{\code{"mid-p"}}{the corresponding conditional mid-p interval, which is
 generally shorter but does not guarantee conservative coverage}
 \item{\code{"wald-log"}}{the asymptotic Wald interval, symmetric on the
 logarithmic scale}
@@ -92,7 +92,7 @@ poissonRatioCI(15, 100, 6, 120)
 # The exact interval agrees with the two-sample conditional test in stats
 poisson.test(c(15, 6), c(100, 120))$conf.int
 
-poissonRatioCI(15, 100, 6, 120, method = "midp")
+poissonRatioCI(15, 100, 6, 120, method = "mid-p")
 
 # Zero counts are handled explicitly
 poissonRatioCI(0, 100, 6, 120)

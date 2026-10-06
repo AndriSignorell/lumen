@@ -7,7 +7,7 @@
 #'
 #' Calculates the Breslow-Day test of homogeneity for a
 #' \eqn{2 \times 2 \times k}{2 x 2 x k} table, in order to investigate if
-#' all \eqn{k} strata have the same OR. If `OR` is not given, the
+#' all \eqn{k} strata have the same OR. If `oddsRatio` is not given, the
 #' Mantel-Haenszel estimate is used.
 #'
 #' For the Breslow-Day test to be valid, the sample size should be
@@ -20,10 +20,10 @@
 #' discussed in Breslow and Day (1980).
 #'
 #' The statistic is referred to a chi-squared distribution with \eqn{k-1}
-#' degrees of freedom; this also applies when a prespecified `OR` is
+#' degrees of freedom; this also applies when a prespecified `oddsRatio` is
 #' supplied. Note that Tarone's adjustment is derived for the
 #' Mantel-Haenszel estimate; a warning is issued if `correct = TRUE`
-#' is combined with a user-supplied `OR`.
+#' is combined with a user-supplied `oddsRatio`.
 #'
 #' Alternatively, it might be better to cast the entire inference problem
 #' into the setting of a logistic regression model. Here, the underlying
@@ -32,7 +32,7 @@
 #' using a likelihood ratio test using the `anova` function).
 #'
 #' @param x a \eqn{2 \times 2 \times k}{2 x 2 x k} table.
-#' @param OR the odds ratio to be tested against. If left undefined
+#' @param oddsRatio the odds ratio to be tested against. If left undefined
 #' (default) the Mantel-Haenszel estimate will be used.
 #' @param correct logical, if `TRUE` the Breslow-Day test with
 #' Tarone's adjustment is computed, which subtracts an adjustment factor to
@@ -101,14 +101,14 @@
 #'                     )
 #'
 #' # common odds ratio = 4.028269
-#' breslowDayTest(salary, OR = 4.02)
+#' breslowDayTest(salary, oddsRatio = 4.02)
 #'
 #' @family test.categorical
 #' @concept categorical-test
 #' @concept homogeneity
 #'
 #' @export
-breslowDayTest <- function(x, OR = NULL, correct = FALSE) {
+breslowDayTest <- function(x, oddsRatio = NULL, correct = FALSE) {
 
   DNAME <- deparse1(substitute(x))
 
@@ -128,16 +128,16 @@ breslowDayTest <- function(x, OR = NULL, correct = FALSE) {
   if (length(correct) != 1L || is.na(correct))
     stop("'correct' must be TRUE or FALSE")
 
-  # OR = NULL (or NA for backward compatibility) requests the MH estimate
-  if (!is.null(OR) && length(OR) == 1L && is.na(OR))
-    OR <- NULL
-  if (!is.null(OR)) {
-    if (!is.numeric(OR) || length(OR) != 1L || !is.finite(OR) || OR <= 0)
-      stop("'OR' must be a positive finite number")
+  # oddsRatio = NULL (or NA for backward compatibility) requests the MH estimate
+  if (!is.null(oddsRatio) && length(oddsRatio) == 1L && is.na(oddsRatio))
+    oddsRatio <- NULL
+  if (!is.null(oddsRatio)) {
+    if (!is.numeric(oddsRatio) || length(oddsRatio) != 1L || !is.finite(oddsRatio) || oddsRatio <= 0)
+      stop("'oddsRatio' must be a positive finite number")
     if (correct)
       warning("Tarone's adjustment is derived for the Mantel-Haenszel ",
               "estimate; interpret the corrected statistic with caution ",
-              "when 'OR' is supplied", call. = FALSE)
+              "when 'oddsRatio' is supplied", call. = FALSE)
   }
 
   K <- dim(x)[3L]
@@ -145,14 +145,14 @@ breslowDayTest <- function(x, OR = NULL, correct = FALSE) {
   ## -------------------------------------------------------------------
   ## Mantel-Haenszel estimate of common OR
   ## -------------------------------------------------------------------
-  if (is.null(OR)) {
+  if (is.null(oddsRatio)) {
     n <- apply(x, 3L, sum)
     denom <- sum(x[1, 2, ] * x[2, 1, ] / n)
     if (denom == 0)
       stop("Mantel-Haenszel denominator is zero; cannot estimate common OR")
     or.hat.mh <- sum(x[1, 1, ] * x[2, 2, ] / n) / denom
   } else {
-    or.hat.mh <- OR
+    or.hat.mh <- oddsRatio
   }
 
   ## -------------------------------------------------------------------
@@ -227,7 +227,7 @@ breslowDayTest <- function(x, OR = NULL, correct = FALSE) {
   # one df is spent on estimating the common OR; a hypothesised OR is not
   # estimated, the K stratum terms then carry K df. K - 1 in that case made
   # the test anti-conservative (simulated size 0.106 at alpha = 0.05, K = 4).
-  PARAMETER <- if (is.null(OR)) K - 1L else K
+  PARAMETER <- if (is.null(oddsRatio)) K - 1L else K
 
   structure(
     list(

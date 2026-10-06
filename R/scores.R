@@ -13,7 +13,7 @@
 #' table-based scores, ranks, and ridit-type transformations.
 #'
 #' @param x a contingency table (matrix or array of counts).
-#' @param MARGIN an integer indicating the margin over which to compute
+#' @param margin an integer indicating the margin over which to compute
 #'   the scores. Defaults to `1` (rows). Use `2` for columns.
 #' @param method a character string specifying the scoring method.
 #'   One of:
@@ -22,7 +22,7 @@
 #'       assigns sequential integers.
 #'     \item `"ranks"`: mid-ranks based on cumulative frequencies.
 #'     \item `"ridit"`: ridit scores (ranks divided by total count).
-#'     \item `"modridit"`: modified ridit scores (ranks divided by
+#'     \item `"mod-ridit"`: modified ridit scores (ranks divided by
 #'       total count + 1).
 #'   }
 #'
@@ -49,8 +49,8 @@
 #' @concept ordinal
 #'
 #' @export
-scores <- function(x, MARGIN=1, 
-                   method=c("table", "ranks", "ridit", "modridit")) { 
+scores <- function(x, margin=1, 
+                   method=c("table", "ranks", "ridit", "mod-ridit")) { 
   
   # used by cochranArmitageTest, pearsonCor, spearmanCor
   
@@ -62,23 +62,23 @@ scores <- function(x, MARGIN=1,
   if (method == "table"){
     
     if (is.null(dimnames(x)) || 
-        any(is.na(suppressWarnings(as.numeric(dimnames(x)[[MARGIN]]))))) {
-      res <- 1:dim(x)[MARGIN]
+        any(is.na(suppressWarnings(as.numeric(dimnames(x)[[margin]]))))) {
+      res <- 1:dim(x)[margin]
     } else {
-      res <- (as.numeric(dimnames(x)[[MARGIN]]))
+      res <- (as.numeric(dimnames(x)[[margin]]))
     }
     
   } else	{
     ### method is a rank one
-    Ndim <- dim(x)[MARGIN]
-    OTHERMARGIN <- 3 - MARGIN
+    Ndim <- dim(x)[margin]
+    OTHERMARGIN <- 3 - margin
     
-    ranks <- c(0, (cumsum(apply(x, MARGIN, sum))))[1:Ndim] + 
-      (apply(x, MARGIN, sum)+1) /2 
+    ranks <- c(0, (cumsum(apply(x, margin, sum))))[1:Ndim] + 
+      (apply(x, margin, sum)+1) /2 
     
     if (method == "ranks") res <- ranks
     if (method == "ridit") res <- ranks/(sum(x))
-    if (method == "modridit") res <- ranks/(sum(x)+1)
+    if (method == "mod-ridit") res <- ranks/(sum(x)+1)
   }
   
   return(res)

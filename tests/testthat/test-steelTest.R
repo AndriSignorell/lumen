@@ -20,7 +20,7 @@ test_that("steelTest.default: result table has correct structure (output = 'list
   
   expect_true(is.matrix(res$res))
   expect_equal(nrow(res$res), 2L)          # m = k - 1 = 2 treatments
-  expect_equal(colnames(res$res), c("W", "z", "pval"))
+  expect_equal(colnames(res$res), c("W", "z", "p.value"))
 })
 
 
@@ -43,8 +43,8 @@ test_that("steelTest.default: p-values are in [0, 1]", {
   
   res <- steelTest(x, g, control = "ctrl")
   
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
   expect_gte(res$p.value, 0)
   expect_lte(res$p.value, 1)
 })
@@ -58,7 +58,7 @@ test_that("steelTest.default: global p-value <= min pairwise p-value", {
   
   res <- steelTest(x, g, control = "ctrl")
   
-  expect_lte(res$p.value, min(res$res[, "pval"]) + 1e-10)
+  expect_lte(res$p.value, min(res$res[, "p.value"]) + 1e-10)
 })
 
 
@@ -98,7 +98,7 @@ test_that("steelTest.default: well-separated treatment gives small p-value", {
   
   res <- steelTest(x, g, control = "ctrl")
   
-  expect_lt(res$res["t2-ctrl", "pval"], 0.001)
+  expect_lt(res$res["t2-ctrl", "p.value"], 0.001)
   expect_lt(res$p.value, 0.001)
 })
 
@@ -205,8 +205,8 @@ test_that("steelTest.default: ties do not crash and p-values stay in [0, 1]", {
   
   expect_no_error(steelTest(x, g, control = "ctrl"))
   res <- steelTest(x, g, control = "ctrl")
-  expect_true(all(res$res[, "pval"] >= 0))
-  expect_true(all(res$res[, "pval"] <= 1))
+  expect_true(all(res$res[, "p.value"] >= 0))
+  expect_true(all(res$res[, "p.value"] <= 1))
 })
 
 
@@ -302,7 +302,7 @@ test_that("steelTest: list and vector+g interfaces give identical results", {
   res_list <- steelTest(list(x, y, z))
   res_vec  <- steelTest(c(x, y, z), rep(1:3, c(5, 4, 5)))
   
-  expect_equal(res_list$res[, "pval"], res_vec$res[, "pval"],
+  expect_equal(res_list$res[, "p.value"], res_vec$res[, "p.value"],
                tolerance = 1e-10)
   expect_equal(res_list$p.value, res_vec$p.value, tolerance = 1e-10)
 })

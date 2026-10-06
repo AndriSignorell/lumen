@@ -70,8 +70,10 @@
 #' `formula`.
 #' @param subset an optional expression specifying a subset of observations,
 #' evaluated in `data` (`subset = dose > 0.5`), as in [kruskal.test()].
-#' @param na.action a function indicating how missing values should be
-#' handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to methods.
 #' @return A list with class `"htest"` containing the following
 #' components:
@@ -152,7 +154,7 @@ jonckheereTerpstraTest <- function(x, ...)
 jonckheereTerpstraTest.formula <- function(formula,
                                            data,
                                            subset,
-                                           na.action = na.omit,
+                                           na.action = na.pass,
                                            ...) {
 
   # formula, data and subset are forwarded unevaluated, so that 'subset' is

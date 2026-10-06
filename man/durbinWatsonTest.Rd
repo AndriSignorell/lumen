@@ -189,8 +189,8 @@ under Test}. Heidelberg: Physica.
 \code{\link[=lm]{lm()}}, \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}}
 
 Other test.regression:
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=breuschPaganTest]{breuschPaganTest()}},
 \code{\link[=hosmerLemeshowTest]{hosmerLemeshowTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }

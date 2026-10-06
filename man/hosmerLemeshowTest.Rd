@@ -11,7 +11,7 @@ hosmerLemeshowTest(x, ...)
 
 \method{hosmerLemeshowTest}{glm}(x, nGroups = 10, type = c("C", "H"), ...)
 
-\method{hosmerLemeshowTest}{default}(x, obs, nGroups = 10, type = c("C", "H"), ...)
+\method{hosmerLemeshowTest}{default}(x, ref, nGroups = 10, type = c("C", "H"), ...)
 
 \method{print}{HosmerLemeshowTest}(x, digits = 4, details = FALSE, ...)
 }
@@ -30,7 +30,7 @@ Must be at least 3.}
 quantile-based groups) or \code{"H"} (equal-width groups on
 \eqn{[0, 1]}).}
 
-\item{obs}{a numeric vector of observed binary outcomes (0 or 1) of the
+\item{ref}{a numeric vector of observed binary outcomes (0 or 1) of the
 same length as \code{x}, without missing values; unused for the
 \code{glm} method.}
 
@@ -110,8 +110,8 @@ Logistic Regression}, 3rd ed., New York: Wiley.
 \code{\link[=glm]{glm()}}
 
 Other test.regression:
-\code{\link[=bpTest]{bpTest()}},
 \code{\link[=breuschGodfreyTest]{breuschGodfreyTest()}},
+\code{\link[=breuschPaganTest]{breuschPaganTest()}},
 \code{\link[=durbinWatsonTest]{durbinWatsonTest()}},
 \code{\link[=leCessieTest]{leCessieTest()}}
 }

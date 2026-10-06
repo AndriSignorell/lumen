@@ -5,7 +5,7 @@ test_that("one-sample F: htest structure is correct", {
   set.seed(1)
   x <- cbind(rnorm(20), rnorm(20))
   
-  res <- hotellingsT2Test(x)
+  res <- hotellingT2Test(x)
   
   expect_s3_class(res, "htest")
   expect_named(res, c("statistic", "parameter", "p.value", "estimate",
@@ -25,7 +25,7 @@ test_that("one-sample F: null.value is numeric, not character", {
   x  <- cbind(rnorm(20), rnorm(20))
   mu <- c(0.5, -0.5)
   
-  res <- hotellingsT2Test(x, mu = mu)
+  res <- hotellingT2Test(x, mu = mu)
   
   expect_true(is.numeric(res$null.value))
   expect_equal(unname(res$null.value), mu)
@@ -41,8 +41,8 @@ test_that("one-sample F: correct statistic against known value (ICSNP reference)
     c(1.8, 2.9, 2.3, 2.7, 2.5, 3.1, 2.0, 2.6)
   )
   
-  res   <- hotellingsT2Test(x, mu = c(3, 2.5))
-  res_chi <- hotellingsT2Test(x, mu = c(3, 2.5), test = "chi")
+  res   <- hotellingT2Test(x, mu = c(3, 2.5))
+  res_chi <- hotellingT2Test(x, mu = c(3, 2.5), test = "chi")
   
   # F and chi2 statistics must be positive
   expect_gt(res$statistic,     0)
@@ -57,7 +57,7 @@ test_that("one-sample chi: parameter has single df", {
   
   set.seed(1)
   x   <- cbind(rnorm(30), rnorm(30), rnorm(30))
-  res <- hotellingsT2Test(x, test = "chi")
+  res <- hotellingT2Test(x, test = "chi")
   
   expect_named(res$parameter, "df")
   expect_equal(unname(res$parameter), 3L)   # p = 3
@@ -68,7 +68,7 @@ test_that("one-sample: p-value in (0, 1)", {
   
   set.seed(7)
   x <- cbind(rnorm(15, mean = 1), rnorm(15, mean = 1))
-  res <- hotellingsT2Test(x, mu = c(1, 1))
+  res <- hotellingT2Test(x, mu = c(1, 1))
   
   expect_true(res$p.value > 0 && res$p.value < 1)
 })
@@ -78,7 +78,7 @@ test_that("one-sample: mu = true mean gives large p-value", {
   
   set.seed(3)
   x   <- cbind(rnorm(200, 5), rnorm(200, 10))
-  res <- hotellingsT2Test(x, mu = c(5, 10))
+  res <- hotellingT2Test(x, mu = c(5, 10))
   
   expect_gt(res$p.value, 0.05)
 })
@@ -88,7 +88,7 @@ test_that("one-sample: mu far from data gives small p-value", {
   
   set.seed(4)
   x   <- cbind(rnorm(50, 5), rnorm(50, 10))
-  res <- hotellingsT2Test(x, mu = c(0, 0))
+  res <- hotellingT2Test(x, mu = c(0, 0))
   
   expect_lt(res$p.value, 0.001)
 })
@@ -104,7 +104,7 @@ test_that("two-sample F: htest structure is correct", {
   x <- cbind(rnorm(15), rnorm(15))
   y <- cbind(rnorm(20), rnorm(20))
   
-  res <- hotellingsT2Test(x, y)
+  res <- hotellingT2Test(x, y)
   
   expect_s3_class(res, "htest")
   expect_named(res$statistic,  "T.2")
@@ -122,7 +122,7 @@ test_that("two-sample F: df2 = n1 + n2 - p - 1", {
   x  <- matrix(rnorm(n1 * p), n1, p)
   y  <- matrix(rnorm(n2 * p), n2, p)
   
-  res <- hotellingsT2Test(x, y)
+  res <- hotellingT2Test(x, y)
   
   expect_equal(unname(res$parameter["df2"]), n1 + n2 - p - 1)
 })
@@ -133,7 +133,7 @@ test_that("two-sample chi: parameter has single df", {
   set.seed(1)
   x   <- matrix(rnorm(30 * 2), 30, 2)
   y   <- matrix(rnorm(25 * 2), 25, 2)
-  res <- hotellingsT2Test(x, y, test = "chi")
+  res <- hotellingT2Test(x, y, test = "chi")
   
   expect_named(res$parameter, "df")
   expect_equal(unname(res$parameter), 2L)
@@ -145,7 +145,7 @@ test_that("two-sample: identical groups give large p-value", {
   set.seed(5)
   x   <- cbind(rnorm(40, 3), rnorm(40, 7))
   y   <- cbind(rnorm(40, 3), rnorm(40, 7))
-  res <- hotellingsT2Test(x, y)
+  res <- hotellingT2Test(x, y)
   
   expect_gt(res$p.value, 0.05)
 })
@@ -156,7 +156,7 @@ test_that("two-sample: well-separated groups give small p-value", {
   set.seed(6)
   x   <- cbind(rnorm(50,  0), rnorm(50,  0))
   y   <- cbind(rnorm(50, 10), rnorm(50, 10))
-  res <- hotellingsT2Test(x, y)
+  res <- hotellingT2Test(x, y)
   
   expect_lt(res$p.value, 0.001)
 })
@@ -167,7 +167,7 @@ test_that("two-sample: null.value is numeric zero vector by default", {
   set.seed(1)
   x   <- matrix(rnorm(20 * 3), 20, 3)
   y   <- matrix(rnorm(15 * 3), 15, 3)
-  res <- hotellingsT2Test(x, y)
+  res <- hotellingT2Test(x, y)
   
   expect_true(is.numeric(res$null.value))
   expect_equal(unname(res$null.value), c(0, 0, 0))
@@ -187,14 +187,14 @@ test_that("formula interface matches default interface", {
     v2   = c(rnorm(20, 0), rnorm(20, 2))
   )
   
-  res_formula <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df)
+  res_formula <- hotellingT2Test(cbind(v1, v2) ~ g, data = df)
   
   # mirror exactly what resolveFormula does: split by levels(g), alphabetical
   lvls <- levels(df$g)
   resp <- as.matrix(df[, c("v1", "v2")])
   x    <- resp[df$g == lvls[1L], , drop = FALSE]
   y    <- resp[df$g == lvls[2L], , drop = FALSE]
-  res_default <- hotellingsT2Test(x, y)
+  res_default <- hotellingT2Test(x, y)
   
   expect_equal(res_formula$statistic, res_default$statistic)
   expect_equal(res_formula$p.value,   res_default$p.value)
@@ -211,7 +211,7 @@ test_that("formula interface: data.name comes from formula", {
     v2 = rnorm(30)
   )
   
-  res <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df)
+  res <- hotellingT2Test(cbind(v1, v2) ~ g, data = df)
   
   expect_match(res$data.name, "cbind")
 })
@@ -227,8 +227,8 @@ test_that("formula interface: subset argument works", {
     keep = c(rep(TRUE, 15), rep(FALSE, 5), rep(TRUE, 20))
   )
   
-  res_sub  <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)
-  res_full <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df)
+  res_sub  <- hotellingT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)
+  res_full <- hotellingT2Test(cbind(v1, v2) ~ g, data = df)
   
   # Different data → different statistic
   expect_false(isTRUE(all.equal(res_sub$statistic, res_full$statistic)))
@@ -241,34 +241,34 @@ test_that("formula interface: subset argument works", {
 
 test_that("non-numeric x raises error", {
   x <- cbind(letters[1:5], letters[1:5])
-  expect_error(hotellingsT2Test(x), "'x' must be numeric")
+  expect_error(hotellingT2Test(x), "'x' must be numeric")
 })
 
 
 test_that("n <= p raises error for x", {
   x <- matrix(rnorm(6), nrow = 2, ncol = 3)   # n=2, p=3
-  expect_error(hotellingsT2Test(x), "more rows than columns")
+  expect_error(hotellingT2Test(x), "more rows than columns")
 })
 
 
 test_that("column mismatch between x and y raises error", {
   x <- matrix(rnorm(20 * 2), 20, 2)
   y <- matrix(rnorm(20 * 3), 20, 3)
-  expect_error(hotellingsT2Test(x, y), "same number of columns")
+  expect_error(hotellingT2Test(x, y), "same number of columns")
 })
 
 
 test_that("mu wrong length raises error", {
   x <- matrix(rnorm(30 * 2), 30, 2)
-  expect_error(hotellingsT2Test(x, mu = c(1, 2, 3)), "(?i)length of 'mu'",
+  expect_error(hotellingT2Test(x, mu = c(1, 2, 3)), "(?i)length of 'mu'",
                perl = TRUE)
 })
 
 
 test_that("mu non-finite raises error", {
   x <- matrix(rnorm(30 * 2), 30, 2)
-  expect_error(hotellingsT2Test(x, mu = c(1, Inf)), "finite")
-  expect_error(hotellingsT2Test(x, mu = c(NA, 0)),  "finite")
+  expect_error(hotellingT2Test(x, mu = c(1, Inf)), "finite")
+  expect_error(hotellingT2Test(x, mu = c(NA, 0)),  "finite")
 })
 
 
@@ -276,7 +276,7 @@ test_that("singular covariance matrix raises informative error", {
   # Perfectly collinear columns
   v  <- rnorm(20)
   x  <- cbind(v, 2 * v)
-  expect_error(hotellingsT2Test(x), "singular")
+  expect_error(hotellingT2Test(x), "singular")
 })
 
 
@@ -285,8 +285,8 @@ test_that("NAs in x are silently dropped", {
   x      <- cbind(rnorm(20), rnorm(20))
   x[3, ] <- NA
   
-  res_na  <- hotellingsT2Test(x)
-  res_ref <- hotellingsT2Test(x[-3, ])
+  res_na  <- hotellingT2Test(x)
+  res_ref <- hotellingT2Test(x[-3, ])
   
   expect_equal(res_na$statistic, res_ref$statistic)
 })
@@ -294,12 +294,12 @@ test_that("NAs in x are silently dropped", {
 
 test_that("invalid test argument raises error", {
   x <- matrix(rnorm(30 * 2), 30, 2)
-  expect_error(hotellingsT2Test(x, test = "t"), "arg")
+  expect_error(hotellingT2Test(x, test = "t"), "arg")
 })
 
 
 test_that("formula interface: subset works when the expression is not a local variable", {
-  # regression test: hotellingsT2Test.formula used to route subset through
+  # regression test: hotellingT2Test.formula used to route subset through
   # do.call() with a pre-built args list, whose default quote = FALSE
   # evaluated the subset expression immediately in the wrong environment
   # (looking for a variable "keep" instead of resolving it against data)
@@ -313,7 +313,7 @@ test_that("formula interface: subset works when the expression is not a local va
   suppressWarnings(rm(list = "keep", envir = environment()))   # no local 'keep' variable exists
 
   expect_no_error(
-    res <- hotellingsT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)
+    res <- hotellingT2Test(cbind(v1, v2) ~ g, data = df, subset = keep)
   )
   expect_s3_class(res, "htest")
 })

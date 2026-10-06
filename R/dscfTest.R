@@ -32,7 +32,7 @@
 #'   `x` is a list.
 #' @param output character string specifying the output format. One of
 #'   `"list"` (default) or `"matrix"`.
-#' @param alpha the significance level used to compile the groups flagged
+#' @param sig.level the significance level used to compile the groups flagged
 #'   as significantly different in the label attribute of the p-value
 #'   matrix (default is `0.05`)
 #' @param formula a formula of the form `response ~ group`.
@@ -41,14 +41,16 @@
 #' @param subset an optional expression specifying a subset of
 #'   observations, evaluated in `data` (`subset = Month != 5`), as in
 #'   [kruskal.test()].
-#' @param na.action a function specifying how missing values should be
-#'   handled. Defaults to [na.omit()].
+#' @param na.action a function indicating how missing values are handled.
+#'   Defaults to [na.pass()]: the missing values reach the default method,
+#'   which drops every observation with a missing value or a missing
+#'   group, as [kruskal.test()] does.
 #' @param \dots further arguments passed to methods.
 #'
 #' @return An object of class `"rankTest"` containing:
 #'   \item{res}{
 #'     comparison results. For `output="list"` a matrix with
-#'     columns `z` and `pval`; for
+#'     columns `z` and `p.value`; for
 #'     `output="matrix"` a symmetric matrix of adjusted p-values
 #'     with diagonal 1.
 #'   }
@@ -132,7 +134,7 @@ dscfTest.formula <- function(
     formula,
     data,
     subset,
-    na.action = na.omit,
+    na.action = na.pass,
     ...
 ) {
   
@@ -168,7 +170,7 @@ dscfTest.default <- function(
       "list",
       "matrix"
     ),
-    alpha = 0.05,
+    sig.level = 0.05,
     ...
 ) {
   
@@ -245,7 +247,7 @@ dscfTest.default <- function(
   
   # --- result table -------------------------------------------------------
   
-  res.mat <- cbind(z = z, pval = pval)
+  res.mat <- cbind(z = z, p.value = pval)
   rownames(res.mat) <- lbl
   
   # --- p-value matrix -----------------------------------------------------
@@ -267,7 +269,7 @@ dscfTest.default <- function(
     pmatxt,
     1,
     function(z)
-      paste(rownames(pmatxt)[!is.na(z) & z < alpha], collapse = ",")
+      paste(rownames(pmatxt)[!is.na(z) & z < sig.level], collapse = ",")
   )
   
   # --- output -------------------------------------------------------------

@@ -152,10 +152,10 @@ test_that("exact and Monte-Carlo permutation agree to sampling error", {
 
   set.seed(42)
   mc <- brunnerMunzelTest(a, b, method = "permutation", exact = FALSE,
-                          nPerm = 2e5)$p.value
+                          R = 2e5)$p.value
   expect_equal(mc, 75 / 792, tolerance = 0.01)
   expect_match(brunnerMunzelTest(a, b, method = "permutation", exact = FALSE,
-                                 nPerm = 100)$method, "100 resamples", fixed = TRUE)
+                                 R = 100)$method, "100 resamples", fixed = TRUE)
 })
 
 
@@ -163,10 +163,10 @@ test_that("Monte-Carlo p-values are never zero and are reproducible", {
 
   set.seed(1)
   p1 <- brunnerMunzelTest(x, y, method = "permutation", exact = FALSE,
-                          nPerm = 500)$p.value
+                          R = 500)$p.value
   set.seed(1)
   p2 <- brunnerMunzelTest(x, y, method = "permutation", exact = FALSE,
-                          nPerm = 500)$p.value
+                          R = 500)$p.value
 
   expect_identical(p1, p2)
   expect_gte(p1, 1 / 501)
@@ -335,11 +335,11 @@ test_that("invalid arguments are rejected", {
   expect_error(brunnerMunzelTest(x, y, p0 = 0), "'p0'")
   expect_error(brunnerMunzelTest(x, y, p0 = 1.2), "'p0'")
   expect_error(brunnerMunzelTest(x, y, conf.level = 1), "'conf.level'")
-  expect_error(brunnerMunzelTest(x, y, nPerm = 0), "'nPerm'")
-  expect_error(brunnerMunzelTest(x, y, nPerm = 1.5), "'nPerm'")
-  expect_error(brunnerMunzelTest(x, y, nPerm = Inf), "'nPerm'")
-  expect_error(brunnerMunzelTest(x, y, nPerm = NA), "'nPerm'")
-  expect_error(brunnerMunzelTest(x, y, nPerm = .Machine$integer.max + 1), "'nPerm'")
+  expect_error(brunnerMunzelTest(x, y, R = 0), "'R'")
+  expect_error(brunnerMunzelTest(x, y, R = 1.5), "'R'")
+  expect_error(brunnerMunzelTest(x, y, R = Inf), "'R'")
+  expect_error(brunnerMunzelTest(x, y, R = NA), "'R'")
+  expect_error(brunnerMunzelTest(x, y, R = .Machine$integer.max + 1), "'R'")
 
   expect_error(brunnerMunzelTest(x, y, exact = NA), "'exact'")
   expect_error(brunnerMunzelTest(x, y, exact = 2), "'exact'")

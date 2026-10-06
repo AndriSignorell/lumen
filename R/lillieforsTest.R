@@ -44,7 +44,7 @@
 #' The Lilliefors (Kolmogorov-Smirnov) test is the most well-known EDF
 #' omnibus test for normality. Compared to the Anderson-Darling test and
 #' the Cramer-von Mises test it is known to perform worse. Although the
-#' test statistic obtained from `lillieTest(x)` is the same as that
+#' test statistic obtained from `lillieforsTest(x)` is the same as that
 #' obtained from `ks.test(x, "pnorm", mean(x), sd(x))`, it is not
 #' correct to use the p-value from the latter for the composite hypothesis
 #' of normality (mean and variance unknown), since the distribution of the
@@ -68,15 +68,15 @@
 #'
 #' @examples
 #' set.seed(1)
-#' lillieTest(rnorm(100, mean = 5, sd = 3))
-#' lillieTest(runif(100, min = 2, max = 4))
+#' lillieforsTest(rnorm(100, mean = 5, sd = 3))
+#' lillieforsTest(runif(100, min = 2, max = 4))
 #'
 #' @family test.normality
 #' @concept normality-test
 #' @concept goodness-of-fit
 #'
 #' @export
-lillieTest <- function(x) {
+lillieforsTest <- function(x) {
 
   DNAME <- deparse1(substitute(x))
 

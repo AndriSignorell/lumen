@@ -20,7 +20,7 @@
 #' alternatives ask different ones rather than the same one better:
 #' [brunnerMunzelTest()] tests the relative effect
 #' \eqn{P(X < Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}} and
-#' [vanWaerdenTest()] tests equality of the distributions against
+#' [vanDerWaerdenTest()] tests equality of the distributions against
 #' normal-score location alternatives. Neither is a test of equal medians, so
 #' they are not drop-in replacements. Use the median test when the median is
 #' genuinely the quantity of interest, or when only the side of a threshold is

@@ -27,7 +27,7 @@
 #'
 #' Missing values are not allowed.
 #'
-#' @param y numeric vector or univariate time series to be tested for a
+#' @param x numeric vector or univariate time series to be tested for a
 #' unit root.
 #' @param type the deterministic part of the test regression, one of
 #' `"none"` (default), `"drift"` or `"trend"`.
@@ -87,40 +87,40 @@
 #' @concept stationarity
 #'
 #' @export
-adfTest <- function(y, type = c("none", "drift", "trend"),
+adfTest <- function(x, type = c("none", "drift", "trend"),
                     lags = 1, selectLags = c("fixed", "aic", "bic")) {
 
   type <- match.arg(type)
   selectLags <- match.arg(tolower(selectLags), c("fixed", "aic", "bic"))
 
-  DNAME <- deparse1(substitute(y))
+  DNAME <- deparse1(substitute(x))
 
-  if (ncol(as.matrix(y)) > 1)
-    stop("'y' must be a vector or a univariate time series")
-  if (anyNA(y))
-    stop("NAs in 'y'")
+  if (ncol(as.matrix(x)) > 1)
+    stop("'x' must be a vector or a univariate time series")
+  if (anyNA(x))
+    stop("NAs in 'x'")
 
   lag <- as.integer(lags)
   if (is.na(lag) || lag < 0)
     stop("'lags' must be a non-negative integer")
 
-  y <- as.vector(y)
+  x <- as.vector(x)
   lags <- lag + 1L
 
-  z <- diff(y)
+  z <- diff(x)
   n <- length(z)
   if (n < lags + 2L)
-    stop("'y' is too short for the requested number of lags")
+    stop("'x' is too short for the requested number of lags")
 
-  x       <- embed(z, lags)
-  z.diff  <- x[, 1]
-  z.lag.1 <- y[lags:n]
+  zEmb    <- embed(z, lags)
+  z.diff  <- zEmb[, 1]
+  z.lag.1 <- x[lags:n]
   tt      <- lags:n
 
   # test regression with k - 1 lagged differences (k = embed order)
   fitADF <- function(k) {
     if (k > 1) {
-      z.diff.lag <- x[, 2:k]
+      z.diff.lag <- zEmb[, 2:k]
       switch(type,
              none  = lm(z.diff ~ z.lag.1 - 1 + z.diff.lag),
              drift = lm(z.diff ~ z.lag.1 + 1 + z.diff.lag),
@@ -149,7 +149,7 @@ adfTest <- function(y, type = c("none", "drift", "trend"),
   # on the deterministic terms
   phi <- NULL
   if (type != "none") {
-    z.diff.lag <- if (lags > 1) x[, 2:lags] else NULL
+    z.diff.lag <- if (lags > 1) zEmb[, 2:lags] else NULL
     if (type == "drift") {
       phi1.reg <- if (lags > 1) lm(z.diff ~ -1 + z.diff.lag) else
         lm(z.diff ~ -1)
