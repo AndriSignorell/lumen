@@ -13,7 +13,8 @@ multinomCI(
   x,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  method = c("sison-glaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")
+  method = c("sison-glaz", "cplus1", "goodman", "wald", "wald-cc", "wilson",
+    "quesenberry-hurst", "fitzpatrick-scott")
 )
 ```
 
@@ -38,9 +39,9 @@ multinomCI(
 - method:
 
   character string specifying which method to use, one of `"sison-glaz"`
-  (default), `"cplus1"`, `"goodman"`, `"wald"`, `"waldcc"`, `"wilson"`,
-  `"qh"` or `"fs"`; can be abbreviated. See ‘Details’ for the individual
-  methods.
+  (default), `"cplus1"`, `"goodman"`, `"wald"`, `"wald-cc"`, `"wilson"`,
+  `"quesenberry-hurst"` or `"fitzpatrick-scott"`; can be abbreviated.
+  See ‘Details’ for the individual methods.
 
 ## Value
 
@@ -67,8 +68,7 @@ each class of a multinomial distribution, builds the simultaneous
 confidence intervals for the multinomial probabilities according to the
 method passed in `method` (see `method` below for the full list). The R
 code for Sison-Glaz (1995) has been translated from the SAS code written
-by May and Johnson (2000). See the references for the other methods
-(`qh` = Quesenberry-Hurst, `fs` = Fitzpatrick-Scott).  
+by May and Johnson (2000). See the references for the other methods.  
 Some of the methods can yield confidence limits below 0 or above 1;
 these are truncated to `[0, 1]`.
 
@@ -179,7 +179,7 @@ multinomCI(x, method="wald")
 #> [2,] 0.370 0.30308797 0.4369120
 #> [3,] 0.110 0.06663649 0.1533635
 #> [4,] 0.345 0.27911853 0.4108815
-multinomCI(x, method="waldcc")
+multinomCI(x, method="wald-cc")
 #>        est        lci       uci
 #> [1,] 0.175 0.11984021 0.2301598
 #> [2,] 0.370 0.30058797 0.4394120
@@ -231,8 +231,8 @@ multinomCI(x=c(91, 49, 37, 43), conf.level=0.95, method="goodman")
 # 7   0.089  0.171   0.079  0.170       0.084  0.169
 
 x <- c(56, 72, 73, 59, 62, 87, 58)
-do.call(cbind, lapply(c("wald", "waldcc", "wilson", 
-                        "qh", "goodman", "fs", "sison-glaz"),
+do.call(cbind, lapply(c("wald", "wald-cc", "wilson", 
+                        "quesenberry-hurst", "goodman", "fitzpatrick-scott", "sison-glaz"),
                       function(m) round(multinomCI(x, method=m)[,-1], 3)))
 #>        lci   uci   lci   uci   lci   uci   lci   uci   lci   uci   lci   uci
 #> [1,] 0.090 0.149 0.089 0.150 0.094 0.153 0.076 0.183 0.085 0.166 0.075 0.165

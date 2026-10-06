@@ -7,7 +7,7 @@ constant across subgroups, as required by the Mantel-Haenszel method.
 ## Usage
 
 ``` r
-breslowDayTest(x, OR = NULL, correct = FALSE)
+breslowDayTest(x, oddsRatio = NULL, correct = FALSE)
 ```
 
 ## Arguments
@@ -16,7 +16,7 @@ breslowDayTest(x, OR = NULL, correct = FALSE)
 
   a \\2 \times 2 \times k\\ table.
 
-- OR:
+- oddsRatio:
 
   the odds ratio to be tested against. If left undefined (default) the
   Mantel-Haenszel estimate will be used.
@@ -60,7 +60,7 @@ A list with class `"htest"` containing the following components:
 
 Calculates the Breslow-Day test of homogeneity for a \\2 \times 2 \times
 k\\ table, in order to investigate if all \\k\\ strata have the same OR.
-If `OR` is not given, the Mantel-Haenszel estimate is used.
+If `oddsRatio` is not given, the Mantel-Haenszel estimate is used.
 
 For the Breslow-Day test to be valid, the sample size should be
 relatively large in each stratum, and at least 80% of the expected cell
@@ -72,10 +72,10 @@ valid, it might not be very powerful against certain alternatives, as
 discussed in Breslow and Day (1980).
 
 The statistic is referred to a chi-squared distribution with \\k-1\\
-degrees of freedom; this also applies when a prespecified `OR` is
+degrees of freedom; this also applies when a prespecified `oddsRatio` is
 supplied. Note that Tarone's adjustment is derived for the
 Mantel-Haenszel estimate; a warning is issued if `correct = TRUE` is
-combined with a user-supplied `OR`.
+combined with a user-supplied `oddsRatio`.
 
 Alternatively, it might be better to cast the entire inference problem
 into the setting of a logistic regression model. Here, the underlying
@@ -173,7 +173,7 @@ salary <- array(
                     )
 
 # common odds ratio = 4.028269
-breslowDayTest(salary, OR = 4.02)
+breslowDayTest(salary, oddsRatio = 4.02)
 #> 
 #>  Breslow-Day test for homogeneity of the odds ratios
 #> 

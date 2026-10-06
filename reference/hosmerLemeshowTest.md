@@ -13,7 +13,7 @@ hosmerLemeshowTest(x, ...)
 hosmerLemeshowTest(x, nGroups = 10, type = c("C", "H"), ...)
 
 # Default S3 method
-hosmerLemeshowTest(x, obs, nGroups = 10, type = c("C", "H"), ...)
+hosmerLemeshowTest(x, ref, nGroups = 10, type = c("C", "H"), ...)
 
 # S3 method for class 'HosmerLemeshowTest'
 print(x, digits = 4, details = FALSE, ...)
@@ -41,7 +41,7 @@ print(x, digits = 4, details = FALSE, ...)
   the type of statistic, one of `"C"` (default, quantile-based groups)
   or `"H"` (equal-width groups on \\\[0, 1\]\\).
 
-- obs:
+- ref:
 
   a numeric vector of observed binary outcomes (0 or 1) of the same
   length as `x`, without missing values; unused for the `glm` method.
@@ -130,8 +130,8 @@ Logistic Regression*, 3rd ed., New York: Wiley.
 
 [`glm()`](https://rdrr.io/r/stats/glm.html)
 
-Other test.regression: [`bpTest()`](bpTest.md),
-[`breuschGodfreyTest()`](breuschGodfreyTest.md),
+Other test.regression: [`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`breuschPaganTest()`](breuschPaganTest.md),
 [`durbinWatsonTest()`](durbinWatsonTest.md),
 [`leCessieTest()`](leCessieTest.md)
 

@@ -37,14 +37,13 @@ remotes::install_github("AndriSignorell/lumen")
 
 ### 🔹 Location Tests
 
-- [`tTestA()`](reference/tTestA.md), [`zTest()`](reference/zTest.md),
+- `tTestA()`, [`zTest()`](reference/zTest.md),
   [`yuenTTest()`](reference/yuenTTest.md),
   [`signTest()`](reference/signTest.md)
 - [`brunnerMunzelTest()`](reference/brunnerMunzelTest.md),
   [`siegelTukeyTest()`](reference/siegelTukeyTest.md),
   [`mosesTest()`](reference/mosesTest.md)
-- [`moodMedianTest()`](reference/moodMedianTest.md),
-  [`vanWaerdenTest()`](reference/vanWaerdenTest.md),
+- [`moodMedianTest()`](reference/moodMedianTest.md), `vanWaerdenTest()`,
   [`dscfTest()`](reference/dscfTest.md)
 
 ### 🔹 Categorical Data
@@ -64,10 +63,9 @@ remotes::install_github("AndriSignorell/lumen")
 
 - [`andersonDarlingTest()`](reference/andersonDarlingTest.md),
   [`cramerVonMisesTest()`](reference/cramerVonMisesTest.md),
-  [`lillieTest()`](reference/lillieTest.md)
+  `lillieTest()`
 - [`shapiroFranciaTest()`](reference/shapiroFranciaTest.md),
-  [`jarqueBeraTest()`](reference/jarqueBeraTest.md),
-  [`pearsonTest()`](reference/pearsonTest.md)
+  [`jarqueBeraTest()`](reference/jarqueBeraTest.md), `pearsonTest()`
 - [`hosmerLemeshowTest()`](reference/hosmerLemeshowTest.md),
   [`leCessieTest()`](reference/leCessieTest.md) — for logistic models
 
@@ -94,8 +92,7 @@ remotes::install_github("AndriSignorell/lumen")
   [`jonckheereTerpstraTest()`](reference/jonckheereTerpstraTest.md)
 - [`pageTest()`](reference/pageTest.md),
   [`durbinWatsonTest()`](reference/durbinWatsonTest.md),
-  [`breuschGodfreyTest()`](reference/breuschGodfreyTest.md),
-  [`bpTest()`](reference/bpTest.md)
+  [`breuschGodfreyTest()`](reference/breuschGodfreyTest.md), `bpTest()`
 
 ### 🔹 Confidence Intervals
 

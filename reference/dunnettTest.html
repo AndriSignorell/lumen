@@ -17,7 +17,7 @@ error rate."><meta property="og:image" content="/logo.png"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ error rate.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dunnettTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
-<span><span class="fu">dunnettTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.omit</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">dunnettTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">dunnettTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, control <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -92,8 +92,10 @@ evaluated in <code>data</code> (<code>subset = Month != 5</code>), as in <code><
 
 
 <dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
-<dd><p>a function indicating how missing values should be
-handled. Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit()</a></code>.</p></dd>
+<dd><p>a function indicating how missing values are handled.
+Defaults to <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.pass()</a></code>: the missing values reach the default method,
+which drops every observation with a missing value or a missing
+group, as <code><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">kruskal.test()</a></code> does.</p></dd>
 
 
 <dt id="arg-g">g<a class="anchor" aria-label="anchor" href="#arg-g"></a></dt>
@@ -118,7 +120,7 @@ intervals. Defaults to <code>0.95</code>.</p></dd>
 matrix for each control level. Each matrix has columns <code>diff</code> for
 the observed mean difference (treatment minus control), <code>lci</code>
 and <code>uci</code> for the simultaneous confidence limits, and
-<code>pval</code> for the multiplicity-adjusted p-value.</p>
+<code>p.value</code> for the multiplicity-adjusted p-value.</p>
 <p>Print and plot methods are available for class <code>"PostHocTest"</code>.
 The plot method supplies its own axis labels and title and therefore does
 not accept <code>xlab</code>, <code>ylab</code>, or <code>main</code>.</p>
@@ -182,9 +184,9 @@ Statistical Association</em>, <strong>50</strong>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       diff        lci       uci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2-1  0.385 -0.6898153 1.4598153 0.583       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3-1 -0.020 -1.0333456 0.9933456 0.998       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       diff        lci       uci p.value signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2-1  0.385 -0.6898153 1.4598153   0.583       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3-1 -0.020 -1.0333456 0.9933456   0.998       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -206,9 +208,12 @@ Statistical Association</em>, <strong>50</strong>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                            diff        lci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects  0.385 -0.6898153</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 -0.020 -1.0333456</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                uci  pval signif</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects 1.4598153 0.583       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 0.9933456 0.998       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                uci p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects 1.4598153   0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                 0.9933456   0.998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                          signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with obstructive airway disease-Normal subjects       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subjects with asbestosis-Normal subjects                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
@@ -223,7 +228,7 @@ Statistical Association</em>, <strong>50</strong>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci p.value signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43036 34.08848   0.965       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.23412 55.76588 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.08027 56.61204 &lt; 0.001    ***</span>
@@ -241,7 +246,7 @@ Statistical Association</em>, <strong>50</strong>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     90% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci p.value signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -54.26325 -18.429061 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -55.50129  -5.532901   0.030    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -18.76325  17.070939   1.000       </span>
@@ -259,14 +264,14 @@ Statistical Association</em>, <strong>50</strong>, 1096–1121.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          diff       lci      uci p.value signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6-5  5.829060 -22.43036 34.08848   0.965       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7-5 35.500000  15.23412 55.76588 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8-5 36.346154  16.08027 56.61204 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9-5  7.832891 -11.90191 27.56770   0.735       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci    pval signif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            diff       lci        uci p.value signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5-8 -36.3461538 -56.61204 -16.080272 &lt; 0.001    ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6-8 -30.5170940 -58.77652  -2.257672   0.030    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7-8  -0.8461538 -21.11204  19.419728   1.000       </span>

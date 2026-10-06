@@ -9,10 +9,10 @@ multiple-comparison procedure for independent samples.
 dscfTest(x, ...)
 
 # S3 method for class 'formula'
-dscfTest(formula, data, subset, na.action = na.omit, ...)
+dscfTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
-dscfTest(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
+dscfTest(x, g, output = c("list", "matrix"), sig.level = 0.05, ...)
 ```
 
 ## Arguments
@@ -41,8 +41,11 @@ dscfTest(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
 
 - na.action:
 
-  a function specifying how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
@@ -53,7 +56,7 @@ dscfTest(x, g, output = c("list", "matrix"), alpha = 0.05, ...)
   character string specifying the output format. One of `"list"`
   (default) or `"matrix"`.
 
-- alpha:
+- sig.level:
 
   the significance level used to compile the groups flagged as
   significantly different in the label attribute of the p-value matrix
@@ -66,8 +69,8 @@ An object of class `"rankTest"` containing:
 - res:
 
   comparison results. For `output="list"` a matrix with columns `z` and
-  `pval`; for `output="matrix"` a symmetric matrix of adjusted p-values
-  with diagonal 1.
+  `p.value`; for `output="matrix"` a symmetric matrix of adjusted
+  p-values with diagonal 1.
 
 - pmat:
 
@@ -143,10 +146,10 @@ dscfTest(list(x, y, z))
 #> 
 #>  Steel-Dwass-Critchlow-Fligner all-pairs test 
 #> 
-#>              z   pval    
-#> 1-2 -0.6928203 0.8761    
-#> 1-3 -0.1477098 0.9940    
-#> 2-3 -1.3856406 0.5897    
+#>              z p.value    
+#> 1-2 -0.6928203  0.8761    
+#> 1-3 -0.1477098  0.9940    
+#> 2-3 -1.3856406  0.5897    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -158,10 +161,10 @@ dscfTest(x, g)
 #> 
 #>  Steel-Dwass-Critchlow-Fligner all-pairs test 
 #> 
-#>              z   pval    
-#> 1-2 -0.6928203 0.8761    
-#> 1-3 -0.1477098 0.9940    
-#> 2-3 -1.3856406 0.5897    
+#>              z p.value    
+#> 1-2 -0.6928203  0.8761    
+#> 1-3 -0.1477098  0.9940    
+#> 2-3 -1.3856406  0.5897    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -185,7 +188,7 @@ dscfTest(Ozone ~ factor(Month), data = airquality)
 #> 
 #>  Steel-Dwass-Critchlow-Fligner all-pairs test 
 #> 
-#>               z    pval    
+#>               z p.value    
 #> 5-6 -1.86973366 0.67741    
 #> 5-7 -5.91550472 0.00028 ***
 #> 5-8 -5.44986225 0.00110 ** 

@@ -132,10 +132,11 @@ Wiley, New York.
 confidence intervals).
 
 Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
-[`hotellingsT2Test()`](hotellingsT2Test.md),
-[`moodMedianTest()`](moodMedianTest.md), [`tTestA()`](tTestA.md),
-[`vanWaerdenTest()`](vanWaerdenTest.md), [`yuenTTest()`](yuenTTest.md),
-[`zTest()`](zTest.md)
+[`hotellingT2Test()`](hotellingT2Test.md),
+[`moodMedianTest()`](moodMedianTest.md),
+[`tTestSummary()`](tTestSummary.md),
+[`vanDerWaerdenTest()`](vanDerWaerdenTest.md),
+[`yuenTTest()`](yuenTTest.md), [`zTest()`](zTest.md)
 
 ## Examples
 

@@ -56,16 +56,16 @@ Parametric, nonparametric, robust, multivariate, and correlation tests.
 
 - [`brunnerMunzelTest()`](brunnerMunzelTest.md) : Brunner-Munzel Test
   for Comparing Stochastic Dominance Between Two Independent Samples
-- [`hotellingsT2Test()`](hotellingsT2Test.md) : Hotelling's T2 Test for
+- [`hotellingT2Test()`](hotellingT2Test.md) : Hotelling's T2 Test for
   Comparing Multivariate Mean Vectors
 - [`moodMedianTest()`](moodMedianTest.md) : Mood's Median Test for
   Comparing Medians Across Independent Groups
 - [`signTest()`](signTest.md) : Sign Test for Testing a Median or Paired
   Median Difference
-- [`tTestA()`](tTestA.md) : Student's T-Test Based on Sample Statistics
-  for Performing T-Tests From Summary Statistics
-- [`vanWaerdenTest()`](vanWaerdenTest.md) : Van Der Waerden Test for
-  Comparing Group Locations Using Normal Scores
+- [`tTestSummary()`](tTestSummary.md) : Student's T-Test Based on Sample
+  Statistics for Performing T-Tests From Summary Statistics
+- [`vanDerWaerdenTest()`](vanDerWaerdenTest.md) : Van Der Waerden Test
+  for Comparing Group Locations Using Normal Scores
 - [`yuenTTest()`](yuenTTest.md) : Yuen T-Test for Robust Comparison of
   Trimmed Means
 - [`zTest()`](zTest.md) : Z-Test for Testing Means With Known Population
@@ -126,10 +126,11 @@ Tests for normality and distributional goodness of fit.
   Test for Assessing Deviations From Normality
 - [`jarqueBeraTest()`](jarqueBeraTest.md) : (Robust) Jarque-Bera Test
   for Assessing Normality From Skewness and Kurtosis
-- [`lillieTest()`](lillieTest.md) : Lilliefors (Kolmogorov-Smirnov) Test
-  for Assessing Normality With Estimated Parameters
-- [`pearsonTest()`](pearsonTest.md) : Pearson Chi-Square Test for
-  Assessing Normality From Grouped Frequencies
+- [`lillieforsTest()`](lillieforsTest.md) : Lilliefors
+  (Kolmogorov-Smirnov) Test for Assessing Normality With Estimated
+  Parameters
+- [`pearsonChisqTest()`](pearsonChisqTest.md) : Pearson Chi-Square Test
+  for Assessing Normality From Grouped Frequencies
 - [`shapiroFranciaTest()`](shapiroFranciaTest.md) : Shapiro-Francia Test
   for Assessing Normality From Normal Scores
 
@@ -161,8 +162,8 @@ Tests for stationarity, trends, serial dependence, and randomness.
 Tests for heteroscedasticity, autocorrelation, calibration, and model
 fit.
 
-- [`bpTest()`](bpTest.md) : Breusch-Pagan Test for Detecting
-  Heteroscedasticity in Regression Models
+- [`breuschPaganTest()`](breuschPaganTest.md) : Breusch-Pagan Test for
+  Detecting Heteroscedasticity in Regression Models
 - [`breuschGodfreyTest()`](breuschGodfreyTest.md) : Breusch-Godfrey Test
   for Detecting Higher-Order Serial Correlation in Regression Residuals
 - [`durbinWatsonTest()`](durbinWatsonTest.md) : Durbin-Watson Test for

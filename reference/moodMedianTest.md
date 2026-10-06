@@ -128,7 +128,7 @@ That low efficiency is the price of asking a narrow question, and the
 alternatives ask different ones rather than the same one better:
 [`brunnerMunzelTest()`](brunnerMunzelTest.md) tests the relative effect
 \\P(X \< Y) + \frac{1}{2}P(X = Y) = \frac{1}{2}\\ and
-[`vanWaerdenTest()`](vanWaerdenTest.md) tests equality of the
+[`vanDerWaerdenTest()`](vanDerWaerdenTest.md) tests equality of the
 distributions against normal-score location alternatives. Neither is a
 test of equal medians, so they are not drop-in replacements. Use the
 median test when the median is genuinely the quantity of interest, or
@@ -169,10 +169,10 @@ Wiley, New York, pp. 218-223.
 [`mood.test()`](https://rdrr.io/r/stats/mood.test.html)
 
 Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
-[`hotellingsT2Test()`](hotellingsT2Test.md),
-[`signTest()`](signTest.md), [`tTestA()`](tTestA.md),
-[`vanWaerdenTest()`](vanWaerdenTest.md), [`yuenTTest()`](yuenTTest.md),
-[`zTest()`](zTest.md)
+[`hotellingT2Test()`](hotellingT2Test.md), [`signTest()`](signTest.md),
+[`tTestSummary()`](tTestSummary.md),
+[`vanDerWaerdenTest()`](vanDerWaerdenTest.md),
+[`yuenTTest()`](yuenTTest.md), [`zTest()`](zTest.md)
 
 ## Examples
 

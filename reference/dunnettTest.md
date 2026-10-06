@@ -10,7 +10,7 @@ error rate.
 dunnettTest(x, ...)
 
 # S3 method for class 'formula'
-dunnettTest(formula, data, subset, na.action = na.omit, ...)
+dunnettTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
@@ -46,8 +46,11 @@ dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
 
 - na.action:
 
-  a function indicating how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
@@ -70,8 +73,8 @@ dunnettTest(x, g, control = NULL, conf.level = 0.95, ...)
 An object of class `"PostHocTest"`: a list containing one matrix for
 each control level. Each matrix has columns `diff` for the observed mean
 difference (treatment minus control), `lci` and `uci` for the
-simultaneous confidence limits, and `pval` for the multiplicity-adjusted
-p-value.
+simultaneous confidence limits, and `p.value` for the
+multiplicity-adjusted p-value.
 
 Print and plot methods are available for class `"PostHocTest"`. The plot
 method supplies its own axis labels and title and therefore does not
@@ -135,9 +138,9 @@ dunnettTest(list(x, y, z))
 #>     95% family-wise confidence level
 #> 
 #> $`1`
-#>       diff        lci       uci  pval signif
-#> 2-1  0.385 -0.6898153 1.4598153 0.583       
-#> 3-1 -0.020 -1.0333456 0.9933456 0.998       
+#>       diff        lci       uci p.value signif
+#> 2-1  0.385 -0.6898153 1.4598153   0.583       
+#> 3-1 -0.020 -1.0333456 0.9933456   0.998       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -159,9 +162,12 @@ dunnettTest(x, g)
 #>                                                            diff        lci
 #> Subjects with obstructive airway disease-Normal subjects  0.385 -0.6898153
 #> Subjects with asbestosis-Normal subjects                 -0.020 -1.0333456
-#>                                                                uci  pval signif
-#> Subjects with obstructive airway disease-Normal subjects 1.4598153 0.583       
-#> Subjects with asbestosis-Normal subjects                 0.9933456 0.998       
+#>                                                                uci p.value
+#> Subjects with obstructive airway disease-Normal subjects 1.4598153   0.583
+#> Subjects with asbestosis-Normal subjects                 0.9933456   0.998
+#>                                                          signif
+#> Subjects with obstructive airway disease-Normal subjects       
+#> Subjects with asbestosis-Normal subjects                       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -176,7 +182,7 @@ dunnettTest(Ozone ~ factor(Month), data = airquality)
 #>     95% family-wise confidence level
 #> 
 #> $`5`
-#>          diff       lci      uci    pval signif
+#>          diff       lci      uci p.value signif
 #> 6-5  5.829060 -22.43036 34.08848   0.965       
 #> 7-5 35.500000  15.23412 55.76588 < 0.001    ***
 #> 8-5 36.346154  16.08027 56.61204 < 0.001    ***
@@ -194,7 +200,7 @@ dunnettTest(Ozone ~ factor(Month), data = airquality,
 #>     90% family-wise confidence level
 #> 
 #> $`8`
-#>            diff       lci        uci    pval signif
+#>            diff       lci        uci p.value signif
 #> 5-8 -36.3461538 -54.26325 -18.429061 < 0.001    ***
 #> 6-8 -30.5170940 -55.50129  -5.532901   0.030    *  
 #> 7-8  -0.8461538 -18.76325  17.070939   1.000       
@@ -212,14 +218,14 @@ dunnettTest(Ozone ~ factor(Month), data = airquality,
 #>     95% family-wise confidence level
 #> 
 #> $`5`
-#>          diff       lci      uci    pval signif
+#>          diff       lci      uci p.value signif
 #> 6-5  5.829060 -22.43036 34.08848   0.965       
 #> 7-5 35.500000  15.23412 55.76588 < 0.001    ***
 #> 8-5 36.346154  16.08027 56.61204 < 0.001    ***
 #> 9-5  7.832891 -11.90191 27.56770   0.735       
 #> 
 #> $`8`
-#>            diff       lci        uci    pval signif
+#>            diff       lci        uci p.value signif
 #> 5-8 -36.3461538 -56.61204 -16.080272 < 0.001    ***
 #> 6-8 -30.5170940 -58.77652  -2.257672   0.030    *  
 #> 7-8  -0.8461538 -21.11204  19.419728   1.000       

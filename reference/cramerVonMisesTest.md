@@ -77,7 +77,8 @@ for producing extended normal quantile-quantile plots
 
 Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
 [`jarqueBeraTest()`](jarqueBeraTest.md),
-[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`lillieforsTest()`](lillieforsTest.md),
+[`pearsonChisqTest()`](pearsonChisqTest.md),
 [`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples

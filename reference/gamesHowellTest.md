@@ -62,8 +62,8 @@ gamesHowellTest(x, conf.level = 0.95, ...)
 An object of class `"PostHocTest"`: a list with one matrix, named after
 the grouping variable. The matrix has columns `diff` for the observed
 mean difference (second group minus first), `lci` and `uci` for the
-simultaneous confidence limits, and `pval` for the simultaneous p-value.
-Print and plot methods are available for class `"PostHocTest"`.
+simultaneous confidence limits, and `p.value` for the simultaneous
+p-value. Print and plot methods are available for class `"PostHocTest"`.
 
 ## Details
 
@@ -132,17 +132,17 @@ gamesHowellTest(breaks ~ tension, data = warpbreaks)
 #> Fit: gamesHowellTest.formula(breaks ~ tension, data = warpbreaks)
 #> 
 #> $tension
-#>           diff       lci       uci  pval signif
-#> M-L -10.000000 -21.00113  1.001128 0.080    .  
-#> H-L -14.722222 -25.54579 -3.898659 0.006    ** 
-#> H-M  -4.722222 -11.86790  2.423460 0.251       
+#>           diff       lci       uci p.value signif
+#> M-L -10.000000 -21.00113  1.001128   0.080    .  
+#> H-L -14.722222 -25.54579 -3.898659   0.006    ** 
+#> H-M  -4.722222 -11.86790  2.423460   0.251       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 
 ## compare with the pooled-variance procedures
-gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "pval"]
+gamesHowellTest(breaks ~ tension, data = warpbreaks)$tension[, "p.value"]
 #>         M-L         H-L         H-M 
 #> 0.080082272 0.006355163 0.251298244 
 ## [1] 0.080082272 0.006355163 0.251298244

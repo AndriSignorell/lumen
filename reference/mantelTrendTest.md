@@ -8,8 +8,8 @@ in a two-way contingency table, using row and column scores.
 ``` r
 mantelTrendTest(
   x,
-  srow = scores(x, MARGIN = 1L, method = "table"),
-  scol = scores(x, MARGIN = 2L, method = "table")
+  rowScores = scores(x, margin = 1L, method = "table"),
+  colScores = scores(x, margin = 2L, method = "table")
 )
 ```
 
@@ -19,13 +19,13 @@ mantelTrendTest(
 
   a numeric matrix of counts (\\r \times c\\)
 
-- srow:
+- rowScores:
 
   numeric vector of row scores; length must equal `nrow(x)`. Defaults to
   the numeric row `dimnames` of `x` if present, otherwise `1:nrow(x)`.
   See the Details.
 
-- scol:
+- colScores:
 
   numeric vector of column scores; length must equal `ncol(x)`. Defaults
   to the numeric column `dimnames` of `x` if present, otherwise
@@ -132,7 +132,7 @@ mantelTrendTest(Job)
 #>         r 
 #> 0.1772001 
 #> 
-mantelTrendTest(Job, srow = c(7.5, 20, 32.5, 60))
+mantelTrendTest(Job, rowScores = c(7.5, 20, 32.5, 60))
 #> 
 #>  Mantel linear-by-linear association test
 #> 
@@ -147,7 +147,7 @@ mantelTrendTest(Job, srow = c(7.5, 20, 32.5, 60))
 dose <- matrix(c(10, 9, 10, 7, 0, 1, 0, 3), nrow = 4,
                dimnames = list(dose = c("0", "1", "2", "3"),
                                resp = c("no", "yes")))
-mantelTrendTest(dose)  # srow taken as c(0, 1, 2, 3), not 1:4
+mantelTrendTest(dose)  # rowScores taken as c(0, 1, 2, 3), not 1:4
 #> 
 #>  Mantel linear-by-linear association test
 #> 

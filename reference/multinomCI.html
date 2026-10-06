@@ -21,7 +21,7 @@ several methods, e.g. Sison-Glaz, Wald or Wilson."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,8 @@ several methods, e.g. Sison-Glaz, Wald or Wilson.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sison-glaz"</span>, <span class="st">"cplus1"</span>, <span class="st">"goodman"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"wilson"</span>, <span class="st">"qh"</span>, <span class="st">"fs"</span><span class="op">)</span></span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sison-glaz"</span>, <span class="st">"cplus1"</span>, <span class="st">"goodman"</span>, <span class="st">"wald"</span>, <span class="st">"wald-cc"</span>, <span class="st">"wilson"</span>,</span>
+<span>    <span class="st">"quesenberry-hurst"</span>, <span class="st">"fitzpatrick-scott"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,8 +92,8 @@ hypothesis of <code>"greater"</code> in <code><a href="https://rdrr.io/r/stats/t
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>character string specifying which method to use, one of
 <code>"sison-glaz"</code> (default), <code>"cplus1"</code>, <code>"goodman"</code>,
-<code>"wald"</code>, <code>"waldcc"</code>, <code>"wilson"</code>, <code>"qh"</code> or
-<code>"fs"</code>; can be abbreviated. See ‘Details’ for the individual
+<code>"wald"</code>, <code>"wald-cc"</code>, <code>"wilson"</code>, <code>"quesenberry-hurst"</code> or
+<code>"fitzpatrick-scott"</code>; can be abbreviated. See ‘Details’ for the individual
 methods.</p></dd>
 
 </dl></div>
@@ -117,8 +118,7 @@ class of a multinomial distribution, builds the simultaneous confidence
 intervals for the multinomial probabilities according to the method passed
 in <code>method</code> (see <code>method</code> below for the full list). The R code for
 Sison-Glaz (1995) has been translated from the SAS code written by May and
-Johnson (2000). See the references for the other methods (<code>qh</code> =
-Quesenberry-Hurst, <code>fs</code> = Fitzpatrick-Scott).<br> Some of the methods
+Johnson (2000). See the references for the other methods.<br> Some of the methods
 can yield confidence limits below 0 or above 1; these are truncated to
 <code>[0, 1]</code>.</p>
     </div>
@@ -222,7 +222,7 @@ inference, <em>J.Am. Stat. Assoc.</em> 22 (1927) 209-212.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.30308797 0.4369120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110 0.06663649 0.1533635</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345 0.27911853 0.4108815</span>
-<span class="r-in"><span><span class="fu">multinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"waldcc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">multinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"wald-cc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est        lci       uci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175 0.11984021 0.2301598</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.30058797 0.4394120</span>
@@ -274,8 +274,8 @@ inference, <em>J.Am. Stat. Assoc.</em> 22 (1927) 209-212.</p>
 <span class="r-in"><span><span class="co"># 7   0.089  0.171   0.079  0.170       0.084  0.169</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span>, <span class="fl">72</span>, <span class="fl">73</span>, <span class="fl">59</span>, <span class="fl">62</span>, <span class="fl">87</span>, <span class="fl">58</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"wilson"</span>, </span></span>
-<span class="r-in"><span>                        <span class="st">"qh"</span>, <span class="st">"goodman"</span>, <span class="st">"fs"</span>, <span class="st">"sison-glaz"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"wald-cc"</span>, <span class="st">"wilson"</span>, </span></span>
+<span class="r-in"><span>                        <span class="st">"quesenberry-hurst"</span>, <span class="st">"goodman"</span>, <span class="st">"fitzpatrick-scott"</span>, <span class="st">"sison-glaz"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                      <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">multinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="va">m</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        lci   uci   lci   uci   lci   uci   lci   uci   lci   uci   lci   uci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.090 0.149 0.089 0.150 0.094 0.153 0.076 0.183 0.085 0.166 0.075 0.165</span>

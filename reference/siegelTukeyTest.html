@@ -69,7 +69,7 @@ differences when adjustMedian = FALSE."><meta property="og:image" content="/logo
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,7 +144,7 @@ differences when <code>adjustMedian = FALSE</code>.</p>
 <span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,</span>
 <span>  mu <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  adjustMedian <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  exact <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  exact <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  correct <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -206,7 +206,7 @@ differences from inflating the test statistic. Default is <code>FALSE</code>.</p
 <dd><p>logical; if <code>TRUE</code>, an exact p-value is computed via
 <code><a href="https://rdrr.io/r/stats/Wilcoxon.html" class="external-link">pwilcox()</a></code>. Exact computation is not possible in the presence
 of ties; a warning is issued and the normal approximation is used instead.
-If <code>NA</code> (default), exact computation is used when both samples have
+If <code>NULL</code> (default), exact computation is used when both samples have
 fewer than 50 observations and there are no ties.</p></dd>
 
 

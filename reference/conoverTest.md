@@ -9,16 +9,16 @@ following a significant Kruskal-Wallis test, based on rank data.
 conoverTest(x, ...)
 
 # S3 method for class 'formula'
-conoverTest(formula, data, subset, na.action = na.omit, ...)
+conoverTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 conoverTest(
   x,
   g,
-  method = p.adjust.methods,
+  p.adjust.method = p.adjust.methods,
   alternative = c("two.sided", "less", "greater"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 ```
@@ -49,14 +49,17 @@ conoverTest(
 
 - na.action:
 
-  a function indicating how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
   a grouping variable corresponding to `x`; ignored when `x` is a list.
 
-- method:
+- p.adjust.method:
 
   the method used to adjust the p-values for multiple comparisons, one
   of `p.adjust.methods` (default is `"holm"`). Passed directly to
@@ -76,7 +79,7 @@ conoverTest(
 
   - `"matrix"` lower-triangular matrix of adjusted p-values.
 
-- alpha:
+- sig.level:
 
   the significance level used to compile the groups flagged as
   significantly different in the label attribute of the p-value matrix
@@ -154,10 +157,10 @@ conoverTest(list(x, y, z))
 #> 
 #>  Conover's test of multiple comparisons : holm 
 #> 
-#>     mean.rank.diff   pval    
-#> 2-1            1.8 1.0000    
-#> 3-1           -0.6 1.0000    
-#> 3-2           -2.4 1.0000    
+#>     diff p.value    
+#> 2-1  1.8  1.0000    
+#> 3-1 -0.6  1.0000    
+#> 3-2 -2.4  1.0000    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -183,14 +186,14 @@ conoverTest(x, g)
 #> 
 #>  Conover's test of multiple comparisons : holm 
 #> 
-#>                                                                   mean.rank.diff
-#> Subjects with obstructive airway disease-Normal subjects                     1.8
-#> Subjects with asbestosis-Normal subjects                                    -0.6
-#> Subjects with asbestosis-Subjects with obstructive airway disease           -2.4
-#>                                                                     pval    
-#> Subjects with obstructive airway disease-Normal subjects          1.0000    
-#> Subjects with asbestosis-Normal subjects                          1.0000    
-#> Subjects with asbestosis-Subjects with obstructive airway disease 1.0000    
+#>                                                                   diff p.value
+#> Subjects with obstructive airway disease-Normal subjects           1.8  1.0000
+#> Subjects with asbestosis-Normal subjects                          -0.6  1.0000
+#> Subjects with asbestosis-Subjects with obstructive airway disease -2.4  1.0000
+#>                                                                      
+#> Subjects with obstructive airway disease-Normal subjects             
+#> Subjects with asbestosis-Normal subjects                             
+#> Subjects with asbestosis-Subjects with obstructive airway disease    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -200,17 +203,17 @@ conoverTest(Ozone ~ factor(Month), data = airquality)
 #> 
 #>  Conover's test of multiple comparisons : holm 
 #> 
-#>     mean.rank.diff    pval    
-#> 6-5    12.02991453  0.8843    
-#> 7-5    41.21153846 1.9e-05 ***
-#> 8-5    38.53846154 6.7e-05 ***
-#> 9-5    11.99734748  0.5424    
-#> 7-6    29.18162393  0.0721 .  
-#> 8-6    26.50854701  0.1109    
-#> 9-6    -0.03256705  1.0000    
-#> 8-7    -2.67307692  1.0000    
-#> 9-7   -29.21419098  0.0031 ** 
-#> 9-8   -26.54111406  0.0084 ** 
+#>             diff p.value    
+#> 6-5  12.02991453  0.8843    
+#> 7-5  41.21153846 1.9e-05 ***
+#> 8-5  38.53846154 6.7e-05 ***
+#> 9-5  11.99734748  0.5424    
+#> 7-6  29.18162393  0.0721 .  
+#> 8-6  26.50854701  0.1109    
+#> 9-6  -0.03256705  1.0000    
+#> 8-7  -2.67307692  1.0000    
+#> 9-7 -29.21419098  0.0031 ** 
+#> 9-8 -26.54111406  0.0084 ** 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -220,13 +223,13 @@ conoverTest(Ozone ~ factor(Month), data = airquality, subset = Month != 5)
 #> 
 #>  Conover's test of multiple comparisons : holm 
 #> 
-#>     mean.rank.diff   pval    
-#> 7-6     24.2820513 0.0412 *  
-#> 8-6     22.3012821 0.0543 .  
-#> 9-6      0.6494253 1.0000    
-#> 8-7     -1.9807692 1.0000    
-#> 9-7    -23.6326260 0.0026 ** 
-#> 9-8    -21.6518568 0.0060 ** 
+#>            diff p.value    
+#> 7-6  24.2820513  0.0412 *  
+#> 8-6  22.3012821  0.0543 .  
+#> 9-6   0.6494253  1.0000    
+#> 8-7  -1.9807692  1.0000    
+#> 9-7 -23.6326260  0.0026 ** 
+#> 9-8 -21.6518568  0.0060 ** 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 

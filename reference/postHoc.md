@@ -14,7 +14,7 @@ postHocTest(x, ...)
 postHocTest(
   x,
   which = NULL,
-  method = c("hsd", "bonferroni", "lsd", "scheffe", "newmankeuls", "duncan"),
+  method = c("hsd", "bonferroni", "lsd", "scheffe", "newman-keuls", "duncan"),
   conf.level = 0.95,
   ordered = FALSE,
   ...
@@ -23,7 +23,8 @@ postHocTest(
 # S3 method for class 'matrix'
 postHocTest(
   x,
-  method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
+  p.adjust.method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg",
+    "hommel"),
   conf.level = NA,
   ...
 )
@@ -31,7 +32,8 @@ postHocTest(
 # S3 method for class 'table'
 postHocTest(
   x,
-  method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
+  p.adjust.method = c("none", "fdr", "BH", "BY", "bonferroni", "holm", "hochberg",
+    "hommel"),
   conf.level = NA,
   ...
 )
@@ -57,12 +59,9 @@ print(x, digits = getOption("digits", 3), ...)
 
 - method:
 
-  one of `"hsd"`, `"bonferroni"`, `"lsd"`, `"scheffe"`, `"newmankeuls"`,
-  `"duncan"`, defining the method for the pairwise comparisons (may be
-  abbreviated).  
-  For the post hoc test of tables the methods of
-  [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html) can be supplied.
-  See the detail there.
+  one of `"hsd"`, `"bonferroni"`, `"lsd"`, `"scheffe"`,
+  `"newman-keuls"`, `"duncan"`, defining the method for the pairwise
+  comparisons (may be abbreviated).
 
 - conf.level:
 
@@ -78,7 +77,14 @@ print(x, digits = getOption("digits", 3), ...)
   the means will all be positive. The significant differences will be
   those for which the lower end point is positive.  
   This argument will be ignored if method is not either `hsd` or
-  `newmankeuls`.
+  `newman-keuls`.
+
+- p.adjust.method:
+
+  for the post hoc test of tables: the method used to adjust the
+  p-values, one of the methods of
+  [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html). Defaults to
+  `"none"`.
 
 - digits:
 
@@ -153,7 +159,7 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "lsd")
 #> Fit: aov(formula = breaks ~ tension, data = warpbreaks)
 #> 
 #> $tension
-#>           diff       lci       uci    pval signif
+#>           diff       lci       uci p.value signif
 #> M-L -10.000000 -17.95042 -2.049581   0.015    *  
 #> H-L -14.722222 -22.67264 -6.771803 < 0.001    ***
 #> H-M  -4.722222 -12.67264  3.228197   0.239       
@@ -169,10 +175,10 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd")
 #> Fit: aov(formula = breaks ~ tension, data = warpbreaks)
 #> 
 #> $tension
-#>           diff       lci        uci  pval signif
-#> M-L -10.000000 -19.55982 -0.4401756 0.038    *  
-#> H-L -14.722222 -24.28205 -5.1623978 0.001    ** 
-#> H-M  -4.722222 -14.28205  4.8376022 0.463       
+#>           diff       lci        uci p.value signif
+#> M-L -10.000000 -19.55982 -0.4401756   0.038    *  
+#> H-L -14.722222 -24.28205 -5.1623978   0.001    ** 
+#> H-M  -4.722222 -14.28205  4.8376022   0.463       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -185,10 +191,10 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "scheffe")
 #> Fit: aov(formula = breaks ~ tension, data = warpbreaks)
 #> 
 #> $tension
-#>           diff       lci         uci  pval signif
-#> M-L -10.000000 -19.98534 -0.01465926 0.050    *  
-#> H-L -14.722222 -24.70756 -4.73688148 0.002    ** 
-#> H-M  -4.722222 -14.70756  5.26311852 0.496       
+#>           diff       lci         uci p.value signif
+#> M-L -10.000000 -19.98534 -0.01465926   0.050    *  
+#> H-L -14.722222 -24.70756 -4.73688148   0.002    ** 
+#> H-M  -4.722222 -14.70756  5.26311852   0.496       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -198,8 +204,8 @@ r.aov <- aov(breaks ~ tension, data = warpbreaks)
 
 # compare p-values:
 round(cbind(
-    lsd= postHocTest(r.aov, method="lsd")$tension[,"pval"]
-  , bonf=postHocTest(r.aov, method="bonf")$tension[,"pval"]
+    lsd= postHocTest(r.aov, method="lsd")$tension[,"p.value"]
+  , bonf=postHocTest(r.aov, method="bonf")$tension[,"p.value"]
 ), 4)
 #>        lsd   bonf
 #> M-L 0.0147 0.0442

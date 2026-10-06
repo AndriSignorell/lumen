@@ -90,7 +90,7 @@ scheffeTest(x, which = NULL, contrasts = NULL, conf.level = 0.95, ...)
 A list of classes `c("PostHocTest")`, with one component for each term
 requested in `which`. Each component is a matrix with columns `diff`
 giving the difference in the observed means, `lci` giving the lower end
-point of the interval, `uci` giving the upper end point and `pval`
+point of the interval, `uci` giving the upper end point and `p.value`
 giving the p-value after adjustment for the multiple comparisons.
 
 There are print and plot methods for class `"PostHocTest"`. The plot
@@ -136,14 +136,14 @@ scheffeTest(x=fm1)
 #> Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)
 #> 
 #> $wool
-#>          diff       lci       uci  pval signif
-#> B-A -5.777778 -12.12841 0.5728505 0.074    .  
+#>          diff       lci       uci p.value signif
+#> B-A -5.777778 -12.12841 0.5728505   0.074    .  
 #> 
 #> $tension
-#>           diff       lci        uci  pval signif
-#> M-L -10.000000 -19.76977 -0.2302286 0.044    *  
-#> H-L -14.722222 -24.49199 -4.9524508 0.002    ** 
-#> H-M  -4.722222 -14.49199  5.0475492 0.481       
+#>           diff       lci        uci p.value signif
+#> M-L -10.000000 -19.76977 -0.2302286   0.044    *  
+#> H-L -14.722222 -24.49199 -4.9524508   0.002    ** 
+#> H-M  -4.722222 -14.49199  5.0475492   0.481       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -156,10 +156,10 @@ scheffeTest(x=fm1, which="tension")
 #> Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)
 #> 
 #> $tension
-#>           diff       lci        uci  pval signif
-#> M-L -10.000000 -19.76977 -0.2302286 0.044    *  
-#> H-L -14.722222 -24.49199 -4.9524508 0.002    ** 
-#> H-M  -4.722222 -14.49199  5.0475492 0.481       
+#>           diff       lci        uci p.value signif
+#> M-L -10.000000 -19.76977 -0.2302286   0.044    *  
+#> H-L -14.722222 -24.49199 -4.9524508   0.002    ** 
+#> H-M  -4.722222 -14.49199  5.0475492   0.481       
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -182,9 +182,9 @@ scheffeTest(r.aov, contrasts=matrix( c(1,-0.5,-0.5,0,0,0,
 #> Fit: aov(formula = y ~ group)
 #> 
 #> $group
-#>          diff       lci      uci  pval signif
-#> 1-2,3  7.2500 -6.417446 20.91745 0.637       
-#> 4-5,6 14.0625  0.395054 27.72995 0.040    *  
+#>          diff       lci      uci p.value signif
+#> 1-2,3  7.2500 -6.417446 20.91745   0.637       
+#> 4-5,6 14.0625  0.395054 27.72995   0.040    *  
 #> 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

@@ -15,7 +15,7 @@ confidence interval."><meta property="og:image" content="/logo.png"></head><body
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@ confidence interval.</p>
 <span>  n2 <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"midp"</span>, <span class="st">"wald-log"</span><span class="op">)</span></span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"mid-p"</span>, <span class="st">"wald-log"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -97,7 +97,7 @@ defaults to 1</p></dd>
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>method used to calculate the confidence interval: <code>"exact"</code>,
-<code>"midp"</code>, or <code>"wald-log"</code>; may be abbreviated and defaults to <code>"exact"</code></p></dd>
+<code>"mid-p"</code>, or <code>"wald-log"</code>; may be abbreviated and defaults to <code>"exact"</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -129,7 +129,7 @@ on \(x_1 + x_2\) and transforming a Clopper–Pearson interval for the
 resulting binomial probability; this is the construction used by
 <code><a href="https://rdrr.io/r/stats/poisson.test.html" class="external-link">poisson.test()</a></code> for two samples</p></dd>
 
-<dt><code>"midp"</code></dt>
+<dt><code>"mid-p"</code></dt>
 <dd><p>the corresponding conditional mid-p interval, which is
 generally shorter but does not guarantee conservative coverage</p></dd>
 
@@ -179,7 +179,7 @@ Medicine</em>, <strong>22</strong>(12), 2071–2083.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">poissonRatioCI</span><span class="op">(</span><span class="fl">15</span>, <span class="fl">100</span>, <span class="fl">6</span>, <span class="fl">120</span>, method <span class="op">=</span> <span class="st">"midp"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">poissonRatioCI</span><span class="op">(</span><span class="fl">15</span>, <span class="fl">100</span>, <span class="fl">6</span>, <span class="fl">120</span>, method <span class="op">=</span> <span class="st">"mid-p"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      est      lci      uci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.000000 1.188883 8.415485 </span>
 <span class="r-in"><span></span></span>

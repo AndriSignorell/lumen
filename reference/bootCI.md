@@ -10,11 +10,10 @@ bootCI(
   x,
   y = NULL,
   FUN,
-  ...,
-  bci.method = c("norm", "basic", "stud", "perc", "bca"),
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  R = 999
+  R = 999,
+  ...
 )
 ```
 
@@ -33,17 +32,6 @@ bootCI(
 
   the function to be used.
 
-- ...:
-
-  further arguments are passed to the function `FUN`.
-
-- bci.method:
-
-  a vector of character strings representing the type of intervals
-  required. The value should be any subset of the values `"norm"`,
-  `"basic"`, `"stud"`, `"perc"`, `"bca"`, as it is passed on as `method`
-  to [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html).
-
 - conf.level:
 
   confidence level of the interval.
@@ -57,11 +45,18 @@ bootCI(
 
 - R:
 
-  number of bootstrap replicates. Usually this will be a single positive
-  integer. For importance resampling, some resamples may use one set of
-  weights and others use a different set of weights. In this case `R`
-  would be a vector of integers where each component gives the number of
-  resamples from each of the rows of weights.
+  number of bootstrap replicates, a single positive whole number.
+
+- ...:
+
+  further arguments. The bootstrap options are taken out first, as in
+  the other interval functions of the package: `type`, the interval type
+  passed to
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html), one of
+  `"bca"` (default), `"perc"`, `"basic"`, `"norm"` or `"stud"`, and
+  `parallel` and `ncpus`, passed to
+  [`boot::boot()`](https://rdrr.io/pkg/boot/man/boot.html). Everything
+  else is passed to `FUN`.
 
 ## Value
 
@@ -79,26 +74,38 @@ A named numeric vector with three elements:
 
   upper confidence interval bound.
 
+## Details
+
+`type`, `parallel` and `ncpus` therefore cannot reach `FUN` through the
+dots. A statistic that has an argument of one of these names - the
+`type` of [`quantile()`](https://rdrr.io/r/stats/quantile.html), say -
+is wrapped: `FUN = function(z) quantile(z, 0.9, type = 6)`.
+
+`"stud"` needs a variance estimate for every replicate, which a general
+`FUN` does not deliver;
+[`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) then
+returns no such interval and `bootCI()` stops with a message saying so.
+
 ## Examples
 
 ``` r
 
 set.seed(1984)
-bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE, bci.method="basic")
+bootCI(mtcars$mpg, FUN=mean, na.rm=TRUE)
 #>      est      lci      uci 
-#> 20.09062 17.99062 22.19687 
-bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, bci.method="basic")
+#> 20.09062 18.12561 22.31055 
+bootCI(mtcars$mpg, FUN=mean, trim=0.1, na.rm=TRUE, type="basic")
 #>      est      lci      uci 
 #> 19.69615 17.46923 21.78846 
 
-# bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, bci.method="basic")
+# bootCI(mtcars$mpg, FUN=DescToolsX::skewX, na.rm=TRUE, type="basic")
 
 # bootCI(Pizza$operator, Pizza$area, FUN=cramerV)
 
 spearman <- function(x,y) cor(x, y, method="spearman", use="p")
 bootCI(mtcars$mpg, mtcars$hp, FUN=spearman)
 #>        est        lci        uci 
-#> -0.8946646 -0.9981280 -0.8188144 
+#> -0.8946646 -0.9592579 -0.7950177 
 
 
 ```

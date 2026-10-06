@@ -10,16 +10,16 @@ adjustment for multiple testing.
 dunnTest(x, ...)
 
 # S3 method for class 'formula'
-dunnTest(formula, data, subset, na.action = na.omit, ...)
+dunnTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 dunnTest(
   x,
   g,
-  method = p.adjust.methods,
+  p.adjust.method = p.adjust.methods,
   alternative = c("two.sided", "less", "greater"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 ```
@@ -50,14 +50,17 @@ dunnTest(
 
 - na.action:
 
-  a function indicating how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
   a grouping variable corresponding to `x`; ignored when `x` is a list.
 
-- method:
+- p.adjust.method:
 
   the method used to adjust the p-values for multiple comparisons, one
   of `p.adjust.methods` (default is `"holm"`). Passed directly to
@@ -77,7 +80,7 @@ dunnTest(
 
   - `"matrix"` lower-triangular matrix of adjusted p-values.
 
-- alpha:
+- sig.level:
 
   the significance level used to compile the groups flagged as
   significantly different in the label attribute of the p-value matrix
@@ -151,10 +154,10 @@ dunnTest(list(x, y, z))
 #> 
 #>  Dunn's test of multiple comparisons using rank sums : holm 
 #> 
-#>     mean.rank.diff   pval    
-#> 2-1            1.8 1.0000    
-#> 3-1           -0.6 1.0000    
-#> 3-2           -2.4 1.0000    
+#>     diff p.value    
+#> 2-1  1.8  1.0000    
+#> 3-1 -0.6  1.0000    
+#> 3-2 -2.4  1.0000    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -180,14 +183,14 @@ dunnTest(x, g)
 #> 
 #>  Dunn's test of multiple comparisons using rank sums : holm 
 #> 
-#>                                                                   mean.rank.diff
-#> Subjects with obstructive airway disease-Normal subjects                     1.8
-#> Subjects with asbestosis-Normal subjects                                    -0.6
-#> Subjects with asbestosis-Subjects with obstructive airway disease           -2.4
-#>                                                                     pval    
-#> Subjects with obstructive airway disease-Normal subjects          1.0000    
-#> Subjects with asbestosis-Normal subjects                          1.0000    
-#> Subjects with asbestosis-Subjects with obstructive airway disease 1.0000    
+#>                                                                   diff p.value
+#> Subjects with obstructive airway disease-Normal subjects           1.8  1.0000
+#> Subjects with asbestosis-Normal subjects                          -0.6  1.0000
+#> Subjects with asbestosis-Subjects with obstructive airway disease -2.4  1.0000
+#>                                                                      
+#> Subjects with obstructive airway disease-Normal subjects             
+#> Subjects with asbestosis-Normal subjects                             
+#> Subjects with asbestosis-Subjects with obstructive airway disease    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -197,17 +200,17 @@ dunnTest(Ozone ~ factor(Month), data = airquality)
 #> 
 #>  Dunn's test of multiple comparisons using rank sums : holm 
 #> 
-#>     mean.rank.diff    pval    
-#> 6-5    12.02991453 1.00000    
-#> 7-5    41.21153846 9.9e-05 ***
-#> 8-5    38.53846154 0.00032 ***
-#> 9-5    11.99734748 0.74574    
-#> 7-6    29.18162393 0.14891    
-#> 8-6    26.50854701 0.20743    
-#> 9-6    -0.03256705 1.00000    
-#> 8-7    -2.67307692 1.00000    
-#> 9-7   -29.21419098 0.01036 *  
-#> 9-8   -26.54111406 0.02428 *  
+#>             diff p.value    
+#> 6-5  12.02991453 1.00000    
+#> 7-5  41.21153846 9.9e-05 ***
+#> 8-5  38.53846154 0.00032 ***
+#> 9-5  11.99734748 0.74574    
+#> 7-6  29.18162393 0.14891    
+#> 8-6  26.50854701 0.20743    
+#> 9-6  -0.03256705 1.00000    
+#> 8-7  -2.67307692 1.00000    
+#> 9-7 -29.21419098 0.01036 *  
+#> 9-8 -26.54111406 0.02428 *  
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 

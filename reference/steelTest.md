@@ -10,7 +10,7 @@ statistics.
 steelTest(x, ...)
 
 # S3 method for class 'formula'
-steelTest(formula, data, subset, na.action = na.omit, ...)
+steelTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 steelTest(
@@ -19,7 +19,7 @@ steelTest(
   control = NULL,
   alternative = c("two.sided", "greater", "less"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 ```
@@ -50,8 +50,11 @@ steelTest(
 
 - na.action:
 
-  a function specifying how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
@@ -72,7 +75,7 @@ steelTest(
   character string specifying the output format. One of `"list"`
   (default) or `"matrix"`.
 
-- alpha:
+- sig.level:
 
   the significance level used to compile the groups flagged as
   significantly different in the label attribute of the p-value matrix
@@ -85,7 +88,7 @@ An object of class `"rankTest"` containing:
 - res:
 
   comparison results. For `output="list"` a matrix with columns `W`, `z`
-  and `pval`; for `output="matrix"` a many-to-one matrix of adjusted
+  and `p.value`; for `output="matrix"` a many-to-one matrix of adjusted
   p-values.
 
 - pmat:
@@ -164,9 +167,9 @@ steelTest(list(x, y, z))
 #> 
 #>  Steel test for multiple comparisons with a control 
 #> 
-#>      W          z   pval    
-#> 2-1 12  0.4898979 0.8464    
-#> 3-1 12 -0.1044466 0.9924    
+#>      W          z p.value    
+#> 2-1 12  0.4898979  0.8464    
+#> 3-1 12 -0.1044466  0.9924    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -178,9 +181,9 @@ steelTest(x, g)
 #> 
 #>  Steel test for multiple comparisons with a control 
 #> 
-#>      W          z   pval    
-#> 2-1 12  0.4898979 0.8464    
-#> 3-1 12 -0.1044466 0.9924    
+#>      W          z p.value    
+#> 2-1 12  0.4898979  0.8464    
+#> 3-1 12 -0.1044466  0.9924    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -190,9 +193,9 @@ steelTest(x, g, control = "1")
 #> 
 #>  Steel test for multiple comparisons with a control 
 #> 
-#>      W          z   pval    
-#> 2-1 12  0.4898979 0.8464    
-#> 3-1 12 -0.1044466 0.9924    
+#>      W          z p.value    
+#> 2-1 12  0.4898979  0.8464    
+#> 3-1 12 -0.1044466  0.9924    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -202,7 +205,7 @@ steelTest(Ozone ~ factor(Month), data = airquality)
 #> 
 #>  Steel test for multiple comparisons with a control 
 #> 
-#>         W        z    pval    
+#>         W        z p.value    
 #> 6-5 152.0 1.321795 0.50052    
 #> 7-5 566.5 4.183685 0.00012 ***
 #> 8-5 548.5 3.854117 0.00043 ***

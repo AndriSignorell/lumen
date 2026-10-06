@@ -12,7 +12,7 @@ leveneTest(x, ...)
 leveneTest(formula, data, subset, na.action = na.pass, center = median, ...)
 
 # Default S3 method
-leveneTest(x, g, center = median, .centerName = NULL, ...)
+leveneTest(x, g, center = median, ...)
 ```
 
 ## Arguments
@@ -62,15 +62,6 @@ leveneTest(x, g, center = median, .centerName = NULL, ...)
 - g:
 
   factor defining the groups; ignored if `x` is a list.
-
-- .centerName:
-
-  internal, not intended to be set by the user. Used to pass the
-  deparsed name of the `center` function through the method dispatch
-  chain (from `leveneTest.formula` to `leveneTest.default`), since
-  `substitute(center)` would otherwise only resolve to the literal
-  symbol `"center"` rather than the original expression (e.g. `mean` or
-  `median`) supplied by the caller.
 
 ## Value
 

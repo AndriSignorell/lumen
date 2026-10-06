@@ -12,7 +12,7 @@ leCessieTest(x, ...)
 leCessieTest(x, ...)
 
 # Default S3 method
-leCessieTest(x, obs, X, ...)
+leCessieTest(x, ref, X, ...)
 
 # S3 method for class 'LeCessieTest'
 print(x, digits = 4, ...)
@@ -30,7 +30,7 @@ print(x, digits = 4, ...)
 
   further arguments passed to methods.
 
-- obs:
+- ref:
 
   numeric vector of observed binary outcomes (0 or 1), of the same
   length as `x`, without missing values; unused for the `glm` method.
@@ -118,8 +118,8 @@ comparison of goodness-of-fit tests for the logistic regression model.
 
 [`glm()`](https://rdrr.io/r/stats/glm.html)
 
-Other test.regression: [`bpTest()`](bpTest.md),
-[`breuschGodfreyTest()`](breuschGodfreyTest.md),
+Other test.regression: [`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`breuschPaganTest()`](breuschPaganTest.md),
 [`durbinWatsonTest()`](durbinWatsonTest.md),
 [`hosmerLemeshowTest()`](hosmerLemeshowTest.md)
 

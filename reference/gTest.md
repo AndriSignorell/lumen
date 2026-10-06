@@ -10,7 +10,7 @@ to the chi-squared test.
 gTest(
   x,
   y = NULL,
-  correct = c("none", "williams", "yates"),
+  correction = c("none", "williams", "yates"),
   p = rep(1/length(x), length(x)),
   rescaleP = FALSE
 )
@@ -27,7 +27,7 @@ gTest(
   a numeric vector; ignored if `x` is a matrix. If `x` is a factor, `y`
   should be a factor of the same length.
 
-- correct:
+- correction:
 
   the correction to be applied, one of `"none"` (default), `"williams"`
   or `"yates"`. See the Details.

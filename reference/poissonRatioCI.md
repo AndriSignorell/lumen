@@ -13,7 +13,7 @@ poissonRatioCI(
   n2 = 1,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
-  method = c("exact", "midp", "wald-log")
+  method = c("exact", "mid-p", "wald-log")
 )
 ```
 
@@ -50,8 +50,9 @@ poissonRatioCI(
 
 - method:
 
-  method used to calculate the confidence interval: `"exact"`, `"midp"`,
-  or `"wald-log"`; may be abbreviated and defaults to `"exact"`
+  method used to calculate the confidence interval: `"exact"`,
+  `"mid-p"`, or `"wald-log"`; may be abbreviated and defaults to
+  `"exact"`
 
 ## Value
 
@@ -90,7 +91,7 @@ The available confidence-interval methods are:
   [`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html) for two
   samples
 
-- `"midp"`:
+- `"mid-p"`:
 
   the corresponding conditional mid-p interval, which is generally
   shorter but does not guarantee conservative coverage
@@ -144,7 +145,7 @@ poisson.test(c(15, 6), c(100, 120))$conf.int
 #> attr(,"conf.level")
 #> [1] 0.95
 
-poissonRatioCI(15, 100, 6, 120, method = "midp")
+poissonRatioCI(15, 100, 6, 120, method = "mid-p")
 #>      est      lci      uci 
 #> 3.000000 1.188883 8.415485 
 

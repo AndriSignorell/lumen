@@ -100,7 +100,8 @@ homoscedasticity and serial independence of regression residuals.
 
 Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
 [`cramerVonMisesTest()`](cramerVonMisesTest.md),
-[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`lillieforsTest()`](lillieforsTest.md),
+[`pearsonChisqTest()`](pearsonChisqTest.md),
 [`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples

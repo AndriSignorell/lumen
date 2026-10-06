@@ -12,7 +12,7 @@ signifDiff(x, ...)
 # S3 method for class 'PostHocTest'
 signifDiff(
   x,
-  alpha = NULL,
+  sig.level = NULL,
   direction = TRUE,
   labels = "numbers",
   minlength = 3L,
@@ -23,7 +23,7 @@ signifDiff(
 # S3 method for class 'pairwise.htest'
 signifDiff(
   x,
-  alpha = 0.05,
+  sig.level = 0.05,
   direction = FALSE,
   labels = "numbers",
   minlength = 3L,
@@ -49,7 +49,7 @@ print(x, legend = TRUE, ...)
 
   further arguments, not used so far
 
-- alpha:
+- sig.level:
 
   the significance level; defaults to `1 - conf.level` of the object, or
   to 0.05 where no confidence level is stored
@@ -86,7 +86,8 @@ print(x, legend = TRUE, ...)
 a list with one data frame per term, each holding the columns `label`
 (the label of the level itself) and `diff` (the labels of the levels it
 differs significantly from), with the levels as row names. The class is
-`"signifDiff"`, the significance level is kept in the attribute `alpha`.
+`"signifDiff"`, the significance level is kept in the attribute
+`sig.level`.
 
 ## Details
 
@@ -121,7 +122,7 @@ res <- postHocTest(r.aov, method = "hsd")
 signifDiff(res)
 #> 
 #>   Posthoc multiple comparisons of means : Tukey HSD 
-#>     levels a level differs from, at alpha = 0.05
+#>     levels a level differs from, at sig.level = 0.05
 #> 
 #> $tension
 #>   label diff  
@@ -134,10 +135,10 @@ signifDiff(res)
 #> 
 
 # stricter level, without recomputing the test
-signifDiff(res, alpha = 0.01)
+signifDiff(res, sig.level = 0.01)
 #> 
 #>   Posthoc multiple comparisons of means : Tukey HSD 
-#>     levels a level differs from, at alpha = 0.01
+#>     levels a level differs from, at sig.level = 0.01
 #> 
 #> $tension
 #>   label diff
@@ -153,7 +154,7 @@ signifDiff(res, alpha = 0.01)
 signifDiff(res, labels = "abbreviate", minlength = 4)
 #> 
 #>   Posthoc multiple comparisons of means : Tukey HSD 
-#>     levels a level differs from, at alpha = 0.05
+#>     levels a level differs from, at sig.level = 0.05
 #> 
 #> $tension
 #>   label diff  
@@ -169,7 +170,7 @@ signifDiff(res, labels = "abbreviate", minlength = 4)
 signifDiff(postHocTest(r.aov, method = "hsd", conf.level = NA))
 #> 
 #>   Posthoc multiple comparisons of means : Tukey HSD 
-#>     levels a level differs from, at alpha = 0.05
+#>     levels a level differs from, at sig.level = 0.05
 #> 
 #> $tension
 #>   label diff
@@ -181,7 +182,7 @@ signifDiff(postHocTest(r.aov, method = "hsd", conf.level = NA))
 signifDiff(pairwise.t.test(warpbreaks$breaks, warpbreaks$tension))
 #> 
 #>   Pairwise comparisons : t tests with pooled SD 
-#>     levels a level differs from, at alpha = 0.05
+#>     levels a level differs from, at sig.level = 0.05
 #> 
 #> $warpbreaks$breaks and warpbreaks$tension
 #>   label diff

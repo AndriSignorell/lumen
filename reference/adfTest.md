@@ -10,7 +10,7 @@ autocorrelation.
 
 ``` r
 adfTest(
-  y,
+  x,
   type = c("none", "drift", "trend"),
   lags = 1,
   selectLags = c("fixed", "aic", "bic")
@@ -19,7 +19,7 @@ adfTest(
 
 ## Arguments
 
-- y:
+- x:
 
   numeric vector or univariate time series to be tested for a unit root.
 

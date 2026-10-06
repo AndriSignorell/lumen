@@ -13,7 +13,7 @@ varTest(x, ...)
 varTest(
   x,
   y = NULL,
-  sigma2_0 = NULL,
+  sigmaSq0 = NULL,
   alternative = c("two.sided", "less", "greater"),
   type = c("classic", "ld"),
   ...
@@ -39,7 +39,7 @@ varTest(formula, data, subset, na.action = na.pass, ...)
   an optional second numeric vector. If provided, a two-sample variance
   test is performed.
 
-- sigma2_0:
+- sigmaSq0:
 
   a numeric value specifying the null hypothesis variance for the
   one-sample test. Required if `y` is `NULL`.
@@ -157,7 +157,7 @@ x <- rnorm(20, sd = 3)
 y <- rnorm(25, sd = 2)
 
 # One-sample test
-varTest(x, sigma2_0 = 9, type = "classic")
+varTest(x, sigmaSq0 = 9, type = "classic")
 #> 
 #>  One-sample variance test (classic)
 #> 
@@ -168,7 +168,7 @@ varTest(x, sigma2_0 = 9, type = "classic")
 #> variance 
 #> 7.506291 
 #> 
-varTest(x, sigma2_0 = 9, type = "ld")
+varTest(x, sigmaSq0 = 9, type = "ld")
 #> 
 #>  One-sample variance test (ld)
 #> 

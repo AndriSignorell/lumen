@@ -8,7 +8,7 @@ against the alternative of a unit root.
 
 ``` r
 kpssTest(
-  y,
+  x,
   type = c("mu", "tau"),
   lags = c("short", "long", "nil"),
   useLag = NULL
@@ -17,7 +17,7 @@ kpssTest(
 
 ## Arguments
 
-- y:
+- x:
 
   numeric vector or univariate time series to be tested for
   stationarity.

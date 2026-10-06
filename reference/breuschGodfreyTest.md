@@ -163,7 +163,7 @@ variables. *Econometrica*, 46, 1293-1301.
 
 [`durbinWatsonTest()`](durbinWatsonTest.md)
 
-Other test.regression: [`bpTest()`](bpTest.md),
+Other test.regression: [`breuschPaganTest()`](breuschPaganTest.md),
 [`durbinWatsonTest()`](durbinWatsonTest.md),
 [`hosmerLemeshowTest()`](hosmerLemeshowTest.md),
 [`leCessieTest()`](leCessieTest.md)

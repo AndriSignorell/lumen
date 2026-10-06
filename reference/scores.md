@@ -7,7 +7,7 @@ typically used as a preprocessing step for nonparametric tests.
 ## Usage
 
 ``` r
-scores(x, MARGIN = 1, method = c("table", "ranks", "ridit", "modridit"))
+scores(x, margin = 1, method = c("table", "ranks", "ridit", "mod-ridit"))
 ```
 
 ## Arguments
@@ -16,7 +16,7 @@ scores(x, MARGIN = 1, method = c("table", "ranks", "ridit", "modridit"))
 
   a contingency table (matrix or array of counts).
 
-- MARGIN:
+- margin:
 
   an integer indicating the margin over which to compute the scores.
   Defaults to `1` (rows). Use `2` for columns.
@@ -32,7 +32,7 @@ scores(x, MARGIN = 1, method = c("table", "ranks", "ridit", "modridit"))
 
   - `"ridit"`: ridit scores (ranks divided by total count).
 
-  - `"modridit"`: modified ridit scores (ranks divided by total count +
+  - `"mod-ridit"`: modified ridit scores (ranks divided by total count +
     1).
 
 ## Value

@@ -17,7 +17,7 @@ probabilities across grouped subsets of the data."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@ probabilities across grouped subsets of the data.</p>
 <span><span class="fu">hosmerLemeshowTest</span><span class="op">(</span><span class="va">x</span>, nGroups <span class="op">=</span> <span class="fl">10</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"H"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">hosmerLemeshowTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">obs</span>, nGroups <span class="op">=</span> <span class="fl">10</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"H"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">hosmerLemeshowTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">ref</span>, nGroups <span class="op">=</span> <span class="fl">10</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"H"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'HosmerLemeshowTest'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">4</span>, details <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -92,7 +92,7 @@ quantile-based groups) or <code>"H"</code> (equal-width groups on
 \([0, 1]\)).</p></dd>
 
 
-<dt id="arg-obs">obs<a class="anchor" aria-label="anchor" href="#arg-obs"></a></dt>
+<dt id="arg-ref">ref<a class="anchor" aria-label="anchor" href="#arg-ref"></a></dt>
 <dd><p>a numeric vector of observed binary outcomes (0 or 1) of the
 same length as <code>x</code>, without missing values; unused for the
 <code>glm</code> method.</p></dd>
@@ -174,8 +174,8 @@ Logistic Regression</em>, 3rd ed., New York: Wiley.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code></p>
 <p>Other test.regression:
-<code><a href="bpTest.html">bpTest()</a></code>,
 <code><a href="breuschGodfreyTest.html">breuschGodfreyTest()</a></code>,
+<code><a href="breuschPaganTest.html">breuschPaganTest()</a></code>,
 <code><a href="durbinWatsonTest.html">durbinWatsonTest()</a></code>,
 <code><a href="leCessieTest.html">leCessieTest()</a></code></p></div>
     </div>

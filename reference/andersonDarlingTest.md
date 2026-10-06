@@ -100,7 +100,8 @@ distribution. *Journal of Statistical Software* **9** (2), 1–5.
 
 Other test.normality: [`cramerVonMisesTest()`](cramerVonMisesTest.md),
 [`jarqueBeraTest()`](jarqueBeraTest.md),
-[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md),
+[`lillieforsTest()`](lillieforsTest.md),
+[`pearsonChisqTest()`](pearsonChisqTest.md),
 [`shapiroFranciaTest()`](shapiroFranciaTest.md)
 
 ## Examples

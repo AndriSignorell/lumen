@@ -149,10 +149,10 @@ variances. *Biometrika*, 61, 165–170.
 [`t.test()`](https://rdrr.io/r/stats/t.test.html)
 
 Other test.location: [`brunnerMunzelTest()`](brunnerMunzelTest.md),
-[`hotellingsT2Test()`](hotellingsT2Test.md),
+[`hotellingT2Test()`](hotellingT2Test.md),
 [`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
-[`tTestA()`](tTestA.md), [`vanWaerdenTest()`](vanWaerdenTest.md),
-[`zTest()`](zTest.md)
+[`tTestSummary()`](tTestSummary.md),
+[`vanDerWaerdenTest()`](vanDerWaerdenTest.md), [`zTest()`](zTest.md)
 
 ## Examples
 

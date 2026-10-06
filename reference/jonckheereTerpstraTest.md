@@ -10,7 +10,7 @@ systematically with group order.
 jonckheereTerpstraTest(x, ...)
 
 # S3 method for class 'formula'
-jonckheereTerpstraTest(formula, data, subset, na.action = na.omit, ...)
+jonckheereTerpstraTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 jonckheereTerpstraTest(
@@ -49,8 +49,11 @@ jonckheereTerpstraTest(
 
 - na.action:
 
-  a function indicating how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 

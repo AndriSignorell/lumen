@@ -15,7 +15,7 @@ robust to departures from normality than Bartlett's test."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ robust to departures from normality than Bartlett's test.</p>
 <span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, na.action <span class="op">=</span> <span class="va">na.pass</span>, center <span class="op">=</span> <span class="va">median</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, center <span class="op">=</span> <span class="va">median</span>, .centerName <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">leveneTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, center <span class="op">=</span> <span class="va">median</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,16 +107,6 @@ group; <code>mean</code> gives the original Levene's test, the default,
 
 <dt id="arg-g">g<a class="anchor" aria-label="anchor" href="#arg-g"></a></dt>
 <dd><p>factor defining the groups; ignored if <code>x</code> is a list.</p></dd>
-
-
-<dt id="arg--centername">.centerName<a class="anchor" aria-label="anchor" href="#arg--centername"></a></dt>
-<dd><p>internal, not intended to be set by the user. Used
-to pass the deparsed name of the <code>center</code> function through the
-method dispatch chain (from <code>leveneTest.formula</code> to
-<code>leveneTest.default</code>), since <code>substitute(center)</code> would
-otherwise only resolve to the literal symbol <code>"center"</code> rather
-than the original expression (e.g. <code>mean</code> or <code>median</code>)
-supplied by the caller.</p></dd>
 
 </dl></div>
     <div class="section level2">

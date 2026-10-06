@@ -207,8 +207,8 @@ Test*. Heidelberg: Physica.
 [`lm()`](https://rdrr.io/r/stats/lm.html),
 [`breuschGodfreyTest()`](breuschGodfreyTest.md)
 
-Other test.regression: [`bpTest()`](bpTest.md),
-[`breuschGodfreyTest()`](breuschGodfreyTest.md),
+Other test.regression: [`breuschGodfreyTest()`](breuschGodfreyTest.md),
+[`breuschPaganTest()`](breuschPaganTest.md),
 [`hosmerLemeshowTest()`](hosmerLemeshowTest.md),
 [`leCessieTest()`](leCessieTest.md)
 

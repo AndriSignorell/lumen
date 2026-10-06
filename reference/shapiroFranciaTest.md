@@ -76,7 +76,8 @@ performing the Shapiro-Wilk test for normality
 Other test.normality: [`andersonDarlingTest()`](andersonDarlingTest.md),
 [`cramerVonMisesTest()`](cramerVonMisesTest.md),
 [`jarqueBeraTest()`](jarqueBeraTest.md),
-[`lillieTest()`](lillieTest.md), [`pearsonTest()`](pearsonTest.md)
+[`lillieforsTest()`](lillieforsTest.md),
+[`pearsonChisqTest()`](pearsonChisqTest.md)
 
 ## Examples
 

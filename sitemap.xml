@@ -13,9 +13,9 @@
 <url><loc>/reference/binomDiffCI.html</loc></url>
 <url><loc>/reference/binomRatioCI.html</loc></url>
 <url><loc>/reference/bootCI.html</loc></url>
-<url><loc>/reference/bpTest.html</loc></url>
 <url><loc>/reference/breslowDayTest.html</loc></url>
 <url><loc>/reference/breuschGodfreyTest.html</loc></url>
+<url><loc>/reference/breuschPaganTest.html</loc></url>
 <url><loc>/reference/brunnerMunzelTest.html</loc></url>
 <url><loc>/reference/cochranArmitageTest.html</loc></url>
 <url><loc>/reference/cochranQTest.html</loc></url>
@@ -51,7 +51,7 @@
 <url><loc>/reference/gTest.html</loc></url>
 <url><loc>/reference/gamesHowellTest.html</loc></url>
 <url><loc>/reference/hosmerLemeshowTest.html</loc></url>
-<url><loc>/reference/hotellingsT2Test.html</loc></url>
+<url><loc>/reference/hotellingT2Test.html</loc></url>
 <url><loc>/reference/hyperCI.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/jarqueBeraTest.html</loc></url>
@@ -60,7 +60,7 @@
 <url><loc>/reference/leCessieTest.html</loc></url>
 <url><loc>/reference/lehmacherTest.html</loc></url>
 <url><loc>/reference/leveneTest.html</loc></url>
-<url><loc>/reference/lillieTest.html</loc></url>
+<url><loc>/reference/lillieforsTest.html</loc></url>
 <url><loc>/reference/lumen-package.html</loc></url>
 <url><loc>/reference/mad-confints.html</loc></url>
 <url><loc>/reference/mantelTrendTest.html</loc></url>
@@ -74,7 +74,7 @@
 <url><loc>/reference/nemenyiTest.html</loc></url>
 <url><loc>/reference/pAD.html</loc></url>
 <url><loc>/reference/pageTest.html</loc></url>
-<url><loc>/reference/pearsonTest.html</loc></url>
+<url><loc>/reference/pearsonChisqTest.html</loc></url>
 <url><loc>/reference/plot.PostHocTest.html</loc></url>
 <url><loc>/reference/poissonCI.html</loc></url>
 <url><loc>/reference/poissonDiffCI.html</loc></url>
@@ -95,8 +95,8 @@
 <url><loc>/reference/steelTest.html</loc></url>
 <url><loc>/reference/stuartMaxwellTest.html</loc></url>
 <url><loc>/reference/sumCI.html</loc></url>
-<url><loc>/reference/tTestA.html</loc></url>
-<url><loc>/reference/vanWaerdenTest.html</loc></url>
+<url><loc>/reference/tTestSummary.html</loc></url>
+<url><loc>/reference/vanDerWaerdenTest.html</loc></url>
 <url><loc>/reference/varCI.html</loc></url>
 <url><loc>/reference/varTest.html</loc></url>
 <url><loc>/reference/vonNeumannTest.html</loc></url>

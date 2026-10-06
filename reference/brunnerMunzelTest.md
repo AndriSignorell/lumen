@@ -19,7 +19,7 @@ brunnerMunzelTest(
   conf.level = 0.95,
   method = c("t", "permutation", "normal"),
   exact = NULL,
-  nPerm = 10000L,
+  R = 10000L,
   ...
 )
 
@@ -67,7 +67,7 @@ brunnerMunzelTest(formula, data, subset, na.action = na.pass, ...)
   `NULL` (default) decides by the number of splits. Ignored unless
   `method = "permutation"`
 
-- nPerm:
+- R:
 
   number of Monte-Carlo resamples used when the permutation distribution
   is not enumerated
@@ -186,8 +186,8 @@ distribution need not be symmetric when the group sizes differ or ties
 are present.
 
 With `exact = NULL` all \\\binom{n_1 + n_2}{n_1}\\ splits are enumerated
-when there are at most `1e6` of them, and `nPerm` Monte-Carlo resamples
-are drawn otherwise. Monte-Carlo p-values use the \\(1 + k) / (1 + B)\\
+when there are at most `1e6` of them, and `R` Monte-Carlo resamples are
+drawn otherwise. Monte-Carlo p-values use the \\(1 + k) / (1 + B)\\
 correction and are therefore never zero.
 
 **Confidence interval.** The interval is the studentized Wald interval
@@ -227,9 +227,10 @@ Data Analysis*, **51**(10), 5192-5204.
 
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html)
 
-Other test.location: [`hotellingsT2Test()`](hotellingsT2Test.md),
+Other test.location: [`hotellingT2Test()`](hotellingT2Test.md),
 [`moodMedianTest()`](moodMedianTest.md), [`signTest()`](signTest.md),
-[`tTestA()`](tTestA.md), [`vanWaerdenTest()`](vanWaerdenTest.md),
+[`tTestSummary()`](tTestSummary.md),
+[`vanDerWaerdenTest()`](vanDerWaerdenTest.md),
 [`yuenTTest()`](yuenTTest.md), [`zTest()`](zTest.md)
 
 ## Examples

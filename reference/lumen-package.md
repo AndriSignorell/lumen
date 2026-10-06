@@ -16,15 +16,15 @@ The package implements a wide range of statistical tests:
 
 - `andersonDarlingTest`, `cramerVonMisesTest`
 
-- `lillieTest`, `jarqueBeraTest`, `shapiroFranciaTest`
+- `lillieforsTest`, `jarqueBeraTest`, `shapiroFranciaTest`
 
-- `pearsonTest`
+- `pearsonChisqTest`
 
 **Nonparametric Tests**
 
 - `signTest`, `jonckheereTerpstraTest`, `pageTest`
 
-- `mosesTest`, `siegelTukeyTest`, `vanWaerdenTest`
+- `mosesTest`, `siegelTukeyTest`, `vanDerWaerdenTest`
 
 **Post-hoc Procedures**
 
@@ -34,9 +34,9 @@ The package implements a wide range of statistical tests:
 
 **Parametric Tests**
 
-- `tTestA`, `yuenTTest`, `zTest`, `varTest`
+- `tTestSummary`, `yuenTTest`, `zTest`, `varTest`
 
-- `hotellingsT2Test`, `leveneTest`
+- `hotellingT2Test`, `leveneTest`
 
 **Contingency Table Tests**
 

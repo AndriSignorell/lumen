@@ -10,7 +10,7 @@ mean ranks.
 nemenyiTest(x, ...)
 
 # S3 method for class 'formula'
-nemenyiTest(formula, data, subset, na.action = na.omit, ...)
+nemenyiTest(formula, data, subset, na.action = na.pass, ...)
 
 # Default S3 method
 nemenyiTest(
@@ -18,7 +18,7 @@ nemenyiTest(
   g,
   dist = c("tukey", "chisq"),
   output = c("list", "matrix"),
-  alpha = 0.05,
+  sig.level = 0.05,
   ...
 )
 ```
@@ -49,8 +49,11 @@ nemenyiTest(
 
 - na.action:
 
-  a function specifying how missing values should be handled. Defaults
-  to [`na.omit()`](https://rdrr.io/r/stats/na.fail.html).
+  a function indicating how missing values are handled. Defaults to
+  [`na.pass()`](https://rdrr.io/r/stats/na.fail.html): the missing
+  values reach the default method, which drops every observation with a
+  missing value or a missing group, as
+  [`kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html) does.
 
 - g:
 
@@ -66,7 +69,7 @@ nemenyiTest(
   character string specifying the output format. One of `"list"`
   (default) or `"matrix"`.
 
-- alpha:
+- sig.level:
 
   the significance level used to compile the groups flagged as
   significantly different in the label attribute of the p-value matrix
@@ -142,10 +145,10 @@ nemenyiTest(list(x, y, z))
 #> 
 #>  Nemenyi's test of multiple comparisons for independent samples (tukey) 
 #> 
-#>     mean.rank.diff   pval    
-#> 2-1            1.8 0.7972    
-#> 3-1           -0.6 0.9720    
-#> 3-2           -2.4 0.6686    
+#>     diff p.value    
+#> 2-1  1.8  0.7972    
+#> 3-1 -0.6  0.9720    
+#> 3-2 -2.4  0.6686    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -157,10 +160,10 @@ nemenyiTest(x, g)
 #> 
 #>  Nemenyi's test of multiple comparisons for independent samples (tukey) 
 #> 
-#>     mean.rank.diff   pval    
-#> 2-1            1.8 0.7972    
-#> 3-1           -0.6 0.9720    
-#> 3-2           -2.4 0.6686    
+#>     diff p.value    
+#> 2-1  1.8  0.7972    
+#> 3-1 -0.6  0.9720    
+#> 3-2 -2.4  0.6686    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -170,17 +173,17 @@ nemenyiTest(Ozone ~ factor(Month), data = airquality)
 #> 
 #>  Nemenyi's test of multiple comparisons for independent samples (tukey) 
 #> 
-#>     mean.rank.diff    pval    
-#> 6-5    12.02991453 0.88737    
-#> 7-5    41.21153846 9.7e-05 ***
-#> 8-5    38.53846154 0.00035 ***
-#> 9-5    11.99734748 0.67819    
-#> 7-6    29.18162393 0.16373    
-#> 8-6    26.50854701 0.24773    
-#> 9-6    -0.03256705 1.00000    
-#> 8-7    -2.67307692 0.99853    
-#> 9-7   -29.21419098 0.01136 *  
-#> 9-8   -26.54111406 0.02867 *  
+#>             diff p.value    
+#> 6-5  12.02991453 0.88737    
+#> 7-5  41.21153846 9.7e-05 ***
+#> 8-5  38.53846154 0.00035 ***
+#> 9-5  11.99734748 0.67819    
+#> 7-6  29.18162393 0.16373    
+#> 8-6  26.50854701 0.24773    
+#> 9-6  -0.03256705 1.00000    
+#> 8-7  -2.67307692 0.99853    
+#> 9-7 -29.21419098 0.01136 *  
+#> 9-8 -26.54111406 0.02867 *  
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 

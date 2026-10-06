@@ -15,7 +15,7 @@ in a two-way contingency table, using row and column scores."><meta property="og
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.955</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.956</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,8 +53,8 @@ in a two-way contingency table, using row and column scores.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mantelTrendTest</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  srow <span class="op">=</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, MARGIN <span class="op">=</span> <span class="fl">1L</span>, method <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span>,</span>
-<span>  scol <span class="op">=</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, MARGIN <span class="op">=</span> <span class="fl">2L</span>, method <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span></span>
+<span>  rowScores <span class="op">=</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, margin <span class="op">=</span> <span class="fl">1L</span>, method <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span>,</span>
+<span>  colScores <span class="op">=</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, margin <span class="op">=</span> <span class="fl">2L</span>, method <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -66,13 +66,13 @@ in a two-way contingency table, using row and column scores.</p>
 <dd><p>a numeric matrix of counts (\(r \times c\))</p></dd>
 
 
-<dt id="arg-srow">srow<a class="anchor" aria-label="anchor" href="#arg-srow"></a></dt>
+<dt id="arg-rowscores">rowScores<a class="anchor" aria-label="anchor" href="#arg-rowscores"></a></dt>
 <dd><p>numeric vector of row scores; length must equal
 <code>nrow(x)</code>. Defaults to the numeric row <code>dimnames</code> of
 <code>x</code> if present, otherwise <code>1:nrow(x)</code>. See the Details.</p></dd>
 
 
-<dt id="arg-scol">scol<a class="anchor" aria-label="anchor" href="#arg-scol"></a></dt>
+<dt id="arg-colscores">colScores<a class="anchor" aria-label="anchor" href="#arg-colscores"></a></dt>
 <dd><p>numeric vector of column scores; length must equal
 <code>ncol(x)</code>. Defaults to the numeric column <code>dimnames</code> of
 <code>x</code> if present, otherwise <code>1:ncol(x)</code>. See the Details.</p></dd>
@@ -170,7 +170,7 @@ a related trend test with a binary response</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         r </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1772001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">mantelTrendTest</span><span class="op">(</span><span class="va">Job</span>, srow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7.5</span>, <span class="fl">20</span>, <span class="fl">32.5</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mantelTrendTest</span><span class="op">(</span><span class="va">Job</span>, rowScores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7.5</span>, <span class="fl">20</span>, <span class="fl">32.5</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Mantel linear-by-linear association test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -185,7 +185,7 @@ a related trend test with a binary response</p>
 <span class="r-in"><span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>               dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               resp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">mantelTrendTest</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span>  <span class="co"># srow taken as c(0, 1, 2, 3), not 1:4</span></span></span>
+<span class="r-in"><span><span class="fu">mantelTrendTest</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span>  <span class="co"># rowScores taken as c(0, 1, 2, 3), not 1:4</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Mantel linear-by-linear association test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

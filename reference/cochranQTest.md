@@ -15,7 +15,7 @@ cochranQTest(
   groups,
   blocks,
   method = c("asymptotic", "approximate"),
-  nresample = 10000,
+  R = 10000,
   na.action = na.omit,
   ...
 )
@@ -27,7 +27,7 @@ cochranQTest(
   subset,
   na.action = na.pass,
   method = c("asymptotic", "approximate"),
-  nresample = 10000,
+  R = 10000,
   ...
 )
 ```
@@ -61,7 +61,7 @@ cochranQTest(
   `"asymptotic"` (default, chi-squared approximation) or `"approximate"`
   (Monte Carlo permutation via the coin package).
 
-- nresample:
+- R:
 
   the number of Monte Carlo replicates used for `method = "approximate"`
   (default is `1e4`).
