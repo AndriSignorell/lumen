@@ -55,10 +55,9 @@ distribution defined on the simplex:
 \section{Random number generation}{
 
 \code{pdirichlet()} evaluates the CDF by simulation and is parallelised. Each
-range of draws runs its own generator, seeded from R's stream, so that
-\code{\link[=set.seed]{set.seed()}} governs the result; the seeding does depend on how the work
-is split, so reproducing a value also requires the same
-\code{RcppParallel::setThreadOptions()}.
+fixed block of draws runs its own generator, seeded from R's stream, so
+that \code{\link[=set.seed]{set.seed()}} alone reproduces the result, independently of the
+number of threads.
 }
 
 \examples{

@@ -127,6 +127,7 @@ test_that("print.MHTest works", {
   res <- lehmacherTest(x_ref)
   
   expect_output(print(res), "Lehmacher")
-  expect_output(print(res), "Chi\u00B2")
+  # the superscript only survives in a UTF-8 session
+  expect_output(print(res), "Chi")
   expect_output(print(res), "p-value")
 })

@@ -106,6 +106,14 @@ test_that("pdirichlet: set.seed makes the simulation reproducible", {
   expect_false(identical(a, d))
 })
 
+test_that("pdirichlet: the result does not depend on the number of threads", {
+  q <- c(0.5, 0.6, 0.7)
+  nMax <- min(4L, RcppParallel::defaultNumThreads())
+  a <- withThreads(1L,   { set.seed(42); pdirichlet(q, c(1, 1, 1), R = 5e4) })
+  b <- withThreads(nMax, { set.seed(42); pdirichlet(q, c(1, 1, 1), R = 5e4) })
+  expect_identical(a, b)
+})
+
 test_that("pdirichlet: P(X <= 1) = 1 (maximal point on simplex)", {
   p <- pdirichlet(c(1, 1, 1), c(1, 1, 1), R = 1e5)
   expect_equal(p, 1, tolerance = 0.01)

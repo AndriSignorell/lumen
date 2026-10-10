@@ -99,13 +99,9 @@ test_that("the result does not depend on the number of threads", {
   set.seed(8)
   x <- rnorm(60); y <- rnorm(90)
 
-  old <- RcppParallel::defaultNumThreads()
-  on.exit(RcppParallel::setThreadOptions(numThreads = 2), add = TRUE)
-
-  RcppParallel::setThreadOptions(numThreads = 1)
-  a <- mad_diff_boot_cpp(x, y, R = 999, seed = 3L)
-  RcppParallel::setThreadOptions(numThreads = min(4, old))
-  b <- mad_diff_boot_cpp(x, y, R = 999, seed = 3L)
+  nMax <- min(4L, RcppParallel::defaultNumThreads())
+  a <- withThreads(1L,   mad_diff_boot_cpp(x, y, R = 999, seed = 3L))
+  b <- withThreads(nMax, mad_diff_boot_cpp(x, y, R = 999, seed = 3L))
 
   expect_identical(a, b)
 })

@@ -22,10 +22,9 @@
 #'
 #' @section Random number generation:
 #' `pdirichlet()` evaluates the CDF by simulation and is parallelised. Each
-#' range of draws runs its own generator, seeded from R's stream, so that
-#' [set.seed()] governs the result; the seeding does depend on how the work
-#' is split, so reproducing a value also requires the same
-#' `RcppParallel::setThreadOptions()`.
+#' fixed block of draws runs its own generator, seeded from R's stream, so
+#' that [set.seed()] alone reproduces the result, independently of the
+#' number of threads.
 #'
 #' @return `ddirichlet()` gives a numeric vector of densities (one per
 #' row of `x`), `pdirichlet()` gives an approximate probability,
