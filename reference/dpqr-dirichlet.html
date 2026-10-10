@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.958</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.959</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,10 +116,9 @@ $$\sum_{i=1}^k x_i = 1, \quad x_i \ge 0$$</p>
 
 
 <p><code>pdirichlet()</code> evaluates the CDF by simulation and is parallelised. Each
-range of draws runs its own generator, seeded from R's stream, so that
-<code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> governs the result; the seeding does depend on how the work
-is split, so reproducing a value also requires the same
-<code><a href="https://rdrr.io/pkg/RcppParallel/man/setThreadOptions.html" class="external-link">RcppParallel::setThreadOptions()</a></code>.</p>
+fixed block of draws runs its own generator, seeded from R's stream, so
+that <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> alone reproduces the result, independently of the
+number of threads.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

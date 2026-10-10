@@ -69,11 +69,9 @@ x_i \ge 0\$\$
 ## Random number generation
 
 `pdirichlet()` evaluates the CDF by simulation and is parallelised. Each
-range of draws runs its own generator, seeded from R's stream, so that
-[`set.seed()`](https://rdrr.io/r/base/Random.html) governs the result;
-the seeding does depend on how the work is split, so reproducing a value
-also requires the same
-[`RcppParallel::setThreadOptions()`](https://rdrr.io/pkg/RcppParallel/man/setThreadOptions.html).
+fixed block of draws runs its own generator, seeded from R's stream, so
+that [`set.seed()`](https://rdrr.io/r/base/Random.html) alone reproduces
+the result, independently of the number of threads.
 
 ## See also
 
