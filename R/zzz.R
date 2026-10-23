@@ -12,7 +12,7 @@
 #' 
 #' @importFrom graphics abline title
 #'             
-#' @importFrom bedrock setNamesX allDuplicated pairApply unirootAll isNumeric recycle logitInv winsorize removeAttr resolveFormula asBinary resolveGroups resolveContingency applySides checkConfLevel checkCount resolveFormulaFromCall
+#' @importFrom bedrock setNamesX allDuplicated pairApply unirootAll isNumeric recycle logitInv winsorize removeAttr resolveFormula asBinary resolveGroups resolveContingency applySides checkConfLevel checkCount checkFlag resolveFormulaFromCall
 #'             
 NULL
 

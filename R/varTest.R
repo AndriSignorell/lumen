@@ -53,7 +53,7 @@
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{description of the data.}
 #'
-#' @seealso [var.test()], [bartlett.test()] for testing
+#' @seealso [var.test()], [bartlett.test()] in base R for testing
 #' homogeneity of variances in more than two samples from normal distributions;
 #' [ansari.test()] and [mood.test()] for two rank based
 #' (nonparametric) two-sample tests for difference in scale.

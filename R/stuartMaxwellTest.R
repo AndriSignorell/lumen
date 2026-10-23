@@ -39,7 +39,7 @@
 #' treats omitted categories as if they were included but contributed 0 to the
 #' value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
 #' have equal row and column marginals. (See:
-#' <https://www.john-uebersax.com/stat/mcnemar.htm#stuart>)
+#' Stuart (1955).
 #' 
 #' @name stuartMaxwellTest
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in matrix
@@ -64,9 +64,13 @@
 #' Agresti, A. (2002) *Categorical Data Analysis*. John Wiley & Sons, pp
 #' 86 ff.
 #' 
+#' UCLA OARC (Stata textbook examples), *An Introduction to Categorical
+#' Analysis*, Chapter 9, Section 9.3.2 (Coffee Market Share Example):
+#' <https://stats.oarc.ucla.edu/stata/examples/icda/an-introduction-to-categorical-analysis-by-alan-agrestichapter-9-models-for-matched-pairs/>.
+#' 
 #' @examples
 #' 
-#' # Source: https://john-uebersax.com/stat/mcnemar.htm#stuart
+#' # Hypothetical 3 x 3 contingency table
 #' hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 #' stuartMaxwellTest(hyp)
 #' 
@@ -83,6 +87,18 @@
 #'          1672, 1600, 841, 1363, 1385, 1484, 1524, 791), nrow=4))
 #' 
 #' stuartMaxwellTest(mc)
+#' 
+#' 
+#' # UCLA OARC: Coffee Market Share Example (Agresti, Chapter 9)
+#' # Stuart-Maxwell chi-squared = 12.29, df = 4, p = 0.0153 (rounded)
+#' coffee <- matrix(c(
+#'   93, 17, 44,  7, 10,
+#'    9, 46, 11,  0,  9,
+#'   17, 11,155,  9, 12,
+#'    6,  4,  9, 15,  2,
+#'   10,  4, 12,  2, 27
+#' ), nrow = 5, byrow = TRUE)
+#' stuartMaxwellTest(coffee)
 #' 
 #' 
 #' @seealso [mcnemar.test()], [chisq.test()]

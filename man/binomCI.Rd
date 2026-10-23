@@ -342,6 +342,7 @@ Witting H. (1985) \emph{Mathematische Statistik I}. Stuttgart: Teubner.
 
 Other ci.proportion:
 \code{\link[=binomDiffCI]{binomDiffCI()}},
+\code{\link[=binomPairedDiffCI]{binomPairedDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=hyperCI]{hyperCI()}},
 \code{\link[=multinomCI]{multinomCI()}}

@@ -114,7 +114,7 @@ varTest(value ~ group, data = df)
 
 }
 \seealso{
-\code{\link[=var.test]{var.test()}}, \code{\link[=bartlett.test]{bartlett.test()}} for testing
+\code{\link[=var.test]{var.test()}}, \code{\link[=bartlett.test]{bartlett.test()}} in base R for testing
 homogeneity of variances in more than two samples from normal distributions;
 \code{\link[=ansari.test]{ansari.test()}} and \code{\link[=mood.test]{mood.test()}} for two rank based
 (nonparametric) two-sample tests for difference in scale.

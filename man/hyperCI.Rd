@@ -159,6 +159,7 @@ population, \code{\link[=phyper]{phyper()}}
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
+\code{\link[=binomPairedDiffCI]{binomPairedDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=multinomCI]{multinomCI()}}
 }

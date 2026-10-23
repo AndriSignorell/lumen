@@ -41,8 +41,8 @@
 #' 
 #' Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
 #' Distribution.  *Journal of Statistical Software* **9** (2), 1--5.
-#' February 2004.  <http://www.jstatsoft.org/v09/i02>
-#'  
+#' February 2004.  <https://www.jstatsoft.org/article/view/v009i02>
+#'                   
 #' @examples
 #' 
 #'   pAD(1.1, n=5)

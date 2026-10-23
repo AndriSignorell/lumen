@@ -1,6 +1,6 @@
 Package: lumen
-Title: Statistical Tests, Confidence Intervals, and Distributions for DescToolsX
-Version: 0.0.0.959  
+Title: Statistical Tests, Confidence Intervals, and Distributions for 'DescToolsX'
+Version: 0.0.0.960  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -61,7 +61,7 @@ Authors@R: c(
   person("Anthropic Claude", role = c("ctb"),
     comment = "AI-assisted code and documentation review; all suggestions reviewed by the maintainer")
  )
-Description: Supplies the inferential layer of the DescToolsX ecosystem:
+Description: Supplies the inferential layer of the 'DescToolsX' ecosystem:
     classical, robust, nonparametric and specialised hypothesis tests,
     confidence intervals for the common estimands, and a set of
     probability distributions not available in base R. Tests return
@@ -77,7 +77,7 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LinkingTo: Rcpp, RcppParallel, RcppArmadillo
 Roxygen: list(markdown = TRUE)
-Imports: pharos, bedrock, mvtnorm, stats, boot, gld, Rcpp, RcppParallel
+Imports: bedrock, pharos, mvtnorm, stats, boot, gld, Rcpp, RcppParallel
 Suggests: testthat (>= 3.0.0), Exact, goftest, coin, flexsurv, 
   randtests, lmtest, nortest, multcomp, tseries
 Remotes:  

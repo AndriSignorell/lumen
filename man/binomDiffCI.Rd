@@ -204,10 +204,11 @@ Interval estimation for the difference between independent proportions.
 \emph{Statistics in Medicine}, 17, 873-890.
 }
 \seealso{
-\code{\link[=binom.test]{binom.test()}}, \code{\link[=prop.test]{prop.test()}}
+\code{\link[=binomPairedDiffCI]{binomPairedDiffCI()}} for paired proportions, \code{\link[=binom.test]{binom.test()}}, \code{\link[=prop.test]{prop.test()}}
 
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
+\code{\link[=binomPairedDiffCI]{binomPairedDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=hyperCI]{hyperCI()}},
 \code{\link[=multinomCI]{multinomCI()}}

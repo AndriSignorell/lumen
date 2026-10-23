@@ -57,6 +57,7 @@ reference:
   # ci.proportion -- Binomial and multinomial proportions
   - binomCI
   - binomDiffCI
+  - binomPairedDiffCI
   - binomRatioCI
   - hyperCI
   - multinomCI

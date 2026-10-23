@@ -187,7 +187,7 @@
 # conf.level <- 0.95
 # xci
 # 
-#' @seealso [binom.test()], [prop.test()]
+#' @seealso [binomPairedDiffCI()] for paired proportions, [binom.test()], [prop.test()]
 #' @family ci.proportion  
 #' @concept confidence-interval  
 #' @concept proportion  

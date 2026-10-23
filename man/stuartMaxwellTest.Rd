@@ -61,14 +61,14 @@ only. The degree of freedom \code{df} in this case can still be considered
 treats omitted categories as if they were included but contributed 0 to the
 value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
 have equal row and column marginals. (See:
-\url{https://www.john-uebersax.com/stat/mcnemar.htm#stuart})
+Stuart (1955).
 }
 \note{
 Based on code from Jim Lemon, adapted to conform to package standards.
 }
 \examples{
 
-# Source: https://john-uebersax.com/stat/mcnemar.htm#stuart
+# Hypothetical 3 x 3 contingency table
 hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 stuartMaxwellTest(hyp)
 
@@ -87,6 +87,18 @@ mc <- as.table(matrix(c(
 stuartMaxwellTest(mc)
 
 
+# UCLA OARC: Coffee Market Share Example (Agresti, Chapter 9)
+# Stuart-Maxwell chi-squared = 12.29, df = 4, p = 0.0153 (rounded)
+coffee <- matrix(c(
+  93, 17, 44,  7, 10,
+   9, 46, 11,  0,  9,
+  17, 11,155,  9, 12,
+   6,  4,  9, 15,  2,
+  10,  4, 12,  2, 27
+), nrow = 5, byrow = TRUE)
+stuartMaxwellTest(coffee)
+
+
 }
 \references{
 Stuart, A (1955) A test for homogeneity of the marginal
@@ -97,6 +109,10 @@ independent judges. \emph{British Journal of Psychiatry}, 116, 651-655.
 
 Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp
 86 ff.
+
+UCLA OARC (Stata textbook examples), \emph{An Introduction to Categorical
+Analysis}, Chapter 9, Section 9.3.2 (Coffee Market Share Example):
+\url{https://stats.oarc.ucla.edu/stata/examples/icda/an-introduction-to-categorical-analysis-by-alan-agrestichapter-9-models-for-matched-pairs/}.
 }
 \seealso{
 \code{\link[=mcnemar.test]{mcnemar.test()}}, \code{\link[=chisq.test]{chisq.test()}}

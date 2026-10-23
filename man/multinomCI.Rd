@@ -162,6 +162,7 @@ inference, \emph{J.Am. Stat. Assoc.} 22 (1927) 209-212.
 Other ci.proportion:
 \code{\link[=binomCI]{binomCI()}},
 \code{\link[=binomDiffCI]{binomDiffCI()}},
+\code{\link[=binomPairedDiffCI]{binomPairedDiffCI()}},
 \code{\link[=binomRatioCI]{binomRatioCI()}},
 \code{\link[=hyperCI]{hyperCI()}}
 }
