@@ -174,10 +174,12 @@ independent proportions. *Statistics in Medicine*, 17, 873-890.
 
 ## See also
 
+[`binomPairedDiffCI()`](binomPairedDiffCI.md) for paired proportions,
 [`binom.test()`](https://rdrr.io/r/stats/binom.test.html),
 [`prop.test()`](https://rdrr.io/r/stats/prop.test.html)
 
 Other ci.proportion: [`binomCI()`](binomCI.md),
+[`binomPairedDiffCI()`](binomPairedDiffCI.md),
 [`binomRatioCI()`](binomRatioCI.md), [`hyperCI()`](hyperCI.md),
 [`multinomCI()`](multinomCI.md)
 

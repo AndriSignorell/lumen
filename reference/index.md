@@ -33,6 +33,8 @@ scale parameters.
   Intervals for Binomial Proportions
 - [`binomDiffCI()`](binomDiffCI.md) : Confidence Intervals for the
   Difference of Two Binomial Proportions
+- [`binomPairedDiffCI()`](binomPairedDiffCI.md) : Confidence Intervals
+  for the Difference of Two Paired Binomial Proportions
 - [`binomRatioCI()`](binomRatioCI.md) : Confidence Intervals for the
   Ratio of Two Binomial Proportions
 - [`hyperCI()`](hyperCI.md) : Confidence Intervals for the Number of

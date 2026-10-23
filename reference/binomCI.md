@@ -308,6 +308,7 @@ Witting H. (1985) *Mathematische Statistik I*. Stuttgart: Teubner.
 `Hmisc::binconf()`
 
 Other ci.proportion: [`binomDiffCI()`](binomDiffCI.md),
+[`binomPairedDiffCI()`](binomPairedDiffCI.md),
 [`binomRatioCI()`](binomRatioCI.md), [`hyperCI()`](hyperCI.md),
 [`multinomCI()`](multinomCI.md)
 

@@ -161,8 +161,9 @@ statistical inference, *Journal of the American Statistical Association*
 population, [`phyper()`](https://rdrr.io/r/stats/Hypergeometric.html)
 
 Other ci.proportion: [`binomCI()`](binomCI.md),
-[`binomDiffCI()`](binomDiffCI.md), [`binomRatioCI()`](binomRatioCI.md),
-[`multinomCI()`](multinomCI.md)
+[`binomDiffCI()`](binomDiffCI.md),
+[`binomPairedDiffCI()`](binomPairedDiffCI.md),
+[`binomRatioCI()`](binomRatioCI.md), [`multinomCI()`](multinomCI.md)
 
 ## Examples
 

@@ -139,9 +139,9 @@ The formula interface is only applicable for the 2-sample tests.
 ## See also
 
 [`var.test()`](https://rdrr.io/r/stats/var.test.html),
-[`bartlett.test()`](https://rdrr.io/r/stats/bartlett.test.html) for
-testing homogeneity of variances in more than two samples from normal
-distributions;
+[`bartlett.test()`](https://rdrr.io/r/stats/bartlett.test.html) in base
+R for testing homogeneity of variances in more than two samples from
+normal distributions;
 [`ansari.test()`](https://rdrr.io/r/stats/ansari.test.html) and
 [`mood.test()`](https://rdrr.io/r/stats/mood.test.html) for two rank
 based (nonparametric) two-sample tests for difference in scale.
