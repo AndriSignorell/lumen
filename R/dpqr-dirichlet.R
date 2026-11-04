@@ -35,9 +35,13 @@
 #' mismatch.
 #'
 #' @examples
+#' \dontshow{.nt <- Sys.getenv("RCPP_PARALLEL_NUM_THREADS", unset = NA)
+#' Sys.setenv(RCPP_PARALLEL_NUM_THREADS = 2)}
 #' ddirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 #' pdirichlet(c(0.2, 0.3, 0.5), c(1,1,1))
 #' rdirichlet(5, c(1,1,1))
+#' \dontshow{if (is.na(.nt)) Sys.unsetenv("RCPP_PARALLEL_NUM_THREADS") else
+#'   Sys.setenv(RCPP_PARALLEL_NUM_THREADS = .nt)}
 #'
 #' @seealso [distributions-overview]
 #' @concept distribution-function

@@ -1,6 +1,6 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for 'DescToolsX'
-Version: 0.0.0.960  
+Version: 0.1.0  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -77,13 +77,11 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LinkingTo: Rcpp, RcppParallel, RcppArmadillo
 Roxygen: list(markdown = TRUE)
-Imports: bedrock, pharos, mvtnorm, stats, boot, gld, Rcpp, RcppParallel
+Imports: bedrock (>= 0.1.20), pharos, mvtnorm, stats, boot, gld, Rcpp, RcppParallel
 Suggests: testthat (>= 3.0.0), Exact, goftest, coin, flexsurv, 
   randtests, lmtest, nortest, multcomp, tseries
-Remotes:  
-    AndriSignorell/bedrock, AndriSignorell/pharos
 Config/testthat/edition: 3
 URL: https://andrisignorell.github.io/lumen/,
             https://github.com/AndriSignorell/lumen/
 BugReports: https://github.com/AndriSignorell/lumen/issues
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

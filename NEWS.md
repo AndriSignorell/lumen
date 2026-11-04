@@ -1,4 +1,10 @@
-# lumen 0.0.0.948
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+# lumen 0.1.0
 
 ## New features
 

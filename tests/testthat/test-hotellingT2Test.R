@@ -317,3 +317,11 @@ test_that("formula interface: subset works when the expression is not a local va
   )
   expect_s3_class(res, "htest")
 })
+
+
+test_that("singular pooled covariance matrix raises informative error", {
+  v <- rnorm(20)
+  expect_error(hotellingT2Test(cbind(v, -v), cbind(v[1:15], -v[1:15])),
+               "Pooled covariance matrix is singular")
+})
+

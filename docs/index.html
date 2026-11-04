@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="index.html">lumen</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.960</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,13 +96,13 @@
 </h3>
 <ul>
 <li>
-<code>tTestA()</code>, <code><a href="reference/zTest.html">zTest()</a></code>, <code><a href="reference/yuenTTest.html">yuenTTest()</a></code>, <code><a href="reference/signTest.html">signTest()</a></code>
+<code><a href="reference/tTestSummary.html">tTestSummary()</a></code>, <code><a href="reference/zTest.html">zTest()</a></code>, <code><a href="reference/yuenTTest.html">yuenTTest()</a></code>, <code><a href="reference/signTest.html">signTest()</a></code>
 </li>
 <li>
 <code><a href="reference/brunnerMunzelTest.html">brunnerMunzelTest()</a></code>, <code><a href="reference/siegelTukeyTest.html">siegelTukeyTest()</a></code>, <code><a href="reference/mosesTest.html">mosesTest()</a></code>
 </li>
 <li>
-<code><a href="reference/moodMedianTest.html">moodMedianTest()</a></code>, <code>vanWaerdenTest()</code>, <code><a href="reference/dscfTest.html">dscfTest()</a></code>
+<code><a href="reference/moodMedianTest.html">moodMedianTest()</a></code>, <code><a href="reference/vanDerWaerdenTest.html">vanDerWaerdenTest()</a></code>, <code><a href="reference/dscfTest.html">dscfTest()</a></code>
 </li>
 </ul>
 </div>
@@ -126,10 +126,10 @@
 </h3>
 <ul>
 <li>
-<code><a href="reference/andersonDarlingTest.html">andersonDarlingTest()</a></code>, <code><a href="reference/cramerVonMisesTest.html">cramerVonMisesTest()</a></code>, <code>lillieTest()</code>
+<code><a href="reference/andersonDarlingTest.html">andersonDarlingTest()</a></code>, <code><a href="reference/cramerVonMisesTest.html">cramerVonMisesTest()</a></code>, <code><a href="reference/lillieforsTest.html">lillieforsTest()</a></code>
 </li>
 <li>
-<code><a href="reference/shapiroFranciaTest.html">shapiroFranciaTest()</a></code>, <code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code>, <code>pearsonTest()</code>
+<code><a href="reference/shapiroFranciaTest.html">shapiroFranciaTest()</a></code>, <code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code>, <code><a href="reference/pearsonChisqTest.html">pearsonChisqTest()</a></code>
 </li>
 <li>
 <code><a href="reference/hosmerLemeshowTest.html">hosmerLemeshowTest()</a></code>, <code><a href="reference/leCessieTest.html">leCessieTest()</a></code> — for logistic models</li>
@@ -140,8 +140,7 @@
 </h3>
 <ul>
 <li>
-<code><a href="reference/postHoc.html">postHoc()</a></code>, <code><a href="reference/plot.PostHocTest.html">plot.PostHocTest()</a></code>
-</li>
+<code><a href="reference/postHoc.html">postHocTest()</a></code> with a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method</li>
 <li>
 <code><a href="reference/dunnTest.html">dunnTest()</a></code>, <code><a href="reference/dunnettTest.html">dunnettTest()</a></code>, <code><a href="reference/conoverTest.html">conoverTest()</a></code>, <code><a href="reference/nemenyiTest.html">nemenyiTest()</a></code>
 </li>
@@ -161,7 +160,7 @@
 <code><a href="reference/bartelsRankTest.html">bartelsRankTest()</a></code>, <code><a href="reference/coxStuartTest.html">coxStuartTest()</a></code>, <code><a href="reference/jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code>
 </li>
 <li>
-<code><a href="reference/pageTest.html">pageTest()</a></code>, <code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code>, <code><a href="reference/breuschGodfreyTest.html">breuschGodfreyTest()</a></code>, <code>bpTest()</code>
+<code><a href="reference/pageTest.html">pageTest()</a></code>, <code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code>, <code><a href="reference/breuschGodfreyTest.html">breuschGodfreyTest()</a></code>, <code><a href="reference/breuschPaganTest.html">breuschPaganTest()</a></code>
 </li>
 </ul>
 </div>
@@ -183,7 +182,7 @@
 <div class="section level3">
 <h3 id="small_blue_diamond-distributions">🔹 Distributions<a class="anchor" aria-label="anchor" href="#small_blue_diamond-distributions"></a>
 </h3>
-<p><code>dpqr</code> families for the Benford, Dirichlet, extreme value, Fréchet, GEV, GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull and triangular distributions, plus <code>cont-moments()</code>, <code>disc-moments()</code> and <code>extreme-value-moments()</code>.</p>
+<p><code>dpqr</code> families for the Benford, Dirichlet, extreme value, Fréchet, GEV, GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull and triangular distributions, plus mean and variance functions such as <code><a href="reference/cont-moments.html">mnorm()</a></code>, <code><a href="reference/disc-moments.html">mbinom()</a></code> and <code><a href="reference/extreme-value-moments.html">mgev()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="small_blue_diamond-power-and-sample-size">🔹 Power and Sample Size<a class="anchor" aria-label="anchor" href="#small_blue_diamond-power-and-sample-size"></a>
@@ -223,7 +222,7 @@
 <span></span>
 <span><span class="co"># post-hoc comparisons after an ANOVA</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/postHoc.html">postHoc</a></span><span class="op">(</span><span class="va">fit</span>, method <span class="op">=</span> <span class="st">"hsd"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/postHoc.html">postHocTest</a></span><span class="op">(</span><span class="va">fit</span>, method <span class="op">=</span> <span class="st">"hsd"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># goodness of fit</span></span>
 <span><span class="fu"><a href="reference/andersonDarlingTest.html">andersonDarlingTest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, null <span class="op">=</span> <span class="st">"pnorm"</span><span class="op">)</span></span></code></pre></div>
@@ -275,14 +274,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=lumen" class="external-link"><img src="https://www.r-pkg.org/badges/version/lumen" alt="CRAN status"></a></li>
-<li><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" class="external-link"><img src="https://img.shields.io/badge/License-GPL%20v2-blue.svg" alt="License: GPL v2"></a></li>
-<li><a href="https://github.com/AndriSignorell/lumen/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/AndriSignorell/lumen/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>

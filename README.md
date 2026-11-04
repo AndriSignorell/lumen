@@ -41,9 +41,9 @@ remotes::install_github("AndriSignorell/lumen")
 
 ### 🔹 Location Tests
 
--   `tTestA()`, `zTest()`, `yuenTTest()`, `signTest()`
+-   `tTestSummary()`, `zTest()`, `yuenTTest()`, `signTest()`
 -   `brunnerMunzelTest()`, `siegelTukeyTest()`, `mosesTest()`
--   `moodMedianTest()`, `vanWaerdenTest()`, `dscfTest()`
+-   `moodMedianTest()`, `vanDerWaerdenTest()`, `dscfTest()`
 
 ### 🔹 Categorical Data
 
@@ -54,13 +54,13 @@ remotes::install_github("AndriSignorell/lumen")
 
 ### 🔹 Goodness of Fit and Normality
 
--   `andersonDarlingTest()`, `cramerVonMisesTest()`, `lillieTest()`
--   `shapiroFranciaTest()`, `jarqueBeraTest()`, `pearsonTest()`
+-   `andersonDarlingTest()`, `cramerVonMisesTest()`, `lillieforsTest()`
+-   `shapiroFranciaTest()`, `jarqueBeraTest()`, `pearsonChisqTest()`
 -   `hosmerLemeshowTest()`, `leCessieTest()` — for logistic models
 
 ### 🔹 Multiple Comparisons and Post-hoc
 
--   `postHoc()`, `plot.PostHocTest()`
+-   `postHocTest()` with a `plot()` method
 -   `dunnTest()`, `dunnettTest()`, `conoverTest()`, `nemenyiTest()`
 -   `gamesHowellTest()`, `scheffeTest()`, `steelTest()`
 
@@ -69,7 +69,7 @@ remotes::install_github("AndriSignorell/lumen")
 -   `adfTest()`, `kpssTest()`, `runsTest()`, `vonNeumannTest()`
 -   `bartelsRankTest()`, `coxStuartTest()`, `jonckheereTerpstraTest()`
 -   `pageTest()`, `durbinWatsonTest()`, `breuschGodfreyTest()`,
-    `bpTest()`
+    `breuschPaganTest()`
 
 ### 🔹 Confidence Intervals
 
@@ -86,8 +86,8 @@ remotes::install_github("AndriSignorell/lumen")
 
 `dpqr` families for the Benford, Dirichlet, extreme value, Fréchet, GEV,
 GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull
-and triangular distributions, plus `cont-moments()`, `disc-moments()`
-and `extreme-value-moments()`.
+and triangular distributions, plus mean and variance functions such as `mnorm()`, `mbinom()`
+and `mgev()`.
 
 ### 🔹 Power and Sample Size
 
@@ -117,7 +117,7 @@ brunnerMunzelTest(extra ~ group, data = sleep)
 
 # post-hoc comparisons after an ANOVA
 fit <- aov(breaks ~ tension, data = warpbreaks)
-postHoc(fit, method = "hsd")
+postHocTest(fit, method = "hsd")
 
 # goodness of fit
 andersonDarlingTest(rnorm(100), null = "pnorm")

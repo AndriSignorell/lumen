@@ -92,6 +92,8 @@
 #'   \verb{[math.ST]}.
 #'
 #' @examples
+#' \dontshow{.nt <- Sys.getenv("RCPP_PARALLEL_NUM_THREADS", unset = NA)
+#' Sys.setenv(RCPP_PARALLEL_NUM_THREADS = 2)}
 #' set.seed(1)
 #' x <- rlnorm(100)
 #' y <- rlnorm(200, meanlog = 1.2)
@@ -108,6 +110,8 @@
 #' # two-sample squared ratio
 #' madRatioCI(x, y)
 #' madRatioCI(x, y, method = "boot", R = 499, type = "bca")
+#' \dontshow{if (is.na(.nt)) Sys.unsetenv("RCPP_PARALLEL_NUM_THREADS") else
+#'   Sys.setenv(RCPP_PARALLEL_NUM_THREADS = .nt)}
 #'
 #' @name mad-confints
 #' @aliases madCI madDiffCI madRatioCI

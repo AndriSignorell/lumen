@@ -219,6 +219,22 @@ hotellingT2Test.default <- function(x, y = NULL, mu = NULL,
 # == internal helper functions =================================================
 
 
+# inverse of a covariance matrix via Cholesky, with an explicit condition
+# check: whether chol() fails on an exactly rank-deficient matrix depends on
+# rounding in the BLAS/LAPACK in use (reference BLAS: error; OpenBLAS/MKL:
+# tiny positive pivot, chol() succeeds and the inverse is garbage). rcond()
+# makes the decision platform independent; the threshold matches solve().
+
+.invCov <- function(S, what) {
+  fail <- function(e = NULL)
+    stop(what, " is singular or nearly singular; ",
+         "the test cannot be computed.", call. = FALSE)
+  if (!all(is.finite(S)) || rcond(S) < .Machine$double.eps)
+    fail()
+  tryCatch(chol2inv(chol(S)), error = fail)
+}
+
+
 # internal engine, operates on validated matrices only
 
 .hotellingsT2Engine <- function(x, y = NULL, mu, test) {
@@ -230,13 +246,7 @@ hotellingT2Test.default <- function(x, y = NULL, mu = NULL,
 
     # one-sample
     diff    <- colMeans(x) - mu
-    S_inv   <- tryCatch(
-      chol2inv(chol(cov(x))),
-      error = function(e) stop(
-        "Covariance matrix of 'x' is singular or nearly singular; ",
-        "the test cannot be computed."
-      )
-    )
+    S_inv   <- .invCov(cov(x), "Covariance matrix of 'x'")
     est     <- setNames(colMeans(x), colnames(x))
     T2      <- as.numeric(n * t(diff) %*% S_inv %*% diff)
     scale   <- switch(test, f = (n - p) / (p * (n - 1)), chi = 1)
@@ -256,13 +266,7 @@ hotellingT2Test.default <- function(x, y = NULL, mu = NULL,
     ym      <- colMeans(y)
     Sp      <- (crossprod(sweep(x, 2, xm)) +
                   crossprod(sweep(y, 2, ym))) / (n1 + n2 - 2)
-    Sp_inv  <- tryCatch(
-      chol2inv(chol(Sp)),
-      error = function(e) stop(
-        "Pooled covariance matrix is singular or nearly singular; ",
-        "the test cannot be computed."
-      )
-    )
+    Sp_inv  <- .invCov(Sp, "Pooled covariance matrix")
     est     <- setNames(xm - ym, colnames(x))
     diff    <- xm - ym - mu
     T2      <- as.numeric(n1 * n2 / (n1 + n2) * t(diff) %*% Sp_inv %*% diff)
