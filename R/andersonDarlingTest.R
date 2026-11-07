@@ -1,5 +1,5 @@
 
-#' Anderson-Darling Test  for Assessing Distributional Fit, Especially in the Tails
+#' Anderson-Darling Test for Assessing Distributional Fit, Especially in the Tails
 #'
 #' A goodness-of-fit test assessing whether a sample follows a specified
 #' distribution. Compared to the Kolmogorov-Smirnov test, it places greater
@@ -103,6 +103,11 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
 
   F0 <- .getCdf(null)
   U <- F0(x, ...)
+  if (!is.numeric(U) || length(U) != n)
+    stop("null distribution function must return one numeric value ",
+         "per observation")
+  if (anyNA(U))
+    stop("null distribution function returned NA or NaN")
   if (any(U < 0 | U > 1))
     stop("null distribution function returned values outside [0,1]")
 
@@ -132,7 +137,11 @@ andersonDarlingTest <- function(x, null = "punif", ..., estimated = FALSE,
   pard <- if (length(parnames) > 0)
     paste("with", ngettext(length(parnames), "parameter", "parameters"),
           paste(parnames, "=",
-                vapply(extras[parnames], paste, "", collapse = " "),
+                vapply(extras[parnames], function(v)
+                  # 4 significant digits; fm() then drops trailing zeros,
+                  # as digits = NULL takes the decimals the value needs
+                  paste(if (is.numeric(v)) fm(signif(v, 4)) else v,
+                        collapse = " "), ""),
                 collapse = ", "))
 
   coda <- if (estimated) "parameters estimated from data" else

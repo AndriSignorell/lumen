@@ -1,6 +1,3 @@
-library(testthat)
-library(lumen)
-
 # -------------------------------------------------------------------------
 # Basic functionality
 # -------------------------------------------------------------------------
@@ -181,5 +178,31 @@ test_that("adfTest: multivariate input throws error", {
 })
 
 test_that("adfTest: too short series throws error", {
-  expect_error(adfTest(rnorm(5), lags = 4))
+  expect_error(adfTest(rnorm(5), lags = 4), "too short")
+  # 4 differences, 3 rows, 4 parameters: rank-deficient, formerly accepted
+  expect_error(adfTest(cumsum(rnorm(5)), lags = 1, type = "trend"),
+               "too short")
+  # smallest admissible length for lags = 0, trend: one residual df
+  set.seed(2)
+  expect_s3_class(suppressWarnings(
+    adfTest(cumsum(rnorm(5)), lags = 0, type = "trend")), "htest")
+})
+
+test_that("adfTest: lags must be a single non-negative integer", {
+  expect_error(adfTest(rnorm(50), lags = 1.5), "non-negative integer")
+  expect_error(adfTest(rnorm(50), lags = c(1, 2)), "non-negative integer")
+  expect_error(adfTest(rnorm(50), lags = NA), "non-negative integer")
+})
+
+test_that("adfTest: lag selection can choose zero lags", {
+  # for a pure random walk BIC should mostly pick 0 lags; before the fix
+  # 0 was never a candidate
+  sel <- vapply(1:20, function(s) {
+    set.seed(s)
+    r <- suppressWarnings(adfTest(cumsum(rnorm(300)), lags = 4,
+                                  selectLags = "bic", type = "drift"))
+    unname(r$parameter["lags"])
+  }, integer(1))
+  expect_true(any(sel == 0L))
+  expect_true(all(sel >= 0L & sel <= 4L))
 })

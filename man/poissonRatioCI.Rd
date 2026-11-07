@@ -2,7 +2,7 @@
 % Please edit documentation in R/poissonDiffCI.R
 \name{poissonRatioCI}
 \alias{poissonRatioCI}
-\title{Confidence Interval for the Ratio of Two Poisson Rates}
+\title{Confidence Intervals for the Ratio of Two Poisson Rates}
 \usage{
 poissonRatioCI(
   x1,
@@ -15,96 +15,108 @@ poissonRatioCI(
 )
 }
 \arguments{
-\item{x1}{non-negative integer event count or vector of counts for the first
-sample}
+\item{x1}{number of events in the first sample, a non-negative integer.}
 
-\item{n1}{positive exposure associated with \code{x1}, such as observation time,
-person-time, or population at risk; may be a vector and defaults to 1}
+\item{n1}{exposure associated with \code{x1}, such as observation time,
+person-time or population at risk; a positive number, defaults to 1.}
 
-\item{x2}{non-negative integer event count or vector of counts for the second
-sample}
+\item{x2}{number of events in the second sample, a non-negative integer.}
 
-\item{n2}{positive exposure associated with \code{x2}; may be a vector and
-defaults to 1}
+\item{n2}{exposure associated with \code{x2}; a positive number, defaults to 1.}
 
-\item{conf.level}{numeric confidence level between 0 and 1; defaults to 0.95}
+\item{conf.level}{confidence level, defaults to 0.95.}
 
-\item{sides}{type of confidence interval: \code{"two.sided"}, \code{"left"}, or
-\code{"right"}; may be abbreviated}
+\item{sides}{a character string specifying the side of the confidence
+interval, must be one of \code{"two.sided"} (default), \code{"left"} or
+\code{"right"}. You can specify just the initial letter. \code{sides} names the
+side carrying the finite bound: \code{"left"} reports the lower limit and
+opens the upper one to \code{Inf}, \code{"right"} reports the upper limit and opens
+the lower one to 0, the lower limit of the parameter space. A one-sided
+bound puts the whole \code{1 - conf.level} into its single tail.}
 
-\item{method}{method used to calculate the confidence interval: \code{"exact"},
-\code{"mid-p"}, or \code{"wald-log"}; may be abbreviated and defaults to \code{"exact"}}
+\item{method}{character string specifying which method to use; this can be
+one out of: \code{"exact"} (default), \code{"mid-p"} and \code{"wald-log"}.
+Abbreviation of method is accepted. See details.}
 }
 \value{
-If the arguments identify a single result, a named numeric vector
-with elements:
+If recycling yields a single case, a named numeric vector with
+elements:
 \describe{
-\item{\code{est}}{estimated rate ratio}
-\item{\code{lci}}{lower confidence bound}
-\item{\code{uci}}{upper confidence bound}
+\item{\code{est}}{point estimate of the rate ratio.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
 }
-Otherwise, a \code{data.frame} containing these three columns followed by the
-recycled values of \code{x1}, \code{n1}, \code{x2}, \code{n2}, and \code{conf.level}.
+
+If recycling yields multiple cases, a data frame with one row per case is
+returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+the remaining columns contain the recycled values of \code{x1}, \code{n1}, \code{x2},
+\code{n2}, and \code{conf.level}.
 }
 \description{
-Estimates the ratio of two independent Poisson event rates and calculates a
-confidence interval.
+\code{poissonRatioCI()} computes confidence intervals for the ratio of two
+independent Poisson event rates.
 }
 \details{
-The function assumes two independent counts
-\deqn{X_i \sim \mathrm{Poisson}(n_i\lambda_i), \quad i = 1, 2.}
-The parameter of interest is the rate ratio
-\eqn{\theta = \lambda_1/\lambda_2}, estimated by
-\eqn{\hat{\theta} = (x_1/n_1)/(x_2/n_2)}.
-
-The available confidence-interval methods are:
-\describe{
-\item{\code{"exact"}}{the exact conditional interval obtained by conditioning
-on \eqn{x_1 + x_2} and transforming a Clopper--Pearson interval for the
-resulting binomial probability; this is the construction used by
-\code{\link[=poisson.test]{poisson.test()}} for two samples}
-\item{\code{"mid-p"}}{the corresponding conditional mid-p interval, which is
-generally shorter but does not guarantee conservative coverage}
-\item{\code{"wald-log"}}{the asymptotic Wald interval, symmetric on the
-logarithmic scale}
-}
-
-For \code{sides = "left"}, the function returns a lower one-sided confidence
-bound and sets \code{uci} to \code{Inf}. For \code{sides = "right"}, it returns an upper
-one-sided confidence bound and sets \code{lci} to 0, the lower limit of the
-parameter space.
-
-The log-Wald interval cannot be calculated when either count is zero and is
-then returned as \verb{[0, Inf]}. If both counts are zero, the rate ratio and its
-point estimate are undefined; the function returns \code{NA} for \code{est} and
-\verb{[0, Inf]} for the confidence interval for every method. If only \code{x2} is
-zero, the point estimate is \code{Inf}.
-
 The numeric arguments are recycled to a common length only when their
-lengths are compatible whole multiples. Incompatible lengths produce an
+lengths are compatible whole multiples; incompatible lengths produce an
 error. \code{sides} and \code{method} must each identify a single choice.
+
+The function assumes two independent counts
+\eqn{X_i \sim \mathrm{Poisson}(n_i\lambda_i),\ i = 1, 2}. The parameter of
+interest is the rate ratio \eqn{\theta = \lambda_1/\lambda_2}, estimated
+by \eqn{\hat{\theta} = (x_1/n_1)/(x_2/n_2)}.
+
+\strong{Exact} (default):
+The exact conditional interval, obtained by conditioning on
+\eqn{x_1 + x_2} and transforming a Clopper-Pearson interval for the
+resulting binomial probability. This is the construction used by
+\code{\link[=poisson.test]{poisson.test()}} for two samples.
+
+\strong{Mid-p}:
+The corresponding conditional mid-p interval, designed to reduce the
+conservatism of the exact interval. It is generally shorter but does not
+guarantee the nominal coverage.
+
+\strong{Wald-log}:
+The asymptotic Wald interval, symmetric on the logarithmic scale. It
+cannot be calculated when either count is zero and is then returned as
+\eqn{[0, \infty]}.
+
+If both counts are zero, the rate ratio is undefined; the function returns
+\code{NA} for \code{est} and \eqn{[0, \infty]} for the confidence interval for every
+method. If only \eqn{x_2} is zero, the point estimate is \code{Inf}.
 }
+\section{\strong{Which interval should be used?}}{
+
+The exact interval guarantees the nominal coverage but is conservative.
+The mid-p interval is a common compromise with coverage close to the
+nominal level (Graham et al., 2003). The log-Wald interval requires
+reasonably large counts in both samples and is not available when either
+count is zero.
+}
+
 \examples{
+
 # 15 events in 100 person-years compared with
 # 6 events in 120 person-years
 poissonRatioCI(15, 100, 6, 120)
 
-# The exact interval agrees with the two-sample conditional test in stats
+# the exact interval corresponds to the two-sample conditional test
 poisson.test(c(15, 6), c(100, 120))$conf.int
 
 poissonRatioCI(15, 100, 6, 120, method = "mid-p")
 
-# Zero counts are handled explicitly
+# zero counts are handled explicitly
 poissonRatioCI(0, 100, 6, 120)
 
 }
 \references{
-Sahai, H. and Khurshid, A. (1993). Confidence intervals for the ratio of two
-Poisson means. \emph{The Mathematical Scientist}, \strong{18}, 43--50.
+Graham, P. L., Mengersen, K. and Morton, A. P. (2003) Confidence limits
+for the ratio of two rates based on likelihood scores. \emph{Statistics in
+Medicine}, \strong{22}(12), pp. 2071-2083.
 
-Graham, P. L., Mengersen, K. and Morton, A. P. (2003). Confidence limits for
-the ratio of two rates based on likelihood scores. \emph{Statistics in
-Medicine}, \strong{22}(12), 2071--2083.
+Sahai, H. and Khurshid, A. (1993) Confidence intervals for the ratio of
+two Poisson means. \emph{The Mathematical Scientist}, \strong{18}, pp. 43-50.
 }
 \seealso{
 \code{\link[=poissonCI]{poissonCI()}}, \code{\link[=poissonDiffCI]{poissonDiffCI()}}, \code{\link[=binomRatioCI]{binomRatioCI()}},

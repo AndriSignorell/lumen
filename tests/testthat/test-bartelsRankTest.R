@@ -95,6 +95,7 @@ test_that("auto selects normal for n > 100", {
 # -------------------------------------------------------------------------
 test_that("trend alternative detects increasing trend", {
   
+  set.seed(1)
   x <- c(1,2,3,4,5,6,7,8,9,10) + rnorm(10, sd = 0.1)
   
   res <- bartelsRankTest(x, alternative = "trend", method = "normal")
@@ -104,6 +105,7 @@ test_that("trend alternative detects increasing trend", {
 
 test_that("oscillation alternative detects oscillation", {
   
+  set.seed(1)
   x <- rep(c(1, 10), 10) + rnorm(20, sd = 0.1)
   
   res <- bartelsRankTest(x, alternative = "oscillation", method = "normal")
@@ -165,6 +167,11 @@ test_that("NA values are silently removed", {
 # -------------------------------------------------------------------------
 # Input validation
 # -------------------------------------------------------------------------
+test_that("constant data throws error instead of NaN", {
+  expect_error(bartelsRankTest(rep(1, 20)), "two distinct values")
+  expect_error(bartelsRankTest(c(rep(1, 20), NA)), "two distinct values")
+})
+
 test_that("n < 10 throws error", {
   
   expect_error(

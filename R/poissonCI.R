@@ -1,69 +1,89 @@
 
 
-#' Confidence Interval for a Poisson Rate
+#' Confidence Intervals for a Poisson Rate
 #'
-#' Estimates a Poisson event rate and calculates an exact or approximate
-#' confidence interval.
+#' `poissonCI()` computes confidence intervals for a Poisson event rate
+#' using exact and approximate methods.
 #'
-#' @param x non-negative integer event count or vector of counts
-#' @param n positive exposure associated with `x`, such as observation time,
-#'   person-time, or population at risk; may be a vector and defaults to 1
-#' @param conf.level numeric confidence level between 0 and 1; defaults to 0.95
-#' @param sides type of confidence interval: `"two.sided"`, `"left"`, or
-#'   `"right"`; may be abbreviated
-#' @param method method used to calculate the confidence interval: `"exact"`,
-#'   `"score"`, `"wald"`, or `"byar"`; may be abbreviated and may contain
-#'   several methods; defaults to `"exact"`
+#' All arguments are vectorized and recycled according to standard R rules.
 #'
-#' @return If all arguments identify a single result, a named numeric vector
-#'   with elements:
-#'   \describe{
-#'     \item{`est`}{estimated event rate}
-#'     \item{`lci`}{lower confidence bound}
-#'     \item{`uci`}{upper confidence bound}
-#'   }
-#'   Otherwise, a `data.frame` containing these three columns and the recycled
-#'   argument values that identify each result.
-#'
-#' @details
-#' The function assumes
-#' \deqn{X \sim \mathrm{Poisson}(n\lambda),}
-#' where `x` is the observed event count, `n` is the exposure, and
-#' \eqn{\lambda} is the event rate. The point estimate is
+#' The function assumes \eqn{X \sim \mathrm{Poisson}(n\lambda)}, where
+#' \eqn{x} is the observed event count, \eqn{n} the exposure and
+#' \eqn{\lambda} the event rate. The point estimate is
 #' \eqn{\hat{\lambda} = x/n}.
 #'
-#' The available confidence-interval methods are:
+#' **Exact** (default):
+#' The so-called exact interval, based on quantiles of the corresponding
+#' chi-square distribution and equivalent to the Garwood (1936) interval.
+#' The same interval is returned as `conf.int` by [poisson.test()].
+#'
+#' **Score**:
+#' Obtained by inverting the acceptance region of the Poisson score test.
+#'
+#' **Wald**:
+#' Obtained by inverting the acceptance region of the large-sample normal
+#' (Wald) test; the interval is symmetric about \eqn{\hat{\lambda}}.
+#'
+#' **Byar**:
+#' Byar's cube-root normal approximation to the exact interval (Rothman and
+#' Boice, 1979). The lower limit is based on \eqn{x}, the upper limit on
+#' \eqn{x + 1}; for \eqn{x = 0} the lower limit is 0.
+#'
+#' Some methods may produce a lower limit below 0. In such cases, the bound
+#' is truncated to remain within the valid parameter space
+#' \eqn{[0, \infty)}.
+#'
+#' @section **Which interval should be used?**:
+#' The Wald interval has poor coverage for small counts and degenerates to
+#' a single point at \eqn{x = 0}. The exact interval guarantees the nominal
+#' coverage but is conservative and often unnecessarily wide. The score
+#' interval is a good approximate alternative when conservativeness is not
+#' required.
+#'
+#' @param x number of events, a non-negative integer.
+#' @param n exposure associated with `x`, such as observation time,
+#' person-time or population at risk; a positive number, defaults to 1.
+#' @param conf.level confidence level, defaults to 0.95.
+#' @param sides a character string specifying the side of the confidence
+#' interval, must be one of `"two.sided"` (default), `"left"` or
+#' `"right"`. You can specify just the initial letter. `sides` names the
+#' side carrying the finite bound: `"left"` reports the lower limit and
+#' opens the upper one to `Inf`, `"right"` reports the upper limit and opens
+#' the lower one to 0. A one-sided bound at level `conf.level` is the
+#' corresponding end of the two-sided interval at level
+#' `2 * conf.level - 1`. `"left"` corresponds to the alternative
+#' `"greater"` in a hypothesis test.
+#' @param method character string specifying which method to use; this can be
+#' one out of: `"exact"` (default), `"score"`, `"wald"` and `"byar"`.
+#' Several methods may be given at once; all the methods can be asked by
+#' `".all"`. Abbreviation of method is accepted. See details.
+#'
+#' @return If recycling yields a single case, a named numeric vector with
+#' elements:
 #' \describe{
-#'   \item{`"exact"`}{the exact Poisson interval calculated by
-#'     [poisson.test()], equivalent to the Garwood interval}
-#'   \item{`"score"`}{the interval obtained by inverting the Poisson score
-#'     test}
-#'   \item{`"wald"`}{the normal-approximation interval centred at
-#'     \eqn{\hat{\lambda}}}
-#'   \item{`"byar"`}{Byar's cube-root normal approximation}
+#'   \item{`est`}{point estimate of the event rate, `x/n`.}
+#'   \item{`lci`}{lower confidence interval bound.}
+#'   \item{`uci`}{upper confidence interval bound.}
 #' }
 #'
-#' The lower bound is restricted to the parameter space \eqn{[0, \infty)}.
-#' For `sides = "left"`, the function returns a lower one-sided confidence
-#' bound and sets `uci` to `Inf`. This corresponds to the alternative
-#' `"greater"` in a hypothesis test. For `sides = "right"`, it returns an
-#' upper one-sided confidence bound and sets `lci` to 0.
-#'
-#' Compatible vector lengths are recycled. Supplying several methods therefore
-#' provides the corresponding intervals in a single `data.frame`.
+#' If recycling yields multiple cases, a data frame with one row per case is
+#' returned. Its first three columns are `est`, `lci`, and `uci`;
+#' the remaining columns contain the recycled argument values.
 #'
 #' @references
-#' Garwood, F. (1936). Fiducial limits for the Poisson distribution.
-#' *Biometrika*, **28**, 437--442.
+#' Garwood, F. (1936) Fiducial limits for the Poisson distribution.
+#' *Biometrika*, **28**, pp. 437-442.
 #'
-#' Rothman, K. J. and Boice, J. D. Jr. (1979). *Epidemiologic Analysis
+#' Rothman, K. J. and Boice, J. D. Jr. (1979) *Epidemiologic Analysis
 #' with a Programmable Calculator*. NIH Publication No. 79-1649. Washington,
 #' DC: US Government Printing Office.
 #'
-#' @seealso [poisson.test()]
+#' @seealso [poisson.test()], [poissonDiffCI()], [poissonRatioCI()],
+#' [binomCI()]
 #'
 #' @examples
-#' # Deaths from horse kicks in 280 Prussian army corps-years
+#'
+#' # deaths from horse kicks in 280 Prussian army corps-years
 #' count <- 0:4
 #' corpsYears <- c(144, 91, 32, 11, 2)
 #'
@@ -71,15 +91,21 @@
 #' n <- sum(corpsYears)
 #'
 #' poissonCI(x, n)
+#'
+#' # the exact interval corresponds to the one computed by poisson.test
+#' poisson.test(x, n)$conf.int
+#'
+#' # several methods at once
 #' poissonCI(x, n, method = c("exact", "score", "wald", "byar"))
 #'
-#' # A 95% lower confidence bound for the event rate
+#' # a 95% lower confidence bound for the event rate
 #' poissonCI(x, n, sides = "left")
 #'
 #' # SMR for Welsh nickel workers
 #' poissonCI(x = 137, n = 24.19893)
 #'
 #' @concept confidence-interval
+#' @concept rate
 #'
 #' @export
 poissonCI <- function(x, n = 1, conf.level = 0.95, 
@@ -130,6 +156,14 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
   
   # see also:   pois.conf.int {epitools}
   
+  # validated per recycled case, as in .binomCI_engine(); the approximate
+  # formulas would otherwise return regular-looking limits for x = 2.5
+  checkCount(x, min = 0)
+
+  if (!is.numeric(n) || length(n) != 1L || !is.finite(n) || n <= 0)
+    stop(gettextf("'n' must be a positive finite number, got %s",
+                  format(n)), call. = FALSE, domain = NA)
+
   .checkSidedLevel(conf.level, sides)
 
   alpha <- 1 - conf.level
@@ -209,12 +243,14 @@ poissonCI <- function(x, n = 1, conf.level = 0.95,
   
   z <- qnorm(1-alpha/2)
 
-  xcc <- x + 0.5
-  zz  <- (z/3) * sqrt(1/xcc)
-  
-  lci <- (xcc * (1 - 1/(9 * xcc) - zz)^3)/n
-  uci <- (xcc * (1 - 1/(9 * xcc) + zz)^3)/n
-  
-  return(c(lci=lci, uci=uci))
+  # Rothman & Boice (1979): the lower limit uses x, the upper limit x + 1,
+  # mirroring the chi-square degrees of freedom of the exact interval;
+  # at x = 0 the lower limit is 0 (the formula is undefined there)
+  byar <- function(k, sgn) k * (1 - 1/(9 * k) + sgn * z/(3 * sqrt(k)))^3
+
+  lci <- if (x == 0) 0 else byar(x, -1) / n
+  uci <- byar(x + 1, 1) / n
+
+  return(c(lci = lci, uci = uci))
   
 }

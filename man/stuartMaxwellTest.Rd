@@ -15,11 +15,14 @@ a matrix. Its levels are combined with those of \code{x}.}
 }
 \value{
 A list with class \code{"htest"} containing the following
-components: \item{statistic}{the value of the test statistic.}
-\item{parameter}{the degrees of freedom.} \item{p.value}{the p-value of the
-test.} \item{method}{a character string indicating what type of test was
-performed.} \item{data.name}{a character string giving the name of the
-data.}
+components:
+\item{\code{statistic}}{the value of the chi-squared test statistic.}
+\item{\code{parameter}}{the degrees of freedom.}
+\item{\code{p.value}}{the p-value of the test.}
+\item{\code{method}}{a character string indicating the test performed.}
+\item{\code{data.name}}{a character string giving the name of the data.}
+\item{\code{n}}{the total sample size, including categories with perfect
+agreement (not shown on screen).}
 }
 \description{
 A nonparametric test for marginal homogeneity in square contingency tables
@@ -34,8 +37,12 @@ two raters. The statistic is distributed as \eqn{\chi^2}{chi-square} with
 \code{k-1} degrees of freedom. \cr It can be viewed as an extension of the
 McNemar test to \eqn{k \times k}{k x k} table.
 
-The null is that the probabilities of being classified into cells \verb{[i, j]}
-and \verb{[j, i]} are the same.
+The null hypothesis is marginal homogeneity: for every category \eqn{i}
+the probability of being classified into \eqn{i} is the same for both
+classifications, \eqn{p_{i+} = p_{+i}}{p[i+] = p[+i]}. (Equality of the
+cell probabilities \verb{[i, j]} and \verb{[j, i]} is the stronger
+hypothesis of symmetry, which implies marginal homogeneity but is not
+implied by it.)
 
 If \code{x} is a matrix, it is taken as a two-dimensional contingency table,
 and hence its entries should be nonnegative integers. Otherwise, both x and
@@ -60,8 +67,7 @@ only. The degree of freedom \code{df} in this case can still be considered
 \code{k - 1}, where \code{k} is the number of original categories; this
 treats omitted categories as if they were included but contributed 0 to the
 value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
-have equal row and column marginals. (See:
-Stuart (1955).
+have equal row and column marginals (see Stuart, 1955).
 }
 \note{
 Based on code from Jim Lemon, adapted to conform to package standards.
@@ -81,7 +87,7 @@ stuartMaxwellTest(x=d.hyp[,1], y=d.hyp[,2])
 
 
 mc <- as.table(matrix(c(
-         732, 1524, 1575, 1577, 1602, 837, 1554, 1437, 
+         732, 1524, 1575, 1577, 1602, 837, 1554, 1437,
          1672, 1600, 841, 1363, 1385, 1484, 1524, 791), nrow=4))
 
 stuartMaxwellTest(mc)
@@ -115,7 +121,7 @@ Analysis}, Chapter 9, Section 9.3.2 (Coffee Market Share Example):
 \url{https://stats.oarc.ucla.edu/stata/examples/icda/an-introduction-to-categorical-analysis-by-alan-agrestichapter-9-models-for-matched-pairs/}.
 }
 \seealso{
-\code{\link[=mcnemar.test]{mcnemar.test()}}, \code{\link[=chisq.test]{chisq.test()}}
+\code{\link[=bhapkarTest]{bhapkarTest()}}, \code{\link[=mcnemar.test]{mcnemar.test()}}, \code{\link[=chisq.test]{chisq.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},
@@ -128,5 +134,6 @@ Other test.categorical:
 \code{\link[=woolfTest]{woolfTest()}}
 }
 \concept{categorical-test}
-\concept{nonparametric}
+\concept{marginal-homogeneity}
+\concept{paired-samples}
 \concept{test.categorical}

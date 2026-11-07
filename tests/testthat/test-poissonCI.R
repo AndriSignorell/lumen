@@ -1,11 +1,3 @@
-library(testthat)
-library(lumen)
-
-# NOTE: poissonCI() has a bug where .poissonCI_engine() has a parameter
-# stdEst without a default value, causing NA results when called via
-# .recycleApply(). The fix is: stdEst = NULL in .poissonCI_engine().
-# These tests assume the fix is deployed (poissonCI.R updated).
-
 tol <- 1e-4
 
 test_that("poissonCI: default returns named vector with est/lci/uci", {
@@ -70,14 +62,32 @@ test_that("poissonCI: multiple methods returns data.frame with est/lci/uci", {
 })
 
 
-expect_error(poissonRatioCI(1.5, 100, 6, 120), "non-negative integers")
-expect_error(poissonRatioCI(Inf, 100, 6, 120), "must be finite")
-expect_error(
-  poissonRatioCI(1:2, 100, 1:3, 120),
-  "cannot be recycled"
-)
+test_that("poissonCI: byar follows Rothman & Boice (x for lci, x + 1 for uci)", {
+  # reference values computed independently from the closed-form formula
+  res <- poissonCI(10, 1, method = "byar")
+  expect_equal(unname(res[c("lci", "uci")]),
+               c(4.787449913967563, 18.391458605756473), tolerance = 1e-10)
 
-z <- poissonRatioCI(0, 100, 0, 120)
-expect_true(is.na(z[["est"]]))
+  # x = 0: lower limit 0, upper limit from x + 1 = 1, scaled by n
+  res0 <- poissonCI(0, 2, method = "byar")
+  expect_identical(unname(res0["lci"]), 0)
+  expect_equal(unname(res0["uci"]), 1.8340059160868754, tolerance = 1e-10)
+
+  # close to the exact interval for moderate counts
+  expect_equal(unname(res[c("lci", "uci")]),
+               unname(poissonCI(10, 1, method = "exact")[c("lci", "uci")]),
+               tolerance = 5e-3)
+})
 
 
+test_that("poissonCI: invalid x and n are rejected for every method", {
+  for (m in c("exact", "score", "wald", "byar")) {
+    expect_error(poissonCI(2.5, 1, method = m), label = m)
+    expect_error(poissonCI(-1, 1, method = m), label = m)
+    expect_error(poissonCI(5, 0, method = m), "'n'", label = m)
+    expect_error(poissonCI(5, -2, method = m), "'n'", label = m)
+    expect_error(poissonCI(5, Inf, method = m), "'n'", label = m)
+  }
+  # non-integer exposure is legitimate
+  expect_no_error(poissonCI(137, 24.19893))
+})

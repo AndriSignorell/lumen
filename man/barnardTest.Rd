@@ -2,7 +2,7 @@
 % Please edit documentation in R/barnardTest.R
 \name{barnardTest}
 \alias{barnardTest}
-\title{Barnard's Unconditional Test for Comparing Two Independent Proportions in a 2×2 Table}
+\title{Barnard's Unconditional Test for Comparing Two Independent Proportions in a 2 x 2 Table}
 \usage{
 barnardTest(
   x,
@@ -10,8 +10,12 @@ barnardTest(
   alternative = c("two.sided", "less", "greater"),
   method = c("csm", "z-pooled", "z-unpooled", "boschloo", "santner-snell"),
   fixed = 1,
-  useStoredCsm = FALSE,
-  ...
+  tsMethod = c("square", "central"),
+  delta = 0,
+  conf.level = NA,
+  npNumbers = 100,
+  npInterval = FALSE,
+  beta = 0.001
 )
 }
 \arguments{
@@ -21,43 +25,59 @@ matrix form. \code{x} and \code{y} can also both be factors.}
 \item{y}{a factor object; ignored if \code{x} is a matrix.}
 
 \item{alternative}{a character string specifying the alternative
-hypothesis, must be one of \code{"two.sided"} (default),
-\code{"greater"} or \code{"less"}. You can specify just the initial
-letter.}
+hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"} or
+\code{"less"}, referring to \eqn{\pi_1 - \pi_2}{pi1 - pi2} relative to
+\code{delta}. You can specify just the initial letter.}
 
-\item{method}{the method for finding the more extreme tables, one of
-\code{"csm"} (default), \code{"z-pooled"}, \code{"z-unpooled"},
-\code{"boschloo"} or \code{"santner-snell"}. The CSM test cannot be
-calculated for multinomial models and is computationally the most
-demanding method (see the Details and the \code{useStoredCsm} argument).}
+\item{method}{the ordering of the tables, one of \code{"csm"} (default),
+\code{"z-pooled"}, \code{"z-unpooled"}, \code{"boschloo"} or \code{"santner-snell"}. See
+Details.}
 
-\item{fixed}{indicates which margin is fixed: \code{1} for rows
-(default), \code{2} for columns, or \code{NA} for none of both
-(multinomial model).}
+\item{fixed}{indicates which margin is fixed: \code{1} for rows (default),
+\code{2} for columns, or \code{NA} for none of both (multinomial model).}
 
-\item{useStoredCsm}{logical, use a stored ordering matrix for the CSM
-test to greatly reduce the computation time (default is \code{FALSE}).}
+\item{tsMethod}{the two-sided method, \code{"square"} (default) or
+\code{"central"}. See Details.}
 
-\item{\dots}{further arguments passed on to \code{Exact::exact.test()},
-e.g. \code{npNumbers} or \code{conf.int}.}
+\item{delta}{the difference \eqn{\pi_1 - \pi_2}{pi1 - pi2} under the null
+hypothesis, strictly between -1 and 1; non-zero values give tests of
+non-inferiority or superiority. Binomial model only.}
+
+\item{conf.level}{confidence level of the interval for
+\eqn{\pi_1 - \pi_2}{pi1 - pi2} (binomial model only). The default \code{NA}
+computes no interval.}
+
+\item{npNumbers}{the number of grid points for the nuisance parameter,
+at least 2, default 100.}
+
+\item{npInterval}{logical, restrict the nuisance parameter to a
+confidence interval (Berger and Boos, 1994), default \code{FALSE}.}
+
+\item{beta}{the error probability of that interval, default 0.001; only
+used with \code{npInterval = TRUE}.}
 }
 \value{
 A list with class \code{"htest"} containing the following
 components:
-\item{\code{statistic}}{the value of the test statistic used to order the
-tables.}
-\item{\code{parameter}}{the sizes of the two samples.}
+\item{\code{statistic}}{the ordering statistic of the observed table: \code{z}
+(z-pooled, z-unpooled), \code{d} (Santner-Snell, the difference minus
+\code{delta}) or \code{p.Fisher} (Boschloo); absent for CSM, whose ordering has
+no statistic.}
+\item{\code{parameter}}{the sizes \code{n1}, \code{n2} of the two samples (binomial model) or the
+total sample size \code{N} (multinomial model).}
 \item{\code{p.value}}{the p-value of the test.}
-\item{\code{estimate}}{the observed difference in proportions.}
-\item{\code{null.value}}{the difference in proportions under the null
-hypothesis.}
+\item{\code{conf.int}}{the confidence interval, if \code{conf.level} is not
+\code{NA}.}
+\item{\code{estimate}}{the observed difference in proportions (binomial) or
+in products of proportions (multinomial).}
+\item{\code{null.value}}{the difference under the null hypothesis.}
 \item{\code{alternative}}{a character string describing the alternative
 hypothesis.}
-\item{\code{np}}{the value of the nuisance parameter that maximizes the
+\item{\code{np}}{the value(s) of the nuisance parameter(s) that maximize the
 p-value.}
 \item{\code{np.range}}{the range of nuisance parameters considered.}
-\item{\code{model}, \code{method}}{character strings describing the
-sampling model and the method used to order the tables.}
+\item{\code{model}, \code{tsmethod}}{the sampling model and the two-sided method.}
+\item{\code{method}}{a character string describing the test.}
 \item{\code{data.name}}{a character string giving the name of the data.}
 }
 \description{
@@ -66,81 +86,146 @@ tables, offering a more powerful alternative to Fisher's exact test
 by avoiding conditioning on both marginal totals.
 }
 \details{
-There are two fundamentally different exact tests for comparing the
-equality of two binomial probabilities - Fisher's exact test (Fisher,
-1925), and Barnard's exact test (Barnard, 1945). Fisher's exact test
-(Fisher, 1925) is the more popular of the two. In fact, Fisher was
-bitterly critical of Barnard's proposal for esoteric reasons that we will
-not go into here. For 2 x 2 tables, Barnard's test is more powerful than
-Fisher's, as Barnard noted in his 1945 paper, much to Fisher's chagrin.
-Anyway, perhaps due to its computational difficulty the Barnard's is not
-widely used. (Mehta and Senchaudhuri, 2003)
+Two fundamentally different exact tests exist for the equality of two
+binomial probabilities: Fisher's exact test (Fisher, 1925), which
+conditions on both margins, and Barnard's unconditional test (Barnard,
+1945), which does not. Fisher's test is by far the more widely used, and
+Fisher himself objected strongly to Barnard's proposal. For 2 x 2 tables,
+however, Barnard's test is generally more powerful, as Barnard already
+pointed out; its limited use is mainly due to its computational cost
+(Mehta and Senchaudhuri, 2003).
 
-Unconditional exact tests can be performed for binomial or multinomial
-models. The binomial model assumes the row or column margins (but not
-both) are known in advance, while the multinomial model assumes only the
-total sample size is known beforehand.  For the binomial model, the user
-needs to specify which margin is fixed (default is rows). Conditional
-tests (e.g., Fisher's exact test) have both row and column margins fixed,
-but this is a very uncommon design. (See Calhoun (2019) for more
-details.)
+\strong{Choice of test.} In most studies only one margin is fixed by design,
+e.g. the group sizes of a randomised trial, while the number of events is
+random. Conditioning on both margins, as Fisher's exact test does, then
+makes the test markedly conservative: because of the discreteness of the
+conditional distribution, the actual level often lies far below the
+nominal one, at the cost of power, in particular for the small samples
+for which exact tests are used. Unconditional tests avoid this. Boschloo's
+test, which orders the tables by Fisher's p-value, is uniformly more
+powerful than Fisher's test: its p-value never exceeds Fisher's, while it
+still keeps the nominal level (Boschloo, 1970). Lydersen et al. (2009)
+therefore recommend unconditional tests (or Fisher's mid-p) instead of
+the traditional Fisher test, and the score statistic (\code{"z-pooled"}) is to
+be preferred to the Wald statistic (\code{"z-unpooled"}), which can behave
+poorly (Mehrotra et al., 2003).
+
+For two independent proportions with fixed group sizes, \code{barnardTest()}
+is thus the recommended choice; CSM and Boschloo are the most powerful
+orderings, z-pooled is the most widely used one. \code{\link[=fisher.test]{fisher.test()}} remains
+appropriate for r x c tables, for exact conditional inference on the odds
+ratio, when both margins are fixed by design, and whenever conditional
+inference is wanted on principle: whether the event margin should be
+conditioned on is a long-standing debate (Yates, 1984; Little, 1989).
+
+\strong{Sampling model.} Unconditional exact tests can be performed for
+binomial or multinomial models. The binomial model assumes that the row
+or the column margins (but not both) are fixed by design, the
+multinomial model only the total sample size. \code{fixed} selects the model:
+\code{1} (default) for fixed rows, \code{2} for fixed columns, \code{NA} for the
+multinomial model. Conditioning on both margins leads to Fisher's exact
+test, see \code{\link[=fisher.test]{fisher.test()}}.
+
+\strong{Binomial model.} The fixed margin defines the two groups, of sizes
+\eqn{n_1}{n1} and \eqn{n_2}{n2}; the first category of the other
+classification counts the successes \eqn{x_1}{x1} and \eqn{x_2}{x2}.
+The tested difference is \eqn{\pi_1 - \pi_2}{pi1 - pi2} with the
+estimate \eqn{\hat{p}_1-\hat{p}_2}{p1 - p2}, \eqn{\hat{p}_i = x_i/n_i}{pi =
+xi/ni}, against the null value \code{delta}. Under the null hypothesis the
+probability of a table is
+\deqn{P(x_1, x_2) = \binom{n_1}{x_1}(\pi+\delta)^{x_1}(1-\pi-\delta)^{n_1-x_1}
+  \binom{n_2}{x_2}\pi^{x_2}(1-\pi)^{n_2-x_2},}{P(x1, x2) =
+  dbinom(x1, n1, pi + delta) * dbinom(x2, n2, pi),}
+where \eqn{\pi}{pi} is the unknown nuisance parameter. The tables are
+ordered by how extreme they are, the p-value for a given \eqn{\pi}{pi}
+is the probability of all tables at least as extreme as the observed
+one, and the p-value of the test is its maximum over \eqn{\pi}{pi}. The
+maximum is searched on a grid of \code{npNumbers} equally spaced values over
+the admissible range \eqn{[\max(0, -\delta), \min(1, 1-\delta)]}{[max(0,
+-delta), min(1, 1 - delta)]}, bounds included, and then refined locally
+with \code{\link[=optimize]{optimize()}}.
+
+\code{method} defines the ordering:
+\describe{
+\item{\code{"csm"}}{Barnard's original convexity, symmetry and minimum
+ordering (CSM; Barnard, 1947). Starting from the most extreme table,
+the table that increases the maximal p-value least is added to the
+rejection region, step by step. Generally the most powerful choice;
+binomial model only.}
+\item{\code{"z-pooled"}}{the score statistic
+\deqn{Z = \frac{\hat{p}_1-\hat{p}_2-\delta}{\sqrt{\tilde{p}_1(1-\tilde{p}_1)/n_1 + \tilde{p}_2(1-\tilde{p}_2)/n_2}},}{Z = (p1 - p2 - delta) / sqrt(p1~(1 - p1~)/n1 + p2~(1 - p2~)/n2),}
+with the pooled proportion for \eqn{\tilde{p}_1 = \tilde{p}_2}{p1~ =
+    p2~} if \eqn{\delta = 0}{delta = 0}, and the restricted maximum
+likelihood estimates (Miettinen and Nurminen, 1985) otherwise
+(Suissa and Shuster, 1985).}
+\item{\code{"z-unpooled"}}{the Wald statistic, with the unrestricted
+estimates \eqn{\hat{p}_i}{pi} in the variance (and the same numerator
+\eqn{\hat{p}_1-\hat{p}_2-\delta}{p1 - p2 - delta}).}
+\item{\code{"boschloo"}}{the p-value of Fisher's exact test (Boschloo,
+1970).}
+\item{\code{"santner-snell"}}{the plain difference \eqn{\hat{p}_1 -
+    \hat{p}_2}{p1 - p2} (Santner and Snell, 1980).}
+}
+
+Two-sided tests are by default based on the absolute value of the
+statistic, i.e. on a region that is symmetric about the null value
+(\code{tsMethod = "square"}). With \code{tsMethod = "central"} the two-sided
+p-value is twice the smaller one-sided p-value.
+
+With \code{npInterval = TRUE} the maximum is only searched within a
+\eqn{100(1-\beta)}{100(1 - beta)}\% Clopper-Pearson interval of the
+nuisance parameter and \eqn{\beta}{beta} is added to the p-value
+(Berger and Boos, 1994). The interval is based on the pooled successes,
+which are binomial only for \eqn{\delta = 0}{delta = 0}; it is
+therefore not available with a non-zero \code{delta}, a confidence interval
+or CSM.
+
+The confidence interval for \eqn{\pi_1 - \pi_2}{pi1 - pi2} (binomial
+model only) is computed if \code{conf.level} is not \code{NA}, and is obtained by
+inverting the test over \code{delta}. It is computationally demanding, in particular for
+CSM, where the ordering has to be rebuilt for every candidate value.
+
+\strong{Multinomial model.} Only the total \eqn{N} is fixed. The nuisance
+parameters are the probabilities of the first row and of the first
+column, and the tested quantity is the difference in the products of
+the cell proportions, \eqn{(x_{11}x_{22} - x_{12}x_{21})/N^2}{(x11 x22 -
+x12 x21) / N^2}. Available for the z-pooled, z-unpooled and Boschloo
+orderings, with \code{delta = 0} and without confidence interval.
 
 If \code{x} is a matrix, it is taken as a two-dimensional contingency
-table, and hence its entries should be nonnegative integers.  Otherwise,
-both \code{x} and \code{y} must be vectors of the same length.
-Incomplete cases are removed, the vectors are coerced into factor
-objects, and the contingency table is computed from these.
-
-For a 2x2 contingency table, such as \eqn{X=[n_1,n_2;n_3,n_4]}, the
-normalized difference in proportions between the two categories, given in
-each column, can be written with pooled variance (Score statistic) as
-\deqn{T(X)=\frac{\hat{p}_2-\hat{p}_1}{\sqrt{\hat{p}(1-\hat{p})(\frac{1}{c_1}+\frac{1}{c_2})}},}
-where \eqn{\hat{p}=(n_1+n_3)/(n_1+n_2+n_3+n_4)},
-\eqn{\hat{p}_2=n_2/(n_2+n_4)}, \eqn{\hat{p}_1=n_1/(n_1+n_3)},
-\eqn{c_1=n_1+n_3} and \eqn{c_2=n_2+n_4}. Alternatively, with unpooled
-variance (Wald statistic), the difference in proportions can be written
-as
-\deqn{T(X)=\frac{\hat{p}_2-\hat{p}_1}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{c_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{c_2}}}.}
-The probability of observing \eqn{X} is
-\deqn{P(X)=\frac{c_1!c_2!}{n_1!n_2!n_3!n_4!}p^{n_1+n_2}(1-p)^{n_3+n_4},}
-where \eqn{p} is the unknown nuisance parameter.
-
-Barnard's test considers all tables with category sizes \eqn{c_1} and
-\eqn{c_2} for a given \eqn{p}. The p-value is the sum of probabilities of
-the tables having a score in the rejection region, e.g. having
-significantly large difference in proportions for a two-sided test. The
-p-value of the test is the maximum p-value calculated over all \eqn{p}
-between 0 and 1.
-
-If \code{useStoredCsm} is set to \code{TRUE} a companion data package
-called \pkg{ExactData} must be installed from GitHub.
-
-The author states: \emph{"The CSM test is computationally intensive due
-to iteratively maximizing the p-value calculation to order the tables.
-The CSM ordering matrix has been stored for all possible sample sizes
-less than or equal to 100 (i.e., max(n1,n2)<=100). Thus, using the
-useStoredCsm = TRUE can greatly improve computation time. However, the
-stored ordering matrix was computed with npNumbers=100 and it is possible
-that the ordering matrix was not optimal for larger npNumbers. Increasing
-npNumbers and setting useStoredCsm = FALSE ensures the p-value is
-correctly calculated at the expense of significantly greater computation
-time. The stored ordering matrix is not used in the calculation of
-confidence intervals or non-inferiority tests, so CSM can still be very
-computationally intensive."}
+table, and hence its entries should be nonnegative integers. Otherwise,
+both \code{x} and \code{y} must be vectors of the same length. Incomplete cases are
+removed, the vectors are coerced into factor objects, and the contingency
+table is computed from these.
 }
 \note{
-\code{barnardTest()} is an interface to \code{Exact::exact.test()} by
-Peter Calhoun; the \pkg{Exact} package (available on CRAN) must be
-installed.
+The algorithms follow the \pkg{Exact} package by Peter Calhoun
+(\code{Exact::exact.test()}), with these deliberate differences:
+\itemize{
+\item the rejection region of the ordering statistics consists of
+exactly the tables that are at least as extreme as the observed one.
+Exact builds it by walking the boundary and filling rows and columns
+by convexity, which in two-sided tests can admit tables that are
+less extreme (e.g. \code{matrix(c(3, 2, 1, 0), 2)}, z-pooled: 0.783
+instead of 0.568);
+\item the nuisance grid includes the bounds of the admissible range
+(Exact uses 0.00001 and 0.99999), where the maximum can lie;
+\item the z-unpooled statistic subtracts \code{delta} in the numerator, as
+the z-pooled one does;
+\item the stored CSM orderings of the companion package \pkg{ExactData}
+are not used: the compiled ordering is fast enough to be computed on
+the fly, for every \code{npNumbers};
+\item when the grid maximum is attained at several nuisance values, the
+refined p-value is the largest of the refined maxima (Exact takes the
+smallest).
+}
 }
 \examples{
 tab <- as.table(matrix(c(8, 14, 1, 3), nrow=2,
                 dimnames=list(treat=c("I","II"), out=c("I","II"))))
 barnardTest(tab, method="z-pooled")
 
-\donttest{
-# the default CSM method is more powerful,
-# but computationally expensive
+# the default CSM ordering
 barnardTest(tab)
 
 # Mehta and Senchaudhuri (2003), vaccine example
@@ -148,7 +233,13 @@ tab <- as.table(matrix(c(7, 12, 8, 3), nrow=2,
                        dimnames=list(treat=c("vaccine","placebo"),
                                      infection=c("yes","no"))))
 barnardTest(tab, alternative="less")
-}
+
+# non-inferiority margin of -0.1, with confidence interval
+barnardTest(tab, method="z-pooled", alternative="greater", delta=-0.1,
+            conf.level=0.95)
+
+# multinomial model: only the total is fixed
+barnardTest(tab, method="boschloo", fixed=NA)
 
 }
 \references{
@@ -158,23 +249,47 @@ Barnard, G.A. (1945) A new test for 2x2 tables.
 Barnard, G.A. (1947) Significance tests for 2x2 tables.
 \emph{Biometrika}, 34:123-138.
 
-Suissa, S. and Shuster, J. J. (1985) Exact unconditional sample sizes for
-the 2x2 binomial trial, \emph{Journal of the Royal Statistical Society},
-Ser. A, 148, 317-327.
+Berger, R.L. and Boos, D.D. (1994) P values maximised over a confidence
+set for the nuisance parameter. \emph{Journal of the American Statistical
+Association}, 89:1012-1016.
 
-Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two
-independent binomial proportions. \emph{Communications in
-Statistics-Simulation and Computation}, 38(1):78-91.
+Boschloo, R.D. (1970) Raised conditional level of significance for the
+2x2-table when testing the equality of two probabilities. \emph{Statistica
+Neerlandica}, 24:1-35.
+
+Calhoun, P. (2024) Exact: Unconditional Exact Test. R package version
+3.3.
+
+Little, R.J.A. (1989) Testing the equality of two independent binomial
+proportions. \emph{The American Statistician}, 43:283-288.
+
+Lydersen, S., Fagerland, M.W. and Laake, P. (2009) Recommended tests for
+association in 2x2 tables. \emph{Statistics in Medicine}, 28:1159-1175.
+
+Mehrotra, D.V., Chan, I.S.F. and Berger, R.L. (2003) A cautionary note on
+exact unconditional inference for a difference between two independent
+binomial proportions. \emph{Biometrics}, 59:441-450.
 
 Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional
 exact tests for comparing two binomials. Cytel Software Corporation,
 technical report.
 
-Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version
-2.0.
+Miettinen, O. and Nurminen, M. (1985) Comparative analysis of two rates.
+\emph{Statistics in Medicine}, 4:213-226.
+
+Santner, T.J. and Snell, M.K. (1980) Small-sample confidence intervals
+for p1 - p2 and p1/p2 in 2x2 contingency tables. \emph{Journal of the
+American Statistical Association}, 75:386-394.
+
+Suissa, S. and Shuster, J. J. (1985) Exact unconditional sample sizes for
+the 2x2 binomial trial, \emph{Journal of the Royal Statistical Society},
+Ser. A, 148, 317-327.
+
+Yates, F. (1984) Tests of significance for 2 x 2 contingency tables.
+\emph{Journal of the Royal Statistical Society}, Ser. A, 147:426-463.
 }
 \seealso{
-\code{\link[=fisher.test]{fisher.test()}}
+\code{\link[=fisher.test]{fisher.test()}}, \code{\link[=prop.test]{prop.test()}}
 
 Other test.categorical:
 \code{\link[=bhapkarTest]{bhapkarTest()}},

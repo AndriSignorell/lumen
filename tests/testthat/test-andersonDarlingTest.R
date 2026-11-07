@@ -154,6 +154,29 @@ test_that("input errors", {
                "outside \\[0,1\\]")
   expect_error(andersonDarlingTest(runif(5), "doesNotExist123"),
                "should be a function")
+  expect_error(suppressWarnings(andersonDarlingTest(rnorm(5), "pnorm", sd = -1)),
+               "NA or NaN")
+  expect_error(andersonDarlingTest(runif(5), function(q) 0.5),
+               "one numeric value per observation")
+  expect_error(andersonDarlingTest(runif(5), function(q) as.character(q)),
+               "one numeric value per observation")
+})
+
+
+test_that("parameters in the method text are rounded to 4 significant digits", {
+  r <- andersonDarlingTest(c(0.1, 0.5, 0.9), "pnorm", mean = 1 / 3)
+  expect_match(r$method, "with parameter mean = 0.3333;", fixed = TRUE)
+})
+
+
+test_that("finite-n distribution for very large n", {
+  # z = 0.15 hits the small-x branch of errfix(), which computed int n * n
+  # (undefined behaviour for n > 46340); for large n the correction vanishes
+  for (z in c(0.15, 1)) {
+    p <- ad_prob_n_cpp(z, 50000L)
+    expect_true(is.finite(p))
+    expect_equal(p, ad_prob_approx_inf_cpp(z), tolerance = 1e-4)
+  }
 })
 
 

@@ -24,6 +24,8 @@ chi-squared distribution of the test statistic.}
 \item{\code{p.value}}{the p-value of the test.}
 \item{\code{method}}{a character string indicating the test performed.}
 \item{\code{data.name}}{a character string giving the name of the data.}
+\item{\code{n}}{the total sample size, including categories with perfect
+agreement.}
 }
 \description{
 An asymptotic chi-squared test for marginal homogeneity in square
@@ -65,10 +67,10 @@ of the marginal distributions in a two-way classification.
 
 Sun X., Yang Z. (2008) Generalized McNemar's Test for Homogeneity of the
 Marginal Distributions. \emph{SAS Global Forum 2008: Statistics and Data
-Analysis}, Paper 382-208.
+Analysis}, Paper 382-2008.
 }
 \seealso{
-\link{mcnemar.test},\link{chisq.test}
+\code{\link[=stuartMaxwellTest]{stuartMaxwellTest()}}, \code{\link[=mcnemar.test]{mcnemar.test()}}, \code{\link[=chisq.test]{chisq.test()}}
 
 Other test.categorical:
 \code{\link[=barnardTest]{barnardTest()}},

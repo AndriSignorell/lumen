@@ -21,6 +21,26 @@ ad_test_r_cpp <- function(x) {
     .Call(`_lumen_ad_test_r_cpp`, x)
 }
 
+.barnardStat <- function(n1, n2, method, alternative, delta) {
+    .Call(`_lumen_barnardStat`, n1, n2, method, alternative, delta)
+}
+
+.barnardProb <- function(M, grid, delta) {
+    .Call(`_lumen_barnardProb`, M, grid, delta)
+}
+
+.barnardCSM <- function(n1, n2, x, y, grid, delta, twoSided, doubleP) {
+    .Call(`_lumen_barnardCSM`, n1, n2, x, y, grid, delta, twoSided, doubleP)
+}
+
+.barnardMultinom <- function(N, x11, x12, x21, method, alternative) {
+    .Call(`_lumen_barnardMultinom`, N, x11, x12, x21, method, alternative)
+}
+
+.barnardMultinomProb <- function(W, p1, p2) {
+    .Call(`_lumen_barnardMultinomProb`, W, p1, p2)
+}
+
 binom_diff_ci_mee_cpp <- function(x1, n1, x2, n2, alpha, lower) {
     .Call(`_lumen_binom_diff_ci_mee_cpp`, x1, n1, x2, n2, alpha, lower)
 }

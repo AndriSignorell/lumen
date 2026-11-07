@@ -19,7 +19,7 @@ test by including lagged difference terms to account for autocorrelation."><meta
 
     <a class="navbar-brand me-2" href="../index.html">lumen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,8 +88,8 @@ lags considered in the lag selection.</p></dd>
 <dt id="arg-selectlags">selectLags<a class="anchor" aria-label="anchor" href="#arg-selectlags"></a></dt>
 <dd><p>the lag selection method, one of <code>"fixed"</code>
 (default, use <code>lags</code> as given), <code>"aic"</code> or <code>"bic"</code>
-(choose the lag order up to <code>lags</code> that minimizes the respective
-information criterion). Case-insensitive, so <code>"AIC"</code> and
+(choose the lag order from 0 to <code>lags</code> that minimizes the respective
+information criterion; all candidates are fitted on the same sample). Case-insensitive, so <code>"AIC"</code> and
 <code>"BIC"</code> are accepted as well.</p></dd>
 
 </dl></div>
@@ -111,8 +111,8 @@ test regression (after lag selection, if requested).</p></dd>
 
 <dt><code>critical.values</code></dt>
 <dd><p>a matrix with the 1%, 5% and 10% critical
-values of all reported statistics, interpolated for the effective
-sample size (not shown on screen).</p></dd>
+values of all reported statistics, interpolated for the number of
+differences <code>length(x) - 1</code> (not shown on screen).</p></dd>
 
 <dt><code>alternative</code></dt>
 <dd><p>a character string describing the alternative

@@ -154,3 +154,59 @@ test_that("invalid arguments are rejected", {
   expect_error(poissonRatioCI(15, 100, 6, 120, method = "katz"), "should be one of")
   expect_error(poissonDiffCI(15, 100, 6, 120, sides = "both"), "should be one of")
 })
+
+
+test_that("x1, x2 must be finite non-negative integers and lengths compatible", {
+
+  expect_error(poissonRatioCI(1.5, 100, 6, 120), "non-negative integers")
+  expect_error(poissonRatioCI(Inf, 100, 6, 120), "must be finite")
+  expect_error(poissonRatioCI(1:2, 100, 1:3, 120), "cannot be recycled")
+
+  expect_true(is.na(poissonRatioCI(0, 100, 0, 120)[["est"]]))
+})
+
+
+test_that("one-sided MOVER needs conf.level >= 0.5, other methods do not", {
+
+  for (s in c("left", "right")) {
+    expect_error(poissonDiffCI(100, 1, 100, 1, conf.level = 0.4, sides = s),
+                 "'conf.level'", label = s)
+    expect_no_error(poissonDiffCI(100, 1, 100, 1, conf.level = 0.5, sides = s))
+    expect_no_error(poissonDiffCI(100, 1, 100, 1, conf.level = 0.4, sides = s,
+                                  method = "wald"))
+    for (m in c("exact", "mid-p", "wald-log"))
+      expect_no_error(poissonRatioCI(15, 100, 6, 120, conf.level = 0.4,
+                                     sides = s, method = m))
+  }
+
+  # two-sided MOVER is unaffected
+  expect_no_error(poissonDiffCI(100, 1, 100, 1, conf.level = 0.4))
+
+  # above the threshold the lower bound falls monotonically with the level
+  lo <- vapply(c(0.5, 0.6, 0.8, 0.95), function(cl)
+    poissonDiffCI(100, 1, 100, 1, conf.level = cl, sides = "left")[["lci"]],
+    numeric(1))
+  expect_true(all(diff(lo) < 0))
+})
+
+
+test_that("mid-p limits are relatively precise for very unbalanced counts", {
+
+  # reference computed independently on the log-odds scale; on the old
+  # probability scale the lower limit was off in the 6th significant digit
+  r <- poissonRatioCI(5, 1, 1e7 - 5, 1, method = "mid-p")
+  expect_equal(unname(r[c("lci", "uci")]),
+               c(1.8319953673002274e-07, 1.1082424403887223e-06),
+               tolerance = 1e-8)
+})
+
+
+test_that("swapping the samples inverts the rate-ratio interval", {
+
+  for (m in c("exact", "mid-p", "wald-log")) {
+    a <- poissonRatioCI(15, 100, 6, 120, method = m)
+    b <- poissonRatioCI(6, 120, 15, 100, method = m)
+    expect_equal(a[["lci"]], 1 / b[["uci"]], tolerance = 1e-8, label = m)
+    expect_equal(a[["uci"]], 1 / b[["lci"]], tolerance = 1e-8, label = m)
+  }
+})

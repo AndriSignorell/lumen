@@ -24,8 +24,8 @@ lags considered in the lag selection.}
 
 \item{selectLags}{the lag selection method, one of \code{"fixed"}
 (default, use \code{lags} as given), \code{"aic"} or \code{"bic"}
-(choose the lag order up to \code{lags} that minimizes the respective
-information criterion). Case-insensitive, so \code{"AIC"} and
+(choose the lag order from 0 to \code{lags} that minimizes the respective
+information criterion; all candidates are fitted on the same sample). Case-insensitive, so \code{"AIC"} and
 \code{"BIC"} are accepted as well.}
 }
 \value{
@@ -38,8 +38,8 @@ p-value refers to the tau statistic.}
 test regression (after lag selection, if requested).}
 \item{\code{p.value}}{the interpolated p-value of the tau statistic.}
 \item{\code{critical.values}}{a matrix with the 1\%, 5\% and 10\% critical
-values of all reported statistics, interpolated for the effective
-sample size (not shown on screen).}
+values of all reported statistics, interpolated for the number of
+differences \code{length(x) - 1} (not shown on screen).}
 \item{\code{alternative}}{a character string describing the alternative
 hypothesis.}
 \item{\code{method}}{a character string indicating the test performed.}

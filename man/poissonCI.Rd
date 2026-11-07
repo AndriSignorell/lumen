@@ -2,7 +2,7 @@
 % Please edit documentation in R/poissonCI.R
 \name{poissonCI}
 \alias{poissonCI}
-\title{Confidence Interval for a Poisson Rate}
+\title{Confidence Intervals for a Poisson Rate}
 \usage{
 poissonCI(
   x,
@@ -13,64 +13,86 @@ poissonCI(
 )
 }
 \arguments{
-\item{x}{non-negative integer event count or vector of counts}
+\item{x}{number of events, a non-negative integer.}
 
-\item{n}{positive exposure associated with \code{x}, such as observation time,
-person-time, or population at risk; may be a vector and defaults to 1}
+\item{n}{exposure associated with \code{x}, such as observation time,
+person-time or population at risk; a positive number, defaults to 1.}
 
-\item{conf.level}{numeric confidence level between 0 and 1; defaults to 0.95}
+\item{conf.level}{confidence level, defaults to 0.95.}
 
-\item{sides}{type of confidence interval: \code{"two.sided"}, \code{"left"}, or
-\code{"right"}; may be abbreviated}
+\item{sides}{a character string specifying the side of the confidence
+interval, must be one of \code{"two.sided"} (default), \code{"left"} or
+\code{"right"}. You can specify just the initial letter. \code{sides} names the
+side carrying the finite bound: \code{"left"} reports the lower limit and
+opens the upper one to \code{Inf}, \code{"right"} reports the upper limit and opens
+the lower one to 0. A one-sided bound at level \code{conf.level} is the
+corresponding end of the two-sided interval at level
+\code{2 * conf.level - 1}. \code{"left"} corresponds to the alternative
+\code{"greater"} in a hypothesis test.}
 
-\item{method}{method used to calculate the confidence interval: \code{"exact"},
-\code{"score"}, \code{"wald"}, or \code{"byar"}; may be abbreviated and may contain
-several methods; defaults to \code{"exact"}}
+\item{method}{character string specifying which method to use; this can be
+one out of: \code{"exact"} (default), \code{"score"}, \code{"wald"} and \code{"byar"}.
+Several methods may be given at once; all the methods can be asked by
+\code{".all"}. Abbreviation of method is accepted. See details.}
 }
 \value{
-If all arguments identify a single result, a named numeric vector
-with elements:
+If recycling yields a single case, a named numeric vector with
+elements:
 \describe{
-\item{\code{est}}{estimated event rate}
-\item{\code{lci}}{lower confidence bound}
-\item{\code{uci}}{upper confidence bound}
+\item{\code{est}}{point estimate of the event rate, \code{x/n}.}
+\item{\code{lci}}{lower confidence interval bound.}
+\item{\code{uci}}{upper confidence interval bound.}
 }
-Otherwise, a \code{data.frame} containing these three columns and the recycled
-argument values that identify each result.
+
+If recycling yields multiple cases, a data frame with one row per case is
+returned. Its first three columns are \code{est}, \code{lci}, and \code{uci};
+the remaining columns contain the recycled argument values.
 }
 \description{
-Estimates a Poisson event rate and calculates an exact or approximate
-confidence interval.
+\code{poissonCI()} computes confidence intervals for a Poisson event rate
+using exact and approximate methods.
 }
 \details{
-The function assumes
-\deqn{X \sim \mathrm{Poisson}(n\lambda),}
-where \code{x} is the observed event count, \code{n} is the exposure, and
-\eqn{\lambda} is the event rate. The point estimate is
+All arguments are vectorized and recycled according to standard R rules.
+
+The function assumes \eqn{X \sim \mathrm{Poisson}(n\lambda)}, where
+\eqn{x} is the observed event count, \eqn{n} the exposure and
+\eqn{\lambda} the event rate. The point estimate is
 \eqn{\hat{\lambda} = x/n}.
 
-The available confidence-interval methods are:
-\describe{
-\item{\code{"exact"}}{the exact Poisson interval calculated by
-\code{\link[=poisson.test]{poisson.test()}}, equivalent to the Garwood interval}
-\item{\code{"score"}}{the interval obtained by inverting the Poisson score
-test}
-\item{\code{"wald"}}{the normal-approximation interval centred at
-\eqn{\hat{\lambda}}}
-\item{\code{"byar"}}{Byar's cube-root normal approximation}
+\strong{Exact} (default):
+The so-called exact interval, based on quantiles of the corresponding
+chi-square distribution and equivalent to the Garwood (1936) interval.
+The same interval is returned as \code{conf.int} by \code{\link[=poisson.test]{poisson.test()}}.
+
+\strong{Score}:
+Obtained by inverting the acceptance region of the Poisson score test.
+
+\strong{Wald}:
+Obtained by inverting the acceptance region of the large-sample normal
+(Wald) test; the interval is symmetric about \eqn{\hat{\lambda}}.
+
+\strong{Byar}:
+Byar's cube-root normal approximation to the exact interval (Rothman and
+Boice, 1979). The lower limit is based on \eqn{x}, the upper limit on
+\eqn{x + 1}; for \eqn{x = 0} the lower limit is 0.
+
+Some methods may produce a lower limit below 0. In such cases, the bound
+is truncated to remain within the valid parameter space
+\eqn{[0, \infty)}.
+}
+\section{\strong{Which interval should be used?}}{
+
+The Wald interval has poor coverage for small counts and degenerates to
+a single point at \eqn{x = 0}. The exact interval guarantees the nominal
+coverage but is conservative and often unnecessarily wide. The score
+interval is a good approximate alternative when conservativeness is not
+required.
 }
 
-The lower bound is restricted to the parameter space \eqn{[0, \infty)}.
-For \code{sides = "left"}, the function returns a lower one-sided confidence
-bound and sets \code{uci} to \code{Inf}. This corresponds to the alternative
-\code{"greater"} in a hypothesis test. For \code{sides = "right"}, it returns an
-upper one-sided confidence bound and sets \code{lci} to 0.
-
-Compatible vector lengths are recycled. Supplying several methods therefore
-provides the corresponding intervals in a single \code{data.frame}.
-}
 \examples{
-# Deaths from horse kicks in 280 Prussian army corps-years
+
+# deaths from horse kicks in 280 Prussian army corps-years
 count <- 0:4
 corpsYears <- c(144, 91, 32, 11, 2)
 
@@ -78,9 +100,14 @@ x <- sum(count * corpsYears)
 n <- sum(corpsYears)
 
 poissonCI(x, n)
+
+# the exact interval corresponds to the one computed by poisson.test
+poisson.test(x, n)$conf.int
+
+# several methods at once
 poissonCI(x, n, method = c("exact", "score", "wald", "byar"))
 
-# A 95\% lower confidence bound for the event rate
+# a 95\% lower confidence bound for the event rate
 poissonCI(x, n, sides = "left")
 
 # SMR for Welsh nickel workers
@@ -88,14 +115,16 @@ poissonCI(x = 137, n = 24.19893)
 
 }
 \references{
-Garwood, F. (1936). Fiducial limits for the Poisson distribution.
-\emph{Biometrika}, \strong{28}, 437--442.
+Garwood, F. (1936) Fiducial limits for the Poisson distribution.
+\emph{Biometrika}, \strong{28}, pp. 437-442.
 
-Rothman, K. J. and Boice, J. D. Jr. (1979). \emph{Epidemiologic Analysis
+Rothman, K. J. and Boice, J. D. Jr. (1979) \emph{Epidemiologic Analysis
 with a Programmable Calculator}. NIH Publication No. 79-1649. Washington,
 DC: US Government Printing Office.
 }
 \seealso{
-\code{\link[=poisson.test]{poisson.test()}}
+\code{\link[=poisson.test]{poisson.test()}}, \code{\link[=poissonDiffCI]{poissonDiffCI()}}, \code{\link[=poissonRatioCI]{poissonRatioCI()}},
+\code{\link[=binomCI]{binomCI()}}
 }
 \concept{confidence-interval}
+\concept{rate}

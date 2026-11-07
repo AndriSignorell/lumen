@@ -18,6 +18,10 @@ using namespace Rcpp;
 
 
 
+// internal helpers get internal linkage, so that generic names such as
+// AD() or cPhi() cannot clash with symbols from other translation units
+namespace {
+
 /* ============================================================
   Complementary normal distribution function
 ============================================================ */
@@ -140,7 +144,9 @@ double ADinf(double z) {
   Error correction
 ============================================================ */
   
-  double errfix(int n, double x) {
+  double errfix(int n_, double x) {
+    // double, not int: n * n overflows int for n > 46340
+    const double n = static_cast<double>(n_);
     double c, t;
     
     if (x > 0.8) {
@@ -181,6 +187,8 @@ double ADinf(double z) {
     // andersonDarlingTest() return p-values > 1
     return std::min(1.0, std::max(0.0, x + errfix(n, x)));
   }
+
+} // namespace
 
 /* ============================================================
   Test statistic & p-value

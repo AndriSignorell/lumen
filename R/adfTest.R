@@ -36,8 +36,8 @@
 #' lags considered in the lag selection.
 #' @param selectLags the lag selection method, one of `"fixed"`
 #' (default, use `lags` as given), `"aic"` or `"bic"`
-#' (choose the lag order up to `lags` that minimizes the respective
-#' information criterion). Case-insensitive, so `"AIC"` and
+#' (choose the lag order from 0 to `lags` that minimizes the respective
+#' information criterion; all candidates are fitted on the same sample). Case-insensitive, so `"AIC"` and
 #' `"BIC"` are accepted as well.
 #' 
 #' @return An object of class `"htest"` containing the following
@@ -49,8 +49,8 @@
 #'     test regression (after lag selection, if requested).}
 #'   \item{`p.value`}{the interpolated p-value of the tau statistic.}
 #'   \item{`critical.values`}{a matrix with the 1%, 5% and 10% critical
-#'     values of all reported statistics, interpolated for the effective
-#'     sample size (not shown on screen).}
+#'     values of all reported statistics, interpolated for the number of
+#'     differences `length(x) - 1` (not shown on screen).}
 #'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
 #'   \item{`method`}{a character string indicating the test performed.}
@@ -100,16 +100,20 @@ adfTest <- function(x, type = c("none", "drift", "trend"),
   if (anyNA(x))
     stop("NAs in 'x'")
 
-  lag <- as.integer(lags)
-  if (is.na(lag) || lag < 0)
-    stop("'lags' must be a non-negative integer")
+  if (length(lags) != 1L || !is.numeric(lags) || is.na(lags) ||
+      lags < 0 || lags != round(lags))
+    stop("'lags' must be a single non-negative integer")
 
   x <- as.vector(x)
-  lags <- lag + 1L
+  lags <- as.integer(lags) + 1L
 
   z <- diff(x)
   n <- length(z)
-  if (n < lags + 2L)
+  # the largest regression needs positive residual df: n - lags + 1 rows
+  # against lags - 1 lagged differences, the lagged level and the
+  # deterministic terms
+  nPar <- lags + switch(type, none = 0L, drift = 1L, trend = 2L)
+  if (n - lags + 1L <= nPar)
     stop("'x' is too short for the requested number of lags")
 
   zEmb    <- embed(z, lags)
@@ -136,9 +140,10 @@ adfTest <- function(x, type = c("none", "drift", "trend"),
   # lag selection by information criterion
   if (lags > 1 && selectLags != "fixed") {
     penalty <- switch(selectLags, aic = 2, bic = log(length(z.diff)))
-    critRes <- rep(NA_real_, lags)
-    for (i in 2:lags)
-      critRes[i] <- AIC(fitADF(i), k = penalty)
+    # all candidates on the same sample (rows of the largest embedding),
+    # including the model without lagged differences
+    critRes <- vapply(seq_len(lags), function(i) AIC(fitADF(i), k = penalty),
+                      numeric(1))
     lags <- which.min(critRes)
   }
 

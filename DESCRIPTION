@@ -1,6 +1,6 @@
 Package: lumen
 Title: Statistical Tests, Confidence Intervals, and Distributions for 'DescToolsX'
-Version: 0.1.0  
+Version: 0.1.1  
 Authors@R: c(
   person(given="Andri", family="Signorell",  
          email = "andri@signorell.net", 
@@ -9,9 +9,11 @@ Authors@R: c(
   person("R Core Team"                                  , role = c("ctb")),
   person("Ken"                  , "Aho",                  role = c("ctb")),
   person("Chandima N. P. G."    , "Arachchige",           role = c("ctb")),
-  person("Adrian"               , "Baddeley",             role = c("ctb")),
+  person("Adrian"               , "Baddeley",             role = c("ctb","cph"),
+    comment = "R interface of the goftest package (andersonDarlingTest)"),
   person("Frederico"            , "Caeiro",               role = c("ctb")),
-  person("Peter"                , "Calhoun",              role = c("ctb")),
+  person("Peter"                , "Calhoun",              role = c("ctb","cph"),
+    comment = "algorithms of the Exact package (barnardTest)"),
   person("Stephane"             , "Champely",             role = c("ctb")),
   person("Clint"                , "Cummins",              role = c("ctb")),
   person("Peter"                , "Dalgaard",             role = c("ctb")),
@@ -33,8 +35,10 @@ Authors@R: c(
   person("Eric"                 , "Lecoutre",             role = c("ctb")),
   person("Jim"                  , "Lemon",                role = c("ctb")),
   person("Martin"               , "Maechler",             role = c("ctb")),
-  person("George"               , "Marsaglia",            role = c("ctb")),
-  person("John"                 , "Marsaglia",            role = c("ctb")),
+  person("George"               , "Marsaglia",            role = c("ctb","cph"),
+    comment = "original C code for the Anderson-Darling distribution (andersonDarlingTest)"),
+  person("John"                 , "Marsaglia",            role = c("ctb","cph"),
+    comment = "original C code for the Anderson-Darling distribution (andersonDarlingTest)"),
   person("W. L."                , "May",                  role = c("ctb")),
   person("David"                , "Meyer",                role = c("ctb")),
   person("Weiwen"               , "Miao",                 role = c("ctb")),

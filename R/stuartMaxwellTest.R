@@ -1,20 +1,24 @@
 
 #' Stuart-Maxwell Test for Testing Marginal Homogeneity in Paired Multicategory Data
-#' 
-#' A nonparametric test for marginal homogeneity in square contingency tables 
-#' for dependent samples, generalizing the McNemar test to more than two 
+#'
+#' A nonparametric test for marginal homogeneity in square contingency tables
+#' for dependent samples, generalizing the McNemar test to more than two
 #' categories.
-#' 
+#'
 #' This function computes the marginal homogeneity test for a \eqn{k \times
 #' k}{k x k} matrix of assignments of objects to `k` categories or two
 #' vectors `x`, `y` of category scores for `n` data objects by
 #' two raters. The statistic is distributed as \eqn{\chi^2}{chi-square} with
 #' `k-1` degrees of freedom. \cr It can be viewed as an extension of the
-#' McNemar test to \eqn{k \times k}{k x k} table.  
-#' 
-#' The null is that the probabilities of being classified into cells \verb{[i, j]} 
-#' and \verb{[j, i]} are the same.
-#' 
+#' McNemar test to \eqn{k \times k}{k x k} table.
+#'
+#' The null hypothesis is marginal homogeneity: for every category \eqn{i}
+#' the probability of being classified into \eqn{i} is the same for both
+#' classifications, \eqn{p_{i+} = p_{+i}}{p[i+] = p[+i]}. (Equality of the
+#' cell probabilities \verb{[i, j]} and \verb{[j, i]} is the stronger
+#' hypothesis of symmetry, which implies marginal homogeneity but is not
+#' implied by it.)
+#'
 #' If `x` is a matrix, it is taken as a two-dimensional contingency table,
 #' and hence its entries should be nonnegative integers. Otherwise, both x and
 #' y must be vectors or factors of the same length. \cr Incomplete cases are
@@ -24,10 +28,10 @@
 #' and `y` (those of `x` first): a category observed in only one of the two
 #' classifications becomes a row or column of zeros instead of making the
 #' table non-square. Levels observed in neither are dropped.
-#' 
+#'
 #' If there is perfect agreement for any category k, that category must be
 #' omitted in order to invert matrix S.
-#' 
+#'
 #' If for any category `k`, all frequencies in row `k` and column
 #' `k` are 0, except possibly for the main diagonal element (e.g., for
 #' perfect agreement for category `k`, in such cases also the
@@ -38,57 +42,58 @@
 #' `k - 1`, where `k` is the number of original categories; this
 #' treats omitted categories as if they were included but contributed 0 to the
 #' value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories
-#' have equal row and column marginals. (See:
-#' Stuart (1955).
-#' 
-#' @name stuartMaxwellTest
+#' have equal row and column marginals (see Stuart, 1955).
+#'
 #' @param x either a 2-way \eqn{k \times k}{k x k} contingency table in matrix
-#' form, or a factor. 
+#' form, or a factor.
 #' @param y a factor or vector of the same length as `x`; ignored if `x` is
 #' a matrix. Its levels are combined with those of `x`.
-#' 
+#'
 #' @return A list with class `"htest"` containing the following
-#' components: \item{statistic}{the value of the test statistic.}
-#' \item{parameter}{the degrees of freedom.} \item{p.value}{the p-value of the
-#' test.} \item{method}{a character string indicating what type of test was
-#' performed.} \item{data.name}{a character string giving the name of the
-#' data.}
+#' components:
+#'   \item{`statistic`}{the value of the chi-squared test statistic.}
+#'   \item{`parameter`}{the degrees of freedom.}
+#'   \item{`p.value`}{the p-value of the test.}
+#'   \item{`method`}{a character string indicating the test performed.}
+#'   \item{`data.name`}{a character string giving the name of the data.}
+#'   \item{`n`}{the total sample size, including categories with perfect
+#'     agreement (not shown on screen).}
 #' @note Based on code from Jim Lemon, adapted to conform to package standards.
-#' 
+#'
 #' @references Stuart, A (1955) A test for homogeneity of the marginal
 #' distributions in a two-way classification. *Biometrika*, 42, 412-416.
-#' 
+#'
 #' Maxwell, A.E. (1970) Comparing the classification of subjects by two
 #' independent judges. *British Journal of Psychiatry*, 116, 651-655.
-#' 
+#'
 #' Agresti, A. (2002) *Categorical Data Analysis*. John Wiley & Sons, pp
 #' 86 ff.
-#' 
+#'
 #' UCLA OARC (Stata textbook examples), *An Introduction to Categorical
 #' Analysis*, Chapter 9, Section 9.3.2 (Coffee Market Share Example):
 #' <https://stats.oarc.ucla.edu/stata/examples/icda/an-introduction-to-categorical-analysis-by-alan-agrestichapter-9-models-for-matched-pairs/>.
-#' 
+#'
 #' @examples
-#' 
+#'
 #' # Hypothetical 3 x 3 contingency table
 #' hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 #' stuartMaxwellTest(hyp)
-#' 
+#'
 #' # same as defined with two vectors
 #' d.hyp <- expand.grid(c("A","B","C"), c("A","B","C"))[
 #'                      rep(1:9, times = hyp), ]
 #' row.names(d.hyp) <- NULL
-#' 
+#'
 #' stuartMaxwellTest(x=d.hyp[,1], y=d.hyp[,2])
-#' 
-#' 
+#'
+#'
 #' mc <- as.table(matrix(c(
-#'          732, 1524, 1575, 1577, 1602, 837, 1554, 1437, 
+#'          732, 1524, 1575, 1577, 1602, 837, 1554, 1437,
 #'          1672, 1600, 841, 1363, 1385, 1484, 1524, 791), nrow=4))
-#' 
+#'
 #' stuartMaxwellTest(mc)
-#' 
-#' 
+#'
+#'
 #' # UCLA OARC: Coffee Market Share Example (Agresti, Chapter 9)
 #' # Stuart-Maxwell chi-squared = 12.29, df = 4, p = 0.0153 (rounded)
 #' coffee <- matrix(c(
@@ -99,67 +104,66 @@
 #'   10,  4, 12,  2, 27
 #' ), nrow = 5, byrow = TRUE)
 #' stuartMaxwellTest(coffee)
-#' 
-#' 
-#' @seealso [mcnemar.test()], [chisq.test()]
-#' 
-#' @family test.categorical  
-#' @concept categorical-test  
-#' @concept nonparametric
 #'
 #'
-#' @rdname stuartMaxwellTest
+#' @seealso [bhapkarTest()], [mcnemar.test()], [chisq.test()]
+#'
+#' @family test.categorical
+#' @concept categorical-test
+#' @concept marginal-homogeneity
+#' @concept paired-samples
+#'
 #' @export
 stuartMaxwellTest <- function(x, y = NULL) {
-  
+
   # the name at this call site: resolveContingency() would only see its own
   # arguments. (The result element is 'dataName'; reading 'data.name' from
   # it returned NULL, so the test reported no data name at all.)
   DNAME <- if (is.null(y) || !is.null(dim(x))) deparse1(substitute(x)) else
     paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
-  
+
   # square = TRUE: a square table, and for two classification variables both
   # tabulated over the union of their categories, so that x using A, B and y
   # using B, C give a 3 x 3 table over A, B, C. Counts are validated there.
   CT <- resolveContingency(x, y, square = TRUE, dataName = DNAME)
-  
+
   x <- CT$table
-  
+
   if (!is.null(dimnames(x)) &&
       !identical(dimnames(x)[[1L]], dimnames(x)[[2L]]))
     warning(
       "row and column names differ; ensure rows and columns represent the same categories",
       call. = FALSE
     )
-  
+
   k_original <- nrow(x)
-  
+
   rowsums <- rowSums(x)
   colsums <- colSums(x)
-  
+
   equalsums <- diag(x) == rowsums & diag(x) == colsums
-  
+
   if (any(equalsums)) {
-    
+
     x <- x[!equalsums, !equalsums, drop = FALSE]
-    
+
     if (nrow(x) < 2L)
       stop("too many categories with perfect agreement; cannot compute")
-    
+
     rowsums <- rowSums(x)
     colsums <- colSums(x)
   }
-  
+
   k1  <- nrow(x) - 1L
   smd <- (rowsums - colsums)[seq_len(k1)]
-  
+
   smS <- -(x[seq_len(k1), seq_len(k1)] +
              t(x[seq_len(k1), seq_len(k1)]))
-  
+
   diag(smS) <- rowsums[seq_len(k1)] +
     colsums[seq_len(k1)] -
     2 * diag(x)[seq_len(k1)]
-  
+
   STATISTIC <- tryCatch(
     drop(smd %*% qr.solve(smS, smd, tol = 1e-7)),
     error = function(e)
@@ -168,9 +172,9 @@ stuartMaxwellTest <- function(x, y = NULL) {
         call. = FALSE
       )
   )
-  
+
   PARAMETER <- c(df = k_original - 1L)
-  
+
   structure(
     list(
       statistic = c("chi-squared" = STATISTIC),
@@ -185,5 +189,5 @@ stuartMaxwellTest <- function(x, y = NULL) {
     ),
     class = "htest"
   )
-  
+
 }

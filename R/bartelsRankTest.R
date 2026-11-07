@@ -1,9 +1,9 @@
 
 #' Bartels Rank Test of Randomness for Detecting Non-Random Order in Continuous Sequences
 #'
-#' A nonparametric test for randomness of a sequence (so it tests whether
-#' data is sampled randomly from an underlying population), based on the
-#' ratio of the mean square successive difference of ranks to the rank
+#' A nonparametric test of randomness of a sequence, i.e. whether the
+#' observations are independent draws from the same distribution, based on
+#' the ratio of the mean square successive difference of the ranks to their
 #' variance.
 #'
 #' Data must at least be measured on an ordinal scale.
@@ -18,6 +18,9 @@
 #' is tested against a trend. By using the alternative "`oscillation`"
 #' the null hypothesis of randomness is tested against a systematic
 #' oscillation.
+#'
+#' Ties receive average ranks; the moments above assume continuous data
+#' without ties, so with many ties the test is only approximate.
 #'
 #' Missing values are silently removed.
 #'
@@ -35,8 +38,8 @@
 #' @return A list with class `"htest"` containing the following
 #' components:
 #'   \item{`statistic`}{the value of the normalized test statistic.}
-#'   \item{`parameter`, `n`}{the sample size, after the removal of
-#'     missing values.}
+#'   \item{`parameter`}{the sample size `n`, after the removal of missing
+#'     values.}
 #'   \item{`p.value`}{the p-value of the test.}
 #'   \item{`alternative`}{a character string describing the alternative
 #'     hypothesis.}
@@ -110,6 +113,10 @@ bartelsRankTest <- function(x,
 
   if (n < 10L)
     stop("sample size must be at least 10")
+
+  # constant data: all ranks equal, RVN = 0/0
+  if (length(unique(x)) < 2L)
+    stop("'x' must contain at least two distinct values")
 
   alternative <- match.arg(alternative)
   pmethod     <- match.arg(method)

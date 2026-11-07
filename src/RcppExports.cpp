@@ -67,6 +67,81 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// barnardStat
+NumericMatrix barnardStat(int n1, int n2, std::string method, std::string alternative, double delta);
+RcppExport SEXP _lumen_barnardStat(SEXP n1SEXP, SEXP n2SEXP, SEXP methodSEXP, SEXP alternativeSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< std::string >::type alternative(alternativeSEXP);
+    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(barnardStat(n1, n2, method, alternative, delta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// barnardProb
+NumericVector barnardProb(IntegerMatrix M, NumericVector grid, double delta);
+RcppExport SEXP _lumen_barnardProb(SEXP MSEXP, SEXP gridSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type M(MSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type grid(gridSEXP);
+    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(barnardProb(M, grid, delta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// barnardCSM
+IntegerMatrix barnardCSM(int n1, int n2, int x, int y, NumericVector grid, double delta, bool twoSided, bool doubleP);
+RcppExport SEXP _lumen_barnardCSM(SEXP n1SEXP, SEXP n2SEXP, SEXP xSEXP, SEXP ySEXP, SEXP gridSEXP, SEXP deltaSEXP, SEXP twoSidedSEXP, SEXP doublePSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< int >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type grid(gridSEXP);
+    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< bool >::type twoSided(twoSidedSEXP);
+    Rcpp::traits::input_parameter< bool >::type doubleP(doublePSEXP);
+    rcpp_result_gen = Rcpp::wrap(barnardCSM(n1, n2, x, y, grid, delta, twoSided, doubleP));
+    return rcpp_result_gen;
+END_RCPP
+}
+// barnardMultinom
+List barnardMultinom(int N, int x11, int x12, int x21, std::string method, std::string alternative);
+RcppExport SEXP _lumen_barnardMultinom(SEXP NSEXP, SEXP x11SEXP, SEXP x12SEXP, SEXP x21SEXP, SEXP methodSEXP, SEXP alternativeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type N(NSEXP);
+    Rcpp::traits::input_parameter< int >::type x11(x11SEXP);
+    Rcpp::traits::input_parameter< int >::type x12(x12SEXP);
+    Rcpp::traits::input_parameter< int >::type x21(x21SEXP);
+    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< std::string >::type alternative(alternativeSEXP);
+    rcpp_result_gen = Rcpp::wrap(barnardMultinom(N, x11, x12, x21, method, alternative));
+    return rcpp_result_gen;
+END_RCPP
+}
+// barnardMultinomProb
+NumericMatrix barnardMultinomProb(NumericMatrix W, NumericVector p1, NumericVector p2);
+RcppExport SEXP _lumen_barnardMultinomProb(SEXP WSEXP, SEXP p1SEXP, SEXP p2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type p1(p1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type p2(p2SEXP);
+    rcpp_result_gen = Rcpp::wrap(barnardMultinomProb(W, p1, p2));
+    return rcpp_result_gen;
+END_RCPP
+}
 // binom_diff_ci_mee_cpp
 double binom_diff_ci_mee_cpp(int x1, int n1, int x2, int n2, double alpha, bool lower);
 RcppExport SEXP _lumen_binom_diff_ci_mee_cpp(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
@@ -343,6 +418,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lumen_ad_prob_approx_inf_cpp", (DL_FUNC) &_lumen_ad_prob_approx_inf_cpp, 1},
     {"_lumen_ad_prob_n_cpp", (DL_FUNC) &_lumen_ad_prob_n_cpp, 2},
     {"_lumen_ad_test_r_cpp", (DL_FUNC) &_lumen_ad_test_r_cpp, 1},
+    {"_lumen_barnardStat", (DL_FUNC) &_lumen_barnardStat, 5},
+    {"_lumen_barnardProb", (DL_FUNC) &_lumen_barnardProb, 3},
+    {"_lumen_barnardCSM", (DL_FUNC) &_lumen_barnardCSM, 8},
+    {"_lumen_barnardMultinom", (DL_FUNC) &_lumen_barnardMultinom, 6},
+    {"_lumen_barnardMultinomProb", (DL_FUNC) &_lumen_barnardMultinomProb, 3},
     {"_lumen_binom_diff_ci_mee_cpp", (DL_FUNC) &_lumen_binom_diff_ci_mee_cpp, 6},
     {"_lumen_binom_diff_ci_mn_cpp", (DL_FUNC) &_lumen_binom_diff_ci_mn_cpp, 6},
     {"_lumen_blaker_find_crossing_cpp", (DL_FUNC) &_lumen_blaker_find_crossing_cpp, 8},

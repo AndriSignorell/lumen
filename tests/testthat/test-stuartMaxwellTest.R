@@ -159,13 +159,17 @@ test_that("different length x and y throws error", {
   )
 })
 
-test_that("fewer than 2 levels throws error", {
+test_that("fewer than 2 categories in total throws error", {
   
-  # factor(c("A","A")) has only 1 level -> resolveContingency fires
-  # "'x' and 'y' must each have at least 2 levels" before table() is built
+  # square = TRUE: only the union of both ratings needs 2 categories
   expect_error(
     stuartMaxwellTest(factor(c("A", "A")), factor(c("A", "A"))),
-    "at least 2 levels"
+    "at least 2 categories"
+  )
+  # one rater with a single category is fine (union A, B)
+  expect_s3_class(
+    stuartMaxwellTest(factor(c("A", "A", "A")), factor(c("A", "B", "B"))),
+    "htest"
   )
 })
 

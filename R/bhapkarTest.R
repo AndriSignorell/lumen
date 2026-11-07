@@ -31,6 +31,8 @@
 #'   \item{`p.value`}{the p-value of the test.}
 #'   \item{`method`}{a character string indicating the test performed.}
 #'   \item{`data.name`}{a character string giving the name of the data.}
+#'   \item{`n`}{the total sample size, including categories with perfect
+#'     agreement.}
 #'
 #' @references Bhapkar V.P. (1966) A note on the equivalence of two test
 #' criteria for hypotheses in categorical data. *Journal of the
@@ -46,9 +48,9 @@
 #'
 #' Sun X., Yang Z. (2008) Generalized McNemar's Test for Homogeneity of the
 #' Marginal Distributions. *SAS Global Forum 2008: Statistics and Data
-#' Analysis*, Paper 382-208.
+#' Analysis*, Paper 382-2008.
 #'
-#' @seealso [mcnemar.test],[chisq.test]
+#' @seealso [stuartMaxwellTest()], [mcnemar.test()], [chisq.test()]
 #'
 #' @examples
 #' # Source: https://john-uebersax.com/stat/mcnemar.htm#bhapkar

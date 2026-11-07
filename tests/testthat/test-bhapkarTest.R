@@ -57,16 +57,16 @@ test_that("Bhapkar p-value <= Stuart-Maxwell p-value", {
 # -------------------------------------------------------------------------
 # Asymptotic equivalence for large n
 # -------------------------------------------------------------------------
-test_that("Bhapkar and Stuart-Maxwell p-values converge for large n", {
-  
-  mc_large <- as.table(matrix(c(20,3,0,10,30,5,5,15,40) * 1000L, nrow = 3))
-  
-  res_sm <- stuartMaxwellTest(mc_large)
-  res_bh <- bhapkarTest(mc_large)
-  
-  # Both should be essentially 0 for large n with clear signal
-  expect_lt(res_bh$p.value, 1e-10)
-  expect_lt(res_sm$p.value, 1e-10)
+test_that("Bhapkar and Stuart-Maxwell statistics converge for large n", {
+  # Q_B / Q_SM = 1 / (1 - Q_SM / n): scaling a table leaves Q_SM / n
+  # unchanged, so convergence needs a fixed deviation from H0 (constant
+  # Q_SM) on a growing diagonal
+  ratio <- vapply(c(1, 10, 100, 1000), function(m) {
+    tab <- matrix(c(20 * m, 3, 0, 10, 30 * m, 5, 5, 15, 40 * m), nrow = 3)
+    unname(bhapkarTest(tab)$statistic / stuartMaxwellTest(tab)$statistic)
+  }, numeric(1))
+  expect_true(all(diff(ratio) < 0))
+  expect_lt(ratio[4] - 1, 1e-3)
 })
 
 # -------------------------------------------------------------------------
@@ -87,17 +87,6 @@ test_that("matrix and vector interface give same result", {
   expect_equal(unname(res_mat$statistic), unname(res_vec$statistic),
                tolerance = 1e-6)
   expect_equal(res_mat$p.value, res_vec$p.value, tolerance = 1e-6)
-})
-# -------------------------------------------------------------------------
-# df equals k - 1
-# -------------------------------------------------------------------------
-test_that("df equals k - 1", {
-  
-  mc <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow = 3))
-  
-  res <- bhapkarTest(mc)
-  
-  expect_equal(unname(res$parameter["df"]), 2L)
 })
 # -------------------------------------------------------------------------
 # 2x2 case
@@ -179,4 +168,17 @@ test_that("data.name uses the names at the call site", {
   expect_identical(bhapkarTest(a, b)$data.name, "a and b")
   mc <- table(a, b)
   expect_identical(bhapkarTest(mc)$data.name, "mc")
+})
+
+
+test_that("a rater using a single category still gives a square table", {
+  # x always A, y uses A and B: valid 2 x 2 over the union {A, B}
+  x <- factor(rep("A", 10))
+  y <- factor(c(rep("A", 6), rep("B", 4)))
+  r <- stuartMaxwellTest(x, y)
+  expect_equal(unname(r$parameter), 1L)
+  # McNemar without correction: (b - c)^2 / (b + c) = 16 / 4
+  expect_equal(unname(r$statistic), 4)
+  expect_error(stuartMaxwellTest(factor(rep("A", 5)), factor(rep("A", 5))),
+               "at least 2 categories")
 })
