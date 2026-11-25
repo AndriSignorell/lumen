@@ -159,8 +159,9 @@ test_that("different length x and y throws error", {
   )
 })
 
+
 test_that("fewer than 2 categories in total throws error", {
-  
+
   # square = TRUE: only the union of both ratings needs 2 categories
   expect_error(
     stuartMaxwellTest(factor(c("A", "A")), factor(c("A", "A"))),
@@ -172,6 +173,7 @@ test_that("fewer than 2 categories in total throws error", {
     "htest"
   )
 })
+
 
 test_that("singular matrix throws error", {
   

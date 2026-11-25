@@ -17,7 +17,7 @@ durbinWatsonTest(x, ...)
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
   exact = NULL,
-  tol = 0.0000000001,
+  tol = 1e-10,
   subset,
   na.action = na.omit,
   ...
@@ -30,7 +30,7 @@ durbinWatsonTest(x, ...)
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
   exact = NULL,
-  tol = 0.0000000001,
+  tol = 1e-10,
   ...
 )
 
@@ -41,7 +41,7 @@ durbinWatsonTest(x, ...)
   alternative = c("greater", "two.sided", "less"),
   iterations = 15,
   exact = NULL,
-  tol = 0.0000000001,
+  tol = 1e-10,
   ...
 )
 

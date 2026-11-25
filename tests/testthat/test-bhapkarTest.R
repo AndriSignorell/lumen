@@ -125,22 +125,6 @@ test_that("print.htest works", {
 
 
 
-test_that("mismatched but overlapping levels are unified", {
-  x <- factor(c("A", "A", "B", "B", "A", "B", "C"), levels = c("A", "B", "C"))
-  y <- factor(c("B", "B", "C", "C", "D", "B", "C"), levels = c("B", "C", "D"))
-  
-  lev <- c("A", "B", "C", "D")
-  expect_no_warning(res <- bhapkarTest(x, y))
-  expect_equal(res$statistic,
-               bhapkarTest(table(factor(x, levels = lev),
-                                 factor(y, levels = lev)))$statistic)
-  expect_equal(unname(res$parameter), 3L)
-  
-  # by hand: Stuart-Maxwell Q = 5, n = 7, Bhapkar Q / (1 - Q/n) = 17.5
-  expect_equal(unname(res$statistic), 17.5)
-})
-
-
 test_that("n is the full sample size, also with perfect-agreement categories", {
   # category C agrees perfectly and is dropped from the Stuart-Maxwell
   # computation; Bhapkar's d' (S - d d'/N)^-1 d still uses the full N = 38.
@@ -168,6 +152,22 @@ test_that("data.name uses the names at the call site", {
   expect_identical(bhapkarTest(a, b)$data.name, "a and b")
   mc <- table(a, b)
   expect_identical(bhapkarTest(mc)$data.name, "mc")
+})
+
+
+test_that("mismatched but overlapping levels are unified", {
+  x <- factor(c("A", "A", "B", "B", "A", "B", "C"), levels = c("A", "B", "C"))
+  y <- factor(c("B", "B", "C", "C", "D", "B", "C"), levels = c("B", "C", "D"))
+
+  lev <- c("A", "B", "C", "D")
+  expect_no_warning(res <- bhapkarTest(x, y))
+  expect_equal(res$statistic,
+               bhapkarTest(table(factor(x, levels = lev),
+                                 factor(y, levels = lev)))$statistic)
+  expect_equal(unname(res$parameter), 3L)
+
+  # by hand: Stuart-Maxwell Q = 5, n = 7, Bhapkar Q / (1 - Q/n) = 17.5
+  expect_equal(unname(res$statistic), 17.5)
 })
 
 

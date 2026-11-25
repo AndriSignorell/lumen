@@ -33,6 +33,7 @@ devtools::load_all()
 
 devtools::test()
 devtools::test(filter = "auditNames")               # one test file: filter is a regex on its name
+devtools::test(filter = "bhapkarTest")              
 testthat::test_local(reporter = "progress")
 devtools::run_examples()
 

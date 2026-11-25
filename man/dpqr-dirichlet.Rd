@@ -10,7 +10,7 @@
 \usage{
 ddirichlet(x, concentration, log = FALSE)
 
-pdirichlet(q, concentration, R = 100000)
+pdirichlet(q, concentration, R = 1e+05)
 
 rdirichlet(n, concentration)
 
