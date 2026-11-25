@@ -42,6 +42,7 @@ Other ci.location:
 \code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=medianCI]{medianCI()}},
+\code{\link[=medianDiffCI]{medianDiffCI()}},
 \code{\link[=quantileCI]{quantileCI()}}
 }
 \concept{ci.location}

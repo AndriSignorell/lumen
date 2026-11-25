@@ -46,6 +46,7 @@ reference:
   - meanCI
   - meanCIn
   - meanDiffCI
+  - medianDiffCI
   - medianCI
   - quantileCI
   - sumCI

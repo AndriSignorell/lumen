@@ -46,6 +46,8 @@ devtools::check()
 devtools::check(args = "--as-cran")
 devtools::check(run_dont_test = TRUE)
 
+urlchecker::url_check(".")
+
 # other platforms
 devtools::check_win_devel()
 devtools::check_mac_release()

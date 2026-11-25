@@ -1,10 +1,6 @@
 
 #' Compute Scores for Ordinal Contingency Tables
 #'
-#' A utility function computing score transformations of raw data, 
-#' including normal scores, exponential scores, and Savage scores, 
-#' typically used as a preprocessing step for nonparametric tests.
-#' 
 #' Computes score values for the levels of a contingency table margin.
 #' These scores are used in several statistical procedures such as the
 #' Cochran-Armitage test and correlation measures for ordinal data.
@@ -48,40 +44,45 @@
 #' @concept transformation
 #' @concept ordinal
 #'
+#' @examples
+#' # dose-response table: numeric dimnames are used as scores
+#' tab <- matrix(c(10, 9, 10, 7,
+#'                  0, 1,  0, 3), byrow = TRUE, nrow = 2,
+#'               dimnames = list(resp = 0:1, dose = c(0, 1, 2, 5)))
+#' scores(tab, margin = 2)                    # 0 1 2 5
+#'
+#' # rank-based scores use the column totals (10 each)
+#' scores(tab, margin = 2, method = "ranks")  # 5.5 15.5 25.5 35.5
+#' scores(tab, margin = 2, method = "ridit")
+#'
+#' # non-numeric dimnames fall back to 1, 2, ...
+#' dimnames(tab)$dose <- c("none", "low", "mid", "high")
+#' scores(tab, margin = 2)
+#'
 #' @export
-scores <- function(x, margin=1, 
-                   method=c("table", "ranks", "ridit", "mod-ridit")) { 
-  
+scores <- function(x, margin = 1,
+                   method = c("table", "ranks", "ridit", "mod-ridit")) {
+
   # used by cochranArmitageTest, pearsonCor, spearmanCor
-  
-  method <- match.arg(method)
-  
   # original by Eric Lecoutre
   # https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html
-  
-  if (method == "table"){
-    
-    if (is.null(dimnames(x)) || 
-        any(is.na(suppressWarnings(as.numeric(dimnames(x)[[margin]]))))) {
-      res <- 1:dim(x)[margin]
-    } else {
-      res <- (as.numeric(dimnames(x)[[margin]]))
-    }
-    
-  } else	{
-    ### method is a rank one
-    Ndim <- dim(x)[margin]
-    OTHERMARGIN <- 3 - margin
-    
-    ranks <- c(0, (cumsum(apply(x, margin, sum))))[1:Ndim] + 
-      (apply(x, margin, sum)+1) /2 
-    
-    if (method == "ranks") res <- ranks
-    if (method == "ridit") res <- ranks/(sum(x))
-    if (method == "mod-ridit") res <- ranks/(sum(x)+1)
-  }
-  
-  return(res)
-  
-}
 
+  method <- match.arg(method)
+
+  if (method == "table") {
+    lev <- dimnames(x)[[margin]]
+    num <- suppressWarnings(as.numeric(lev))
+    if (is.null(lev) || anyNA(num))
+      return(seq_len(dim(x)[margin]))
+    return(num)
+  }
+
+  # rank-based methods: mid-ranks of the cumulative margin totals
+  tot   <- apply(x, margin, sum)
+  ranks <- cumsum(tot) - tot + (tot + 1) / 2
+
+  switch(method,
+         "ranks"     = ranks,
+         "ridit"     = ranks / sum(x),
+         "mod-ridit" = ranks / (sum(x) + 1))
+}

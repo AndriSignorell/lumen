@@ -1,13 +1,11 @@
 # 📦 lumen <img src="man/figures/logo.png" align="right" height="139" alt="lumen logo" />
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/lumen)](https://CRAN.R-project.org/package=lumen)
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![License: GPL (>= 2)](https://img.shields.io/badge/License-GPL%20(%3E%3D%202)-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 [![R-CMD-check](https://github.com/AndriSignorell/lumen/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AndriSignorell/lumen/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**Title:** Statistical Tests, Confidence Intervals, and Distributions\
-**License:** GPL (≥ 2)
+**Statistical Tests, Confidence Intervals and Distributions**
 
 ## 🧩 Overview
 
@@ -39,59 +37,73 @@ remotes::install_github("AndriSignorell/lumen")
 
 ## 📚 Core Features
 
-### 🔹 Location Tests
+### 🔹 Location
 
 -   `tTestSummary()`, `zTest()`, `yuenTTest()`, `signTest()`
--   `brunnerMunzelTest()`, `siegelTukeyTest()`, `mosesTest()`
--   `moodMedianTest()`, `vanDerWaerdenTest()`, `dscfTest()`
+-   `brunnerMunzelTest()`, `moodMedianTest()`, `vanDerWaerdenTest()`
+-   `hotellingT2Test()` for multivariate means
+
+### 🔹 Scale
+
+-   `varTest()`, `leveneTest()`, `siegelTukeyTest()`, `mosesTest()`
 
 ### 🔹 Categorical Data
 
--   `barnardTest()`, `gTest()`, `cochranArmitageTest()`,
-    `cochranQTest()`
--   `breslowDayTest()`, `woolfTest()`, `mantelTrendTest()`
+-   `barnardTest()`, `gTest()`, `pearsonChisqTest()`
+-   `cochranArmitageTest()`, `mantelTrendTest()`, `cochranQTest()`
+-   `breslowDayTest()`, `woolfTest()`
 -   `bhapkarTest()`, `stuartMaxwellTest()`, `lehmacherTest()`
 
 ### 🔹 Goodness of Fit and Normality
 
 -   `andersonDarlingTest()`, `cramerVonMisesTest()`, `lillieforsTest()`
--   `shapiroFranciaTest()`, `jarqueBeraTest()`, `pearsonChisqTest()`
--   `hosmerLemeshowTest()`, `leCessieTest()` — for logistic models
+-   `shapiroFranciaTest()`, `jarqueBeraTest()`
+-   `hosmerLemeshowTest()`, `leCessieTest()` for logistic models
 
 ### 🔹 Multiple Comparisons and Post-hoc
 
--   `postHocTest()` with a `plot()` method
+-   `postHocTest()` with a `plot()` method, `signifDiff()`
 -   `dunnTest()`, `dunnettTest()`, `conoverTest()`, `nemenyiTest()`
--   `gamesHowellTest()`, `scheffeTest()`, `steelTest()`
+-   `gamesHowellTest()`, `scheffeTest()`, `steelTest()`, `dscfTest()`
 
 ### 🔹 Trend, Randomness and Time Series
 
--   `adfTest()`, `kpssTest()`, `runsTest()`, `vonNeumannTest()`
--   `bartelsRankTest()`, `coxStuartTest()`, `jonckheereTerpstraTest()`
--   `pageTest()`, `durbinWatsonTest()`, `breuschGodfreyTest()`,
-    `breuschPaganTest()`
+-   `jonckheereTerpstraTest()`, `pageTest()`, `coxStuartTest()`
+-   `runsTest()`, `bartelsRankTest()`, `vonNeumannTest()`
+-   `adfTest()`, `kpssTest()`
+-   `durbinWatsonTest()`, `breuschGodfreyTest()`, `breuschPaganTest()`
+
+### 🔹 Correlation
+
+-   `corTest()`, `corCI()`, `fisherZ()`, `fisherZInv()`
 
 ### 🔹 Confidence Intervals
 
 -   Proportions: `binomCI()`, `binomDiffCI()`, `binomRatioCI()`,
-    `multinomCI()`
+    `binomPairedDiffCI()`, `hyperCI()`, `multinomCI()`
 -   Counts and rates: `poissonCI()`, `poissonDiffCI()`,
     `poissonRatioCI()`
--   Location and scale: `meanCI()`, `meanDiffCI()`, `medianCI()`,
-    `quantileCI()`, `varCI()`, `sumCI()`
--   Correlation: `corCI()`, `fisherZ()`
+-   Location: `meanCI()`, `meanDiffCI()`, `medianCI()`, `medianDiffCI()`,
+    `quantileCI()`, `sumCI()`
+-   Scale: `varCI()`, `madCI()`, `madDiffCI()`, `madRatioCI()`
 -   General: `bootCI()` for arbitrary statistics
+
+### 🔹 Sample Size and Power
+
+-   `binomCIn()`, `meanCIn()`, `powerChisqTest()`
 
 ### 🔹 Distributions
 
 `dpqr` families for the Benford, Dirichlet, extreme value, Fréchet, GEV,
 GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull
-and triangular distributions, plus mean and variance functions such as `mnorm()`, `mbinom()`
-and `mgev()`.
+and triangular distributions, the Anderson-Darling distribution
+(`pAD()`, `qAD()`), plus mean and variance functions such as `mnorm()`,
+`mbinom()` and `mgev()`.
 
-### 🔹 Power and Sample Size
+### 🔹 Utilities
 
--   `meanCIn()`, `powerChisqTest()`, `sphericityEps()`, `scores()`
+-   `scores()` for ordinal tables, `sphericityEps()` for repeated
+    measures
 
 ## 🚀 Design Principles
 
@@ -99,8 +111,9 @@ and `mgev()`.
     ordering across the whole DescToolsX suite
 -   **Standard output** — tests return `"htest"` objects and print like
     the ones in base R
--   **Fast** — bootstrap and permutation routines implemented in C++ via
-    Rcpp, RcppArmadillo and RcppParallel
+-   **Fast** — exact and permutation engines (Barnard, Brunner-Munzel,
+    Jonckheere-Terpstra with ties) and parallel bootstrap routines
+    implemented in C++ via Rcpp, RcppArmadillo and RcppParallel
 -   **Documented** — references to the original literature on every
     procedure
 
@@ -110,10 +123,10 @@ and `mgev()`.
 library(lumen)
 
 # a confidence interval for a proportion, several methods
-binomCI(37, 100, method = "wilson")
+binomCI(37, 100, method = c("wilson", "clopper-pearson", "wang"))
 
-# nonparametric alternative to the t test
-brunnerMunzelTest(extra ~ group, data = sleep)
+# nonparametric two-sample comparison without equal-variance assumption
+brunnerMunzelTest(breaks ~ wool, data = warpbreaks)
 
 # post-hoc comparisons after an ANOVA
 fit <- aov(breaks ~ tension, data = warpbreaks)
@@ -127,9 +140,12 @@ andersonDarlingTest(rnorm(100), null = "pnorm")
 
 `lumen` builds on `bedrock` (base utilities) and `pharos` (graphics).
 `DescToolsX` (descriptive statistics), `alloy` (modelling), `pons`
-(MS-Office) and `swissValet` (RStudio addins) complete the family.
+(MS Office) and `swissValet` (RStudio addins) complete the family.
 
 ## 🙏 Acknowledgements
+
+`lumen` builds on code and ideas from many authors, listed as
+contributors in the DESCRIPTION file.
 
 Parts of the code and documentation were reviewed with the help of large
 language models (OpenAI Codex, Anthropic Claude). Every suggestion was

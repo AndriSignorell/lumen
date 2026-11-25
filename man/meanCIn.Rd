@@ -56,6 +56,7 @@ Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
 \code{\link[=medianCI]{medianCI()}},
+\code{\link[=medianDiffCI]{medianDiffCI()}},
 \code{\link[=quantileCI]{quantileCI()}},
 \code{\link[=sumCI]{sumCI()}}
 }

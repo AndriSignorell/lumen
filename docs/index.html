@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="index.html">lumen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
 </div>
 <!-- badges: start -->
 
-<p><strong>Title:</strong> Statistical Tests, Confidence Intervals, and Distributions<br><strong>License:</strong> GPL (≥ 2)</p>
+<p><strong>Statistical Tests, Confidence Intervals and Distributions</strong></p>
 <div class="section level2">
 <h2 id="jigsaw-overview">🧩 Overview<a class="anchor" aria-label="anchor" href="#jigsaw-overview"></a>
 </h2>
@@ -92,17 +92,25 @@
 <h2 id="books-core-features">📚 Core Features<a class="anchor" aria-label="anchor" href="#books-core-features"></a>
 </h2>
 <div class="section level3">
-<h3 id="small_blue_diamond-location-tests">🔹 Location Tests<a class="anchor" aria-label="anchor" href="#small_blue_diamond-location-tests"></a>
+<h3 id="small_blue_diamond-location">🔹 Location<a class="anchor" aria-label="anchor" href="#small_blue_diamond-location"></a>
 </h3>
 <ul>
 <li>
 <code><a href="reference/tTestSummary.html">tTestSummary()</a></code>, <code><a href="reference/zTest.html">zTest()</a></code>, <code><a href="reference/yuenTTest.html">yuenTTest()</a></code>, <code><a href="reference/signTest.html">signTest()</a></code>
 </li>
 <li>
-<code><a href="reference/brunnerMunzelTest.html">brunnerMunzelTest()</a></code>, <code><a href="reference/siegelTukeyTest.html">siegelTukeyTest()</a></code>, <code><a href="reference/mosesTest.html">mosesTest()</a></code>
+<code><a href="reference/brunnerMunzelTest.html">brunnerMunzelTest()</a></code>, <code><a href="reference/moodMedianTest.html">moodMedianTest()</a></code>, <code><a href="reference/vanDerWaerdenTest.html">vanDerWaerdenTest()</a></code>
 </li>
 <li>
-<code><a href="reference/moodMedianTest.html">moodMedianTest()</a></code>, <code><a href="reference/vanDerWaerdenTest.html">vanDerWaerdenTest()</a></code>, <code><a href="reference/dscfTest.html">dscfTest()</a></code>
+<code><a href="reference/hotellingT2Test.html">hotellingT2Test()</a></code> for multivariate means</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="small_blue_diamond-scale">🔹 Scale<a class="anchor" aria-label="anchor" href="#small_blue_diamond-scale"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/varTest.html">varTest()</a></code>, <code><a href="reference/leveneTest.html">leveneTest()</a></code>, <code><a href="reference/siegelTukeyTest.html">siegelTukeyTest()</a></code>, <code><a href="reference/mosesTest.html">mosesTest()</a></code>
 </li>
 </ul>
 </div>
@@ -111,10 +119,13 @@
 </h3>
 <ul>
 <li>
-<code><a href="reference/barnardTest.html">barnardTest()</a></code>, <code><a href="reference/gTest.html">gTest()</a></code>, <code><a href="reference/cochranArmitageTest.html">cochranArmitageTest()</a></code>, <code><a href="reference/cochranQTest.html">cochranQTest()</a></code>
+<code><a href="reference/barnardTest.html">barnardTest()</a></code>, <code><a href="reference/gTest.html">gTest()</a></code>, <code><a href="reference/pearsonChisqTest.html">pearsonChisqTest()</a></code>
 </li>
 <li>
-<code><a href="reference/breslowDayTest.html">breslowDayTest()</a></code>, <code><a href="reference/woolfTest.html">woolfTest()</a></code>, <code><a href="reference/mantelTrendTest.html">mantelTrendTest()</a></code>
+<code><a href="reference/cochranArmitageTest.html">cochranArmitageTest()</a></code>, <code><a href="reference/mantelTrendTest.html">mantelTrendTest()</a></code>, <code><a href="reference/cochranQTest.html">cochranQTest()</a></code>
+</li>
+<li>
+<code><a href="reference/breslowDayTest.html">breslowDayTest()</a></code>, <code><a href="reference/woolfTest.html">woolfTest()</a></code>
 </li>
 <li>
 <code><a href="reference/bhapkarTest.html">bhapkarTest()</a></code>, <code><a href="reference/stuartMaxwellTest.html">stuartMaxwellTest()</a></code>, <code><a href="reference/lehmacherTest.html">lehmacherTest()</a></code>
@@ -129,10 +140,10 @@
 <code><a href="reference/andersonDarlingTest.html">andersonDarlingTest()</a></code>, <code><a href="reference/cramerVonMisesTest.html">cramerVonMisesTest()</a></code>, <code><a href="reference/lillieforsTest.html">lillieforsTest()</a></code>
 </li>
 <li>
-<code><a href="reference/shapiroFranciaTest.html">shapiroFranciaTest()</a></code>, <code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code>, <code><a href="reference/pearsonChisqTest.html">pearsonChisqTest()</a></code>
+<code><a href="reference/shapiroFranciaTest.html">shapiroFranciaTest()</a></code>, <code><a href="reference/jarqueBeraTest.html">jarqueBeraTest()</a></code>
 </li>
 <li>
-<code><a href="reference/hosmerLemeshowTest.html">hosmerLemeshowTest()</a></code>, <code><a href="reference/leCessieTest.html">leCessieTest()</a></code> — for logistic models</li>
+<code><a href="reference/hosmerLemeshowTest.html">hosmerLemeshowTest()</a></code>, <code><a href="reference/leCessieTest.html">leCessieTest()</a></code> for logistic models</li>
 </ul>
 </div>
 <div class="section level3">
@@ -140,12 +151,13 @@
 </h3>
 <ul>
 <li>
-<code><a href="reference/postHoc.html">postHocTest()</a></code> with a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method</li>
+<code><a href="reference/postHoc.html">postHocTest()</a></code> with a <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method, <code><a href="reference/signifDiff.html">signifDiff()</a></code>
+</li>
 <li>
 <code><a href="reference/dunnTest.html">dunnTest()</a></code>, <code><a href="reference/dunnettTest.html">dunnettTest()</a></code>, <code><a href="reference/conoverTest.html">conoverTest()</a></code>, <code><a href="reference/nemenyiTest.html">nemenyiTest()</a></code>
 </li>
 <li>
-<code><a href="reference/gamesHowellTest.html">gamesHowellTest()</a></code>, <code><a href="reference/scheffeTest.html">scheffeTest()</a></code>, <code><a href="reference/steelTest.html">steelTest()</a></code>
+<code><a href="reference/gamesHowellTest.html">gamesHowellTest()</a></code>, <code><a href="reference/scheffeTest.html">scheffeTest()</a></code>, <code><a href="reference/steelTest.html">steelTest()</a></code>, <code><a href="reference/dscfTest.html">dscfTest()</a></code>
 </li>
 </ul>
 </div>
@@ -154,13 +166,25 @@
 </h3>
 <ul>
 <li>
-<code><a href="reference/adfTest.html">adfTest()</a></code>, <code><a href="reference/kpssTest.html">kpssTest()</a></code>, <code><a href="reference/runsTest.html">runsTest()</a></code>, <code><a href="reference/vonNeumannTest.html">vonNeumannTest()</a></code>
+<code><a href="reference/jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code>, <code><a href="reference/pageTest.html">pageTest()</a></code>, <code><a href="reference/coxStuartTest.html">coxStuartTest()</a></code>
 </li>
 <li>
-<code><a href="reference/bartelsRankTest.html">bartelsRankTest()</a></code>, <code><a href="reference/coxStuartTest.html">coxStuartTest()</a></code>, <code><a href="reference/jonckheereTerpstraTest.html">jonckheereTerpstraTest()</a></code>
+<code><a href="reference/runsTest.html">runsTest()</a></code>, <code><a href="reference/bartelsRankTest.html">bartelsRankTest()</a></code>, <code><a href="reference/vonNeumannTest.html">vonNeumannTest()</a></code>
 </li>
 <li>
-<code><a href="reference/pageTest.html">pageTest()</a></code>, <code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code>, <code><a href="reference/breuschGodfreyTest.html">breuschGodfreyTest()</a></code>, <code><a href="reference/breuschPaganTest.html">breuschPaganTest()</a></code>
+<code><a href="reference/adfTest.html">adfTest()</a></code>, <code><a href="reference/kpssTest.html">kpssTest()</a></code>
+</li>
+<li>
+<code><a href="reference/durbinWatsonTest.html">durbinWatsonTest()</a></code>, <code><a href="reference/breuschGodfreyTest.html">breuschGodfreyTest()</a></code>, <code><a href="reference/breuschPaganTest.html">breuschPaganTest()</a></code>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="small_blue_diamond-correlation">🔹 Correlation<a class="anchor" aria-label="anchor" href="#small_blue_diamond-correlation"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/corTest.html">corTest()</a></code>, <code><a href="reference/corCI.html">corCI()</a></code>, <code><a href="reference/fisherZ.html">fisherZ()</a></code>, <code><a href="reference/fisherZ.html">fisherZInv()</a></code>
 </li>
 </ul>
 </div>
@@ -168,29 +192,37 @@
 <h3 id="small_blue_diamond-confidence-intervals">🔹 Confidence Intervals<a class="anchor" aria-label="anchor" href="#small_blue_diamond-confidence-intervals"></a>
 </h3>
 <ul>
-<li>Proportions: <code><a href="reference/binomCI.html">binomCI()</a></code>, <code><a href="reference/binomDiffCI.html">binomDiffCI()</a></code>, <code><a href="reference/binomRatioCI.html">binomRatioCI()</a></code>, <code><a href="reference/multinomCI.html">multinomCI()</a></code>
+<li>Proportions: <code><a href="reference/binomCI.html">binomCI()</a></code>, <code><a href="reference/binomDiffCI.html">binomDiffCI()</a></code>, <code><a href="reference/binomRatioCI.html">binomRatioCI()</a></code>, <code><a href="reference/binomPairedDiffCI.html">binomPairedDiffCI()</a></code>, <code><a href="reference/hyperCI.html">hyperCI()</a></code>, <code><a href="reference/multinomCI.html">multinomCI()</a></code>
 </li>
 <li>Counts and rates: <code><a href="reference/poissonCI.html">poissonCI()</a></code>, <code><a href="reference/poissonDiffCI.html">poissonDiffCI()</a></code>, <code><a href="reference/poissonRatioCI.html">poissonRatioCI()</a></code>
 </li>
-<li>Location and scale: <code><a href="reference/meanCI.html">meanCI()</a></code>, <code><a href="reference/meanDiffCI.html">meanDiffCI()</a></code>, <code><a href="reference/medianCI.html">medianCI()</a></code>, <code><a href="reference/quantileCI.html">quantileCI()</a></code>, <code><a href="reference/varCI.html">varCI()</a></code>, <code><a href="reference/sumCI.html">sumCI()</a></code>
+<li>Location: <code><a href="reference/meanCI.html">meanCI()</a></code>, <code><a href="reference/meanDiffCI.html">meanDiffCI()</a></code>, <code><a href="reference/medianCI.html">medianCI()</a></code>, <code><a href="reference/medianDiffCI.html">medianDiffCI()</a></code>, <code><a href="reference/quantileCI.html">quantileCI()</a></code>, <code><a href="reference/sumCI.html">sumCI()</a></code>
 </li>
-<li>Correlation: <code><a href="reference/corCI.html">corCI()</a></code>, <code><a href="reference/fisherZ.html">fisherZ()</a></code>
+<li>Scale: <code><a href="reference/varCI.html">varCI()</a></code>, <code><a href="reference/mad-confints.html">madCI()</a></code>, <code><a href="reference/mad-confints.html">madDiffCI()</a></code>, <code><a href="reference/mad-confints.html">madRatioCI()</a></code>
 </li>
 <li>General: <code><a href="reference/bootCI.html">bootCI()</a></code> for arbitrary statistics</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="small_blue_diamond-distributions">🔹 Distributions<a class="anchor" aria-label="anchor" href="#small_blue_diamond-distributions"></a>
-</h3>
-<p><code>dpqr</code> families for the Benford, Dirichlet, extreme value, Fréchet, GEV, GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull and triangular distributions, plus mean and variance functions such as <code><a href="reference/cont-moments.html">mnorm()</a></code>, <code><a href="reference/disc-moments.html">mbinom()</a></code> and <code><a href="reference/extreme-value-moments.html">mgev()</a></code>.</p>
-</div>
-<div class="section level3">
-<h3 id="small_blue_diamond-power-and-sample-size">🔹 Power and Sample Size<a class="anchor" aria-label="anchor" href="#small_blue_diamond-power-and-sample-size"></a>
+<h3 id="small_blue_diamond-sample-size-and-power">🔹 Sample Size and Power<a class="anchor" aria-label="anchor" href="#small_blue_diamond-sample-size-and-power"></a>
 </h3>
 <ul>
 <li>
-<code><a href="reference/meanCIn.html">meanCIn()</a></code>, <code><a href="reference/powerChisqTest.html">powerChisqTest()</a></code>, <code><a href="reference/sphericityEps.html">sphericityEps()</a></code>, <code><a href="reference/scores.html">scores()</a></code>
+<code><a href="reference/binomCI.html">binomCIn()</a></code>, <code><a href="reference/meanCIn.html">meanCIn()</a></code>, <code><a href="reference/powerChisqTest.html">powerChisqTest()</a></code>
 </li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="small_blue_diamond-distributions">🔹 Distributions<a class="anchor" aria-label="anchor" href="#small_blue_diamond-distributions"></a>
+</h3>
+<p><code>dpqr</code> families for the Benford, Dirichlet, extreme value, Fréchet, GEV, GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull and triangular distributions, the Anderson-Darling distribution (<code><a href="reference/pAD.html">pAD()</a></code>, <code><a href="reference/pAD.html">qAD()</a></code>), plus mean and variance functions such as <code><a href="reference/cont-moments.html">mnorm()</a></code>, <code><a href="reference/disc-moments.html">mbinom()</a></code> and <code><a href="reference/extreme-value-moments.html">mgev()</a></code>.</p>
+</div>
+<div class="section level3">
+<h3 id="small_blue_diamond-utilities">🔹 Utilities<a class="anchor" aria-label="anchor" href="#small_blue_diamond-utilities"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/scores.html">scores()</a></code> for ordinal tables, <code><a href="reference/sphericityEps.html">sphericityEps()</a></code> for repeated measures</li>
 </ul>
 </div>
 </div>
@@ -203,7 +235,7 @@
 <li>
 <strong>Standard output</strong> — tests return <code>"htest"</code> objects and print like the ones in base R</li>
 <li>
-<strong>Fast</strong> — bootstrap and permutation routines implemented in C++ via Rcpp, RcppArmadillo and RcppParallel</li>
+<strong>Fast</strong> — exact and permutation engines (Barnard, Brunner-Munzel, Jonckheere-Terpstra with ties) and parallel bootstrap routines implemented in C++ via Rcpp, RcppArmadillo and RcppParallel</li>
 <li>
 <strong>Documented</strong> — references to the original literature on every procedure</li>
 </ul>
@@ -215,10 +247,10 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://andrisignorell.github.io/lumen/" class="external-link">lumen</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># a confidence interval for a proportion, several methods</span></span>
-<span><span class="fu"><a href="reference/binomCI.html">binomCI</a></span><span class="op">(</span><span class="fl">37</span>, <span class="fl">100</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/binomCI.html">binomCI</a></span><span class="op">(</span><span class="fl">37</span>, <span class="fl">100</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"clopper-pearson"</span>, <span class="st">"wang"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># nonparametric alternative to the t test</span></span>
-<span><span class="fu"><a href="reference/brunnerMunzelTest.html">brunnerMunzelTest</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span><span class="op">)</span></span>
+<span><span class="co"># nonparametric two-sample comparison without equal-variance assumption</span></span>
+<span><span class="fu"><a href="reference/brunnerMunzelTest.html">brunnerMunzelTest</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">wool</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># post-hoc comparisons after an ANOVA</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
@@ -230,11 +262,12 @@
 <div class="section level2">
 <h2 id="bricks-the-suite">🧱 The Suite<a class="anchor" aria-label="anchor" href="#bricks-the-suite"></a>
 </h2>
-<p><code>lumen</code> builds on <code>bedrock</code> (base utilities) and <code>pharos</code> (graphics). <code>DescToolsX</code> (descriptive statistics), <code>alloy</code> (modelling), <code>pons</code> (MS-Office) and <code>swissValet</code> (RStudio addins) complete the family.</p>
+<p><code>lumen</code> builds on <code>bedrock</code> (base utilities) and <code>pharos</code> (graphics). <code>DescToolsX</code> (descriptive statistics), <code>alloy</code> (modelling), <code>pons</code> (MS Office) and <code>swissValet</code> (RStudio addins) complete the family.</p>
 </div>
 <div class="section level2">
 <h2 id="pray-acknowledgements">🙏 Acknowledgements<a class="anchor" aria-label="anchor" href="#pray-acknowledgements"></a>
 </h2>
+<p><code>lumen</code> builds on code and ideas from many authors, listed as contributors in the DESCRIPTION file.</p>
 <p>Parts of the code and documentation were reviewed with the help of large language models (OpenAI Codex, Anthropic Claude). Every suggestion was assessed, edited and verified by the maintainer, who remains solely responsible for the content of this package.</p>
 </div>
 <div class="section level2">

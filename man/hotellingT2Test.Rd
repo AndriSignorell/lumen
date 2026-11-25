@@ -98,7 +98,7 @@ Analysis} (3rd ed.). Wiley.
 
 Nordhausen, K., Sirkia, S., Oja, H., & Tyler, D. E. (2012).
 \emph{ICSNP: Tools for Multivariate Nonparametrics}. R package
-version 1.0-9. \url{https://cran.r-project.org/package=ICSNP}
+version 1.0-9. \url{https://CRAN.R-project.org/package=ICSNP}
 }
 \seealso{
 Other test.location:

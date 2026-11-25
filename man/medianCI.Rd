@@ -88,6 +88,7 @@ Other ci.location:
 \code{\link[=meanCI]{meanCI()}},
 \code{\link[=meanCIn]{meanCIn()}},
 \code{\link[=meanDiffCI]{meanDiffCI()}},
+\code{\link[=medianDiffCI]{medianDiffCI()}},
 \code{\link[=quantileCI]{quantileCI()}},
 \code{\link[=sumCI]{sumCI()}}
 }

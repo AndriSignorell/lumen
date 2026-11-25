@@ -28,15 +28,11 @@ A numeric vector of scores corresponding to the levels of the
 selected margin.
 }
 \description{
-A utility function computing score transformations of raw data,
-including normal scores, exponential scores, and Savage scores,
-typically used as a preprocessing step for nonparametric tests.
-}
-\details{
 Computes score values for the levels of a contingency table margin.
 These scores are used in several statistical procedures such as the
 Cochran-Armitage test and correlation measures for ordinal data.
-
+}
+\details{
 The function supports different scoring methods, including simple
 table-based scores, ranks, and ridit-type transformations.
 
@@ -47,6 +43,22 @@ For rank-based methods, scores are computed as midpoints of cumulative
 frequencies along the selected margin.
 
 Ridit and modified ridit scores are normalized versions of these ranks.
+}
+\examples{
+# dose-response table: numeric dimnames are used as scores
+tab <- matrix(c(10, 9, 10, 7,
+                 0, 1,  0, 3), byrow = TRUE, nrow = 2,
+              dimnames = list(resp = 0:1, dose = c(0, 1, 2, 5)))
+scores(tab, margin = 2)                    # 0 1 2 5
+
+# rank-based scores use the column totals (10 each)
+scores(tab, margin = 2, method = "ranks")  # 5.5 15.5 25.5 35.5
+scores(tab, margin = 2, method = "ridit")
+
+# non-numeric dimnames fall back to 1, 2, ...
+dimnames(tab)$dose <- c("none", "low", "mid", "high")
+scores(tab, margin = 2)
+
 }
 \references{
 Lecoutre, E. (2005). R-help mailing list discussion.
