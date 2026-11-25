@@ -19,6 +19,8 @@ and quantiles.
   Confidence Interval for a Mean
 - [`meanDiffCI()`](meanDiffCI.md) : Confidence Interval For Difference
   of Means
+- [`medianDiffCI()`](medianDiffCI.md) : Confidence Interval for the
+  Difference of Two Medians
 - [`medianCI()`](medianCI.md) : Confidence Interval for the Median
 - [`quantileCI()`](quantileCI.md) : Confidence Interval for Any Quantile
 - [`sumCI()`](sumCI.md) : Add Up Partial Confidence Intervals to a Total
@@ -41,10 +43,11 @@ scale parameters.
   Successes in a Finite Population
 - [`multinomCI()`](multinomCI.md) : Confidence Intervals for Multinomial
   Proportions
-- [`poissonCI()`](poissonCI.md) : Confidence Interval for a Poisson Rate
-- [`poissonDiffCI()`](poissonDiffCI.md) : Confidence Interval for the
+- [`poissonCI()`](poissonCI.md) : Confidence Intervals for a Poisson
+  Rate
+- [`poissonDiffCI()`](poissonDiffCI.md) : Confidence Intervals for the
   Difference Between Two Poisson Rates
-- [`poissonRatioCI()`](poissonRatioCI.md) : Confidence Interval for the
+- [`poissonRatioCI()`](poissonRatioCI.md) : Confidence Intervals for the
   Ratio of Two Poisson Rates
 - [`corCI()`](corCI.md) : Confidence Interval for a Pearson Correlation
 - [`madCI()`](mad-confints.md) [`madDiffCI()`](mad-confints.md)
@@ -81,7 +84,7 @@ Tests for proportions, contingency tables, marginal homogeneity, and
 ordinal trends.
 
 - [`barnardTest()`](barnardTest.md) : Barnard's Unconditional Test for
-  Comparing Two Independent Proportions in a 2×2 Table
+  Comparing Two Independent Proportions in a 2 x 2 Table
 - [`bhapkarTest()`](bhapkarTest.md) : Bhapkar Marginal Homogeneity Test
   for Comparing Paired Marginal Distributions Across Multiple Categories
 - [`breslowDayTest()`](breslowDayTest.md) : Breslow-Day Test for

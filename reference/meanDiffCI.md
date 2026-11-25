@@ -103,8 +103,8 @@ per-replicate variance estimate, so requesting it raises an error.
 [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html)
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
-[`medianCI()`](medianCI.md), [`quantileCI()`](quantileCI.md),
-[`sumCI()`](sumCI.md)
+[`medianCI()`](medianCI.md), [`medianDiffCI()`](medianDiffCI.md),
+[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
 
 ## Examples
 

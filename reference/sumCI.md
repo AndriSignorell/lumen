@@ -44,7 +44,7 @@ A named numeric vector with elements:
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
 [`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
-[`quantileCI()`](quantileCI.md)
+[`medianDiffCI()`](medianDiffCI.md), [`quantileCI()`](quantileCI.md)
 
 ## Examples
 

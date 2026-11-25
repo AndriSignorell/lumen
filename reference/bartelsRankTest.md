@@ -1,8 +1,8 @@
 # Bartels Rank Test of Randomness for Detecting Non-Random Order in Continuous Sequences
 
-A nonparametric test for randomness of a sequence (so it tests whether
-data is sampled randomly from an underlying population), based on the
-ratio of the mean square successive difference of ranks to the rank
+A nonparametric test of randomness of a sequence, i.e. whether the
+observations are independent draws from the same distribution, based on
+the ratio of the mean square successive difference of the ranks to their
 variance.
 
 ## Usage
@@ -41,9 +41,9 @@ A list with class `"htest"` containing the following components:
 
   the value of the normalized test statistic.
 
-- `parameter`, `n`:
+- `parameter`:
 
-  the sample size, after the removal of missing values.
+  the sample size `n`, after the removal of missing values.
 
 - `p.value`:
 
@@ -91,6 +91,9 @@ By using the alternative "`trend`" the null hypothesis of randomness is
 tested against a trend. By using the alternative "`oscillation`" the
 null hypothesis of randomness is tested against a systematic
 oscillation.
+
+Ties receive average ranks; the moments above assume continuous data
+without ties, so with many ties the test is only approximate.
 
 Missing values are silently removed.
 

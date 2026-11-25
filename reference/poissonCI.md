@@ -1,7 +1,7 @@
-# Confidence Interval for a Poisson Rate
+# Confidence Intervals for a Poisson Rate
 
-Estimates a Poisson event rate and calculates an exact or approximate
-confidence interval.
+`poissonCI()` computes confidence intervals for a Poisson event rate
+using exact and approximate methods.
 
 ## Usage
 
@@ -19,100 +19,111 @@ poissonCI(
 
 - x:
 
-  non-negative integer event count or vector of counts
+  number of events, a non-negative integer.
 
 - n:
 
-  positive exposure associated with `x`, such as observation time,
-  person-time, or population at risk; may be a vector and defaults to 1
+  exposure associated with `x`, such as observation time, person-time or
+  population at risk; a positive number, defaults to 1.
 
 - conf.level:
 
-  numeric confidence level between 0 and 1; defaults to 0.95
+  confidence level, defaults to 0.95.
 
 - sides:
 
-  type of confidence interval: `"two.sided"`, `"left"`, or `"right"`;
-  may be abbreviated
+  a character string specifying the side of the confidence interval,
+  must be one of `"two.sided"` (default), `"left"` or `"right"`. You can
+  specify just the initial letter. `sides` names the side carrying the
+  finite bound: `"left"` reports the lower limit and opens the upper one
+  to `Inf`, `"right"` reports the upper limit and opens the lower one
+  to 0. A one-sided bound at level `conf.level` is the corresponding end
+  of the two-sided interval at level `2 * conf.level - 1`. `"left"`
+  corresponds to the alternative `"greater"` in a hypothesis test.
 
 - method:
 
-  method used to calculate the confidence interval: `"exact"`,
-  `"score"`, `"wald"`, or `"byar"`; may be abbreviated and may contain
-  several methods; defaults to `"exact"`
+  character string specifying which method to use; this can be one out
+  of: `"exact"` (default), `"score"`, `"wald"` and `"byar"`. Several
+  methods may be given at once; all the methods can be asked by
+  `".all"`. Abbreviation of method is accepted. See details.
 
 ## Value
 
-If all arguments identify a single result, a named numeric vector with
-elements:
+If recycling yields a single case, a named numeric vector with elements:
 
 - `est`:
 
-  estimated event rate
+  point estimate of the event rate, `x/n`.
 
 - `lci`:
 
-  lower confidence bound
+  lower confidence interval bound.
 
 - `uci`:
 
-  upper confidence bound
+  upper confidence interval bound.
 
-Otherwise, a `data.frame` containing these three columns and the
-recycled argument values that identify each result.
+If recycling yields multiple cases, a data frame with one row per case
+is returned. Its first three columns are `est`, `lci`, and `uci`; the
+remaining columns contain the recycled argument values.
 
 ## Details
 
-The function assumes \$\$X \sim \mathrm{Poisson}(n\lambda),\$\$ where
-`x` is the observed event count, `n` is the exposure, and \\\lambda\\ is
-the event rate. The point estimate is \\\hat{\lambda} = x/n\\.
+All arguments are vectorized and recycled according to standard R rules.
 
-The available confidence-interval methods are:
+The function assumes \\X \sim \mathrm{Poisson}(n\lambda)\\, where \\x\\
+is the observed event count, \\n\\ the exposure and \\\lambda\\ the
+event rate. The point estimate is \\\hat{\lambda} = x/n\\.
 
-- `"exact"`:
+**Exact** (default): The so-called exact interval, based on quantiles of
+the corresponding chi-square distribution and equivalent to the Garwood
+(1936) interval. The same interval is returned as `conf.int` by
+[`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html).
 
-  the exact Poisson interval calculated by
-  [`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html),
-  equivalent to the Garwood interval
+**Score**: Obtained by inverting the acceptance region of the Poisson
+score test.
 
-- `"score"`:
+**Wald**: Obtained by inverting the acceptance region of the
+large-sample normal (Wald) test; the interval is symmetric about
+\\\hat{\lambda}\\.
 
-  the interval obtained by inverting the Poisson score test
+**Byar**: Byar's cube-root normal approximation to the exact interval
+(Rothman and Boice, 1979). The lower limit is based on \\x\\, the upper
+limit on \\x + 1\\; for \\x = 0\\ the lower limit is 0.
 
-- `"wald"`:
+Some methods may produce a lower limit below 0. In such cases, the bound
+is truncated to remain within the valid parameter space \\\[0,
+\infty)\\.
 
-  the normal-approximation interval centred at \\\hat{\lambda}\\
+## **Which interval should be used?**
 
-- `"byar"`:
-
-  Byar's cube-root normal approximation
-
-The lower bound is restricted to the parameter space \\\[0, \infty)\\.
-For `sides = "left"`, the function returns a lower one-sided confidence
-bound and sets `uci` to `Inf`. This corresponds to the alternative
-`"greater"` in a hypothesis test. For `sides = "right"`, it returns an
-upper one-sided confidence bound and sets `lci` to 0.
-
-Compatible vector lengths are recycled. Supplying several methods
-therefore provides the corresponding intervals in a single `data.frame`.
+The Wald interval has poor coverage for small counts and degenerates to
+a single point at \\x = 0\\. The exact interval guarantees the nominal
+coverage but is conservative and often unnecessarily wide. The score
+interval is a good approximate alternative when conservativeness is not
+required.
 
 ## References
 
-Garwood, F. (1936). Fiducial limits for the Poisson distribution.
-*Biometrika*, **28**, 437–442.
+Garwood, F. (1936) Fiducial limits for the Poisson distribution.
+*Biometrika*, **28**, pp. 437-442.
 
-Rothman, K. J. and Boice, J. D. Jr. (1979). *Epidemiologic Analysis with
+Rothman, K. J. and Boice, J. D. Jr. (1979) *Epidemiologic Analysis with
 a Programmable Calculator*. NIH Publication No. 79-1649. Washington, DC:
 US Government Printing Office.
 
 ## See also
 
-[`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html)
+[`poisson.test()`](https://rdrr.io/r/stats/poisson.test.html),
+[`poissonDiffCI()`](poissonDiffCI.md),
+[`poissonRatioCI()`](poissonRatioCI.md), [`binomCI()`](binomCI.md)
 
 ## Examples
 
 ``` r
-# Deaths from horse kicks in 280 Prussian army corps-years
+
+# deaths from horse kicks in 280 Prussian army corps-years
 count <- 0:4
 corpsYears <- c(144, 91, 32, 11, 2)
 
@@ -122,14 +133,22 @@ n <- sum(corpsYears)
 poissonCI(x, n)
 #>       est       lci       uci 
 #> 0.7000000 0.6054271 0.8051570 
+
+# the exact interval corresponds to the one computed by poisson.test
+poisson.test(x, n)$conf.int
+#> [1] 0.6054271 0.8051570
+#> attr(,"conf.level")
+#> [1] 0.95
+
+# several methods at once
 poissonCI(x, n, method = c("exact", "score", "wald", "byar"))
 #>   est       lci       uci   x   n conf.level     sides method
 #> 1 0.7 0.6054271 0.8051570 196 280       0.95 two.sided  exact
 #> 2 0.7 0.6086218 0.8050977 196 280       0.95 two.sided  score
 #> 3 0.7 0.6020018 0.7979982 196 280       0.95 two.sided   wald
-#> 4 0.7 0.6070833 0.8032497 196 280       0.95 two.sided   byar
+#> 4 0.7 0.6054225 0.8051602 196 280       0.95 two.sided   byar
 
-# A 95% lower confidence bound for the event rate
+# a 95% lower confidence bound for the event rate
 poissonCI(x, n, sides = "left")
 #>       est       lci       uci 
 #> 0.7000000 0.6198372       Inf 

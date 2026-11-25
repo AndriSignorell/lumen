@@ -1,7 +1,6 @@
 # 📦 lumen
 
-**Title:** Statistical Tests, Confidence Intervals, and Distributions  
-**License:** GPL (≥ 2)
+**Statistical Tests, Confidence Intervals and Distributions**
 
 ## 🧩 Overview
 
@@ -35,26 +34,35 @@ remotes::install_github("AndriSignorell/lumen")
 
 ## 📚 Core Features
 
-### 🔹 Location Tests
+### 🔹 Location
 
-- `tTestA()`, [`zTest()`](reference/zTest.md),
+- [`tTestSummary()`](reference/tTestSummary.md),
+  [`zTest()`](reference/zTest.md),
   [`yuenTTest()`](reference/yuenTTest.md),
   [`signTest()`](reference/signTest.md)
 - [`brunnerMunzelTest()`](reference/brunnerMunzelTest.md),
+  [`moodMedianTest()`](reference/moodMedianTest.md),
+  [`vanDerWaerdenTest()`](reference/vanDerWaerdenTest.md)
+- [`hotellingT2Test()`](reference/hotellingT2Test.md) for multivariate
+  means
+
+### 🔹 Scale
+
+- [`varTest()`](reference/varTest.md),
+  [`leveneTest()`](reference/leveneTest.md),
   [`siegelTukeyTest()`](reference/siegelTukeyTest.md),
   [`mosesTest()`](reference/mosesTest.md)
-- [`moodMedianTest()`](reference/moodMedianTest.md), `vanWaerdenTest()`,
-  [`dscfTest()`](reference/dscfTest.md)
 
 ### 🔹 Categorical Data
 
 - [`barnardTest()`](reference/barnardTest.md),
   [`gTest()`](reference/gTest.md),
-  [`cochranArmitageTest()`](reference/cochranArmitageTest.md),
+  [`pearsonChisqTest()`](reference/pearsonChisqTest.md)
+- [`cochranArmitageTest()`](reference/cochranArmitageTest.md),
+  [`mantelTrendTest()`](reference/mantelTrendTest.md),
   [`cochranQTest()`](reference/cochranQTest.md)
 - [`breslowDayTest()`](reference/breslowDayTest.md),
-  [`woolfTest()`](reference/woolfTest.md),
-  [`mantelTrendTest()`](reference/mantelTrendTest.md)
+  [`woolfTest()`](reference/woolfTest.md)
 - [`bhapkarTest()`](reference/bhapkarTest.md),
   [`stuartMaxwellTest()`](reference/stuartMaxwellTest.md),
   [`lehmacherTest()`](reference/lehmacherTest.md)
@@ -63,68 +71,89 @@ remotes::install_github("AndriSignorell/lumen")
 
 - [`andersonDarlingTest()`](reference/andersonDarlingTest.md),
   [`cramerVonMisesTest()`](reference/cramerVonMisesTest.md),
-  `lillieTest()`
+  [`lillieforsTest()`](reference/lillieforsTest.md)
 - [`shapiroFranciaTest()`](reference/shapiroFranciaTest.md),
-  [`jarqueBeraTest()`](reference/jarqueBeraTest.md), `pearsonTest()`
+  [`jarqueBeraTest()`](reference/jarqueBeraTest.md)
 - [`hosmerLemeshowTest()`](reference/hosmerLemeshowTest.md),
-  [`leCessieTest()`](reference/leCessieTest.md) — for logistic models
+  [`leCessieTest()`](reference/leCessieTest.md) for logistic models
 
 ### 🔹 Multiple Comparisons and Post-hoc
 
-- [`postHoc()`](reference/postHoc.md),
-  [`plot.PostHocTest()`](reference/plot.PostHocTest.md)
+- [`postHocTest()`](reference/postHoc.md) with a
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method,
+  [`signifDiff()`](reference/signifDiff.md)
 - [`dunnTest()`](reference/dunnTest.md),
   [`dunnettTest()`](reference/dunnettTest.md),
   [`conoverTest()`](reference/conoverTest.md),
   [`nemenyiTest()`](reference/nemenyiTest.md)
 - [`gamesHowellTest()`](reference/gamesHowellTest.md),
   [`scheffeTest()`](reference/scheffeTest.md),
-  [`steelTest()`](reference/steelTest.md)
+  [`steelTest()`](reference/steelTest.md),
+  [`dscfTest()`](reference/dscfTest.md)
 
 ### 🔹 Trend, Randomness and Time Series
 
-- [`adfTest()`](reference/adfTest.md),
-  [`kpssTest()`](reference/kpssTest.md),
-  [`runsTest()`](reference/runsTest.md),
+- [`jonckheereTerpstraTest()`](reference/jonckheereTerpstraTest.md),
+  [`pageTest()`](reference/pageTest.md),
+  [`coxStuartTest()`](reference/coxStuartTest.md)
+- [`runsTest()`](reference/runsTest.md),
+  [`bartelsRankTest()`](reference/bartelsRankTest.md),
   [`vonNeumannTest()`](reference/vonNeumannTest.md)
-- [`bartelsRankTest()`](reference/bartelsRankTest.md),
-  [`coxStuartTest()`](reference/coxStuartTest.md),
-  [`jonckheereTerpstraTest()`](reference/jonckheereTerpstraTest.md)
-- [`pageTest()`](reference/pageTest.md),
-  [`durbinWatsonTest()`](reference/durbinWatsonTest.md),
-  [`breuschGodfreyTest()`](reference/breuschGodfreyTest.md), `bpTest()`
+- [`adfTest()`](reference/adfTest.md),
+  [`kpssTest()`](reference/kpssTest.md)
+- [`durbinWatsonTest()`](reference/durbinWatsonTest.md),
+  [`breuschGodfreyTest()`](reference/breuschGodfreyTest.md),
+  [`breuschPaganTest()`](reference/breuschPaganTest.md)
+
+### 🔹 Correlation
+
+- [`corTest()`](reference/corTest.md), [`corCI()`](reference/corCI.md),
+  [`fisherZ()`](reference/fisherZ.md),
+  [`fisherZInv()`](reference/fisherZ.md)
 
 ### 🔹 Confidence Intervals
 
 - Proportions: [`binomCI()`](reference/binomCI.md),
   [`binomDiffCI()`](reference/binomDiffCI.md),
   [`binomRatioCI()`](reference/binomRatioCI.md),
+  [`binomPairedDiffCI()`](reference/binomPairedDiffCI.md),
+  [`hyperCI()`](reference/hyperCI.md),
   [`multinomCI()`](reference/multinomCI.md)
 - Counts and rates: [`poissonCI()`](reference/poissonCI.md),
   [`poissonDiffCI()`](reference/poissonDiffCI.md),
   [`poissonRatioCI()`](reference/poissonRatioCI.md)
-- Location and scale: [`meanCI()`](reference/meanCI.md),
+- Location: [`meanCI()`](reference/meanCI.md),
   [`meanDiffCI()`](reference/meanDiffCI.md),
   [`medianCI()`](reference/medianCI.md),
+  [`medianDiffCI()`](reference/medianDiffCI.md),
   [`quantileCI()`](reference/quantileCI.md),
-  [`varCI()`](reference/varCI.md), [`sumCI()`](reference/sumCI.md)
-- Correlation: [`corCI()`](reference/corCI.md),
-  [`fisherZ()`](reference/fisherZ.md)
+  [`sumCI()`](reference/sumCI.md)
+- Scale: [`varCI()`](reference/varCI.md),
+  [`madCI()`](reference/mad-confints.md),
+  [`madDiffCI()`](reference/mad-confints.md),
+  [`madRatioCI()`](reference/mad-confints.md)
 - General: [`bootCI()`](reference/bootCI.md) for arbitrary statistics
+
+### 🔹 Sample Size and Power
+
+- [`binomCIn()`](reference/binomCI.md),
+  [`meanCIn()`](reference/meanCIn.md),
+  [`powerChisqTest()`](reference/powerChisqTest.md)
 
 ### 🔹 Distributions
 
 `dpqr` families for the Benford, Dirichlet, extreme value, Fréchet, GEV,
 GPD, Gompertz, Gumbel, reversed Gumbel, order-statistic, reverse Weibull
-and triangular distributions, plus `cont-moments()`, `disc-moments()`
-and `extreme-value-moments()`.
+and triangular distributions, the Anderson-Darling distribution
+([`pAD()`](reference/pAD.md), [`qAD()`](reference/pAD.md)), plus mean
+and variance functions such as [`mnorm()`](reference/cont-moments.md),
+[`mbinom()`](reference/disc-moments.md) and
+[`mgev()`](reference/extreme-value-moments.md).
 
-### 🔹 Power and Sample Size
+### 🔹 Utilities
 
-- [`meanCIn()`](reference/meanCIn.md),
-  [`powerChisqTest()`](reference/powerChisqTest.md),
-  [`sphericityEps()`](reference/sphericityEps.md),
-  [`scores()`](reference/scores.md)
+- [`scores()`](reference/scores.md) for ordinal tables,
+  [`sphericityEps()`](reference/sphericityEps.md) for repeated measures
 
 ## 🚀 Design Principles
 
@@ -132,8 +161,9 @@ and `extreme-value-moments()`.
   ordering across the whole DescToolsX suite
 - **Standard output** — tests return `"htest"` objects and print like
   the ones in base R
-- **Fast** — bootstrap and permutation routines implemented in C++ via
-  Rcpp, RcppArmadillo and RcppParallel
+- **Fast** — exact and permutation engines (Barnard, Brunner-Munzel,
+  Jonckheere-Terpstra with ties) and parallel bootstrap routines
+  implemented in C++ via Rcpp, RcppArmadillo and RcppParallel
 - **Documented** — references to the original literature on every
   procedure
 
@@ -144,14 +174,14 @@ and `extreme-value-moments()`.
 library(lumen)
 
 # a confidence interval for a proportion, several methods
-binomCI(37, 100, method = "wilson")
+binomCI(37, 100, method = c("wilson", "clopper-pearson", "wang"))
 
-# nonparametric alternative to the t test
-brunnerMunzelTest(extra ~ group, data = sleep)
+# nonparametric two-sample comparison without equal-variance assumption
+brunnerMunzelTest(breaks ~ wool, data = warpbreaks)
 
 # post-hoc comparisons after an ANOVA
 fit <- aov(breaks ~ tension, data = warpbreaks)
-postHoc(fit, method = "hsd")
+postHocTest(fit, method = "hsd")
 
 # goodness of fit
 andersonDarlingTest(rnorm(100), null = "pnorm")
@@ -160,10 +190,13 @@ andersonDarlingTest(rnorm(100), null = "pnorm")
 ## 🧱 The Suite
 
 `lumen` builds on `bedrock` (base utilities) and `pharos` (graphics).
-`DescToolsX` (descriptive statistics), `alloy` (modelling), `pons`
-(MS-Office) and `swissValet` (RStudio addins) complete the family.
+`DescToolsX` (descriptive statistics), `alloy` (modelling), `pons` (MS
+Office) and `swissValet` (RStudio addins) complete the family.
 
 ## 🙏 Acknowledgements
+
+`lumen` builds on code and ideas from many authors, listed as
+contributors in the DESCRIPTION file.
 
 Parts of the code and documentation were reviewed with the help of large
 language models (OpenAI Codex, Anthropic Claude). Every suggestion was
@@ -195,6 +228,8 @@ and quantiles.
   Confidence Interval for a Mean
 - [`meanDiffCI()`](meanDiffCI.md) : Confidence Interval For Difference
   of Means
+- [`medianDiffCI()`](medianDiffCI.md) : Confidence Interval for the
+  Difference of Two Medians
 - [`medianCI()`](medianCI.md) : Confidence Interval for the Median
 - [`quantileCI()`](quantileCI.md) : Confidence Interval for Any Quantile
 - [`sumCI()`](sumCI.md) : Add Up Partial Confidence Intervals to a Total
@@ -217,10 +252,11 @@ scale parameters.
   Successes in a Finite Population
 - [`multinomCI()`](multinomCI.md) : Confidence Intervals for Multinomial
   Proportions
-- [`poissonCI()`](poissonCI.md) : Confidence Interval for a Poisson Rate
-- [`poissonDiffCI()`](poissonDiffCI.md) : Confidence Interval for the
+- [`poissonCI()`](poissonCI.md) : Confidence Intervals for a Poisson
+  Rate
+- [`poissonDiffCI()`](poissonDiffCI.md) : Confidence Intervals for the
   Difference Between Two Poisson Rates
-- [`poissonRatioCI()`](poissonRatioCI.md) : Confidence Interval for the
+- [`poissonRatioCI()`](poissonRatioCI.md) : Confidence Intervals for the
   Ratio of Two Poisson Rates
 - [`corCI()`](corCI.md) : Confidence Interval for a Pearson Correlation
 - [`madCI()`](mad-confints.md) [`madDiffCI()`](mad-confints.md)
@@ -257,7 +293,7 @@ Tests for proportions, contingency tables, marginal homogeneity, and
 ordinal trends.
 
 - [`barnardTest()`](barnardTest.md) : Barnard's Unconditional Test for
-  Comparing Two Independent Proportions in a 2×2 Table
+  Comparing Two Independent Proportions in a 2 x 2 Table
 - [`bhapkarTest()`](bhapkarTest.md) : Bhapkar Marginal Homogeneity Test
   for Comparing Paired Marginal Distributions Across Multiple Categories
 - [`breslowDayTest()`](breslowDayTest.md) : Breslow-Day Test for

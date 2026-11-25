@@ -26,25 +26,30 @@ stuartMaxwellTest(x, y = NULL)
 
 A list with class `"htest"` containing the following components:
 
-- statistic:
+- `statistic`:
 
-  the value of the test statistic.
+  the value of the chi-squared test statistic.
 
-- parameter:
+- `parameter`:
 
   the degrees of freedom.
 
-- p.value:
+- `p.value`:
 
   the p-value of the test.
 
-- method:
+- `method`:
 
-  a character string indicating what type of test was performed.
+  a character string indicating the test performed.
 
-- data.name:
+- `data.name`:
 
   a character string giving the name of the data.
+
+- `n`:
+
+  the total sample size, including categories with perfect agreement
+  (not shown on screen).
 
 ## Details
 
@@ -55,8 +60,11 @@ statistic is distributed as \\\chi^2\\ with `k-1` degrees of freedom.
 It can be viewed as an extension of the McNemar test to \\k \times k\\
 table.
 
-The null is that the probabilities of being classified into cells
-`[i, j]` and `[j, i]` are the same.
+The null hypothesis is marginal homogeneity: for every category \\i\\
+the probability of being classified into \\i\\ is the same for both
+classifications, \\p\_{i+} = p\_{+i}\\. (Equality of the cell
+probabilities `[i, j]` and `[j, i]` is the stronger hypothesis of
+symmetry, which implies marginal homogeneity but is not implied by it.)
 
 If `x` is a matrix, it is taken as a two-dimensional contingency table,
 and hence its entries should be nonnegative integers. Otherwise, both x
@@ -82,7 +90,7 @@ of freedom `df` in this case can still be considered `k - 1`, where `k`
 is the number of original categories; this treats omitted categories as
 if they were included but contributed 0 to the value of \\\chi^2\\ - a
 reasonable view since such categories have equal row and column
-marginals. (See: Stuart (1955).
+marginals (see Stuart, 1955).
 
 ## Note
 
@@ -105,6 +113,7 @@ Analysis*, Chapter 9, Section 9.3.2 (Coffee Market Share Example):
 
 ## See also
 
+[`bhapkarTest()`](bhapkarTest.md),
 [`mcnemar.test()`](https://rdrr.io/r/stats/mcnemar.test.html),
 [`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html)
 
@@ -144,7 +153,7 @@ stuartMaxwellTest(x=d.hyp[,1], y=d.hyp[,2])
 
 
 mc <- as.table(matrix(c(
-         732, 1524, 1575, 1577, 1602, 837, 1554, 1437, 
+         732, 1524, 1575, 1577, 1602, 837, 1554, 1437,
          1672, 1600, 841, 1363, 1385, 1484, 1524, 791), nrow=4))
 
 stuartMaxwellTest(mc)

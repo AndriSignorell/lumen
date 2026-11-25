@@ -94,7 +94,8 @@ Multinomial Proportions *Technometrics*, 7, 247-254.
 May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous
 confidence intervals for multinomial proportions for small counts in a
 large number of cells. *Journal of Statistical Software* 5(6) . Paper
-and code available at <https://www.jstatsoft.org/v05/i06>.
+and code available at
+[doi:10.18637/jss.v005.i06](https://doi.org/10.18637/jss.v005.i06) .
 
 Quesenberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous
 Confidence Intervals for Multinational Proportions. *Technometrics*, 6:

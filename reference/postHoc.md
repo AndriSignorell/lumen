@@ -222,7 +222,7 @@ postHocTest(aov(breaks ~ tension, data = warpbreaks), method = "hsd",
 #> 
 #> $tension
 #>   L     M    
-#> M 0.038     -
+#> M 0.038 -    
 #> H 0.001 0.463
 #> 
 #> 

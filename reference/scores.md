@@ -1,8 +1,8 @@
 # Compute Scores for Ordinal Contingency Tables
 
-A utility function computing score transformations of raw data,
-including normal scores, exponential scores, and Savage scores,
-typically used as a preprocessing step for nonparametric tests.
+Computes score values for the levels of a contingency table margin.
+These scores are used in several statistical procedures such as the
+Cochran-Armitage test and correlation measures for ordinal data.
 
 ## Usage
 
@@ -42,10 +42,6 @@ margin.
 
 ## Details
 
-Computes score values for the levels of a contingency table margin.
-These scores are used in several statistical procedures such as the
-Cochran-Armitage test and correlation measures for ordinal data.
-
 The function supports different scoring methods, including simple
 table-based scores, ranks, and ridit-type transformations.
 
@@ -66,3 +62,27 @@ Lecoutre, E. (2005). R-help mailing list discussion.
 
 [`cochranArmitageTest()`](cochranArmitageTest.md),
 [`cor()`](https://rdrr.io/r/stats/cor.html)
+
+## Examples
+
+``` r
+# dose-response table: numeric dimnames are used as scores
+tab <- matrix(c(10, 9, 10, 7,
+                 0, 1,  0, 3), byrow = TRUE, nrow = 2,
+              dimnames = list(resp = 0:1, dose = c(0, 1, 2, 5)))
+scores(tab, margin = 2)                    # 0 1 2 5
+#> [1] 0 1 2 5
+
+# rank-based scores use the column totals (10 each)
+scores(tab, margin = 2, method = "ranks")  # 5.5 15.5 25.5 35.5
+#>    0    1    2    5 
+#>  5.5 15.5 25.5 35.5 
+scores(tab, margin = 2, method = "ridit")
+#>      0      1      2      5 
+#> 0.1375 0.3875 0.6375 0.8875 
+
+# non-numeric dimnames fall back to 1, 2, ...
+dimnames(tab)$dose <- c("none", "low", "mid", "high")
+scores(tab, margin = 2)
+#> [1] 1 2 3 4
+```

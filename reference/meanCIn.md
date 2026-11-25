@@ -64,7 +64,8 @@ might be interested in exact results.
 
 Other ci.location: [`meanCI()`](meanCI.md),
 [`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
-[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
+[`medianDiffCI()`](medianDiffCI.md), [`quantileCI()`](quantileCI.md),
+[`sumCI()`](sumCI.md)
 
 ## Examples
 

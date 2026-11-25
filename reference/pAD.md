@@ -70,7 +70,7 @@ Anderson, T.W. and Darling, D.A. (1954) A test of goodness of fit.
 
 Marsaglia, G. and Marsaglia, J. (2004) Evaluating the Anderson-Darling
 Distribution. *Journal of Statistical Software* **9** (2), 1–5. February
-2004. <https://www.jstatsoft.org/article/view/v009i02>
+2004. [doi:10.18637/jss.v009.i02](https://doi.org/10.18637/jss.v009.i02)
 
 ## See also
 

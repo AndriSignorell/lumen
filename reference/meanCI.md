@@ -111,7 +111,8 @@ testing* Elsevier Academic Press
 
 Other ci.location: [`meanCIn()`](meanCIn.md),
 [`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
-[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
+[`medianDiffCI()`](medianDiffCI.md), [`quantileCI()`](quantileCI.md),
+[`sumCI()`](sumCI.md)
 
 ## Examples
 

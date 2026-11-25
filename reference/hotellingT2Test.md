@@ -133,7 +133,7 @@ Analysis* (3rd ed.). Wiley.
 
 Nordhausen, K., Sirkia, S., Oja, H., & Tyler, D. E. (2012). *ICSNP:
 Tools for Multivariate Nonparametrics*. R package version 1.0-9.
-<https://cran.r-project.org/package=ICSNP>
+<https://CRAN.R-project.org/package=ICSNP>
 
 ## See also
 

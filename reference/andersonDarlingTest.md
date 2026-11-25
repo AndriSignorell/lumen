@@ -120,8 +120,7 @@ andersonDarlingTest(x, "pnorm", mean=mean(x), sd=sd(x), estimated=TRUE)
 #> 
 #>  Anderson-Darling test of goodness-of-fit; Braun's adjustment using 3
 #>  groups; null hypothesis: Normal distribution; with parameters mean =
-#>  2.24125265128704, sd = 0.603331309611038; parameters estimated from
-#>  data
+#>  2.241, sd = 0.6033; parameters estimated from data
 #> 
 #> data:  x
 #> Anmax = 2.2295, p-value = 0.204

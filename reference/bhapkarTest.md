@@ -50,6 +50,10 @@ A list with class `"htest"` containing the following components:
 
   a character string giving the name of the data.
 
+- `n`:
+
+  the total sample size, including categories with perfect agreement.
+
 ## Details
 
 Bhapkar's test (Bhapkar, 1966) is used to assess marginal homogeneity in
@@ -79,11 +83,13 @@ of the marginal distributions in a two-way classification. *Biometrika*,
 
 Sun X., Yang Z. (2008) Generalized McNemar's Test for Homogeneity of the
 Marginal Distributions. *SAS Global Forum 2008: Statistics and Data
-Analysis*, Paper 382-208.
+Analysis*, Paper 382-2008.
 
 ## See also
 
-[mcnemar.test](https://rdrr.io/r/stats/mcnemar.test.html),[chisq.test](https://rdrr.io/r/stats/chisq.test.html)
+[`stuartMaxwellTest()`](stuartMaxwellTest.md),
+[`mcnemar.test()`](https://rdrr.io/r/stats/mcnemar.test.html),
+[`chisq.test()`](https://rdrr.io/r/stats/chisq.test.html)
 
 Other test.categorical: [`barnardTest()`](barnardTest.md),
 [`breslowDayTest()`](breslowDayTest.md),

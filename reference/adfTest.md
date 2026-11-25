@@ -37,9 +37,10 @@ adfTest(
 - selectLags:
 
   the lag selection method, one of `"fixed"` (default, use `lags` as
-  given), `"aic"` or `"bic"` (choose the lag order up to `lags` that
-  minimizes the respective information criterion). Case-insensitive, so
-  `"AIC"` and `"BIC"` are accepted as well.
+  given), `"aic"` or `"bic"` (choose the lag order from 0 to `lags` that
+  minimizes the respective information criterion; all candidates are
+  fitted on the same sample). Case-insensitive, so `"AIC"` and `"BIC"`
+  are accepted as well.
 
 ## Value
 
@@ -62,8 +63,8 @@ An object of class `"htest"` containing the following components:
 - `critical.values`:
 
   a matrix with the 1%, 5% and 10% critical values of all reported
-  statistics, interpolated for the effective sample size (not shown on
-  screen).
+  statistics, interpolated for the number of differences `length(x) - 1`
+  (not shown on screen).
 
 - `alternative`:
 

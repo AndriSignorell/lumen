@@ -1,7 +1,7 @@
-# Confidence Interval for the Difference Between Two Poisson Rates
+# Confidence Intervals for the Difference Between Two Poisson Rates
 
-Estimates the difference between two independent Poisson event rates and
-calculates a confidence interval.
+`poissonDiffCI()` computes confidence intervals for the difference
+between two independent Poisson event rates.
 
 ## Usage
 
@@ -21,92 +21,97 @@ poissonDiffCI(
 
 - x1:
 
-  non-negative integer event count or vector of counts for the first
-  sample
+  number of events in the first sample, a non-negative integer.
 
 - n1:
 
-  positive exposure associated with `x1`, such as observation time,
-  person-time, or population at risk; may be a vector and defaults to 1
+  exposure associated with `x1`, such as observation time, person-time
+  or population at risk; a positive number, defaults to 1.
 
 - x2:
 
-  non-negative integer event count or vector of counts for the second
-  sample
+  number of events in the second sample, a non-negative integer.
 
 - n2:
 
-  positive exposure associated with `x2`; may be a vector and defaults
-  to 1
+  exposure associated with `x2`; a positive number, defaults to 1.
 
 - conf.level:
 
-  numeric confidence level between 0 and 1; defaults to 0.95
+  confidence level, defaults to 0.95.
 
 - sides:
 
-  type of confidence interval: `"two.sided"`, `"left"`, or `"right"`;
-  may be abbreviated
+  a character string specifying the side of the confidence interval,
+  must be one of `"two.sided"` (default), `"left"` or `"right"`. You can
+  specify just the initial letter. `sides` names the side carrying the
+  finite bound: `"left"` reports the lower limit and opens the upper one
+  to `Inf`, `"right"` reports the upper limit and opens the lower one to
+  `-Inf`. A one-sided bound puts the whole `1 - conf.level` into its
+  single tail. One-sided `"mover"` intervals require
+  `conf.level >= 0.5`: below, the Garwood limits cross the point
+  estimates and the combined bound would no longer be monotone in the
+  level.
 
 - method:
 
-  method used to calculate the confidence interval: `"mover"` or
-  `"wald"`; may be abbreviated and defaults to `"mover"`
+  character string specifying which method to use; this can be one out
+  of: `"mover"` (default) and `"wald"`. Abbreviation of method is
+  accepted. See details.
 
 ## Value
 
-If the arguments identify a single result, a named numeric vector with
-elements:
+If recycling yields a single case, a named numeric vector with elements:
 
 - `est`:
 
-  estimated rate difference
+  point estimate of the rate difference.
 
 - `lci`:
 
-  lower confidence bound
+  lower confidence interval bound.
 
 - `uci`:
 
-  upper confidence bound
+  upper confidence interval bound.
 
-Otherwise, a `data.frame` containing these three columns followed by the
-recycled values of `x1`, `n1`, `x2`, `n2`, and `conf.level`.
+If recycling yields multiple cases, a data frame with one row per case
+is returned. Its first three columns are `est`, `lci`, and `uci`; the
+remaining columns contain the recycled values of `x1`, `n1`, `x2`, `n2`,
+and `conf.level`.
 
 ## Details
 
-The function assumes two independent counts \$\$X_i \sim
-\mathrm{Poisson}(n_i\lambda_i), \quad i = 1, 2.\$\$ The parameter of
-interest is the rate difference \\\Delta = \lambda_1 - \lambda_2\\,
-estimated by \\\hat{\Delta} = x_1/n_1 - x_2/n_2\\.
-
-The available confidence-interval methods are:
-
-- `"mover"`:
-
-  the method of variance estimates recovery (MOVER), which combines
-  separate exact Garwood limits for the two rates
-
-- `"wald"`:
-
-  the normal-approximation interval based on the standard error
-  \\\sqrt{x_1/n_1^2 + x_2/n_2^2}\\
-
-The Wald interval has zero width when both counts are zero.
-
-For `sides = "left"`, the function returns a lower one-sided confidence
-bound and sets `uci` to `Inf`. For `sides = "right"`, it returns an
-upper one-sided confidence bound and sets `lci` to `-Inf`.
-
 The numeric arguments are recycled to a common length only when their
-lengths are compatible whole multiples. Incompatible lengths produce an
+lengths are compatible whole multiples; incompatible lengths produce an
 error. `sides` and `method` must each identify a single choice.
+
+The function assumes two independent counts \\X_i \sim
+\mathrm{Poisson}(n_i\lambda_i),\\ i = 1, 2\\. The parameter of interest
+is the rate difference \\\Delta = \lambda_1 - \lambda_2\\, estimated by
+\\\hat{\Delta} = x_1/n_1 - x_2/n_2\\.
+
+**MOVER** (default): The method of variance estimates recovery (Zou and
+Donner, 2008), which combines the separate exact Garwood limits of the
+two rates (see [`poissonCI()`](poissonCI.md)).
+
+**Wald**: Obtained by inverting the acceptance region of the
+large-sample normal (Wald) test, based on the standard error
+\\\sqrt{x_1/n_1^2 + x_2/n_2^2}\\. The interval has zero width when both
+counts are zero.
+
+## **Which interval should be used?**
+
+The Wald interval inherits the poor small-count behaviour of the
+one-sample Wald interval. The MOVER interval builds on the exact limits
+of the two rates and is the better choice for small or unbalanced counts
+(Zou and Donner, 2008).
 
 ## References
 
-Zou, G. Y. and Donner, A. (2008). Construction of confidence limits
-about effect measures: a general approach. *Statistics in Medicine*,
-**27**(10), 1693–1702.
+Zou, G. Y. and Donner, A. (2008) Construction of confidence limits about
+effect measures: a general approach. *Statistics in Medicine*,
+**27**(10), pp. 1693-1702.
 
 ## See also
 
@@ -116,22 +121,22 @@ about effect measures: a general approach. *Statistics in Medicine*,
 ## Examples
 
 ``` r
+
 # 15 events in 100 person-years compared with
 # 6 events in 120 person-years
 poissonDiffCI(15, 100, 6, 120)
 #>        est        lci        uci 
 #> 0.10000000 0.01155263 0.20241565 
-
 poissonDiffCI(15, 100, 6, 120, method = "wald")
 #>        est        lci        uci 
 #> 0.10000000 0.01419326 0.18580674 
 
-# A 95% lower confidence bound for the rate difference
+# a 95% lower confidence bound for the rate difference
 poissonDiffCI(15, 100, 6, 120, sides = "left")
 #>        est        lci        uci 
 #> 0.10000000 0.02462852        Inf 
 
-# Recycling returns one row per comparison
+# recycling returns one row per comparison
 poissonDiffCI(x1 = c(15, 20), n1 = 100, x2 = 6, n2 = 120)
 #>    est        lci       uci x1  n1 x2  n2 conf.level
 #> 1 0.10 0.01155263 0.2024156 15 100  6 120       0.95

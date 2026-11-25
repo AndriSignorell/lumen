@@ -82,8 +82,8 @@ confidence intervals from a data.frame or from a matrix.
 `DescToolsX::hodgesLehmann`
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
-[`meanDiffCI()`](meanDiffCI.md), [`quantileCI()`](quantileCI.md),
-[`sumCI()`](sumCI.md)
+[`meanDiffCI()`](meanDiffCI.md), [`medianDiffCI()`](medianDiffCI.md),
+[`quantileCI()`](quantileCI.md), [`sumCI()`](sumCI.md)
 
 ## Examples
 

@@ -92,7 +92,7 @@ default type `"basic"`.
 
 Other ci.location: [`meanCI()`](meanCI.md), [`meanCIn()`](meanCIn.md),
 [`meanDiffCI()`](meanDiffCI.md), [`medianCI()`](medianCI.md),
-[`sumCI()`](sumCI.md)
+[`medianDiffCI()`](medianDiffCI.md), [`sumCI()`](sumCI.md)
 
 ## Examples
 

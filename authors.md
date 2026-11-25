@@ -11,11 +11,13 @@
 
 - **Chandima N. P. G. Arachchige**. Contributor.
 
-- **Adrian Baddeley**. Contributor.
+- **Adrian Baddeley**. Contributor, copyright holder.  
+  R interface of the goftest package (andersonDarlingTest)
 
 - **Frederico Caeiro**. Contributor.
 
-- **Peter Calhoun**. Contributor.
+- **Peter Calhoun**. Contributor, copyright holder.  
+  algorithms of the Exact package (barnardTest)
 
 - **Stephane Champely**. Contributor.
 
@@ -59,9 +61,13 @@
 
 - **Martin Maechler**. Contributor.
 
-- **George Marsaglia**. Contributor.
+- **George Marsaglia**. Contributor, copyright holder.  
+  original C code for the Anderson-Darling distribution
+  (andersonDarlingTest)
 
-- **John Marsaglia**. Contributor.
+- **John Marsaglia**. Contributor, copyright holder.  
+  original C code for the Anderson-Darling distribution
+  (andersonDarlingTest)
 
 - **W. L. May**. Contributor.
 
@@ -105,27 +111,19 @@
 
 - **Achim Zeileis**. Contributor.
 
-- **OpenAI Codex**. Contributor.  
-  AI-assisted code and documentation review; all suggestions reviewed by
-  the maintainer
-
-- **Anthropic Claude**. Contributor.  
-  AI-assisted code and documentation review; all suggestions reviewed by
-  the maintainer
-
 ## Citation
 
 Source:
 [`DESCRIPTION`](https://github.com/AndriSignorell/lumen/blob/main/DESCRIPTION)
 
 Signorell A (2026). *lumen: Statistical Tests, Confidence Intervals, and
-Distributions for 'DescToolsX'*. R package version 0.0.0.960,
+Distributions*. R package version 0.1.2,
 <https://andrisignorell.github.io/lumen/>.
 
     @Manual{,
-      title = {lumen: Statistical Tests, Confidence Intervals, and Distributions for 'DescToolsX'},
+      title = {lumen: Statistical Tests, Confidence Intervals, and Distributions},
       author = {Andri Signorell},
       year = {2026},
-      note = {R package version 0.0.0.960},
+      note = {R package version 0.1.2},
       url = {https://andrisignorell.github.io/lumen/},
     }
